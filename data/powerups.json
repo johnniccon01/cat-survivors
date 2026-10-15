@@ -1,15 +1,86 @@
 {
-  "MIGHT":      { "stat": "might",    "per_rank": 0.05,   "max_rank": 5, "base_cost": 200 },
-  "ARMOR":      { "stat": "armor",    "per_rank": 1.0,    "max_rank": 3, "base_cost": 600 },
-  "MAX_HEALTH": { "stat": "max_hp",   "per_rank": 10.0,   "max_rank": 3, "base_cost": 200 },
-  "RECOVERY":   { "stat": "regen",    "per_rank": 0.1,    "max_rank": 5, "base_cost": 200 },
-  "COOLDOWN":   { "stat": "cooldown", "per_rank": -0.025, "max_rank": 2, "base_cost": 900 },
-  "AREA":       { "stat": "area",     "per_rank": 0.05,   "max_rank": 2, "base_cost": 300 },
-  "MOVE_SPEED": { "stat": "speed",    "per_rank": 0.05,   "max_rank": 2, "base_cost": 300 },
-  "MAGNET":     { "stat": "magnet",   "per_rank": 10.0,   "max_rank": 2, "base_cost": 300 },
-  "GROWTH":     { "stat": "growth",   "per_rank": 0.03,   "max_rank": 5, "base_cost": 900 },
-  "GREED":      { "stat": "greed",    "per_rank": 0.1,    "max_rank": 5, "base_cost": 200 },
-  "REVIVAL":    { "stat": "revival",  "per_rank": 1.0,    "max_rank": 1, "base_cost": 3000 },
-  "REROLL":     { "stat": "reroll",   "per_rank": 1.0,    "max_rank": 3, "base_cost": 500 },
-  "CURSE":      { "stat": "curse",    "per_rank": 0.1,    "max_rank": 5, "base_cost": 1000 }
+  "MIGHT": {
+    "stat": "might",
+    "per_rank": 0.05,
+    "max_rank": 5,
+    "base_cost": 200
+  },
+  "ARMOR": {
+    "stat": "armor",
+    "per_rank": 1.0,
+    "max_rank": 3,
+    "base_cost": 600
+  },
+  "MAX_HEALTH": {
+    "stat": "max_hp",
+    "per_rank": 10.0,
+    "max_rank": 3,
+    "base_cost": 200
+  },
+  "RECOVERY": {
+    "stat": "regen",
+    "per_rank": 0.1,
+    "max_rank": 5,
+    "base_cost": 200
+  },
+  "COOLDOWN": {
+    "stat": "cooldown",
+    "per_rank": -0.025,
+    "max_rank": 2,
+    "base_cost": 900
+  },
+  "AREA": {
+    "stat": "area",
+    "per_rank": 0.05,
+    "max_rank": 2,
+    "base_cost": 300
+  },
+  "MOVE_SPEED": {
+    "stat": "speed",
+    "per_rank": 0.05,
+    "max_rank": 2,
+    "base_cost": 300
+  },
+  "MAGNET": {
+    "stat": "magnet",
+    "per_rank": 10.0,
+    "max_rank": 2,
+    "base_cost": 300
+  },
+  "GROWTH": {
+    "stat": "growth",
+    "per_rank": 0.03,
+    "max_rank": 5,
+    "base_cost": 900
+  },
+  "GREED": {
+    "stat": "greed",
+    "per_rank": 0.1,
+    "max_rank": 5,
+    "base_cost": 200
+  },
+  "REVIVAL": {
+    "stat": "revival",
+    "per_rank": 1.0,
+    "max_rank": 1,
+    "base_cost": 3000
+  },
+  "REROLL": {
+    "stat": "reroll",
+    "per_rank": 1.0,
+    "max_rank": 3,
+    "base_cost": 500
+  },
+  "CURSE": {
+    "stat": "curse",
+    "per_rank": 0.1,
+    "max_rank": 5,
+    "base_cost": 1000
+  },
+  "LUCK": {
+    "stat": "luck",
+    "per_rank": 0.1,
+    "max_rank": 3,
+    "base_cost": 600
+  }
 }

@@ -278,3 +278,9 @@ GOAL_VETERAN_NAME,Veteran,Veterán
 GOAL_VETERAN_DESC,Play 25 nights,Odohraj 25 nocí
 GOAL_TEN_THOUSAND_NAME,Ten Thousand,Desaťtisíc
 GOAL_TEN_THOUSAND_DESC,Defeat 10000 enemies,Poraz 10000 nepriateľov
+PAUSE_NUMBERS,N – damage numbers: %s,N – čísla poškodenia: %s
+PAUSE_SHAKE,K – screen shake: %s,K – otrasy obrazovky: %s
+PASSIVE_LUCK_NAME,Lucky Cat,Mačka šťastia
+PASSIVE_LUCK_DESC,"+10% luck: more crits, bigger chests, more drops, sometimes a 4th card.","+10 % šťastie: viac kritických zásahov, väčšie truhlice, viac predmetov, občas 4. karta."
+POWERUP_LUCK_NAME,Luck,Šťastie
+POWERUP_LUCK_DESC,"+10% luck per rank: crits, chests, drops and a chance of a 4th level-up card.","+10 % šťastie za stupeň: kritické zásahy, truhlice, predmety a šanca na 4. kartu."

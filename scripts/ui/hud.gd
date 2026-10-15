@@ -18,6 +18,9 @@ var _debug_label: Label
 var _pause_overlay: Control
 var _pause_language: Label
 var _pause_sound: Label
+var _pause_numbers: Label
+var _pause_shake: Label
+var _hurt_flash: ColorRect
 var _over_overlay: Control
 var _over_stats: Label
 var _win_overlay: Control
@@ -81,9 +84,30 @@ func _ready() -> void:
 	_debug_label.visible = OS.is_debug_build()
 	add_child(_debug_label)
 
-	_pause_overlay = _overlay(["PAUSE_TITLE", "PAUSE_HINT", "", ""])
+	_pause_overlay = _overlay(["PAUSE_TITLE", "PAUSE_HINT", "", "", "", ""])
 	_pause_language = _pause_overlay.get_node("Box").get_child(2)
 	_pause_sound = _pause_overlay.get_node("Box").get_child(3)
+	_pause_numbers = _pause_overlay.get_node("Box").get_child(4)
+	_pause_shake = _pause_overlay.get_node("Box").get_child(5)
+
+	# Red edges when the cat gets hurt.
+	_hurt_flash = ColorRect.new()
+	_hurt_flash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_hurt_flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var mat := ShaderMaterial.new()
+	var shader := Shader.new()
+	shader.code = """
+shader_type canvas_item;
+uniform float strength = 0.0;
+void fragment() {
+	float d = distance(UV, vec2(0.5));
+	COLOR = vec4(0.85, 0.05, 0.05, smoothstep(0.35, 0.75, d) * strength);
+}
+"""
+	mat.shader = shader
+	_hurt_flash.material = mat
+	add_child(_hurt_flash)
+	move_child(_hurt_flash, 0)
 	_over_overlay = _overlay(["GAME_OVER_TITLE", "", "GAME_OVER_HINT", "GAME_OVER_MENU"])
 	_over_stats = _over_overlay.get_node("Box").get_child(1)
 
@@ -148,7 +172,17 @@ func _ready() -> void:
 	add_child(treasure)
 
 
+var _hurt := 0.0
+
+
+func flash_hurt() -> void:
+	_hurt = 0.7
+
+
 func _process(delta: float) -> void:
+	if _hurt > 0.0 or (_hurt_flash.material as ShaderMaterial).get_shader_parameter("strength") != 0.0:
+		_hurt = maxf(_hurt - delta * 2.5, 0.0)
+		(_hurt_flash.material as ShaderMaterial).set_shader_parameter("strength", _hurt)
 	if _banner_time > 0.0:
 		_banner_time -= delta
 		_banner.modulate.a = clampf(_banner_time, 0.0, 1.0)
@@ -248,6 +282,8 @@ func update_stats(elapsed: float, kills: int, enemy_count: int) -> void:
 func show_pause(on: bool) -> void:
 	_pause_language.text = tr("PAUSE_LANGUAGE") % tr("LANGUAGE_NAME")
 	_pause_sound.text = tr("PAUSE_SOUND") % tr("SOUND_OFF" if Settings.muted else "SOUND_ON")
+	_pause_numbers.text = tr("PAUSE_NUMBERS") % tr("SOUND_ON" if Settings.damage_numbers else "SOUND_OFF")
+	_pause_shake.text = tr("PAUSE_SHAKE") % tr("SOUND_ON" if Settings.screen_shake else "SOUND_OFF")
 	_pause_overlay.visible = on
 
 

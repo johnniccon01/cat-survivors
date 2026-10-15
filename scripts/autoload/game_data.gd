@@ -56,6 +56,8 @@ func _setup_input() -> void:
 	_add_keys("reroll", [KEY_R])
 	_add_keys("charms", [KEY_C])
 	_add_keys("goals", [KEY_G])
+	_add_keys("toggle_numbers", [KEY_N])
+	_add_keys("toggle_shake", [KEY_K])
 	_add_axis("move_left", JOY_AXIS_LEFT_X, -1.0)
 	_add_axis("move_right", JOY_AXIS_LEFT_X, 1.0)
 	_add_axis("move_up", JOY_AXIS_LEFT_Y, -1.0)

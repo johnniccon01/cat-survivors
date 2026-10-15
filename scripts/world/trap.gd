@@ -102,7 +102,7 @@ func _tick_cycle(delta: float) -> void:
 
 
 func _hurt(e: Enemy) -> void:
-	e.hit(float(data["damage"]), e.position - position, 0.6)
+	e.hit(float(data["damage"]), e.position - position, 0.6, false)
 	if e.dead:
 		Profile.add_stat("trap_kills")
 

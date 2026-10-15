@@ -8,6 +8,8 @@ Otvor `project.godot` v Godot 4.6 a stlač **F5**.
 
 Ovládanie: **WASD / šípky / ľavá páčka**, **Esc** pauza, v pauze **L** jazyk a **M** zvuk, **R / Enter** reštart po smrti.
 
+V pauze: **N** čísla poškodenia, **K** otrasy obrazovky.
+
 **Vývojársky panel (F1)** – len vo vývojovej verzii (vo vydanej hre sa nezobrazí): posun o minútu, nesmrteľnosť, +5 levelov, finálny boss hneď, quest hneď. Pred vydaním ho zmažeme (`scripts/ui/dev_panel.gd`).
 
 Automatický test (bot hrá sám 4× rýchlejšie a vypíše výsledok):
@@ -27,6 +29,7 @@ Godot_v4.6.2-stable_win64_console.exe --headless --path . -- --bot
 - `--cat=ID` – hrá za danú mačku bez odomknutia
 - `--stage=ID` – hrá danú mapu bez odomknutia (LIVING_ROOM, BASEMENT)
 - `--levels=N` – začne s N náhodnými vylepšeniami (test neskorej hry)
+- `--test-numbers` – zobrazí ukážku čísel poškodenia
 - `--extract` – hneď otvorí mačacie dvierka; `--drop-charm` – hneď hodí prívesok; `--traps` – položí všetky pasce vedľa mačky
 
 Testovacie behy (`--bot`) nikdy neukladajú profil.

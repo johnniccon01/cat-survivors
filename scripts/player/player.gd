@@ -14,6 +14,7 @@ signal leveled_up
 signal xp_changed
 signal inventory_changed
 signal revived
+signal hurt
 
 const RADIUS := 7.0
 const HIT_INVULN := 0.4
@@ -27,6 +28,7 @@ const BASE_STATS := {
 	"max_hp": 100.0, "regen": 0.0, "magnet": 40.0, "duration": 1.0,
 	"proj_speed": 1.0, "armor": 0.0,
 	"growth": 1.0, "greed": 1.0, "curse": 1.0, "revival": 0.0, "reroll": 0.0,
+	"crit_chance": 0.05, "crit_mult": 2.0, "luck": 1.0,
 }
 
 const OUTLINE := Color("2b1d14")
@@ -60,6 +62,9 @@ var passives: Dictionary = {}
 var stats: Dictionary = BASE_STATS.duplicate()
 var _look: Dictionary
 var _follow_offset := Vector2.ZERO
+var _shake := 0.0
+var _shake_time := 0.0
+var _shake_left := 0.0
 var _invuln := 0.0
 var _hurt_flash := 0.0
 var _walk_t := 0.0
@@ -231,6 +236,8 @@ func take_damage(amount: float) -> void:
 		print("BOT: killed by ", src)
 	if controller != "escort":
 		Audio.play("hurt", -6.0)
+		shake(2.5, 0.18)
+		hurt.emit()
 	_invuln = HIT_INVULN
 	_hurt_flash = 0.12
 	if hp <= 0.0 and revivals_left > 0:
@@ -284,6 +291,27 @@ func _sync_companion_weapon() -> void:
 
 ## Test bot: dodges enemies that get close, otherwise drifts towards the
 ## nearest one so its weapons have something to hit.
+## Shakes the camera (main cat only); a stronger shake overrides a weaker one.
+func shake(strength: float, seconds: float) -> void:
+	if camera == null or not Settings.screen_shake:
+		return
+	if strength >= _shake * (_shake_left / maxf(_shake_time, 0.001)):
+		_shake = strength
+		_shake_time = seconds
+		_shake_left = seconds
+
+
+func _process(delta: float) -> void:
+	if camera == null:
+		return
+	if _shake_left > 0.0:
+		_shake_left -= delta
+		var k := clampf(_shake_left / _shake_time, 0.0, 1.0)
+		camera.offset = Vector2(randf_range(-1, 1), randf_range(-1, 1)) * _shake * k
+	elif camera.offset != Vector2.ZERO:
+		camera.offset = Vector2.ZERO
+
+
 func _bot_input(delta: float) -> Vector2:
 	_bot_t += delta
 	var wander := Vector2(cos(_bot_t * 0.3), sin(_bot_t * 0.5))

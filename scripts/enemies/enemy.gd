@@ -87,6 +87,11 @@ func is_charging() -> bool:
 	return _charge_t > 0.0
 
 
+## Main colour, used for the death puff.
+func tint() -> Color:
+	return _color
+
+
 ## Turns a regular enemy into a tougher, bigger quest guard.
 func make_elite(hp_factor: float) -> void:
 	max_hp *= hp_factor
@@ -224,9 +229,19 @@ func _tick_shooter(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 	return dir.orthogonal() * speed * 0.6
 
 
-func hit(amount: float, direction: Vector2, knockback: float) -> void:
+## Takes a hit. Hits from the cats can crit (chance scales with luck);
+## traps and other world damage pass can_crit = false.
+func hit(amount: float, direction: Vector2, knockback: float, can_crit: bool = true) -> void:
 	if dead:
 		return
+	var crit := false
+	var cat: Player = manager.player
+	if can_crit and cat != null and amount > 0.0:
+		crit = randf() < cat.stat("crit_chance") * cat.stat("luck")
+		if crit:
+			amount *= cat.stat("crit_mult")
+	if manager.numbers != null:
+		manager.numbers.add(position, amount, crit)
 	hp -= amount
 	if not is_prop:
 		Audio.play("hit", -14.0, 0.15)

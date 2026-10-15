@@ -134,6 +134,13 @@ static func _passive(ci: CanvasItem, id: String) -> void:
 		"ARMOR":
 			ci.draw_arc(Vector2(8, 8), 5.0, 0.0, TAU, 16, Color("c94f4f"), 2.0)
 			ci.draw_circle(Vector2(8, 13), 2.0, Color("f2c14e"))
+		"LUCK":
+			# Beckoning lucky cat paw with a coin.
+			ci.draw_circle(Vector2(8, 10), 4.5, Color("f4f1ea"))
+			ci.draw_rect(Rect2(10, 3, 3, 6), Color("f4f1ea"))
+			ci.draw_circle(Vector2(11.5, 3), 1.8, Color("f4f1ea"))
+			ci.draw_circle(Vector2(8, 11), 2.5, Color("f2c14e"))
+			ci.draw_arc(Vector2(8, 10), 4.5, 0.0, TAU, 12, Color("e04646"), 1.0)
 		"HEAL":
 			ci.draw_colored_polygon(Shapes.ellipse(Vector2(9, 8), 5, 2.5, 12), Color("b8cfdc"))
 			ci.draw_colored_polygon(PackedVector2Array([Vector2(4, 8), Vector2(1, 5), Vector2(1, 11)]), Color("8fa9b8"))

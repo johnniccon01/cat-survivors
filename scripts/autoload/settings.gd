@@ -8,6 +8,8 @@ const LANGUAGES: Array[String] = ["en", "sk"]
 
 var language := "en"
 var muted := false
+var damage_numbers := true
+var screen_shake := true
 
 
 func _ready() -> void:
@@ -15,6 +17,8 @@ func _ready() -> void:
 	if cfg.load(PATH) == OK:
 		language = cfg.get_value("general", "language", language)
 		muted = cfg.get_value("general", "muted", muted)
+		damage_numbers = cfg.get_value("general", "damage_numbers", damage_numbers)
+		screen_shake = cfg.get_value("general", "screen_shake", screen_shake)
 	if language not in LANGUAGES:
 		language = LANGUAGES[0]
 	TranslationServer.set_locale(language)
@@ -32,9 +36,21 @@ func toggle_mute() -> void:
 	_save()
 
 
+func toggle_damage_numbers() -> void:
+	damage_numbers = not damage_numbers
+	_save()
+
+
+func toggle_screen_shake() -> void:
+	screen_shake = not screen_shake
+	_save()
+
+
 func _save() -> void:
 	var cfg := ConfigFile.new()
 	cfg.load(PATH)
 	cfg.set_value("general", "language", language)
 	cfg.set_value("general", "muted", muted)
+	cfg.set_value("general", "damage_numbers", damage_numbers)
+	cfg.set_value("general", "screen_shake", screen_shake)
 	cfg.save(PATH)

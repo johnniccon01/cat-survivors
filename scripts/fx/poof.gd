@@ -22,8 +22,21 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 
+var _bits: Array = []
+
+
+func _ready() -> void:
+	# A few coloured scraps that fly out and fall.
+	for i in 5:
+		_bits.append([Vector2.from_angle(randf() * TAU) * randf_range(30.0, 70.0), randf_range(1.0, 2.5)])
+
+
 func _draw() -> void:
 	var k := _t / DURATION
 	for i in 5:
 		var dir := Vector2.from_angle(TAU * i / 5.0)
-		draw_circle(dir * (3.0 + 10.0 * k), 3.0 * (1.0 - k), Color(color, 1.0 - k))
+		draw_circle(dir * (3.0 + 10.0 * k), 3.0 * (1.0 - k), Color(0.92, 0.9, 0.86, 1.0 - k))
+	for b: Array in _bits:
+		var v: Vector2 = b[0]
+		var p := v * _t + Vector2(0, 120.0 * _t * _t)
+		draw_rect(Rect2(p, Vector2(b[1], b[1])), Color(color, 1.0 - k))

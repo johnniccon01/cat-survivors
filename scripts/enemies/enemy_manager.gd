@@ -18,6 +18,8 @@ var player: Player
 var enemies: Array[Enemy] = []
 ## Sum of `cost` of all living enemies (the spawn budget in use).
 var budget_used := 0.0
+## Floating damage numbers (set by main).
+var numbers: DamageNumbers
 ## Breakable boxes and plants: static, hit by weapons, ignored by targeting.
 var props: Array[Enemy] = []
 ## Cats being escorted: enemies go for whichever cat is closest.
@@ -92,6 +94,7 @@ func spawn_prop(id: String, pos: Vector2) -> Enemy:
 
 func on_enemy_dead(enemy: Enemy) -> void:
 	var poof := Poof.new()
+	poof.color = enemy.tint()
 	Audio.play("break" if enemy.is_prop else "pop", -8.0, 0.12)
 	if enemy.is_prop:
 		props.erase(enemy)

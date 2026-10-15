@@ -88,6 +88,9 @@ var _run_over := false
 func _ready() -> void:
 	enemies.player = player
 	pickups.player = player
+	enemies.numbers = DamageNumbers.new()
+	add_child(enemies.numbers)
+	player.hurt.connect(hud.flash_hurt)
 	spawner.setup(player, enemies)
 	$Floor.theme = spawner.stage().get("theme", "apartment")
 	if spawner.stage_id == "BASEMENT" and not Profile.is_unlocked("LUNA"):
@@ -121,11 +124,13 @@ func _ready() -> void:
 	pickups.gold_collected.connect(func(amount: float) -> void: run_gold += amount * player.stat("greed") * player.stat("curse"))
 	pickups.chest_collected.connect(_queue_modal.bind("chest"))
 	spawner.boss_spawned.connect(func(_id: String) -> void:
+		player.shake(5.0, 0.5)
 		hud.show_banner(tr("BOSS_WARNING"))
 		Audio.play("warning", -4.0, 0.0))
 	spawner.stage_cleared.connect(_on_stage_cleared)
 	spawner.final_boss_spawned.connect(_on_final_boss)
 	spawner.event_started.connect(func(kind: String) -> void:
+		player.shake(3.0, 0.3)
 		hud.show_banner(tr("EVENT_%s" % kind.to_upper()), 2.5)
 		Audio.play("warning", -6.0, 0.0))
 	player.died.connect(_on_player_died)
@@ -155,6 +160,9 @@ func _ready() -> void:
 			trap.setup(trap_id, self)
 			add_child(trap)
 			i += 1
+	if "--test-numbers" in _args:
+		for i in 6:
+			enemies.numbers.add(player.position + Vector2(-60 + i * 24, -20), 12.0 + i * 7, i % 2 == 1)
 	if "--drop-charm" in _args:
 		_maybe_drop_charm.call_deferred(player.position + Vector2(20, 0), 1.0)
 	if "--extract" in _args:
@@ -203,6 +211,7 @@ func _process(delta: float) -> void:
 			enemies.enemies.size(), player.is_dead])
 		print("BOT: weapons=%s passives=%s props_broken=%d bosses_killed=%d chests=%d won=%s" % [
 			weapons, player.passives, props_broken, bosses_killed, chests_opened, _run_over and not player.is_dead])
+		print("BOT: damage numbers on screen=%d" % enemies.numbers._numbers.size())
 		print("BOT: most enemies alive at once=%d, budget per minute (avg used/cap): %s" % [_max_alive, _budget_log])
 		print("BOT: gold=%d streak=%d extraction_open=%s charms=%s owned=%s" % [floori(run_gold), Profile.streak, extraction != null, run_charms, Profile.charms])
 		var per_minute: Array[String] = []
@@ -237,6 +246,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mute") and get_tree().paused:
 		Settings.toggle_mute()
 		hud.show_pause(true)
+	elif event.is_action_pressed("toggle_numbers") and get_tree().paused:
+		Settings.toggle_damage_numbers()
+		hud.show_pause(true)
+	elif event.is_action_pressed("toggle_shake") and get_tree().paused:
+		Settings.toggle_screen_shake()
+		hud.show_pause(true)
 	elif event.is_action_pressed("language") and get_tree().paused:
 		Settings.cycle_language()
 		hud.show_pause(true)
@@ -256,6 +271,7 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 		_on_stage_cleared()
 		return
 	if GameData.enemies[id].get("boss", false):
+		_boss_impact()
 		bosses_killed += 1
 		Profile.add_stat("bosses")
 		pickups.spawn_named("chest", pos, 0.0)
@@ -264,9 +280,9 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 		_open_extraction()
 		spawner.calm_for(BOSS_BREATHER)
 		hud.show_banner(tr("BREATHER"), 3.0)
-	elif randf() < HEART_DROP_CHANCE:
+	elif randf() < HEART_DROP_CHANCE * player.stat("luck"):
 		pickups.spawn_named("heart", pos + Vector2(6, 0), HEART_DROP_AMOUNT)
-	elif randf() < COIN_DROP_CHANCE:
+	elif randf() < COIN_DROP_CHANCE * player.stat("luck"):
 		pickups.spawn_named("coin", pos + Vector2(-6, 0), 1.0)
 
 
@@ -336,14 +352,19 @@ func _next_modal() -> void:
 	if kind == "chest":
 		Audio.play("chest", -2.0, 0.0)
 		chests_opened += 1
-		var results := Upgrades.open_chest(player, _weighted(CHEST_ROLLS))
+		# Luck makes the bigger treasures more likely.
+		var luck := player.stat("luck")
+		var rolls := [[1, 70.0], [3, 25.0 * luck], [5, 5.0 * luck * luck]]
+		var results := Upgrades.open_chest(player, _weighted(rolls))
 		if _bot:
 			_next_modal.call_deferred()
 		else:
 			hud.treasure.open(results)
 		return
 	Audio.play("levelup", -4.0, 0.0)
-	var offers := Upgrades.roll(player)
+	_level_burst()
+	# Luck above 1.0 is the chance of a fourth card.
+	var offers := Upgrades.roll(player, 4 if randf() < player.stat("luck") - 1.0 else 3)
 	if _bot and not "--show-levelup" in _args:
 		_on_offer_chosen(offers[0])
 		return
@@ -356,7 +377,7 @@ func _on_reroll() -> void:
 		return
 	player.rerolls_left -= 1
 	Audio.play("magnet", -6.0, 0.0)
-	hud.level_up.open(_shown_level, Upgrades.roll(player), player.rerolls_left)
+	hud.level_up.open(_shown_level, Upgrades.roll(player, 4 if randf() < player.stat("luck") - 1.0 else 3), player.rerolls_left)
 
 
 ## Revival power-up: back on your feet, and everything nearby is blown away.
@@ -374,7 +395,7 @@ func _on_offer_chosen(offer: Dictionary) -> void:
 
 
 func _maybe_drop_charm(pos: Vector2, chance: float) -> void:
-	if randf() >= chance:
+	if randf() >= chance * player.stat("luck"):
 		return
 	var rarity: String = _weighted(CHARM_RARITY)
 	var pool: Array = GameData.charms.keys().filter(func(id: String) -> bool: return GameData.charms[id]["rarity"] == rarity)
@@ -487,8 +508,31 @@ func _on_player_died() -> void:
 	_end_run("death")
 
 
+## Big boss deaths: strong shake and a tiny freeze so the moment lands.
+func _boss_impact() -> void:
+	player.shake(9.0, 0.6)
+	if _bot:
+		return
+	Engine.time_scale = 0.08
+	await get_tree().create_timer(0.14, true, false, true).timeout
+	Engine.time_scale = 1.0
+
+
+## Expanding golden ring around the cat on level-up.
+func _level_burst() -> void:
+	var ring := RingWave.new()
+	ring.enemies = enemies
+	ring.position = player.position
+	ring.max_radius = 60.0
+	ring.expand_time = 0.35
+	ring.damage = 0.0
+	ring.knockback = 1.5
+	add_child(ring)
+
+
 func _on_final_boss(boss: Enemy) -> void:
 	final_boss = boss
+	player.shake(8.0, 0.8)
 	# No escaping from the final fight.
 	if extraction != null:
 		extraction.queue_free()

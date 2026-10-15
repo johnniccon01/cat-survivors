@@ -121,6 +121,24 @@ def sfx():
     save("victory", seq(*[tone(0.12, f, None, "square", 0.3, duty=0.25) for f in (523, 523, 523, 659, 784, 659, 784)], tone(0.6, 1047, None, "square", 0.3, duty=0.25, release=0.5, vibrato=5)))
     save("gameover", seq(*[tone(0.22, f, None, "tri", 0.4) for f in (392, 370, 349)], tone(0.7, 330, 260, "tri", 0.4, release=0.6, vibrato=4)))
 
+    secret_sfx()
+
+
+def secret_sfx():
+    """The angel cat and devil cat moments."""
+    # The cat goes down: two slow, low thumps.
+    save("fall", seq(tone(0.14, 95, 60, "sine", 0.7, release=0.1), silence(0.16), tone(0.3, 80, 45, "sine", 0.7, release=0.25)))
+    # Harp glissando with a soft choir pad underneath.
+    harp = [523, 659, 784, 1047, 1319, 1568, 2093]
+    notes = [seq(silence(i * 0.09), tone(1.3, f, None, "sine", 0.2, attack=0.004, release=1.1),) for i, f in enumerate(harp)]
+    pad = mix(tone(2.0, 523, None, "tri", 0.12, attack=0.5, release=1.0, vibrato=5), tone(2.0, 659, None, "tri", 0.1, attack=0.5, release=1.0, vibrato=5),
+              tone(2.0, 784, None, "tri", 0.1, attack=0.5, release=1.0, vibrato=5))
+    save("angel", mix(pad, *notes), gain=1.2)
+    # Low rumble, a falling tritone and a growl.
+    rumble = lowpass(tone(2.0, 0, 0, "noise", 0.7, attack=0.3, release=0.8), 0.04)
+    fall = mix(tone(1.6, 110, 55, "saw", 0.25, attack=0.05, release=0.6, vibrato=3), tone(1.6, 155.6, 77.8, "saw", 0.2, attack=0.05, release=0.6, vibrato=3))
+    save("devil", mix(rumble, seq(silence(0.2), fall)), gain=1.4)
+
 
 # --- music -------------------------------------------------------------------------
 #

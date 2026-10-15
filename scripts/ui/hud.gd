@@ -313,7 +313,9 @@ func show_pause(on: bool) -> void:
 		(_pause_overlay.get_node("Box").get_child(1) as Button).grab_focus.call_deferred()
 
 
-func show_game_over(elapsed: float, kills: int) -> void:
+## `title` is already translated (the cat's name, or the devil's line).
+func show_game_over(elapsed: float, kills: int, title: String) -> void:
+	(_over_overlay.get_node("Box").get_child(0) as Label).text = title
 	_over_stats.text = tr("GAME_OVER_STATS") % [_format_time(elapsed), kills]
 	_over_overlay.visible = true
 

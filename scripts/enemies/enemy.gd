@@ -50,6 +50,8 @@ var _base_scale := 1.0
 var immortal := false
 ## Survives clear_all (final boss arrival, debug wipe).
 var persistent := false
+## Its touch kills outright, through revivals and the angel (the devil cat).
+var fatal := false
 ## Soft glow under cats like the devil.
 var _aura := Color(0, 0, 0, 0)
 var _stripes := false
@@ -86,6 +88,7 @@ func setup(p_id: String, data: Dictionary, p_manager: EnemyManager) -> void:
 	_base_scale = data.get("scale", 1.0)
 	scale = Vector2(_base_scale, _base_scale)
 	persistent = data.get("persistent", false)
+	fatal = data.get("fatal", false)
 	if data.has("aura"):
 		_aura = Color(data["aura"])
 

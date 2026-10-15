@@ -46,6 +46,11 @@ var escort_hp := 60.0
 var god := false
 ## From the Revival / Reroll power-ups, used up during the run.
 var revivals_left := 0
+## Damage actually taken this run (after armor), for balance reports.
+var damage_taken := 0.0
+## Set when the killing blow can't be survived (the devil cat): no revival
+## power-up and no angel.
+var killed_by_fatal := false
 var rerolls_left := 0
 ## External pull (e.g. the final boss sucking the cat in); reset every frame.
 var pull := Vector2.ZERO
@@ -222,10 +227,14 @@ func _physics_process(delta: float) -> void:
 	queue_redraw()
 
 
-func take_damage(amount: float) -> void:
+func take_damage(amount: float, fatal: bool = false) -> void:
 	if is_dead or _invuln > 0.0 or is_companion() or god:
 		return
-	hp -= maxf(amount - stats["armor"], 1.0)
+	if fatal:
+		amount = hp + stats["armor"] + 1.0
+	var dealt := maxf(amount - stats["armor"], 1.0)
+	hp -= dealt
+	damage_taken += dealt
 	if controller == "bot" and hp <= 0.0:
 		# Test runs: report what landed the last hit.
 		var src := "?"
@@ -240,7 +249,7 @@ func take_damage(amount: float) -> void:
 		hurt.emit()
 	_invuln = HIT_INVULN
 	_hurt_flash = 0.12
-	if hp <= 0.0 and revivals_left > 0:
+	if hp <= 0.0 and revivals_left > 0 and not fatal:
 		revivals_left -= 1
 		hp = max_hp * 0.5
 		_invuln = 2.0
@@ -249,6 +258,7 @@ func take_damage(amount: float) -> void:
 	if hp <= 0.0:
 		hp = 0.0
 		is_dead = true
+		killed_by_fatal = fatal
 		queue_redraw()
 		died.emit()
 
@@ -323,8 +333,10 @@ func _bot_input(delta: float) -> Vector2:
 		away += d / maxf(d.length_squared(), 1.0)
 	if away != Vector2.ZERO:
 		return (away.normalized() + wander * 0.3).normalized()
+	# Only escape through a cat flap when the test asks for it (--extract);
+	# otherwise balance runs would end the moment a flap opens.
 	var flap: Node2D = get_parent().get("extraction")
-	if flap != null:
+	if flap != null and "--extract" in OS.get_cmdline_user_args():
 		var to_flap := flap.position - position
 		return to_flap.normalized() if to_flap.length() > 10.0 else Vector2.ZERO
 	var quest: Quest = get_parent().quests.active if get_parent().get("quests") else null

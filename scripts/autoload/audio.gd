@@ -85,6 +85,11 @@ func _exit_tree() -> void:
 	_streams.clear()
 
 
+## Holds the music (e.g. during the angel's rescue) and picks it up again.
+func pause_music(on: bool) -> void:
+	_music.stream_paused = on
+
+
 func stop_music() -> void:
 	_music.stop()
 	_music_name = ""

@@ -18,6 +18,9 @@ var player: Player
 var enemies: Array[Enemy] = []
 ## Sum of `cost` of all living enemies (the spawn budget in use).
 var budget_used := 0.0
+## Late-night scaling for newly spawned enemies, set by the spawner.
+var damage_mult := 1.0
+var speed_mult := 1.0
 ## Floating damage numbers (set by main).
 var numbers: DamageNumbers
 ## Breakable boxes and plants: static, hit by weapons, ignored by targeting.
@@ -45,6 +48,9 @@ func spawn(id: String, pos: Vector2, hp_mult: float = 1.0) -> Enemy:
 	enemy.setup(id, GameData.enemies[id], self)
 	enemy.max_hp *= hp_mult
 	enemy.hp = enemy.max_hp
+	if not enemy.persistent:
+		enemy.damage *= damage_mult
+		enemy.speed *= speed_mult
 	enemy.position = pos
 	add_child(enemy)
 	enemies.append(enemy)
@@ -140,7 +146,7 @@ func _physics_process(delta: float) -> void:
 		for c in cats:
 			var reach := enemy.radius + Player.RADIUS
 			if not c.is_dead and enemy.position.distance_squared_to(c.position) < reach * reach:
-				c.take_damage(enemy.damage)
+				c.take_damage(enemy.damage, enemy.fatal)
 	for i in range(enemies.size() - 1, -1, -1):
 		if enemies[i].wants_despawn:
 			despawn(enemies[i])
@@ -181,7 +187,12 @@ func query_rect(rect: Rect2) -> Array[Enemy]:
 			var bucket: Variant = _grid.get(Vector2i(cx, cy))
 			if bucket == null:
 				continue
-			for enemy: Enemy in bucket:
+			# The grid is rebuilt each physics frame, so while the game is paused
+			# it can still list enemies that died and were freed since.
+			for item: Variant in bucket:
+				if not is_instance_valid(item):
+					continue
+				var enemy := item as Enemy
 				if enemy.dead:
 					continue
 				var closest := enemy.position.clamp(rect.position, rect.end)

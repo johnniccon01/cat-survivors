@@ -1,51 +1,115 @@
 class_name AngelCat
 extends Node2D
-## The angel cat's visit: floats down onto the fallen cat in a beam of light,
-## hovers while the cat gets back up, then rises and fades away. Purely
-## visual; main.gd does the actual revive.
+## The angel cat's rescue, played while the game is paused so it reads as a
+## moment of its own:
+##   1. the cat falls, the world goes dark around it ("The cat has fallen...")
+##   2. a beam of light opens and the angel floats down onto the cat
+##   3. it touches the cat, a flash, and the cat stands back up (revive_now)
+##   4. the angel rises and fades, the darkness lifts (finished)
+## main.gd does the actual revive and unpauses on `finished`.
 
-const DESCEND := 0.9
-const HOVER := 1.4
-const RISE := 1.2
+signal revive_now
+signal finished
+
+const FALL := 1.6
+const DESCEND := 1.3
+const HOVER := 1.1
+const RISE := 1.3
+const DARK := Color(0.04, 0.02, 0.08)
+
+## The rescued cat's look and facing, drawn on top of the darkness.
+var cat_look: Dictionary
+var facing := 1
 
 var _t := 0.0
+var _revived := false
+var _layer: CanvasLayer
+var _text: Label
 
 
 func _ready() -> void:
-	z_index = 20
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	z_index = 4000
+	_layer = CanvasLayer.new()
+	_layer.layer = 5
+	add_child(_layer)
+	_text = Label.new()
+	_text.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	_text.offset_top = 120
+	_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var settings := LabelSettings.new()
+	settings.font_size = 34
+	settings.font_color = Color("d9cce6")
+	settings.outline_size = 6
+	settings.outline_color = Color("2b1d14")
+	_text.label_settings = settings
+	_text.text = tr("ANGEL_FALLEN")
+	_layer.add_child(_text)
+	Audio.play("fall", 0.0, 0.0)
 
 
 func _process(delta: float) -> void:
 	_t += delta
-	if _t >= DESCEND + HOVER + RISE:
+	var hover_end := FALL + DESCEND + HOVER
+	if _t >= FALL and _t - delta < FALL:
+		Audio.play("angel", -2.0, 0.0)
+	if not _revived and _t >= FALL + DESCEND + HOVER * 0.5:
+		_revived = true
+		_text.text = tr("ANGEL_SAVED")
+		_text.label_settings.font_color = Color("f2d14e")
+		revive_now.emit()
+	_text.modulate.a = clampf((hover_end + RISE - _t) / 0.6, 0.0, 1.0)
+	if _t >= hover_end + RISE:
+		finished.emit()
 		queue_free()
 		return
 	queue_redraw()
 
 
 func _draw() -> void:
-	var y := -34.0
-	var alpha := 1.0
-	if _t < DESCEND:
-		var k := _t / DESCEND
-		y = lerpf(-140.0, -34.0, 1.0 - (1.0 - k) * (1.0 - k))
+	var hover_end := FALL + DESCEND + HOVER
+	# Darkness: in over the fall, out while the angel leaves.
+	var dark := clampf(_t / 0.8, 0.0, 1.0) * 0.72
+	if _t > hover_end:
+		dark *= 1.0 - clampf((_t - hover_end) / RISE, 0.0, 1.0)
+	draw_rect(Rect2(-3000, -3000, 6000, 6000), Color(DARK, dark))
+
+	# Beam of light and the angel.
+	var beam := clampf((_t - FALL) / 0.6, 0.0, 1.0) * (1.0 - clampf((_t - hover_end) / RISE, 0.0, 1.0))
+	if beam > 0.0:
+		draw_colored_polygon(PackedVector2Array([Vector2(-14, -400), Vector2(14, -400), Vector2(34, 12), Vector2(-34, 12)]), Color(1.0, 0.95, 0.7, 0.2 * beam))
+		for i in 5:
+			draw_circle(Vector2(0, 2), 14.0 + i * 9.0, Color(1.0, 0.95, 0.75, 0.05 * beam))
+
+	# The cat itself: lying down until the angel's touch, then up again.
+	if not cat_look.is_empty():
+		CatArt.draw(self, cat_look, facing, 0.0, false, not _revived, "normal", Vector2.ZERO, 1.0, false)
+	if _revived:
+		var k := clampf((_t - (FALL + DESCEND + HOVER * 0.5)) / 0.6, 0.0, 1.0)
+		draw_arc(Vector2.ZERO, 10.0 + k * 70.0, 0.0, TAU, 40, Color(1.0, 0.95, 0.7, 1.0 - k), 3.0)
+
+	var y := -150.0
+	var alpha := 0.0
+	if _t >= FALL and _t < FALL + DESCEND:
+		var k := (_t - FALL) / DESCEND
+		y = lerpf(-220.0, -26.0, 1.0 - (1.0 - k) * (1.0 - k))
 		alpha = k
-	elif _t > DESCEND + HOVER:
-		var k := (_t - DESCEND - HOVER) / RISE
-		y = lerpf(-34.0, -180.0, k * k)
+	elif _t >= FALL + DESCEND and _t < hover_end:
+		y = -26.0
+		alpha = 1.0
+	elif _t >= hover_end:
+		var k := (_t - hover_end) / RISE
+		y = lerpf(-26.0, -240.0, k * k)
 		alpha = 1.0 - k
+	if alpha <= 0.0:
+		return
 	y += sin(_t * 4.0) * 2.0
-	# Beam of light from above onto the cat.
-	var beam := Color(1.0, 0.95, 0.7, 0.18 * alpha)
-	draw_colored_polygon(PackedVector2Array([Vector2(-10, -260), Vector2(10, -260), Vector2(26, 10), Vector2(-26, 10)]), beam)
-	for i in 4:
-		draw_circle(Vector2(0, y), 14.0 + i * 8.0, Color(1.0, 0.95, 0.75, 0.08 * alpha))
-	# Sparkles.
 	for i in 8:
 		var a := _t * 1.5 + TAU * i / 8.0
-		var p := Vector2(0, y) + Vector2.from_angle(a) * (22.0 + sin(_t * 3.0 + i) * 4.0)
+		var p := Vector2(0, y) + Vector2.from_angle(a) * (24.0 + sin(_t * 3.0 + i) * 4.0)
 		draw_rect(Rect2(p - Vector2(1, 1), Vector2(2, 2)), Color(1.0, 0.97, 0.8, alpha))
-	CatArt.draw(self, CatArt.look("ANGEL"), 1, _t * 6.0, false, false, "normal", Vector2(0, y), 1.0, false)
+	for i in 3:
+		draw_circle(Vector2(0, y), 16.0 + i * 8.0, Color(1.0, 0.95, 0.75, 0.08 * alpha))
+	CatArt.draw(self, CatArt.look("ANGEL"), facing, _t * 6.0, false, false, "normal", Vector2(0, y), 1.0, false)
 	if alpha < 1.0:
-		# Fade the cat by washing it out with the glow colour.
-		draw_circle(Vector2(0, y), 18.0, Color(1.0, 0.97, 0.85, (1.0 - alpha) * 0.9))
+		draw_circle(Vector2(0, y), 20.0, Color(1.0, 0.97, 0.85, (1.0 - alpha) * 0.9))

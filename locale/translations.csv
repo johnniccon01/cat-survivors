@@ -5,7 +5,7 @@ HUD_KILLS,Defeated: %d,Porazení: %d
 PAUSE_TITLE,PAUSED,PAUZA
 PAUSE_HINT,Keyboard shortcuts:,Klávesové skratky:
 PAUSE_LANGUAGE,L – language: %s,L – jazyk: %s
-GAME_OVER_TITLE,Mica gave up!,Mica to zabalila!
+GAME_OVER_TITLE,%s gave up!,Mačka %s to zabalila!
 GAME_OVER_STATS,You survived %s and defeated %d enemies.,Prežila si %s a porazila %d nepriateľov.
 GAME_OVER_HINT,R / Enter – try again,R / Enter – skúsiť znova
 LEVEL_UP_TITLE,Level %d!,Level %d!
@@ -191,7 +191,7 @@ EVENT_SWARM,A swarm is coming!,Blíži sa roj!
 EXTRACT_OPEN,A cat flap opened! Escape through it (60 s),Otvorili sa mačacie dvierka! Uteč nimi (60 s)
 EXTRACT_CLOSED,The cat flap closed,Mačacie dvierka sa zavreli
 EXTRACT_TRACKER,Cat flap: %d s,Mačacie dvierka: %d s
-EXTRACT_TITLE,You slipped out!,Ušla si!
+EXTRACT_TITLE,You slipped out!,Mačka ušla!
 EXTRACT_STATS,You escaped after %s with %d enemies defeated.,Utiekla si po %s a porazila %d nepriateľov.
 SUMMARY_GOLD,+%d gold (streak bonus +%d %%),+%d zlata (bonus série +%d %%)
 SUMMARY_GOLD_DEATH,+%d gold (half of %d – the rest is lost),+%d zlata (polovica z %d – zvyšok prepadol)
@@ -335,3 +335,5 @@ DEVIL_COMING,The angel came twice... something dark has noticed you.,Anjel priš
 DEVIL_WEAK,The Devil Cat weakens! Now it can be hurt.,Diabol mačka slabne! Teraz sa dá zraniť.
 DEVIL_SLAIN,You defeated the Devil Cat!,Porazil si Diabol mačku!
 SUMMARY_CAT_UNLOCKED,New cat unlocked: %s,Nová mačka odomknutá: %s
+ANGEL_FALLEN,The cat has fallen...,Mačka padla...
+DEVIL_TOOK,The Devil Cat took %s...,Diabol mačka si odniesla mačku %s...

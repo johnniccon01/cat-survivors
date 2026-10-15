@@ -25,9 +25,16 @@ signal final_boss_spawned(boss: Enemy)
 signal event_started(kind: String)
 
 const SPAWN_MARGIN := 40.0
-## Enemy health +2 % per cat level above this one.
+## Enemy health +3.5 % per cat level above this one.
 const LEVEL_SCALING_FROM := 10
-const LEVEL_SCALING := 0.02
+const LEVEL_SCALING := 0.035
+## Enemies hit harder as the night goes on, slowly at first and then faster
+## (damage x(1 + 0.006 * minute²): x1.15 at 5, x1.6 at 10, x2.35 at 15, x3.4
+## at 20) and get a little faster (+1.5 % per minute, at most +30 %), so a
+## strong late-game cat still has to watch out.
+const DAMAGE_PER_MINUTE_SQ := 0.006
+const SPEED_PER_MINUTE := 0.015
+const SPEED_MAX_BONUS := 0.3
 const ELITE_FROM := 240.0
 const ELITE_HP := 8.0
 const RING_RADIUS := 240.0
@@ -159,6 +166,8 @@ func _physics_process(delta: float) -> void:
 	if _player == null or _player.is_dead:
 		return
 	elapsed += delta
+	_enemies.damage_mult = 1.0 + DAMAGE_PER_MINUTE_SQ * pow(elapsed / 60.0, 2.0)
+	_enemies.speed_mult = 1.0 + minf(SPEED_PER_MINUTE * elapsed / 60.0, SPEED_MAX_BONUS)
 	if _cleared:
 		return
 	if elapsed >= duration_minutes() * 60.0:

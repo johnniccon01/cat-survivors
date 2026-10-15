@@ -35,6 +35,12 @@ func _ready() -> void:
 	_setup_input()
 
 
+
+## Test runs (--bot, --ui-test, --no-save) never write the profile or settings.
+static func no_save() -> bool:
+	var args := OS.get_cmdline_user_args()
+	return "--bot" in args or "--ui-test" in args or "--no-save" in args
+
 func _load_json(path: String) -> Dictionary:
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
 	if typeof(parsed) != TYPE_DICTIONARY:

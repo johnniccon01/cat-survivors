@@ -251,7 +251,7 @@ func set_flag(flag: String) -> void:
 
 func save() -> void:
 	# Automated test runs must never touch the real profile.
-	if "--bot" in OS.get_cmdline_user_args() or "--ui-test" in OS.get_cmdline_user_args():
+	if GameData.no_save():
 		return
 	var cfg := ConfigFile.new()
 	cfg.set_value("cats", "unlocked", unlocked)

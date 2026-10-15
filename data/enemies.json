@@ -452,11 +452,12 @@
     "aura": "#ff2a2a",
     "mortal_from_minute": 30,
     "scale": 1.6,
-    "hp": 66666,
-    "speed": 92,
-    "damage": 999,
+    "hp": 6666666,
+    "speed": 110,
+    "damage": 99999,
     "radius": 11,
     "xp": 0,
-    "knockback_resist": 1.0
+    "knockback_resist": 1.0,
+    "fatal": true
   }
 }

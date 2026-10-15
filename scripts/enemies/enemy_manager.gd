@@ -73,12 +73,16 @@ func despawn(enemy: Enemy) -> void:
 
 ## Removes every enemy with a puff of smoke (no XP), e.g. before the final boss.
 func clear_all() -> void:
+	var kept: Array[Enemy] = []
 	for enemy in enemies:
+		if enemy.persistent:
+			kept.append(enemy)
+			continue
 		var poof := Poof.new()
 		poof.position = enemy.position
 		get_parent().add_child(poof)
 		enemy.queue_free()
-	enemies.clear()
+	enemies = kept
 	budget_used = 0.0
 
 

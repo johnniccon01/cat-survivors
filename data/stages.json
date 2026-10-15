@@ -498,8 +498,8 @@
     "music": "music_garden",
     "requires": "BASEMENT",
     "cat_quests": [
-      "TIGER",
-      "PIP"
+      "CLOVER",
+      "TIGER"
     ],
     "props": [
       "FLOWERPOT",
@@ -739,7 +739,7 @@
     "max_props": 6,
     "prop_interval": 4.0,
     "duration_minutes": 20,
-    "final_boss": "PIGEON_EMPEROR",
+    "final_boss": "RIVAL_BRUNO",
     "events": [
       {
         "minute": 4.5,
@@ -935,7 +935,7 @@
         ],
         "hp_mult": 6.0,
         "bosses": [
-          "TRASH_BANDIT"
+          "PIGEON_EMPEROR"
         ]
       },
       {
@@ -950,6 +950,10 @@
         ],
         "hp_mult": 7.0
       }
-    ]
+    ],
+    "angel": {
+      "after_minute": 15,
+      "chance": 0.0005
+    }
   }
 }

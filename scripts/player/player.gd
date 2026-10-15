@@ -270,11 +270,11 @@ func _follow_input() -> Vector2:
 	return to.normalized() * clampf(to.length() / 40.0, 0.4, 1.6)
 
 
-## Brings a knocked-down escorted cat back on its feet.
-func revive(fraction: float) -> void:
+## Brings a knocked-down cat back on its feet.
+func revive(fraction: float, invuln: float = 1.0) -> void:
 	is_dead = false
 	hp = max_hp * fraction
-	_invuln = 1.0
+	_invuln = invuln
 	queue_redraw()
 
 

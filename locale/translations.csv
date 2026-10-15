@@ -273,7 +273,6 @@ GOAL_VACUUM_KING_DESC,Defeat the Vacuum King,Poraz Kráľa vysávačov
 GOAL_RAT_KING_NAME,Pied Piper,Krysař
 GOAL_RAT_KING_DESC,Defeat the Rat King,Poraz Potkanieho kráľa
 GOAL_CAT_LOVER_NAME,Cat Lover,Milovník mačiek
-GOAL_CAT_LOVER_DESC,Unlock all 6 cats,Odomkni všetkých 6 mačiek
 GOAL_VETERAN_NAME,Veteran,Veterán
 GOAL_VETERAN_DESC,Play 25 nights,Odohraj 25 nocí
 GOAL_TEN_THOUSAND_NAME,Ten Thousand,Desaťtisíc
@@ -307,16 +306,32 @@ SET_SOUND,Sound,Zvuk
 STAGE_GARDEN_NAME,The Garden,Záhrada
 STAGE_GARDEN_HINT,Defeat the Rat King,Poraz Potkanieho kráľa
 STAGE_ROOFTOP_NAME,The Rooftop,Strecha
-STAGE_ROOFTOP_HINT,Defeat the Lawnmower,Poraz Kosačku
 ENEMY_LAWNMOWER_NAME,The Lawnmower,Kosačka
 ENEMY_PIGEON_EMPEROR_NAME,The Pigeon Emperor,Holubí cisár
 STORY_GARDEN_INTRO,Fresh air at last... but something is buzzing in the flowerbeds.,Konečne čerstvý vzduch... ale v záhonoch niečo bzučí.
-STORY_ROOFTOP_INTRO,The whole city below. The pigeons do not look friendly.,Celé mesto pod labkami. Holuby nevyzerajú priateľsky.
 GOAL_LAWNMOWER_NAME,Lawn Keeper,Strážca trávnika
 GOAL_LAWNMOWER_DESC,Defeat the Lawnmower,Poraz Kosačku
-GOAL_PIGEON_EMPEROR_NAME,Top Cat,Kráľ strechy
-GOAL_PIGEON_EMPEROR_DESC,Defeat the Pigeon Emperor,Poraz Holubieho cisára
 GOAL_BUG_SWATTER_NAME,Bug Swatter,Plácačka
 GOAL_BUG_SWATTER_DESC,Defeat 1000 bees,Poraz 1000 včiel
 GOAL_BIRD_WATCHER_NAME,Bird Watcher,Ornitológ
 GOAL_BIRD_WATCHER_DESC,Defeat 1000 birds,Poraz 1000 vtákov
+GOAL_CAT_LOVER_DESC,Unlock all 8 cats,Odomkni všetkých 8 mačiek
+GOAL_BRUNO_NAME,Top Cat,Kráľ strechy
+GOAL_BRUNO_DESC,Defeat Bruno on the rooftop,Poraz Bruna na streche
+STAGE_ROOFTOP_HINT,Clear the Garden,Prejdi Záhradu
+STORY_ROOFTOP_INTRO,The whole city below. They say a huge tomcat rules these roofs...,Celé mesto pod labkami. Vraj tieto strechy ovláda obrovský kocúr...
+CAT_CLOVER_NAME,Clover,Ďatelinka
+CAT_CLOVER_DESC,A lucky tuxedo cat from the garden. Starts with Catnip; +20% luck.,Šťastná mačka vo fraku zo záhrady. Začína so Šantou; +20 % šťastie.
+CAT_CLOVER_HINT,Rescue her from the garden shed.,Zachráň ju zo záhradnej búdy.
+CAT_BRUNO_NAME,Bruno,Bruno
+CAT_BRUNO_DESC,"The huge tomcat who ruled the rooftops. Starts with Hairball; +20% damage, +20 health.","Obrovský kocúr, pán striech. Začína s Chlpáčom; +20 % poškodenie, +20 zdravia."
+CAT_BRUNO_HINT,Defeat him on the rooftop.,Poraz ho na streche.
+CAT_ANGEL_NAME,Angel Cat,Anjel mačka
+CAT_DEVIL_NAME,Devil Cat,Diabol mačka
+ENEMY_RIVAL_BRUNO_NAME,"Bruno, King of the Rooftops","Bruno, kráľ striech"
+ENEMY_DEVIL_CAT_NAME,The Devil Cat,Diabol mačka
+ANGEL_SAVED,An angel cat came down and saved you!,Zostúpila anjel mačka a zachránila ťa!
+DEVIL_COMING,The angel came twice... something dark has noticed you.,Anjel prišiel dvakrát... všimlo si ťa niečo temné.
+DEVIL_WEAK,The Devil Cat weakens! Now it can be hurt.,Diabol mačka slabne! Teraz sa dá zraniť.
+DEVIL_SLAIN,You defeated the Devil Cat!,Porazil si Diabol mačku!
+SUMMARY_CAT_UNLOCKED,New cat unlocked: %s,Nová mačka odomknutá: %s

@@ -43,6 +43,18 @@
     "BARON": {
       "type": "duel",
       "rival": "RIVAL_BARON"
+    },
+    "CLOVER": {
+      "type": "rescue",
+      "poi": "shed",
+      "guards": "BEE",
+      "guard_count": 26,
+      "free_time": 4.0,
+      "escort_distance": [
+        480.0,
+        620.0
+      ],
+      "escort_hp": 60.0
     }
   },
   "side_quests": {

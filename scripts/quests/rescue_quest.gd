@@ -131,6 +131,16 @@ func _draw() -> void:
 			draw_rect(Rect2(-38, 2, 76, 12), Color("15121c"))
 			if trapped:
 				CatArt.draw(self, look, -1, 0.0, false, false, "sad", Vector2(0, 8))
+		"shed":
+			draw_rect(Rect2(-34, -34, 68, 52), OUTLINE)
+			draw_rect(Rect2(-33, -33, 66, 50), Color("8a6a42"))
+			for x in range(-30, 34, 8):
+				draw_line(Vector2(x, -33), Vector2(x, 17), Color("6b4a30"), 1.0)
+			draw_colored_polygon(PackedVector2Array([Vector2(-40, -32), Vector2(0, -52), Vector2(40, -32)]), Color("5a4a6a"))
+			draw_polyline(PackedVector2Array([Vector2(-40, -32), Vector2(0, -52), Vector2(40, -32), Vector2(-40, -32)]), OUTLINE, 1.0)
+			draw_rect(Rect2(-12, -10, 24, 27), Color("2a2224") if trapped else Color("4a3a2a"))
+			if trapped:
+				CatArt.draw(self, look, 1, 0.0, false, false, "sad", Vector2(0, 6))
 		"rat_nest":
 			for i in 9:
 				var a := TAU * i / 9.0

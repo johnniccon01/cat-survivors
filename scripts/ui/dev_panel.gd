@@ -47,6 +47,8 @@ func _ready() -> void:
 	_button(box, "Final boss now", _final_boss)
 	_button(box, "Cat quest now", func() -> void: _quest("cat"))
 	_button(box, "Side quest now", func() -> void: _quest("side"))
+	_button(box, "Angel cat now", func() -> void: main.summon_angel())
+	_button(box, "Devil cat now", func() -> void: main.summon_devil())
 
 
 func _unhandled_input(event: InputEvent) -> void:

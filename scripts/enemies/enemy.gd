@@ -46,6 +46,12 @@ var _charge_t := 0.0
 ## Final boss special: "suck" (pulls the cat in) or "roar" (rings of shots).
 var _final_mode := "suck"
 var _base_scale := 1.0
+## Takes no damage while true (the devil cat before it weakens).
+var immortal := false
+## Survives clear_all (final boss arrival, debug wipe).
+var persistent := false
+## Soft glow under cats like the devil.
+var _aura := Color(0, 0, 0, 0)
 var _stripes := false
 var _color := Color.WHITE
 var _accent := Color.GRAY
@@ -79,6 +85,9 @@ func setup(p_id: String, data: Dictionary, p_manager: EnemyManager) -> void:
 	_final_mode = data.get("final_mode", "suck")
 	_base_scale = data.get("scale", 1.0)
 	scale = Vector2(_base_scale, _base_scale)
+	persistent = data.get("persistent", false)
+	if data.has("aura"):
+		_aura = Color(data["aura"])
 
 
 func charge(dir: Vector2, seconds: float) -> void:
@@ -242,6 +251,10 @@ func _tick_shooter(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 func hit(amount: float, direction: Vector2, knockback: float, can_crit: bool = true) -> void:
 	if dead:
 		return
+	if immortal:
+		_flash = 0.05
+		queue_redraw()
+		return
 	var crit := false
 	var cat: Player = manager.player
 	if can_crit and cat != null and amount > 0.0:
@@ -309,6 +322,9 @@ func _draw() -> void:
 		"paint_can":
 			_draw_paint_can(body)
 		"cat":
+			if _aura.a > 0.0:
+				for k in 3:
+					draw_circle(Vector2(0, -2), r + 3.0 + k * 4.0 + sin(_wobble * 0.5) * 1.5, Color(_aura, 0.13))
 			CatArt.draw(self, CatArt.look(_cat_id), 1, _wobble, _flash > 0.0, false, "angry")
 		_:
 			_draw_sock(body)

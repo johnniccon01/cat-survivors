@@ -25,6 +25,9 @@ static func look(cat_id: String) -> Dictionary:
 			"fluffy": d.get("fluffy", false),
 			"patches": d.get("patches", false),
 			"size": float(d.get("size", 1.0)),
+			"halo": d.get("halo", false),
+			"wings": d.get("wings", false),
+			"horns": d.get("horns", false),
 			"id": cat_id,
 		}
 	return _looks[cat_id]
@@ -138,5 +141,34 @@ static func _draw_sprite(ci: CanvasItem, sprite: Dictionary, lk: Dictionary, fac
 	# A locked cat on the selection screen is shown as a dark silhouette.
 	var tint := Color(0.12, 0.09, 0.15) if lk.get("silhouette", false) else Color.WHITE
 	ci.draw_set_transform(offset, 0.0, Vector2(facing, 1) * zoom)
+	var s: float = lk["size"]
+	if lk.get("wings", false) and not dead:
+		_draw_wings(ci, s, walk_t)
 	Sprites.draw_frame(ci, sprite, col, row, tint)
+	if lk.get("halo", false) and not dead:
+		var c := Vector2(9.5, -21.0 + sin(walk_t * 0.4)) * s
+		ci.draw_polyline(Shapes.closed(Shapes.ellipse(c, 5.5 * s, 1.8 * s, 16)), OUTLINE, 2.5)
+		ci.draw_polyline(Shapes.closed(Shapes.ellipse(c, 5.5 * s, 1.8 * s, 16)), Color("f2d14e"), 1.2)
+	if lk.get("horns", false):
+		for horn: Array in [[Vector2(5, -13), Vector2(3, -21)], [Vector2(12, -13), Vector2(15, -21)]]:
+			var base: Vector2 = horn[0] * s
+			var tip: Vector2 = horn[1] * s
+			var tri := PackedVector2Array([base + Vector2(-1.8, 0) * s, tip, base + Vector2(1.8, 0) * s])
+			ci.draw_colored_polygon(tri, Color("c92a2a"))
+			ci.draw_polyline(Shapes.closed(tri), OUTLINE, 1.0)
 	ci.draw_set_transform(Vector2.ZERO)
+
+
+## Two feathered wings behind the back that flap slowly.
+static func _draw_wings(ci: CanvasItem, s: float, t: float) -> void:
+	var flap := sin(t * 0.5) * 0.25
+	for k in 2:
+		var root := Vector2(-2 + k * 4, -5) * s
+		var shade := Color("e8e2d6") if k == 0 else Color.WHITE
+		var pts := PackedVector2Array()
+		for p: Vector2 in [Vector2(0, 0), Vector2(-5, -9), Vector2(-11, -14), Vector2(-15, -12), Vector2(-14, -7), Vector2(-11, -3), Vector2(-6, 1)]:
+			pts.append(root + (p * 1.6).rotated(-flap) * s)
+		ci.draw_colored_polygon(pts, shade)
+		ci.draw_polyline(Shapes.closed(pts), OUTLINE, 1.0)
+		for f in 3:
+			ci.draw_line(root + (Vector2(-5 - f * 3, -2 - f) * 1.6).rotated(-flap) * s, root + (Vector2(-9 - f * 2, -8 - f * 1.5) * 1.6).rotated(-flap) * s, Color("c9c2b4"), 1.0)

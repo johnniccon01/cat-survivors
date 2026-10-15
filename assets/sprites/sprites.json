@@ -65,6 +65,50 @@
         18.0
       ],
       "frames": 4
+    },
+    "CLOVER": {
+      "cell": [
+        36,
+        30
+      ],
+      "anchor": [
+        16.0,
+        18.0
+      ],
+      "frames": 4
+    },
+    "BRUNO": {
+      "cell": [
+        47,
+        39
+      ],
+      "anchor": [
+        20.9,
+        23.4
+      ],
+      "frames": 4
+    },
+    "ANGEL": {
+      "cell": [
+        36,
+        30
+      ],
+      "anchor": [
+        16.0,
+        18.0
+      ],
+      "frames": 4
+    },
+    "DEVIL": {
+      "cell": [
+        44,
+        36
+      ],
+      "anchor": [
+        19.6,
+        21.6
+      ],
+      "frames": 4
     }
   },
   "enemies": {

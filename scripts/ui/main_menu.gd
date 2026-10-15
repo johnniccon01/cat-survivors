@@ -42,14 +42,16 @@ func _build() -> void:
 	add_child(bg)
 
 	# A little parade of the cats you have unlocked, walking along the bottom.
+	var ids: Array = GameData.cats.keys().filter(func(id: String) -> bool: return not GameData.cats[id].get("hidden", false))
+	var gap := 1040.0 / maxf(ids.size() - 1, 1)
 	var i := 0
-	for id: String in GameData.cats:
+	for id: String in ids:
 		var cat := CatPreview.new()
 		cat.cat_id = id
 		cat.locked = not Profile.is_unlocked(id)
 		cat.walking = not cat.locked
 		cat.size = Vector2(120, 120)
-		cat.position = Vector2(120 + i * 190, 560)
+		cat.position = Vector2(60 + i * gap, 560)
 		cat.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(cat)
 		_cats.append(cat)

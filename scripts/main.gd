@@ -46,6 +46,9 @@ const HEART_DROP_AMOUNT := 15.0
 const CHEST_ROLLS := [[1, 70.0], [3, 25.0], [5, 5.0]]
 const PLAYER_SCENE := preload("res://scenes/player.tscn")
 const MAX_COMPANIONS := 1
+const DEVIL_ID := "DEVIL_CAT"
+## The devil shows up this long after the second angel save.
+const DEVIL_DELAY := 4.0
 
 var kills := 0
 var props_broken := 0
@@ -76,6 +79,11 @@ var _bot_time := float(_arg("--bot-time=", "300"))
 var _modals: Array[String] = []
 var _in_modal := false
 var _run_over := false
+## Secret: times the angel cat saved you this run, and the devil it brings.
+var angel_saves := 0
+var devil: Enemy
+## Cats unlocked by beating a cat final boss, listed on the summary.
+var _run_unlocks: Array[String] = []
 
 @onready var player: Player = $Player
 @onready var enemies: EnemyManager = $Enemies
@@ -114,6 +122,8 @@ func _ready() -> void:
 			Profile.add_stat("quests")
 			_maybe_drop_charm(player.position + Vector2(16, 16), CHARM_CHANCE_QUEST)
 			_open_extraction())
+	if "--devil" in _args:
+		summon_devil.call_deferred()
 	var forced := _arg("--quest=", "")
 	if forced != "":
 		quests.force.call_deferred(forced)
@@ -189,6 +199,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if is_instance_valid(devil) and devil.immortal and spawner.elapsed >= _devil_mortal_from():
+		devil.immortal = false
+		hud.show_banner(tr("DEVIL_WEAK"), 4.0)
 	# Long-term goals can complete mid-run; announce them as they happen.
 	_goal_check -= delta
 	if _goal_check <= 0.0 and not _run_over:
@@ -287,8 +300,14 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 	pickups.spawn_xp(pos, xp)
 	if GameData.enemies[id].get("final", false):
 		bosses_killed += 1
+		var cat: String = GameData.enemies[id].get("cat", "")
+		if cat != "" and Profile.unlock(cat):
+			_run_unlocks.append(cat)
 		_on_stage_cleared()
 		return
+	if id == DEVIL_ID:
+		Profile.set_flag("devil_slain")
+		hud.show_banner(tr("DEVIL_SLAIN"), 5.0)
 	if GameData.enemies[id].get("boss", false):
 		_boss_impact()
 		bosses_killed += 1
@@ -481,6 +500,8 @@ func _end_run(kind: String) -> void:
 			Audio.play("victory", -2.0, 0.0)
 			hud.show_extracted(spawner.elapsed, kills)
 		"victory":
+			for cat in _run_unlocks:
+				lines.append(tr("SUMMARY_CAT_UNLOCKED") % tr("CAT_%s_NAME" % cat))
 			gold = floori((run_gold + VICTORY_GOLD) * mult)
 			Profile.add_streak(2)
 			lines.append(tr("SUMMARY_GOLD") % [gold, roundi((mult - 1.0) * 100.0)])
@@ -524,7 +545,61 @@ func _charm_names() -> String:
 
 
 func _on_player_died() -> void:
+	if _angel_saves():
+		return
 	_end_run("death")
+
+
+## Secret: on some maps, late in the run, a dying cat may be saved by an angel
+## cat (a tiny chance, see "angel" in stages.json). Two saves in one run wake
+## up the devil cat.
+func _angel_saves() -> bool:
+	var angel: Dictionary = spawner.stage().get("angel", {})
+	if angel.is_empty() or spawner.elapsed < float(angel["after_minute"]) * 60.0:
+		return false
+	if randf() >= float(_arg("--angel-chance=", str(angel["chance"]))):
+		return false
+	summon_angel()
+	return true
+
+
+func summon_angel() -> void:
+	angel_saves += 1
+	if _bot:
+		print("BOT: angel saves=%d" % angel_saves)
+	player.revive(1.0, 3.0)
+	var fx := AngelCat.new()
+	fx.position = player.position
+	add_child(fx)
+	for enemy in enemies.query_radius(player.position, 220.0):
+		enemy.hit(0.0, enemy.position - player.position, 8.0)
+	# The devil can't be knocked back, so the angel sends it away instead.
+	if is_instance_valid(devil):
+		devil.position = player.position + (devil.position - player.position).normalized() * 340.0
+	player.shake(4.0, 0.5)
+	hud.show_banner(tr("ANGEL_SAVED"), 4.0)
+	Audio.play("levelup", 0.0, 0.0)
+	Profile.set_flag("angel_seen")
+	if angel_saves >= 2 and not is_instance_valid(devil):
+		get_tree().create_timer(DEVIL_DELAY, false).timeout.connect(summon_devil)
+
+
+## The devil cat: chases you down and kills in a hit or two; it can't be hurt
+## until the run reaches "mortal_from_minute".
+func summon_devil() -> void:
+	if _run_over or is_instance_valid(devil):
+		return
+	devil = enemies.spawn(DEVIL_ID, player.position + Vector2.from_angle(randf() * TAU) * 320.0)
+	devil.immortal = spawner.elapsed < _devil_mortal_from()
+	hud.show_banner(tr("DEVIL_COMING"), 5.0)
+	player.shake(8.0, 1.0)
+	Audio.play("warning", 0.0, 0.0)
+	if _bot:
+		print("BOT: devil summoned")
+
+
+func _devil_mortal_from() -> float:
+	return float(GameData.enemies[DEVIL_ID].get("mortal_from_minute", 30)) * 60.0
 
 
 ## Big boss deaths: strong shake and a tiny freeze so the moment lands.

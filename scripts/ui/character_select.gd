@@ -31,7 +31,8 @@ func _ready() -> void:
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
 			return
 	for id: String in GameData.cats:
-		_ids.append(id)
+		if not GameData.cats[id].get("hidden", false):
+			_ids.append(id)
 	_index = maxi(_ids.find(Profile.selected_cat), 0)
 	for id: String in GameData.stages:
 		_stage_ids.append(id)
@@ -67,11 +68,11 @@ func _build() -> void:
 
 	var row := HBoxContainer.new()
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
-	row.add_theme_constant_override("separation", 14)
+	row.add_theme_constant_override("separation", 10)
 	box.add_child(row)
 	for i in _ids.size():
 		var card := PanelContainer.new()
-		card.custom_minimum_size = Vector2(160, 170)
+		card.custom_minimum_size = Vector2(138, 170)
 		card.mouse_filter = Control.MOUSE_FILTER_STOP
 		card.gui_input.connect(_on_card_input.bind(i))
 		var preview := CatPreview.new()

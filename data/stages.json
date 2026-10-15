@@ -260,7 +260,8 @@
       1.0,
       1.4,
       1.0
-    ]
+    ],
+    "music": "music_apartment"
   },
   "BASEMENT": {
     "theme": "basement",
@@ -489,6 +490,7 @@
       1.05,
       1.45,
       1.0
-    ]
+    ],
+    "music": "music_basement"
   }
 }

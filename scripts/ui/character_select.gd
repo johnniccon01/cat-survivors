@@ -38,7 +38,7 @@ func _ready() -> void:
 	_stage_index = maxi(_stage_ids.find(Profile.selected_stage), 0)
 	_build()
 	_refresh()
-	Audio.play_music("music_apartment")
+	Audio.play_music("music_menu")
 	if "--shop" in OS.get_cmdline_user_args():
 		_shop.open()
 	if "--charms" in OS.get_cmdline_user_args():

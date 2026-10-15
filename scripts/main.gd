@@ -179,7 +179,7 @@ func _ready() -> void:
 		_open_extraction.call_deferred(true)
 	if "--test-evolution" in _args:
 		_test_evolution.call_deferred()
-	Audio.play_music("music_basement" if spawner.stage().get("theme", "") == "basement" else "music_apartment")
+	Audio.play_music(spawner.stage().get("music", "music_apartment"))
 	if "--all-weapons" in _args:
 		for id: String in GameData.weapons:
 			if not GameData.weapons[id].get("evolved", false) and player.get_weapon(id) == null:

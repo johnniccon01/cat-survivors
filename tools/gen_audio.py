@@ -123,86 +123,252 @@ def sfx():
 
 
 # --- music -------------------------------------------------------------------------
+#
+# A small chiptune "band": lead with vibrato and echo, a harmony voice,
+# driving octave bass, 16th-note arpeggios and drums with fills. Songs are
+# written as chord lists plus melodies in a compact text notation:
+#   "E5:.5 G5:.5 C6:1 R:1"  = note:beats, R is a rest.
+# A song plays its A part twice and B part twice (A B A' B', where the
+# repeats add a harmony voice), so each loop is 32 bars.
 
-NOTE = {"C": 0, "C#": 1, "D": 2, "D#": 3, "E": 4, "F": 5, "F#": 6, "G": 7, "G#": 8, "A": 9, "A#": 10, "B": 11}
-
-
-def freq(name, octave):
-    return 440.0 * 2 ** ((NOTE[name] + 12 * (octave - 4) - 9) / 12.0)
-
-
-def chord_tones(root, minor):
-    third = 3 if minor else 4
-    r = NOTE[root]
-    return [r, r + third, r + 7]
+NOTE = {"C": 0, "C#": 1, "DB": 1, "D": 2, "D#": 3, "EB": 3, "E": 4, "F": 5, "F#": 6, "GB": 6,
+        "G": 7, "G#": 8, "AB": 8, "A": 9, "A#": 10, "BB": 10, "B": 11}
 
 
-def song(name, bpm, chords, melody, lead_duty=0.25, drums=True, bars_per_chord=1, lead_vol=0.16):
-    """chords: list of (root, minor); melody: list of (semitone offset from C5 or None, beats)."""
+def midi(name):
+    """'C#5' -> MIDI number."""
+    name = name.upper()
+    octave = int(name[-1])
+    return NOTE[name[:-1]] + 12 * (octave + 1)
+
+
+def hz(m):
+    return 440.0 * 2 ** ((m - 69) / 12.0)
+
+
+def parse_chord(c):
+    """'Am' -> (root semitone 0-11, minor?)."""
+    minor = c.endswith("m")
+    root = c[:-1] if minor else c
+    return NOTE[root.upper()], minor
+
+
+def parse_melody(text):
+    out = []
+    for tok in text.split():
+        n, beats = tok.split(":")
+        out.append((None if n.upper() == "R" else midi(n), float(beats)))
+    return out
+
+
+class Track:
+    def __init__(self, seconds):
+        self.n = int(seconds * SR)
+        self.buf = array.array("f", bytes(4 * self.n))
+
+    def add(self, samples, start):
+        i0 = int(start * SR)
+        buf = self.buf
+        n = self.n
+        for i, v in enumerate(samples):
+            j = i0 + i
+            if j >= n:
+                j -= n  # wrap so tails ring into the loop start (seamless loop)
+            buf[j] += v
+
+
+def note(dur, f, kind="square", vol=0.2, duty=0.25, attack=0.005, decay=0.12, sustain=0.7, release=0.06, vib=0.0, vib_delay=0.15):
+    n = max(int(dur * SR), 1)
+    out = []
+    phase = 0.0
+    for i in range(n):
+        t = i / SR
+        ff = f
+        if vib and t > vib_delay:
+            ff *= 1.0 + 0.012 * math.sin(2 * math.pi * vib * t)
+        phase += ff / SR
+        if t < attack:
+            env = t / attack
+        elif t < attack + decay:
+            env = 1.0 - (1.0 - sustain) * (t - attack) / decay
+        else:
+            env = sustain
+        tail = dur - t
+        if tail < release:
+            env *= max(tail / release, 0.0)
+        out.append(osc(kind, phase, duty) * vol * env)
+    return out
+
+
+def kick():
+    return [math.sin(2 * math.pi * (55 + 100 * math.exp(-i / 400.0)) * i / SR) * 0.6 * math.exp(-i / 2600.0) for i in range(int(0.16 * SR))]
+
+
+def snare():
+    out, y = [], 0.0
+    for i in range(int(0.14 * SR)):
+        y += 0.6 * (random.uniform(-1, 1) - y)
+        out.append((y * 0.35 + 0.15 * math.sin(2 * math.pi * 190 * i / SR)) * math.exp(-i / 1500.0))
+    return out
+
+
+def hat(open_=False):
+    length = 0.12 if open_ else 0.035
+    out, prev = [], 0.0
+    for i in range(int(length * SR)):
+        x = random.uniform(-1, 1)
+        out.append((x - prev) * 0.09 * math.exp(-i / (1600.0 if open_ else 300.0)))
+        prev = x
+    return out
+
+
+DRUM_KICK = kick()
+DRUM_SNARE = snare()
+DRUM_HAT = hat()
+DRUM_OPEN = hat(True)
+
+
+def song(name, bpm, chords_a, mel_a, chords_b, mel_b, style="drive", lead_kind="square", lead_duty=0.25, drums=True, gain=1.1):
     beat = 60.0 / bpm
     bar = beat * 4
-    total = bar * bars_per_chord * len(chords)
-    n = int(total * SR)
-    out = [0.0] * n
-
-    def add(samples, start):
-        i0 = int(start * SR)
-        for i, v in enumerate(samples):
-            if i0 + i < n:
-                out[i0 + i] += v
-
-    t = 0.0
-    for root, minor in chords:
-        tones = chord_tones(root, minor)
-        for b in range(bars_per_chord * 4):
-            # Bass: root on the beat, fifth on the off-beat.
-            add(tone(beat * 0.45, freq(root, 2), None, "tri", 0.35, release=0.05), t)
-            fifth = 440.0 * 2 ** ((tones[2] - 9 - 24) / 12.0)
-            add(tone(beat * 0.4, fifth, None, "tri", 0.25, release=0.05), t + beat * 0.5)
-            # Arpeggio on eighth notes, quiet.
-            for k in range(2):
-                semi = tones[(b * 2 + k) % 3]
-                f = 440.0 * 2 ** ((semi - 9) / 12.0)
-                add(tone(beat * 0.22, f, None, "square", 0.05, duty=0.125, release=0.04), t + k * beat * 0.5)
+    parts = [(chords_a, mel_a, False), (chords_b, mel_b, False), (chords_a, mel_a, True), (chords_b, mel_b, True)]
+    bars_total = sum(len(p[0]) for p in parts)
+    total = bars_total * bar
+    lead = Track(total)
+    back = Track(total)
+    t0 = 0.0
+    bar_index = 0
+    for chords, mel_text, harmony in parts:
+        # --- accompaniment, bar by bar ---
+        for ci, c in enumerate(chords):
+            root, minor = parse_chord(c)
+            tones = [root, root + (3 if minor else 4), root + 7]
+            bt = t0 + ci * bar
+            # Bass
+            for k in range(8):
+                pos = bt + k * beat * 0.5
+                if style == "drive":
+                    m = 36 + root + (12 if k % 2 else 0)
+                    back.add(note(beat * 0.45, hz(m), "tri", 0.34, release=0.03), pos)
+                elif style == "gallop":
+                    m = 36 + root + (7 if k in (3, 7) else 0)
+                    back.add(note(beat * 0.4, hz(m), "tri", 0.34, release=0.03), pos)
+                elif k % 2 == 0:  # "bounce": root on beats, fifth on 2 and 4
+                    m = 36 + root + (7 if k in (2, 6) else 0)
+                    back.add(note(beat * 0.85, hz(m), "tri", 0.32, release=0.08), pos)
+            # 16th-note arpeggio across two octaves
+            arp = [60 + tones[0], 60 + tones[1], 60 + tones[2], 72 + tones[0], 60 + tones[2], 60 + tones[1]]
+            for k in range(16):
+                m = arp[k % len(arp)] - (12 if style == "bounce" else 0)
+                back.add(note(beat * 0.2, hz(m), "square", 0.035, duty=0.125, release=0.02), bt + k * beat * 0.25)
+            # Drums
             if drums:
-                if b % 2 == 0:
-                    add(tone(0.12, 150, 45, "sine", 0.55, release=0.08), t)
-                else:
-                    add(lowpass(tone(0.1, 0, 0, "noise", 0.3, release=0.08), 0.5), t)
-                add(tone(0.03, 0, 0, "noise", 0.08, release=0.02), t + beat * 0.5)
-            t += beat
-    # Lead melody, looped over the whole song.
-    t = 0.0
-    i = 0
-    while t < total - 0.01:
-        semi, beats = melody[i % len(melody)]
-        dur = beats * beat
-        if semi is not None:
-            f = freq("C", 5) * 2 ** (semi / 12.0)
-            add(tone(dur * 0.9, f, None, "square", lead_vol, duty=lead_duty, release=min(0.08, dur * 0.4), vibrato=5), t)
-        t += dur
-        i += 1
-    save(name, out, gain=1.2)
+                is_fill = (bar_index + ci) % 4 == 3
+                for k in range(8):
+                    pos = bt + k * beat * 0.5
+                    if k in (0, 4) or (style == "drive" and k == 7 and not is_fill):
+                        back.add(DRUM_KICK, pos)
+                    if k in (2, 6):
+                        back.add(DRUM_SNARE, pos)
+                    if is_fill and k >= 5:
+                        back.add(DRUM_SNARE, pos + beat * 0.25)
+                    back.add(DRUM_OPEN if (k == 7 and is_fill) else DRUM_HAT, pos)
+        # --- melody (+ echo, + harmony on repeats) ---
+        t = t0
+        for m, beats in parse_melody(mel_text):
+            dur = beats * beat
+            if m is not None:
+                tone_samples = note(dur * 0.92, hz(m), lead_kind, 0.15, duty=lead_duty, vib=5.5, release=min(0.08, dur * 0.3))
+                lead.add(tone_samples, t)
+                lead.add([v * 0.28 for v in tone_samples], t + beat * 0.75)  # echo
+                if harmony:
+                    # A third (or so) below, quieter, on a softer wave.
+                    lead.add(note(dur * 0.9, hz(m - 4), "tri", 0.07, release=min(0.08, dur * 0.3)), t)
+            t += dur
+        t0 += len(chords) * bar
+        bar_index += len(chords)
 
+    out = [lowpass_v + bv for lowpass_v, bv in zip(lowpass(list(lead.buf), 0.55), back.buf)]
+    save(name, out, gain=gain)
+
+
+# --- the songs ----------------------------------------------------------------
 
 def music():
-    # Apartment: cheerful C major, C - Am - F - G.
-    song("music_apartment", 124,
-         [("C", False), ("A", True), ("F", False), ("G", False)] * 2,
-         [(7, 1), (4, 0.5), (7, 0.5), (9, 1), (7, 1), (4, 1), (2, 0.5), (0, 0.5), (2, 1), (None, 1),
-          (5, 1), (4, 0.5), (5, 0.5), (7, 1), (9, 1), (11, 1), (12, 1), (7, 2)])
-    # Basement: slower, A minor, sparse lead.
-    song("music_basement", 96,
-         [("A", True), ("F", False), ("D", True), ("E", False)] * 2,
-         [(-3, 1.5), (0, 0.5), (2, 1), (None, 1), (3, 1.5), (2, 0.5), (0, 1), (None, 1),
-          (-1, 1), (0, 1), (2, 1), (-4, 1), (-3, 3), (None, 1)],
-         lead_duty=0.5, lead_vol=0.12)
-    # Final boss: fast, driving D minor.
-    song("music_boss", 156,
-         [("D", True), ("A#", False), ("C", False), ("A", False)] * 2,
-         [(2, 0.5), (2, 0.5), (5, 0.5), (2, 0.5), (9, 1), (7, 0.5), (5, 0.5), (4, 1), (2, 1), (1, 1), (4, 1),
-          (2, 0.5), (5, 0.5), (9, 0.5), (14, 0.5), (12, 1), (10, 1), (9, 2)],
-         lead_vol=0.15)
+    # Apartment: bouncy C major, a hummable hook.
+    song("music_apartment", 132,
+         ["C", "G", "Am", "F", "C", "G", "F", "G"],
+         "E5:.5 G5:.5 C6:1 B5:.5 G5:.5 E5:1  D5:.5 G5:.5 B5:1 A5:.5 G5:.5 D5:1  "
+         "C5:.5 E5:.5 A5:1 G5:.5 E5:.5 C5:1  F5:1 E5:.5 D5:.5 C5:2  "
+         "E5:.5 G5:.5 C6:1 D6:.5 C6:.5 G5:1  B5:.5 D6:.5 G6:1 F6:.5 D6:.5 B5:1  "
+         "A5:1 G5:.5 F5:.5 E5:.5 F5:.5 G5:1  G5:3 R:1",
+         ["Am", "F", "C", "G", "Am", "F", "G", "G"],
+         "A5:1.5 G5:.5 E5:1 C5:1  F5:1.5 E5:.5 C5:1 A4:1  E5:.5 F5:.5 G5:1 C6:1 G5:1  "
+         "D5:.5 E5:.5 F5:.5 G5:.5 B5:2  A5:.5 B5:.5 C6:1 B5:.5 A5:.5 E5:1  "
+         "F5:.5 G5:.5 A5:1 G5:.5 F5:.5 C5:1  B4:.5 D5:.5 G5:1 F5:.5 D5:.5 B4:1  D5:2 G5:2",
+         style="bounce")
+
+    # Basement: dark A minor, driving octave bass.
+    song("music_basement", 116,
+         ["Am", "Am", "F", "G", "Am", "Am", "E", "E"],
+         "A4:.5 C5:.5 E5:.5 A5:1.5 G5:.5 E5:.5  F5:.5 E5:.5 D5:.5 C5:.5 B4:1 C5:1  "
+         "A4:.5 C5:.5 F5:.5 A5:1.5 G5:.5 F5:.5  G5:1 F5:.5 E5:.5 D5:2  "
+         "A4:.5 C5:.5 E5:.5 A5:1 B5:.5 C6:1  B5:.5 A5:.5 G5:.5 E5:.5 C5:2  "
+         "B4:.5 D5:.5 E5:.5 G#5:1 F5:.5 E5:1  E5:3 R:1",
+         ["Dm", "Dm", "Am", "Am", "F", "G", "E", "E"],
+         "D5:1 F5:1 A5:1.5 G5:.5  F5:.5 E5:.5 D5:1 A4:2  C5:1 E5:1 A5:1.5 B5:.5  "
+         "C6:.5 B5:.5 A5:1 E5:2  F5:.5 G5:.5 A5:1 C6:1 A5:1  B5:.5 A5:.5 G5:1 D5:2  "
+         "E5:.5 F5:.5 G#5:1 B5:1 G#5:1  E5:2 R:2",
+         style="drive")
+
+    # Garden: sunny F major, soft triangle "flute" lead.
+    song("music_garden", 124,
+         ["F", "C", "Dm", "Bb", "F", "C", "Bb", "C"],
+         "C5:.5 F5:.5 A5:1 G5:.5 F5:.5 C5:1  E5:.5 G5:.5 C6:1 Bb5:.5 G5:.5 E5:1  "
+         "D5:.5 F5:.5 A5:1 C6:.5 A5:.5 F5:1  D5:1 F5:1 Bb5:2  "
+         "A5:.5 C6:.5 A5:.5 F5:.5 G5:1 A5:1  G5:.5 E5:.5 C5:1 E5:.5 G5:.5 C6:1  "
+         "Bb5:.5 A5:.5 G5:.5 F5:.5 D5:1 F5:1  E5:1 G5:1 C5:2",
+         ["Dm", "Bb", "F", "C", "Dm", "Bb", "C", "C"],
+         "A5:1.5 F5:.5 D5:1 F5:1  Bb5:1.5 F5:.5 D5:1 Bb4:1  A5:.5 G5:.5 F5:1 C6:1 A5:1  "
+         "G5:3 R:1  D6:1 C6:.5 A5:.5 F5:1 A5:1  Bb5:1 A5:.5 F5:.5 D5:2  "
+         "C5:.5 E5:.5 G5:.5 Bb5:.5 C6:1 Bb5:1  G5:2 E5:2",
+         style="bounce", lead_kind="tri", lead_duty=0.5, gain=1.3)
+
+    # Rooftop: epic night run, D minor, galloping bass.
+    song("music_rooftop", 146,
+         ["Dm", "Bb", "C", "A", "Dm", "Bb", "Gm", "A"],
+         "D5:.5 F5:.5 A5:.5 D6:1.5 C6:.5 A5:.5  Bb5:1 A5:.5 G5:.5 F5:1 D5:1  "
+         "E5:.5 G5:.5 C6:.5 E6:1.5 D6:.5 C6:.5  C#6:1 E6:1 A5:2  "
+         "D6:.5 C6:.5 A5:.5 F5:.5 D5:1 F5:1  G5:.5 F5:.5 D5:.5 Bb4:.5 D5:1 F5:1  "
+         "G5:.5 A5:.5 Bb5:1 A5:.5 G5:.5 D5:1  E5:.5 F5:.5 G5:.5 A5:.5 C#6:2",
+         ["Bb", "C", "Dm", "Dm", "Gm", "A", "Dm", "A"],
+         "F5:1 Bb5:1 D6:1.5 C6:.5  E5:1 G5:1 C6:1.5 Bb5:.5  A5:.5 D6:.5 F6:1 E6:.5 D6:.5 A5:1  "
+         "D6:3 R:1  G5:.5 Bb5:.5 D6:1 C6:.5 Bb5:.5 G5:1  A5:.5 C#6:.5 E6:1 D6:.5 C#6:.5 A5:1  "
+         "F5:.5 A5:.5 D6:1 F6:1 E6:1  C#6:2 A5:2",
+         style="gallop", lead_duty=0.5)
+
+    # Final boss: fast E minor.
+    boss_a = ("E5:.5 E5:.5 G5:.5 E5:.5 B5:1 A5:1  G5:.5 G5:.5 E5:.5 G5:.5 C6:1 B5:1  "
+              "A5:.5 A5:.5 F#5:.5 A5:.5 D6:1 C6:1  B5:1 D#6:1 F#6:2  "
+              "E6:.5 D6:.5 B5:.5 G5:.5 E5:1 G5:1  C6:.5 B5:.5 G5:.5 E5:.5 C5:1 E5:1  "
+              "A5:.5 C6:.5 E6:1 D6:.5 C6:.5 A5:1  B5:.5 A5:.5 G5:.5 F#5:.5 D#5:2")
+    boss_b = ("E5:1 G5:1 B5:1 E6:1  C6:1 B5:.5 A5:.5 G5:2  D5:1 F#5:1 A5:1 D6:1  "
+              "B5:1 A5:.5 G5:.5 F#5:2  G5:.5 A5:.5 B5:1 E6:1 D6:1  C6:.5 B5:.5 A5:1 E5:2  "
+              "F#5:.5 G5:.5 A5:1 C6:1 A5:1  B5:2 B4:2")
+    song("music_boss", 160,
+         ["Em", "C", "D", "B", "Em", "C", "Am", "B"], boss_a,
+         ["Em", "C", "D", "B", "Em", "Am", "D", "B"], boss_b,
+         style="drive")
+
+    # Main menu: the apartment tune, calmer and without drums.
+    song("music_menu", 100,
+         ["C", "Am", "F", "G", "C", "Am", "F", "G"],
+         "E5:1 G5:1 C6:2  C6:1 A5:1 E5:2  F5:1 A5:1 C6:1.5 A5:.5  G5:4  "
+         "E5:1 G5:1 C6:1 D6:1  E6:1 C6:1 A5:2  F5:1 E5:.5 D5:.5 C5:1 D5:1  G4:4",
+         ["F", "G", "Em", "Am", "F", "G", "C", "C"],
+         "A5:1.5 G5:.5 F5:2  B5:1.5 A5:.5 G5:2  G5:1 E5:1 B4:2  C5:1 E5:1 A5:2  "
+         "A5:1 C6:1 F6:2  D6:1 B5:1 G5:2  E5:1 G5:1 C6:2  C6:4",
+         style="bounce", drums=False, lead_kind="tri", lead_duty=0.5, gain=1.3)
 
 
 if __name__ == "__main__":

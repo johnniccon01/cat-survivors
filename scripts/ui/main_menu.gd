@@ -23,7 +23,7 @@ func _ready() -> void:
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
 			return
 	_build()
-	Audio.play_music("music_apartment")
+	Audio.play_music("music_menu")
 	if "--shop" in args:
 		_open(_shop)
 	elif "--charms" in args:

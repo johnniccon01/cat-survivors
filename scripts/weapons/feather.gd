@@ -9,6 +9,7 @@ const BASE_RADIUS := 6.0
 
 
 func shoot(index: int) -> void:
+	Audio.play("whoosh", -10.0 - (6.0 if player.is_companion() else 0.0))
 	var target := enemies.nearest(player.position, RANGE)
 	var dir := Vector2(player.facing, 0)
 	if target != null:

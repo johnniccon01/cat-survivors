@@ -57,6 +57,7 @@ func complete() -> void:
 		return
 	_done = true
 	main.hud.show_banner(tr("QUEST_DONE"), 2.5)
+	Audio.play("quest_done", -4.0, 0.0)
 	finished.emit(true)
 	queue_free()
 

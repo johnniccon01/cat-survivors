@@ -6,6 +6,7 @@ const BASE_SIZE := Vector2(56, 20)
 
 
 func shoot(index: int) -> void:
+	Audio.play("scratch", -10.0 - (6.0 if player.is_companion() else 0.0))
 	var side := player.facing * (1 if index % 2 == 0 else -1)
 	var row := floori(index / 2.0)
 	var size := BASE_SIZE * area()

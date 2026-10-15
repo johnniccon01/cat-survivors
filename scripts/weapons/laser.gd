@@ -8,6 +8,7 @@ const BASE_WIDTH := 3.0
 
 
 func shoot(index: int) -> void:
+	Audio.play("laser", -14.0 - (6.0 if player.is_companion() else 0.0))
 	var dir := Vector2.from_angle(randf() * TAU)
 	var targets := enemies.query_radius(player.position, RANGE)
 	if not targets.is_empty():

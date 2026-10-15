@@ -110,6 +110,7 @@ func _start(quest_id: String, distance: float) -> void:
 	main.add_child(quest)
 	active = quest
 	main.hud.show_banner(tr("QUEST_NEW") % quest.title(), 3.0)
+	Audio.play("quest", -4.0, 0.0)
 
 
 func _on_finished(success: bool) -> void:

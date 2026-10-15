@@ -43,6 +43,7 @@ func _setup_input() -> void:
 	_add_keys("pause", [KEY_ESCAPE, KEY_P])
 	_add_keys("restart", [KEY_R, KEY_ENTER])
 	_add_keys("language", [KEY_L])
+	_add_keys("mute", [KEY_M])
 	_add_axis("move_left", JOY_AXIS_LEFT_X, -1.0)
 	_add_axis("move_right", JOY_AXIS_LEFT_X, 1.0)
 	_add_axis("move_up", JOY_AXIS_LEFT_Y, -1.0)

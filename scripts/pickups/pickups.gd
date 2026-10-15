@@ -15,6 +15,8 @@ const HOP_SPEED := -90.0
 
 var player: Player
 var items: Array[Pickup] = []
+## XP collected this run (for testing).
+var total_xp := 0.0
 
 var _xp_count := 0
 
@@ -98,10 +100,14 @@ func _collect(item: Pickup) -> void:
 	match item.kind:
 		Pickup.Kind.XP:
 			_xp_count -= 1
+			total_xp += item.value
+			Audio.play("xp", -16.0, 0.12)
 			player.add_xp(item.value)
 		Pickup.Kind.HEART, Pickup.Kind.SARDINE:
+			Audio.play("heal", -4.0)
 			player.heal(item.value)
 		Pickup.Kind.MAGNET:
+			Audio.play("magnet", -4.0, 0.0)
 			# Pull every kibble on the map towards the cat.
 			for other in items:
 				if other.kind == Pickup.Kind.XP and not other.attracted:

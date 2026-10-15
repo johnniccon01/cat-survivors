@@ -16,6 +16,7 @@ var _kills_label: Label
 var _debug_label: Label
 var _pause_overlay: Control
 var _pause_language: Label
+var _pause_sound: Label
 var _over_overlay: Control
 var _over_stats: Label
 var _win_overlay: Control
@@ -72,8 +73,9 @@ func _ready() -> void:
 	_debug_label.visible = OS.is_debug_build()
 	add_child(_debug_label)
 
-	_pause_overlay = _overlay(["PAUSE_TITLE", "PAUSE_HINT", ""])
+	_pause_overlay = _overlay(["PAUSE_TITLE", "PAUSE_HINT", "", ""])
 	_pause_language = _pause_overlay.get_node("Box").get_child(2)
+	_pause_sound = _pause_overlay.get_node("Box").get_child(3)
 	_over_overlay = _overlay(["GAME_OVER_TITLE", "", "GAME_OVER_HINT", "GAME_OVER_MENU"])
 	_over_stats = _over_overlay.get_node("Box").get_child(1)
 
@@ -193,6 +195,7 @@ func update_stats(elapsed: float, kills: int, enemy_count: int) -> void:
 
 func show_pause(on: bool) -> void:
 	_pause_language.text = tr("PAUSE_LANGUAGE") % tr("LANGUAGE_NAME")
+	_pause_sound.text = tr("PAUSE_SOUND") % tr("SOUND_OFF" if Settings.muted else "SOUND_ON")
 	_pause_overlay.visible = on
 
 

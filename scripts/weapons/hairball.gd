@@ -7,6 +7,7 @@ const BASE_RADIUS := 6.0
 
 
 func shoot(index: int) -> void:
+	Audio.play("hairball", -10.0 - (6.0 if player.is_companion() else 0.0))
 	# Spread consecutive shots to alternating sides, leaning towards the facing.
 	var spread := (index + 1) * 25.0 * (1 if index % 2 == 0 else -1)
 	var p := Projectile.new()

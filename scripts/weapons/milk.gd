@@ -9,6 +9,7 @@ const TICK := 0.35
 
 
 func shoot(_index: int) -> void:
+	Audio.play("splash", -10.0 - (6.0 if player.is_companion() else 0.0))
 	var pos := player.position + Vector2.from_angle(randf() * TAU) * randf_range(30.0, 90.0)
 	var targets := enemies.query_radius(player.position, RANGE)
 	if not targets.is_empty():

@@ -79,6 +79,7 @@ func spawn_prop(id: String, pos: Vector2) -> Enemy:
 
 func on_enemy_dead(enemy: Enemy) -> void:
 	var poof := Poof.new()
+	Audio.play("break" if enemy.is_prop else "pop", -8.0, 0.12)
 	if enemy.is_prop:
 		props.erase(enemy)
 		prop_broken.emit(enemy.id, enemy.position)

@@ -7,6 +7,7 @@ const EXPAND_TIME := 0.45
 
 
 func shoot(_index: int) -> void:
+	Audio.play("bell", -8.0 - (6.0 if player.is_companion() else 0.0))
 	var wave := RingWave.new()
 	wave.enemies = enemies
 	wave.position = player.position

@@ -199,6 +199,8 @@ func hit(amount: float, direction: Vector2, knockback: float) -> void:
 	if dead:
 		return
 	hp -= amount
+	if not is_prop:
+		Audio.play("hit", -14.0, 0.15)
 	_flash = 0.08
 	queue_redraw()
 	_knock = direction.normalized() * KNOCK_SPEED * knockback * (1.0 - knockback_resist)

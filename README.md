@@ -6,7 +6,9 @@ Survivors-like hra v Godot 4.6: mačka Mica bráni byt pred hordami ponožiek.
 
 Otvor `project.godot` v Godot 4.6 a stlač **F5**.
 
-Ovládanie: **WASD / šípky / ľavá páčka**, **Esc** pauza, **L** (v pauze) zmena jazyka, **R / Enter** reštart po smrti.
+Ovládanie: **WASD / šípky / ľavá páčka**, **Esc** pauza, v pauze **L** jazyk a **M** zvuk, **R / Enter** reštart po smrti.
+
+**Vývojársky panel (F1)** – len vo vývojovej verzii (vo vydanej hre sa nezobrazí): posun o minútu, nesmrteľnosť, +5 levelov, finálny boss hneď, quest hneď. Pred vydaním ho zmažeme (`scripts/ui/dev_panel.gd`).
 
 Automatický test (bot hrá sám 4× rýchlejšie a vypíše výsledok):
 
@@ -47,6 +49,10 @@ Testovacie behy (`--bot`) nikdy neukladajú profil.
 - `scripts/spawner.gd` – spawnovanie mimo obrazovky podľa `stages.json`.
 - `scripts/player/`, `scripts/fx/`, `scripts/ui/`, `scripts/world/` – mačka, efekty, HUD, podlaha.
 
+
+## Zvuk
+
+Všetky zvuky a hudba sú syntetizované skriptom `tools/gen_audio.py` (žiadne cudzie súbory ani licencie). Po úprave stačí spustiť `python tools/gen_audio.py` a súbory v `assets/audio/` sa prepíšu. Prehrávanie rieši autoload `scripts/autoload/audio.gd`.
 
 ## Preklady
 

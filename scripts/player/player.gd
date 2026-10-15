@@ -38,6 +38,8 @@ const COMPANION_LEVEL_STEP := 4
 var leader: Player
 ## Max health of an escorted cat.
 var escort_hp := 60.0
+## Dev cheat: ignore all damage.
+var god := false
 ## External pull (e.g. the final boss sucking the cat in); reset every frame.
 var pull := Vector2.ZERO
 
@@ -93,7 +95,9 @@ func xp_to_next() -> float:
 	# Same shape as Vampire Survivors: cheap first levels, then a steady climb.
 	if level < 20:
 		return 5.0 + (level - 1) * 8.0
-	return 157.0 + (level - 20) * 12.0
+	if level < 40:
+		return 157.0 + (level - 20) * 18.0
+	return 517.0 + (level - 40) * 30.0
 
 
 func add_xp(amount: float) -> void:
@@ -200,9 +204,11 @@ func _physics_process(delta: float) -> void:
 
 
 func take_damage(amount: float) -> void:
-	if is_dead or _invuln > 0.0 or is_companion():
+	if is_dead or _invuln > 0.0 or is_companion() or god:
 		return
 	hp -= maxf(amount - stats["armor"], 1.0)
+	if controller != "escort":
+		Audio.play("hurt", -6.0)
 	_invuln = HIT_INVULN
 	_hurt_flash = 0.12
 	if hp <= 0.0:

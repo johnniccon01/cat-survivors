@@ -127,7 +127,7 @@ QUEST_FRIDGE_FIND,Find the fridge,Nájdi chladničku
 QUEST_FRIDGE_OPEN,Stay by the fridge to open it,Zostaň pri chladničke a otvor ju
 QUEST_FRIDGE_FIGHT,Defeat the leftovers: %d left,Poraz zvyšky: zostáva %d
 SELECT_TITLE,Choose your cat,Vyber si mačku
-SELECT_HINT,← → cat · ↑ ↓ map · Enter start · L language,← → mačka · ↑ ↓ mapa · Enter štart · L jazyk
+SELECT_HINT,← → cat · ↑ ↓ map · Enter start · L language · M sound,← → mačka · ↑ ↓ mapa · Enter štart · L jazyk · M zvuk
 SELECT_LOCKED,???,???
 GAME_OVER_MENU,Esc – change cat,Esc – zmeniť mačku
 QUEST_RESCUE_ESCORT,Walk %s to the safe cat bed,Odprevaď: %s do bezpečného pelechu
@@ -148,3 +148,6 @@ QUEST_COLLAR_PICK,Pick up the collar,Zober obojok
 QUEST_COLLAR_FOUND,"Luna's collar! Rat tracks lead down to the basement...","Lunin obojok! Potkanie stopy vedú dolu do pivnice..."
 STORY_BASEMENT_COLLAR,Luna's scent is everywhere down here. The rats have her!,Lunin pach je tu všade. Potkany ju majú!
 STORY_BASEMENT_INTRO,Something is squeaking in the dark...,V tme niečo piští...
+PAUSE_SOUND,M – sound: %s,M – zvuk: %s
+SOUND_ON,on,zapnutý
+SOUND_OFF,off,vypnutý

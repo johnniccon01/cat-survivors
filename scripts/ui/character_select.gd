@@ -33,6 +33,7 @@ func _ready() -> void:
 	_stage_index = maxi(_stage_ids.find(Profile.selected_stage), 0)
 	_build()
 	_refresh()
+	Audio.play_music("music_apartment")
 
 
 func _build() -> void:
@@ -114,9 +115,11 @@ func _refresh() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("move_left") or event.is_action_pressed("ui_left"):
 		_index = (_index - 1 + _ids.size()) % _ids.size()
+		Audio.play("click", -6.0, 0.0)
 		_refresh()
 	elif event.is_action_pressed("move_right") or event.is_action_pressed("ui_right"):
 		_index = (_index + 1) % _ids.size()
+		Audio.play("click", -6.0, 0.0)
 		_refresh()
 	elif event.is_action_pressed("move_up") or event.is_action_pressed("ui_up"):
 		_stage_index = (_stage_index - 1 + _stage_ids.size()) % _stage_ids.size()
@@ -127,6 +130,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("language"):
 		Settings.cycle_language()
 		_refresh()
+	elif event.is_action_pressed("mute"):
+		Settings.toggle_mute()
 	elif event.is_action_pressed("restart") or event.is_action_pressed("ui_accept"):
 		_start()
 
@@ -147,6 +152,7 @@ func _start() -> void:
 		return
 	Profile.select_stage(stage_id)
 	Profile.select(id)
+	Audio.play("select", -4.0, 0.0)
 	get_tree().change_scene_to_file(MAIN_SCENE)
 
 

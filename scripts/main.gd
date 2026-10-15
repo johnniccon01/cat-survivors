@@ -30,6 +30,9 @@ var companions: Array[Player] = []
 var quests: QuestDirector
 var quests_done := 0
 var final_boss: Enemy
+## Bot runs log XP gained per minute to catch progression bugs.
+var _xp_log: Dictionary = {}
+var _xp_seen := 0.0
 var bosses_killed := 0
 var chests_opened := 0
 
@@ -69,7 +72,9 @@ func _ready() -> void:
 	enemies.enemy_killed.connect(_on_enemy_killed)
 	enemies.prop_broken.connect(_on_prop_broken)
 	pickups.chest_collected.connect(_queue_modal.bind("chest"))
-	spawner.boss_spawned.connect(func(_id: String) -> void: hud.show_banner(tr("BOSS_WARNING")))
+	spawner.boss_spawned.connect(func(_id: String) -> void:
+		hud.show_banner(tr("BOSS_WARNING"))
+		Audio.play("warning", -4.0, 0.0))
 	spawner.stage_cleared.connect(_on_stage_cleared)
 	spawner.final_boss_spawned.connect(_on_final_boss)
 	player.died.connect(_on_player_died)
@@ -85,8 +90,13 @@ func _ready() -> void:
 		Engine.time_scale = 4.0
 	for i in int(_arg("--levels=", "0")):
 		Upgrades.apply(player, Upgrades.roll(player)[0])
+	if OS.is_debug_build() and not _bot:
+		var dev := DevPanel.new()
+		dev.main = self
+		add_child(dev)
 	if "--test-evolution" in _args:
 		_test_evolution.call_deferred()
+	Audio.play_music("music_basement" if spawner.stage().get("theme", "") == "basement" else "music_apartment")
 	if "--all-weapons" in _args:
 		for id: String in GameData.weapons:
 			if not GameData.weapons[id].get("evolved", false) and player.get_weapon(id) == null:
@@ -95,6 +105,10 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	hud.update_stats(spawner.elapsed, kills, enemies.enemies.size())
+	if _bot:
+		var minute := floori(spawner.elapsed / 60.0)
+		_xp_log[minute] = _xp_log.get(minute, 0.0) + pickups.total_xp - _xp_seen
+		_xp_seen = pickups.total_xp
 	hud.update_quest(quests.active)
 	hud.update_boss(final_boss if is_instance_valid(final_boss) and not final_boss.dead else null)
 	if _bot and (spawner.elapsed >= _bot_time or _run_over):
@@ -108,6 +122,10 @@ func _process(_delta: float) -> void:
 			enemies.enemies.size(), player.is_dead])
 		print("BOT: weapons=%s passives=%s props_broken=%d bosses_killed=%d chests=%d won=%s" % [
 			weapons, player.passives, props_broken, bosses_killed, chests_opened, _run_over and not player.is_dead])
+		var per_minute: Array[String] = []
+		for m: int in _xp_log:
+			per_minute.append("%d:%d" % [m, roundi(_xp_log[m])])
+		print("BOT: xp per minute ", " ".join(per_minute), " | kibbles on floor=", pickups.items.size())
 		print("BOT: quests_done=%d companions=%s" % [quests_done, companions.map(func(c: Player) -> String: return c.cat_id)])
 		var q := quests.active
 		if q != null:
@@ -126,7 +144,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_tree().paused = false
 			get_tree().change_scene_to_file("res://scenes/character_select.tscn")
 		return
-	if event.is_action_pressed("language") and get_tree().paused:
+	if event.is_action_pressed("mute") and get_tree().paused:
+		Settings.toggle_mute()
+		hud.show_pause(true)
+	elif event.is_action_pressed("language") and get_tree().paused:
 		Settings.cycle_language()
 		hud.show_pause(true)
 		hud.update_inventory(player)
@@ -162,6 +183,7 @@ func has_companion(cat_id: String) -> bool:
 ## A rescued or defeated cat joins the run and is unlocked for good.
 func cat_joined(cat_id: String, at: Vector2 = Vector2.INF) -> void:
 	var cat_name := tr("CAT_%s_NAME" % cat_id)
+	Audio.play("meow", -2.0)
 	if Profile.unlock(cat_id) and not "--cat=" in " ".join(_args):
 		hud.show_banner("%s
 %s" % [tr("QUEST_JOINED") % cat_name, tr("QUEST_UNLOCKED") % cat_name], 4.0)
@@ -213,6 +235,7 @@ func _next_modal() -> void:
 	get_tree().paused = true
 	var kind: String = _modals.pop_front()
 	if kind == "chest":
+		Audio.play("chest", -2.0, 0.0)
 		chests_opened += 1
 		var results := Upgrades.open_chest(player, _weighted(CHEST_ROLLS))
 		if _bot:
@@ -220,6 +243,7 @@ func _next_modal() -> void:
 		else:
 			hud.treasure.open(results)
 		return
+	Audio.play("levelup", -4.0, 0.0)
 	var offers := Upgrades.roll(player)
 	if _bot and not "--show-levelup" in _args:
 		_on_offer_chosen(offers[0])
@@ -228,24 +252,31 @@ func _next_modal() -> void:
 
 
 func _on_offer_chosen(offer: Dictionary) -> void:
+	Audio.play("select", -6.0, 0.0)
 	Upgrades.apply(player, offer)
 	_next_modal()
 
 
 func _on_player_died() -> void:
 	_run_over = true
+	Audio.stop_music()
+	Audio.play("gameover", -2.0, 0.0)
 	hud.show_game_over(spawner.elapsed, kills)
 	get_tree().paused = true
 
 
 func _on_final_boss(boss: Enemy) -> void:
 	final_boss = boss
+	Audio.play("warning", 0.0, 0.0)
+	Audio.play_music("music_boss")
 	spawner.paused = true
 	hud.show_banner(tr("FINAL_BOSS_WARNING") % tr("ENEMY_%s_NAME" % boss.id), 4.0)
 
 
 func _on_stage_cleared() -> void:
 	_run_over = true
+	Audio.stop_music()
+	Audio.play("victory", -2.0, 0.0)
 	hud.show_victory(kills)
 	if Profile.clear_stage(spawner.stage_id):
 		for id: String in GameData.stages:

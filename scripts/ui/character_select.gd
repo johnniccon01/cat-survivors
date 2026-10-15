@@ -170,6 +170,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("move_down") or event.is_action_pressed("ui_down"):
 		_stage_index = (_stage_index + 1) % _stage_ids.size()
 		_refresh()
+	elif event.is_action_pressed("pause"):
+		Audio.play("click", -6.0, 0.0)
+		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 	elif event.is_action_pressed("language"):
 		Settings.cycle_language()
 		_refresh()

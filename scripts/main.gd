@@ -141,6 +141,12 @@ func _ready() -> void:
 	hud.level_up.reroll_requested.connect(_on_reroll)
 	player.revived.connect(_on_revived)
 	hud.treasure.closed.connect(_next_modal)
+	hud.resume_pressed.connect(func() -> void:
+		get_tree().paused = false
+		hud.show_pause(false))
+	hud.give_up_pressed.connect(func() -> void:
+		hud.show_pause(false)
+		_end_run("death"))
 	hud.update_xp(player)
 	hud.update_inventory(player)
 	if _bot:
@@ -160,6 +166,10 @@ func _ready() -> void:
 			trap.setup(trap_id, self)
 			add_child(trap)
 			i += 1
+	if "--pause" in _args:
+		(func() -> void:
+			get_tree().paused = true
+			hud.show_pause(true)).call_deferred()
 	if "--test-numbers" in _args:
 		for i in 6:
 			enemies.numbers.add(player.position + Vector2(-60 + i * 24, -20), 12.0 + i * 7, i % 2 == 1)
@@ -240,7 +250,7 @@ func _exit_tree() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _in_modal:
+	if _in_modal or hud.settings.visible:
 		return
 	if _run_over:
 		if event.is_action_pressed("restart"):

@@ -5,7 +5,11 @@ extends CanvasLayer
 
 const XP_BAR_HEIGHT := 14.0
 
+signal resume_pressed
+signal give_up_pressed
+
 var level_up: LevelUpPanel
+var settings: SettingsPanel
 var treasure: TreasurePanel
 
 var _xp_fill: ColorRect
@@ -85,10 +89,30 @@ func _ready() -> void:
 	add_child(_debug_label)
 
 	_pause_overlay = _overlay(["PAUSE_TITLE", "PAUSE_HINT", "", "", "", ""])
-	_pause_language = _pause_overlay.get_node("Box").get_child(2)
-	_pause_sound = _pause_overlay.get_node("Box").get_child(3)
-	_pause_numbers = _pause_overlay.get_node("Box").get_child(4)
-	_pause_shake = _pause_overlay.get_node("Box").get_child(5)
+	var pause_box := _pause_overlay.get_node("Box")
+	var resume := UiStyle.button("PAUSE_RESUME", 340)
+	resume.pressed.connect(func() -> void: resume_pressed.emit())
+	var open_settings := UiStyle.button("MENU_SETTINGS", 340)
+	open_settings.pressed.connect(func() -> void:
+		_pause_overlay.visible = false
+		settings.open())
+	var give_up := UiStyle.button("PAUSE_GIVE_UP", 340)
+	give_up.pressed.connect(func() -> void: give_up_pressed.emit())
+	for i in 3:
+		var b: Button = [resume, open_settings, give_up][i]
+		pause_box.add_child(b)
+		pause_box.move_child(b, 1 + i)
+	_pause_language = _pause_overlay.get_node("Box").get_child(5)
+	_pause_sound = _pause_overlay.get_node("Box").get_child(6)
+	_pause_numbers = _pause_overlay.get_node("Box").get_child(7)
+	_pause_shake = _pause_overlay.get_node("Box").get_child(8)
+	for line: Label in [_pause_language, _pause_sound, _pause_numbers, _pause_shake]:
+		line.label_settings.font_size = 16
+		line.label_settings.font_color = UiStyle.MUTED
+
+	settings = SettingsPanel.new()
+	add_child(settings)
+	settings.closed.connect(func() -> void: show_pause(true))
 
 	# Red edges when the cat gets hurt.
 	_hurt_flash = ColorRect.new()
@@ -285,6 +309,8 @@ func show_pause(on: bool) -> void:
 	_pause_numbers.text = tr("PAUSE_NUMBERS") % tr("SOUND_ON" if Settings.damage_numbers else "SOUND_OFF")
 	_pause_shake.text = tr("PAUSE_SHAKE") % tr("SOUND_ON" if Settings.screen_shake else "SOUND_OFF")
 	_pause_overlay.visible = on
+	if on:
+		(_pause_overlay.get_node("Box").get_child(1) as Button).grab_focus.call_deferred()
 
 
 func show_game_over(elapsed: float, kills: int) -> void:

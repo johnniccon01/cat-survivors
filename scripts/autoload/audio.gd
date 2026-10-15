@@ -19,14 +19,28 @@ var _music_name := ""
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	_ensure_bus("Music")
+	_ensure_bus("SFX")
 	for i in POOL_SIZE:
 		var p := AudioStreamPlayer.new()
+		p.bus = "SFX"
 		add_child(p)
 		_players.append(p)
 	_music = AudioStreamPlayer.new()
 	_music.volume_db = MUSIC_DB
+	_music.bus = "Music"
 	add_child(_music)
-	AudioServer.set_bus_mute(0, Settings.muted)
+	Settings.apply_audio()
+
+
+## Adds a bus routed into Master if it doesn't exist yet.
+func _ensure_bus(bus_name: String) -> void:
+	if AudioServer.get_bus_index(bus_name) >= 0:
+		return
+	AudioServer.add_bus()
+	var idx := AudioServer.bus_count - 1
+	AudioServer.set_bus_name(idx, bus_name)
+	AudioServer.set_bus_send(idx, "Master")
 
 
 ## Plays a sound effect by file name (without extension).

@@ -4,7 +4,7 @@ Survivors-like hra v Godot 4.6: mačka Mica bráni byt pred hordami ponožiek.
 
 ## Spustenie
 
-Otvor `project.godot` v Godot 4.6 a stlač **F5**.
+Otvor `project.godot` v Godot 4.6 a stlač **F5**. Hra začína hlavným menu (Hrať, Vylepšenia, Prívesky, Ciele, Nastavenia, Koniec).
 
 Ovládanie: **WASD / šípky / ľavá páčka**, **Esc** pauza, v pauze **L** jazyk a **M** zvuk, **R / Enter** reštart po smrti.
 
@@ -35,7 +35,8 @@ Godot_v4.6.2-stable_win64_console.exe --headless --path . -- --bot
 - `--cat=ID` – hrá za danú mačku bez odomknutia
 - `--stage=ID` – hrá danú mapu bez odomknutia (LIVING_ROOM, BASEMENT)
 - `--levels=N` – začne s N náhodnými vylepšeniami (test neskorej hry)
-- `--test-numbers` – zobrazí ukážku čísel poškodenia
+- `--test-numbers` – zobrazí ukážku čísel poškodenia; `--pause` – hneď otvorí pauzové menu
+- Hlavné menu: `--shop`, `--charms`, `--goals`, `--settings` otvoria daný panel
 - `--extract` – hneď otvorí mačacie dvierka; `--drop-charm` – hneď hodí prívesok; `--traps` – položí všetky pasce vedľa mačky
 
 Testovacie behy (`--bot`) nikdy neukladajú profil.

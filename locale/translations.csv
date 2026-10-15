@@ -3,7 +3,7 @@ LANGUAGE_NAME,English,Slovenčina
 DECIMAL_SEP,.,","
 HUD_KILLS,Defeated: %d,Porazení: %d
 PAUSE_TITLE,PAUSED,PAUZA
-PAUSE_HINT,Esc – resume,Esc – pokračovať
+PAUSE_HINT,Keyboard shortcuts:,Klávesové skratky:
 PAUSE_LANGUAGE,L – language: %s,L – jazyk: %s
 GAME_OVER_TITLE,Mica gave up!,Mica to zabalila!
 GAME_OVER_STATS,You survived %s and defeated %d enemies.,Prežila si %s a porazila %d nepriateľov.
@@ -127,7 +127,7 @@ QUEST_FRIDGE_FIND,Find the fridge,Nájdi chladničku
 QUEST_FRIDGE_OPEN,Stay by the fridge to open it,Zostaň pri chladničke a otvor ju
 QUEST_FRIDGE_FIGHT,Defeat the leftovers: %d left,Poraz zvyšky: zostáva %d
 SELECT_TITLE,Choose your cat,Vyber si mačku
-SELECT_HINT,← → cat · ↑ ↓ map · Enter start · U upgrades · C charms · G goals · L language · M sound,← → mačka · ↑ ↓ mapa · Enter štart · U vylepšenia · C prívesky · G ciele · L jazyk · M zvuk
+SELECT_HINT,← → cat · ↑ ↓ map · Enter start · U upgrades · C charms · G goals · Esc menu,← → mačka · ↑ ↓ mapa · Enter štart · U vylepšenia · C prívesky · G ciele · Esc menu
 SELECT_LOCKED,???,???
 GAME_OVER_MENU,Esc – change cat,Esc – zmeniť mačku
 QUEST_RESCUE_ESCORT,Walk %s to the safe cat bed,Odprevaď: %s do bezpečného pelechu
@@ -284,3 +284,23 @@ PASSIVE_LUCK_NAME,Lucky Cat,Mačka šťastia
 PASSIVE_LUCK_DESC,"+10% luck: more crits, bigger chests, more drops, sometimes a 4th card.","+10 % šťastie: viac kritických zásahov, väčšie truhlice, viac predmetov, občas 4. karta."
 POWERUP_LUCK_NAME,Luck,Šťastie
 POWERUP_LUCK_DESC,"+10% luck per rank: crits, chests, drops and a chance of a 4th level-up card.","+10 % šťastie za stupeň: kritické zásahy, truhlice, predmety a šanca na 4. kartu."
+MENU_TAGLINE,One cat. One night. Way too many socks.,Jedna mačka. Jedna noc. Priveľa ponožiek.
+MENU_PLAY,Play,Hrať
+MENU_UPGRADES,Upgrades,Vylepšenia
+MENU_CHARMS,Charms,Prívesky
+MENU_GOALS,Goals,Ciele
+MENU_SETTINGS,Settings,Nastavenia
+MENU_QUIT,Quit,Koniec
+SETTINGS_TITLE,Settings,Nastavenia
+SET_MASTER,Master volume,Celková hlasitosť
+SET_MUSIC,Music,Hudba
+SET_SFX,Sound effects,Zvukové efekty
+SET_FULLSCREEN,Fullscreen,Celá obrazovka
+SET_VSYNC,VSync,VSync
+SET_NUMBERS,Damage numbers,Čísla poškodenia
+SET_SHAKE,Screen shake,Otrasy obrazovky
+SET_LANGUAGE,Language,Jazyk
+SET_BACK,Back,Späť
+PAUSE_RESUME,Resume,Pokračovať
+PAUSE_GIVE_UP,Give up (counts as death),Vzdať sa (ako smrť)
+SET_SOUND,Sound,Zvuk

@@ -3,3 +3,6 @@
 *.tmp
 /export/
 /builds/
+
+# Local launch shortcuts (paths to this PC)
+/Spustit/

@@ -208,8 +208,10 @@ func update_inventory(player: Player) -> void:
 	_inventory_label.text = "\n".join(lines)
 
 
-func update_gold(amount: int) -> void:
+func update_gold(amount: int, charms: int = 0) -> void:
 	_gold_label.text = tr("HUD_GOLD") % amount
+	if charms > 0:
+		_gold_label.text += "  ·  " + tr("HUD_CHARMS") % charms
 
 
 ## Gold and streak lines on whichever end screen is showing.

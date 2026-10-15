@@ -1,0 +1,15 @@
+{
+  "FISH_BONE":    { "stat": "might",    "value": 0.10, "rarity": "common", "color": "#eae4d3" },
+  "MOUSE_TAIL":   { "stat": "speed",    "value": 0.08, "rarity": "common", "color": "#b0a8a8" },
+  "MILK_TOOTH":   { "stat": "max_hp",   "value": 20.0, "rarity": "common", "color": "#f8f4ea" },
+  "YARN_KNOT":    { "stat": "area",     "value": 0.10, "rarity": "common", "color": "#e0628f" },
+  "GOLD_WHISKER": { "stat": "greed",    "value": 0.15, "rarity": "common", "color": "#f2c14e" },
+  "SARDINE_TIN":  { "stat": "regen",    "value": 0.3,  "rarity": "common", "color": "#8fa9b8" },
+  "MAGNET_PAW":   { "stat": "magnet",   "value": 30.0, "rarity": "common", "color": "#d94848" },
+  "LUCKY_BELL":   { "stat": "reroll",   "value": 1.0,  "rarity": "rare",   "color": "#f2d14e" },
+  "CATNIP_LEAF":  { "stat": "cooldown", "value": -0.06, "rarity": "rare",  "color": "#6cc46c" },
+  "STAR_COLLAR":  { "stat": "growth",   "value": 0.08, "rarity": "rare",   "color": "#8fd3ff" },
+  "IRON_TAG":     { "stat": "armor",    "value": 1.0,  "rarity": "rare",   "color": "#9aa0a6" },
+  "NINTH_LIFE":   { "stat": "revival",  "value": 1.0,  "rarity": "epic",   "color": "#c77dff" },
+  "TWIN_KITTEN":  { "stat": "amount",   "value": 1.0,  "rarity": "epic",   "color": "#ff9f43" }
+}

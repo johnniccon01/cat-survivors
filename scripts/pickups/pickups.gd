@@ -6,6 +6,7 @@ extends Node2D
 
 signal chest_collected
 signal gold_collected(amount: float)
+signal charm_collected(charm_id: String)
 
 const MAX_XP := 300
 ## Chests are not pulled by the magnet; the cat has to walk over them.
@@ -43,6 +44,12 @@ func spawn_xp(pos: Vector2, value: float) -> void:
 			_xp_count -= 1
 	_xp_count += 1
 	_spawn(Pickup.Kind.XP, pos, value)
+
+
+## Drops a specific charm.
+func spawn_charm(pos: Vector2, charm_id: String) -> void:
+	_spawn(Pickup.Kind.CHARM, pos, 0.0)
+	items[-1].charm_id = charm_id
 
 
 ## Spawns a pickup by its loot-table name: xp, heart, sardine or magnet.
@@ -121,4 +128,7 @@ func _collect(item: Pickup) -> void:
 		Pickup.Kind.COIN:
 			Audio.play("xp", -10.0, 0.0)
 			gold_collected.emit(item.value)
+		Pickup.Kind.CHARM:
+			Audio.play("chest", -4.0, 0.0)
+			charm_collected.emit(item.charm_id)
 	item.queue_free()

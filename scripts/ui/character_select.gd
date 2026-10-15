@@ -19,12 +19,14 @@ var _stage_label: Label
 var _stage_ids: Array[String] = []
 var _stage_index := 0
 var _shop: ShopPanel
+var _charms: CharmPanel
+var _worn: Label
 var _gold: Label
 
 
 func _ready() -> void:
 	for arg: String in OS.get_cmdline_user_args():
-		if arg.begins_with("--") and arg != "--shop":
+		if arg.begins_with("--") and arg not in ["--shop", "--charms"]:
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
 			return
 	for id: String in GameData.cats:
@@ -38,6 +40,8 @@ func _ready() -> void:
 	Audio.play_music("music_apartment")
 	if "--shop" in OS.get_cmdline_user_args():
 		_shop.open()
+	if "--charms" in OS.get_cmdline_user_args():
+		_charms.open()
 
 
 func _build() -> void:
@@ -88,6 +92,8 @@ func _build() -> void:
 
 	_gold = _label(20, GOLD)
 	box.add_child(_gold)
+	_worn = _label(18, Color("c77dff"))
+	box.add_child(_worn)
 
 	var hint := _label(18, Color("8f7ea3"))
 	hint.text = "SELECT_HINT"
@@ -96,6 +102,9 @@ func _build() -> void:
 	_shop = ShopPanel.new()
 	add_child(_shop)
 	_shop.closed.connect(_refresh)
+	_charms = CharmPanel.new()
+	add_child(_charms)
+	_charms.closed.connect(_refresh)
 
 
 func _refresh() -> void:
@@ -115,6 +124,8 @@ func _refresh() -> void:
 	else:
 		_name.text = tr("SELECT_LOCKED")
 		_desc.text = tr("CAT_%s_HINT" % id)
+	var worn: Array = Profile.equipped_charms.map(func(c: String) -> String: return tr("CHARM_%s_NAME" % c))
+	_worn.text = tr("SELECT_CHARMS") % ("—" if worn.is_empty() else ", ".join(worn))
 	_gold.text = tr("SELECT_GOLD") % Profile.gold
 	if Profile.streak > 0 or Profile.best_streak > 0:
 		_gold.text += "   ·   " + tr("SELECT_STREAK") % [Profile.streak, Profile.best_streak, roundi((Profile.streak_multiplier() - 1.0) * 100.0)]
@@ -127,11 +138,14 @@ func _refresh() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _shop.visible:
+	if _shop.visible or _charms.visible:
 		return
 	if event.is_action_pressed("shop"):
 		Audio.play("click", -6.0, 0.0)
 		_shop.open()
+	elif event.is_action_pressed("charms"):
+		Audio.play("click", -6.0, 0.0)
+		_charms.open()
 	elif event.is_action_pressed("move_left") or event.is_action_pressed("ui_left"):
 		_index = (_index - 1 + _ids.size()) % _ids.size()
 		Audio.play("click", -6.0, 0.0)

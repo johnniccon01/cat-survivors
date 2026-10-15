@@ -127,7 +127,7 @@ QUEST_FRIDGE_FIND,Find the fridge,Nájdi chladničku
 QUEST_FRIDGE_OPEN,Stay by the fridge to open it,Zostaň pri chladničke a otvor ju
 QUEST_FRIDGE_FIGHT,Defeat the leftovers: %d left,Poraz zvyšky: zostáva %d
 SELECT_TITLE,Choose your cat,Vyber si mačku
-SELECT_HINT,← → cat · ↑ ↓ map · Enter start · U upgrades · L language · M sound,← → mačka · ↑ ↓ mapa · Enter štart · U vylepšenia · L jazyk · M zvuk
+SELECT_HINT,← → cat · ↑ ↓ map · Enter start · U upgrades · C charms · L language · M sound,← → mačka · ↑ ↓ mapa · Enter štart · U vylepšenia · C prívesky · L jazyk · M zvuk
 SELECT_LOCKED,???,???
 GAME_OVER_MENU,Esc – change cat,Esc – zmeniť mačku
 QUEST_RESCUE_ESCORT,Walk %s to the safe cat bed,Odprevaď: %s do bezpečného pelechu
@@ -199,3 +199,42 @@ SUMMARY_STREAK,Streak: %d (best %d),Séria: %d (rekord %d)
 SUMMARY_STREAK_LOST,Streak of %d lost!,Séria %d je preč!
 SUMMARY_TOTAL,Total gold: %d,Spolu zlata: %d
 SELECT_STREAK,Streak %d (best %d) +%d %% gold,Séria %d (rekord %d) +%d %% zlata
+HUD_CHARMS,Charms: %d (escape to keep),Prívesky: %d (uteč a ponecháš si ich)
+CHARM_FOUND,Charm found: %s! Escape or win to keep it,Nájdený prívesok: %s! Uteč alebo vyhraj a ponecháš si ho
+SUMMARY_CHARMS_LOST,Charms lost: %s,Stratené prívesky: %s
+SUMMARY_CHARMS_KEPT,Charms brought home: %s,Prívesky prinesené domov: %s
+SUMMARY_CHARMS_DUPES,+%d gold for charms you already had,"+%d zlata za prívesky, ktoré už máš"
+SELECT_CHARMS,Charms: %s,Prívesky: %s
+CHARMS_TITLE,Collar charms,Prívesky na obojok
+CHARMS_EQUIPPED,Worn: %d / %d,Nasadené: %d / %d
+CHARMS_HINT,Arrows choose · Enter wear / take off · C / Esc back,Šípky výber · Enter nasadiť / zložiť · C / Esc späť
+CHARMS_UNKNOWN,"Not found yet. Charms drop from elites, bosses and quests – escape or win to bring them home.","Ešte nenájdený. Prívesky padajú z elít, bossov a questov – uteč alebo vyhraj a prinesieš ich domov."
+RARITY_COMMON,Common,Bežný
+RARITY_RARE,Rare,Vzácny
+RARITY_EPIC,Epic,Epický
+CHARM_FISH_BONE_NAME,Fish Bone,Rybacia kosť
+CHARM_FISH_BONE_DESC,+10% damage,+10 % poškodenie
+CHARM_MOUSE_TAIL_NAME,Mouse Tail,Myší chvost
+CHARM_MOUSE_TAIL_DESC,+8% movement speed,+8 % rýchlosť pohybu
+CHARM_MILK_TOOTH_NAME,Milk Tooth,Mliečny zúbok
+CHARM_MILK_TOOTH_DESC,+20 max health,+20 maximálne zdravie
+CHARM_YARN_KNOT_NAME,Yarn Knot,Uzlík vlny
+CHARM_YARN_KNOT_DESC,+10% attack area,+10 % plocha útokov
+CHARM_GOLD_WHISKER_NAME,Golden Whisker,Zlatý fúz
+CHARM_GOLD_WHISKER_DESC,+15% gold,+15 % zlata
+CHARM_SARDINE_TIN_NAME,Sardine Tin,Plechovka sardiniek
+CHARM_SARDINE_TIN_DESC,Recover 0.3 HP per second,"Obnova 0,3 HP za sekundu"
+CHARM_MAGNET_PAW_NAME,Magnet Paw,Magnetická labka
+CHARM_MAGNET_PAW_DESC,Pick up kibble from further away,Granule priťahuješ z väčšej diaľky
+CHARM_LUCKY_BELL_NAME,Lucky Bell,Zvonček šťastia
+CHARM_LUCKY_BELL_DESC,+1 reroll on level-ups,+1 prehodenie ponuky v level-upe
+CHARM_CATNIP_LEAF_NAME,Catnip Leaf,Lístok šanty
+CHARM_CATNIP_LEAF_DESC,Weapons attack 6% faster,Zbrane útočia o 6 % rýchlejšie
+CHARM_STAR_COLLAR_NAME,Star Collar,Hviezdny obojok
+CHARM_STAR_COLLAR_DESC,+8% experience,+8 % skúseností
+CHARM_IRON_TAG_NAME,Iron Tag,Železná známka
+CHARM_IRON_TAG_DESC,Every hit hurts 1 less,Každý zásah zraní o 1 menej
+CHARM_NINTH_LIFE_NAME,Ninth Life,Deviaty život
+CHARM_NINTH_LIFE_DESC,Come back once after dying,Po smrti sa raz vrátiš
+CHARM_TWIN_KITTEN_NAME,Twin Kitten,Mačacie dvojča
+CHARM_TWIN_KITTEN_DESC,+1 projectile for all weapons,+1 projektil pre všetky zbrane

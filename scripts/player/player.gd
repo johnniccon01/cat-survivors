@@ -173,6 +173,9 @@ func _recalc_stats() -> void:
 		var shop := Profile.powerup_bonus()
 		for key: String in shop:
 			stats[key] += shop[key]
+		var worn := Profile.charm_bonus()
+		for key: String in worn:
+			stats[key] += worn[key]
 	for id: String in passives:
 		var levels: Array = GameData.passives[id]["levels"]
 		for i in passives[id]:

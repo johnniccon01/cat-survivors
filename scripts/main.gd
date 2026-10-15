@@ -19,6 +19,7 @@ extends Node2D
 ##   --cat=ID           play as cat ID (see data/cats.json)
 ##   --levels=N         start with N random level-up picks (to test late game)
 ##   --extract          open a cat flap right away
+##   --drop-charm       drop a random charm next to the cat at the start
 
 const HEART_DROP_CHANCE := 0.005
 const COIN_DROP_CHANCE := 0.015
@@ -27,6 +28,12 @@ const VICTORY_GOLD := 150
 const DEATH_GOLD_KEPT := 0.5
 ## Cat flaps only open from this point of the run on.
 const EXTRACT_FROM := 180.0
+## Charm drop chances.
+const CHARM_CHANCE_ELITE := 0.06
+const CHARM_CHANCE_BOSS := 0.35
+const CHARM_CHANCE_QUEST := 0.2
+## Rarity weights when a charm drops.
+const CHARM_RARITY := [["common", 70.0], ["rare", 25.0], ["epic", 5.0]]
 const HEART_DROP_AMOUNT := 15.0
 ## Treasure size odds: [items, weight]
 const CHEST_ROLLS := [[1, 70.0], [3, 25.0], [5, 5.0]]
@@ -47,6 +54,8 @@ var _xp_log: Dictionary = {}
 var _xp_seen := 0.0
 var bosses_killed := 0
 var extraction: Extraction
+## Charms picked up this run: only kept by escaping or winning.
+var run_charms: Array[String] = []
 var chests_opened := 0
 
 var _args := OS.get_cmdline_user_args()
@@ -81,13 +90,17 @@ func _ready() -> void:
 	quests.finished_quest.connect(func(ok: bool) -> void:
 		quests_done += int(ok)
 		if ok:
+			_maybe_drop_charm(player.position + Vector2(16, 16), CHARM_CHANCE_QUEST)
 			_open_extraction())
 	var forced := _arg("--quest=", "")
 	if forced != "":
 		quests.force.call_deferred(forced)
 	enemies.enemy_killed.connect(_on_enemy_killed)
 	enemies.prop_broken.connect(_on_prop_broken)
-	enemies.elite_killed.connect(func(pos: Vector2) -> void: pickups.spawn_named("coin", pos + Vector2(8, 0), 10.0))
+	enemies.elite_killed.connect(func(pos: Vector2) -> void:
+		pickups.spawn_named("coin", pos + Vector2(8, 0), 10.0)
+		_maybe_drop_charm(pos + Vector2(-8, 0), CHARM_CHANCE_ELITE))
+	pickups.charm_collected.connect(_on_charm_collected)
 	pickups.gold_collected.connect(func(amount: float) -> void: run_gold += amount * player.stat("greed") * player.stat("curse"))
 	pickups.chest_collected.connect(_queue_modal.bind("chest"))
 	spawner.boss_spawned.connect(func(_id: String) -> void:
@@ -117,6 +130,8 @@ func _ready() -> void:
 		var dev := DevPanel.new()
 		dev.main = self
 		add_child(dev)
+	if "--drop-charm" in _args:
+		_maybe_drop_charm.call_deferred(player.position + Vector2(20, 0), 1.0)
 	if "--extract" in _args:
 		_open_extraction.call_deferred(true)
 	if "--test-evolution" in _args:
@@ -130,7 +145,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	hud.update_stats(spawner.elapsed, kills, enemies.enemies.size())
-	hud.update_gold(floori(run_gold))
+	hud.update_gold(floori(run_gold), run_charms.size())
 	if _bot:
 		var minute := floori(spawner.elapsed / 60.0)
 		_xp_log[minute] = _xp_log.get(minute, 0.0) + pickups.total_xp - _xp_seen
@@ -149,7 +164,7 @@ func _process(_delta: float) -> void:
 			enemies.enemies.size(), player.is_dead])
 		print("BOT: weapons=%s passives=%s props_broken=%d bosses_killed=%d chests=%d won=%s" % [
 			weapons, player.passives, props_broken, bosses_killed, chests_opened, _run_over and not player.is_dead])
-		print("BOT: gold=%d streak=%d extraction_open=%s" % [floori(run_gold), Profile.streak, extraction != null])
+		print("BOT: gold=%d streak=%d extraction_open=%s charms=%s owned=%s" % [floori(run_gold), Profile.streak, extraction != null, run_charms, Profile.charms])
 		var per_minute: Array[String] = []
 		for m: int in _xp_log:
 			per_minute.append("%d:%d" % [m, roundi(_xp_log[m])])
@@ -202,6 +217,7 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 		bosses_killed += 1
 		pickups.spawn_named("chest", pos, 0.0)
 		pickups.spawn_named("coin", pos + Vector2(14, 6), 25.0)
+		_maybe_drop_charm(pos + Vector2(-14, 6), CHARM_CHANCE_BOSS)
 		_open_extraction()
 	elif randf() < HEART_DROP_CHANCE:
 		pickups.spawn_named("heart", pos + Vector2(6, 0), HEART_DROP_AMOUNT)
@@ -312,6 +328,19 @@ func _on_offer_chosen(offer: Dictionary) -> void:
 	_next_modal()
 
 
+func _maybe_drop_charm(pos: Vector2, chance: float) -> void:
+	if randf() >= chance:
+		return
+	var rarity: String = _weighted(CHARM_RARITY)
+	var pool: Array = GameData.charms.keys().filter(func(id: String) -> bool: return GameData.charms[id]["rarity"] == rarity)
+	pickups.spawn_charm(pos, pool.pick_random())
+
+
+func _on_charm_collected(charm_id: String) -> void:
+	run_charms.append(charm_id)
+	hud.show_banner(tr("CHARM_FOUND") % tr("CHARM_%s_NAME" % charm_id), 3.5)
+
+
 ## Opens a cat flap somewhere nearby, if none is open and it's not too
 ## early or too late in the run.
 func _open_extraction(force: bool = false) -> void:
@@ -348,6 +377,8 @@ func _end_run(kind: String) -> void:
 			lines.append(tr("SUMMARY_GOLD_DEATH") % [gold, floori(run_gold)])
 			if Profile.streak > 0:
 				lines.append(tr("SUMMARY_STREAK_LOST") % Profile.streak)
+			if not run_charms.is_empty():
+				lines.append(tr("SUMMARY_CHARMS_LOST") % _charm_names())
 			Profile.reset_streak()
 			Audio.play("gameover", -2.0, 0.0)
 			hud.show_game_over(spawner.elapsed, kills)
@@ -369,9 +400,18 @@ func _end_run(kind: String) -> void:
 				for id: String in GameData.stages:
 					if GameData.stages[id].get("requires", "") == spawner.stage_id:
 						hud.show_banner(tr("STAGE_UNLOCKED") % tr("STAGE_%s_NAME" % id), 6.0)
+	if kind != "death" and not run_charms.is_empty():
+		var refund := Profile.bank_charms(run_charms)
+		lines.append(tr("SUMMARY_CHARMS_KEPT") % _charm_names())
+		if refund > 0:
+			lines.append(tr("SUMMARY_CHARMS_DUPES") % refund)
 	Profile.add_gold(gold)
 	lines.append(tr("SUMMARY_TOTAL") % Profile.gold)
 	hud.show_summary(lines)
+
+
+func _charm_names() -> String:
+	return ", ".join(run_charms.map(func(id: String) -> String: return tr("CHARM_%s_NAME" % id)))
 
 
 func _on_player_died() -> void:

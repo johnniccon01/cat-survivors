@@ -13,6 +13,12 @@ var flags: Array[String] = []
 var gold := 0
 ## Successful escapes/wins in a row (a death resets it) and the record.
 var streak := 0
+## Charms found and brought home, and the ones worn on the collar.
+const CHARM_SLOTS := 3
+## Gold given instead when you bring home a charm you already own.
+const DUPLICATE_CHARM_GOLD := 50
+var charms: Array[String] = []
+var equipped_charms: Array[String] = []
 var best_streak := 0
 ## Gold spent on power-ups (refunded in full on request).
 var spent := 0
@@ -33,6 +39,10 @@ func _ready() -> void:
 			flags.append(flag)
 		gold = cfg.get_value("shop", "gold", 0)
 		streak = cfg.get_value("streak", "current", 0)
+		for id: String in cfg.get_value("charms", "owned", []):
+			charms.append(id)
+		for id: String in cfg.get_value("charms", "equipped", []):
+			equipped_charms.append(id)
 		best_streak = cfg.get_value("streak", "best", 0)
 		spent = cfg.get_value("shop", "spent", 0)
 		powerups = cfg.get_value("shop", "powerups", {})
@@ -88,6 +98,48 @@ func clear_stage(stage_id: String) -> bool:
 	cleared_stages.append(stage_id)
 	save()
 	return true
+
+
+func has_charm(id: String) -> bool:
+	return id in charms
+
+
+## Brings charms home after an escape or a win. Returns the gold paid for
+## duplicates.
+func bank_charms(found: Array[String]) -> int:
+	var gold_back := 0
+	for id in found:
+		if id in charms:
+			gold_back += DUPLICATE_CHARM_GOLD
+		else:
+			charms.append(id)
+	gold += gold_back
+	save()
+	return gold_back
+
+
+## Wears or takes off a charm. Returns false when all slots are full.
+func toggle_charm(id: String) -> bool:
+	if not has_charm(id):
+		return false
+	if id in equipped_charms:
+		equipped_charms.erase(id)
+	elif equipped_charms.size() >= CHARM_SLOTS:
+		return false
+	else:
+		equipped_charms.append(id)
+	save()
+	return true
+
+
+## Sum of the worn charms per stat.
+func charm_bonus() -> Dictionary:
+	var bonus := {}
+	for id in equipped_charms:
+		var data: Dictionary = GameData.charms.get(id, {})
+		if not data.is_empty():
+			bonus[data["stat"]] = bonus.get(data["stat"], 0.0) + float(data["value"])
+	return bonus
 
 
 ## Gold bonus from the current streak: +10 % per step, up to +50 %.
@@ -184,6 +236,8 @@ func save() -> void:
 	cfg.set_value("story", "flags", flags)
 	cfg.set_value("shop", "gold", gold)
 	cfg.set_value("streak", "current", streak)
+	cfg.set_value("charms", "owned", charms)
+	cfg.set_value("charms", "equipped", equipped_charms)
 	cfg.set_value("streak", "best", best_streak)
 	cfg.set_value("shop", "spent", spent)
 	cfg.set_value("shop", "powerups", powerups)

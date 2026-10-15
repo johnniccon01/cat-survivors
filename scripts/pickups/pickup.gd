@@ -3,7 +3,7 @@ extends Node2D
 ## A collectible lying on the floor. Movement and collection are handled by
 ## Pickups.
 
-enum Kind { XP, HEART, SARDINE, MAGNET, CHEST, COIN }
+enum Kind { XP, HEART, SARDINE, MAGNET, CHEST, COIN, CHARM }
 
 const OUTLINE := Color("2b1d14")
 
@@ -11,6 +11,8 @@ var kind := Kind.XP
 var value := 1.0
 var attracted := false
 var speed := 0.0
+## Which charm this is (Kind.CHARM only).
+var charm_id := ""
 
 var _bob := randf() * TAU
 
@@ -43,8 +45,23 @@ func _draw() -> void:
 			_draw_chest()
 		Kind.COIN:
 			_draw_coin()
+		Kind.CHARM:
+			_draw_charm()
 		_:
 			_draw_kibble()
+
+
+func _draw_charm() -> void:
+	_shadow_and_lift()
+	var c := Color(GameData.charms[charm_id]["color"])
+	var gem := PackedVector2Array([Vector2(0, -6), Vector2(5, -1), Vector2(0, 6), Vector2(-5, -1)])
+	draw_arc(Vector2(0, -6), 3.0, PI, TAU, 8, Color("f2c14e"), 1.0)
+	draw_colored_polygon(gem, c)
+	draw_polyline(Shapes.closed(gem), OUTLINE, 1.0)
+	draw_rect(Rect2(-2, -3, 1, 2), Color(1, 1, 1, 0.9))
+	var a := 0.5 + 0.5 * sin(_bob * 2.0)
+	draw_line(Vector2(7, -8), Vector2(7, -4), Color(1, 1, 0.8, a), 1.0)
+	draw_line(Vector2(5, -6), Vector2(9, -6), Color(1, 1, 0.8, a), 1.0)
 
 
 func _draw_coin() -> void:

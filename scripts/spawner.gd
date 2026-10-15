@@ -7,12 +7,15 @@ extends Node
 
 signal boss_spawned(boss_id: String)
 signal stage_cleared
+signal final_boss_spawned(boss: Enemy)
 
 const SPAWN_MARGIN := 40.0
 
 @export var stage_id := "LIVING_ROOM"
 
 var elapsed := 0.0
+## Stops regular spawning (duels, final boss).
+var paused := false
 
 var _player: Player
 var _enemies: EnemyManager
@@ -46,12 +49,20 @@ func current_wave() -> Dictionary:
 func _physics_process(delta: float) -> void:
 	if _player == null or _player.is_dead:
 		return
+	elapsed += delta
 	if _cleared:
 		return
-	elapsed += delta
 	if elapsed >= duration_minutes() * 60.0:
 		_cleared = true
-		stage_cleared.emit()
+		var final_id: String = _stage.get("final_boss", "")
+		if final_id == "":
+			stage_cleared.emit()
+		else:
+			_enemies.clear_all()
+			var boss := _enemies.spawn(final_id, _player.position + Vector2(0, -_spawn_radius() * 0.8))
+			final_boss_spawned.emit(boss)
+		return
+	if paused:
 		return
 	_tick_props(delta)
 	var wave := current_wave()

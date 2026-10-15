@@ -18,6 +18,7 @@ var active: Quest
 var _timer := 0.0
 var _index := 0
 var _done_cats: Array[String] = []
+var _cat_given := false
 var _cfg: Dictionary
 
 
@@ -33,11 +34,12 @@ func setup(p_main: Node) -> void:
 
 ## Starts a specific quest right away, next to the cat (debug).
 func force(quest_id: String) -> void:
+	_cat_given = _cat_given or (_cfg["cat_quests"] as Dictionary).has(quest_id)
 	_start(quest_id, 160.0)
 
 
 func _physics_process(delta: float) -> void:
-	if active != null or main == null or main.player.is_dead:
+	if active != null or main == null or main.player.is_dead or main.final_boss != null:
 		return
 	_timer -= delta
 	if _timer > 0.0:
@@ -45,7 +47,11 @@ func _physics_process(delta: float) -> void:
 	var order: Array = _cfg["schedule"]["order"]
 	var kind: String = order[_index % order.size()]
 	_index += 1
-	var quest_id := _pick_cat() if kind == "cat" else ""
+	# Only one cat quest per night.
+	var quest_id := ""
+	if kind == "cat" and not _cat_given:
+		quest_id = _pick_cat()
+		_cat_given = quest_id != ""
 	if quest_id == "":
 		quest_id = (_cfg["side_quests"] as Dictionary).keys().pick_random()
 	var dist: Array = _cfg["distance"]

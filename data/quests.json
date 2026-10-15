@@ -4,22 +4,37 @@
       "type": "rescue",
       "poi": "box_fort",
       "guards": "SOCK_STRIPED",
-      "guard_count": 8,
-      "free_time": 6.0
+      "guard_count": 12,
+      "free_time": 4.0,
+      "escort_distance": [
+        480.0,
+        620.0
+      ],
+      "escort_hp": 60.0
     },
     "SNOWBALL": {
       "type": "rescue",
       "poi": "laundry_basket",
       "guards": "BUBBLE",
-      "guard_count": 16,
-      "free_time": 6.0
+      "guard_count": 24,
+      "free_time": 4.0,
+      "escort_distance": [
+        480.0,
+        620.0
+      ],
+      "escort_hp": 60.0
     },
     "PIP": {
       "type": "rescue",
       "poi": "bed_cave",
       "guards": "DUST_BUNNY",
-      "guard_count": 14,
-      "free_time": 6.0
+      "guard_count": 21,
+      "free_time": 4.0,
+      "escort_distance": [
+        480.0,
+        620.0
+      ],
+      "escort_hp": 60.0
     },
     "TIGER": {
       "type": "duel",
@@ -32,19 +47,19 @@
   },
   "side_quests": {
     "DEFEND_BOWL": {
-      "hold_time": 30.0,
+      "hold_time": 40.0,
       "radius": 50.0,
-      "spawn_interval": 1.0,
-      "spawn_count": 2
+      "spawn_interval": 0.9,
+      "spawn_count": 3
     },
     "RED_DOT": {
-      "catches": 3,
-      "dot_speed": 115.0,
-      "time_limit": 60.0
+      "catches": 5,
+      "dot_speed": 135.0,
+      "time_limit": 50.0
     },
     "FRIDGE": {
       "open_time": 3.0,
-      "enemy_count": 20
+      "enemy_count": 30
     }
   },
   "schedule": {
@@ -55,9 +70,9 @@
       "side",
       "cat",
       "side",
-      "cat",
       "side",
-      "cat",
+      "side",
+      "side",
       "side"
     ]
   },

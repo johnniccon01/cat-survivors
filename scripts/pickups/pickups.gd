@@ -20,14 +20,24 @@ var _xp_count := 0
 
 
 func spawn_xp(pos: Vector2, value: float) -> void:
-	# Too many kibbles on the floor: fold the XP into an existing one instead.
-	if _xp_count >= MAX_XP:
-		for i in 8:
-			var other: Pickup = items.pick_random()
-			if other.kind == Pickup.Kind.XP:
-				other.value += value
-				other.refresh()
-				return
+	# Too many kibbles on the floor: remove the one furthest from the cat and
+	# carry its XP over into the new kibble, so XP is never stranded far away.
+	if _xp_count >= MAX_XP and player != null:
+		var far_i := -1
+		var far_d2 := -1.0
+		for i in items.size():
+			var other := items[i]
+			if other.kind != Pickup.Kind.XP or other.attracted:
+				continue
+			var d2 := other.position.distance_squared_to(player.position)
+			if d2 > far_d2:
+				far_d2 = d2
+				far_i = i
+		if far_i >= 0:
+			value += items[far_i].value
+			items[far_i].queue_free()
+			items.remove_at(far_i)
+			_xp_count -= 1
 	_xp_count += 1
 	_spawn(Pickup.Kind.XP, pos, value)
 

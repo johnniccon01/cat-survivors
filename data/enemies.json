@@ -111,9 +111,9 @@
     "cat": "TIGER",
     "boss": true,
     "behavior": "dash",
-    "hp": 700,
-    "speed": 55,
-    "damage": 18,
+    "hp": 1500,
+    "speed": 62,
+    "damage": 20,
     "radius": 12,
     "xp": 40,
     "knockback_resist": 0.9
@@ -123,11 +123,27 @@
     "cat": "BARON",
     "boss": true,
     "behavior": "shooter",
-    "hp": 500,
-    "speed": 60,
-    "damage": 12,
+    "hp": 1200,
+    "speed": 70,
+    "damage": 14,
     "radius": 9,
     "xp": 40,
     "knockback_resist": 0.8
+  },
+  "VACUUM_KING": {
+    "shape": "vacuum",
+    "boss": true,
+    "final": true,
+    "behavior": "final",
+    "scale": 4.0,
+    "color": "#7a3fa0",
+    "accent": "#f2c14e",
+    "hp": 40000,
+    "speed": 42,
+    "damage": 30,
+    "radius": 38,
+    "xp": 0,
+    "knockback_resist": 1.0,
+    "minion": "DUST_BUNNY"
   }
 }

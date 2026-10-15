@@ -30,6 +30,11 @@ var _state := "chase"
 var _state_t := 2.0
 var _dash_dir := Vector2.ZERO
 var _shoot_t := 1.5
+var _ring_t := 3.0
+var _blink_t := 0.0
+var _suck_t := 6.0
+var _summon_t := 4.0
+var _minion := ""
 var _base_scale := 1.0
 var _stripes := false
 var _color := Color.WHITE
@@ -56,8 +61,20 @@ func setup(p_id: String, data: Dictionary, p_manager: EnemyManager) -> void:
 	is_boss = data.get("boss", false)
 	_behavior = data.get("behavior", "chase")
 	_cat_id = data.get("cat", "")
+	_minion = data.get("minion", "")
 	_base_scale = data.get("scale", 1.0)
 	scale = Vector2(_base_scale, _base_scale)
+
+
+## Turns a regular enemy into a tougher, bigger quest guard.
+func make_elite(hp_factor: float) -> void:
+	max_hp *= hp_factor
+	hp = max_hp
+	radius *= 1.5
+	_base_scale *= 1.5
+	scale = Vector2(_base_scale, _base_scale)
+	knockback_resist = maxf(knockback_resist, 0.7)
+	is_boss = true
 
 
 func tick(delta: float, target: Vector2, push: Vector2) -> void:
@@ -68,6 +85,8 @@ func tick(delta: float, target: Vector2, push: Vector2) -> void:
 			move = _tick_dash(delta, dir)
 		"shooter":
 			move = _tick_shooter(delta, target, dir)
+		"final":
+			move = _tick_final(delta, target, dir)
 	position += (move + _knock + push) * delta
 	_knock = _knock.move_toward(Vector2.ZERO, KNOCK_DECAY * delta)
 	if absf(dir.x) > 0.2:
@@ -97,26 +116,69 @@ func _tick_dash(delta: float, dir: Vector2) -> Vector2:
 		"dash":
 			if _state_t <= 0.0:
 				_state = "chase"
-				_state_t = randf_range(1.8, 2.6)
-			return _dash_dir * speed * 4.5
+				_state_t = randf_range(1.4, 2.0)
+				# Lands with a ring of hairballs.
+				for i in 6:
+					manager.spawn_bullet(position, Vector2.from_angle(TAU * i / 6.0 + randf()), damage * 0.4, "hair")
+			return _dash_dir * speed * 5.0
 	if _state_t <= 0.0:
 		_state = "windup"
-		_state_t = 0.6
+		_state_t = 0.45
+	return dir * speed
+
+
+## Final boss: alternates chasing, sucking the cat in and spitting out
+## minions; below half health it starts lunging too.
+func _tick_final(delta: float, target: Vector2, dir: Vector2) -> Vector2:
+	_summon_t -= delta
+	if _summon_t <= 0.0 and _minion != "":
+		_summon_t = 7.0
+		for i in 6:
+			manager.spawn(_minion, position + Vector2.from_angle(TAU * i / 6.0) * radius * 1.2)
+	if _state == "suck":
+		_state_t -= delta
+		manager.player.pull = (position - target).normalized() * 70.0
+		queue_redraw()
+		if _state_t <= 0.0:
+			_state = "chase"
+			_suck_t = 8.0
+			queue_redraw()
+		return dir * speed * 0.3
+	if _state == "chase":
+		_suck_t -= delta
+		if _suck_t <= 0.0:
+			_state = "suck"
+			_state_t = 2.5
+			return Vector2.ZERO
+	if hp < max_hp * 0.5 and _state != "suck":
+		return _tick_dash(delta, dir)
 	return dir * speed
 
 
 func _tick_shooter(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 	var dist := position.distance_to(target)
 	_shoot_t -= delta
+	_ring_t -= delta
+	_blink_t -= delta
 	if _shoot_t <= 0.0:
-		_shoot_t = 2.0
-		# Below half health it fires a spread of three.
-		var spread := [0.0] if hp > max_hp * 0.5 else [-0.25, 0.0, 0.25]
+		_shoot_t = 1.2
+		# Below 60 % health it fires a fan of three.
+		var spread := [0.0] if hp > max_hp * 0.5 else [-0.3, 0.0, 0.3]
 		for a: float in spread:
-			manager.spawn_bullet(position, dir.rotated(a), damage * 0.5)
-	if dist < 110.0:
+			manager.spawn_bullet(position, dir.rotated(a), damage * 0.4)
+	if _ring_t <= 0.0:
+		_ring_t = 5.5
+		for i in 10:
+			manager.spawn_bullet(position, Vector2.from_angle(TAU * i / 10.0), damage * 0.4)
+	if dist < 45.0 and _blink_t <= 0.0:
+		# Too close: blink away to the other side of the cat.
+		_blink_t = 2.5
+		position = target - dir * 130.0
+		_flash = 0.15
+		return Vector2.ZERO
+	if dist < 100.0:
 		return -dir * speed
-	if dist > 170.0:
+	if dist > 150.0:
 		return dir * speed
 	return dir.orthogonal() * speed * 0.6
 
@@ -134,7 +196,10 @@ func hit(amount: float, direction: Vector2, knockback: float) -> void:
 
 
 func _draw() -> void:
-	var body := Color.WHITE if _flash > 0.0 else _color
+	var body := _color
+	if _flash > 0.0:
+		# Bosses get hit constantly; a lighter tint keeps them recognisable.
+		body = _color.lightened(0.4) if is_boss else Color.WHITE
 	var r := radius / _base_scale
 	draw_colored_polygon(Shapes.ellipse(Vector2(1, r + 2), r, 2), Color(0, 0, 0, 0.25))
 	match _shape:
@@ -152,6 +217,10 @@ func _draw() -> void:
 			_draw_slipper(body)
 		"vacuum":
 			_draw_vacuum(body)
+			if _state == "suck":
+				for i in 8:
+					var a := TAU * i / 8.0 + _wobble
+					draw_line(Vector2.from_angle(a) * 30.0, Vector2.from_angle(a) * 14.0, Color(0.85, 0.9, 1.0, 0.6), 1.0)
 		"cat":
 			CatArt.draw(self, CatArt.look(_cat_id), 1, _wobble, _flash > 0.0, false, "angry")
 		_:

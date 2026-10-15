@@ -34,6 +34,11 @@ func objective() -> String:
 	return ""
 
 
+## Where the quest arrow should point.
+func target_position() -> Vector2:
+	return position
+
+
 ## Distance at which the quest begins.
 func start_radius() -> float:
 	return float(GameData.quests.get("activate_radius", 240.0))

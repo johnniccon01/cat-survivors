@@ -17,6 +17,11 @@ var player: Player
 var enemies: Array[Enemy] = []
 ## Breakable boxes and plants: static, hit by weapons, ignored by targeting.
 var props: Array[Enemy] = []
+## Cats being escorted: enemies go for whichever cat is closest.
+var escorts: Array[Player] = []
+## Duel arena {center, radius, rival}: the rival is kept inside it and every
+## other enemy is kept outside. Empty when there is no duel.
+var arena: Dictionary = {}
 ## Enemies further than this from the player get moved back in front of them.
 var relocate_distance := 600.0
 var spawn_radius := 400.0
@@ -42,13 +47,24 @@ func spawn(id: String, pos: Vector2, hp_mult: float = 1.0) -> Enemy:
 
 
 ## A projectile fired by an enemy that hurts the player on contact.
-func spawn_bullet(pos: Vector2, dir: Vector2, bullet_damage: float) -> void:
+func spawn_bullet(pos: Vector2, dir: Vector2, bullet_damage: float, style: String = "laser") -> void:
 	var bullet := EnemyBullet.new()
+	bullet.style = style
 	bullet.position = pos
 	bullet.velocity = dir * 90.0
 	bullet.damage = bullet_damage
 	bullet.player = player
 	get_parent().add_child(bullet)
+
+
+## Removes every enemy with a puff of smoke (no XP), e.g. before the final boss.
+func clear_all() -> void:
+	for enemy in enemies:
+		var poof := Poof.new()
+		poof.position = enemy.position
+		get_parent().add_child(poof)
+		enemy.queue_free()
+	enemies.clear()
 
 
 func spawn_prop(id: String, pos: Vector2) -> Enemy:
@@ -80,18 +96,42 @@ func _physics_process(delta: float) -> void:
 		return
 	_rebuild_grid()
 	var target := player.position
+	escorts = escorts.filter(func(c: Player) -> bool: return is_instance_valid(c))
+	var cats: Array[Player] = [player]
+	for c in escorts:
+		if not c.is_dead:
+			cats.append(c)
 	for enemy in enemies:
 		var offset := enemy.position - target
 		if offset.length_squared() > relocate_distance * relocate_distance:
 			enemy.position = target - offset.normalized() * spawn_radius
-		enemy.tick(delta, target, _separation(enemy) * SEPARATION)
-		var reach := enemy.radius + Player.RADIUS
-		if not player.is_dead and enemy.position.distance_squared_to(target) < reach * reach:
-			player.take_damage(enemy.damage)
+		var chase := target
+		if cats.size() > 1:
+			for c in cats:
+				if c.position.distance_squared_to(enemy.position) < chase.distance_squared_to(enemy.position):
+					chase = c.position
+		enemy.tick(delta, chase, _separation(enemy) * SEPARATION)
+		if not arena.is_empty():
+			_apply_arena(enemy)
+		for c in cats:
+			var reach := enemy.radius + Player.RADIUS
+			if not c.is_dead and enemy.position.distance_squared_to(c.position) < reach * reach:
+				c.take_damage(enemy.damage)
 	for i in range(props.size() - 1, -1, -1):
 		if props[i].position.distance_squared_to(target) > relocate_distance * relocate_distance * 2.0:
 			props[i].queue_free()
 			props.remove_at(i)
+
+
+func _apply_arena(enemy: Enemy) -> void:
+	var center: Vector2 = arena["center"]
+	var r: float = arena["radius"]
+	var off := enemy.position - center
+	if enemy == arena.get("rival"):
+		if off.length() > r - enemy.radius:
+			enemy.position = center + off.normalized() * (r - enemy.radius)
+	elif off.length() < r + enemy.radius:
+		enemy.position = center + off.normalized() * (r + enemy.radius)
 
 
 func nearest(pos: Vector2, max_dist: float = INF) -> Enemy:

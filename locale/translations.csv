@@ -130,3 +130,7 @@ SELECT_TITLE,Choose your cat,Vyber si mačku
 SELECT_HINT,← → choose · Enter start · L language,← → výber · Enter štart · L jazyk
 SELECT_LOCKED,???,???
 GAME_OVER_MENU,Esc – change cat,Esc – zmeniť mačku
+QUEST_RESCUE_ESCORT,Walk %s to the safe cat bed,Odprevaď: %s do bezpečného pelechu
+QUEST_RESCUE_REVIVE,%s is down! Stay close to help,%s padla! Postoj pri nej a pomôž
+FINAL_BOSS_WARNING,The Vacuum King awakens!,Kráľ vysávačov sa prebúdza!
+ENEMY_VACUUM_KING_NAME,The Vacuum King,Kráľ vysávačov

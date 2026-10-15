@@ -4,8 +4,10 @@ extends Node2D
 ## weapon and stat bonus come from data/cats.json. Weapons fire on their own.
 ##
 ## Controllers: "input" (WASD / arrows / left stick), "bot" (automated tests)
-## and "follow" (companion: trails the leader, can't be hurt, borrows the
-## leader's stats and levels its weapon as the leader levels up).
+## "follow" (companion: trails the leader, can't be hurt, borrows the
+## leader's stats and levels its weapon as the leader levels up) and
+## "escort" (a rescued cat being walked home: slower, unarmed, can be hurt
+## and knocked down).
 
 signal died
 signal leveled_up
@@ -34,6 +36,10 @@ const COMPANION_LEVEL_STEP := 4
 
 ## The cat a companion follows.
 var leader: Player
+## Max health of an escorted cat.
+var escort_hp := 60.0
+## External pull (e.g. the final boss sucking the cat in); reset every frame.
+var pull := Vector2.ZERO
 
 var hp := 100.0
 var max_hp := 100.0
@@ -60,13 +66,17 @@ func _ready() -> void:
 	if controller != "follow":
 		cat_id = Profile.selected_cat
 	_look = CatArt.look(cat_id)
-	if is_companion():
+	if controller == "follow" or controller == "escort":
 		camera.queue_free()
 		camera = null
 		_follow_offset = Vector2.from_angle(randf() * TAU) * randf_range(18.0, 30.0)
 	_recalc_stats()
+	if controller == "escort":
+		max_hp = escort_hp
+		stats["speed"] = 0.8
 	hp = max_hp
-	add_weapon(GameData.cats[cat_id]["weapon"])
+	if controller != "escort":
+		add_weapon(GameData.cats[cat_id]["weapon"])
 
 
 func is_companion() -> bool:
@@ -166,12 +176,19 @@ func _physics_process(delta: float) -> void:
 	match controller:
 		"bot":
 			input = _bot_input(delta)
-		"follow":
+		"follow", "escort":
 			input = _follow_input()
 		_:
 			input = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = input * BASE_SPEED * stat("speed")
-	position += velocity * delta
+	position += (velocity + pull) * delta
+	pull = Vector2.ZERO
+	var manager: EnemyManager = get_tree().get_first_node_in_group("enemy_manager")
+	if manager != null and not manager.arena.is_empty():
+		var center: Vector2 = manager.arena["center"]
+		var r: float = manager.arena["radius"] - RADIUS
+		if position.distance_to(center) > r:
+			position = center + (position - center).normalized() * r
 	if absf(input.x) > 0.1:
 		facing = 1 if input.x > 0.0 else -1
 	if stats["regen"] > 0.0:
@@ -212,7 +229,17 @@ func _follow_input() -> Vector2:
 	return to.normalized() * clampf(to.length() / 40.0, 0.4, 1.6)
 
 
+## Brings a knocked-down escorted cat back on its feet.
+func revive(fraction: float) -> void:
+	is_dead = false
+	hp = max_hp * fraction
+	_invuln = 1.0
+	queue_redraw()
+
+
 func _sync_companion_weapon() -> void:
+	if weapons.get_child_count() == 0:
+		return
 	var weapon := weapons.get_child(0) as Weapon
 	if weapon == null:
 		return
@@ -235,7 +262,7 @@ func _bot_input(delta: float) -> Vector2:
 		return (away.normalized() + wander * 0.3).normalized()
 	var quest: Quest = get_parent().quests.active if get_parent().get("quests") else null
 	if quest != null:
-		var to_quest := quest.position - position
+		var to_quest := quest.target_position() - position
 		if to_quest.length() > 20.0:
 			return (to_quest.normalized() + wander * 0.15).normalized()
 		return Vector2.ZERO
@@ -258,6 +285,10 @@ func _bot_input(delta: float) -> Vector2:
 func _draw() -> void:
 	CatArt.draw(self, _look, facing, _walk_t, _hurt_flash > 0.0, is_dead)
 	if is_dead or is_companion():
+		return
+	if controller == "escort":
+		draw_rect(Rect2(-10, -24, 20, 4), OUTLINE)
+		draw_rect(Rect2(-9, -23, 18 * hp / max_hp, 2), Color("6cc46c"))
 		return
 	# HP bar
 	var w := 18.0

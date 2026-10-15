@@ -8,26 +8,28 @@ extends Node2D
 ## Debug flags (after `--` on the command line):
 ##   --bot              the cat plays on its own at 4x speed (takes the first
 ##                      offer, closes chests) and prints a summary at the end
-##   --bot-time=SECONDS how long the bot plays (default 300)
+##   --bot-time=SECONDS how long the bot plays (default 300, counted from the start minute)
 ##   --start-minute=N   start the run at minute N
 ##   --all-weapons      start with every base weapon
 ##   --show-levelup     the bot leaves the level-up screen open
 ##   --test-evolution   maxes Scratch + Sharp Claws, opens a chest, prints, quits
 ##   --quest=ID         starts quest ID next to the cat (LUNA, TIGER, RED_DOT...)
 ##   --cat=ID           play as cat ID (see data/cats.json)
+##   --levels=N         start with N random level-up picks (to test late game)
 
 const HEART_DROP_CHANCE := 0.005
 const HEART_DROP_AMOUNT := 15.0
 ## Treasure size odds: [items, weight]
 const CHEST_ROLLS := [[1, 70.0], [3, 25.0], [5, 5.0]]
 const PLAYER_SCENE := preload("res://scenes/player.tscn")
-const MAX_COMPANIONS := 4
+const MAX_COMPANIONS := 1
 
 var kills := 0
 var props_broken := 0
 var companions: Array[Player] = []
 var quests: QuestDirector
 var quests_done := 0
+var final_boss: Enemy
 var bosses_killed := 0
 var chests_opened := 0
 
@@ -51,6 +53,7 @@ func _ready() -> void:
 	pickups.player = player
 	spawner.setup(player, enemies)
 	spawner.elapsed = float(_arg("--start-minute=", "0")) * 60.0
+	_bot_time += spawner.elapsed
 	night.setup(spawner, player)
 	quests = QuestDirector.new()
 	add_child(quests)
@@ -64,6 +67,7 @@ func _ready() -> void:
 	pickups.chest_collected.connect(_queue_modal.bind("chest"))
 	spawner.boss_spawned.connect(func(_id: String) -> void: hud.show_banner(tr("BOSS_WARNING")))
 	spawner.stage_cleared.connect(_on_stage_cleared)
+	spawner.final_boss_spawned.connect(_on_final_boss)
 	player.died.connect(_on_player_died)
 	player.leveled_up.connect(_queue_modal.bind("level"))
 	player.xp_changed.connect(func() -> void: hud.update_xp(player))
@@ -75,6 +79,8 @@ func _ready() -> void:
 	if _bot:
 		player.controller = "bot"
 		Engine.time_scale = 4.0
+	for i in int(_arg("--levels=", "0")):
+		Upgrades.apply(player, Upgrades.roll(player)[0])
 	if "--test-evolution" in _args:
 		_test_evolution.call_deferred()
 	if "--all-weapons" in _args:
@@ -86,10 +92,13 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	hud.update_stats(spawner.elapsed, kills, enemies.enemies.size())
 	hud.update_quest(quests.active)
+	hud.update_boss(final_boss if is_instance_valid(final_boss) and not final_boss.dead else null)
 	if _bot and (spawner.elapsed >= _bot_time or _run_over):
 		var weapons: Array[String] = []
 		for w: Weapon in player.weapons.get_children():
 			weapons.append("%s:%d" % [w.id, w.level])
+		if is_instance_valid(final_boss):
+			print("BOT: final boss hp=%.0f/%.0f" % [final_boss.hp, final_boss.max_hp])
 		print("BOT: time=%.1f level=%d kills=%d hp=%.0f/%.0f enemies=%d dead=%s" % [
 			spawner.elapsed, player.level, kills, player.hp, player.max_hp,
 			enemies.enemies.size(), player.is_dead])
@@ -125,6 +134,10 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 	kills += 1
 	pickups.spawn_xp(pos, xp)
+	if GameData.enemies[id].get("final", false):
+		bosses_killed += 1
+		_on_stage_cleared()
+		return
 	if GameData.enemies[id].get("boss", false):
 		bosses_killed += 1
 		pickups.spawn_named("chest", pos, 0.0)
@@ -143,7 +156,7 @@ func has_companion(cat_id: String) -> bool:
 
 
 ## A rescued or defeated cat joins the run and is unlocked for good.
-func cat_joined(cat_id: String) -> void:
+func cat_joined(cat_id: String, at: Vector2 = Vector2.INF) -> void:
 	var cat_name := tr("CAT_%s_NAME" % cat_id)
 	if Profile.unlock(cat_id) and not "--cat=" in " ".join(_args):
 		hud.show_banner("%s
@@ -157,10 +170,25 @@ func cat_joined(cat_id: String) -> void:
 	cat.cat_id = cat_id
 	cat.leader = player
 	cat.process_mode = Node.PROCESS_MODE_PAUSABLE
-	cat.position = player.position + Vector2(20, 10)
+	cat.position = at if at != Vector2.INF else player.position + Vector2(20, 10)
 	add_child(cat)
 	move_child(cat, player.get_index())
 	companions.append(cat)
+
+
+## Spawns a rescued cat that has to be walked to safety.
+func spawn_escort(cat_id: String, at: Vector2, hp: float) -> Player:
+	var cat: Player = PLAYER_SCENE.instantiate()
+	cat.controller = "escort"
+	cat.cat_id = cat_id
+	cat.leader = player
+	cat.escort_hp = hp
+	cat.process_mode = Node.PROCESS_MODE_PAUSABLE
+	cat.position = at
+	add_child(cat)
+	move_child(cat, player.get_index())
+	enemies.escorts.append(cat)
+	return cat
 
 
 func _queue_modal(kind: String) -> void:
@@ -204,6 +232,12 @@ func _on_player_died() -> void:
 	_run_over = true
 	hud.show_game_over(spawner.elapsed, kills)
 	get_tree().paused = true
+
+
+func _on_final_boss(boss: Enemy) -> void:
+	final_boss = boss
+	spawner.paused = true
+	hud.show_banner(tr("FINAL_BOSS_WARNING"), 4.0)
 
 
 func _on_stage_cleared() -> void:

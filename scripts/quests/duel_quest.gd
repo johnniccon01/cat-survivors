@@ -1,7 +1,10 @@
 class_name DuelQuest
 extends Quest
-## A rival cat waits on its turf. Step in and it attacks as a boss; beat it
-## and it respects you enough to join (and unlock).
+## A rival cat waits on its turf. Step in and a fence goes up: no other
+## enemies get in, you can't get out, and regular spawning stops until one of
+## you wins. Beat it and it respects you enough to join (and unlock).
+
+const ARENA_RADIUS := 170.0
 
 var cat_id := ""
 
@@ -24,14 +27,27 @@ func start_radius() -> float:
 
 func _on_start() -> void:
 	var minute := floorf(main.spawner.elapsed / 60.0)
-	_rival = main.enemies.spawn(data["rival"], position, 1.0 + minute * 0.08)
+	_rival = main.enemies.spawn(data["rival"], position, 1.0 + minute * 0.12)
+	main.enemies.arena = {"center": position, "radius": ARENA_RADIUS, "rival": _rival}
+	main.spawner.paused = true
 	main.hud.show_banner(tr("QUEST_DUEL_CHALLENGE") % tr("CAT_%s_NAME" % cat_id), 3.0)
 
 
 func _tick(_delta: float) -> void:
 	if started and (not is_instance_valid(_rival) or _rival.dead):
+		_open_arena()
 		main.cat_joined(cat_id)
 		complete()
+
+
+func _open_arena() -> void:
+	main.enemies.arena = {}
+	main.spawner.paused = false
+
+
+func _exit_tree() -> void:
+	if started:
+		_open_arena()
 
 
 func _draw() -> void:
@@ -45,3 +61,11 @@ func _draw() -> void:
 			draw_circle(p + t, 1.2, Color("c2707b"))
 	if not started:
 		CatArt.draw(self, CatArt.look(cat_id), -1, 0.0, false, false, "angry", Vector2(0, -4))
+		draw_arc(Vector2.ZERO, ARENA_RADIUS, 0.0, TAU, 64, Color(0.9, 0.3, 0.3, 0.25), 1.0)
+		return
+	# Fence: posts with a rope between them.
+	draw_arc(Vector2.ZERO, ARENA_RADIUS, 0.0, TAU, 64, Color("e8dcc0"), 2.0)
+	for i in 24:
+		var p := Vector2.from_angle(TAU * i / 24.0) * ARENA_RADIUS
+		draw_rect(Rect2(p - Vector2(2.5, 6), Vector2(5, 8)), OUTLINE)
+		draw_rect(Rect2(p - Vector2(1.5, 5), Vector2(3, 6)), Color("8a5a3b"))

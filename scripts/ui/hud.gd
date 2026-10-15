@@ -24,6 +24,9 @@ var _banner: Label
 var _quest_title: Label
 var _quest_text: Label
 var _quest_arrow: QuestArrow
+var _boss_bar: ColorRect
+var _boss_fill: ColorRect
+var _boss_name: Label
 var _banner_time := 0.0
 
 
@@ -99,6 +102,25 @@ func _ready() -> void:
 	add_child(_quest_arrow)
 	move_child(_quest_arrow, 0)
 
+	_boss_bar = ColorRect.new()
+	_boss_bar.color = Color("2b1d14")
+	_boss_bar.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
+	_boss_bar.offset_left = -300
+	_boss_bar.offset_right = 300
+	_boss_bar.offset_top = -46
+	_boss_bar.offset_bottom = -26
+	_boss_bar.visible = false
+	add_child(_boss_bar)
+	_boss_fill = ColorRect.new()
+	_boss_fill.color = Color("c94f4f")
+	_boss_fill.position = Vector2(3, 3)
+	_boss_fill.size = Vector2(594, 14)
+	_boss_bar.add_child(_boss_fill)
+	_boss_name = _label(20, HORIZONTAL_ALIGNMENT_CENTER)
+	_boss_name.position = Vector2(0, -30)
+	_boss_name.size = Vector2(600, 26)
+	_boss_bar.add_child(_boss_name)
+
 	level_up = LevelUpPanel.new()
 	add_child(level_up)
 	treasure = TreasurePanel.new()
@@ -121,7 +143,16 @@ func update_quest(quest: Quest) -> void:
 		return
 	_quest_title.text = quest.title()
 	_quest_text.text = quest.objective()
-	_quest_arrow.target = quest.position
+	_quest_arrow.target = quest.target_position()
+
+
+## Big health bar for the final boss (null hides it).
+func update_boss(boss: Enemy) -> void:
+	_boss_bar.visible = boss != null
+	if boss == null:
+		return
+	_boss_fill.size.x = 594.0 * clampf(boss.hp / boss.max_hp, 0.0, 1.0)
+	_boss_name.text = tr("ENEMY_%s_NAME" % boss.id)
 
 
 ## Big warning text below the clock that fades out after `seconds`.

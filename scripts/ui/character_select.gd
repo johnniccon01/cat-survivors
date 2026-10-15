@@ -18,11 +18,13 @@ var _desc: Label
 var _stage_label: Label
 var _stage_ids: Array[String] = []
 var _stage_index := 0
+var _shop: ShopPanel
+var _gold: Label
 
 
 func _ready() -> void:
 	for arg: String in OS.get_cmdline_user_args():
-		if arg.begins_with("--"):
+		if arg.begins_with("--") and arg != "--shop":
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
 			return
 	for id: String in GameData.cats:
@@ -34,6 +36,8 @@ func _ready() -> void:
 	_build()
 	_refresh()
 	Audio.play_music("music_apartment")
+	if "--shop" in OS.get_cmdline_user_args():
+		_shop.open()
 
 
 func _build() -> void:
@@ -82,9 +86,16 @@ func _build() -> void:
 	_stage_label = _label(24, GOLD)
 	box.add_child(_stage_label)
 
+	_gold = _label(20, GOLD)
+	box.add_child(_gold)
+
 	var hint := _label(18, Color("8f7ea3"))
 	hint.text = "SELECT_HINT"
 	box.add_child(hint)
+
+	_shop = ShopPanel.new()
+	add_child(_shop)
+	_shop.closed.connect(_refresh)
 
 
 func _refresh() -> void:
@@ -104,6 +115,7 @@ func _refresh() -> void:
 	else:
 		_name.text = tr("SELECT_LOCKED")
 		_desc.text = tr("CAT_%s_HINT" % id)
+	_gold.text = tr("SELECT_GOLD") % Profile.gold
 	var stage_id := _stage_ids[_stage_index]
 	if Profile.is_stage_unlocked(stage_id):
 		var cleared := " ✓" if stage_id in Profile.cleared_stages else ""
@@ -113,7 +125,12 @@ func _refresh() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("move_left") or event.is_action_pressed("ui_left"):
+	if _shop.visible:
+		return
+	if event.is_action_pressed("shop"):
+		Audio.play("click", -6.0, 0.0)
+		_shop.open()
+	elif event.is_action_pressed("move_left") or event.is_action_pressed("ui_left"):
 		_index = (_index - 1 + _ids.size()) % _ids.size()
 		Audio.play("click", -6.0, 0.0)
 		_refresh()

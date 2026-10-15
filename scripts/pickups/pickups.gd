@@ -5,6 +5,7 @@ extends Node2D
 ## Must stay at the world origin.
 
 signal chest_collected
+signal gold_collected(amount: float)
 
 const MAX_XP := 300
 ## Chests are not pulled by the magnet; the cat has to walk over them.
@@ -57,6 +58,8 @@ func spawn_named(kind_name: String, pos: Vector2, value: float) -> void:
 			_spawn(Pickup.Kind.MAGNET, pos, value)
 		"chest":
 			_spawn(Pickup.Kind.CHEST, pos, value)
+		"coin":
+			_spawn(Pickup.Kind.COIN, pos, value)
 		_:
 			push_warning("Pickups: unknown kind %s" % kind_name)
 
@@ -115,4 +118,7 @@ func _collect(item: Pickup) -> void:
 					other.speed = 0.0
 		Pickup.Kind.CHEST:
 			chest_collected.emit()
+		Pickup.Kind.COIN:
+			Audio.play("xp", -10.0, 0.0)
+			gold_collected.emit(item.value)
 	item.queue_free()

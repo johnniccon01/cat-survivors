@@ -19,6 +19,9 @@ var knockback_resist := 0.0
 var dead := false
 var is_prop := false
 var is_boss := false
+var is_elite := false
+## Set when a swarm enemy has run its course; the manager removes it.
+var wants_despawn := false
 var manager: EnemyManager
 
 var _shape := "sock"
@@ -35,6 +38,9 @@ var _blink_t := 0.0
 var _suck_t := 6.0
 var _summon_t := 4.0
 var _minion := ""
+## Swarm events: run straight in one direction, then vanish.
+var _charge_dir := Vector2.ZERO
+var _charge_t := 0.0
 ## Final boss special: "suck" (pulls the cat in) or "roar" (rings of shots).
 var _final_mode := "suck"
 var _base_scale := 1.0
@@ -69,6 +75,15 @@ func setup(p_id: String, data: Dictionary, p_manager: EnemyManager) -> void:
 	scale = Vector2(_base_scale, _base_scale)
 
 
+func charge(dir: Vector2, seconds: float) -> void:
+	_charge_dir = dir
+	_charge_t = seconds
+
+
+func is_charging() -> bool:
+	return _charge_t > 0.0
+
+
 ## Turns a regular enemy into a tougher, bigger quest guard.
 func make_elite(hp_factor: float) -> void:
 	max_hp *= hp_factor
@@ -77,13 +92,22 @@ func make_elite(hp_factor: float) -> void:
 	_base_scale *= 1.5
 	scale = Vector2(_base_scale, _base_scale)
 	knockback_resist = maxf(knockback_resist, 0.7)
+	xp *= 10.0
+	is_elite = true
 	is_boss = true
 
 
 func tick(delta: float, target: Vector2, push: Vector2) -> void:
 	var dir := (target - position).normalized()
 	var move := dir * speed
-	match _behavior:
+	if _charge_t > 0.0:
+		_charge_t -= delta
+		if _charge_t <= 0.0:
+			wants_despawn = true
+			return
+		dir = _charge_dir
+		move = _charge_dir * speed * 2.2
+	match _behavior if _charge_t <= 0.0 else "charge":
 		"dash":
 			move = _tick_dash(delta, dir)
 		"shooter":

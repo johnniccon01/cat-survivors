@@ -49,6 +49,11 @@
       "kind": "xp",
       "weight": 38,
       "value": 5
+    },
+    {
+      "kind": "coin",
+      "weight": 25,
+      "value": 5
     }
   ]
 }

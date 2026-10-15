@@ -1,6 +1,7 @@
 extends Node
-## Progress that survives between runs: unlocked cats, cleared stages, story
-## flags and the last picked cat and stage. Stored in user://profile.cfg.
+## Progress that survives between runs: gold, bought power-ups, unlocked
+## cats, cleared stages, story flags and the last picked cat and stage.
+## Stored in user://profile.cfg.
 
 const PATH := "user://profile.cfg"
 
@@ -9,6 +10,11 @@ var selected_cat := "MICA"
 var selected_stage := "LIVING_ROOM"
 var cleared_stages: Array[String] = []
 var flags: Array[String] = []
+var gold := 0
+## Gold spent on power-ups (refunded in full on request).
+var spent := 0
+## power-up id -> bought rank
+var powerups: Dictionary = {}
 
 
 func _ready() -> void:
@@ -22,6 +28,9 @@ func _ready() -> void:
 			cleared_stages.append(id)
 		for flag: String in cfg.get_value("story", "flags", []):
 			flags.append(flag)
+		gold = cfg.get_value("shop", "gold", 0)
+		spent = cfg.get_value("shop", "spent", 0)
+		powerups = cfg.get_value("shop", "powerups", {})
 	for id: String in GameData.cats:
 		if GameData.cats[id].get("unlocked", false) and id not in unlocked:
 			unlocked.append(id)
@@ -76,6 +85,62 @@ func clear_stage(stage_id: String) -> bool:
 	return true
 
 
+func add_gold(amount: int) -> void:
+	gold += amount
+	save()
+
+
+func powerup_rank(id: String) -> int:
+	return int(powerups.get(id, 0))
+
+
+func total_ranks() -> int:
+	var n := 0
+	for id: String in powerups:
+		n += int(powerups[id])
+	return n
+
+
+## Price of the next rank: grows with the rank and with everything bought so
+## far (like Vampire Survivors), so the order you buy in matters a little.
+func powerup_cost(id: String) -> int:
+	var base := float(GameData.powerups[id]["base_cost"])
+	return roundi(base * (powerup_rank(id) + 1) * (1.0 + 0.1 * total_ranks()))
+
+
+func buy_powerup(id: String) -> bool:
+	var data: Dictionary = GameData.powerups[id]
+	if powerup_rank(id) >= int(data["max_rank"]):
+		return false
+	var cost := powerup_cost(id)
+	if gold < cost:
+		return false
+	gold -= cost
+	spent += cost
+	powerups[id] = powerup_rank(id) + 1
+	save()
+	return true
+
+
+## Gives back everything spent on power-ups.
+func refund_powerups() -> void:
+	gold += spent
+	spent = 0
+	powerups = {}
+	save()
+
+
+## Sum of all bought power-ups per stat.
+func powerup_bonus() -> Dictionary:
+	var bonus := {}
+	for id: String in powerups:
+		var data: Dictionary = GameData.powerups.get(id, {})
+		if data.is_empty():
+			continue
+		bonus[data["stat"]] = bonus.get(data["stat"], 0.0) + float(data["per_rank"]) * int(powerups[id])
+	return bonus
+
+
 func has_flag(flag: String) -> bool:
 	return flag in flags
 
@@ -96,4 +161,7 @@ func save() -> void:
 	cfg.set_value("stages", "selected", selected_stage)
 	cfg.set_value("stages", "cleared", cleared_stages)
 	cfg.set_value("story", "flags", flags)
+	cfg.set_value("shop", "gold", gold)
+	cfg.set_value("shop", "spent", spent)
+	cfg.set_value("shop", "powerups", powerups)
 	cfg.save(PATH)

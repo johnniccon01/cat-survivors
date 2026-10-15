@@ -13,6 +13,7 @@ signal died
 signal leveled_up
 signal xp_changed
 signal inventory_changed
+signal revived
 
 const RADIUS := 7.0
 const HIT_INVULN := 0.4
@@ -25,6 +26,7 @@ const BASE_STATS := {
 	"might": 1.0, "area": 1.0, "cooldown": 1.0, "amount": 0.0, "speed": 1.0,
 	"max_hp": 100.0, "regen": 0.0, "magnet": 40.0, "duration": 1.0,
 	"proj_speed": 1.0, "armor": 0.0,
+	"growth": 1.0, "greed": 1.0, "curse": 1.0, "revival": 0.0, "reroll": 0.0,
 }
 
 const OUTLINE := Color("2b1d14")
@@ -40,6 +42,9 @@ var leader: Player
 var escort_hp := 60.0
 ## Dev cheat: ignore all damage.
 var god := false
+## From the Revival / Reroll power-ups, used up during the run.
+var revivals_left := 0
+var rerolls_left := 0
 ## External pull (e.g. the final boss sucking the cat in); reset every frame.
 var pull := Vector2.ZERO
 
@@ -77,6 +82,8 @@ func _ready() -> void:
 		max_hp = escort_hp
 		stats["speed"] = 0.8
 	hp = max_hp
+	revivals_left = int(stats["revival"])
+	rerolls_left = int(stats["reroll"])
 	if controller != "escort":
 		add_weapon(GameData.cats[cat_id]["weapon"])
 
@@ -103,7 +110,7 @@ func xp_to_next() -> float:
 func add_xp(amount: float) -> void:
 	if is_dead:
 		return
-	xp += amount
+	xp += amount * stats["growth"]
 	while xp >= xp_to_next():
 		xp -= xp_to_next()
 		level += 1
@@ -162,6 +169,10 @@ func _recalc_stats() -> void:
 	var bonus: Dictionary = GameData.cats[cat_id].get("bonus", {})
 	for key: String in bonus:
 		stats[key] += bonus[key]
+	if controller == "input" or controller == "bot":
+		var shop := Profile.powerup_bonus()
+		for key: String in shop:
+			stats[key] += shop[key]
 	for id: String in passives:
 		var levels: Array = GameData.passives[id]["levels"]
 		for i in passives[id]:
@@ -211,6 +222,12 @@ func take_damage(amount: float) -> void:
 		Audio.play("hurt", -6.0)
 	_invuln = HIT_INVULN
 	_hurt_flash = 0.12
+	if hp <= 0.0 and revivals_left > 0:
+		revivals_left -= 1
+		hp = max_hp * 0.5
+		_invuln = 2.0
+		revived.emit()
+		return
 	if hp <= 0.0:
 		hp = 0.0
 		is_dead = true

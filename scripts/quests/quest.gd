@@ -58,6 +58,7 @@ func complete() -> void:
 	_done = true
 	main.hud.show_banner(tr("QUEST_DONE"), 2.5)
 	Audio.play("quest_done", -4.0, 0.0)
+	main.pickups.spawn_named("coin", main.player.position + Vector2(0, 16), 30.0)
 	finished.emit(true)
 	queue_free()
 
@@ -97,7 +98,7 @@ func spawn_wave_enemies(count: int, center: Vector2, min_r: float, max_r: float,
 	var spawned: Array[Enemy] = []
 	var wave: Dictionary = main.spawner.current_wave()
 	var pool: Array = wave["enemies"]
-	var hp_mult := float(wave.get("hp_mult", 1.0))
+	var hp_mult: float = main.spawner.hp_multiplier()
 	for i in count:
 		var id: String = enemy_id if enemy_id != "" else pool.pick_random()
 		var pos := center + Vector2.from_angle(TAU * i / count + randf() * 0.3) * randf_range(min_r, max_r)

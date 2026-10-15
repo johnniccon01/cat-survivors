@@ -13,6 +13,7 @@ var _level_label: Label
 var _inventory_label: Label
 var _time_label: Label
 var _kills_label: Label
+var _gold_label: Label
 var _debug_label: Label
 var _pause_overlay: Control
 var _pause_language: Label
@@ -59,6 +60,13 @@ func _ready() -> void:
 	_kills_label.offset_top = 24
 	_kills_label.offset_right = -20
 	add_child(_kills_label)
+
+	_gold_label = _label(18, HORIZONTAL_ALIGNMENT_RIGHT)
+	_gold_label.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	_gold_label.offset_top = 112
+	_gold_label.offset_right = -20
+	_gold_label.label_settings.font_color = Color("f2c14e")
+	add_child(_gold_label)
 
 	_inventory_label = _label(15, HORIZONTAL_ALIGNMENT_LEFT)
 	_inventory_label.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
@@ -184,6 +192,21 @@ func update_inventory(player: Player) -> void:
 	for id: String in player.passives:
 		lines.append("%s %d" % [Upgrades.item_name("passive", id), player.passives[id]])
 	_inventory_label.text = "\n".join(lines)
+
+
+func update_gold(amount: int) -> void:
+	_gold_label.text = tr("HUD_GOLD") % amount
+
+
+## Adds the banked gold line to whichever end screen is showing.
+func show_gold_earned(amount: int) -> void:
+	for overlay: Control in [_over_overlay, _win_overlay]:
+		var box := overlay.get_node("Box")
+		var line := _label(24, HORIZONTAL_ALIGNMENT_CENTER)
+		line.text = tr("GOLD_EARNED") % [amount, Profile.gold]
+		line.label_settings.font_color = Color("f2c14e")
+		box.add_child(line)
+		box.move_child(line, 2)
 
 
 func update_stats(elapsed: float, kills: int, enemy_count: int) -> void:

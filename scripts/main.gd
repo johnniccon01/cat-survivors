@@ -12,12 +12,14 @@ extends Node2D
 ##   --start-minute=N   start the run at minute N
 ##   --all-weapons      start with every base weapon
 ##   --show-levelup     the bot leaves the level-up screen open
-##   --test-evolution   maxes Scratch + Sharp Claws, opens a chest, prints, quits
+##   --test-evolution   maxes the starting weapon + its partner passive, opens a chest, prints, quits
 ##   --quest=ID         starts quest ID next to the cat (LUNA, TIGER, RED_DOT...)
 ##   --cat=ID           play as cat ID (see data/cats.json)
 ##   --levels=N         start with N random level-up picks (to test late game)
 
 const HEART_DROP_CHANCE := 0.005
+const COIN_DROP_CHANCE := 0.015
+const VICTORY_GOLD := 150
 const HEART_DROP_AMOUNT := 15.0
 ## Treasure size odds: [items, weight]
 const CHEST_ROLLS := [[1, 70.0], [3, 25.0], [5, 5.0]]
@@ -30,6 +32,9 @@ var companions: Array[Player] = []
 var quests: QuestDirector
 var quests_done := 0
 var final_boss: Enemy
+## Gold picked up this run; added to the profile when the run ends.
+var run_gold := 0.0
+var _shown_level := 1
 ## Bot runs log XP gained per minute to catch progression bugs.
 var _xp_log: Dictionary = {}
 var _xp_seen := 0.0
@@ -71,17 +76,24 @@ func _ready() -> void:
 		quests.force.call_deferred(forced)
 	enemies.enemy_killed.connect(_on_enemy_killed)
 	enemies.prop_broken.connect(_on_prop_broken)
+	enemies.elite_killed.connect(func(pos: Vector2) -> void: pickups.spawn_named("coin", pos + Vector2(8, 0), 10.0))
+	pickups.gold_collected.connect(func(amount: float) -> void: run_gold += amount * player.stat("greed") * player.stat("curse"))
 	pickups.chest_collected.connect(_queue_modal.bind("chest"))
 	spawner.boss_spawned.connect(func(_id: String) -> void:
 		hud.show_banner(tr("BOSS_WARNING"))
 		Audio.play("warning", -4.0, 0.0))
 	spawner.stage_cleared.connect(_on_stage_cleared)
 	spawner.final_boss_spawned.connect(_on_final_boss)
+	spawner.event_started.connect(func(kind: String) -> void:
+		hud.show_banner(tr("EVENT_%s" % kind.to_upper()), 2.5)
+		Audio.play("warning", -6.0, 0.0))
 	player.died.connect(_on_player_died)
 	player.leveled_up.connect(_queue_modal.bind("level"))
 	player.xp_changed.connect(func() -> void: hud.update_xp(player))
 	player.inventory_changed.connect(func() -> void: hud.update_inventory(player))
 	hud.level_up.chosen.connect(_on_offer_chosen)
+	hud.level_up.reroll_requested.connect(_on_reroll)
+	player.revived.connect(_on_revived)
 	hud.treasure.closed.connect(_next_modal)
 	hud.update_xp(player)
 	hud.update_inventory(player)
@@ -105,6 +117,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	hud.update_stats(spawner.elapsed, kills, enemies.enemies.size())
+	hud.update_gold(floori(run_gold))
 	if _bot:
 		var minute := floori(spawner.elapsed / 60.0)
 		_xp_log[minute] = _xp_log.get(minute, 0.0) + pickups.total_xp - _xp_seen
@@ -125,7 +138,14 @@ func _process(_delta: float) -> void:
 		var per_minute: Array[String] = []
 		for m: int in _xp_log:
 			per_minute.append("%d:%d" % [m, roundi(_xp_log[m])])
-		print("BOT: xp per minute ", " ".join(per_minute), " | kibbles on floor=", pickups.items.size())
+		var kinds := {}
+		var attracted := 0
+		var far := 0
+		for it in pickups.items:
+			kinds[it.kind] = kinds.get(it.kind, 0) + 1
+			attracted += int(it.attracted)
+			far += int(it.position.distance_to(player.position) > 600.0)
+		print("BOT: xp per minute ", " ".join(per_minute), " | pickups by kind=", kinds, " attracted=", attracted, " far=", far, " xp_count=", pickups._xp_count)
 		print("BOT: quests_done=%d companions=%s" % [quests_done, companions.map(func(c: Player) -> String: return c.cat_id)])
 		var q := quests.active
 		if q != null:
@@ -166,8 +186,11 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 	if GameData.enemies[id].get("boss", false):
 		bosses_killed += 1
 		pickups.spawn_named("chest", pos, 0.0)
+		pickups.spawn_named("coin", pos + Vector2(14, 6), 25.0)
 	elif randf() < HEART_DROP_CHANCE:
 		pickups.spawn_named("heart", pos + Vector2(6, 0), HEART_DROP_AMOUNT)
+	elif randf() < COIN_DROP_CHANCE:
+		pickups.spawn_named("coin", pos + Vector2(-6, 0), 1.0)
 
 
 func _on_prop_broken(_id: String, pos: Vector2) -> void:
@@ -248,7 +271,24 @@ func _next_modal() -> void:
 	if _bot and not "--show-levelup" in _args:
 		_on_offer_chosen(offers[0])
 		return
-	hud.level_up.open(player.level - _modals.count("level"), offers)
+	_shown_level = player.level - _modals.count("level")
+	hud.level_up.open(_shown_level, offers, player.rerolls_left)
+
+
+func _on_reroll() -> void:
+	if player.rerolls_left <= 0:
+		return
+	player.rerolls_left -= 1
+	Audio.play("magnet", -6.0, 0.0)
+	hud.level_up.open(_shown_level, Upgrades.roll(player), player.rerolls_left)
+
+
+## Revival power-up: back on your feet, and everything nearby is blown away.
+func _on_revived() -> void:
+	hud.show_banner(tr("REVIVED"), 3.0)
+	Audio.play("levelup", 0.0, 0.0)
+	for enemy in enemies.query_radius(player.position, 140.0):
+		enemy.hit(0.0, enemy.position - player.position, 5.0)
 
 
 func _on_offer_chosen(offer: Dictionary) -> void:
@@ -257,8 +297,16 @@ func _on_offer_chosen(offer: Dictionary) -> void:
 	_next_modal()
 
 
+## Banks the run's gold into the profile and returns the amount.
+func _bank_gold(bonus: int) -> int:
+	var total := floori(run_gold) + bonus
+	Profile.add_gold(total)
+	return total
+
+
 func _on_player_died() -> void:
 	_run_over = true
+	hud.show_gold_earned(_bank_gold(0))
 	Audio.stop_music()
 	Audio.play("gameover", -2.0, 0.0)
 	hud.show_game_over(spawner.elapsed, kills)
@@ -275,6 +323,7 @@ func _on_final_boss(boss: Enemy) -> void:
 
 func _on_stage_cleared() -> void:
 	_run_over = true
+	hud.show_gold_earned(_bank_gold(VICTORY_GOLD))
 	Audio.stop_music()
 	Audio.play("victory", -2.0, 0.0)
 	hud.show_victory(kills)
@@ -306,10 +355,11 @@ func _arg(prefix: String, default: String) -> String:
 
 
 func _test_evolution() -> void:
-	var w := player.get_weapon("SCRATCH")
+	# Works for any cat: max out its starting weapon and add the partner passive.
+	var w := player.weapons.get_child(0) as Weapon
 	while w.level < w.max_level():
 		w.level_up()
-	player.add_passive("MIGHT")
+	player.add_passive(w.data["evolve"]["with"])
 	print("TEST: evolution ready: ", Upgrades.find_evolution(player))
 	print("TEST: chest: ", Upgrades.open_chest(player, 3))
 	await get_tree().process_frame

@@ -33,6 +33,7 @@ func _ready() -> void:
 	_god_button = _button(box, "God mode: OFF", _toggle_god)
 	_button(box, "+5 levels", _levels)
 	_button(box, "Heal", func() -> void: main.player.heal(9999.0))
+	_button(box, "+1000 gold (saved)", func() -> void: Profile.add_gold(1000))
 	_button(box, "Kill all enemies", func() -> void: main.enemies.clear_all())
 	_button(box, "Final boss now", _final_boss)
 	_button(box, "Cat quest now", func() -> void: _quest("cat"))

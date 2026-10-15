@@ -3,7 +3,7 @@ extends Node2D
 ## A collectible lying on the floor. Movement and collection are handled by
 ## Pickups.
 
-enum Kind { XP, HEART, SARDINE, MAGNET, CHEST }
+enum Kind { XP, HEART, SARDINE, MAGNET, CHEST, COIN }
 
 const OUTLINE := Color("2b1d14")
 
@@ -41,8 +41,18 @@ func _draw() -> void:
 			_draw_magnet()
 		Kind.CHEST:
 			_draw_chest()
+		Kind.COIN:
+			_draw_coin()
 		_:
 			_draw_kibble()
+
+
+func _draw_coin() -> void:
+	var r := 3.5 if value < 10.0 else 5.0
+	draw_circle(Vector2.ZERO, r + 1.0, OUTLINE)
+	draw_circle(Vector2.ZERO, r, Color("f2c14e"))
+	draw_circle(Vector2.ZERO, r * 0.55, Color("d9a23a"))
+	draw_rect(Rect2(-r * 0.5, -r * 0.6, 1, 1), Color(1, 1, 1, 0.9))
 
 
 func _draw_kibble() -> void:

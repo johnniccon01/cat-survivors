@@ -127,7 +127,7 @@ QUEST_FRIDGE_FIND,Find the fridge,Nájdi chladničku
 QUEST_FRIDGE_OPEN,Stay by the fridge to open it,Zostaň pri chladničke a otvor ju
 QUEST_FRIDGE_FIGHT,Defeat the leftovers: %d left,Poraz zvyšky: zostáva %d
 SELECT_TITLE,Choose your cat,Vyber si mačku
-SELECT_HINT,← → cat · ↑ ↓ map · Enter start · L language · M sound,← → mačka · ↑ ↓ mapa · Enter štart · L jazyk · M zvuk
+SELECT_HINT,← → cat · ↑ ↓ map · Enter start · U upgrades · L language · M sound,← → mačka · ↑ ↓ mapa · Enter štart · U vylepšenia · L jazyk · M zvuk
 SELECT_LOCKED,???,???
 GAME_OVER_MENU,Esc – change cat,Esc – zmeniť mačku
 QUEST_RESCUE_ESCORT,Walk %s to the safe cat bed,Odprevaď: %s do bezpečného pelechu
@@ -151,3 +151,40 @@ STORY_BASEMENT_INTRO,Something is squeaking in the dark...,V tme niečo piští.
 PAUSE_SOUND,M – sound: %s,M – zvuk: %s
 SOUND_ON,on,zapnutý
 SOUND_OFF,off,vypnutý
+SELECT_GOLD,Gold: %d,Zlato: %d
+HUD_GOLD,Gold: %d,Zlato: %d
+GOLD_EARNED,+%d gold (total %d),+%d zlata (spolu %d)
+SHOP_TITLE,Upgrades,Vylepšenia
+SHOP_GOLD,Gold: %d,Zlato: %d
+SHOP_MAX,MAX,MAX
+SHOP_HINT,Arrows choose · Enter buy · Backspace refund all · U / Esc back,Šípky výber · Enter kúpiť · Backspace vrátiť všetko · U / Esc späť
+POWERUP_MIGHT_NAME,Might,Sila
+POWERUP_MIGHT_DESC,+5% damage per rank.,+5 % poškodenie za stupeň.
+POWERUP_ARMOR_NAME,Armor,Brnenie
+POWERUP_ARMOR_DESC,Every hit hurts 1 less per rank.,Každý zásah zraní o 1 menej za stupeň.
+POWERUP_MAX_HEALTH_NAME,Max Health,Zdravie
+POWERUP_MAX_HEALTH_DESC,+10 max health per rank.,+10 maximálne zdravie za stupeň.
+POWERUP_RECOVERY_NAME,Recovery,Regenerácia
+POWERUP_RECOVERY_DESC,Recover 0.1 HP per second per rank.,"Obnova 0,1 HP za sekundu za stupeň."
+POWERUP_COOLDOWN_NAME,Cooldown,Cooldown
+POWERUP_COOLDOWN_DESC,Weapons attack 2.5% faster per rank.,"Zbrane útočia o 2,5 % rýchlejšie za stupeň."
+POWERUP_AREA_NAME,Area,Plocha
+POWERUP_AREA_DESC,+5% attack area per rank.,+5 % plocha útokov za stupeň.
+POWERUP_MOVE_SPEED_NAME,Move Speed,Rýchlosť
+POWERUP_MOVE_SPEED_DESC,+5% movement speed per rank.,+5 % rýchlosť pohybu za stupeň.
+POWERUP_MAGNET_NAME,Magnet,Magnet
+POWERUP_MAGNET_DESC,Pick up kibble from further away.,Granule priťahuješ z väčšej diaľky.
+POWERUP_GROWTH_NAME,Growth,Rast
+POWERUP_GROWTH_DESC,+3% experience per rank.,+3 % skúseností za stupeň.
+POWERUP_GREED_NAME,Greed,Chamtivosť
+POWERUP_GREED_DESC,+10% gold per rank.,+10 % zlata za stupeň.
+POWERUP_REVIVAL_NAME,Revival,Oživenie
+POWERUP_REVIVAL_DESC,Come back once with half health after dying.,Po smrti sa raz vrátiš s polovicou zdravia.
+POWERUP_REROLL_NAME,Reroll,Prehodenie
+POWERUP_REROLL_DESC,Press R on the level-up screen to get new offers (once per rank each run).,Na level-up obrazovke stlač R a dostaneš nové ponuky (raz za stupeň v každej hre).
+POWERUP_CURSE_NAME,Curse,Kliatba
+POWERUP_CURSE_DESC,"Harder runs: enemies are 10% tougher, faster and more numerous per rank, but you get 10% more gold.","Ťažšia hra: nepriatelia sú o 10 % silnejší, rýchlejší a početnejší za stupeň, ale dostaneš o 10 % viac zlata."
+LEVELUP_REROLL,R – reroll (%d left),R – prehodiť ponuku (zostáva %d)
+REVIVED,Revived!,Oživenie!
+EVENT_RING,Surrounded!,Obkľúčenie!
+EVENT_SWARM,A swarm is coming!,Blíži sa roj!

@@ -7,6 +7,7 @@ extends Node2D
 
 signal enemy_killed(enemy_id: String, pos: Vector2, xp: float)
 signal prop_broken(prop_id: String, pos: Vector2)
+signal elite_killed(pos: Vector2)
 
 const CELL := 24.0
 const MAX_ENEMIES := 500
@@ -57,6 +58,13 @@ func spawn_bullet(pos: Vector2, dir: Vector2, bullet_damage: float, style: Strin
 	get_parent().add_child(bullet)
 
 
+## Silently removes one enemy (no XP, no effect), e.g. a swarm that ran off.
+func despawn(enemy: Enemy) -> void:
+	enemy.dead = true
+	enemies.erase(enemy)
+	enemy.queue_free()
+
+
 ## Removes every enemy with a puff of smoke (no XP), e.g. before the final boss.
 func clear_all() -> void:
 	for enemy in enemies:
@@ -87,6 +95,8 @@ func on_enemy_dead(enemy: Enemy) -> void:
 	else:
 		enemies.erase(enemy)
 		enemy_killed.emit(enemy.id, enemy.position, enemy.xp)
+		if enemy.is_elite:
+			elite_killed.emit(enemy.position)
 	poof.position = enemy.position
 	get_parent().add_child(poof)
 	enemy.queue_free()
@@ -104,7 +114,7 @@ func _physics_process(delta: float) -> void:
 			cats.append(c)
 	for enemy in enemies:
 		var offset := enemy.position - target
-		if offset.length_squared() > relocate_distance * relocate_distance:
+		if offset.length_squared() > relocate_distance * relocate_distance and not enemy.is_charging():
 			enemy.position = target - offset.normalized() * spawn_radius
 		var chase := target
 		if cats.size() > 1:
@@ -118,6 +128,9 @@ func _physics_process(delta: float) -> void:
 			var reach := enemy.radius + Player.RADIUS
 			if not c.is_dead and enemy.position.distance_squared_to(c.position) < reach * reach:
 				c.take_damage(enemy.damage)
+	for i in range(enemies.size() - 1, -1, -1):
+		if enemies[i].wants_despawn:
+			despawn(enemies[i])
 	for i in range(props.size() - 1, -1, -1):
 		if props[i].position.distance_squared_to(target) > relocate_distance * relocate_distance * 2.0:
 			props[i].queue_free()

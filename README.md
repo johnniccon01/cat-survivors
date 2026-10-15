@@ -39,6 +39,8 @@ Testovacie behy (`--bot`) nikdy neukladajú profil.
 - `data/stages.json` – mapy (byt, pivnica): vlny, bossovia, finálny boss, ktoré mačky a príbehový quest tam patria. Pivnica sa odomkne porazením Kráľa vysávačov.
 - `data/quests.json` + `scripts/quests/` – questy: záchrany a súboje mačiek, vedľajšie úlohy, poradie počas noci.
 - `scripts/ui/character_select.gd` – výber mačky pred hrou.
+- `data/powerups.json` – trvalé vylepšenia z obchodu (U vo výbere mačky). Zlato a kúpené stupne sú v profile.
+- Výzva: HP nepriateľov rastie s levelom mačky a s Kliatbou; elitní nepriatelia od 4. minúty; udalosti `events` (kruh, roj) v `data/stages.json`.
 - `data/props.json` – rozbitné predmety (krabice, kvetináče) a čo z nich padá.
 - Evolúcie: v `data/weapons.json` má základná zbraň `"evolve": {"with": PASÍVKA, "into": EVOLÚCIA}`. Zbraň na max leveli + vlastnená pasívka + truhlica z bossa = evolúcia.
 - Bossovia sú v `data/enemies.json` (`"boss": true`), do vĺn sa pridávajú cez `"bosses"` v `data/stages.json`.

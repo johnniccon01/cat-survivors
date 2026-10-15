@@ -4,6 +4,7 @@ extends ColorRect
 ## Enter/Space, or number keys 1-4.
 
 signal chosen(offer: Dictionary)
+signal reroll_requested
 
 ## Ignore input for a moment so a held key doesn't pick a card by accident.
 const INPUT_DELAY := 0.35
@@ -14,6 +15,7 @@ const CARD_FOCUS := Color("f2c14e")
 const OUTLINE := Color("2b1d14")
 
 var _title: Label
+var _reroll: Label
 var _cards: HBoxContainer
 var _offers: Array[Dictionary] = []
 var _ready_for_input := false
@@ -39,9 +41,13 @@ func _ready() -> void:
 	_cards.add_theme_constant_override("separation", 20)
 	box.add_child(_cards)
 
+	_reroll = _label(18, Color("b9a8c9"))
+	box.add_child(_reroll)
 
-func open(level: int, offers: Array[Dictionary]) -> void:
+
+func open(level: int, offers: Array[Dictionary], rerolls: int = 0) -> void:
 	_offers = offers
+	_reroll.text = tr("LEVELUP_REROLL") % rerolls if rerolls > 0 else ""
 	_title.text = tr("LEVEL_UP_TITLE") % level
 	for child in _cards.get_children():
 		child.queue_free()
@@ -57,6 +63,11 @@ func open(level: int, offers: Array[Dictionary]) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible or not _ready_for_input:
+		return
+	if event.is_action_pressed("reroll") and _reroll.text != "":
+		get_viewport().set_input_as_handled()
+		_ready_for_input = false
+		reroll_requested.emit()
 		return
 	if event is InputEventKey and event.pressed and not event.echo:
 		var index: int = event.physical_keycode - KEY_1

@@ -193,7 +193,45 @@
       "PIP",
       "BARON"
     ],
-    "story": "COLLAR"
+    "story": "COLLAR",
+    "events": [
+      {
+        "minute": 4.5,
+        "type": "ring",
+        "enemy": "SOCK",
+        "count": 36
+      },
+      {
+        "minute": 7.5,
+        "type": "swarm",
+        "enemy": "BUBBLE",
+        "count": 40
+      },
+      {
+        "minute": 10.5,
+        "type": "ring",
+        "enemy": "SOCK_STRIPED",
+        "count": 44
+      },
+      {
+        "minute": 13.0,
+        "type": "swarm",
+        "enemy": "DUST_BUNNY",
+        "count": 50
+      },
+      {
+        "minute": 16.0,
+        "type": "ring",
+        "enemy": "SLIPPER",
+        "count": 48
+      },
+      {
+        "minute": 18.5,
+        "type": "swarm",
+        "enemy": "ROOMBA",
+        "count": 40
+      }
+    ]
   },
   "BASEMENT": {
     "theme": "basement",
@@ -353,6 +391,44 @@
           "MOTH"
         ],
         "hp_mult": 5.5
+      }
+    ],
+    "events": [
+      {
+        "minute": 4.0,
+        "type": "ring",
+        "enemy": "RAT",
+        "count": 40
+      },
+      {
+        "minute": 6.5,
+        "type": "swarm",
+        "enemy": "MOTH",
+        "count": 50
+      },
+      {
+        "minute": 9.5,
+        "type": "ring",
+        "enemy": "SPIDER",
+        "count": 44
+      },
+      {
+        "minute": 12.5,
+        "type": "swarm",
+        "enemy": "RAT",
+        "count": 60
+      },
+      {
+        "minute": 15.5,
+        "type": "ring",
+        "enemy": "SPIDER",
+        "count": 52
+      },
+      {
+        "minute": 18.0,
+        "type": "swarm",
+        "enemy": "MOTH",
+        "count": 70
       }
     ]
   }

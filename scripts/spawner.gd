@@ -7,6 +7,10 @@ extends Node
 ##
 ## Difficulty keeps up with the cat: enemy health grows with the cat's level
 ## and with the Curse power-up, which also brings more and faster enemies.
+##
+## Pacing: a soft cap limits how many regular enemies are alive at once, and
+## calm periods (after a boss falls, plus a short lull every few minutes)
+## stop regular spawning so the player can breathe.
 
 signal boss_spawned(boss_id: String)
 signal stage_cleared
@@ -22,12 +26,20 @@ const ELITE_EVERY := 40.0
 const ELITE_HP := 8.0
 const RING_RADIUS := 240.0
 const SWARM_TIME := 7.0
+## Alive-enemy cap for regular spawns: starts here, grows per minute, tops out.
+const CAP_BASE := 170
+const CAP_PER_MINUTE := 5
+const CAP_MAX := 260
+const LULL_EVERY := 150.0
+const LULL_TIME := 10.0
 
 @export var stage_id := "LIVING_ROOM"
 
 var elapsed := 0.0
 ## Stops regular spawning (duels, final boss).
 var paused := false
+## Seconds left of a calm period (no regular spawns, elites or events).
+var calm := 0.0
 
 var _player: Player
 var _enemies: EnemyManager
@@ -37,6 +49,7 @@ var _prop_timer := 1.0
 var _elite_timer := ELITE_EVERY
 var _wave_minute := -1
 var _events_done := 0
+var _lull_timer := LULL_EVERY
 var _cleared := false
 
 
@@ -65,6 +78,23 @@ func current_wave() -> Dictionary:
 	return wave
 
 
+func calm_for(seconds: float) -> void:
+	calm = maxf(calm, seconds)
+
+
+## How many regular enemies may be alive right now.
+func alive_cap() -> int:
+	return mini(CAP_BASE + floori(elapsed / 60.0) * CAP_PER_MINUTE, CAP_MAX)
+
+
+## Jumps the clock (dev tool) without firing every skipped event at once.
+func skip_to(seconds: float) -> void:
+	elapsed = seconds
+	var events: Array = _stage.get("events", [])
+	while _events_done < events.size() and float(events[_events_done]["minute"]) * 60.0 <= elapsed:
+		_events_done += 1
+
+
 ## Health multiplier for enemies spawned right now.
 func hp_multiplier() -> float:
 	var level_bonus := maxf(_player.level - LEVEL_SCALING_FROM, 0) * LEVEL_SCALING
@@ -90,6 +120,13 @@ func _physics_process(delta: float) -> void:
 	if paused:
 		return
 	_tick_props(delta)
+	_lull_timer -= delta
+	if _lull_timer <= 0.0:
+		_lull_timer = LULL_EVERY
+		calm_for(LULL_TIME)
+	if calm > 0.0:
+		calm -= delta
+		return
 	_tick_events()
 	var wave := current_wave()
 	var radius := _spawn_radius()
@@ -114,10 +151,11 @@ func _physics_process(delta: float) -> void:
 	# Top up to the wave's minimum at once, then trickle more in until the
 	# wave's maximum (default: twice the minimum) is reached.
 	var alive := _enemies.enemies.size()
-	var minimum := roundi(int(wave["minimum"]) * _player.stat("curse"))
-	var maximum := mini(int(wave.get("maximum", minimum * 2)), EnemyManager.MAX_ENEMIES - 50)
+	var cap := roundi(alive_cap() * _player.stat("curse"))
+	var minimum := mini(roundi(int(wave["minimum"]) * _player.stat("curse")), cap)
+	var maximum := mini(int(wave.get("maximum", roundi(minimum * 1.4))), cap)
 	var count := int(wave.get("per_tick", 1)) if alive < maximum else 0
-	count = maxi(count, minimum - alive)
+	count = mini(maxi(count, minimum - alive), maxi(cap - alive, 0))
 	var pool: Array = wave["enemies"]
 	for i in count:
 		_spawn(pool.pick_random(), _player.position + Vector2.from_angle(randf() * TAU) * radius)

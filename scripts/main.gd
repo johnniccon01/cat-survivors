@@ -20,6 +20,7 @@ extends Node2D
 ##   --levels=N         start with N random level-up picks (to test late game)
 ##   --extract          open a cat flap right away
 ##   --drop-charm       drop a random charm next to the cat at the start
+##   --catch-up         with --start-minute: level the cat like the dev panel's skip does
 
 const HEART_DROP_CHANCE := 0.005
 const COIN_DROP_CHANCE := 0.015
@@ -28,6 +29,10 @@ const VICTORY_GOLD := 150
 const DEATH_GOLD_KEPT := 0.5
 ## Cat flaps only open from this point of the run on.
 const EXTRACT_FROM := 180.0
+## A cat flap always opens at these minutes, even without a boss or quest.
+const FLAP_MINUTES := [5, 10, 15]
+## Quiet time after a boss falls.
+const BOSS_BREATHER := 12.0
 ## Charm drop chances.
 const CHARM_CHANCE_ELITE := 0.06
 const CHARM_CHANCE_BOSS := 0.35
@@ -52,10 +57,12 @@ var _shown_level := 1
 ## Bot runs log XP gained per minute to catch progression bugs.
 var _xp_log: Dictionary = {}
 var _xp_seen := 0.0
+var _max_alive := 0
 var bosses_killed := 0
 var extraction: Extraction
 ## Charms picked up this run: only kept by escaping or winning.
 var run_charms: Array[String] = []
+var _flap_index := 0
 var chests_opened := 0
 
 var _args := OS.get_cmdline_user_args()
@@ -81,7 +88,9 @@ func _ready() -> void:
 	if spawner.stage_id == "BASEMENT" and not Profile.is_unlocked("LUNA"):
 		var intro := "STORY_BASEMENT_COLLAR" if Profile.has_flag("collar") else "STORY_BASEMENT_INTRO"
 		hud.show_banner.call_deferred(tr(intro), 6.0)
-	spawner.elapsed = float(_arg("--start-minute=", "0")) * 60.0
+	spawner.skip_to(float(_arg("--start-minute=", "0")) * 60.0)
+	if "--catch-up" in _args:
+		_catch_up.call_deferred(spawner.elapsed)
 	_bot_time += spawner.elapsed
 	night.setup(spawner, player)
 	quests = QuestDirector.new()
@@ -150,7 +159,11 @@ func _process(_delta: float) -> void:
 		var minute := floori(spawner.elapsed / 60.0)
 		_xp_log[minute] = _xp_log.get(minute, 0.0) + pickups.total_xp - _xp_seen
 		_xp_seen = pickups.total_xp
+		_max_alive = maxi(_max_alive, enemies.enemies.size())
 	hud.update_quest(quests.active)
+	if _flap_index < FLAP_MINUTES.size() and spawner.elapsed >= FLAP_MINUTES[_flap_index] * 60.0:
+		_flap_index += 1
+		_open_extraction(true)
 	hud.update_extraction(extraction)
 	hud.update_boss(final_boss if is_instance_valid(final_boss) and not final_boss.dead else null)
 	if _bot and (spawner.elapsed >= _bot_time or _run_over):
@@ -164,6 +177,7 @@ func _process(_delta: float) -> void:
 			enemies.enemies.size(), player.is_dead])
 		print("BOT: weapons=%s passives=%s props_broken=%d bosses_killed=%d chests=%d won=%s" % [
 			weapons, player.passives, props_broken, bosses_killed, chests_opened, _run_over and not player.is_dead])
+		print("BOT: most enemies alive at once=%d" % _max_alive)
 		print("BOT: gold=%d streak=%d extraction_open=%s charms=%s owned=%s" % [floori(run_gold), Profile.streak, extraction != null, run_charms, Profile.charms])
 		var per_minute: Array[String] = []
 		for m: int in _xp_log:
@@ -219,6 +233,8 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 		pickups.spawn_named("coin", pos + Vector2(14, 6), 25.0)
 		_maybe_drop_charm(pos + Vector2(-14, 6), CHARM_CHANCE_BOSS)
 		_open_extraction()
+		spawner.calm_for(BOSS_BREATHER)
+		hud.show_banner(tr("BREATHER"), 3.0)
 	elif randf() < HEART_DROP_CHANCE:
 		pickups.spawn_named("heart", pos + Vector2(6, 0), HEART_DROP_AMOUNT)
 	elif randf() < COIN_DROP_CHANCE:
@@ -408,6 +424,16 @@ func _end_run(kind: String) -> void:
 	Profile.add_gold(gold)
 	lines.append(tr("SUMMARY_TOTAL") % Profile.gold)
 	hud.show_summary(lines)
+
+
+func _catch_up(seconds: float) -> void:
+	var dev := DevPanel.new()
+	dev.main = self
+	var start := spawner.elapsed
+	spawner.skip_to(0.0)
+	dev._skip(seconds)
+	spawner.skip_to(start)
+	dev.free()
 
 
 func _charm_names() -> String:

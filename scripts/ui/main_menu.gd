@@ -4,7 +4,8 @@ extends Control
 
 const SELECT_SCENE := "res://scenes/character_select.tscn"
 const MAIN_SCENE := "res://scenes/main.tscn"
-const PANEL_FLAGS := ["--shop", "--charms", "--goals", "--settings"]
+## Flags that keep the menu up instead of jumping into a run.
+const PANEL_FLAGS := ["--shop", "--charms", "--goals", "--settings", "--ui-test"]
 
 var _shop: ShopPanel
 var _charms: CharmPanel
@@ -103,12 +104,21 @@ func _open(panel: Control) -> void:
 	# Otherwise the arrows and Enter would still drive the menu buttons hidden
 	# behind the panel (Enter could even press Quit).
 	get_viewport().gui_release_focus()
+	_set_menu_focusable(false)
 	panel.call("open")
 
 
 func _on_panel_closed() -> void:
+	_set_menu_focusable(true)
 	_refresh()
 	(_buttons.get_child(0) as Button).grab_focus.call_deferred()
+
+
+## While a panel is open the menu buttons can't take focus, so arrow keys in
+## the panel can never wander onto them.
+func _set_menu_focusable(on: bool) -> void:
+	for b: Button in _buttons.get_children():
+		b.focus_mode = Control.FOCUS_ALL if on else Control.FOCUS_NONE
 
 
 func _refresh() -> void:

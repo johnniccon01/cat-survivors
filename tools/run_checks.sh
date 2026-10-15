@@ -7,7 +7,9 @@ GODOT="${1:-/c/Users/john.niccon/Downloads/Godot_v4.6.2-stable_win64.exe/Godot_v
 JOBS="${JOBS:-4}"
 cd "$(dirname "$0")/.." || exit 1
 
+# "name|args after --" or "name|args after --|engine args" (e.g. a -s script).
 scenarios=(
+  "menus|--ui-test|-s res://tools/ui_test.gd"
   "apartment|--bot --bot-time=300"
   "basement|--bot --stage=BASEMENT --bot-time=300"
   "late_apartment|--bot --start-minute=12 --catch-up --bot-time=240"
@@ -47,13 +49,18 @@ scenarios=(
 )
 
 run_one() {
-  local entry="$1" name args out errors summary
+  local entry="$1" name args engine out errors summary
   name="${entry%%|*}"
   args="${entry#*|}"
+  engine=""
+  if [[ "$args" == *"|"* ]]; then
+    engine="${args#*|}"
+    args="${args%%|*}"
+  fi
   # Own log file, so test runs never push the player's logs out of the rotation.
-  out=$(timeout 280 "$GODOT" --headless --log-file "${TMPDIR:-/tmp}/catsurvivors_$name.log" --path . -- $args 2>&1)
-  errors=$(echo "$out" | grep -E "SCRIPT ERROR|Parse Error|ERROR: " | grep -vE "resources still in use|ObjectDB instances leaked" | sort | uniq -c | head -5)
-  summary=$(echo "$out" | grep -E "^(BOT|TEST): (time|weapons after|quests_done|active quest)" | tr '\n' ' ' | cut -c1-200)
+  out=$(timeout 280 "$GODOT" --headless --log-file "${TMPDIR:-/tmp}/catsurvivors_$name.log" --path . $engine -- $args 2>&1)
+  errors=$(echo "$out" | grep -E "SCRIPT ERROR|Parse Error|ERROR: |UI: FAIL" | grep -vE "resources still in use|ObjectDB instances leaked" | sort | uniq -c | head -5)
+  summary=$(echo "$out" | grep -E "^(BOT|TEST): (time|weapons after|quests_done|active quest)|^UI: done" | tr '\n' ' ' | cut -c1-200)
   if [ -n "$errors" ]; then
     printf 'FAIL %s: %s\n%s\n' "$name" "$summary" "$(echo "$errors" | sed 's/^/     /')"
   else

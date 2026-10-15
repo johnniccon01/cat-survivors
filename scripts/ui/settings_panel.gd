@@ -52,6 +52,9 @@ func _ready() -> void:
 	var back := UiStyle.button("SET_BACK", 520)
 	back.pressed.connect(close)
 	box.add_child(back)
+	# Up from the first row wraps to Back and down from Back to the first row.
+	_first.focus_neighbor_top = _first.get_path_to(back)
+	back.focus_neighbor_bottom = back.get_path_to(_first)
 
 
 func open() -> void:

@@ -27,7 +27,7 @@ var _gold: Label
 
 func _ready() -> void:
 	for arg: String in OS.get_cmdline_user_args():
-		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--goals"]:
+		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--goals", "--ui-test"]:
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
 			return
 	for id: String in GameData.cats:

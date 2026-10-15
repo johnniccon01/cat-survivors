@@ -47,6 +47,37 @@ func stat(stat_name: String, default: float = 0.0) -> float:
 	return float(stats.get(stat_name, default))
 
 
+# Final values: the weapon's own stats combined with the cat's passives.
+
+func damage() -> float:
+	return stat("damage") * player.stat("might")
+
+
+func area() -> float:
+	return stat("area", 1.0) * player.stat("area")
+
+
+func interval() -> float:
+	return maxf(stat("interval", 1.0) * player.stat("cooldown"), 0.1)
+
+
+func amount() -> int:
+	return int(stat("amount", 1.0) + player.stat("amount"))
+
+
+func duration() -> float:
+	return stat("duration", 1.0) * player.stat("duration")
+
+
+func proj_speed() -> float:
+	return stat("speed", 1.0) * player.stat("proj_speed")
+
+
+## Shots per burst; weapons that spawn everything at once override this.
+func shots() -> int:
+	return amount()
+
+
 func _recalc() -> void:
 	stats = {}
 	for i in level:
@@ -60,9 +91,9 @@ func _physics_process(delta: float) -> void:
 		return
 	_cooldown -= delta
 	if _cooldown <= 0.0:
-		_cooldown += stat("interval", 1.0)
+		_cooldown += interval()
 		_burst_index = 0
-		_burst_count = int(stat("amount", 1.0))
+		_burst_count = shots()
 		_burst_timer = 0.0
 	if _burst_index < _burst_count:
 		_burst_timer -= delta

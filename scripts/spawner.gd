@@ -43,13 +43,18 @@ func _physics_process(delta: float) -> void:
 	var radius := _spawn_radius()
 	_enemies.spawn_radius = radius
 	_enemies.relocate_distance = radius * 1.5
-	var count := int(wave.get("per_tick", 1))
-	var missing := int(wave["minimum"]) - _enemies.enemies.size()
-	count = maxi(count, missing)
+	# Top up to the wave's minimum at once, then trickle more in until the
+	# wave's maximum (default: twice the minimum) is reached.
+	var alive := _enemies.enemies.size()
+	var minimum := int(wave["minimum"])
+	var maximum := int(wave.get("maximum", minimum * 2))
+	var count := int(wave.get("per_tick", 1)) if alive < maximum else 0
+	count = maxi(count, minimum - alive)
 	var pool: Array = wave["enemies"]
+	var hp_mult := float(wave.get("hp_mult", 1.0))
 	for i in count:
 		var dir := Vector2.from_angle(randf() * TAU)
-		_enemies.spawn(pool.pick_random(), _player.position + dir * radius)
+		_enemies.spawn(pool.pick_random(), _player.position + dir * radius, hp_mult)
 
 
 func _spawn_radius() -> float:

@@ -25,11 +25,13 @@ func _enter_tree() -> void:
 	add_to_group("enemy_manager")
 
 
-func spawn(id: String, pos: Vector2) -> Enemy:
+func spawn(id: String, pos: Vector2, hp_mult: float = 1.0) -> Enemy:
 	if enemies.size() >= MAX_ENEMIES:
 		return null
 	var enemy := Enemy.new()
 	enemy.setup(id, GameData.enemies[id], self)
+	enemy.max_hp *= hp_mult
+	enemy.hp = enemy.max_hp
 	enemy.position = pos
 	add_child(enemy)
 	enemies.append(enemy)
@@ -58,6 +60,17 @@ func _physics_process(delta: float) -> void:
 		var reach := enemy.radius + Player.RADIUS
 		if not player.is_dead and enemy.position.distance_squared_to(target) < reach * reach:
 			player.take_damage(enemy.damage)
+
+
+func nearest(pos: Vector2, max_dist: float = INF) -> Enemy:
+	var best: Enemy = null
+	var best_d2 := max_dist * max_dist
+	for enemy in enemies:
+		var d2 := enemy.position.distance_squared_to(pos)
+		if d2 < best_d2:
+			best_d2 = d2
+			best = enemy
+	return best
 
 
 func query_rect(rect: Rect2) -> Array[Enemy]:

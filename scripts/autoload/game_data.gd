@@ -4,12 +4,14 @@ extends Node
 ## tweaked without touching code.
 
 var weapons: Dictionary = {}
+var passives: Dictionary = {}
 var enemies: Dictionary = {}
 var stages: Dictionary = {}
 
 
 func _ready() -> void:
 	weapons = _load_json("res://data/weapons.json")
+	passives = _load_json("res://data/passives.json")
 	enemies = _load_json("res://data/enemies.json")
 	stages = _load_json("res://data/stages.json")
 	_setup_input()

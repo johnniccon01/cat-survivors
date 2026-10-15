@@ -52,6 +52,9 @@ var _accent := Color.GRAY
 var _knock := Vector2.ZERO
 var _flash := 0.0
 var _wobble := randf() * TAU
+## Two-frame sprite animation.
+var _anim := randf()
+var _frame := 0
 
 
 func setup(p_id: String, data: Dictionary, p_manager: EnemyManager) -> void:
@@ -139,6 +142,11 @@ func tick(delta: float, target: Vector2, push: Vector2) -> void:
 		_flash -= delta
 		if _flash <= 0.0:
 			queue_redraw()
+	_anim += delta * (4.0 + speed * 0.03)
+	var f := int(_anim) % 2
+	if f != _frame:
+		_frame = f
+		queue_redraw()
 
 
 func _tick_dash(delta: float, dir: Vector2) -> Vector2:
@@ -254,11 +262,24 @@ func hit(amount: float, direction: Vector2, knockback: float, can_crit: bool = t
 
 
 func _draw() -> void:
+	var r := radius / _base_scale
+	var sprite := Sprites.enemy(id) if _shape != "cat" else {}
+	if not sprite.is_empty():
+		draw_colored_polygon(Shapes.ellipse(Vector2(1, r + 2), r, 2), Color(0, 0, 0, 0.25))
+		# Regular enemies flash white; bosses (hit constantly) just brighten.
+		var row := 1 if _flash > 0.0 and not is_boss else 0
+		var tint := Color(1.5, 1.5, 1.5) if _flash > 0.0 and is_boss else Color.WHITE
+		Sprites.draw_frame(self, sprite, _frame, row, tint)
+		if _shape == "vacuum" and _state == "suck":
+			for i in 8:
+				var a := TAU * i / 8.0 + _wobble
+				draw_line(Vector2.from_angle(a) * 30.0, Vector2.from_angle(a) * 14.0, Color(0.85, 0.9, 1.0, 0.6), 1.0)
+		_draw_boss_marks(r)
+		return
 	var body := _color
 	if _flash > 0.0:
 		# Bosses get hit constantly; a lighter tint keeps them recognisable.
 		body = _color.lightened(0.4) if is_boss else Color.WHITE
-	var r := radius / _base_scale
 	draw_colored_polygon(Shapes.ellipse(Vector2(1, r + 2), r, 2), Color(0, 0, 0, 0.25))
 	match _shape:
 		"dust":
@@ -291,6 +312,11 @@ func _draw() -> void:
 			CatArt.draw(self, CatArt.look(_cat_id), 1, _wobble, _flash > 0.0, false, "angry")
 		_:
 			_draw_sock(body)
+	_draw_boss_marks(r)
+
+
+## Crown and health bar for bosses and elites.
+func _draw_boss_marks(r: float) -> void:
 	if is_boss:
 		if _shape != "cat":
 			_draw_crown(Vector2(0, -r - 6))

@@ -24,4 +24,5 @@ func _draw() -> void:
 			lk[key] = SILHOUETTE
 		lk["stripes"] = false
 		lk["patches"] = false
-	CatArt.draw(self, lk, 1, _t, false, false, "normal", size * 0.5, 4.0)
+		lk["silhouette"] = true
+	CatArt.draw(self, lk, 1, _t, false, false, "normal", size * 0.5, 3.0, walking)

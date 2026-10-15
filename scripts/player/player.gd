@@ -350,7 +350,7 @@ func _bot_input(delta: float) -> Vector2:
 
 
 func _draw() -> void:
-	CatArt.draw(self, _look, facing, _walk_t, _hurt_flash > 0.0, is_dead)
+	CatArt.draw(self, _look, facing, _walk_t, _hurt_flash > 0.0, is_dead, "normal", Vector2.ZERO, 1.0, velocity.length_squared() > 1.0)
 	if is_dead or is_companion():
 		return
 	if controller == "escort":

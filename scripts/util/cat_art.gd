@@ -1,8 +1,9 @@
 class_name CatArt
-## Draws a cat in the game's placeholder pixel style. The look comes from
-## data/cats.json (colors plus optional stripes, Siamese points, fluffy fur,
-## calico patches and size), so every cat — player, companion or rival —
-## shares one drawing routine.
+## Draws a cat. Uses the pixel-art sheet from tools/gen_sprites.py when it
+## exists (rows: normal, angry, sad, white flash; 4 walk frames plus a lying
+## frame), otherwise falls back to simple vector shapes. The look comes from
+## data/cats.json, so every cat — player, companion or rival — shares one
+## drawing routine.
 
 const OUTLINE := Color("2b1d14")
 const NOSE := Color("f3a9b8")
@@ -24,6 +25,7 @@ static func look(cat_id: String) -> Dictionary:
 			"fluffy": d.get("fluffy", false),
 			"patches": d.get("patches", false),
 			"size": float(d.get("size", 1.0)),
+			"id": cat_id,
 		}
 	return _looks[cat_id]
 
@@ -32,7 +34,11 @@ static func look(cat_id: String) -> Dictionary:
 ## "normal", "sad" (trapped) or "angry" (rival).
 static func draw(ci: CanvasItem, lk: Dictionary, facing: int, walk_t: float,
 		flash: bool = false, dead: bool = false, mood: String = "normal", offset: Vector2 = Vector2.ZERO,
-		zoom: float = 1.0) -> void:
+		zoom: float = 1.0, moving: bool = true) -> void:
+	var sprite := Sprites.cat(lk.get("id", ""))
+	if not sprite.is_empty():
+		_draw_sprite(ci, sprite, lk, facing, walk_t, flash, dead, mood, offset, zoom, moving)
+		return
 	var size: float = lk["size"] * zoom
 	var fur: Color = Color.WHITE if flash else lk["fur"]
 	var dark: Color = Color.WHITE if flash else lk["dark"]
@@ -113,4 +119,24 @@ static func draw(ci: CanvasItem, lk: Dictionary, facing: int, walk_t: float,
 		elif mood == "sad":
 			ci.draw_rect(Rect2(head + Vector2(0, 1), Vector2(1, 1)), Color("8fd3ff"))
 	ci.draw_rect(Rect2(head + Vector2(4, 1), Vector2(2, 1)), NOSE)
+	ci.draw_set_transform(Vector2.ZERO)
+
+
+const MOOD_ROW := {"normal": 0, "angry": 1, "sad": 2}
+
+
+static func _draw_sprite(ci: CanvasItem, sprite: Dictionary, lk: Dictionary, facing: int, walk_t: float,
+		flash: bool, dead: bool, mood: String, offset: Vector2, zoom: float, moving: bool) -> void:
+	var size: float = lk["size"] * zoom
+	ci.draw_colored_polygon(Shapes.ellipse(offset + Vector2(0, 9) * size, 9 * size, 2.5 * size), Color(0, 0, 0, 0.25))
+	var row: int = 3 if flash else MOOD_ROW.get(mood, 0)
+	# Walk frames while moving; frame 1 (all paws down) when standing still.
+	var col := (floori(walk_t / 1.6) % 4) if moving else 1
+	if dead:
+		row = 0
+		col = 4
+	# A locked cat on the selection screen is shown as a dark silhouette.
+	var tint := Color(0.12, 0.09, 0.15) if lk.get("silhouette", false) else Color.WHITE
+	ci.draw_set_transform(offset, 0.0, Vector2(facing, 1) * zoom)
+	Sprites.draw_frame(ci, sprite, col, row, tint)
 	ci.draw_set_transform(Vector2.ZERO)

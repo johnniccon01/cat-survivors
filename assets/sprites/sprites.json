@@ -1,0 +1,292 @@
+{
+  "cats": {
+    "MICA": {
+      "cell": [
+        36,
+        30
+      ],
+      "anchor": [
+        16.0,
+        18.0
+      ],
+      "frames": 4
+    },
+    "LUNA": {
+      "cell": [
+        36,
+        30
+      ],
+      "anchor": [
+        16.0,
+        18.0
+      ],
+      "frames": 4
+    },
+    "SNOWBALL": {
+      "cell": [
+        36,
+        30
+      ],
+      "anchor": [
+        16.0,
+        18.0
+      ],
+      "frames": 4
+    },
+    "PIP": {
+      "cell": [
+        29,
+        24
+      ],
+      "anchor": [
+        12.9,
+        14.399999999999999
+      ],
+      "frames": 4
+    },
+    "TIGER": {
+      "cell": [
+        45,
+        38
+      ],
+      "anchor": [
+        20.0,
+        23.0
+      ],
+      "frames": 4
+    },
+    "BARON": {
+      "cell": [
+        36,
+        30
+      ],
+      "anchor": [
+        16.0,
+        18.0
+      ],
+      "frames": 4
+    }
+  },
+  "enemies": {
+    "SOCK": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "DUST_BUNNY": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "SOCK_STRIPED": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "BUBBLE": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "ROOMBA": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "SLIPPER": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "SOCK_KING": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "MEGA_ROOMBA": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "VACUUM": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "VACUUM_KING": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "RAT": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "SPIDER": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "MOTH": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "GIANT_RAT": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "SPIDER_QUEEN": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "RAT_KING": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "BOX": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "PLANT": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "CRATE": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "PAINT_CAN": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    }
+  }
+}

@@ -221,6 +221,14 @@ func take_damage(amount: float) -> void:
 	if is_dead or _invuln > 0.0 or is_companion() or god:
 		return
 	hp -= maxf(amount - stats["armor"], 1.0)
+	if controller == "bot" and hp <= 0.0:
+		# Test runs: report what landed the last hit.
+		var src := "?"
+		for st in get_stack():
+			src = "%s:%d" % [String(st["source"]).get_file(), st["line"]]
+			if src.begins_with("trap") or src.begins_with("enemy"):
+				break
+		print("BOT: killed by ", src)
 	if controller != "escort":
 		Audio.play("hurt", -6.0)
 	_invuln = HIT_INVULN

@@ -15,6 +15,8 @@ var speed := 30.0
 var damage := 1.0
 var radius := 6.0
 var xp := 1.0
+## How much of the spawn budget this enemy takes while alive.
+var cost := 1.0
 var knockback_resist := 0.0
 var dead := false
 var is_prop := false
@@ -61,6 +63,7 @@ func setup(p_id: String, data: Dictionary, p_manager: EnemyManager) -> void:
 	damage = data.get("damage", 1.0)
 	radius = data.get("radius", 6.0)
 	xp = data.get("xp", 1.0)
+	cost = 0.0 if data.get("boss", false) else float(data.get("cost", 1.0))
 	knockback_resist = data.get("knockback_resist", 0.0)
 	_shape = data.get("shape", "sock")
 	_stripes = data.get("stripes", false)
@@ -93,6 +96,8 @@ func make_elite(hp_factor: float) -> void:
 	scale = Vector2(_base_scale, _base_scale)
 	knockback_resist = maxf(knockback_resist, 0.7)
 	xp *= 10.0
+	manager.budget_used += 6.0 - cost
+	cost = 6.0
 	is_elite = true
 	is_boss = true
 

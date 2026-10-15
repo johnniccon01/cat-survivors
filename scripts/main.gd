@@ -60,6 +60,7 @@ var _shown_level := 1
 var _xp_log: Dictionary = {}
 var _xp_seen := 0.0
 var _max_alive := 0
+var _budget_log: Dictionary = {}
 var bosses_killed := 0
 var extraction: Extraction
 ## Charms picked up this run: only kept by escaping or winning.
@@ -173,6 +174,8 @@ func _process(delta: float) -> void:
 	if _goal_check <= 0.0 and not _run_over:
 		_goal_check = 2.0
 		_announce_goals(Goals.check())
+	if OS.is_debug_build():
+		hud.debug_extra = " · budget %d/%d (x%.2f)" % [roundi(enemies.budget_used), spawner.alive_cap(), spawner.intensity()]
 	hud.update_stats(spawner.elapsed, kills, enemies.enemies.size())
 	hud.update_gold(floori(run_gold), run_charms.size())
 	if _bot:
@@ -180,6 +183,9 @@ func _process(delta: float) -> void:
 		_xp_log[minute] = _xp_log.get(minute, 0.0) + pickups.total_xp - _xp_seen
 		_xp_seen = pickups.total_xp
 		_max_alive = maxi(_max_alive, enemies.enemies.size())
+		var minute_key := floori(spawner.elapsed / 60.0)
+		if not _budget_log.has(minute_key):
+			_budget_log[minute_key] = "%d/%d" % [roundi(enemies.budget_used), spawner.alive_cap()]
 	hud.update_quest(quests.active)
 	if _flap_index < _flap_times.size() and spawner.elapsed >= _flap_times[_flap_index]:
 		_flap_index += 1
@@ -197,7 +203,7 @@ func _process(delta: float) -> void:
 			enemies.enemies.size(), player.is_dead])
 		print("BOT: weapons=%s passives=%s props_broken=%d bosses_killed=%d chests=%d won=%s" % [
 			weapons, player.passives, props_broken, bosses_killed, chests_opened, _run_over and not player.is_dead])
-		print("BOT: most enemies alive at once=%d" % _max_alive)
+		print("BOT: most enemies alive at once=%d, budget per minute (avg used/cap): %s" % [_max_alive, _budget_log])
 		print("BOT: gold=%d streak=%d extraction_open=%s charms=%s owned=%s" % [floori(run_gold), Profile.streak, extraction != null, run_charms, Profile.charms])
 		var per_minute: Array[String] = []
 		for m: int in _xp_log:

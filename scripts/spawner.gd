@@ -8,9 +8,14 @@ extends Node
 ## Difficulty keeps up with the cat: enemy health grows with the cat's level
 ## and with the Curse power-up, which also brings more and faster enemies.
 ##
-## Pacing: a soft cap limits how many regular enemies are alive at once. The
-## cap is re-rolled every half minute or so inside a range that grows with
-## time, so the pressure ebbs and flows. Calm periods (after a boss falls,
+## Pacing works on a spawn budget (like Achilles Survivor): every enemy has a
+## cost (a bubble 0.5, a slipper 4), and new enemies only come while the
+## living ones cost less than the budget. So the screen holds lots of weak
+## enemies or fewer strong ones. The budget is re-rolled every half minute
+## inside a range that grows with time, multiplied by the stage's authored
+## per-minute intensity (quiet minutes around cat flaps, spikes before
+## bosses, like Vampire Survivors' wave tables), and eased off a bit while
+## the cat is low on health. Calm periods (after a boss falls,
 ## plus a lull every few minutes) stop regular spawning. Spawn rate, lulls,
 ## events and boss arrivals all get a little randomness so runs differ.
 
@@ -28,7 +33,7 @@ const ELITE_EVERY := 40.0
 const ELITE_HP := 8.0
 const RING_RADIUS := 240.0
 const SWARM_TIME := 7.0
-## Alive-enemy cap ranges by minute: [minute, low, high], interpolated.
+## Budget ranges by minute: [minute, low, high], interpolated.
 const CAP_RANGES := [[0, 70, 120], [5, 150, 200], [12, 250, 330], [17, 300, 400]]
 const CAP_REROLL := [30.0, 60.0]
 const LULL_EVERY := [120.0, 180.0]
@@ -36,6 +41,9 @@ const LULL_TIME := [8.0, 14.0]
 const BOSS_DELAY := [0.0, 20.0]
 const EVENT_JITTER := 0.5
 const ELITE_EVERY_RANGE := [30.0, 50.0]
+## Budget multiplier while the cat is below this share of health.
+const MERCY_HP := 0.35
+const MERCY := 0.8
 
 @export var stage_id := "LIVING_ROOM"
 
@@ -100,9 +108,20 @@ func calm_for(seconds: float) -> void:
 	calm = maxf(calm, seconds)
 
 
-## How many regular enemies may be alive right now (re-rolled now and then).
+## Spawn budget right now: rolled range x minute intensity x curse x mercy.
 func alive_cap() -> int:
-	return _cap
+	var b := _cap * intensity() * _player.stat("curse")
+	if _player.hp < _player.max_hp * MERCY_HP:
+		b *= MERCY
+	return roundi(b)
+
+
+## The stage's authored intensity for the current minute (1.0 if none).
+func intensity() -> float:
+	var curve: Array = _stage.get("intensity", [])
+	if curve.is_empty():
+		return 1.0
+	return float(curve[mini(floori(elapsed / 60.0), curve.size() - 1)])
 
 
 func _roll_cap() -> void:
@@ -197,15 +216,24 @@ func _physics_process(delta: float) -> void:
 	_enemies.relocate_distance = radius * 1.5
 	# Top up to the wave's minimum at once, then trickle more in until the
 	# wave's maximum (default: twice the minimum) is reached.
-	var alive := _enemies.enemies.size()
-	var cap := roundi(alive_cap() * _player.stat("curse"))
-	var minimum := mini(roundi(int(wave["minimum"]) * _player.stat("curse")), cap)
-	var maximum := mini(int(wave.get("maximum", roundi(minimum * 1.4))), cap)
-	var count := int(wave.get("per_tick", 1)) if alive < maximum else 0
-	count = mini(maxi(count, minimum - alive), maxi(cap - alive, 0))
+	# Top up to the wave's minimum at once, then trickle in per_tick more,
+	# always staying inside the budget.
+	var budget := float(alive_cap())
+	var minimum := minf(float(wave["minimum"]) * _player.stat("curse") * intensity(), budget)
 	var pool: Array = wave["enemies"]
-	for i in count:
-		_spawn(pool.pick_random(), _player.position + Vector2.from_angle(randf() * TAU) * radius)
+	var trickle := int(wave.get("per_tick", 1))
+	var guard := 0
+	while guard < 200:
+		guard += 1
+		var id: String = pool.pick_random()
+		var cost := float(GameData.enemies[id].get("cost", 1.0))
+		if _enemies.budget_used + cost > budget:
+			break
+		if _enemies.budget_used >= minimum:
+			if trickle <= 0:
+				break
+			trickle -= 1
+		_spawn(id, _player.position + Vector2.from_angle(randf() * TAU) * radius)
 
 
 func _spawn(id: String, pos: Vector2) -> Enemy:

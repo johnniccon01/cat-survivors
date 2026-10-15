@@ -234,11 +234,15 @@ func update_extraction(flap: Extraction) -> void:
 	_extract_arrow.target = flap.position
 
 
+## Extra line for the debug label (spawn budget), set by main.
+var debug_extra := ""
+
+
 func update_stats(elapsed: float, kills: int, enemy_count: int) -> void:
 	_time_label.text = _format_time(elapsed)
 	_kills_label.text = tr("HUD_KILLS") % kills
 	if _debug_label.visible:
-		_debug_label.text = "FPS %d · enemies %d" % [Engine.get_frames_per_second(), enemy_count]
+		_debug_label.text = "FPS %d · enemies %d%s" % [Engine.get_frames_per_second(), enemy_count, debug_extra]
 
 
 func show_pause(on: bool) -> void:

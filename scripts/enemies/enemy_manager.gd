@@ -16,6 +16,8 @@ const SEPARATION := 6.0
 
 var player: Player
 var enemies: Array[Enemy] = []
+## Sum of `cost` of all living enemies (the spawn budget in use).
+var budget_used := 0.0
 ## Breakable boxes and plants: static, hit by weapons, ignored by targeting.
 var props: Array[Enemy] = []
 ## Cats being escorted: enemies go for whichever cat is closest.
@@ -44,6 +46,7 @@ func spawn(id: String, pos: Vector2, hp_mult: float = 1.0) -> Enemy:
 	enemy.position = pos
 	add_child(enemy)
 	enemies.append(enemy)
+	budget_used += enemy.cost
 	return enemy
 
 
@@ -62,6 +65,7 @@ func spawn_bullet(pos: Vector2, dir: Vector2, bullet_damage: float, style: Strin
 func despawn(enemy: Enemy) -> void:
 	enemy.dead = true
 	enemies.erase(enemy)
+	budget_used -= enemy.cost
 	enemy.queue_free()
 
 
@@ -73,6 +77,7 @@ func clear_all() -> void:
 		get_parent().add_child(poof)
 		enemy.queue_free()
 	enemies.clear()
+	budget_used = 0.0
 
 
 func spawn_prop(id: String, pos: Vector2) -> Enemy:
@@ -94,6 +99,7 @@ func on_enemy_dead(enemy: Enemy) -> void:
 		poof.color = Color("c8955a")
 	else:
 		enemies.erase(enemy)
+		budget_used -= enemy.cost
 		enemy_killed.emit(enemy.id, enemy.position, enemy.xp)
 		if enemy.is_elite:
 			elite_killed.emit(enemy.position)

@@ -4,8 +4,10 @@ extends Control
 ## screen, a bouncing marker above it while it is visible.
 
 const MARGIN := 40.0
-const COLOR := Color("f2c14e")
 const OUTLINE := Color("2b1d14")
+
+## Arrow colour (gold for quests, green for the cat flap).
+var color := Color("f2c14e")
 
 ## World position of the target, or null for none.
 var target: Variant = null
@@ -44,5 +46,5 @@ func _triangle(tip: Vector2, dir: Vector2, size: float) -> void:
 	var side := dir.orthogonal() * size * 0.6
 	var base := tip - dir * size
 	var pts := PackedVector2Array([tip, base + side, base - side])
-	draw_colored_polygon(pts, COLOR)
+	draw_colored_polygon(pts, color)
 	draw_polyline(Shapes.closed(pts), OUTLINE, 2.0)

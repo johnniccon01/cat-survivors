@@ -26,6 +26,9 @@ var _banner: Label
 var _quest_title: Label
 var _quest_text: Label
 var _quest_arrow: QuestArrow
+var _extract_arrow: QuestArrow
+var _extract_label: Label
+var _extract_overlay: Control
 var _boss_bar: ColorRect
 var _boss_fill: ColorRect
 var _boss_name: Label
@@ -88,6 +91,7 @@ func _ready() -> void:
 	_over_stats = _over_overlay.get_node("Box").get_child(1)
 
 	_win_overlay = _overlay(["VICTORY_TITLE", "", "VICTORY_HINT", "GAME_OVER_MENU"])
+	_extract_overlay = _overlay(["EXTRACT_TITLE", "", "VICTORY_HINT", "GAME_OVER_MENU"])
 	_win_stats = _win_overlay.get_node("Box").get_child(1)
 
 	_banner = _label(30, HORIZONTAL_ALIGNMENT_CENTER)
@@ -111,6 +115,16 @@ func _ready() -> void:
 	_quest_arrow = QuestArrow.new()
 	add_child(_quest_arrow)
 	move_child(_quest_arrow, 0)
+	_extract_arrow = QuestArrow.new()
+	_extract_arrow.color = Color("6cd48a")
+	add_child(_extract_arrow)
+	move_child(_extract_arrow, 0)
+	_extract_label = _label(18, HORIZONTAL_ALIGNMENT_RIGHT)
+	_extract_label.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	_extract_label.offset_top = 136
+	_extract_label.offset_right = -20
+	_extract_label.label_settings.font_color = Color("6cd48a")
+	add_child(_extract_label)
 
 	_boss_bar = ColorRect.new()
 	_boss_bar.color = Color("2b1d14")
@@ -198,15 +212,33 @@ func update_gold(amount: int) -> void:
 	_gold_label.text = tr("HUD_GOLD") % amount
 
 
-## Adds the banked gold line to whichever end screen is showing.
-func show_gold_earned(amount: int) -> void:
-	for overlay: Control in [_over_overlay, _win_overlay]:
+## Gold and streak lines on whichever end screen is showing.
+func show_summary(lines: Array[String]) -> void:
+	for overlay: Control in [_over_overlay, _win_overlay, _extract_overlay]:
+		if not overlay.visible:
+			continue
 		var box := overlay.get_node("Box")
-		var line := _label(24, HORIZONTAL_ALIGNMENT_CENTER)
-		line.text = tr("GOLD_EARNED") % [amount, Profile.gold]
-		line.label_settings.font_color = Color("f2c14e")
-		box.add_child(line)
-		box.move_child(line, 2)
+		for i in lines.size():
+			var line := _label(22, HORIZONTAL_ALIGNMENT_CENTER)
+			line.text = lines[i]
+			line.label_settings.font_color = Color("f2c14e")
+			box.add_child(line)
+			box.move_child(line, 2 + i)
+
+
+func show_extracted(elapsed: float, kills: int) -> void:
+	(_extract_overlay.get_node("Box").get_child(1) as Label).text = tr("EXTRACT_STATS") % [_format_time(elapsed), kills]
+	_extract_overlay.visible = true
+
+
+## Countdown and arrow for an open cat flap (null hides them).
+func update_extraction(flap: Extraction) -> void:
+	if flap == null:
+		_extract_label.text = ""
+		_extract_arrow.target = null
+		return
+	_extract_label.text = tr("EXTRACT_TRACKER") % ceili(flap.time_left)
+	_extract_arrow.target = flap.position
 
 
 func update_stats(elapsed: float, kills: int, enemy_count: int) -> void:

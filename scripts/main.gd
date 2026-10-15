@@ -1,6 +1,8 @@
 extends Node2D
 ## Wires the run together: player, enemies, pickups, spawner and HUD;
-## handles level-ups, treasure chests, pause, game over, victory and restart.
+## handles level-ups, treasure chests, pause, restart and the three ways a run
+## ends: death (half the gold, streak lost), escape through a cat flap (all
+## gold, streak +1) or beating the final boss (all gold + bonus, streak +2).
 ##
 ## Level-ups and chests are "modals": they pause the game and are shown one
 ## after another from a queue.
@@ -16,10 +18,15 @@ extends Node2D
 ##   --quest=ID         starts quest ID next to the cat (LUNA, TIGER, RED_DOT...)
 ##   --cat=ID           play as cat ID (see data/cats.json)
 ##   --levels=N         start with N random level-up picks (to test late game)
+##   --extract          open a cat flap right away
 
 const HEART_DROP_CHANCE := 0.005
 const COIN_DROP_CHANCE := 0.015
 const VICTORY_GOLD := 150
+## Share of the gold you keep when you die.
+const DEATH_GOLD_KEPT := 0.5
+## Cat flaps only open from this point of the run on.
+const EXTRACT_FROM := 180.0
 const HEART_DROP_AMOUNT := 15.0
 ## Treasure size odds: [items, weight]
 const CHEST_ROLLS := [[1, 70.0], [3, 25.0], [5, 5.0]]
@@ -39,6 +46,7 @@ var _shown_level := 1
 var _xp_log: Dictionary = {}
 var _xp_seen := 0.0
 var bosses_killed := 0
+var extraction: Extraction
 var chests_opened := 0
 
 var _args := OS.get_cmdline_user_args()
@@ -70,7 +78,10 @@ func _ready() -> void:
 	quests = QuestDirector.new()
 	add_child(quests)
 	quests.setup(self)
-	quests.finished_quest.connect(func(ok: bool) -> void: quests_done += int(ok))
+	quests.finished_quest.connect(func(ok: bool) -> void:
+		quests_done += int(ok)
+		if ok:
+			_open_extraction())
 	var forced := _arg("--quest=", "")
 	if forced != "":
 		quests.force.call_deferred(forced)
@@ -106,6 +117,8 @@ func _ready() -> void:
 		var dev := DevPanel.new()
 		dev.main = self
 		add_child(dev)
+	if "--extract" in _args:
+		_open_extraction.call_deferred(true)
 	if "--test-evolution" in _args:
 		_test_evolution.call_deferred()
 	Audio.play_music("music_basement" if spawner.stage().get("theme", "") == "basement" else "music_apartment")
@@ -123,6 +136,7 @@ func _process(_delta: float) -> void:
 		_xp_log[minute] = _xp_log.get(minute, 0.0) + pickups.total_xp - _xp_seen
 		_xp_seen = pickups.total_xp
 	hud.update_quest(quests.active)
+	hud.update_extraction(extraction)
 	hud.update_boss(final_boss if is_instance_valid(final_boss) and not final_boss.dead else null)
 	if _bot and (spawner.elapsed >= _bot_time or _run_over):
 		var weapons: Array[String] = []
@@ -135,6 +149,7 @@ func _process(_delta: float) -> void:
 			enemies.enemies.size(), player.is_dead])
 		print("BOT: weapons=%s passives=%s props_broken=%d bosses_killed=%d chests=%d won=%s" % [
 			weapons, player.passives, props_broken, bosses_killed, chests_opened, _run_over and not player.is_dead])
+		print("BOT: gold=%d streak=%d extraction_open=%s" % [floori(run_gold), Profile.streak, extraction != null])
 		var per_minute: Array[String] = []
 		for m: int in _xp_log:
 			per_minute.append("%d:%d" % [m, roundi(_xp_log[m])])
@@ -187,6 +202,7 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 		bosses_killed += 1
 		pickups.spawn_named("chest", pos, 0.0)
 		pickups.spawn_named("coin", pos + Vector2(14, 6), 25.0)
+		_open_extraction()
 	elif randf() < HEART_DROP_CHANCE:
 		pickups.spawn_named("heart", pos + Vector2(6, 0), HEART_DROP_AMOUNT)
 	elif randf() < COIN_DROP_CHANCE:
@@ -208,8 +224,7 @@ func cat_joined(cat_id: String, at: Vector2 = Vector2.INF) -> void:
 	var cat_name := tr("CAT_%s_NAME" % cat_id)
 	Audio.play("meow", -2.0)
 	if Profile.unlock(cat_id) and not "--cat=" in " ".join(_args):
-		hud.show_banner("%s
-%s" % [tr("QUEST_JOINED") % cat_name, tr("QUEST_UNLOCKED") % cat_name], 4.0)
+		hud.show_banner("%s\n%s" % [tr("QUEST_JOINED") % cat_name, tr("QUEST_UNLOCKED") % cat_name], 4.0)
 	else:
 		hud.show_banner(tr("QUEST_JOINED") % cat_name, 3.0)
 	if companions.size() >= MAX_COMPANIONS or has_companion(cat_id):
@@ -297,24 +312,78 @@ func _on_offer_chosen(offer: Dictionary) -> void:
 	_next_modal()
 
 
-## Banks the run's gold into the profile and returns the amount.
-func _bank_gold(bonus: int) -> int:
-	var total := floori(run_gold) + bonus
-	Profile.add_gold(total)
-	return total
+## Opens a cat flap somewhere nearby, if none is open and it's not too
+## early or too late in the run.
+func _open_extraction(force: bool = false) -> void:
+	if extraction != null or final_boss != null or _run_over:
+		return
+	if not force and spawner.elapsed < EXTRACT_FROM:
+		return
+	extraction = Extraction.new()
+	extraction.main = self
+	extraction.position = player.position + Vector2.from_angle(randf() * TAU) * randf_range(350.0, 500.0)
+	extraction.escaped.connect(_end_run.bind("extract"))
+	extraction.closed.connect(func() -> void:
+		extraction = null
+		hud.show_banner(tr("EXTRACT_CLOSED"), 2.5))
+	add_child(extraction)
+	hud.show_banner(tr("EXTRACT_OPEN"), 4.0)
+	Audio.play("quest", -2.0, 0.0)
+
+
+## Ends the run: "death", "extract" or "victory". Banks gold (with the
+## streak bonus unless you died) and updates the streak.
+func _end_run(kind: String) -> void:
+	if _run_over:
+		return
+	_run_over = true
+	get_tree().paused = true
+	Audio.stop_music()
+	var mult := Profile.streak_multiplier()
+	var lines: Array[String] = []
+	var gold := 0
+	match kind:
+		"death":
+			gold = floori(run_gold * DEATH_GOLD_KEPT)
+			lines.append(tr("SUMMARY_GOLD_DEATH") % [gold, floori(run_gold)])
+			if Profile.streak > 0:
+				lines.append(tr("SUMMARY_STREAK_LOST") % Profile.streak)
+			Profile.reset_streak()
+			Audio.play("gameover", -2.0, 0.0)
+			hud.show_game_over(spawner.elapsed, kills)
+		"extract":
+			gold = floori(run_gold * mult)
+			Profile.add_streak(1)
+			lines.append(tr("SUMMARY_GOLD") % [gold, roundi((mult - 1.0) * 100.0)])
+			lines.append(tr("SUMMARY_STREAK") % [Profile.streak, Profile.best_streak])
+			Audio.play("victory", -2.0, 0.0)
+			hud.show_extracted(spawner.elapsed, kills)
+		"victory":
+			gold = floori((run_gold + VICTORY_GOLD) * mult)
+			Profile.add_streak(2)
+			lines.append(tr("SUMMARY_GOLD") % [gold, roundi((mult - 1.0) * 100.0)])
+			lines.append(tr("SUMMARY_STREAK") % [Profile.streak, Profile.best_streak])
+			Audio.play("victory", -2.0, 0.0)
+			hud.show_victory(kills)
+			if Profile.clear_stage(spawner.stage_id):
+				for id: String in GameData.stages:
+					if GameData.stages[id].get("requires", "") == spawner.stage_id:
+						hud.show_banner(tr("STAGE_UNLOCKED") % tr("STAGE_%s_NAME" % id), 6.0)
+	Profile.add_gold(gold)
+	lines.append(tr("SUMMARY_TOTAL") % Profile.gold)
+	hud.show_summary(lines)
 
 
 func _on_player_died() -> void:
-	_run_over = true
-	hud.show_gold_earned(_bank_gold(0))
-	Audio.stop_music()
-	Audio.play("gameover", -2.0, 0.0)
-	hud.show_game_over(spawner.elapsed, kills)
-	get_tree().paused = true
+	_end_run("death")
 
 
 func _on_final_boss(boss: Enemy) -> void:
 	final_boss = boss
+	# No escaping from the final fight.
+	if extraction != null:
+		extraction.queue_free()
+		extraction = null
 	Audio.play("warning", 0.0, 0.0)
 	Audio.play_music("music_boss")
 	spawner.paused = true
@@ -322,16 +391,7 @@ func _on_final_boss(boss: Enemy) -> void:
 
 
 func _on_stage_cleared() -> void:
-	_run_over = true
-	hud.show_gold_earned(_bank_gold(VICTORY_GOLD))
-	Audio.stop_music()
-	Audio.play("victory", -2.0, 0.0)
-	hud.show_victory(kills)
-	if Profile.clear_stage(spawner.stage_id):
-		for id: String in GameData.stages:
-			if GameData.stages[id].get("requires", "") == spawner.stage_id:
-				hud.show_banner(tr("STAGE_UNLOCKED") % tr("STAGE_%s_NAME" % id), 6.0)
-	get_tree().paused = true
+	_end_run("victory")
 
 
 ## Picks from [[value, weight], ...] pairs.

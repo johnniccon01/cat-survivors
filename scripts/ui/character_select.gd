@@ -116,6 +116,8 @@ func _refresh() -> void:
 		_name.text = tr("SELECT_LOCKED")
 		_desc.text = tr("CAT_%s_HINT" % id)
 	_gold.text = tr("SELECT_GOLD") % Profile.gold
+	if Profile.streak > 0 or Profile.best_streak > 0:
+		_gold.text += "   ·   " + tr("SELECT_STREAK") % [Profile.streak, Profile.best_streak, roundi((Profile.streak_multiplier() - 1.0) * 100.0)]
 	var stage_id := _stage_ids[_stage_index]
 	if Profile.is_stage_unlocked(stage_id):
 		var cleared := " ✓" if stage_id in Profile.cleared_stages else ""

@@ -283,6 +283,10 @@ func _bot_input(delta: float) -> Vector2:
 		away += d / maxf(d.length_squared(), 1.0)
 	if away != Vector2.ZERO:
 		return (away.normalized() + wander * 0.3).normalized()
+	var flap: Node2D = get_parent().get("extraction")
+	if flap != null:
+		var to_flap := flap.position - position
+		return to_flap.normalized() if to_flap.length() > 10.0 else Vector2.ZERO
 	var quest: Quest = get_parent().quests.active if get_parent().get("quests") else null
 	if quest != null:
 		var to_quest := quest.target_position() - position

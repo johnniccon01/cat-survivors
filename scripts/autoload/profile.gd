@@ -11,6 +11,9 @@ var selected_stage := "LIVING_ROOM"
 var cleared_stages: Array[String] = []
 var flags: Array[String] = []
 var gold := 0
+## Successful escapes/wins in a row (a death resets it) and the record.
+var streak := 0
+var best_streak := 0
 ## Gold spent on power-ups (refunded in full on request).
 var spent := 0
 ## power-up id -> bought rank
@@ -29,6 +32,8 @@ func _ready() -> void:
 		for flag: String in cfg.get_value("story", "flags", []):
 			flags.append(flag)
 		gold = cfg.get_value("shop", "gold", 0)
+		streak = cfg.get_value("streak", "current", 0)
+		best_streak = cfg.get_value("streak", "best", 0)
 		spent = cfg.get_value("shop", "spent", 0)
 		powerups = cfg.get_value("shop", "powerups", {})
 	for id: String in GameData.cats:
@@ -83,6 +88,22 @@ func clear_stage(stage_id: String) -> bool:
 	cleared_stages.append(stage_id)
 	save()
 	return true
+
+
+## Gold bonus from the current streak: +10 % per step, up to +50 %.
+func streak_multiplier() -> float:
+	return 1.0 + 0.1 * mini(streak, 5)
+
+
+func add_streak(steps: int) -> void:
+	streak += steps
+	best_streak = maxi(best_streak, streak)
+	save()
+
+
+func reset_streak() -> void:
+	streak = 0
+	save()
 
 
 func add_gold(amount: int) -> void:
@@ -162,6 +183,8 @@ func save() -> void:
 	cfg.set_value("stages", "cleared", cleared_stages)
 	cfg.set_value("story", "flags", flags)
 	cfg.set_value("shop", "gold", gold)
+	cfg.set_value("streak", "current", streak)
+	cfg.set_value("streak", "best", best_streak)
 	cfg.set_value("shop", "spent", spent)
 	cfg.set_value("shop", "powerups", powerups)
 	cfg.save(PATH)

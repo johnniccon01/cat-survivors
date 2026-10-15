@@ -188,3 +188,14 @@ LEVELUP_REROLL,R – reroll (%d left),R – prehodiť ponuku (zostáva %d)
 REVIVED,Revived!,Oživenie!
 EVENT_RING,Surrounded!,Obkľúčenie!
 EVENT_SWARM,A swarm is coming!,Blíži sa roj!
+EXTRACT_OPEN,A cat flap opened! Escape through it (60 s),Otvorili sa mačacie dvierka! Uteč nimi (60 s)
+EXTRACT_CLOSED,The cat flap closed,Mačacie dvierka sa zavreli
+EXTRACT_TRACKER,Cat flap: %d s,Mačacie dvierka: %d s
+EXTRACT_TITLE,You slipped out!,Ušla si!
+EXTRACT_STATS,You escaped after %s with %d enemies defeated.,Utiekla si po %s a porazila %d nepriateľov.
+SUMMARY_GOLD,+%d gold (streak bonus +%d %%),+%d zlata (bonus série +%d %%)
+SUMMARY_GOLD_DEATH,+%d gold (half of %d – the rest is lost),+%d zlata (polovica z %d – zvyšok prepadol)
+SUMMARY_STREAK,Streak: %d (best %d),Séria: %d (rekord %d)
+SUMMARY_STREAK_LOST,Streak of %d lost!,Séria %d je preč!
+SUMMARY_TOTAL,Total gold: %d,Spolu zlata: %d
+SELECT_STREAK,Streak %d (best %d) +%d %% gold,Séria %d (rekord %d) +%d %% zlata

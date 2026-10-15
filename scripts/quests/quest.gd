@@ -73,6 +73,9 @@ func fail() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	# A finished quest may still get one more tick before it is freed.
+	if _done:
+		return
 	_age += delta
 	if not started:
 		if expire_after > 0.0 and _age > expire_after:

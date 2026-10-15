@@ -12,6 +12,9 @@ const SIDE_SCRIPTS := {
 	"FRIDGE": preload("res://scripts/quests/fridge_quest.gd"),
 }
 
+## Cat quests (rescues, duels) never come before this point of the night.
+const CAT_QUEST_FROM := 180.0
+
 var main: Node
 var active: Quest
 
@@ -46,10 +49,14 @@ func _physics_process(delta: float) -> void:
 		return
 	var order: Array = _cfg["schedule"]["order"]
 	var kind: String = order[_index % order.size()]
-	_index += 1
+	# Too early for the cat quest: run a side quest now and keep it for later.
+	if kind == "cat" and not _cat_given and main.spawner.elapsed < CAT_QUEST_FROM:
+		kind = "side"
+	else:
+		_index += 1
 	# Only one cat quest per night.
 	var quest_id := ""
-	if kind == "cat" and not _cat_given:
+	if kind == "cat" and not _cat_given and main.spawner.elapsed >= CAT_QUEST_FROM:
 		quest_id = _pick_cat()
 		_cat_given = quest_id != ""
 	elif kind == "story":

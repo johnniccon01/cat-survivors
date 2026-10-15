@@ -195,7 +195,8 @@ func _process(delta: float) -> void:
 		if not _budget_log.has(minute_key):
 			_budget_log[minute_key] = "%d/%d" % [roundi(enemies.budget_used), spawner.alive_cap()]
 	hud.update_quest(quests.active)
-	if _flap_index < _flap_times.size() and spawner.elapsed >= _flap_times[_flap_index]:
+	# Guaranteed cat flaps wait until a duel's fence is down.
+	if _flap_index < _flap_times.size() and spawner.elapsed >= _flap_times[_flap_index] and enemies.arena.is_empty():
 		_flap_index += 1
 		_open_extraction(true)
 	hud.update_extraction(extraction)
@@ -230,6 +231,12 @@ func _process(delta: float) -> void:
 		if q != null:
 			print("BOT: active quest %s started=%s objective=%s" % [q.quest_id, q.started, q.objective()])
 		get_tree().quit()
+
+
+func _exit_tree() -> void:
+	# Never leave the game slowed down by a hit-stop when the scene changes.
+	if not _bot:
+		Engine.time_scale = 1.0
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -533,6 +540,9 @@ func _level_burst() -> void:
 func _on_final_boss(boss: Enemy) -> void:
 	final_boss = boss
 	player.shake(8.0, 0.8)
+	# The field was just cleared, so a running quest can't finish fairly.
+	if quests.active != null:
+		quests.active.fail()
 	# No escaping from the final fight.
 	if extraction != null:
 		extraction.queue_free()

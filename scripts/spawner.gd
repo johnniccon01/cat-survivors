@@ -29,7 +29,6 @@ const SPAWN_MARGIN := 40.0
 const LEVEL_SCALING_FROM := 10
 const LEVEL_SCALING := 0.02
 const ELITE_FROM := 240.0
-const ELITE_EVERY := 40.0
 const ELITE_HP := 8.0
 const RING_RADIUS := 240.0
 const SWARM_TIME := 7.0
@@ -58,7 +57,7 @@ var _enemies: EnemyManager
 var _stage: Dictionary
 var _timer := 0.0
 var _prop_timer := 1.0
-var _elite_timer := ELITE_EVERY
+var _elite_timer: float = ELITE_EVERY_RANGE[1]
 var _wave_minute := -1
 var _events_done := 0
 var _lull_timer := 150.0
@@ -214,8 +213,6 @@ func _physics_process(delta: float) -> void:
 	_timer = float(wave["interval"]) * randf_range(0.75, 1.25) / _player.stat("curse")
 	_enemies.spawn_radius = radius
 	_enemies.relocate_distance = radius * 1.5
-	# Top up to the wave's minimum at once, then trickle more in until the
-	# wave's maximum (default: twice the minimum) is reached.
 	# Top up to the wave's minimum at once, then trickle in per_tick more,
 	# always staying inside the budget.
 	var budget := float(alive_cap())

@@ -12,6 +12,12 @@ V pauze: **N** čísla poškodenia, **K** otrasy obrazovky.
 
 **Vývojársky panel (F1)** – len vo vývojovej verzii (vo vydanej hre sa nezobrazí): posun o minútu, nesmrteľnosť, +5 levelov, finálny boss hneď, quest hneď. Pred vydaním ho zmažeme (`scripts/ui/dev_panel.gd`).
 
+Celá sada testov (24 scenárov, hlási chyby v skriptoch):
+
+```
+bash tools/run_checks.sh
+```
+
 Automatický test (bot hrá sám 4× rýchlejšie a vypíše výsledok):
 
 ```

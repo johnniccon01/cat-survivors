@@ -89,6 +89,14 @@ func _tick(delta: float) -> void:
 				complete()
 
 
+## If the quest ends early (e.g. the final boss arrives), don't leave the
+## rescued cat stranded on the map.
+func _exit_tree() -> void:
+	if is_instance_valid(_escort):
+		main.enemies.escorts.erase(_escort)
+		_escort.queue_free()
+
+
 func _begin_escort() -> void:
 	_stage = "escort"
 	var dist: Array = data.get("escort_distance", [480.0, 620.0])

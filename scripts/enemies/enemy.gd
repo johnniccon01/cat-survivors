@@ -208,7 +208,7 @@ func _tick_shooter(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 	_blink_t -= delta
 	if _shoot_t <= 0.0:
 		_shoot_t = 1.2
-		# Below 60 % health it fires a fan of three.
+		# Below half health it fires a fan of three.
 		var spread := [0.0] if hp > max_hp * 0.5 else [-0.3, 0.0, 0.3]
 		for a: float in spread:
 			manager.spawn_bullet(position, dir.rotated(a), damage * 0.4)
@@ -240,7 +240,7 @@ func hit(amount: float, direction: Vector2, knockback: float, can_crit: bool = t
 		crit = randf() < cat.stat("crit_chance") * cat.stat("luck")
 		if crit:
 			amount *= cat.stat("crit_mult")
-	if manager.numbers != null:
+	if manager.numbers != null and not is_prop:
 		manager.numbers.add(position, amount, crit)
 	hp -= amount
 	if not is_prop:

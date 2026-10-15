@@ -289,8 +289,6 @@ func _sync_companion_weapon() -> void:
 		weapon.level_up()
 
 
-## Test bot: dodges enemies that get close, otherwise drifts towards the
-## nearest one so its weapons have something to hit.
 ## Shakes the camera (main cat only); a stronger shake overrides a weaker one.
 func shake(strength: float, seconds: float) -> void:
 	if camera == null or not Settings.screen_shake:
@@ -312,6 +310,9 @@ func _process(delta: float) -> void:
 		camera.offset = Vector2.ZERO
 
 
+## Test bot: dodges enemies that get close, heads for an open cat flap or
+## the active quest, collects nearby pickups, otherwise drifts towards the
+## nearest enemy so its weapons have something to hit.
 func _bot_input(delta: float) -> Vector2:
 	_bot_t += delta
 	var wander := Vector2(cos(_bot_t * 0.3), sin(_bot_t * 0.5))

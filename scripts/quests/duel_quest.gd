@@ -27,7 +27,8 @@ func start_radius() -> float:
 
 func _on_start() -> void:
 	var minute := floorf(main.spawner.elapsed / 60.0)
-	_rival = main.enemies.spawn(data["rival"], position, maxf(1.0 + minute * 0.12, main.spawner.hp_multiplier()))
+	# Rivals start beatable and grow with the night (+25 % health per minute).
+	_rival = main.enemies.spawn(data["rival"], position, maxf(1.0 + minute * 0.25, main.spawner.hp_multiplier()))
 	main.enemies.arena = {"center": position, "radius": ARENA_RADIUS, "rival": _rival}
 	main.spawner.paused = true
 	main.hud.show_banner(tr("QUEST_DUEL_CHALLENGE") % tr("CAT_%s_NAME" % cat_id), 3.0)

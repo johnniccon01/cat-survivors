@@ -144,6 +144,85 @@
     "radius": 38,
     "xp": 0,
     "knockback_resist": 1.0,
-    "minion": "DUST_BUNNY"
+    "minion": "DUST_BUNNY",
+    "final_mode": "suck"
+  },
+  "RAT": {
+    "shape": "rat",
+    "color": "#8a8590",
+    "accent": "#e8a0b0",
+    "hp": 10,
+    "speed": 70,
+    "damage": 5,
+    "radius": 6,
+    "xp": 1,
+    "knockback_resist": 0.0
+  },
+  "SPIDER": {
+    "shape": "spider",
+    "color": "#2a2430",
+    "accent": "#c94f4f",
+    "hp": 18,
+    "speed": 58,
+    "damage": 8,
+    "radius": 7,
+    "xp": 2,
+    "knockback_resist": 0.2
+  },
+  "MOTH": {
+    "shape": "moth",
+    "color": "#d8c8a0",
+    "accent": "#8a7a5a",
+    "hp": 4,
+    "speed": 85,
+    "damage": 3,
+    "radius": 5,
+    "xp": 1,
+    "knockback_resist": 0.0
+  },
+  "GIANT_RAT": {
+    "shape": "rat",
+    "boss": true,
+    "behavior": "dash",
+    "scale": 2.6,
+    "color": "#6e6a76",
+    "accent": "#e8a0b0",
+    "hp": 900,
+    "speed": 55,
+    "damage": 16,
+    "radius": 16,
+    "xp": 40,
+    "knockback_resist": 0.9
+  },
+  "SPIDER_QUEEN": {
+    "shape": "spider",
+    "boss": true,
+    "behavior": "shooter",
+    "scale": 2.6,
+    "color": "#3a2050",
+    "accent": "#f2c14e",
+    "hp": 1600,
+    "speed": 55,
+    "damage": 14,
+    "radius": 17,
+    "xp": 60,
+    "knockback_resist": 0.95
+  },
+  "RAT_KING": {
+    "shape": "rat",
+    "boss": true,
+    "final": true,
+    "behavior": "final",
+    "final_mode": "roar",
+    "scale": 4.0,
+    "color": "#5a5560",
+    "accent": "#e8a0b0",
+    "hp": 45000,
+    "speed": 46,
+    "damage": 30,
+    "radius": 26,
+    "xp": 0,
+    "knockback_resist": 1.0,
+    "minion": "RAT"
   }
 }

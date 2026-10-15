@@ -13,11 +13,21 @@ const KEYS := [
 	[1.0, Color(1.0, 0.92, 0.82)],
 ]
 
+## Basement: dim and cold the whole night, a little warmer at the end.
+const BASEMENT_KEYS := [
+	[0.0, Color(0.6, 0.6, 0.68)],
+	[0.9, Color(0.55, 0.56, 0.66)],
+	[1.0, Color(0.75, 0.7, 0.66)],
+]
+
 var spawner: Spawner
+var _keys: Array = KEYS
 
 
 func setup(p_spawner: Spawner, player: Player) -> void:
 	spawner = p_spawner
+	if spawner.stage().get("theme", "apartment") == "basement":
+		_keys = BASEMENT_KEYS
 	var light := PointLight2D.new()
 	light.texture = FloorChunk._get_light_texture()
 	light.texture_scale = 2.4
@@ -30,10 +40,10 @@ func _process(_delta: float) -> void:
 	if spawner == null:
 		return
 	var t := clampf(spawner.elapsed / (spawner.duration_minutes() * 60.0), 0.0, 1.0)
-	for i in KEYS.size() - 1:
-		var a: Array = KEYS[i]
-		var b: Array = KEYS[i + 1]
+	for i in _keys.size() - 1:
+		var a: Array = _keys[i]
+		var b: Array = _keys[i + 1]
 		if t <= b[0]:
 			color = (a[1] as Color).lerp(b[1], (t - a[0]) / (b[0] - a[0]))
 			return
-	color = KEYS[-1][1]
+	color = _keys[-1][1]

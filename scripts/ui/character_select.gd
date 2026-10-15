@@ -15,6 +15,9 @@ var _cards: Array[PanelContainer] = []
 var _previews: Array[CatPreview] = []
 var _name: Label
 var _desc: Label
+var _stage_label: Label
+var _stage_ids: Array[String] = []
+var _stage_index := 0
 
 
 func _ready() -> void:
@@ -25,6 +28,9 @@ func _ready() -> void:
 	for id: String in GameData.cats:
 		_ids.append(id)
 	_index = maxi(_ids.find(Profile.selected_cat), 0)
+	for id: String in GameData.stages:
+		_stage_ids.append(id)
+	_stage_index = maxi(_stage_ids.find(Profile.selected_stage), 0)
 	_build()
 	_refresh()
 
@@ -72,6 +78,9 @@ func _build() -> void:
 	_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	box.add_child(_desc)
 
+	_stage_label = _label(24, GOLD)
+	box.add_child(_stage_label)
+
 	var hint := _label(18, Color("8f7ea3"))
 	hint.text = "SELECT_HINT"
 	box.add_child(hint)
@@ -94,6 +103,12 @@ func _refresh() -> void:
 	else:
 		_name.text = tr("SELECT_LOCKED")
 		_desc.text = tr("CAT_%s_HINT" % id)
+	var stage_id := _stage_ids[_stage_index]
+	if Profile.is_stage_unlocked(stage_id):
+		var cleared := " ✓" if stage_id in Profile.cleared_stages else ""
+		_stage_label.text = "%s  ‹ %s%s ›" % [tr("SELECT_STAGE"), tr("STAGE_%s_NAME" % stage_id), cleared]
+	else:
+		_stage_label.text = "%s  ‹ ??? – %s ›" % [tr("SELECT_STAGE"), tr("STAGE_%s_HINT" % stage_id)]
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -102,6 +117,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		_refresh()
 	elif event.is_action_pressed("move_right") or event.is_action_pressed("ui_right"):
 		_index = (_index + 1) % _ids.size()
+		_refresh()
+	elif event.is_action_pressed("move_up") or event.is_action_pressed("ui_up"):
+		_stage_index = (_stage_index - 1 + _stage_ids.size()) % _stage_ids.size()
+		_refresh()
+	elif event.is_action_pressed("move_down") or event.is_action_pressed("ui_down"):
+		_stage_index = (_stage_index + 1) % _stage_ids.size()
 		_refresh()
 	elif event.is_action_pressed("language"):
 		Settings.cycle_language()
@@ -121,8 +142,10 @@ func _on_card_input(event: InputEvent, i: int) -> void:
 
 func _start() -> void:
 	var id := _ids[_index]
-	if not Profile.is_unlocked(id):
+	var stage_id := _stage_ids[_stage_index]
+	if not Profile.is_unlocked(id) or not Profile.is_stage_unlocked(stage_id):
 		return
+	Profile.select_stage(stage_id)
 	Profile.select(id)
 	get_tree().change_scene_to_file(MAIN_SCENE)
 

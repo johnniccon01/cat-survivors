@@ -14,12 +14,16 @@ const PLANK := Vector2(96, 16)
 const TILE := 32.0
 const RUG_COLORS: Array[Color] = [Color("8e3b46"), Color("2f6f73"), Color("c9a24a"), Color("5b4a8a"), Color("3f6b3a")]
 const ITEM_KINDS: Array[String] = ["mouse", "book", "ball", "feather", "crumbs"]
+const BASEMENT_ITEMS: Array[String] = ["cobweb", "bolt", "rag", "crumbs", "jar"]
 const FURNITURE := {
 	"living": ["sofa", "armchair", "coffee_table", "bookshelf", "tv", "floor_lamp", "plant", "cat_tree"],
 	"kitchen": ["dining_table", "cat_bowls", "trash_bin", "counter", "dining_table"],
 	"bedroom": ["bed", "nightstand", "wardrobe", "cat_bed", "bed", "floor_lamp"],
+	"concrete": ["boiler", "pipes", "bike", "bulb", "paint_cans", "pipes"],
+	"storage": ["shelf", "crates", "covered_sofa", "bulb", "crates", "shelf"],
+	"laundry": ["washer", "washer", "drying_rack", "laundry_pile", "bulb"],
 }
-const LAMPS := ["floor_lamp", "nightstand"]
+const LAMPS := ["floor_lamp", "nightstand", "bulb"]
 const LAMP_COLOR := Color(1.0, 0.82, 0.55)
 
 static var _light_texture: Texture2D
@@ -86,6 +90,8 @@ func _draw_ground() -> void:
 	match desc["zone"]:
 		"kitchen":
 			_draw_tiles(size)
+		"concrete", "storage", "laundry":
+			_draw_concrete(size, desc["zone"])
 		"bedroom":
 			_draw_carpet(size)
 		_:
@@ -134,6 +140,42 @@ func _draw_tiles(size: float) -> void:
 	for i in n + 1:
 		draw_line(Vector2(i * TILE, 0), Vector2(i * TILE, size), grout, 1.0)
 		draw_line(Vector2(0, i * TILE), Vector2(size, i * TILE), grout, 1.0)
+
+
+func _draw_concrete(size: float, zone: String) -> void:
+	var base := Color("6a6e72")
+	if zone == "storage":
+		base = Color("5a5650")
+	elif zone == "laundry":
+		base = Color("7a8288")
+	draw_rect(Rect2(0, 0, size, size), base)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = desc["seed"]
+	# Stains and cracks.
+	for i in 6:
+		var p := Vector2(rng.randf_range(0, size), rng.randf_range(0, size))
+		draw_colored_polygon(Shapes.ellipse(p, rng.randf_range(10, 34), rng.randf_range(6, 20), 12), base.darkened(rng.randf_range(0.05, 0.15)))
+	for i in 3:
+		var p := Vector2(rng.randf_range(0, size), rng.randf_range(0, size))
+		var crack := PackedVector2Array([p])
+		for k in 4:
+			p += Vector2(rng.randf_range(-14, 14), rng.randf_range(4, 16))
+			crack.append(p)
+		draw_polyline(crack, base.darkened(0.35), 1.0)
+	if zone == "laundry":
+		# Large floor tiles with a drain in the middle of the chunk.
+		for i in int(size / 64.0) + 1:
+			draw_line(Vector2(i * 64, 0), Vector2(i * 64, size), base.darkened(0.2), 1.0)
+			draw_line(Vector2(0, i * 64), Vector2(size, i * 64), base.darkened(0.2), 1.0)
+		var mid := Vector2(size, size) * 0.5
+		draw_circle(mid, 7.0, Color("3a3e42"))
+		for k in 3:
+			draw_line(mid + Vector2(-5, -3 + k * 3), mid + Vector2(5, -3 + k * 3), Color("6a6e72"), 1.0)
+	elif zone == "storage":
+		# Yellow-black hazard stripe across the chunk.
+		draw_rect(Rect2(0, size * 0.5 - 3, size, 6), Color("c9a24a"))
+		for x in range(0, int(size), 16):
+			draw_colored_polygon(PackedVector2Array([Vector2(x, size * 0.5 - 3), Vector2(x + 8, size * 0.5 - 3), Vector2(x + 2, size * 0.5 + 3), Vector2(x - 6, size * 0.5 + 3)]), Color("2b2b2b"))
 
 
 func _draw_carpet(size: float) -> void:
@@ -217,6 +259,20 @@ func _draw_item(item: Dictionary) -> void:
 		"crumbs":
 			for p: Vector2 in [Vector2(-3, 0), Vector2(1, -2), Vector2(3, 2), Vector2(-1, 3)]:
 				draw_rect(Rect2(p, Vector2(1, 1)), Color("d8b77a"))
+		"cobweb":
+			for i in 5:
+				draw_line(Vector2.ZERO, Vector2.from_angle(i * 0.4) * 14.0, Color(1, 1, 1, 0.35), 1.0)
+			for r: float in [5.0, 9.0, 13.0]:
+				draw_arc(Vector2.ZERO, r, 0.0, 1.6, 6, Color(1, 1, 1, 0.3), 1.0)
+		"bolt":
+			draw_circle(Vector2.ZERO, 2.5, Color("4a4e52"))
+			draw_rect(Rect2(-1, -1, 2, 2), Color("9aa0a6"))
+		"rag":
+			draw_colored_polygon(PackedVector2Array([Vector2(-6, -3), Vector2(4, -5), Vector2(7, 2), Vector2(-2, 5), Vector2(-7, 2)]), color.darkened(0.2))
+		"jar":
+			draw_circle(Vector2.ZERO, 4.0, OUTLINE)
+			draw_circle(Vector2.ZERO, 3.0, Color(0.7, 0.85, 0.7, 0.8))
+			draw_rect(Rect2(-2, -1, 1, 1), Color.WHITE)
 	draw_set_transform(Vector2.ZERO)
 
 
@@ -328,6 +384,71 @@ func _draw_furniture(f: Dictionary) -> void:
 			draw_line(Vector2(0, -16), Vector2(0, 16), OUTLINE, 1.0)
 			draw_rect(Rect2(-5, -2, 2, 4), Color("f2c14e"))
 			draw_rect(Rect2(3, -2, 2, 4), Color("f2c14e"))
+		"boiler":
+			_box(Rect2(-30, -30, 60, 60), Color("8a8f94"))
+			draw_circle(Vector2.ZERO, 22.0, OUTLINE)
+			draw_circle(Vector2.ZERO, 21.0, Color("b0b5ba"))
+			draw_circle(Vector2(8, -8), 6.0, Color("e8e2d0"))
+			draw_line(Vector2(8, -8), Vector2(11, -11), Color("e04646"), 1.0)
+			draw_rect(Rect2(-4, 30, 8, 40), Color("9a6a4a"))
+			draw_rect(Rect2(-4, 30, 8, 40), OUTLINE, false, 1.0)
+		"pipes":
+			for k in 2:
+				var y := -6.0 + k * 10.0
+				draw_rect(Rect2(-90, y - 3, 180, 6), OUTLINE)
+				draw_rect(Rect2(-89, y - 2, 178, 4), Color("9a6a4a") if k == 0 else Color("8a9096"))
+				for x: float in [-60.0, 0.0, 60.0]:
+					draw_rect(Rect2(x - 3, y - 4, 6, 8), Color("5a5e62"))
+		"bike":
+			for w: Vector2 in [Vector2(-20, 0), Vector2(20, 0)]:
+				draw_arc(w, 12.0, 0.0, TAU, 20, OUTLINE, 3.0)
+				draw_arc(w, 12.0, 0.0, TAU, 20, Color("3a3a3a"), 1.0)
+			draw_polyline(PackedVector2Array([Vector2(-20, 0), Vector2(-4, -10), Vector2(14, -10), Vector2(20, 0), Vector2(0, 0), Vector2(-4, -10)]), color, 2.0)
+			draw_line(Vector2(14, -10), Vector2(16, -16), OUTLINE, 2.0)
+		"bulb":
+			draw_line(Vector2(0, -60), Vector2(0, -6), Color(0, 0, 0, 0.35), 1.0)
+			draw_circle(Vector2.ZERO, 6.0, OUTLINE)
+			draw_circle(Vector2.ZERO, 5.0, Color("fff3c8"))
+		"paint_cans":
+			for c: Vector2 in [Vector2(-10, -4), Vector2(4, -6), Vector2(-2, 8)]:
+				draw_circle(c, 7.0, OUTLINE)
+				draw_circle(c, 6.0, Color("c9ced2"))
+				draw_circle(c, 3.0, color)
+		"shelf":
+			_box(Rect2(-60, -14, 120, 28), Color("6b4630"))
+			var shelf_rng := RandomNumberGenerator.new()
+			shelf_rng.seed = int(f["pos"].x * 17 + f["pos"].y)
+			for i in 10:
+				var jar := Vector2(-54 + i * 12, shelf_rng.randf_range(-6, 6))
+				draw_circle(jar, 4.5, OUTLINE)
+				draw_circle(jar, 3.5, RUG_COLORS[shelf_rng.randi() % RUG_COLORS.size()].lightened(0.3))
+		"crates":
+			for b: Vector2 in [Vector2(-34, -18), Vector2(0, -18), Vector2(-17, 12)]:
+				_box(Rect2(b, Vector2(32, 28)), Color("8a6a42"))
+				draw_line(b, b + Vector2(32, 28), Color("5e4630"), 1.0)
+				draw_line(b + Vector2(32, 0), b + Vector2(0, 28), Color("5e4630"), 1.0)
+		"covered_sofa":
+			_box(Rect2(-56, -24, 112, 48), Color("d8d2c4"))
+			for x: float in [-30.0, 0.0, 30.0]:
+				draw_line(Vector2(x, -22), Vector2(x + 6, 22), Color("b8b2a4"), 1.0)
+		"washer":
+			_box(Rect2(-22, -22, 44, 44), Color("e8ecef"))
+			draw_circle(Vector2(0, 3), 14.0, OUTLINE)
+			draw_circle(Vector2(0, 3), 13.0, Color("9fb2bf"))
+			draw_circle(Vector2(0, 3), 9.0, Color("6f8a9a"))
+			draw_rect(Rect2(-18, -19, 10, 4), Color("5aa9e6"))
+		"drying_rack":
+			draw_rect(Rect2(-40, -16, 80, 32), Color(0, 0, 0, 0.15))
+			for y: float in [-12.0, -4.0, 4.0, 12.0]:
+				draw_line(Vector2(-40, y), Vector2(40, y), Color("c9ced2"), 1.0)
+			var i := 0
+			for cloth: Rect2 in [Rect2(-30, -14, 14, 10), Rect2(-6, -6, 18, 12), Rect2(16, 2, 14, 12)]:
+				draw_rect(cloth, RUG_COLORS[i % RUG_COLORS.size()].lightened(0.25))
+				i += 1
+		"laundry_pile":
+			for k in 5:
+				var c := Vector2(-12 + k * 6, -4 + (k % 2) * 7)
+				draw_colored_polygon(Shapes.ellipse(c, 10, 6, 10), RUG_COLORS[k % RUG_COLORS.size()].lightened(0.2))
 		"cat_bed":
 			draw_circle(Vector2.ZERO, 18.0, OUTLINE)
 			draw_circle(Vector2.ZERO, 17.0, color)

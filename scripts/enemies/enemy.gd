@@ -35,6 +35,8 @@ var _blink_t := 0.0
 var _suck_t := 6.0
 var _summon_t := 4.0
 var _minion := ""
+## Final boss special: "suck" (pulls the cat in) or "roar" (rings of shots).
+var _final_mode := "suck"
 var _base_scale := 1.0
 var _stripes := false
 var _color := Color.WHITE
@@ -62,6 +64,7 @@ func setup(p_id: String, data: Dictionary, p_manager: EnemyManager) -> void:
 	_behavior = data.get("behavior", "chase")
 	_cat_id = data.get("cat", "")
 	_minion = data.get("minion", "")
+	_final_mode = data.get("final_mode", "suck")
 	_base_scale = data.get("scale", 1.0)
 	scale = Vector2(_base_scale, _base_scale)
 
@@ -135,6 +138,15 @@ func _tick_final(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 		_summon_t = 7.0
 		for i in 6:
 			manager.spawn(_minion, position + Vector2.from_angle(TAU * i / 6.0) * radius * 1.2)
+	if _final_mode == "roar":
+		_suck_t -= delta
+		if _suck_t <= 0.0:
+			_suck_t = 5.0
+			for i in 16:
+				manager.spawn_bullet(position, Vector2.from_angle(TAU * i / 16.0 + _wobble), damage * 0.4, "hair")
+		if hp < max_hp * 0.5:
+			return _tick_dash(delta, dir)
+		return dir * speed
 	if _state == "suck":
 		_state_t -= delta
 		manager.player.pull = (position - target).normalized() * 70.0
@@ -221,6 +233,14 @@ func _draw() -> void:
 				for i in 8:
 					var a := TAU * i / 8.0 + _wobble
 					draw_line(Vector2.from_angle(a) * 30.0, Vector2.from_angle(a) * 14.0, Color(0.85, 0.9, 1.0, 0.6), 1.0)
+		"rat":
+			_draw_rat(body)
+		"spider":
+			_draw_spider(body)
+		"moth":
+			_draw_moth(body)
+		"paint_can":
+			_draw_paint_can(body)
 		"cat":
 			CatArt.draw(self, CatArt.look(_cat_id), 1, _wobble, _flash > 0.0, false, "angry")
 		_:
@@ -346,3 +366,54 @@ func _draw_vacuum(body: Color) -> void:
 	draw_line(Vector2(-4, -6), Vector2(-2, -5), OUTLINE, 1.0)
 	draw_line(Vector2(3, -6), Vector2(1, -5), OUTLINE, 1.0)
 	draw_line(Vector2(-2, 1), Vector2(2, 1), OUTLINE, 1.0)
+
+
+func _draw_rat(body: Color) -> void:
+	var sway := sin(_wobble * 2.0) * 2.0
+	draw_polyline(PackedVector2Array([Vector2(-7, 1), Vector2(-11, -1 + sway), Vector2(-14, 2 + sway)]), _accent, 1.0)
+	var b := Shapes.ellipse(Vector2(-1, 1), 7, 4.5)
+	draw_colored_polygon(b, body)
+	draw_polyline(Shapes.closed(b), OUTLINE, 1.0)
+	var head := PackedVector2Array([Vector2(3, -3), Vector2(9, 1), Vector2(3, 4)])
+	draw_colored_polygon(head, body)
+	draw_polyline(Shapes.closed(head), OUTLINE, 1.0)
+	draw_circle(Vector2(3, -3), 2.2, OUTLINE)
+	draw_circle(Vector2(3, -3), 1.5, _accent)
+	draw_rect(Rect2(5, -1, 1, 1), Color("e04646"))
+	draw_rect(Rect2(9, 0, 1, 1), _accent)
+
+
+func _draw_spider(body: Color) -> void:
+	var step := sin(_wobble * 3.0) * 1.5
+	for side: float in [-1.0, 1.0]:
+		for i in 4:
+			var root := Vector2(-3 + i * 2.0, 0)
+			var knee := root + Vector2((i - 1.5) * 3.0, side * 5.0 + (step if i % 2 == 0 else -step))
+			var foot := knee + Vector2((i - 1.5) * 2.0, side * 3.0)
+			draw_polyline(PackedVector2Array([root, knee, foot]), OUTLINE, 1.0)
+	draw_circle(Vector2(-2, 0), 4.5, OUTLINE)
+	draw_circle(Vector2(-2, 0), 3.7, body)
+	draw_circle(Vector2(3, 0), 3.0, OUTLINE)
+	draw_circle(Vector2(3, 0), 2.3, body.lightened(0.1))
+	draw_rect(Rect2(-3, -1, 2, 2), _accent)
+	for e: Vector2 in [Vector2(4, -1), Vector2(4, 1), Vector2(5, 0)]:
+		draw_rect(Rect2(e, Vector2(1, 1)), Color("e04646"))
+
+
+func _draw_moth(body: Color) -> void:
+	var flap := absf(sin(_wobble * 4.0))
+	for side: float in [-1.0, 1.0]:
+		var wing := Shapes.ellipse(Vector2(0, side * (3.0 + flap * 2.0)), 5.0, 2.0 + flap * 2.0, 10)
+		draw_colored_polygon(wing, body)
+		draw_polyline(Shapes.closed(wing), _accent, 1.0)
+	draw_line(Vector2(-4, 0), Vector2(4, 0), OUTLINE, 2.0)
+	draw_line(Vector2(4, 0), Vector2(7, -2), OUTLINE, 1.0)
+	draw_line(Vector2(4, 0), Vector2(7, 2), OUTLINE, 1.0)
+
+
+func _draw_paint_can(body: Color) -> void:
+	draw_rect(Rect2(-6, -6, 12, 12), body)
+	draw_rect(Rect2(-6, -2, 12, 5), _accent)
+	draw_rect(Rect2(-6, -6, 12, 12), OUTLINE, false, 1.0)
+	draw_arc(Vector2(0, -6), 5.0, PI, TAU, 8, OUTLINE, 1.0)
+	draw_rect(Rect2(2, 6, 3, 2), _accent)

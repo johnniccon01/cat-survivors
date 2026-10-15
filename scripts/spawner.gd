@@ -29,7 +29,12 @@ var _cleared := false
 func setup(player: Player, enemies: EnemyManager) -> void:
 	_player = player
 	_enemies = enemies
+	stage_id = Profile.selected_stage
 	_stage = GameData.stages[stage_id]
+
+
+func stage() -> Dictionary:
+	return _stage
 
 
 func duration_minutes() -> float:

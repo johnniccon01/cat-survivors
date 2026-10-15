@@ -52,16 +52,28 @@ func _physics_process(delta: float) -> void:
 	if kind == "cat" and not _cat_given:
 		quest_id = _pick_cat()
 		_cat_given = quest_id != ""
+	elif kind == "story":
+		quest_id = _pick_story()
 	if quest_id == "":
 		quest_id = (_cfg["side_quests"] as Dictionary).keys().pick_random()
 	var dist: Array = _cfg["distance"]
 	_start(quest_id, randf_range(dist[0], dist[1]))
 
 
+## The stage's story quest, unless its flag is already set.
+func _pick_story() -> String:
+	var story_id: String = main.spawner.stage().get("story", "")
+	if story_id == "":
+		return ""
+	if Profile.has_flag(_cfg["story"][story_id]["flag"]):
+		return ""
+	return story_id
+
+
 func _pick_cat() -> String:
 	var locked: Array[String] = []
 	var others: Array[String] = []
-	for id: String in _cfg["cat_quests"]:
+	for id: String in main.spawner.stage().get("cat_quests", []):
 		if id == main.player.cat_id or id in _done_cats or main.has_companion(id):
 			continue
 		if Profile.is_unlocked(id):
@@ -78,7 +90,10 @@ func _pick_cat() -> String:
 func _start(quest_id: String, distance: float) -> void:
 	var quest: Quest
 	var cat_quests: Dictionary = _cfg["cat_quests"]
-	if cat_quests.has(quest_id):
+	if (_cfg["story"] as Dictionary).has(quest_id):
+		quest = StoryCollarQuest.new()
+		quest.data = _cfg["story"][quest_id]
+	elif cat_quests.has(quest_id):
 		var data: Dictionary = cat_quests[quest_id]
 		quest = RescueQuest.new() if data["type"] == "rescue" else DuelQuest.new()
 		quest.set("cat_id", quest_id)

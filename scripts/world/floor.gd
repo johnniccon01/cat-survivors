@@ -11,6 +11,9 @@ extends Node2D
 const CHUNK := 320.0
 const KEEP_MARGIN := 2
 
+## "apartment" or "basement"; picks rooms, floors and furniture.
+var theme := "apartment"
+
 var _noise := FastNoiseLite.new()
 var _seed := randi()
 ## chunk coords -> Array[FloorChunk]
@@ -25,11 +28,12 @@ func _ready() -> void:
 
 func zone_at(c: Vector2i) -> String:
 	var n := _noise.get_noise_2d(c.x, c.y)
+	var zones: Array = ["laundry", "concrete", "storage"] if theme == "basement" else ["kitchen", "living", "bedroom"]
 	if n < -0.22:
-		return "kitchen"
+		return zones[0]
 	if n > 0.22:
-		return "bedroom"
-	return "living"
+		return zones[2]
+	return zones[1]
 
 
 func _process(_delta: float) -> void:
@@ -66,6 +70,10 @@ func _create(c: Vector2i) -> void:
 	_chunks[c] = nodes
 
 
+func _pick(rng: RandomNumberGenerator, list: Array) -> Variant:
+	return list[rng.randi() % list.size()]
+
+
 ## Describes everything in one chunk; positions are local to the chunk.
 func _generate(c: Vector2i) -> Dictionary:
 	var rng := RandomNumberGenerator.new()
@@ -81,7 +89,7 @@ func _generate(c: Vector2i) -> Dictionary:
 		"furniture": [],
 		"items": [],
 	}
-	if zone != "kitchen" and rng.randf() < 0.45:
+	if zone in ["living", "bedroom"] and rng.randf() < 0.45:
 		var size := Vector2(rng.randf_range(110, 180), rng.randf_range(70, 120))
 		desc["rug"] = {
 			"rect": Rect2(Vector2(rng.randf_range(20, CHUNK - size.x - 20), rng.randf_range(20, CHUNK - size.y - 20)), size),
@@ -100,12 +108,12 @@ func _generate(c: Vector2i) -> Dictionary:
 			})
 	for i in rng.randi_range(1, 4):
 		desc["items"].append({
-			"kind": FloorChunk.ITEM_KINDS[rng.randi() % FloorChunk.ITEM_KINDS.size()],
+			"kind": _pick(rng, FloorChunk.BASEMENT_ITEMS if theme == "basement" else FloorChunk.ITEM_KINDS),
 			"pos": Vector2(rng.randf_range(10, CHUNK - 10), rng.randf_range(10, CHUNK - 10)),
 			"rot": rng.randf_range(-0.6, 0.6),
 			"color": FloorChunk.RUG_COLORS[rng.randi() % FloorChunk.RUG_COLORS.size()],
 		})
-	if rng.randf() < 0.3:
+	if theme == "apartment" and rng.randf() < 0.3:
 		desc["moon"] = {
 			"pos": Vector2(rng.randf_range(0, CHUNK - 120), rng.randf_range(0, CHUNK - 90)),
 			"size": Vector2(rng.randf_range(70, 110), rng.randf_range(55, 80)),

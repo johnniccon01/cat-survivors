@@ -186,6 +186,174 @@
       }
     ],
     "duration_minutes": 20,
-    "final_boss": "VACUUM_KING"
+    "final_boss": "VACUUM_KING",
+    "theme": "apartment",
+    "cat_quests": [
+      "SNOWBALL",
+      "PIP",
+      "BARON"
+    ],
+    "story": "COLLAR"
+  },
+  "BASEMENT": {
+    "theme": "basement",
+    "requires": "LIVING_ROOM",
+    "cat_quests": [
+      "LUNA",
+      "TIGER"
+    ],
+    "props": [
+      "CRATE",
+      "CRATE",
+      "PAINT_CAN"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "RAT_KING",
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.5,
+        "per_tick": 1,
+        "enemies": [
+          "RAT",
+          "MOTH"
+        ],
+        "hp_mult": 1.0
+      },
+      {
+        "minute": 1,
+        "minimum": 18,
+        "interval": 1.2,
+        "per_tick": 2,
+        "enemies": [
+          "RAT",
+          "MOTH",
+          "DUST_BUNNY"
+        ],
+        "hp_mult": 1.0
+      },
+      {
+        "minute": 2,
+        "minimum": 30,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": [
+          "RAT",
+          "SPIDER",
+          "MOTH"
+        ],
+        "hp_mult": 1.0
+      },
+      {
+        "minute": 3,
+        "minimum": 45,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "RAT",
+          "SPIDER"
+        ],
+        "hp_mult": 1.0,
+        "bosses": [
+          "GIANT_RAT"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.8,
+        "per_tick": 3,
+        "enemies": [
+          "RAT",
+          "SPIDER",
+          "MOTH"
+        ],
+        "hp_mult": 1.5
+      },
+      {
+        "minute": 7,
+        "minimum": 100,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "SPIDER",
+          "RAT",
+          "SLIPPER"
+        ],
+        "hp_mult": 2.0,
+        "bosses": [
+          "SPIDER_QUEEN"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 140,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "RAT",
+          "SPIDER",
+          "MOTH"
+        ],
+        "hp_mult": 2.5
+      },
+      {
+        "minute": 11,
+        "minimum": 170,
+        "interval": 0.5,
+        "per_tick": 5,
+        "enemies": [
+          "RAT",
+          "SPIDER",
+          "SLIPPER"
+        ],
+        "hp_mult": 3.0,
+        "bosses": [
+          "GIANT_RAT"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 200,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "RAT",
+          "SPIDER",
+          "MOTH"
+        ],
+        "hp_mult": 3.5
+      },
+      {
+        "minute": 15,
+        "minimum": 240,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "SPIDER",
+          "RAT",
+          "SLIPPER"
+        ],
+        "hp_mult": 4.5,
+        "bosses": [
+          "SPIDER_QUEEN"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 280,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "RAT",
+          "SPIDER",
+          "MOTH"
+        ],
+        "hp_mult": 5.5
+      }
+    ]
   }
 }

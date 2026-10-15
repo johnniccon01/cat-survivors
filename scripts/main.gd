@@ -52,6 +52,10 @@ func _ready() -> void:
 	enemies.player = player
 	pickups.player = player
 	spawner.setup(player, enemies)
+	$Floor.theme = spawner.stage().get("theme", "apartment")
+	if spawner.stage_id == "BASEMENT" and not Profile.is_unlocked("LUNA"):
+		var intro := "STORY_BASEMENT_COLLAR" if Profile.has_flag("collar") else "STORY_BASEMENT_INTRO"
+		hud.show_banner.call_deferred(tr(intro), 6.0)
 	spawner.elapsed = float(_arg("--start-minute=", "0")) * 60.0
 	_bot_time += spawner.elapsed
 	night.setup(spawner, player)
@@ -237,12 +241,16 @@ func _on_player_died() -> void:
 func _on_final_boss(boss: Enemy) -> void:
 	final_boss = boss
 	spawner.paused = true
-	hud.show_banner(tr("FINAL_BOSS_WARNING"), 4.0)
+	hud.show_banner(tr("FINAL_BOSS_WARNING") % tr("ENEMY_%s_NAME" % boss.id), 4.0)
 
 
 func _on_stage_cleared() -> void:
 	_run_over = true
 	hud.show_victory(kills)
+	if Profile.clear_stage(spawner.stage_id):
+		for id: String in GameData.stages:
+			if GameData.stages[id].get("requires", "") == spawner.stage_id:
+				hud.show_banner(tr("STAGE_UNLOCKED") % tr("STAGE_%s_NAME" % id), 6.0)
 	get_tree().paused = true
 
 

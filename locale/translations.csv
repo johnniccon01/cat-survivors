@@ -127,10 +127,24 @@ QUEST_FRIDGE_FIND,Find the fridge,Nájdi chladničku
 QUEST_FRIDGE_OPEN,Stay by the fridge to open it,Zostaň pri chladničke a otvor ju
 QUEST_FRIDGE_FIGHT,Defeat the leftovers: %d left,Poraz zvyšky: zostáva %d
 SELECT_TITLE,Choose your cat,Vyber si mačku
-SELECT_HINT,← → choose · Enter start · L language,← → výber · Enter štart · L jazyk
+SELECT_HINT,← → cat · ↑ ↓ map · Enter start · L language,← → mačka · ↑ ↓ mapa · Enter štart · L jazyk
 SELECT_LOCKED,???,???
 GAME_OVER_MENU,Esc – change cat,Esc – zmeniť mačku
 QUEST_RESCUE_ESCORT,Walk %s to the safe cat bed,Odprevaď: %s do bezpečného pelechu
 QUEST_RESCUE_REVIVE,%s is down! Stay close to help,%s padla! Postoj pri nej a pomôž
-FINAL_BOSS_WARNING,The Vacuum King awakens!,Kráľ vysávačov sa prebúdza!
+FINAL_BOSS_WARNING,%s awakens!,%s sa prebúdza!
 ENEMY_VACUUM_KING_NAME,The Vacuum King,Kráľ vysávačov
+SELECT_STAGE,Map:,Mapa:
+STAGE_LIVING_ROOM_NAME,The Apartment,Byt
+STAGE_BASEMENT_NAME,The Basement,Pivnica
+STAGE_LIVING_ROOM_HINT,,
+STAGE_BASEMENT_HINT,Defeat the Vacuum King,Poraz Kráľa vysávačov
+STAGE_UNLOCKED,New map unlocked: %s!,Nová mapa odomknutá: %s!
+ENEMY_RAT_KING_NAME,The Rat King,Potkaní kráľ
+QUEST_COLLAR_TITLE,Strange noises by the door,Čudné zvuky pri dverách
+QUEST_COLLAR_FIND,Check the front door,Pozri sa k vchodovým dverám
+QUEST_COLLAR_AMBUSH,Rats! Defeat them: %d left,Potkany! Poraz ich: zostáva %d
+QUEST_COLLAR_PICK,Pick up the collar,Zober obojok
+QUEST_COLLAR_FOUND,"Luna's collar! Rat tracks lead down to the basement...","Lunin obojok! Potkanie stopy vedú dolu do pivnice..."
+STORY_BASEMENT_COLLAR,Luna's scent is everywhere down here. The rats have her!,Lunin pach je tu všade. Potkany ju majú!
+STORY_BASEMENT_INTRO,Something is squeaking in the dark...,V tme niečo piští...

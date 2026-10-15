@@ -2,9 +2,9 @@
   "cat_quests": {
     "LUNA": {
       "type": "rescue",
-      "poi": "box_fort",
-      "guards": "SOCK_STRIPED",
-      "guard_count": 12,
+      "poi": "rat_nest",
+      "guards": "RAT",
+      "guard_count": 18,
       "free_time": 4.0,
       "escort_distance": [
         480.0,
@@ -69,7 +69,7 @@
     "order": [
       "side",
       "cat",
-      "side",
+      "story",
       "side",
       "side",
       "side",
@@ -80,5 +80,12 @@
     420.0,
     650.0
   ],
-  "activate_radius": 240.0
+  "activate_radius": 240.0,
+  "story": {
+    "COLLAR": {
+      "flag": "collar",
+      "ambush": "RAT",
+      "ambush_count": 14
+    }
+  }
 }

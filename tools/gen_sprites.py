@@ -404,6 +404,121 @@ def enemy_canvas(shape, frame, data):
         c.set(9, 10 + wob, "ink"); c.set(16, 10 + wob, "ink")
         for x in range(11, 15):
             c.set(x, 17, "ink")
+    elif shape == "bee":
+        flap = frame
+        c.ellipse(11 - flap, 10, 4, 3 - flap, "wing")
+        c.ellipse(16 + flap, 10, 4, 3 - flap, "wing")
+        c.ellipse(13, 16, 7, 5, "body")
+        for x in (10, 14):
+            c.rect(x, 11, 2, 10, "accent", only=("body",))
+        c.poly([(5, 15), (2, 16), (5, 17)], "ink")
+        c.ellipse(20, 15, 3.4, 3.4, "accent")
+        c.set(21, 14, "white"); c.set(22, 14, "pupil")
+        c.set(21, 11, "ink"); c.set(22, 10, "ink"); c.set(19, 11, "ink"); c.set(19, 10, "ink")
+    elif shape == "snail":
+        stretch = frame
+        c.poly([(3, 22), (23 + stretch, 22), (25 + stretch, 19), (21 + stretch, 17), (6, 18)], "belly")
+        c.ellipse(12, 14, 7.5, 7.5, "accent")
+        c.ellipse(12, 14, 5, 5, "top", only=("accent",))
+        c.ellipse(12, 14, 2.4, 2.4, "accent", only=("top",))
+        c.thick_line([(21 + stretch, 18), (22 + stretch, 12)], 0.6, "belly")
+        c.thick_line([(23 + stretch, 18), (25 + stretch, 13)], 0.6, "belly")
+        c.set(22 + stretch, 11, "pupil"); c.set(25 + stretch, 12, "pupil")
+    elif shape == "mole":
+        c.ellipse(13, 17, 8, 6.5, "body")
+        c.ellipse(20, 17, 3.5, 3, "body")
+        c.ellipse(24, 17, 2, 1.8, "accent")
+        c.ellipse(13, 20, 6, 2.5, "belly", only=("body",))
+        c.set(20, 15, "pupil")
+        dig = [0, 1][frame]
+        for x in (16 + dig, 9 - dig):
+            c.ellipse(x, 23, 2.4, 1.4, "accent")
+    elif shape == "crow":
+        flap = frame
+        c.poly([(3, 16), (8, 13), (8, 19)], "body")
+        c.ellipse(13, 16, 7, 5, "body")
+        c.ellipse(19, 12, 3.6, 3.4, "body")
+        c.poly([(22, 11), (27, 13), (22, 14)], "accent")
+        c.poly([(9, 14), (17, 13 - flap * 3), (16, 18 - flap)], "top", only=None)
+        c.set(20, 11, "white"); c.set(20, 12, "eye")
+        for x in (12, 15):
+            c.rect(x, 21, 1, 3, "accent")
+    elif shape == "gnome":
+        bob = frame
+        c.poly([(14, 1 + bob), (20, 11 + bob), (8, 11 + bob)], "accent")
+        c.ellipse(14, 13 + bob, 5, 3, "skin")
+        c.ellipse(14, 17 + bob, 5.5, 4.5, "beard")
+        c.rect(8, 18 + bob, 12, 6, "body")
+        c.ellipse(14, 17 + bob, 5.5, 4.5, "beard", only=("body",))
+        c.ellipse(17, 13 + bob, 1.6, 1.4, "nose")
+        c.set(12, 12 + bob, "pupil"); c.set(16, 12 + bob, "pupil")
+        c.rect(9, 24, 4, 2, "ink"); c.rect(15, 24, 4, 2, "ink")
+    elif shape == "mower":
+        c.rect(2, 4, 3, 12, "ink")
+        c.rect(2, 3, 10, 2, "ink")
+        c.rect(5, 9, 20, 12, "body")
+        c.rect(5, 9, 20, 3, "top", only=("body",))
+        c.ellipse(15, 15, 4, 3, "top")
+        c.rect(5, 19, 20, 2, "accent")
+        for x in (7, 22):
+            c.ellipse(x, 22, 3, 3, "ink")
+            c.set(x + frame, 22, "white")
+        c.set(20, 13, "eye"); c.set(23, 13, "eye")
+        for i in range(4):
+            c.set(25 + (i + frame) % 3, 17 + i, "grass")
+    elif shape == "pigeon":
+        bob = frame
+        c.poly([(3, 15), (8, 13), (8, 18)], "accent")
+        c.ellipse(13, 16, 7, 5.5, "body")
+        c.ellipse(18, 11 + bob, 3.4, 3.4, "body")
+        c.ellipse(16, 14 + bob * 0.5, 3, 2.4, "accent", only=("body",))
+        c.ellipse(11, 16, 4.5, 3, "top", only=("body",))
+        c.rect(11, 15, 5, 1, "ink", only=("top",))
+        c.poly([(21, 11 + bob), (24, 12 + bob), (21, 13 + bob)], "beak")
+        c.set(19, 10 + bob, "eye")
+        for x in ((11, 15) if frame else (12, 14)):
+            c.rect(x, 21, 1, 3, "beak")
+    elif shape == "bat":
+        up = frame
+        for side in (-1, 1):
+            tip = 14 + side * 12
+            c.poly([(14, 13), (tip, 8 if up else 18), (14 + side * 9, 16 if up else 20), (14 + side * 5, 15)], "wing_dark")
+        c.ellipse(14, 14, 4, 4.5, "body")
+        c.poly([(11, 11), (12, 6), (13, 10)], "body")
+        c.poly([(15, 10), (16, 6), (17, 11)], "body")
+        c.set(12, 13, "eye"); c.set(16, 13, "eye")
+        c.set(13, 16, "white"); c.set(15, 16, "white")
+    elif shape == "gull":
+        flap = frame
+        c.poly([(3, 15), (8, 13), (8, 18)], "top")
+        c.ellipse(13, 16, 7.5, 5, "body")
+        c.ellipse(19, 12, 3.6, 3.4, "body")
+        c.poly([(8, 14), (18, 13 - flap * 3), (17, 17)], "top")
+        c.poly([(22, 12), (27, 13), (22, 14)], "accent")
+        c.set(26, 13, "eye")
+        c.set(20, 11, "pupil")
+        for x in (12, 15):
+            c.rect(x, 21, 1, 3, "accent")
+    elif shape == "raccoon":
+        sway = frame
+        for i in range(5):
+            c.ellipse(5 - i * 0.6, 17 - i * 1.6 + sway * (i % 2), 2.6, 2.2, "accent" if i % 2 else "body")
+        c.ellipse(13, 17, 8, 6, "body")
+        c.ellipse(13, 19, 5, 3, "belly", only=("body",))
+        c.ellipse(20, 12, 5, 4.5, "body")
+        c.poly([(17, 9), (17, 5), (20, 8)], "body")
+        c.poly([(21, 8), (23, 5), (24, 9)], "body")
+        c.rect(16, 11, 9, 2, "accent", only=("body",))
+        c.set(18, 11, "white"); c.set(22, 11, "white")
+        c.ellipse(24, 14, 1.4, 1.2, "nose")
+        for x in ((10, 15) if frame else (11, 16)):
+            c.rect(x, 22, 2, 2, "accent")
+    elif shape == "sack":
+        c.poly([(8, 9), (20, 9), (23, 24), (5, 24)], "body")
+        c.rect(10, 6, 8, 4, "body")
+        c.rect(9, 9, 10, 1, "ink")
+        c.ellipse(14, 17, 3.5, 3.5, "accent", only=("body",))
+        c.set(14, 15, "top"); c.set(13, 17, "top")
     elif shape == "box":
         c.rect(5, 7, 18, 16, "body")
         c.rect(5, 7, 18, 4, "top", only=("body",))
@@ -430,6 +545,8 @@ def enemy_palette(data):
         "white": (250, 250, 250, 255), "pupil": hexc("#1a1210"), "ink": OUTLINE,
         "eye": hexc("#e04646"), "led": accent, "glint": (255, 255, 255, 255),
         "bubble": body, "leg": shade(body, -0.2), "tail": accent,
+        "wing": (225, 240, 250, 255), "wing_dark": shade(body, -0.25), "skin": hexc("#f0c8a0"),
+        "beard": (245, 245, 240, 255), "nose": hexc("#e8907a"), "beak": hexc("#e8a040"), "grass": hexc("#5ea84a"),
     }
 
 
@@ -438,7 +555,7 @@ def build_enemy(key, data):
     if shape == "cat":
         return None
     pal = enemy_palette(data)
-    translucent = ("bubble",)
+    translucent = ("bubble", "wing")
     frames = [enemy_canvas(shape, f, data) for f in range(2)]
     rows = [[fr.render(pal, translucent=translucent) for fr in frames],
             [fr.render(pal, flash=True, translucent=translucent) for fr in frames]]

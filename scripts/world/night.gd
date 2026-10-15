@@ -20,14 +20,35 @@ const BASEMENT_KEYS := [
 	[1.0, Color(0.75, 0.7, 0.66)],
 ]
 
+## Garden: golden sunset, a green-blue night, a bright dawn.
+const GARDEN_KEYS := [
+	[0.0, Color(1.0, 0.9, 0.78)],
+	[0.2, Color(0.8, 0.82, 0.92)],
+	[0.4, Color(0.6, 0.7, 0.86)],
+	[0.85, Color(0.6, 0.7, 0.86)],
+	[0.95, Color(0.95, 0.8, 0.78)],
+	[1.0, Color(1.0, 0.95, 0.85)],
+]
+
+## Rooftop: purple dusk and a night lit by the city.
+const ROOFTOP_KEYS := [
+	[0.0, Color(0.95, 0.82, 0.88)],
+	[0.2, Color(0.72, 0.68, 0.9)],
+	[0.4, Color(0.6, 0.6, 0.86)],
+	[0.85, Color(0.62, 0.6, 0.86)],
+	[0.95, Color(0.95, 0.78, 0.72)],
+	[1.0, Color(1.0, 0.92, 0.82)],
+]
+
+const THEME_KEYS := {"basement": BASEMENT_KEYS, "garden": GARDEN_KEYS, "rooftop": ROOFTOP_KEYS}
+
 var spawner: Spawner
 var _keys: Array = KEYS
 
 
 func setup(p_spawner: Spawner, player: Player) -> void:
 	spawner = p_spawner
-	if spawner.stage().get("theme", "apartment") == "basement":
-		_keys = BASEMENT_KEYS
+	_keys = THEME_KEYS.get(spawner.stage().get("theme", "apartment"), KEYS)
 	var light := PointLight2D.new()
 	light.texture = FloorChunk._get_light_texture()
 	light.texture_scale = 2.4

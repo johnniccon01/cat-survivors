@@ -109,6 +109,51 @@ func _hurt(e: Enemy) -> void:
 
 func _draw() -> void:
 	match id:
+		"RAKE":
+			# Tines down, handle up: steps on it and the handle swings.
+			var handle := Vector2(0, -16) if _active else Vector2(-14, -4)
+			draw_line(Vector2.ZERO, handle, OUTLINE, 3.0)
+			draw_line(Vector2.ZERO, handle, Color("a47a50"), 1.5)
+			draw_rect(Rect2(-8, -1, 16, 3), Color("6a6e72"))
+			for x in range(-7, 9, 3):
+				draw_line(Vector2(x, 2), Vector2(x, 5), Color("9aa0a6"), 1.0)
+			if _flash > 0.0:
+				draw_circle(Vector2.ZERO, 12.0, Color(1, 1, 1, _flash * 2.0))
+		"SPRINKLER":
+			var r := float(data["radius"])
+			draw_circle(Vector2.ZERO, 5.0, OUTLINE)
+			draw_circle(Vector2.ZERO, 4.0, Color("4a8a4a"))
+			if _active:
+				for k in 8:
+					var a := _t * 5.0 + k * TAU / 8.0
+					var d := fposmod(_t * 50.0 + k * 7.0, r)
+					draw_circle(Vector2.from_angle(a) * d, 1.6, Color(0.7, 0.88, 1.0, 0.8 * (1.0 - d / r)))
+				draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, r, r * 0.8, 16), Color(0.5, 0.75, 1.0, 0.12))
+		"VENT":
+			var side := _dir.orthogonal()
+			draw_rect(Rect2(-8, -8, 16, 16), OUTLINE)
+			draw_rect(Rect2(-7, -7, 14, 14), Color("8a9096"))
+			for k in 3:
+				draw_line(Vector2(-5, -4 + k * 4), Vector2(5, -4 + k * 4), Color("4a4e52"), 1.0)
+			if _active:
+				var length := float(data["length"])
+				for k in 6:
+					var d := fposmod(_t * 170.0 + k * length / 6.0, length)
+					var spread := d / length * float(data["width"])
+					draw_circle(_dir * d + side * sin(_t * 6.0 + k) * spread * 0.5, 3.0 + spread * 0.5, Color(1.0, 0.85, 0.7, 0.5 * (1.0 - d / length)))
+			elif _timer < 0.6:
+				draw_circle(_dir * 8.0, 2.0, Color(1, 0.8, 0.6, 0.6))
+		"LIVE_WIRE":
+			var r := float(data["radius"])
+			draw_polyline(PackedVector2Array([Vector2(-r, -4), Vector2(-r * 0.3, 3), Vector2(r * 0.2, -3), Vector2(r, 4)]), OUTLINE, 3.0)
+			draw_polyline(PackedVector2Array([Vector2(-r, -4), Vector2(-r * 0.3, 3), Vector2(r * 0.2, -3), Vector2(r, 4)]), Color("2a2a30"), 1.5)
+			draw_circle(Vector2(r, 4), 2.5, Color("c9a24a"))
+			if _active:
+				for k in 6:
+					var a := _t * 11.0 + k * 1.1
+					var p1 := Vector2.from_angle(a) * r * 0.7
+					draw_line(p1, p1 + Vector2.from_angle(a + 1.4) * 7.0, Color("9ae0ff"), 1.5)
+				draw_circle(Vector2.ZERO, r, Color(0.6, 0.9, 1.0, 0.14))
 		"MOUSETRAP":
 			draw_rect(Rect2(-8, -5, 16, 10), OUTLINE)
 			draw_rect(Rect2(-7, -4, 14, 8), Color("c9a26a"))

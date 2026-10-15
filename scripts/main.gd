@@ -96,6 +96,8 @@ func _ready() -> void:
 	if spawner.stage_id == "BASEMENT" and not Profile.is_unlocked("LUNA"):
 		var intro := "STORY_BASEMENT_COLLAR" if Profile.has_flag("collar") else "STORY_BASEMENT_INTRO"
 		hud.show_banner.call_deferred(tr(intro), 6.0)
+	elif spawner.stage_id in ["GARDEN", "ROOFTOP"] and spawner.stage_id not in Profile.cleared_stages:
+		hud.show_banner.call_deferred(tr("STORY_%s_INTRO" % spawner.stage_id), 6.0)
 	spawner.skip_to(float(_arg("--start-minute=", "0")) * 60.0)
 	if "--catch-up" in _args:
 		_catch_up.call_deferred(spawner.elapsed)

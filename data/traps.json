@@ -33,5 +33,40 @@
     "on": 1.5,
     "off": 3.0,
     "tick": 0.3
+  },
+  "RAKE": {
+    "type": "snap",
+    "radius": 11,
+    "damage": 50,
+    "player_damage": 12,
+    "rearm": 4.0
+  },
+  "SPRINKLER": {
+    "type": "pulse",
+    "radius": 30,
+    "damage": 10,
+    "player_damage": 6,
+    "on": 2.5,
+    "off": 3.0,
+    "tick": 0.4
+  },
+  "VENT": {
+    "type": "jet",
+    "length": 120,
+    "width": 12,
+    "damage": 18,
+    "player_damage": 10,
+    "on": 1.5,
+    "off": 3.0,
+    "tick": 0.3
+  },
+  "LIVE_WIRE": {
+    "type": "pulse",
+    "radius": 26,
+    "damage": 16,
+    "player_damage": 9,
+    "on": 1.0,
+    "off": 2.2,
+    "tick": 0.3
   }
 }

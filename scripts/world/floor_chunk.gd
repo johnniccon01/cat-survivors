@@ -15,15 +15,31 @@ const TILE := 32.0
 const RUG_COLORS: Array[Color] = [Color("8e3b46"), Color("2f6f73"), Color("c9a24a"), Color("5b4a8a"), Color("3f6b3a")]
 const ITEM_KINDS: Array[String] = ["mouse", "book", "ball", "feather", "crumbs"]
 const BASEMENT_ITEMS: Array[String] = ["cobweb", "bolt", "rag", "crumbs", "jar"]
+const GARDEN_ITEMS: Array[String] = ["leaf", "leaf", "pebble", "flower", "acorn", "twig"]
+const ROOFTOP_ITEMS: Array[String] = ["leaf", "pebble", "feather", "bottle_cap", "bolt"]
+const THEME_ITEMS := {"basement": BASEMENT_ITEMS, "garden": GARDEN_ITEMS, "rooftop": ROOFTOP_ITEMS}
+## Zones per theme, from low noise to high noise.
+const THEME_ZONES := {
+	"apartment": ["kitchen", "living", "bedroom"],
+	"basement": ["laundry", "concrete", "storage"],
+	"garden": ["path", "lawn", "flowerbed"],
+	"rooftop": ["deck", "tar", "tiles"],
+}
 const FURNITURE := {
 	"living": ["sofa", "armchair", "coffee_table", "bookshelf", "tv", "floor_lamp", "plant", "cat_tree"],
 	"kitchen": ["dining_table", "cat_bowls", "trash_bin", "counter", "dining_table"],
 	"bedroom": ["bed", "nightstand", "wardrobe", "cat_bed", "bed", "floor_lamp"],
 	"concrete": ["boiler", "pipes", "bike", "bulb", "paint_cans", "pipes"],
 	"storage": ["shelf", "crates", "covered_sofa", "bulb", "crates", "shelf"],
-	"laundry": ["washer", "washer", "drying_rack", "laundry_pile", "bulb"],
+		"laundry": ["washer", "washer", "drying_rack", "laundry_pile", "bulb"],
+	"lawn": ["tree", "bush", "tree", "bench", "birdbath", "garden_lamp", "bush"],
+	"path": ["garden_lamp", "wheelbarrow", "bush", "bench", "watering_can"],
+	"flowerbed": ["flowers", "veggies", "flowers", "scarecrow", "compost", "veggies"],
+	"tar": ["ac_unit", "vent_box", "antenna", "water_tank", "solar_panel", "roof_lamp"],
+	"tiles": ["chimney", "skylight", "chimney", "antenna", "roof_lamp"],
+	"deck": ["deck_chair", "potted_tree", "clothesline", "roof_lamp", "deck_chair", "potted_tree"],
 }
-const LAMPS := ["floor_lamp", "nightstand", "bulb"]
+const LAMPS := ["floor_lamp", "nightstand", "bulb", "garden_lamp", "roof_lamp"]
 const LAMP_COLOR := Color(1.0, 0.82, 0.55)
 
 static var _light_texture: Texture2D
@@ -92,11 +108,25 @@ func _draw_ground() -> void:
 			_draw_tiles(size)
 		"concrete", "storage", "laundry":
 			_draw_concrete(size, desc["zone"])
+		"lawn", "flowerbed":
+			_draw_grass(size, desc["zone"])
+		"path":
+			_draw_path(size)
+		"tar":
+			_draw_tar(size)
+		"tiles":
+			_draw_roof_tiles(size)
+		"deck":
+			_draw_deck(area)
 		"bedroom":
 			_draw_carpet(size)
 		_:
 			_draw_planks(area)
 	var strip := Color("3e2a1c")
+	if desc["zone"] in ["lawn", "flowerbed", "path"]:
+		strip = Color(0.2, 0.3, 0.12, 0.35)
+	elif desc["zone"] in ["tar", "tiles", "deck"]:
+		strip = Color("4a4a52")
 	if desc["edge_right"]:
 		draw_rect(Rect2(size - 3, 0, 3, size), strip)
 	if desc["edge_bottom"]:
@@ -187,6 +217,104 @@ func _draw_carpet(size: float) -> void:
 			draw_rect(Rect2(ix * 8.0 + shift, iy * 8.0, 1, 1), dot)
 
 
+func _draw_grass(size: float, zone: String) -> void:
+	var base := Color("5e9e4a") if zone == "lawn" else Color("6b4a32")
+	draw_rect(Rect2(0, 0, size, size), base)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = desc["seed"]
+	if zone == "lawn":
+		# Mowing stripes in world space, then tufts.
+		var stripe := 40.0
+		var x0 := floori(position.x / stripe)
+		for i in int(size / stripe) + 1:
+			if (x0 + i) % 2 == 0:
+				draw_rect(Rect2(i * stripe, 0, stripe, size), Color(1, 1, 1, 0.05))
+		for i in 70:
+			var p := Vector2(rng.randf_range(0, size), rng.randf_range(0, size))
+			var c := base.darkened(0.2) if i % 2 else base.lightened(0.15)
+			draw_line(p, p + Vector2(-1, -3), c, 1.0)
+			draw_line(p, p + Vector2(1, -3), c, 1.0)
+		for i in 5:
+			var p := Vector2(rng.randf_range(4, size - 4), rng.randf_range(4, size - 4))
+			draw_rect(Rect2(p, Vector2(2, 2)), [Color("f4f1ea"), Color("f2d14e"), Color("e07aa0")][i % 3])
+	else:
+		# Dug soil in rows.
+		for y in range(8, int(size), 24):
+			draw_rect(Rect2(0, y, size, 10), base.darkened(0.15))
+			draw_line(Vector2(0, y), Vector2(size, y), base.lightened(0.1), 1.0)
+		for i in 40:
+			var p := Vector2(rng.randf_range(0, size), rng.randf_range(0, size))
+			draw_rect(Rect2(p, Vector2(1, 1)), base.darkened(0.35))
+
+
+func _draw_path(size: float) -> void:
+	var base := Color("5e9e4a")
+	draw_rect(Rect2(0, 0, size, size), base)
+	# Gravel field with flagstones laid in world coordinates.
+	draw_rect(Rect2(0, 0, size, size), Color("b8ab92"))
+	var rng := RandomNumberGenerator.new()
+	rng.seed = desc["seed"]
+	for i in 160:
+		var p := Vector2(rng.randf_range(0, size), rng.randf_range(0, size))
+		draw_rect(Rect2(p, Vector2(1, 1)), Color("8f8370") if i % 2 else Color("d4c9b0"))
+	var step := 40.0
+	var t0 := Vector2i(floori(position.x / step), floori(position.y / step))
+	for ix in int(size / step):
+		for iy in int(size / step):
+			var h := hash(t0 + Vector2i(ix, iy))
+			var c := Vector2(ix + 0.5, iy + 0.5) * step + Vector2((h % 7) - 3, ((h >> 3) % 7) - 3)
+			var poly := Shapes.ellipse(c, 15.0 + (h >> 6) % 4, 12.0 + (h >> 8) % 4, 7)
+			draw_colored_polygon(poly, Color("9a948c").darkened((h % 5) * 0.03))
+			draw_polyline(Shapes.closed(poly), Color("6f6a63"), 1.0)
+
+
+func _draw_tar(size: float) -> void:
+	var base := Color("3e3e46")
+	draw_rect(Rect2(0, 0, size, size), base)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = desc["seed"]
+	for i in 120:
+		var p := Vector2(rng.randf_range(0, size), rng.randf_range(0, size))
+		draw_rect(Rect2(p, Vector2(1, 1)), base.lightened(0.15))
+	# Seams of the roofing membrane.
+	for y in range(0, int(size), 80):
+		draw_line(Vector2(0, y), Vector2(size, y), base.darkened(0.3), 2.0)
+		draw_line(Vector2(0, y + 2), Vector2(size, y + 2), base.lightened(0.08), 1.0)
+	for i in 3:
+		var p := Vector2(rng.randf_range(0, size), rng.randf_range(0, size))
+		draw_colored_polygon(Shapes.ellipse(p, rng.randf_range(12, 30), rng.randf_range(8, 18), 12), Color(0.45, 0.55, 0.7, 0.25))
+
+
+func _draw_roof_tiles(size: float) -> void:
+	var base := Color("a8503a")
+	draw_rect(Rect2(0, 0, size, size), base.darkened(0.3))
+	var tile := Vector2(20, 14)
+	var row0 := floori(position.y / tile.y)
+	for r in int(size / tile.y) + 1:
+		var row := row0 + r
+		var shift := tile.x * 0.5 if row % 2 else 0.0
+		for i in int(size / tile.x) + 2:
+			var x := i * tile.x - shift
+			var h := hash(Vector2i(i, row))
+			var c := base.darkened((h % 6) * 0.03)
+			var y := r * tile.y
+			draw_rect(Rect2(x + 1, y, tile.x - 2, tile.y - 2), c)
+			draw_line(Vector2(x + 1, y + tile.y - 3), Vector2(x + tile.x - 1, y + tile.y - 3), c.darkened(0.25), 1.0)
+			draw_line(Vector2(x + 2, y + 1), Vector2(x + tile.x - 3, y + 1), c.lightened(0.15), 1.0)
+
+
+func _draw_deck(area: Rect2) -> void:
+	draw_rect(area, Color("9a7048"))
+	var step := 12.0
+	var x0 := floori(position.x / step)
+	for i in int(area.size.x / step) + 1:
+		var h := hash(Vector2i(x0 + i, 7))
+		draw_rect(Rect2(i * step, 0, step - 1, area.size.y), Color("a47a50").darkened((h % 5) * 0.03))
+		draw_line(Vector2(i * step + step - 1, 0), Vector2(i * step + step - 1, area.size.y), Color("6b4a30"), 1.0)
+		for y in range(int(h % 40), int(area.size.y), 60):
+			draw_rect(Rect2(i * step + 5, y, 1, 1), Color("4a3a2a"))
+
+
 # --- Decor ------------------------------------------------------------------
 
 func _draw_rug(rug: Dictionary) -> void:
@@ -269,6 +397,26 @@ func _draw_item(item: Dictionary) -> void:
 			draw_rect(Rect2(-1, -1, 2, 2), Color("9aa0a6"))
 		"rag":
 			draw_colored_polygon(PackedVector2Array([Vector2(-6, -3), Vector2(4, -5), Vector2(7, 2), Vector2(-2, 5), Vector2(-7, 2)]), color.darkened(0.2))
+		"leaf":
+			var leaf := PackedVector2Array([Vector2(-5, 0), Vector2(0, -3), Vector2(5, 0), Vector2(0, 3)])
+			draw_colored_polygon(leaf, [Color("c9a24a"), Color("d9743a"), Color("8a9a3a")][int(absf(item["rot"]) * 10.0) % 3])
+			draw_line(Vector2(-5, 0), Vector2(5, 0), Color(0, 0, 0, 0.25), 1.0)
+		"pebble":
+			draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, 3, 2, 8), Color("9a948c"))
+			draw_rect(Rect2(-1, -1, 1, 1), Color("c9c4bc"))
+		"flower":
+			for k in 5:
+				draw_circle(Vector2.from_angle(TAU * k / 5.0) * 2.5, 1.8, color.lightened(0.4))
+			draw_circle(Vector2.ZERO, 1.5, Color("f2d14e"))
+		"acorn":
+			draw_colored_polygon(Shapes.ellipse(Vector2(0, 1), 2.5, 3, 8), Color("b07a3a"))
+			draw_rect(Rect2(-3, -3, 6, 2), Color("6b4630"))
+		"twig":
+			draw_line(Vector2(-7, 1), Vector2(7, -1), Color("6b4630"), 1.0)
+			draw_line(Vector2(1, 0), Vector2(4, -4), Color("6b4630"), 1.0)
+		"bottle_cap":
+			draw_circle(Vector2.ZERO, 3.0, OUTLINE)
+			draw_circle(Vector2.ZERO, 2.2, color.lightened(0.2))
 		"jar":
 			draw_circle(Vector2.ZERO, 4.0, OUTLINE)
 			draw_circle(Vector2.ZERO, 3.0, Color(0.7, 0.85, 0.7, 0.8))
@@ -449,6 +597,158 @@ func _draw_furniture(f: Dictionary) -> void:
 			for k in 5:
 				var c := Vector2(-12 + k * 6, -4 + (k % 2) * 7)
 				draw_colored_polygon(Shapes.ellipse(c, 10, 6, 10), RUG_COLORS[k % RUG_COLORS.size()].lightened(0.2))
+		"tree":
+			draw_circle(Vector2(6, 8), 40.0, Color(0, 0, 0, 0.2))
+			for k in 6:
+				var c := Vector2.from_angle(TAU * k / 6.0) * 18.0
+				draw_circle(c, 22.0, OUTLINE)
+			for k in 6:
+				var c := Vector2.from_angle(TAU * k / 6.0) * 18.0
+				draw_circle(c, 21.0, Color("3f7a34"))
+			draw_circle(Vector2.ZERO, 26.0, Color("4f8f3e"))
+			for k in 5:
+				draw_circle(Vector2.from_angle(TAU * k / 5.0 + 0.6) * 14.0 + Vector2(-4, -4), 7.0, Color("6aae52"))
+			if color == RUG_COLORS[0]:
+				for k in 4:
+					draw_circle(Vector2.from_angle(k * 1.7) * 20.0, 3.0, Color("d9443a"))
+		"bush":
+			for c: Vector2 in [Vector2(-10, 2), Vector2(9, 3), Vector2(0, -7)]:
+				draw_circle(c, 13.0, OUTLINE)
+			for c: Vector2 in [Vector2(-10, 2), Vector2(9, 3), Vector2(0, -7)]:
+				draw_circle(c, 12.0, Color("3f7a34"))
+				draw_circle(c + Vector2(-3, -3), 6.0, Color("5ea84a"))
+		"bench":
+			_box(Rect2(-40, -12, 80, 24), WOOD)
+			for x: float in [-38.0, -26.0, -14.0, -2.0, 10.0, 22.0]:
+				draw_line(Vector2(x + 11, -12), Vector2(x + 11, 12), WOOD_DARK, 1.0)
+			_box(Rect2(-40, -16, 80, 5), Color("3a3a40"))
+		"birdbath":
+			draw_circle(Vector2.ZERO, 17.0, OUTLINE)
+			draw_circle(Vector2.ZERO, 16.0, Color("c9c4bc"))
+			draw_circle(Vector2.ZERO, 12.0, Color("6fb0e0"))
+			draw_rect(Rect2(-5, -6, 3, 2), Color(1, 1, 1, 0.7))
+		"garden_lamp", "roof_lamp":
+			draw_circle(Vector2.ZERO, 8.0, OUTLINE)
+			draw_circle(Vector2.ZERO, 7.0, Color("3a3a40"))
+			draw_circle(Vector2.ZERO, 4.0, Color("fff3c8"))
+		"wheelbarrow":
+			_box(Rect2(-20, -14, 34, 28), Color("4a8ac4"))
+			draw_rect(Rect2(-16, -10, 26, 20), Color("6b4a32"))
+			draw_line(Vector2(-20, -10), Vector2(-36, -12), OUTLINE, 2.0)
+			draw_line(Vector2(-20, 10), Vector2(-36, 12), OUTLINE, 2.0)
+			draw_circle(Vector2(18, 0), 6.0, OUTLINE)
+			draw_circle(Vector2(18, 0), 4.0, Color("3a3a40"))
+		"watering_can":
+			draw_line(Vector2(6, -2), Vector2(18, -8), OUTLINE, 3.0)
+			draw_line(Vector2(6, -2), Vector2(18, -8), Color("5aa96a"), 1.0)
+			draw_circle(Vector2.ZERO, 9.0, OUTLINE)
+			draw_circle(Vector2.ZERO, 8.0, Color("5aa96a"))
+			draw_circle(Vector2(-2, -2), 3.0, Color("7ac98a"))
+		"flowers":
+			var frng := RandomNumberGenerator.new()
+			frng.seed = int(f["pos"].x * 13 + f["pos"].y)
+			for k in 14:
+				var p := Vector2(frng.randf_range(-36, 36), frng.randf_range(-22, 22))
+				draw_circle(p, 4.0, Color("3f7a34"))
+				var petal: Color = [Color("e07aa0"), Color("f2d14e"), Color("f4f1ea"), Color("9a7ad9"), Color("e05a4a")][frng.randi() % 5]
+				for q in 4:
+					draw_circle(p + Vector2.from_angle(q * PI * 0.5) * 2.2, 1.8, petal)
+				draw_circle(p, 1.2, Color("f2c14e"))
+		"veggies":
+			for row in 3:
+				var y := -16.0 + row * 16.0
+				for k in 6:
+					var p := Vector2(-40 + k * 16, y)
+					if row == 1:
+						draw_colored_polygon(Shapes.ellipse(p, 5, 5, 10), Color("e08a2a"))
+						draw_line(p + Vector2(0, -5), p + Vector2(-2, -9), Color("4f8f3e"), 2.0)
+					else:
+						for q in 3:
+							var leaf := Vector2.from_angle(q * TAU / 3.0 + k) * 5.0
+							draw_colored_polygon(Shapes.ellipse(p + leaf, 4, 3, 8), Color("5ea84a"))
+		"scarecrow":
+			draw_line(Vector2(-22, 0), Vector2(22, 0), WOOD_DARK, 3.0)
+			draw_line(Vector2(0, -6), Vector2(0, 28), WOOD_DARK, 3.0)
+			_box(Rect2(-12, -4, 24, 16), color)
+			draw_circle(Vector2(0, -12), 8.0, OUTLINE)
+			draw_circle(Vector2(0, -12), 7.0, Color("e8d0a0"))
+			draw_colored_polygon(Shapes.ellipse(Vector2(0, -18), 12, 4, 12), Color("c9a24a"))
+			draw_rect(Rect2(-3, -13, 1, 1), OUTLINE)
+			draw_rect(Rect2(2, -13, 1, 1), OUTLINE)
+		"compost":
+			_box(Rect2(-24, -20, 48, 40), WOOD_DARK)
+			draw_rect(Rect2(-20, -16, 40, 32), Color("4a3a2a"))
+			for k in 6:
+				draw_rect(Rect2(-16 + k * 6, -10 + (k % 3) * 8, 3, 2), Color("8a9a3a"))
+		"ac_unit":
+			_box(Rect2(-26, -20, 52, 40), Color("c9ced2"))
+			draw_circle(Vector2(-6, 0), 14.0, OUTLINE)
+			draw_circle(Vector2(-6, 0), 13.0, Color("8a9096"))
+			for k in 3:
+				var a := TAU * k / 3.0 + float(f["rot"])
+				draw_line(Vector2(-6, 0), Vector2(-6, 0) + Vector2.from_angle(a) * 11.0, Color("5a5e62"), 3.0)
+			for y in range(-16, 18, 4):
+				draw_line(Vector2(12, y), Vector2(22, y), Color("8a9096"), 1.0)
+		"vent_box":
+			_box(Rect2(-14, -14, 28, 28), Color("9aa0a6"))
+			draw_circle(Vector2.ZERO, 9.0, OUTLINE)
+			draw_circle(Vector2.ZERO, 8.0, Color("5a5e62"))
+		"antenna":
+			draw_line(Vector2(0, -40), Vector2(0, 30), OUTLINE, 3.0)
+			draw_line(Vector2(0, -40), Vector2(0, 30), Color("9aa0a6"), 1.0)
+			for k in 4:
+				var y := -32.0 + k * 10.0
+				var w := 22.0 - k * 4.0
+				draw_line(Vector2(-w, y), Vector2(w, y), Color("9aa0a6"), 1.0)
+			draw_circle(Vector2(0, -40), 2.0, Color("e04646"))
+		"water_tank":
+			draw_circle(Vector2(3, 4), 30.0, Color(0, 0, 0, 0.2))
+			draw_circle(Vector2.ZERO, 30.0, OUTLINE)
+			draw_circle(Vector2.ZERO, 29.0, Color("8a6a4a"))
+			for r: float in [22.0, 14.0]:
+				draw_arc(Vector2.ZERO, r, 0.0, TAU, 24, Color("6b4a30"), 1.0)
+			draw_circle(Vector2.ZERO, 6.0, Color("5a5e62"))
+		"solar_panel":
+			_box(Rect2(-40, -24, 80, 48), Color("2a3a6a"))
+			for x in range(-30, 40, 10):
+				draw_line(Vector2(x, -24), Vector2(x, 24), Color("6a8ac4"), 1.0)
+			for y in range(-14, 24, 12):
+				draw_line(Vector2(-40, y), Vector2(40, y), Color("6a8ac4"), 1.0)
+			draw_line(Vector2(-36, -20), Vector2(-10, -20), Color(1, 1, 1, 0.35), 2.0)
+		"chimney":
+			_box(Rect2(-18, -18, 36, 36), Color("a8503a"))
+			for y in range(-14, 18, 8):
+				draw_line(Vector2(-18, y), Vector2(18, y), Color("7a3a2a"), 1.0)
+			draw_rect(Rect2(-12, -12, 24, 24), Color("2a2224"))
+			draw_rect(Rect2(-12, -12, 24, 24), OUTLINE, false, 1.0)
+		"skylight":
+			_box(Rect2(-26, -20, 52, 40), Color("5a5e62"))
+			draw_rect(Rect2(-22, -16, 44, 32), Color("8ab4d8"))
+			draw_line(Vector2(0, -16), Vector2(0, 16), Color("5a5e62"), 2.0)
+			draw_line(Vector2(-18, -12), Vector2(-8, -12), Color(1, 1, 1, 0.6), 1.0)
+		"deck_chair":
+			_box(Rect2(-14, -26, 28, 52), WOOD)
+			for y in range(-20, 26, 8):
+				draw_rect(Rect2(-12, y, 24, 4), color.lightened(0.2) if (y / 8) % 2 == 0 else Color("f4f1ea"))
+		"potted_tree":
+			_box(Rect2(-14, -14, 28, 28), Color("6b6e72"))
+			for k in 5:
+				var c := Vector2.from_angle(TAU * k / 5.0) * 9.0
+				draw_circle(c, 10.0, OUTLINE)
+			for k in 5:
+				var c := Vector2.from_angle(TAU * k / 5.0) * 9.0
+				draw_circle(c, 9.0, Color("4f8f3e"))
+			draw_circle(Vector2(-3, -3), 7.0, Color("6aae52"))
+		"clothesline":
+			draw_line(Vector2(-70, 0), Vector2(70, 0), Color("e8e2d0"), 1.0)
+			for p: Vector2 in [Vector2(-70, 0), Vector2(70, 0)]:
+				draw_circle(p, 3.0, OUTLINE)
+				draw_circle(p, 2.0, Color("9aa0a6"))
+			var k := 0
+			for cloth: Rect2 in [Rect2(-56, 0, 18, 22), Rect2(-24, 0, 26, 16), Rect2(16, 0, 14, 20), Rect2(40, 0, 20, 14)]:
+				draw_rect(cloth, RUG_COLORS[(k + int(f["pos"].x)) % RUG_COLORS.size()].lightened(0.25))
+				draw_rect(cloth, OUTLINE, false, 1.0)
+				k += 1
 		"cat_bed":
 			draw_circle(Vector2.ZERO, 18.0, OUTLINE)
 			draw_circle(Vector2.ZERO, 17.0, color)

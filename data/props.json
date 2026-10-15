@@ -27,6 +27,27 @@
       "radius": 6,
       "color": "#c9ced2",
       "accent": "#5aa9e6"
+    },
+    "FLOWERPOT": {
+      "shape": "plant",
+      "hp": 1,
+      "radius": 7,
+      "color": "#c46a3a",
+      "accent": "#e07aa0"
+    },
+    "SEED_SACK": {
+      "shape": "sack",
+      "hp": 1,
+      "radius": 7,
+      "color": "#d8c08a",
+      "accent": "#5e9e4a"
+    },
+    "BUCKET": {
+      "shape": "paint_can",
+      "hp": 1,
+      "radius": 6,
+      "color": "#8a9aa6",
+      "accent": "#c9d4dc"
     }
   },
   "loot": [

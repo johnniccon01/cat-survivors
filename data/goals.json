@@ -13,6 +13,10 @@
   "SURVIVOR":      { "stats": ["best_minutes"], "target": 15, "reward": { "charm": "MILK_TOOTH" } },
   "VACUUM_KING":   { "stats": ["wins:LIVING_ROOM"], "target": 1, "reward": { "charm": "TWIN_KITTEN" } },
   "RAT_KING":      { "stats": ["wins:BASEMENT"], "target": 1, "reward": { "gold": 1000 } },
+  "LAWNMOWER":     { "stats": ["wins:GARDEN"], "target": 1, "reward": { "gold": 1500 } },
+  "PIGEON_EMPEROR": { "stats": ["wins:ROOFTOP"], "target": 1, "reward": { "gold": 2000 } },
+  "BUG_SWATTER":   { "stats": ["kills:BEE", "kills:HORNET_QUEEN"], "target": 1000, "reward": { "gold": 300 } },
+  "BIRD_WATCHER":  { "stats": ["kills:PIGEON", "kills:GULL", "kills:CROW", "kills:BIG_GULL", "kills:PIGEON_EMPEROR"], "target": 1000, "reward": { "gold": 400 } },
   "CAT_LOVER":     { "stats": ["cats_unlocked"], "target": 6, "reward": { "gold": 1000 } },
   "VETERAN":       { "stats": ["runs"], "target": 25, "reward": { "gold": 500 } },
   "TEN_THOUSAND":  { "stats": ["kills"], "target": 10000, "reward": { "gold": 1000 } }

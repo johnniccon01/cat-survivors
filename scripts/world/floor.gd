@@ -11,7 +11,8 @@ extends Node2D
 const CHUNK := 320.0
 const KEEP_MARGIN := 2
 
-## "apartment" or "basement"; picks rooms, floors and furniture.
+## "apartment", "basement", "garden" or "rooftop"; picks rooms, floors and
+## furniture.
 var theme := "apartment"
 
 var _noise := FastNoiseLite.new()
@@ -28,7 +29,7 @@ func _ready() -> void:
 
 func zone_at(c: Vector2i) -> String:
 	var n := _noise.get_noise_2d(c.x, c.y)
-	var zones: Array = ["laundry", "concrete", "storage"] if theme == "basement" else ["kitchen", "living", "bedroom"]
+	var zones: Array = FloorChunk.THEME_ZONES.get(theme, FloorChunk.THEME_ZONES["apartment"])
 	if n < -0.22:
 		return zones[0]
 	if n > 0.22:
@@ -89,7 +90,7 @@ func _generate(c: Vector2i) -> Dictionary:
 		"furniture": [],
 		"items": [],
 	}
-	if zone in ["living", "bedroom"] and rng.randf() < 0.45:
+	if zone in ["living", "bedroom", "deck"] and rng.randf() < 0.45:
 		var size := Vector2(rng.randf_range(110, 180), rng.randf_range(70, 120))
 		desc["rug"] = {
 			"rect": Rect2(Vector2(rng.randf_range(20, CHUNK - size.x - 20), rng.randf_range(20, CHUNK - size.y - 20)), size),
@@ -108,7 +109,7 @@ func _generate(c: Vector2i) -> Dictionary:
 			})
 	for i in rng.randi_range(1, 4):
 		desc["items"].append({
-			"kind": _pick(rng, FloorChunk.BASEMENT_ITEMS if theme == "basement" else FloorChunk.ITEM_KINDS),
+			"kind": _pick(rng, FloorChunk.THEME_ITEMS.get(theme, FloorChunk.ITEM_KINDS)),
 			"pos": Vector2(rng.randf_range(10, CHUNK - 10), rng.randf_range(10, CHUNK - 10)),
 			"rot": rng.randf_range(-0.6, 0.6),
 			"color": FloorChunk.RUG_COLORS[rng.randi() % FloorChunk.RUG_COLORS.size()],

@@ -30,7 +30,10 @@ func shots() -> int:
 
 func shoot(_index: int) -> void:
 	var r := BASE_RADIUS * area()
-	for enemy in enemies.query_radius(player.position, r):
+	var hits := enemies.query_radius(player.position, r)
+	for enemy in hits:
 		enemy.hit(damage(), enemy.position - player.position, stat("knockback", 0.3))
+	if not hits.is_empty() and stat("heal_per_tick") > 0.0:
+		player.heal(stat("heal_per_tick"))
 	if is_instance_valid(_aura):
 		_aura.pulse()

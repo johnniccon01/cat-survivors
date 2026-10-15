@@ -75,7 +75,7 @@ func _pick(index: int) -> void:
 
 func _make_card(index: int, offer: Dictionary) -> Button:
 	var card := Button.new()
-	card.custom_minimum_size = Vector2(250, 170)
+	card.custom_minimum_size = Vector2(260, 200)
 	card.focus_mode = Control.FOCUS_ALL
 	card.add_theme_stylebox_override("normal", _style(CARD_BORDER))
 	card.add_theme_stylebox_override("hover", _style(CARD_FOCUS))
@@ -109,7 +109,7 @@ func _make_card(index: int, offer: Dictionary) -> Button:
 	var desc := _label(16, Color("eee6f3"))
 	desc.text = Upgrades.description(offer)
 	desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	desc.custom_minimum_size.x = 222
+	desc.custom_minimum_size.x = 232
 	content.add_child(desc)
 	return card
 

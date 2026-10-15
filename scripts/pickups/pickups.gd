@@ -4,7 +4,11 @@ extends Node2D
 ## hop back a little, then fly into the cat with growing speed.
 ## Must stay at the world origin.
 
+signal chest_collected
+
 const MAX_XP := 300
+## Chests are not pulled by the magnet; the cat has to walk over them.
+const CHEST_DIST := 12.0
 const COLLECT_DIST := 8.0
 const ACCEL := 700.0
 const HOP_SPEED := -90.0
@@ -39,6 +43,8 @@ func spawn_named(kind_name: String, pos: Vector2, value: float) -> void:
 			_spawn(Pickup.Kind.SARDINE, pos, value)
 		"magnet":
 			_spawn(Pickup.Kind.MAGNET, pos, value)
+		"chest":
+			_spawn(Pickup.Kind.CHEST, pos, value)
 		_:
 			push_warning("Pickups: unknown kind %s" % kind_name)
 
@@ -61,6 +67,11 @@ func _physics_process(delta: float) -> void:
 		var item := items[i]
 		var to := target - item.position
 		var dist := to.length()
+		if item.kind == Pickup.Kind.CHEST:
+			if dist <= CHEST_DIST:
+				_collect(item)
+				items.remove_at(i)
+			continue
 		if not item.attracted:
 			if dist > magnet:
 				continue
@@ -86,4 +97,6 @@ func _collect(item: Pickup) -> void:
 				if other.kind == Pickup.Kind.XP and not other.attracted:
 					other.attracted = true
 					other.speed = 0.0
+		Pickup.Kind.CHEST:
+			chest_collected.emit()
 	item.queue_free()

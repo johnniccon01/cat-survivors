@@ -1,19 +1,191 @@
 {
   "LIVING_ROOM": {
-    "props": ["BOX", "BOX", "PLANT"],
+    "props": [
+      "BOX",
+      "BOX",
+      "PLANT"
+    ],
     "max_props": 6,
     "prop_interval": 4.0,
     "waves": [
-      { "minute": 0,  "minimum": 4,   "interval": 2.0, "per_tick": 1, "enemies": ["SOCK"] },
-      { "minute": 1,  "minimum": 10,  "interval": 1.5, "per_tick": 1, "enemies": ["SOCK", "DUST_BUNNY"] },
-      { "minute": 2,  "minimum": 20,  "interval": 1.2, "per_tick": 2, "enemies": ["SOCK", "DUST_BUNNY"] },
-      { "minute": 3,  "minimum": 35,  "interval": 1.0, "per_tick": 2, "enemies": ["SOCK", "DUST_BUNNY", "SOCK_STRIPED"] },
-      { "minute": 4,  "minimum": 50,  "interval": 1.0, "per_tick": 3, "enemies": ["SOCK", "DUST_BUNNY", "SOCK_STRIPED"] },
-      { "minute": 5,  "minimum": 70,  "interval": 0.8, "per_tick": 3, "enemies": ["SOCK_STRIPED", "DUST_BUNNY"] },
-      { "minute": 6,  "minimum": 90,  "interval": 0.7, "per_tick": 3, "enemies": ["SOCK", "SOCK_STRIPED", "DUST_BUNNY"], "hp_mult": 1.5 },
-      { "minute": 7,  "minimum": 110, "interval": 0.6, "per_tick": 4, "enemies": ["SOCK_STRIPED", "DUST_BUNNY"], "hp_mult": 1.5 },
-      { "minute": 8,  "minimum": 140, "interval": 0.5, "per_tick": 4, "enemies": ["SOCK", "SOCK_STRIPED", "DUST_BUNNY"], "hp_mult": 2.0 },
-      { "minute": 10, "minimum": 180, "interval": 0.5, "per_tick": 5, "enemies": ["SOCK_STRIPED", "DUST_BUNNY"], "hp_mult": 2.5 }
-    ]
+      {
+        "minute": 0,
+        "minimum": 4,
+        "interval": 2.0,
+        "per_tick": 1,
+        "enemies": [
+          "SOCK"
+        ]
+      },
+      {
+        "minute": 1,
+        "minimum": 10,
+        "interval": 1.5,
+        "per_tick": 1,
+        "enemies": [
+          "SOCK",
+          "DUST_BUNNY"
+        ]
+      },
+      {
+        "minute": 2,
+        "minimum": 20,
+        "interval": 1.2,
+        "per_tick": 2,
+        "enemies": [
+          "SOCK",
+          "DUST_BUNNY",
+          "BUBBLE"
+        ]
+      },
+      {
+        "minute": 3,
+        "minimum": 35,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": [
+          "SOCK",
+          "DUST_BUNNY",
+          "SOCK_STRIPED"
+        ],
+        "bosses": [
+          "SOCK_KING"
+        ]
+      },
+      {
+        "minute": 4,
+        "minimum": 50,
+        "interval": 1.0,
+        "per_tick": 3,
+        "enemies": [
+          "SOCK",
+          "SOCK_STRIPED",
+          "BUBBLE"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.8,
+        "per_tick": 3,
+        "enemies": [
+          "SOCK_STRIPED",
+          "DUST_BUNNY",
+          "ROOMBA"
+        ]
+      },
+      {
+        "minute": 6,
+        "minimum": 90,
+        "interval": 0.7,
+        "per_tick": 3,
+        "enemies": [
+          "ROOMBA",
+          "SOCK_STRIPED",
+          "BUBBLE"
+        ],
+        "hp_mult": 1.5,
+        "bosses": [
+          "MEGA_ROOMBA"
+        ]
+      },
+      {
+        "minute": 7,
+        "minimum": 110,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "SLIPPER",
+          "DUST_BUNNY",
+          "SOCK_STRIPED"
+        ],
+        "hp_mult": 1.5
+      },
+      {
+        "minute": 8,
+        "minimum": 140,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "SLIPPER",
+          "ROOMBA",
+          "SOCK_STRIPED"
+        ],
+        "hp_mult": 2.0
+      },
+      {
+        "minute": 10,
+        "minimum": 180,
+        "interval": 0.5,
+        "per_tick": 5,
+        "enemies": [
+          "SLIPPER",
+          "ROOMBA",
+          "BUBBLE"
+        ],
+        "hp_mult": 2.5,
+        "bosses": [
+          "VACUUM"
+        ]
+      },
+      {
+        "minute": 12,
+        "minimum": 200,
+        "interval": 0.5,
+        "per_tick": 5,
+        "enemies": [
+          "SLIPPER",
+          "ROOMBA",
+          "SOCK_STRIPED",
+          "BUBBLE"
+        ],
+        "hp_mult": 3.0
+      },
+      {
+        "minute": 14,
+        "minimum": 220,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "SLIPPER",
+          "ROOMBA",
+          "DUST_BUNNY"
+        ],
+        "hp_mult": 3.5,
+        "bosses": [
+          "SOCK_KING",
+          "MEGA_ROOMBA"
+        ]
+      },
+      {
+        "minute": 16,
+        "minimum": 250,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "SLIPPER",
+          "ROOMBA",
+          "SOCK_STRIPED",
+          "BUBBLE"
+        ],
+        "hp_mult": 4.0
+      },
+      {
+        "minute": 18,
+        "minimum": 280,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "SLIPPER",
+          "ROOMBA",
+          "SOCK_STRIPED"
+        ],
+        "hp_mult": 5.0,
+        "bosses": [
+          "VACUUM"
+        ]
+      }
+    ],
+    "duration_minutes": 20
   }
 }

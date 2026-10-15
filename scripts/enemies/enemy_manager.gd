@@ -29,7 +29,7 @@ func _enter_tree() -> void:
 
 
 func spawn(id: String, pos: Vector2, hp_mult: float = 1.0) -> Enemy:
-	if enemies.size() >= MAX_ENEMIES:
+	if enemies.size() >= MAX_ENEMIES and not GameData.enemies[id].get("boss", false):
 		return null
 	var enemy := Enemy.new()
 	enemy.setup(id, GameData.enemies[id], self)

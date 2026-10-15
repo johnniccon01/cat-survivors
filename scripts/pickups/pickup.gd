@@ -3,7 +3,7 @@ extends Node2D
 ## A collectible lying on the floor. Movement and collection are handled by
 ## Pickups.
 
-enum Kind { XP, HEART, SARDINE, MAGNET }
+enum Kind { XP, HEART, SARDINE, MAGNET, CHEST }
 
 const OUTLINE := Color("2b1d14")
 
@@ -39,6 +39,8 @@ func _draw() -> void:
 			_draw_sardine()
 		Kind.MAGNET:
 			_draw_magnet()
+		Kind.CHEST:
+			_draw_chest()
 		_:
 			_draw_kibble()
 
@@ -94,3 +96,19 @@ func _draw_magnet() -> void:
 	draw_rect(Rect2(2.5, -1, 3, 4), OUTLINE)
 	draw_rect(Rect2(-5, 0, 2, 2), Color("dddddd"))
 	draw_rect(Rect2(3, 0, 2, 2), Color("dddddd"))
+
+
+func _draw_chest() -> void:
+	draw_colored_polygon(Shapes.ellipse(Vector2(0, 7), 9, 2), Color(0, 0, 0, 0.3))
+	draw_set_transform(Vector2(0, sin(_bob) * 1.0))
+	draw_rect(Rect2(-8, -4, 16, 10), Color("8a5a2b"))
+	draw_rect(Rect2(-8, -8, 16, 5), Color("a8703a"))
+	draw_rect(Rect2(-8, -8, 16, 14), OUTLINE, false, 1.0)
+	draw_line(Vector2(-8, -3), Vector2(8, -3), OUTLINE, 1.0)
+	draw_rect(Rect2(-8, -8, 2, 14), Color("f2c14e"))
+	draw_rect(Rect2(6, -8, 2, 14), Color("f2c14e"))
+	draw_rect(Rect2(-1.5, -4, 3, 3), Color("f2c14e"))
+	# Sparkle
+	var a := 0.5 + 0.5 * sin(_bob * 1.7)
+	draw_line(Vector2(9, -11), Vector2(9, -7), Color(1, 1, 0.8, a), 1.0)
+	draw_line(Vector2(7, -9), Vector2(11, -9), Color(1, 1, 0.8, a), 1.0)

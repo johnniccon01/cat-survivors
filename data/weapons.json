@@ -34,7 +34,11 @@
       {
         "damage": 5
       }
-    ]
+    ],
+    "evolve": {
+      "with": "MIGHT",
+      "into": "TIGER_CLAWS"
+    }
   },
   "YARN": {
     "script": "res://scripts/weapons/yarn.gd",
@@ -72,7 +76,11 @@
       {
         "damage": 10
       }
-    ]
+    ],
+    "evolve": {
+      "with": "COOLDOWN",
+      "into": "YARN_STORM"
+    }
   },
   "HAIRBALL": {
     "script": "res://scripts/weapons/hairball.gd",
@@ -110,7 +118,11 @@
       {
         "damage": 10
       }
-    ]
+    ],
+    "evolve": {
+      "with": "AREA",
+      "into": "FURBALL_COMET"
+    }
   },
   "CATNIP": {
     "script": "res://scripts/weapons/catnip.gd",
@@ -145,7 +157,11 @@
       {
         "damage": 5
       }
-    ]
+    ],
+    "evolve": {
+      "with": "REGEN",
+      "into": "CATNIP_GARDEN"
+    }
   },
   "FISHBONES": {
     "script": "res://scripts/weapons/fishbones.gd",
@@ -184,6 +200,86 @@
       },
       {
         "amount": 1
+      }
+    ],
+    "evolve": {
+      "with": "SPEED",
+      "into": "BONE_CAROUSEL"
+    }
+  },
+  "TIGER_CLAWS": {
+    "script": "res://scripts/weapons/scratch.gd",
+    "evolved": true,
+    "levels": [
+      {
+        "damage": 35,
+        "interval": 1.0,
+        "repeat_interval": 0.08,
+        "amount": 4,
+        "area": 1.5,
+        "knockback": 1.5
+      }
+    ]
+  },
+  "YARN_STORM": {
+    "script": "res://scripts/weapons/yarn.gd",
+    "evolved": true,
+    "levels": [
+      {
+        "damage": 25,
+        "interval": 0.35,
+        "repeat_interval": 0.05,
+        "amount": 2,
+        "speed": 260,
+        "pierce": 3,
+        "area": 1.4,
+        "knockback": 0.6,
+        "duration": 1.5
+      }
+    ]
+  },
+  "FURBALL_COMET": {
+    "script": "res://scripts/weapons/hairball.gd",
+    "evolved": true,
+    "levels": [
+      {
+        "damage": 60,
+        "interval": 1.6,
+        "repeat_interval": 0.12,
+        "amount": 4,
+        "speed": 1.1,
+        "pierce": -1,
+        "area": 2.0,
+        "knockback": 1.5,
+        "duration": 3.0
+      }
+    ]
+  },
+  "CATNIP_GARDEN": {
+    "script": "res://scripts/weapons/catnip.gd",
+    "evolved": true,
+    "levels": [
+      {
+        "damage": 18,
+        "interval": 0.6,
+        "area": 2.0,
+        "knockback": 0.5,
+        "heal_per_tick": 0.5
+      }
+    ]
+  },
+  "BONE_CAROUSEL": {
+    "script": "res://scripts/weapons/fishbones.gd",
+    "evolved": true,
+    "levels": [
+      {
+        "damage": 30,
+        "interval": 3.0,
+        "amount": 6,
+        "speed": 1.8,
+        "area": 1.8,
+        "duration": 3.0,
+        "knockback": 1.0
       }
     ]
   }

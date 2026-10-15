@@ -1,6 +1,5 @@
 {
   "SOCK": {
-    "name": "Ponožka",
     "shape": "sock",
     "color": "#f2ead8",
     "accent": "#b9ae96",
@@ -12,7 +11,6 @@
     "knockback_resist": 0.0
   },
   "DUST_BUNNY": {
-    "name": "Chumáč prachu",
     "shape": "dust",
     "color": "#9a948c",
     "accent": "#6f6a63",
@@ -24,7 +22,6 @@
     "knockback_resist": 0.0
   },
   "SOCK_STRIPED": {
-    "name": "Pruhovaná ponožka",
     "shape": "sock",
     "stripes": true,
     "color": "#f2ead8",
@@ -35,5 +32,78 @@
     "radius": 8,
     "xp": 2,
     "knockback_resist": 0.3
+  },
+  "BUBBLE": {
+    "shape": "bubble",
+    "color": "#bfe6ff",
+    "accent": "#ffffff",
+    "hp": 3,
+    "speed": 88,
+    "damage": 2,
+    "radius": 5,
+    "xp": 1,
+    "knockback_resist": 0.0
+  },
+  "ROOMBA": {
+    "shape": "roomba",
+    "color": "#3a3a44",
+    "accent": "#5ad16a",
+    "hp": 30,
+    "speed": 62,
+    "damage": 10,
+    "radius": 9,
+    "xp": 3,
+    "knockback_resist": 0.6
+  },
+  "SLIPPER": {
+    "shape": "slipper",
+    "color": "#d97a9a",
+    "accent": "#f5d2de",
+    "hp": 60,
+    "speed": 46,
+    "damage": 14,
+    "radius": 9,
+    "xp": 5,
+    "knockback_resist": 0.5
+  },
+  "SOCK_KING": {
+    "shape": "sock",
+    "stripes": true,
+    "boss": true,
+    "scale": 2.5,
+    "color": "#f2ead8",
+    "accent": "#7b5cc4",
+    "hp": 200,
+    "speed": 48,
+    "damage": 10,
+    "radius": 16,
+    "xp": 30,
+    "knockback_resist": 0.9
+  },
+  "MEGA_ROOMBA": {
+    "shape": "roomba",
+    "boss": true,
+    "scale": 2.5,
+    "color": "#2e2e38",
+    "accent": "#e05a5a",
+    "hp": 1200,
+    "speed": 58,
+    "damage": 20,
+    "radius": 20,
+    "xp": 60,
+    "knockback_resist": 0.95
+  },
+  "VACUUM": {
+    "shape": "vacuum",
+    "boss": true,
+    "scale": 2.2,
+    "color": "#c94f4f",
+    "accent": "#d8d8e0",
+    "hp": 3000,
+    "speed": 52,
+    "damage": 25,
+    "radius": 22,
+    "xp": 100,
+    "knockback_resist": 1.0
   }
 }

@@ -6,6 +6,7 @@ extends CanvasLayer
 const XP_BAR_HEIGHT := 14.0
 
 var level_up: LevelUpPanel
+var treasure: TreasurePanel
 
 var _xp_fill: ColorRect
 var _level_label: Label
@@ -17,6 +18,10 @@ var _pause_overlay: Control
 var _pause_language: Label
 var _over_overlay: Control
 var _over_stats: Label
+var _win_overlay: Control
+var _win_stats: Label
+var _banner: Label
+var _banner_time := 0.0
 
 
 func _ready() -> void:
@@ -66,8 +71,39 @@ func _ready() -> void:
 	_over_overlay = _overlay(["GAME_OVER_TITLE", "", "GAME_OVER_HINT"])
 	_over_stats = _over_overlay.get_node("Box").get_child(1)
 
+	_win_overlay = _overlay(["VICTORY_TITLE", "", "VICTORY_HINT"])
+	_win_stats = _win_overlay.get_node("Box").get_child(1)
+
+	_banner = _label(30, HORIZONTAL_ALIGNMENT_CENTER)
+	_banner.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	_banner.offset_top = 90
+	_banner.label_settings.font_color = Color("ff7a6b")
+	_banner.visible = false
+	add_child(_banner)
+
 	level_up = LevelUpPanel.new()
 	add_child(level_up)
+	treasure = TreasurePanel.new()
+	add_child(treasure)
+
+
+func _process(delta: float) -> void:
+	if _banner_time > 0.0:
+		_banner_time -= delta
+		_banner.modulate.a = clampf(_banner_time, 0.0, 1.0)
+		_banner.visible = _banner_time > 0.0
+
+
+## Big warning text below the clock that fades out after `seconds`.
+func show_banner(text: String, seconds: float = 3.0) -> void:
+	_banner.text = text
+	_banner_time = seconds
+	_banner.visible = true
+
+
+func show_victory(kills: int) -> void:
+	_win_stats.text = tr("VICTORY_STATS") % kills
+	_win_overlay.visible = true
 
 
 func update_xp(player: Player) -> void:

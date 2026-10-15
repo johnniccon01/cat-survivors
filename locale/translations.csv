@@ -51,3 +51,22 @@ PASSIVE_REGEN_NAME,Can of Tuna,Konzerva tuniaka
 PASSIVE_REGEN_DESC,Recovers 0.3 HP per second.,"Obnovuje 0,3 HP za sekundu."
 PASSIVE_ARMOR_NAME,Collar,Obojok
 PASSIVE_ARMOR_DESC,Take 1 less damage from every hit.,Každý zásah ťa zraní o 1 menej.
+TREASURE_TITLE,Treasure!,Poklad!
+TREASURE_HINT,Press any key to continue,Pokračuj ľubovoľným klávesom
+TREASURE_EVOLVED,EVOLVED!,EVOLÚCIA!
+BOSS_WARNING,A boss approaches!,Blíži sa boss!
+VICTORY_TITLE,Morning has come!,Nastalo ráno!
+VICTORY_STATS,Mica survived the night and defeated %d enemies.,Mica prežila noc a porazila %d nepriateľov.
+VICTORY_HINT,R / Enter – play again,R / Enter – hrať znova
+WEAPON_TIGER_CLAWS_NAME,Tiger Claws,Tigrie pazúry
+WEAPON_TIGER_CLAWS_DESC,"Evolved Scratch: rips both sides at once, hard.","Evolúcia Škrabanca: trhá na obe strany naraz, poriadne."
+WEAPON_YARN_STORM_NAME,Yarn Storm,Vlnená búrka
+WEAPON_YARN_STORM_DESC,Evolved Ball of Yarn: a constant barrage of piercing yarn.,Evolúcia Klbka: neustála paľba prierazných klbiek.
+WEAPON_FURBALL_COMET_NAME,Furball Comet,Chlpatá kométa
+WEAPON_FURBALL_COMET_DESC,Evolved Hairball: huge furballs that never stop.,"Evolúcia Chlpáča: obrovské chumáče, ktoré nič nezastaví."
+WEAPON_CATNIP_GARDEN_NAME,Catnip Garden,Šantová záhrada
+WEAPON_CATNIP_GARDEN_DESC,Evolved Catnip: a huge aura that also heals the cat.,"Evolúcia Šanty: obrovská aura, ktorá mačku aj lieči."
+WEAPON_BONE_CAROUSEL_NAME,Bone Carousel,Kostený kolotoč
+WEAPON_BONE_CAROUSEL_DESC,Evolved Fish Bones: six bones that never stop spinning.,"Evolúcia Rybích kostí: šesť kostí, ktoré sa točia bez prestávky."
+EVOLVE_HINT,Evolves with %s + a boss chest.,S pasívkou %s a truhlicou z bossa sa vyvinie.
+EVOLVE_PAIR,Can evolve %s.,Umožní evolúciu: %s.

@@ -107,6 +107,17 @@ func level_up_weapon(id: String) -> void:
 	inventory_changed.emit()
 
 
+## Replaces a maxed weapon with its evolved form, keeping its slot.
+func evolve_weapon(from_id: String, into_id: String) -> void:
+	var old := get_weapon(from_id)
+	var index := old.get_index()
+	weapons.remove_child(old)
+	old.queue_free()
+	var evolved := add_weapon(into_id)
+	weapons.move_child(evolved, index)
+	inventory_changed.emit()
+
+
 func add_passive(id: String) -> void:
 	passives[id] = passives.get(id, 0) + 1
 	_recalc_stats()

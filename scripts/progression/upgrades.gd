@@ -17,20 +17,24 @@ const STAT_TEXT := {
 const PERCENT_STATS := ["area", "speed", "duration"]
 
 
-static func roll(player: Player, count: int = 3) -> Array[Dictionary]:
+## Picks `count` random offers. With `owned_only`, only items the cat
+## already has can show up (used by treasure chests).
+static func roll(player: Player, count: int = 3, owned_only: bool = false) -> Array[Dictionary]:
 	var pool: Array[Dictionary] = []
 	for id: String in GameData.weapons:
 		var data: Dictionary = GameData.weapons[id]
+		if data.get("evolved", false):
+			continue
 		var owned := player.get_weapon(id)
 		if owned != null:
 			if owned.level < owned.max_level():
 				pool.append({"kind": "weapon", "id": id, "level": owned.level + 1, "weight": data.get("rarity", 100)})
-		elif player.weapon_count() < Player.MAX_WEAPONS:
+		elif not owned_only and player.weapon_count() < Player.MAX_WEAPONS and not _has_evolution_of(player, id):
 			pool.append({"kind": "weapon", "id": id, "level": 1, "weight": data.get("rarity", 100)})
 	for id: String in GameData.passives:
 		var data: Dictionary = GameData.passives[id]
 		var lvl: int = player.passives.get(id, 0)
-		if lvl == 0 and player.passives.size() >= Player.MAX_PASSIVES:
+		if lvl == 0 and (owned_only or player.passives.size() >= Player.MAX_PASSIVES):
 			continue
 		if lvl < data["levels"].size():
 			pool.append({"kind": "passive", "id": id, "level": lvl + 1, "weight": data.get("rarity", 100)})
@@ -58,6 +62,39 @@ static func apply(player: Player, offer: Dictionary) -> void:
 			player.heal(HEAL_AMOUNT)
 
 
+## Opens a treasure chest: evolves a ready weapon first, otherwise levels up
+## random owned items. Returns the applied offers (evolutions have
+## "evolved": true) for the treasure screen.
+static func open_chest(player: Player, count: int) -> Array[Dictionary]:
+	var results: Array[Dictionary] = []
+	for i in count:
+		var evo := find_evolution(player)
+		if not evo.is_empty():
+			player.evolve_weapon(evo["from"], evo["into"])
+			results.append({"kind": "weapon", "id": evo["into"], "level": 1, "evolved": true})
+			continue
+		var offer: Dictionary = roll(player, 1, true)[0]
+		apply(player, offer)
+		results.append(offer)
+	return results
+
+
+## A weapon at max level whose partner passive is owned, or {} if none.
+static func find_evolution(player: Player) -> Dictionary:
+	for weapon: Weapon in player.weapons.get_children():
+		var evolve: Dictionary = weapon.data.get("evolve", {})
+		if evolve.is_empty() or weapon.level < weapon.max_level():
+			continue
+		if player.passives.has(evolve["with"]):
+			return {"from": weapon.id, "into": evolve["into"]}
+	return {}
+
+
+static func _has_evolution_of(player: Player, id: String) -> bool:
+	var evolve: Dictionary = GameData.weapons[id].get("evolve", {})
+	return not evolve.is_empty() and player.get_weapon(evolve["into"]) != null
+
+
 ## Translated name of a weapon or passive.
 static func item_name(kind: String, id: String) -> String:
 	return _t("%s_%s_NAME" % [kind.to_upper(), id])
@@ -78,6 +115,30 @@ static func tag(offer: Dictionary) -> String:
 
 
 static func description(offer: Dictionary) -> String:
+	var text := _base_description(offer)
+	var hint := _evolution_hint(offer)
+	return text if hint == "" else "%s
+%s" % [text, hint]
+
+
+## Tells which passive evolves a weapon (shown at its last level) and which
+## weapon a passive can evolve.
+static func _evolution_hint(offer: Dictionary) -> String:
+	match offer["kind"]:
+		"weapon":
+			var data: Dictionary = GameData.weapons[offer["id"]]
+			var evolve: Dictionary = data.get("evolve", {})
+			if not evolve.is_empty() and offer["level"] == data["levels"].size():
+				return _t("EVOLVE_HINT") % item_name("passive", evolve["with"])
+		"passive":
+			for id: String in GameData.weapons:
+				var evolve: Dictionary = GameData.weapons[id].get("evolve", {})
+				if evolve.get("with", "") == offer["id"]:
+					return _t("EVOLVE_PAIR") % item_name("weapon", id)
+	return ""
+
+
+static func _base_description(offer: Dictionary) -> String:
 	var kind: String = offer["kind"]
 	if kind == "heal":
 		return _t("HEAL_DESC") % HEAL_AMOUNT

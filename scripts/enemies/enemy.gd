@@ -18,9 +18,11 @@ var xp := 1.0
 var knockback_resist := 0.0
 var dead := false
 var is_prop := false
+var is_boss := false
 var manager: EnemyManager
 
 var _shape := "sock"
+var _base_scale := 1.0
 var _stripes := false
 var _color := Color.WHITE
 var _accent := Color.GRAY
@@ -43,6 +45,9 @@ func setup(p_id: String, data: Dictionary, p_manager: EnemyManager) -> void:
 	_stripes = data.get("stripes", false)
 	_color = Color(data.get("color", "#ffffff"))
 	_accent = Color(data.get("accent", "#888888"))
+	is_boss = data.get("boss", false)
+	_base_scale = data.get("scale", 1.0)
+	scale = Vector2(_base_scale, _base_scale)
 
 
 func tick(delta: float, target: Vector2, push: Vector2) -> void:
@@ -50,7 +55,7 @@ func tick(delta: float, target: Vector2, push: Vector2) -> void:
 	position += (dir * speed + _knock + push) * delta
 	_knock = _knock.move_toward(Vector2.ZERO, KNOCK_DECAY * delta)
 	if absf(dir.x) > 0.2:
-		scale.x = signf(dir.x)
+		scale.x = signf(dir.x) * _base_scale
 	_wobble += delta * speed * 0.15
 	rotation = sin(_wobble) * 0.12
 	if _flash > 0.0:
@@ -73,7 +78,8 @@ func hit(amount: float, direction: Vector2, knockback: float) -> void:
 
 func _draw() -> void:
 	var body := Color.WHITE if _flash > 0.0 else _color
-	draw_colored_polygon(Shapes.ellipse(Vector2(1, radius + 2), radius, 2), Color(0, 0, 0, 0.25))
+	var r := radius / _base_scale
+	draw_colored_polygon(Shapes.ellipse(Vector2(1, r + 2), r, 2), Color(0, 0, 0, 0.25))
 	match _shape:
 		"dust":
 			_draw_dust(body)
@@ -81,8 +87,21 @@ func _draw() -> void:
 			_draw_box(body)
 		"plant":
 			_draw_plant(body)
+		"bubble":
+			_draw_bubble(body)
+		"roomba":
+			_draw_roomba(body)
+		"slipper":
+			_draw_slipper(body)
+		"vacuum":
+			_draw_vacuum(body)
 		_:
 			_draw_sock(body)
+	if is_boss:
+		_draw_crown(Vector2(0, -r - 6))
+		var w := 20.0
+		draw_rect(Rect2(-w * 0.5 - 0.5, r + 4, w + 1, 2.5), OUTLINE)
+		draw_rect(Rect2(-w * 0.5, r + 4.5, w * maxf(hp, 0.0) / max_hp, 1.5), Color("e04646"))
 
 
 func _draw_sock(body: Color) -> void:
@@ -135,3 +154,66 @@ func _draw_plant(body: Color) -> void:
 	draw_colored_polygon(pot, body)
 	draw_rect(Rect2(-7, -6, 14, 3), body.lightened(0.15))
 	draw_polyline(Shapes.closed(pot), OUTLINE, 1.0)
+
+
+func _draw_crown(at: Vector2) -> void:
+	var pts := PackedVector2Array([
+		at + Vector2(-5, 3), at + Vector2(-5, -2), at + Vector2(-2.5, 0), at + Vector2(0, -3),
+		at + Vector2(2.5, 0), at + Vector2(5, -2), at + Vector2(5, 3),
+	])
+	draw_colored_polygon(pts, Color("f2c14e"))
+	draw_polyline(Shapes.closed(pts), OUTLINE, 0.6)
+	draw_rect(Rect2(at + Vector2(-0.5, 0.5), Vector2(1, 1)), Color("e04646"))
+
+
+func _draw_bubble(body: Color) -> void:
+	draw_circle(Vector2.ZERO, radius, Color(body, 0.45))
+	draw_arc(Vector2.ZERO, radius, 0.0, TAU, 20, Color(1, 1, 1, 0.8), 1.0)
+	draw_arc(Vector2.ZERO, radius - 2, PI * 1.1, PI * 1.5, 6, Color(1, 1, 1, 0.9), 1.0)
+	draw_rect(Rect2(-2, -1, 1, 1), OUTLINE)
+	draw_rect(Rect2(1, -1, 1, 1), OUTLINE)
+
+
+func _draw_roomba(body: Color) -> void:
+	var r := 9.0
+	draw_circle(Vector2(0, 1), r + 1, OUTLINE)
+	draw_circle(Vector2(0, 1), r, body.darkened(0.2))
+	draw_circle(Vector2(0, 0), r - 1, body)
+	draw_arc(Vector2(0, 0), r - 3, -PI * 0.35, PI * 0.35, 8, body.lightened(0.3), 1.0)
+	# Angry LED eyes
+	draw_line(Vector2(1, -3), Vector2(4, -2), _accent, 1.0)
+	draw_line(Vector2(1, 1), Vector2(4, 0), _accent, 1.0)
+	draw_circle(Vector2(-3, 0), 1.5, _accent)
+
+
+func _draw_slipper(body: Color) -> void:
+	var sole := Shapes.ellipse(Vector2(0, 3), 10, 5)
+	draw_colored_polygon(sole, _accent)
+	draw_polyline(Shapes.closed(sole), OUTLINE, 1.0)
+	var strap := PackedVector2Array([Vector2(-1, -2), Vector2(8, -2), Vector2(9, 5), Vector2(-2, 5)])
+	draw_colored_polygon(strap, body)
+	draw_polyline(Shapes.closed(strap), OUTLINE, 1.0)
+	draw_circle(Vector2(9, -2), 3.0, Color.WHITE)
+	draw_rect(Rect2(2, 0, 1, 2), OUTLINE)
+	draw_rect(Rect2(5, 0, 1, 2), OUTLINE)
+	draw_line(Vector2(1, -1), Vector2(3, 0), OUTLINE, 1.0)
+	draw_line(Vector2(7, -1), Vector2(5, 0), OUTLINE, 1.0)
+
+
+func _draw_vacuum(body: Color) -> void:
+	# Upright vacuum cleaner with a grumpy face on the bag.
+	draw_line(Vector2(-2, -14), Vector2(-2, -4), OUTLINE, 3.0)
+	draw_line(Vector2(-2, -14), Vector2(-2, -4), _accent, 1.0)
+	draw_line(Vector2(-4, -14), Vector2(0, -14), OUTLINE, 2.0)
+	var bag := PackedVector2Array([Vector2(-6, -8), Vector2(4, -8), Vector2(6, 4), Vector2(-7, 4)])
+	draw_colored_polygon(bag, body)
+	draw_polyline(Shapes.closed(bag), OUTLINE, 1.0)
+	draw_rect(Rect2(-9, 4, 18, 4), _accent)
+	draw_rect(Rect2(-9, 4, 18, 4), OUTLINE, false, 1.0)
+	draw_circle(Vector2(-6, 9), 1.5, OUTLINE)
+	draw_circle(Vector2(6, 9), 1.5, OUTLINE)
+	draw_rect(Rect2(-3, -4, 1, 2), OUTLINE)
+	draw_rect(Rect2(1, -4, 1, 2), OUTLINE)
+	draw_line(Vector2(-4, -6), Vector2(-2, -5), OUTLINE, 1.0)
+	draw_line(Vector2(3, -6), Vector2(1, -5), OUTLINE, 1.0)
+	draw_line(Vector2(-2, 1), Vector2(2, 1), OUTLINE, 1.0)

@@ -1,0 +1,39 @@
+{
+  "SOCK": {
+    "name": "Ponožka",
+    "shape": "sock",
+    "color": "#f2ead8",
+    "accent": "#b9ae96",
+    "hp": 8,
+    "speed": 38,
+    "damage": 5,
+    "radius": 7,
+    "xp": 1,
+    "knockback_resist": 0.0
+  },
+  "DUST_BUNNY": {
+    "name": "Chumáč prachu",
+    "shape": "dust",
+    "color": "#9a948c",
+    "accent": "#6f6a63",
+    "hp": 4,
+    "speed": 62,
+    "damage": 3,
+    "radius": 6,
+    "xp": 1,
+    "knockback_resist": 0.0
+  },
+  "SOCK_STRIPED": {
+    "name": "Pruhovaná ponožka",
+    "shape": "sock",
+    "stripes": true,
+    "color": "#f2ead8",
+    "accent": "#d9534f",
+    "hp": 22,
+    "speed": 42,
+    "damage": 8,
+    "radius": 8,
+    "xp": 2,
+    "knockback_resist": 0.3
+  }
+}

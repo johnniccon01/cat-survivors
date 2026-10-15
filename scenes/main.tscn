@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/world/floor.gd" id="2_floor"]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_manager.gd" id="3_enemies"]
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="4_player"]
+[ext_resource type="Script" path="res://scripts/spawner.gd" id="5_spawner"]
+[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="6_hud"]
+
+[node name="Main" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_main")
+
+[node name="Floor" type="Node2D" parent="."]
+z_index = -10
+script = ExtResource("2_floor")
+
+[node name="Enemies" type="Node2D" parent="."]
+process_mode = 1
+script = ExtResource("3_enemies")
+
+[node name="Player" parent="." instance=ExtResource("4_player")]
+process_mode = 1
+
+[node name="Spawner" type="Node" parent="."]
+process_mode = 1
+script = ExtResource("5_spawner")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("6_hud")

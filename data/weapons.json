@@ -1,0 +1,17 @@
+{
+  "SCRATCH": {
+    "name": "Škrabanec",
+    "description": "Škrabne do strany, kam sa mačka pozerá. Prechádza cez nepriateľov.",
+    "script": "res://scripts/weapons/scratch.gd",
+    "levels": [
+      { "damage": 10, "interval": 1.2, "repeat_interval": 0.12, "amount": 1, "area": 1.0, "knockback": 1.0 },
+      { "amount": 1 },
+      { "damage": 5 },
+      { "damage": 5, "area": 0.1 },
+      { "damage": 5 },
+      { "damage": 5, "area": 0.1 },
+      { "damage": 5 },
+      { "damage": 5 }
+    ]
+  }
+}

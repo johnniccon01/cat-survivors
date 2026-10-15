@@ -8,6 +8,8 @@ var passives: Dictionary = {}
 var enemies: Dictionary = {}
 var stages: Dictionary = {}
 var props: Dictionary = {}
+var cats: Dictionary = {}
+var quests: Dictionary = {}
 ## Weighted drop table for broken props: [{kind, weight, value}]
 var loot: Array = []
 
@@ -15,6 +17,8 @@ var loot: Array = []
 func _ready() -> void:
 	weapons = _load_json("res://data/weapons.json")
 	passives = _load_json("res://data/passives.json")
+	cats = _load_json("res://data/cats.json")
+	quests = _load_json("res://data/quests.json")
 	var props_file := _load_json("res://data/props.json")
 	props = props_file.get("props", {})
 	loot = props_file.get("loot", [])

@@ -86,3 +86,47 @@ WEAPON_THUNDER_BELL_NAME,Thunder Bell,Hromový zvon
 WEAPON_THUNDER_BELL_DESC,Evolved Bell: massive double shockwaves.,Evolúcia zvončeka: mohutné dvojité vlny.
 WEAPON_PHOENIX_FEATHER_NAME,Phoenix Feather,Fénixovo pero
 WEAPON_PHOENIX_FEATHER_DESC,Evolved Feather Toy: four blazing boomerangs.,Evolúcia pierka: štyri planúce bumerangy.
+CAT_MICA_NAME,Mica,Mica
+CAT_LUNA_NAME,Luna,Luna
+CAT_SNOWBALL_NAME,Snowball,Snehulka
+CAT_PIP_NAME,Pip,Mrňa
+CAT_TIGER_NAME,Tiger,Tiger
+CAT_BARON_NAME,Baron,Barón
+CAT_MICA_DESC,A brave ginger tabby. Starts with Scratch.,Statočná ryšavá mačka. Začína so Škrabancom.
+CAT_LUNA_DESC,A black cat of the night. Starts with Ball of Yarn; attacks 10% more often.,Čierna mačka noci. Začína s Klbkom; útočí o 10 % častejšie.
+CAT_SNOWBALL_DESC,A fluffy white cloud. Starts with Fish Bones; +15% area.,Chlpatý biely obláčik. Začína s Rybími kosťami; +15 % plocha.
+CAT_PIP_DESC,A tiny fast kitten. Starts with Feather Toy; faster and better magnet.,Malé rýchle mačiatko. Začína s Pierkom; rýchlejšie a s lepším magnetom.
+CAT_TIGER_DESC,The tough boss of the yard. Starts with Bell; +40 max health.,Tvrdý šéf dvora. Začína so Zvončekom; +40 zdravia.
+CAT_BARON_DESC,A posh Siamese. Starts with Laser Pointer; +15% damage.,Nafúkaný siamský aristokrat. Začína s laserom; +15 % poškodenie.
+CAT_LUNA_HINT,Rescue her from the box fort.,Zachráň ju z krabicovej pevnosti.
+CAT_SNOWBALL_HINT,Rescue her from the laundry basket.,Zachráň ju z koša na prádlo.
+CAT_PIP_HINT,Rescue it from under the bed.,Zachráň ho spod postele.
+CAT_TIGER_HINT,Beat him in a duel on his turf.,Poraz ho v súboji na jeho revíri.
+CAT_BARON_HINT,Beat him in a duel on his cushion.,Poraz ho v súboji na jeho vankúši.
+QUEST_NEW,New quest: %s,Nová úloha: %s
+QUEST_DONE,Quest complete!,Úloha splnená!
+QUEST_FAILED,Quest failed,Úloha zlyhala
+QUEST_JOINED,%s joined you!,%s sa k tebe pridáva!
+QUEST_UNLOCKED,New cat unlocked: %s,Nová mačka odomknutá: %s
+QUEST_RESCUE_TITLE,Rescue %s,Zachráň: %s
+QUEST_RESCUE_FIND,Find %s (follow the arrow),Nájdi: %s (sleduj šípku)
+QUEST_RESCUE_GUARDS,Defeat the guards: %d left,Poraz strážcov: zostáva %d
+QUEST_RESCUE_FREE,Stay close to free %s,Zostaň blízko a osloboď: %s
+QUEST_DUEL_TITLE,Duel: %s,Súboj: %s
+QUEST_DUEL_FIND,Find the turf of %s,Nájdi revír: %s
+QUEST_DUEL_FIGHT,Defeat %s,Poraz: %s
+QUEST_DUEL_CHALLENGE,%s challenges you!,%s ťa vyzýva na súboj!
+QUEST_BOWL_TITLE,Guard the food bowl,Ubráň misku
+QUEST_BOWL_FIND,Find the food bowl,Nájdi misku s jedlom
+QUEST_BOWL_HOLD,Stay by the bowl: %d s,Zostaň pri miske: %d s
+QUEST_DOT_TITLE,The red dot,Červená bodka
+QUEST_DOT_FIND,Find the laser pointer,Nájdi laserové ukazovátko
+QUEST_DOT_CATCH,Catch the dot: %d/%d (%d s),Chyť bodku: %d/%d (%d s)
+QUEST_FRIDGE_TITLE,Midnight snack,Polnočná desiata
+QUEST_FRIDGE_FIND,Find the fridge,Nájdi chladničku
+QUEST_FRIDGE_OPEN,Stay by the fridge to open it,Zostaň pri chladničke a otvor ju
+QUEST_FRIDGE_FIGHT,Defeat the leftovers: %d left,Poraz zvyšky: zostáva %d
+SELECT_TITLE,Choose your cat,Vyber si mačku
+SELECT_HINT,← → choose · Enter start · L language,← → výber · Enter štart · L jazyk
+SELECT_LOCKED,???,???
+GAME_OVER_MENU,Esc – change cat,Esc – zmeniť mačku

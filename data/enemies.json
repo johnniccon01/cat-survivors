@@ -105,5 +105,29 @@
     "radius": 22,
     "xp": 100,
     "knockback_resist": 1.0
+  },
+  "RIVAL_TIGER": {
+    "shape": "cat",
+    "cat": "TIGER",
+    "boss": true,
+    "behavior": "dash",
+    "hp": 700,
+    "speed": 55,
+    "damage": 18,
+    "radius": 12,
+    "xp": 40,
+    "knockback_resist": 0.9
+  },
+  "RIVAL_BARON": {
+    "shape": "cat",
+    "cat": "BARON",
+    "boss": true,
+    "behavior": "shooter",
+    "hp": 500,
+    "speed": 60,
+    "damage": 12,
+    "radius": 9,
+    "xp": 40,
+    "knockback_resist": 0.8
   }
 }

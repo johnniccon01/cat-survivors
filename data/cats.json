@@ -1,0 +1,74 @@
+{
+  "MICA": {
+    "fur": "#d98c4a",
+    "dark": "#a8602c",
+    "belly": "#f3d9b8",
+    "eyes": "#2b1d14",
+    "stripes": true,
+    "weapon": "SCRATCH",
+    "bonus": {},
+    "unlocked": true
+  },
+  "LUNA": {
+    "fur": "#34303d",
+    "dark": "#1f1c25",
+    "belly": "#4d4858",
+    "eyes": "#f2d14e",
+    "weapon": "YARN",
+    "bonus": {
+      "cooldown": -0.1
+    },
+    "unlock": "LUNA"
+  },
+  "SNOWBALL": {
+    "fur": "#f4f1ea",
+    "dark": "#d8d2c4",
+    "belly": "#ffffff",
+    "eyes": "#5aa9e6",
+    "fluffy": true,
+    "weapon": "FISHBONES",
+    "bonus": {
+      "area": 0.15
+    },
+    "unlock": "SNOWBALL"
+  },
+  "PIP": {
+    "fur": "#e8d6bc",
+    "dark": "#c46a3a",
+    "belly": "#fff6e8",
+    "eyes": "#3a6a3a",
+    "patches": true,
+    "size": 0.8,
+    "weapon": "FEATHER",
+    "bonus": {
+      "speed": 0.15,
+      "magnet": 30
+    },
+    "unlock": "PIP"
+  },
+  "TIGER": {
+    "fur": "#8c8c94",
+    "dark": "#4e4e56",
+    "belly": "#c8c8cc",
+    "eyes": "#9ad04a",
+    "stripes": true,
+    "size": 1.25,
+    "weapon": "BELL",
+    "bonus": {
+      "max_hp": 40
+    },
+    "unlock": "TIGER"
+  },
+  "BARON": {
+    "fur": "#efe3cf",
+    "dark": "#5a4234",
+    "belly": "#f8f0e2",
+    "eyes": "#4a8fe0",
+    "points": true,
+    "weapon": "LASER",
+    "bonus": {
+      "might": 0.15
+    },
+    "unlock": "BARON"
+  }
+}

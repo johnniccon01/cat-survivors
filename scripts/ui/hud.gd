@@ -21,6 +21,9 @@ var _over_stats: Label
 var _win_overlay: Control
 var _win_stats: Label
 var _banner: Label
+var _quest_title: Label
+var _quest_text: Label
+var _quest_arrow: QuestArrow
 var _banner_time := 0.0
 
 
@@ -68,10 +71,10 @@ func _ready() -> void:
 
 	_pause_overlay = _overlay(["PAUSE_TITLE", "PAUSE_HINT", ""])
 	_pause_language = _pause_overlay.get_node("Box").get_child(2)
-	_over_overlay = _overlay(["GAME_OVER_TITLE", "", "GAME_OVER_HINT"])
+	_over_overlay = _overlay(["GAME_OVER_TITLE", "", "GAME_OVER_HINT", "GAME_OVER_MENU"])
 	_over_stats = _over_overlay.get_node("Box").get_child(1)
 
-	_win_overlay = _overlay(["VICTORY_TITLE", "", "VICTORY_HINT"])
+	_win_overlay = _overlay(["VICTORY_TITLE", "", "VICTORY_HINT", "GAME_OVER_MENU"])
 	_win_stats = _win_overlay.get_node("Box").get_child(1)
 
 	_banner = _label(30, HORIZONTAL_ALIGNMENT_CENTER)
@@ -80,6 +83,21 @@ func _ready() -> void:
 	_banner.label_settings.font_color = Color("ff7a6b")
 	_banner.visible = false
 	add_child(_banner)
+
+	_quest_title = _label(20, HORIZONTAL_ALIGNMENT_RIGHT)
+	_quest_title.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	_quest_title.offset_top = 58
+	_quest_title.offset_right = -20
+	_quest_title.label_settings.font_color = Color("f2c14e")
+	add_child(_quest_title)
+	_quest_text = _label(16, HORIZONTAL_ALIGNMENT_RIGHT)
+	_quest_text.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	_quest_text.offset_top = 84
+	_quest_text.offset_right = -20
+	add_child(_quest_text)
+	_quest_arrow = QuestArrow.new()
+	add_child(_quest_arrow)
+	move_child(_quest_arrow, 0)
 
 	level_up = LevelUpPanel.new()
 	add_child(level_up)
@@ -92,6 +110,18 @@ func _process(delta: float) -> void:
 		_banner_time -= delta
 		_banner.modulate.a = clampf(_banner_time, 0.0, 1.0)
 		_banner.visible = _banner_time > 0.0
+
+
+## Shows the active quest (or hides the tracker when `quest` is null).
+func update_quest(quest: Quest) -> void:
+	if quest == null:
+		_quest_title.text = ""
+		_quest_text.text = ""
+		_quest_arrow.target = null
+		return
+	_quest_title.text = quest.title()
+	_quest_text.text = quest.objective()
+	_quest_arrow.target = quest.position
 
 
 ## Big warning text below the clock that fades out after `seconds`.

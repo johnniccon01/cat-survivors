@@ -13,14 +13,21 @@ extends Node2D
 ##   --all-weapons      start with every base weapon
 ##   --show-levelup     the bot leaves the level-up screen open
 ##   --test-evolution   maxes Scratch + Sharp Claws, opens a chest, prints, quits
+##   --quest=ID         starts quest ID next to the cat (LUNA, TIGER, RED_DOT...)
+##   --cat=ID           play as cat ID (see data/cats.json)
 
 const HEART_DROP_CHANCE := 0.005
 const HEART_DROP_AMOUNT := 15.0
 ## Treasure size odds: [items, weight]
 const CHEST_ROLLS := [[1, 70.0], [3, 25.0], [5, 5.0]]
+const PLAYER_SCENE := preload("res://scenes/player.tscn")
+const MAX_COMPANIONS := 4
 
 var kills := 0
 var props_broken := 0
+var companions: Array[Player] = []
+var quests: QuestDirector
+var quests_done := 0
 var bosses_killed := 0
 var chests_opened := 0
 
@@ -45,6 +52,13 @@ func _ready() -> void:
 	spawner.setup(player, enemies)
 	spawner.elapsed = float(_arg("--start-minute=", "0")) * 60.0
 	night.setup(spawner, player)
+	quests = QuestDirector.new()
+	add_child(quests)
+	quests.setup(self)
+	quests.finished_quest.connect(func(ok: bool) -> void: quests_done += int(ok))
+	var forced := _arg("--quest=", "")
+	if forced != "":
+		quests.force.call_deferred(forced)
 	enemies.enemy_killed.connect(_on_enemy_killed)
 	enemies.prop_broken.connect(_on_prop_broken)
 	pickups.chest_collected.connect(_queue_modal.bind("chest"))
@@ -59,7 +73,7 @@ func _ready() -> void:
 	hud.update_xp(player)
 	hud.update_inventory(player)
 	if _bot:
-		player.bot_mode = true
+		player.controller = "bot"
 		Engine.time_scale = 4.0
 	if "--test-evolution" in _args:
 		_test_evolution.call_deferred()
@@ -71,6 +85,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	hud.update_stats(spawner.elapsed, kills, enemies.enemies.size())
+	hud.update_quest(quests.active)
 	if _bot and (spawner.elapsed >= _bot_time or _run_over):
 		var weapons: Array[String] = []
 		for w: Weapon in player.weapons.get_children():
@@ -80,6 +95,10 @@ func _process(_delta: float) -> void:
 			enemies.enemies.size(), player.is_dead])
 		print("BOT: weapons=%s passives=%s props_broken=%d bosses_killed=%d chests=%d won=%s" % [
 			weapons, player.passives, props_broken, bosses_killed, chests_opened, _run_over and not player.is_dead])
+		print("BOT: quests_done=%d companions=%s" % [quests_done, companions.map(func(c: Player) -> String: return c.cat_id)])
+		var q := quests.active
+		if q != null:
+			print("BOT: active quest %s started=%s objective=%s" % [q.quest_id, q.started, q.objective()])
 		get_tree().quit()
 
 
@@ -90,6 +109,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.is_action_pressed("restart"):
 			get_tree().paused = false
 			get_tree().reload_current_scene()
+		elif event.is_action_pressed("pause"):
+			get_tree().paused = false
+			get_tree().change_scene_to_file("res://scenes/character_select.tscn")
 		return
 	if event.is_action_pressed("language") and get_tree().paused:
 		Settings.cycle_language()
@@ -114,6 +136,31 @@ func _on_prop_broken(_id: String, pos: Vector2) -> void:
 	props_broken += 1
 	var entry: Dictionary = _weighted(GameData.loot.map(func(e: Dictionary) -> Array: return [e, float(e["weight"])]))
 	pickups.spawn_named(entry["kind"], pos, float(entry.get("value", 0.0)))
+
+
+func has_companion(cat_id: String) -> bool:
+	return companions.any(func(c: Player) -> bool: return c.cat_id == cat_id)
+
+
+## A rescued or defeated cat joins the run and is unlocked for good.
+func cat_joined(cat_id: String) -> void:
+	var cat_name := tr("CAT_%s_NAME" % cat_id)
+	if Profile.unlock(cat_id) and not "--cat=" in " ".join(_args):
+		hud.show_banner("%s
+%s" % [tr("QUEST_JOINED") % cat_name, tr("QUEST_UNLOCKED") % cat_name], 4.0)
+	else:
+		hud.show_banner(tr("QUEST_JOINED") % cat_name, 3.0)
+	if companions.size() >= MAX_COMPANIONS or has_companion(cat_id):
+		return
+	var cat: Player = PLAYER_SCENE.instantiate()
+	cat.controller = "follow"
+	cat.cat_id = cat_id
+	cat.leader = player
+	cat.process_mode = Node.PROCESS_MODE_PAUSABLE
+	cat.position = player.position + Vector2(20, 10)
+	add_child(cat)
+	move_child(cat, player.get_index())
+	companions.append(cat)
 
 
 func _queue_modal(kind: String) -> void:

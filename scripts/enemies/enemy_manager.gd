@@ -41,6 +41,16 @@ func spawn(id: String, pos: Vector2, hp_mult: float = 1.0) -> Enemy:
 	return enemy
 
 
+## A projectile fired by an enemy that hurts the player on contact.
+func spawn_bullet(pos: Vector2, dir: Vector2, bullet_damage: float) -> void:
+	var bullet := EnemyBullet.new()
+	bullet.position = pos
+	bullet.velocity = dir * 90.0
+	bullet.damage = bullet_damage
+	bullet.player = player
+	get_parent().add_child(bullet)
+
+
 func spawn_prop(id: String, pos: Vector2) -> Enemy:
 	var prop := Enemy.new()
 	prop.setup(id, GameData.props[id], self)

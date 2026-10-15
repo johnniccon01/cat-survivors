@@ -1,0 +1,139 @@
+extends Control
+## Cat selection before a run. Locked cats show as silhouettes with a hint
+## on how to get them. Any debug flag on the command line skips this screen.
+
+const MAIN_SCENE := "res://scenes/main.tscn"
+const BG := Color("1d1626")
+const CARD := Color("3b2a4a")
+const BORDER := Color("6b5480")
+const GOLD := Color("f2c14e")
+const OUTLINE := Color("2b1d14")
+
+var _ids: Array[String] = []
+var _index := 0
+var _cards: Array[PanelContainer] = []
+var _previews: Array[CatPreview] = []
+var _name: Label
+var _desc: Label
+
+
+func _ready() -> void:
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--"):
+			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
+			return
+	for id: String in GameData.cats:
+		_ids.append(id)
+	_index = maxi(_ids.find(Profile.selected_cat), 0)
+	_build()
+	_refresh()
+
+
+func _build() -> void:
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var bg := ColorRect.new()
+	bg.color = BG
+	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(bg)
+
+	var box := VBoxContainer.new()
+	box.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	box.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	box.grow_vertical = Control.GROW_DIRECTION_BOTH
+	box.add_theme_constant_override("separation", 22)
+	add_child(box)
+
+	var title := _label(46, GOLD)
+	title.text = "SELECT_TITLE"
+	box.add_child(title)
+
+	var row := HBoxContainer.new()
+	row.alignment = BoxContainer.ALIGNMENT_CENTER
+	row.add_theme_constant_override("separation", 14)
+	box.add_child(row)
+	for i in _ids.size():
+		var card := PanelContainer.new()
+		card.custom_minimum_size = Vector2(160, 170)
+		card.mouse_filter = Control.MOUSE_FILTER_STOP
+		card.gui_input.connect(_on_card_input.bind(i))
+		var preview := CatPreview.new()
+		preview.cat_id = _ids[i]
+		preview.locked = not Profile.is_unlocked(_ids[i])
+		preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		card.add_child(preview)
+		row.add_child(card)
+		_cards.append(card)
+		_previews.append(preview)
+
+	_name = _label(32, Color.WHITE)
+	box.add_child(_name)
+	_desc = _label(20, Color("d9cce6"))
+	_desc.custom_minimum_size = Vector2(700, 60)
+	_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	box.add_child(_desc)
+
+	var hint := _label(18, Color("8f7ea3"))
+	hint.text = "SELECT_HINT"
+	box.add_child(hint)
+
+
+func _refresh() -> void:
+	var id := _ids[_index]
+	var unlocked := Profile.is_unlocked(id)
+	for i in _cards.size():
+		var sb := StyleBoxFlat.new()
+		sb.bg_color = CARD
+		sb.border_color = GOLD if i == _index else BORDER
+		sb.set_border_width_all(4 if i == _index else 2)
+		sb.set_corner_radius_all(10)
+		_cards[i].add_theme_stylebox_override("panel", sb)
+		_previews[i].walking = i == _index and unlocked
+	if unlocked:
+		_name.text = tr("CAT_%s_NAME" % id)
+		_desc.text = tr("CAT_%s_DESC" % id)
+	else:
+		_name.text = tr("SELECT_LOCKED")
+		_desc.text = tr("CAT_%s_HINT" % id)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("move_left") or event.is_action_pressed("ui_left"):
+		_index = (_index - 1 + _ids.size()) % _ids.size()
+		_refresh()
+	elif event.is_action_pressed("move_right") or event.is_action_pressed("ui_right"):
+		_index = (_index + 1) % _ids.size()
+		_refresh()
+	elif event.is_action_pressed("language"):
+		Settings.cycle_language()
+		_refresh()
+	elif event.is_action_pressed("restart") or event.is_action_pressed("ui_accept"):
+		_start()
+
+
+func _on_card_input(event: InputEvent, i: int) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if i == _index:
+			_start()
+		else:
+			_index = i
+			_refresh()
+
+
+func _start() -> void:
+	var id := _ids[_index]
+	if not Profile.is_unlocked(id):
+		return
+	Profile.select(id)
+	get_tree().change_scene_to_file(MAIN_SCENE)
+
+
+func _label(size: int, font_color: Color) -> Label:
+	var label := Label.new()
+	var settings := LabelSettings.new()
+	settings.font_size = size
+	settings.font_color = font_color
+	settings.outline_size = 5
+	settings.outline_color = OUTLINE
+	label.label_settings = settings
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	return label

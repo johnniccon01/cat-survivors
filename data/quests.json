@@ -1,0 +1,69 @@
+{
+  "cat_quests": {
+    "LUNA": {
+      "type": "rescue",
+      "poi": "box_fort",
+      "guards": "SOCK_STRIPED",
+      "guard_count": 8,
+      "free_time": 6.0
+    },
+    "SNOWBALL": {
+      "type": "rescue",
+      "poi": "laundry_basket",
+      "guards": "BUBBLE",
+      "guard_count": 16,
+      "free_time": 6.0
+    },
+    "PIP": {
+      "type": "rescue",
+      "poi": "bed_cave",
+      "guards": "DUST_BUNNY",
+      "guard_count": 14,
+      "free_time": 6.0
+    },
+    "TIGER": {
+      "type": "duel",
+      "rival": "RIVAL_TIGER"
+    },
+    "BARON": {
+      "type": "duel",
+      "rival": "RIVAL_BARON"
+    }
+  },
+  "side_quests": {
+    "DEFEND_BOWL": {
+      "hold_time": 30.0,
+      "radius": 50.0,
+      "spawn_interval": 1.0,
+      "spawn_count": 2
+    },
+    "RED_DOT": {
+      "catches": 3,
+      "dot_speed": 115.0,
+      "time_limit": 60.0
+    },
+    "FRIDGE": {
+      "open_time": 3.0,
+      "enemy_count": 20
+    }
+  },
+  "schedule": {
+    "first_delay": 40.0,
+    "gap": 35.0,
+    "side_expire": 150.0,
+    "order": [
+      "side",
+      "cat",
+      "side",
+      "cat",
+      "side",
+      "cat",
+      "side"
+    ]
+  },
+  "distance": [
+    420.0,
+    650.0
+  ],
+  "activate_radius": 240.0
+}

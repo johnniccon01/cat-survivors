@@ -1,6 +1,11 @@
 class_name Player
 extends Node2D
-## The cat. Moves with WASD / arrows / left stick; weapons fire on their own.
+## A cat: the one you play, or a companion that follows it. Look, starting
+## weapon and stat bonus come from data/cats.json. Weapons fire on their own.
+##
+## Controllers: "input" (WASD / arrows / left stick), "bot" (automated tests)
+## and "follow" (companion: trails the leader, can't be hurt, borrows the
+## leader's stats and levels its weapon as the leader levels up).
 
 signal died
 signal leveled_up
@@ -20,13 +25,15 @@ const BASE_STATS := {
 	"proj_speed": 1.0, "armor": 0.0,
 }
 
-const FUR := Color("d98c4a")
-const FUR_DARK := Color("a8602c")
-const BELLY := Color("f3d9b8")
 const OUTLINE := Color("2b1d14")
-const NOSE := Color("f3a9b8")
+## Companion weapon gains a level every this many leader levels.
+const COMPANION_LEVEL_STEP := 4
 
-@export var starting_weapon := "SCRATCH"
+@export var cat_id := "MICA"
+@export var controller := "input"
+
+## The cat a companion follows.
+var leader: Player
 
 var hp := 100.0
 var max_hp := 100.0
@@ -38,9 +45,8 @@ var is_dead := false
 ## passive id -> level
 var passives: Dictionary = {}
 var stats: Dictionary = BASE_STATS.duplicate()
-## Set by main when started with `-- --bot`; drives the cat automatically for tests.
-var bot_mode := false
-
+var _look: Dictionary
+var _follow_offset := Vector2.ZERO
 var _invuln := 0.0
 var _hurt_flash := 0.0
 var _walk_t := 0.0
@@ -51,12 +57,25 @@ var _bot_t := 0.0
 
 
 func _ready() -> void:
+	if controller != "follow":
+		cat_id = Profile.selected_cat
+	_look = CatArt.look(cat_id)
+	if is_companion():
+		camera.queue_free()
+		camera = null
+		_follow_offset = Vector2.from_angle(randf() * TAU) * randf_range(18.0, 30.0)
 	_recalc_stats()
 	hp = max_hp
-	add_weapon(starting_weapon)
+	add_weapon(GameData.cats[cat_id]["weapon"])
+
+
+func is_companion() -> bool:
+	return controller == "follow"
 
 
 func stat(stat_name: String) -> float:
+	if is_companion() and is_instance_valid(leader):
+		return leader.stat(stat_name)
 	return stats[stat_name]
 
 
@@ -126,6 +145,9 @@ func add_passive(id: String) -> void:
 
 func _recalc_stats() -> void:
 	stats = BASE_STATS.duplicate()
+	var bonus: Dictionary = GameData.cats[cat_id].get("bonus", {})
+	for key: String in bonus:
+		stats[key] += bonus[key]
 	for id: String in passives:
 		var levels: Array = GameData.passives[id]["levels"]
 		for i in passives[id]:
@@ -141,11 +163,14 @@ func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
 	var input: Vector2
-	if bot_mode:
-		input = _bot_input(delta)
-	else:
-		input = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	velocity = input * BASE_SPEED * stats["speed"]
+	match controller:
+		"bot":
+			input = _bot_input(delta)
+		"follow":
+			input = _follow_input()
+		_:
+			input = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	velocity = input * BASE_SPEED * stat("speed")
 	position += velocity * delta
 	if absf(input.x) > 0.1:
 		facing = 1 if input.x > 0.0 else -1
@@ -158,7 +183,7 @@ func _physics_process(delta: float) -> void:
 
 
 func take_damage(amount: float) -> void:
-	if is_dead or _invuln > 0.0:
+	if is_dead or _invuln > 0.0 or is_companion():
 		return
 	hp -= maxf(amount - stats["armor"], 1.0)
 	_invuln = HIT_INVULN
@@ -168,6 +193,32 @@ func take_damage(amount: float) -> void:
 		is_dead = true
 		queue_redraw()
 		died.emit()
+
+
+## Companion: walk to a spot near the leader; catch up faster when far away.
+func _follow_input() -> Vector2:
+	if not is_instance_valid(leader):
+		return Vector2.ZERO
+	if leader.is_dead:
+		return Vector2.ZERO
+	_sync_companion_weapon()
+	var goal := leader.position + _follow_offset
+	var to := goal - position
+	if to.length() < 6.0:
+		return Vector2.ZERO
+	if to.length() > 400.0:
+		position = goal
+		return Vector2.ZERO
+	return to.normalized() * clampf(to.length() / 40.0, 0.4, 1.6)
+
+
+func _sync_companion_weapon() -> void:
+	var weapon := weapons.get_child(0) as Weapon
+	if weapon == null:
+		return
+	var target := mini(1 + floori(leader.level / float(COMPANION_LEVEL_STEP)), weapon.max_level())
+	while weapon.level < target:
+		weapon.level_up()
 
 
 ## Test bot: dodges enemies that get close, otherwise drifts towards the
@@ -182,6 +233,12 @@ func _bot_input(delta: float) -> Vector2:
 		away += d / maxf(d.length_squared(), 1.0)
 	if away != Vector2.ZERO:
 		return (away.normalized() + wander * 0.3).normalized()
+	var quest: Quest = get_parent().quests.active if get_parent().get("quests") else null
+	if quest != null:
+		var to_quest := quest.position - position
+		if to_quest.length() > 20.0:
+			return (to_quest.normalized() + wander * 0.15).normalized()
+		return Vector2.ZERO
 	var pickups: Pickups = get_parent().get_node("Pickups")
 	var best_d2 := 160.0 * 160.0
 	var goal := Vector2.INF
@@ -199,63 +256,11 @@ func _bot_input(delta: float) -> Vector2:
 
 
 func _draw() -> void:
-	var fur := Color.WHITE if _hurt_flash > 0.0 else FUR
-	var step := sin(_walk_t)
-
-	draw_colored_polygon(Shapes.ellipse(Vector2(0, 8), 9, 3), Color(0, 0, 0, 0.25))
-
-	# Everything below is drawn facing right and mirrored; a dead cat lies on its side.
-	if is_dead:
-		draw_set_transform(Vector2(0, 2), PI * 0.5 * facing, Vector2(facing, 1))
-	else:
-		draw_set_transform(Vector2.ZERO, 0.0, Vector2(facing, 1))
-
-	# Tail
-	var sway := sin(_walk_t * 0.5) * 2.0
-	var tail := PackedVector2Array([Vector2(-7, 0), Vector2(-11, -3), Vector2(-11 + sway, -8), Vector2(-9 + sway, -11)])
-	draw_polyline(tail, OUTLINE, 4.0)
-	draw_polyline(tail, fur, 2.0)
-
-	# Legs: diagonal pairs move in opposite phase
-	var legs: Array[Vector2] = [Vector2(-6, 1), Vector2(-3, -1), Vector2(3, -1), Vector2(6, 1)]
-	for leg in legs:
-		var lift := maxf(step * leg.y, 0.0)
-		draw_rect(Rect2(leg.x - 1.5, 4 - lift, 3, 4), OUTLINE)
-		draw_rect(Rect2(leg.x - 0.5, 4 - lift, 1, 3), fur)
-
-	# Body
-	draw_colored_polygon(Shapes.ellipse(Vector2(0, 1), 9, 6), OUTLINE)
-	draw_colored_polygon(Shapes.ellipse(Vector2(0, 1), 8, 5), fur)
-	draw_colored_polygon(Shapes.ellipse(Vector2(1, 3), 5, 2.5), BELLY)
-	for x: float in [-5.0, -2.0, 1.0]:
-		draw_line(Vector2(x, -3), Vector2(x + 1, 0), FUR_DARK, 1.0)
-
-	# Head
-	var head := Vector2(6, -5)
-	var ears: Array[PackedVector2Array] = [
-		PackedVector2Array([Vector2(2, -8), Vector2(3, -14), Vector2(7, -9)]),
-		PackedVector2Array([Vector2(6, -9), Vector2(10, -14), Vector2(11, -7)]),
-	]
-	for ear in ears:
-		draw_colored_polygon(ear, fur)
-		draw_polyline(Shapes.closed(ear), OUTLINE, 1.0)
-	draw_circle(head, 6.0, OUTLINE)
-	draw_circle(head, 5.0, fur)
-	draw_line(head + Vector2(-2, -4), head + Vector2(-1, -2), FUR_DARK, 1.0)
-	draw_line(head + Vector2(1, -4), head + Vector2(1, -2), FUR_DARK, 1.0)
-	if is_dead:
-		for e: Vector2 in [head + Vector2(1, -1), head + Vector2(4, -1)]:
-			draw_line(e + Vector2(-1, -1), e + Vector2(1, 1), OUTLINE, 1.0)
-			draw_line(e + Vector2(-1, 1), e + Vector2(1, -1), OUTLINE, 1.0)
-	else:
-		draw_rect(Rect2(head + Vector2(0, -2), Vector2(1, 2)), OUTLINE)
-		draw_rect(Rect2(head + Vector2(3, -2), Vector2(1, 2)), OUTLINE)
-	draw_rect(Rect2(head + Vector2(4, 1), Vector2(2, 1)), NOSE)
-
-	draw_set_transform(Vector2.ZERO)
-
+	CatArt.draw(self, _look, facing, _walk_t, _hurt_flash > 0.0, is_dead)
+	if is_dead or is_companion():
+		return
 	# HP bar
-	if not is_dead:
-		var w := 18.0
-		draw_rect(Rect2(-w * 0.5 - 1, 11, w + 2, 4), OUTLINE)
-		draw_rect(Rect2(-w * 0.5, 12, w * hp / max_hp, 2), Color("e04646"))
+	var w := 18.0
+	var y := 11.0 * float(_look["size"])
+	draw_rect(Rect2(-w * 0.5 - 1, y, w + 2, 4), OUTLINE)
+	draw_rect(Rect2(-w * 0.5, y + 1, w * hp / max_hp, 2), Color("e04646"))

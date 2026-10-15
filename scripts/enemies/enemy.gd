@@ -22,6 +22,14 @@ var is_boss := false
 var manager: EnemyManager
 
 var _shape := "sock"
+## "chase" (default), "dash" (winds up, then lunges) or "shooter" (keeps its
+## distance and spits laser dots).
+var _behavior := "chase"
+var _cat_id := ""
+var _state := "chase"
+var _state_t := 2.0
+var _dash_dir := Vector2.ZERO
+var _shoot_t := 1.5
 var _base_scale := 1.0
 var _stripes := false
 var _color := Color.WHITE
@@ -46,22 +54,71 @@ func setup(p_id: String, data: Dictionary, p_manager: EnemyManager) -> void:
 	_color = Color(data.get("color", "#ffffff"))
 	_accent = Color(data.get("accent", "#888888"))
 	is_boss = data.get("boss", false)
+	_behavior = data.get("behavior", "chase")
+	_cat_id = data.get("cat", "")
 	_base_scale = data.get("scale", 1.0)
 	scale = Vector2(_base_scale, _base_scale)
 
 
 func tick(delta: float, target: Vector2, push: Vector2) -> void:
 	var dir := (target - position).normalized()
-	position += (dir * speed + _knock + push) * delta
+	var move := dir * speed
+	match _behavior:
+		"dash":
+			move = _tick_dash(delta, dir)
+		"shooter":
+			move = _tick_shooter(delta, target, dir)
+	position += (move + _knock + push) * delta
 	_knock = _knock.move_toward(Vector2.ZERO, KNOCK_DECAY * delta)
 	if absf(dir.x) > 0.2:
 		scale.x = signf(dir.x) * _base_scale
-	_wobble += delta * speed * 0.15
-	rotation = sin(_wobble) * 0.12
+	if _shape == "cat":
+		_wobble += delta * (12.0 if move.length_squared() > 1.0 else 3.0)
+		rotation = sin(_wobble * 6.0) * 0.15 if _state == "windup" else 0.0
+		queue_redraw()
+	else:
+		_wobble += delta * speed * 0.15
+		rotation = sin(_wobble) * 0.12
 	if _flash > 0.0:
 		_flash -= delta
 		if _flash <= 0.0:
 			queue_redraw()
+
+
+func _tick_dash(delta: float, dir: Vector2) -> Vector2:
+	_state_t -= delta
+	match _state:
+		"windup":
+			if _state_t <= 0.0:
+				_state = "dash"
+				_state_t = 0.45
+				_dash_dir = dir
+			return Vector2.ZERO
+		"dash":
+			if _state_t <= 0.0:
+				_state = "chase"
+				_state_t = randf_range(1.8, 2.6)
+			return _dash_dir * speed * 4.5
+	if _state_t <= 0.0:
+		_state = "windup"
+		_state_t = 0.6
+	return dir * speed
+
+
+func _tick_shooter(delta: float, target: Vector2, dir: Vector2) -> Vector2:
+	var dist := position.distance_to(target)
+	_shoot_t -= delta
+	if _shoot_t <= 0.0:
+		_shoot_t = 2.0
+		# Below half health it fires a spread of three.
+		var spread := [0.0] if hp > max_hp * 0.5 else [-0.25, 0.0, 0.25]
+		for a: float in spread:
+			manager.spawn_bullet(position, dir.rotated(a), damage * 0.5)
+	if dist < 110.0:
+		return -dir * speed
+	if dist > 170.0:
+		return dir * speed
+	return dir.orthogonal() * speed * 0.6
 
 
 func hit(amount: float, direction: Vector2, knockback: float) -> void:
@@ -95,10 +152,13 @@ func _draw() -> void:
 			_draw_slipper(body)
 		"vacuum":
 			_draw_vacuum(body)
+		"cat":
+			CatArt.draw(self, CatArt.look(_cat_id), 1, _wobble, _flash > 0.0, false, "angry")
 		_:
 			_draw_sock(body)
 	if is_boss:
-		_draw_crown(Vector2(0, -r - 6))
+		if _shape != "cat":
+			_draw_crown(Vector2(0, -r - 6))
 		var w := 20.0
 		draw_rect(Rect2(-w * 0.5 - 0.5, r + 4, w + 1, 2.5), OUTLINE)
 		draw_rect(Rect2(-w * 0.5, r + 4.5, w * maxf(hp, 0.0) / max_hp, 1.5), Color("e04646"))

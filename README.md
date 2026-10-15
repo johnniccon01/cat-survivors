@@ -21,12 +21,19 @@ Godot_v4.6.2-stable_win64_console.exe --headless --path . -- --bot
 - `--all-weapons` – začne so všetkými základnými zbraňami
 - `--show-levelup` – bot nechá level-up okno otvorené
 - `--test-evolution` – overí evolúciu Škrabanca a skončí
+- `--quest=ID` – hneď spustí quest (LUNA, SNOWBALL, PIP, TIGER, BARON, DEFEND_BOWL, RED_DOT, FRIDGE)
+- `--cat=ID` – hrá za danú mačku bez odomknutia
+
+Testovacie behy (`--bot`) nikdy neukladajú profil.
 
 ## Štruktúra
 
 - `data/` – obsah hry v JSON-e (zbrane, pasívky, nepriatelia, vlny podľa minút). Balans sa ladí tu, bez zásahu do kódu.
 - `scripts/progression/upgrades.gd` – výber ponúk pri level-upe a ich aplikovanie.
 - `scripts/pickups/` – XP granule, srdiečka a sardinky (liečenie), magnet.
+- `data/cats.json` – mačky (vzhľad, štartová zbraň, bonus). Odomknuté mačky sa ukladajú do `user://profile.cfg`.
+- `data/quests.json` + `scripts/quests/` – questy: záchrany a súboje mačiek, vedľajšie úlohy, poradie počas noci.
+- `scripts/ui/character_select.gd` – výber mačky pred hrou.
 - `data/props.json` – rozbitné predmety (krabice, kvetináče) a čo z nich padá.
 - Evolúcie: v `data/weapons.json` má základná zbraň `"evolve": {"with": PASÍVKA, "into": EVOLÚCIA}`. Zbraň na max leveli + vlastnená pasívka + truhlica z bossa = evolúcia.
 - Bossovia sú v `data/enemies.json` (`"boss": true`), do vĺn sa pridávajú cez `"bosses"` v `data/stages.json`.

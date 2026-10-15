@@ -17,6 +17,7 @@ var radius := 6.0
 var xp := 1.0
 var knockback_resist := 0.0
 var dead := false
+var is_prop := false
 var manager: EnemyManager
 
 var _shape := "sock"
@@ -76,6 +77,10 @@ func _draw() -> void:
 	match _shape:
 		"dust":
 			_draw_dust(body)
+		"box":
+			_draw_box(body)
+		"plant":
+			_draw_plant(body)
 		_:
 			_draw_sock(body)
 
@@ -110,3 +115,23 @@ func _draw_dust(body: Color) -> void:
 	for e: Vector2 in [Vector2(-2, -1), Vector2(2, -1)]:
 		draw_circle(e, 1.8, Color.WHITE)
 		draw_rect(Rect2(e + Vector2(0, -0.5), Vector2(1, 1)), OUTLINE)
+
+
+func _draw_box(body: Color) -> void:
+	var r := Rect2(-8, -9, 16, 15)
+	draw_rect(r, body)
+	draw_rect(Rect2(-8, -9, 16, 4), body.darkened(0.15))
+	draw_rect(Rect2(-1.5, -9, 3, 15), _accent)
+	draw_rect(r, OUTLINE, false, 1.0)
+	draw_line(Vector2(-8, -5), Vector2(8, -5), OUTLINE, 1.0)
+
+
+func _draw_plant(body: Color) -> void:
+	for leaf: Vector2 in [Vector2(-6, -12), Vector2(0, -15), Vector2(6, -12), Vector2(-3, -9), Vector2(3, -9)]:
+		var pts := PackedVector2Array([Vector2(0, -4), leaf + Vector2(-2, 1), leaf, leaf + Vector2(2, 1)])
+		draw_colored_polygon(pts, _accent)
+		draw_polyline(Shapes.closed(pts), OUTLINE, 1.0)
+	var pot := PackedVector2Array([Vector2(-6, -5), Vector2(6, -5), Vector2(4, 6), Vector2(-4, 6)])
+	draw_colored_polygon(pot, body)
+	draw_rect(Rect2(-7, -6, 14, 3), body.lightened(0.15))
+	draw_polyline(Shapes.closed(pot), OUTLINE, 1.0)

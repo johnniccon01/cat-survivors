@@ -1,82 +1,190 @@
 {
   "SCRATCH": {
-    "name": "Škrabanec",
-    "description": "Škrabne do strany, kam sa mačka pozerá. Prechádza cez nepriateľov.",
     "script": "res://scripts/weapons/scratch.gd",
     "rarity": 100,
     "levels": [
-      { "damage": 10, "interval": 1.2, "repeat_interval": 0.12, "amount": 1, "area": 1.0, "knockback": 1.0 },
-      { "amount": 1 },
-      { "damage": 5 },
-      { "damage": 5, "area": 0.1 },
-      { "damage": 5 },
-      { "damage": 5, "area": 0.1 },
-      { "damage": 5 },
-      { "damage": 5 }
+      {
+        "damage": 10,
+        "interval": 1.2,
+        "repeat_interval": 0.12,
+        "amount": 1,
+        "area": 1.0,
+        "knockback": 1.0
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 5
+      },
+      {
+        "damage": 5,
+        "area": 0.1
+      },
+      {
+        "damage": 5
+      },
+      {
+        "damage": 5,
+        "area": 0.1
+      },
+      {
+        "damage": 5
+      },
+      {
+        "damage": 5
+      }
     ]
   },
   "YARN": {
-    "name": "Klbko vlny",
-    "description": "Hodí klbko na najbližšieho nepriateľa.",
     "script": "res://scripts/weapons/yarn.gd",
     "rarity": 100,
     "levels": [
-      { "damage": 10, "interval": 1.2, "repeat_interval": 0.1, "amount": 1, "speed": 200, "pierce": 1, "area": 1.0, "knockback": 0.6, "duration": 1.5 },
-      { "amount": 1 },
-      { "interval": -0.2 },
-      { "amount": 1 },
-      { "damage": 10 },
-      { "amount": 1 },
-      { "pierce": 1 },
-      { "damage": 10 }
+      {
+        "damage": 10,
+        "interval": 1.2,
+        "repeat_interval": 0.1,
+        "amount": 1,
+        "speed": 200,
+        "pierce": 1,
+        "area": 1.0,
+        "knockback": 0.6,
+        "duration": 1.5
+      },
+      {
+        "amount": 1
+      },
+      {
+        "interval": -0.2
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 10
+      },
+      {
+        "amount": 1
+      },
+      {
+        "pierce": 1
+      },
+      {
+        "damage": 10
+      }
     ]
   },
   "HAIRBALL": {
-    "name": "Chlpáč",
-    "description": "Vyvrhne chlpatú guľu, ktorá letí oblúkom a prerazí viac nepriateľov.",
     "script": "res://scripts/weapons/hairball.gd",
     "rarity": 90,
     "levels": [
-      { "damage": 20, "interval": 2.2, "repeat_interval": 0.15, "amount": 1, "speed": 1.0, "pierce": 3, "area": 1.0, "knockback": 1.0, "duration": 3.0 },
-      { "amount": 1 },
-      { "damage": 10 },
-      { "pierce": 2 },
-      { "amount": 1 },
-      { "damage": 10 },
-      { "pierce": 2 },
-      { "damage": 10 }
+      {
+        "damage": 20,
+        "interval": 2.2,
+        "repeat_interval": 0.15,
+        "amount": 1,
+        "speed": 1.0,
+        "pierce": 3,
+        "area": 1.0,
+        "knockback": 1.0,
+        "duration": 3.0
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 10
+      },
+      {
+        "pierce": 2
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 10
+      },
+      {
+        "pierce": 2
+      },
+      {
+        "damage": 10
+      }
     ]
   },
   "CATNIP": {
-    "name": "Šanta",
-    "description": "Omamná aura okolo mačky zraňuje blízkych nepriateľov.",
     "script": "res://scripts/weapons/catnip.gd",
     "rarity": 80,
     "levels": [
-      { "damage": 5, "interval": 1.0, "area": 1.0, "knockback": 0.3 },
-      { "area": 0.2, "damage": 2 },
-      { "damage": 3 },
-      { "interval": -0.1, "area": 0.1 },
-      { "damage": 3 },
-      { "area": 0.2 },
-      { "interval": -0.1 },
-      { "damage": 5 }
+      {
+        "damage": 5,
+        "interval": 1.0,
+        "area": 1.0,
+        "knockback": 0.3
+      },
+      {
+        "area": 0.2,
+        "damage": 2
+      },
+      {
+        "damage": 3
+      },
+      {
+        "interval": -0.1,
+        "area": 0.1
+      },
+      {
+        "damage": 3
+      },
+      {
+        "area": 0.2
+      },
+      {
+        "interval": -0.1
+      },
+      {
+        "damage": 5
+      }
     ]
   },
   "FISHBONES": {
-    "name": "Rybie kosti",
-    "description": "Rybie kosti krúžia okolo mačky.",
     "script": "res://scripts/weapons/fishbones.gd",
     "rarity": 80,
     "levels": [
-      { "damage": 10, "interval": 4.0, "amount": 1, "speed": 1.0, "area": 1.0, "duration": 3.0, "knockback": 0.8 },
-      { "amount": 1 },
-      { "speed": 0.3, "area": 0.25 },
-      { "duration": 0.5, "damage": 10 },
-      { "amount": 1 },
-      { "speed": 0.3, "area": 0.25 },
-      { "duration": 0.5, "damage": 10 },
-      { "amount": 1 }
+      {
+        "damage": 10,
+        "interval": 4.0,
+        "amount": 1,
+        "speed": 1.0,
+        "area": 1.0,
+        "duration": 3.0,
+        "knockback": 0.8
+      },
+      {
+        "amount": 1
+      },
+      {
+        "speed": 0.3,
+        "area": 0.25
+      },
+      {
+        "duration": 0.5,
+        "damage": 10
+      },
+      {
+        "amount": 1
+      },
+      {
+        "speed": 0.3,
+        "area": 0.25
+      },
+      {
+        "duration": 0.5,
+        "damage": 10
+      },
+      {
+        "amount": 1
+      }
     ]
   }
 }

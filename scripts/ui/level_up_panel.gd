@@ -42,7 +42,7 @@ func _ready() -> void:
 
 func open(level: int, offers: Array[Dictionary]) -> void:
 	_offers = offers
-	_title.text = "Level %d!" % level
+	_title.text = tr("LEVEL_UP_TITLE") % level
 	for child in _cards.get_children():
 		child.queue_free()
 	for i in offers.size():
@@ -103,7 +103,7 @@ func _make_card(index: int, offer: Dictionary) -> Button:
 	content.add_child(name_label)
 
 	var kind := _label(14, Color("b9a8c9"))
-	kind.text = {"weapon": "Zbraň", "passive": "Vylepšenie", "heal": "Jedlo"}[offer["kind"]]
+	kind.text = "KIND_" + String(offer["kind"]).to_upper()
 	content.add_child(kind)
 
 	var desc := _label(16, Color("eee6f3"))

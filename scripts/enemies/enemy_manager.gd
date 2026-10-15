@@ -6,6 +6,7 @@ extends Node2D
 ## Must stay at the world origin (enemy positions are treated as global).
 
 signal enemy_killed(enemy_id: String, pos: Vector2, xp: float)
+signal prop_broken(prop_id: String, pos: Vector2)
 
 const CELL := 24.0
 const MAX_ENEMIES := 500
@@ -14,6 +15,8 @@ const SEPARATION := 6.0
 
 var player: Player
 var enemies: Array[Enemy] = []
+## Breakable boxes and plants: static, hit by weapons, ignored by targeting.
+var props: Array[Enemy] = []
 ## Enemies further than this from the player get moved back in front of them.
 var relocate_distance := 600.0
 var spawn_radius := 400.0
@@ -38,10 +41,25 @@ func spawn(id: String, pos: Vector2, hp_mult: float = 1.0) -> Enemy:
 	return enemy
 
 
+func spawn_prop(id: String, pos: Vector2) -> Enemy:
+	var prop := Enemy.new()
+	prop.setup(id, GameData.props[id], self)
+	prop.is_prop = true
+	prop.position = pos
+	add_child(prop)
+	props.append(prop)
+	return prop
+
+
 func on_enemy_dead(enemy: Enemy) -> void:
-	enemies.erase(enemy)
-	enemy_killed.emit(enemy.id, enemy.position, enemy.xp)
 	var poof := Poof.new()
+	if enemy.is_prop:
+		props.erase(enemy)
+		prop_broken.emit(enemy.id, enemy.position)
+		poof.color = Color("c8955a")
+	else:
+		enemies.erase(enemy)
+		enemy_killed.emit(enemy.id, enemy.position, enemy.xp)
 	poof.position = enemy.position
 	get_parent().add_child(poof)
 	enemy.queue_free()
@@ -60,6 +78,10 @@ func _physics_process(delta: float) -> void:
 		var reach := enemy.radius + Player.RADIUS
 		if not player.is_dead and enemy.position.distance_squared_to(target) < reach * reach:
 			player.take_damage(enemy.damage)
+	for i in range(props.size() - 1, -1, -1):
+		if props[i].position.distance_squared_to(target) > relocate_distance * relocate_distance * 2.0:
+			props[i].queue_free()
+			props.remove_at(i)
 
 
 func nearest(pos: Vector2, max_dist: float = INF) -> Enemy:
@@ -106,7 +128,7 @@ func _cell(pos: Vector2) -> Vector2i:
 
 func _rebuild_grid() -> void:
 	_grid.clear()
-	for enemy in enemies:
+	for enemy in enemies + props:
 		var c := _cell(enemy.position)
 		if not _grid.has(c):
 			_grid[c] = []

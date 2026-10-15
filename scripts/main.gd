@@ -7,10 +7,11 @@ extends Node2D
 ## BOT_DURATION seconds of game time (used for tests).
 
 const BOT_DURATION := 300.0
-const HEAL_DROP_CHANCE := 0.01
-const HEAL_DROP_AMOUNT := 20.0
+const HEART_DROP_CHANCE := 0.005
+const HEART_DROP_AMOUNT := 15.0
 
 var kills := 0
+var props_broken := 0
 
 var _bot := "--bot" in OS.get_cmdline_user_args()
 var _pending_level_ups := 0
@@ -28,6 +29,7 @@ func _ready() -> void:
 	pickups.player = player
 	spawner.setup(player, enemies)
 	enemies.enemy_killed.connect(_on_enemy_killed)
+	enemies.prop_broken.connect(_on_prop_broken)
 	player.died.connect(_on_player_died)
 	player.leveled_up.connect(_on_level_up)
 	player.xp_changed.connect(func() -> void: hud.update_xp(player))
@@ -53,14 +55,18 @@ func _process(_delta: float) -> void:
 		print("BOT: time=%.1f level=%d kills=%d hp=%.0f/%.0f enemies=%d dead=%s" % [
 			spawner.elapsed, player.level, kills, player.hp, player.max_hp,
 			enemies.enemies.size(), player.is_dead])
-		print("BOT: weapons=%s passives=%s" % [weapons, player.passives])
+		print("BOT: weapons=%s passives=%s props_broken=%d" % [weapons, player.passives, props_broken])
 		get_tree().quit()
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if _choosing:
 		return
-	if event.is_action_pressed("pause") and not player.is_dead:
+	if event.is_action_pressed("language") and get_tree().paused and not player.is_dead:
+		Settings.cycle_language()
+		hud.show_pause(true)
+		hud.update_inventory(player)
+	elif event.is_action_pressed("pause") and not player.is_dead:
 		get_tree().paused = not get_tree().paused
 		hud.show_pause(get_tree().paused)
 	elif event.is_action_pressed("restart") and player.is_dead:
@@ -71,8 +77,21 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_enemy_killed(_id: String, pos: Vector2, xp: float) -> void:
 	kills += 1
 	pickups.spawn_xp(pos, xp)
-	if randf() < HEAL_DROP_CHANCE:
-		pickups.spawn_heal(pos + Vector2(6, 0), HEAL_DROP_AMOUNT)
+	if randf() < HEART_DROP_CHANCE:
+		pickups.spawn_named("heart", pos + Vector2(6, 0), HEART_DROP_AMOUNT)
+
+
+func _on_prop_broken(_id: String, pos: Vector2) -> void:
+	props_broken += 1
+	var total := 0.0
+	for entry: Dictionary in GameData.loot:
+		total += float(entry["weight"])
+	var roll := randf() * total
+	for entry: Dictionary in GameData.loot:
+		roll -= float(entry["weight"])
+		if roll <= 0.0:
+			pickups.spawn_named(entry["kind"], pos, float(entry.get("value", 0.0)))
+			return
 
 
 func _on_level_up() -> void:

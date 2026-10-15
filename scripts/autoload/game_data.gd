@@ -7,11 +7,17 @@ var weapons: Dictionary = {}
 var passives: Dictionary = {}
 var enemies: Dictionary = {}
 var stages: Dictionary = {}
+var props: Dictionary = {}
+## Weighted drop table for broken props: [{kind, weight, value}]
+var loot: Array = []
 
 
 func _ready() -> void:
 	weapons = _load_json("res://data/weapons.json")
 	passives = _load_json("res://data/passives.json")
+	var props_file := _load_json("res://data/props.json")
+	props = props_file.get("props", {})
+	loot = props_file.get("loot", [])
 	enemies = _load_json("res://data/enemies.json")
 	stages = _load_json("res://data/stages.json")
 	_setup_input()
@@ -32,6 +38,7 @@ func _setup_input() -> void:
 	_add_keys("move_down", [KEY_S, KEY_DOWN])
 	_add_keys("pause", [KEY_ESCAPE, KEY_P])
 	_add_keys("restart", [KEY_R, KEY_ENTER])
+	_add_keys("language", [KEY_L])
 	_add_axis("move_left", JOY_AXIS_LEFT_X, -1.0)
 	_add_axis("move_right", JOY_AXIS_LEFT_X, 1.0)
 	_add_axis("move_up", JOY_AXIS_LEFT_Y, -1.0)

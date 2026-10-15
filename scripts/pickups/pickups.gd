@@ -28,8 +28,19 @@ func spawn_xp(pos: Vector2, value: float) -> void:
 	_spawn(Pickup.Kind.XP, pos, value)
 
 
-func spawn_heal(pos: Vector2, value: float) -> void:
-	_spawn(Pickup.Kind.HEAL, pos, value)
+## Spawns a pickup by its loot-table name: xp, heart, sardine or magnet.
+func spawn_named(kind_name: String, pos: Vector2, value: float) -> void:
+	match kind_name:
+		"xp":
+			spawn_xp(pos, value)
+		"heart":
+			_spawn(Pickup.Kind.HEART, pos, value)
+		"sardine":
+			_spawn(Pickup.Kind.SARDINE, pos, value)
+		"magnet":
+			_spawn(Pickup.Kind.MAGNET, pos, value)
+		_:
+			push_warning("Pickups: unknown kind %s" % kind_name)
 
 
 func _spawn(kind: Pickup.Kind, pos: Vector2, value: float) -> void:
@@ -67,6 +78,12 @@ func _collect(item: Pickup) -> void:
 		Pickup.Kind.XP:
 			_xp_count -= 1
 			player.add_xp(item.value)
-		Pickup.Kind.HEAL:
+		Pickup.Kind.HEART, Pickup.Kind.SARDINE:
 			player.heal(item.value)
+		Pickup.Kind.MAGNET:
+			# Pull every kibble on the map towards the cat.
+			for other in items:
+				if other.kind == Pickup.Kind.XP and not other.attracted:
+					other.attracted = true
+					other.speed = 0.0
 	item.queue_free()

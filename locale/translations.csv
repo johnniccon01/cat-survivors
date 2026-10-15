@@ -1,0 +1,53 @@
+keys,en,sk
+LANGUAGE_NAME,English,Slovenčina
+DECIMAL_SEP,.,","
+HUD_KILLS,Defeated: %d,Porazení: %d
+PAUSE_TITLE,PAUSED,PAUZA
+PAUSE_HINT,Esc – resume,Esc – pokračovať
+PAUSE_LANGUAGE,L – language: %s,L – jazyk: %s
+GAME_OVER_TITLE,Mica gave up!,Mica to zabalila!
+GAME_OVER_STATS,You survived %s and defeated %d enemies.,Prežila si %s a porazila %d nepriateľov.
+GAME_OVER_HINT,R / Enter – try again,R / Enter – skúsiť znova
+LEVEL_UP_TITLE,Level %d!,Level %d!
+TAG_NEW,NEW!,NOVÉ!
+TAG_LEVEL,Level %d,Úroveň %d
+KIND_WEAPON,Weapon,Zbraň
+KIND_PASSIVE,Upgrade,Vylepšenie
+KIND_HEAL,Food,Jedlo
+HEAL_NAME,Sardine,Sardinka
+HEAL_DESC,Restores %d health.,Doplní %d zdravia.
+STAT_DAMAGE,+%s damage,+%s poškodenie
+STAT_AMOUNT,+%s projectile,+%s projektil
+STAT_PIERCE,+%s pierce,+%s prieraz
+STAT_AREA,+%s%% area,+%s %% plocha
+STAT_SPEED,+%s%% speed,+%s %% rýchlosť
+STAT_DURATION,+%s%% duration,+%s %% trvanie
+STAT_INTERVAL,%s s cooldown,%s s cooldown
+WEAPON_SCRATCH_NAME,Scratch,Škrabanec
+WEAPON_SCRATCH_DESC,Swipes to the side the cat is facing. Passes through enemies.,"Škrabne do strany, kam sa mačka pozerá. Prechádza cez nepriateľov."
+WEAPON_YARN_NAME,Ball of Yarn,Klbko vlny
+WEAPON_YARN_DESC,Thrown at the nearest enemy.,Hodí klbko na najbližšieho nepriateľa.
+WEAPON_HAIRBALL_NAME,Hairball,Chlpáč
+WEAPON_HAIRBALL_DESC,Coughed up in an arc. Pierces several enemies.,"Vyvrhne chlpatú guľu, ktorá letí oblúkom a prerazí viac nepriateľov."
+WEAPON_CATNIP_NAME,Catnip,Šanta
+WEAPON_CATNIP_DESC,A dizzying aura that hurts nearby enemies.,Omamná aura okolo mačky zraňuje blízkych nepriateľov.
+WEAPON_FISHBONES_NAME,Fish Bones,Rybie kosti
+WEAPON_FISHBONES_DESC,Fish bones circle around the cat.,Rybie kosti krúžia okolo mačky.
+PASSIVE_MIGHT_NAME,Sharp Claws,Ostré pazúry
+PASSIVE_MIGHT_DESC,+10% damage for all weapons.,+10 % poškodenie všetkých zbraní.
+PASSIVE_SPEED_NAME,Quick Paws,Rýchle labky
+PASSIVE_SPEED_DESC,+10% movement speed.,+10 % rýchlosť pohybu.
+PASSIVE_MAXHP_NAME,Bowl of Milk,Miska mlieka
+PASSIVE_MAXHP_DESC,+20 max health.,+20 maximálne zdravie.
+PASSIVE_COOLDOWN_NAME,Catnap,Šlofík
+PASSIVE_COOLDOWN_DESC,Weapons attack 8% more often.,Zbrane útočia o 8 % častejšie.
+PASSIVE_AREA_NAME,Fluffy Tail,Huňatý chvost
+PASSIVE_AREA_DESC,+10% attack area.,+10 % plocha útokov.
+PASSIVE_MAGNET_NAME,Sensitive Whiskers,Citlivé fúzy
+PASSIVE_MAGNET_DESC,Pick up kibble from further away.,Granule priťahuješ z väčšej diaľky.
+PASSIVE_AMOUNT_NAME,Kittens,Mačiatka
+PASSIVE_AMOUNT_DESC,+1 projectile for all weapons.,+1 projektil pre všetky zbrane.
+PASSIVE_REGEN_NAME,Can of Tuna,Konzerva tuniaka
+PASSIVE_REGEN_DESC,Recovers 0.3 HP per second.,"Obnovuje 0,3 HP za sekundu."
+PASSIVE_ARMOR_NAME,Collar,Obojok
+PASSIVE_ARMOR_DESC,Take 1 less damage from every hit.,Každý zásah ťa zraní o 1 menej.

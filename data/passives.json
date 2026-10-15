@@ -1,56 +1,173 @@
 {
   "MIGHT": {
-    "name": "Ostré pazúry",
-    "description": "+10 % poškodenie všetkých zbraní.",
     "rarity": 100,
-    "levels": [{ "might": 0.1 }, { "might": 0.1 }, { "might": 0.1 }, { "might": 0.1 }, { "might": 0.1 }]
+    "levels": [
+      {
+        "might": 0.1
+      },
+      {
+        "might": 0.1
+      },
+      {
+        "might": 0.1
+      },
+      {
+        "might": 0.1
+      },
+      {
+        "might": 0.1
+      }
+    ]
   },
   "SPEED": {
-    "name": "Rýchle labky",
-    "description": "+10 % rýchlosť pohybu.",
     "rarity": 100,
-    "levels": [{ "speed": 0.1 }, { "speed": 0.1 }, { "speed": 0.1 }, { "speed": 0.1 }, { "speed": 0.1 }]
+    "levels": [
+      {
+        "speed": 0.1
+      },
+      {
+        "speed": 0.1
+      },
+      {
+        "speed": 0.1
+      },
+      {
+        "speed": 0.1
+      },
+      {
+        "speed": 0.1
+      }
+    ]
   },
   "MAXHP": {
-    "name": "Miska mlieka",
-    "description": "+20 maximálne zdravie.",
     "rarity": 100,
-    "levels": [{ "max_hp": 20 }, { "max_hp": 20 }, { "max_hp": 20 }, { "max_hp": 20 }, { "max_hp": 20 }]
+    "levels": [
+      {
+        "max_hp": 20
+      },
+      {
+        "max_hp": 20
+      },
+      {
+        "max_hp": 20
+      },
+      {
+        "max_hp": 20
+      },
+      {
+        "max_hp": 20
+      }
+    ]
   },
   "COOLDOWN": {
-    "name": "Šlofík",
-    "description": "Zbrane útočia o 8 % častejšie.",
     "rarity": 90,
-    "levels": [{ "cooldown": -0.08 }, { "cooldown": -0.08 }, { "cooldown": -0.08 }, { "cooldown": -0.08 }, { "cooldown": -0.08 }]
+    "levels": [
+      {
+        "cooldown": -0.08
+      },
+      {
+        "cooldown": -0.08
+      },
+      {
+        "cooldown": -0.08
+      },
+      {
+        "cooldown": -0.08
+      },
+      {
+        "cooldown": -0.08
+      }
+    ]
   },
   "AREA": {
-    "name": "Huňatý chvost",
-    "description": "+10 % plocha útokov.",
     "rarity": 90,
-    "levels": [{ "area": 0.1 }, { "area": 0.1 }, { "area": 0.1 }, { "area": 0.1 }, { "area": 0.1 }]
+    "levels": [
+      {
+        "area": 0.1
+      },
+      {
+        "area": 0.1
+      },
+      {
+        "area": 0.1
+      },
+      {
+        "area": 0.1
+      },
+      {
+        "area": 0.1
+      }
+    ]
   },
   "MAGNET": {
-    "name": "Citlivé fúzy",
-    "description": "Granule priťahuješ z väčšej diaľky.",
     "rarity": 80,
-    "levels": [{ "magnet": 20 }, { "magnet": 20 }, { "magnet": 20 }, { "magnet": 20 }, { "magnet": 20 }]
+    "levels": [
+      {
+        "magnet": 20
+      },
+      {
+        "magnet": 20
+      },
+      {
+        "magnet": 20
+      },
+      {
+        "magnet": 20
+      },
+      {
+        "magnet": 20
+      }
+    ]
   },
   "AMOUNT": {
-    "name": "Mačiatka",
-    "description": "+1 projektil pre všetky zbrane.",
     "rarity": 30,
-    "levels": [{ "amount": 1 }, { "amount": 1 }]
+    "levels": [
+      {
+        "amount": 1
+      },
+      {
+        "amount": 1
+      }
+    ]
   },
   "REGEN": {
-    "name": "Konzerva tuniaka",
-    "description": "Obnovuje 0,3 HP za sekundu.",
     "rarity": 80,
-    "levels": [{ "regen": 0.3 }, { "regen": 0.3 }, { "regen": 0.3 }, { "regen": 0.3 }, { "regen": 0.3 }]
+    "levels": [
+      {
+        "regen": 0.3
+      },
+      {
+        "regen": 0.3
+      },
+      {
+        "regen": 0.3
+      },
+      {
+        "regen": 0.3
+      },
+      {
+        "regen": 0.3
+      }
+    ]
   },
   "ARMOR": {
-    "name": "Obojok",
-    "description": "Každý zásah ťa zraní o 1 menej.",
     "rarity": 80,
-    "levels": [{ "armor": 1 }, { "armor": 1 }, { "armor": 1 }, { "armor": 1 }, { "armor": 1 }]
+    "levels": [
+      {
+        "armor": 1
+      },
+      {
+        "armor": 1
+      },
+      {
+        "armor": 1
+      },
+      {
+        "armor": 1
+      },
+      {
+        "armor": 1
+      }
+    ]
   }
 }

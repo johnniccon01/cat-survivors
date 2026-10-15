@@ -4,14 +4,15 @@ class_name Upgrades
 
 const HEAL_AMOUNT := 30.0
 
+## Translation key for each weapon stat shown in level-up descriptions.
 const STAT_TEXT := {
-	"damage": "+%s poškodenie",
-	"amount": "+%s projektil",
-	"pierce": "+%s prieraz",
-	"area": "+%s %% plocha",
-	"speed": "+%s %% rýchlosť",
-	"duration": "+%s %% trvanie",
-	"interval": "%s s cooldown",
+	"damage": "STAT_DAMAGE",
+	"amount": "STAT_AMOUNT",
+	"pierce": "STAT_PIERCE",
+	"area": "STAT_AREA",
+	"speed": "STAT_SPEED",
+	"duration": "STAT_DURATION",
+	"interval": "STAT_INTERVAL",
 }
 const PERCENT_STATS := ["area", "speed", "duration"]
 
@@ -57,33 +58,32 @@ static func apply(player: Player, offer: Dictionary) -> void:
 			player.heal(HEAL_AMOUNT)
 
 
+## Translated name of a weapon or passive.
+static func item_name(kind: String, id: String) -> String:
+	return _t("%s_%s_NAME" % [kind.to_upper(), id])
+
+
 static func title(offer: Dictionary) -> String:
-	match offer["kind"]:
-		"weapon":
-			return GameData.weapons[offer["id"]]["name"]
-		"passive":
-			return GameData.passives[offer["id"]]["name"]
-	return "Sardinka"
+	if offer["kind"] == "heal":
+		return _t("HEAL_NAME")
+	return item_name(offer["kind"], offer["id"])
 
 
 static func tag(offer: Dictionary) -> String:
 	if offer["kind"] == "heal":
 		return ""
 	if offer["level"] == 1:
-		return "NOVÉ!" if offer["kind"] == "weapon" else "NOVÉ"
-	return "Úroveň %d" % offer["level"]
+		return _t("TAG_NEW")
+	return _t("TAG_LEVEL") % offer["level"]
 
 
 static func description(offer: Dictionary) -> String:
-	match offer["kind"]:
-		"heal":
-			return "Doplní %d zdravia." % HEAL_AMOUNT
-		"passive":
-			return GameData.passives[offer["id"]]["description"]
-	var data: Dictionary = GameData.weapons[offer["id"]]
-	if offer["level"] == 1:
-		return data["description"]
-	var lv: Dictionary = data["levels"][offer["level"] - 1]
+	var kind: String = offer["kind"]
+	if kind == "heal":
+		return _t("HEAL_DESC") % HEAL_AMOUNT
+	if kind == "passive" or offer["level"] == 1:
+		return _t("%s_%s_DESC" % [kind.to_upper(), offer["id"]])
+	var lv: Dictionary = GameData.weapons[offer["id"]]["levels"][offer["level"] - 1]
 	var parts: Array[String] = []
 	for key: String in lv:
 		if not STAT_TEXT.has(key):
@@ -93,11 +93,15 @@ static func description(offer: Dictionary) -> String:
 		if key in PERCENT_STATS:
 			shown = str(roundi(value * 100.0))
 		elif key == "interval":
-			shown = ("%+.1f" % value).replace(".", ",")
+			shown = ("%+.1f" % value).replace(".", _t("DECIMAL_SEP"))
 		else:
 			shown = str(roundi(value))
-		parts.append(STAT_TEXT[key] % shown)
+		parts.append(_t(STAT_TEXT[key]) % shown)
 	return ", ".join(parts)
+
+
+static func _t(key: String) -> String:
+	return String(TranslationServer.translate(key))
 
 
 static func _weighted_pick(pool: Array[Dictionary]) -> int:

@@ -1,6 +1,8 @@
 {
   "LIVING_ROOM": {
-    "name": "Obývačka",
+    "props": ["BOX", "BOX", "PLANT"],
+    "max_props": 6,
+    "prop_interval": 4.0,
     "waves": [
       { "minute": 0,  "minimum": 4,   "interval": 2.0, "per_tick": 1, "enemies": ["SOCK"] },
       { "minute": 1,  "minimum": 10,  "interval": 1.5, "per_tick": 1, "enemies": ["SOCK", "DUST_BUNNY"] },

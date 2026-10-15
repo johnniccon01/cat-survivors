@@ -14,6 +14,7 @@ var _time_label: Label
 var _kills_label: Label
 var _debug_label: Label
 var _pause_overlay: Control
+var _pause_language: Label
 var _over_overlay: Control
 var _over_stats: Label
 
@@ -60,8 +61,9 @@ func _ready() -> void:
 	_debug_label.visible = OS.is_debug_build()
 	add_child(_debug_label)
 
-	_pause_overlay = _overlay(["PAUZA", "Esc – pokračovať"])
-	_over_overlay = _overlay(["Mica to zabalila!", "", "R / Enter – skúsiť znova"])
+	_pause_overlay = _overlay(["PAUSE_TITLE", "PAUSE_HINT", ""])
+	_pause_language = _pause_overlay.get_node("Box").get_child(2)
+	_over_overlay = _overlay(["GAME_OVER_TITLE", "", "GAME_OVER_HINT"])
 	_over_stats = _over_overlay.get_node("Box").get_child(1)
 
 	level_up = LevelUpPanel.new()
@@ -77,27 +79,28 @@ func update_xp(player: Player) -> void:
 func update_inventory(player: Player) -> void:
 	var lines: Array[String] = []
 	for weapon: Weapon in player.weapons.get_children():
-		lines.append("%s %d" % [weapon.data["name"], weapon.level])
+		lines.append("%s %d" % [Upgrades.item_name("weapon", weapon.id), weapon.level])
 	if not player.passives.is_empty():
 		lines.append("")
 	for id: String in player.passives:
-		lines.append("%s %d" % [GameData.passives[id]["name"], player.passives[id]])
+		lines.append("%s %d" % [Upgrades.item_name("passive", id), player.passives[id]])
 	_inventory_label.text = "\n".join(lines)
 
 
 func update_stats(elapsed: float, kills: int, enemy_count: int) -> void:
 	_time_label.text = _format_time(elapsed)
-	_kills_label.text = "Porazení: %d" % kills
+	_kills_label.text = tr("HUD_KILLS") % kills
 	if _debug_label.visible:
-		_debug_label.text = "FPS %d · nepriatelia %d" % [Engine.get_frames_per_second(), enemy_count]
+		_debug_label.text = "FPS %d · enemies %d" % [Engine.get_frames_per_second(), enemy_count]
 
 
 func show_pause(on: bool) -> void:
+	_pause_language.text = tr("PAUSE_LANGUAGE") % tr("LANGUAGE_NAME")
 	_pause_overlay.visible = on
 
 
 func show_game_over(elapsed: float, kills: int) -> void:
-	_over_stats.text = "Prežila si %s a porazila %d nepriateľov." % [_format_time(elapsed), kills]
+	_over_stats.text = tr("GAME_OVER_STATS") % [_format_time(elapsed), kills]
 	_over_overlay.visible = true
 
 

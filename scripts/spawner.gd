@@ -13,6 +13,7 @@ var _player: Player
 var _enemies: EnemyManager
 var _stage: Dictionary
 var _timer := 0.0
+var _prop_timer := 1.0
 
 
 func setup(player: Player, enemies: EnemyManager) -> void:
@@ -35,6 +36,7 @@ func _physics_process(delta: float) -> void:
 	if _player == null or _player.is_dead:
 		return
 	elapsed += delta
+	_tick_props(delta)
 	_timer -= delta
 	if _timer > 0.0:
 		return
@@ -55,6 +57,19 @@ func _physics_process(delta: float) -> void:
 	for i in count:
 		var dir := Vector2.from_angle(randf() * TAU)
 		_enemies.spawn(pool.pick_random(), _player.position + dir * radius, hp_mult)
+
+
+## Keeps a few breakable props scattered around, just off screen.
+func _tick_props(delta: float) -> void:
+	_prop_timer -= delta
+	if _prop_timer > 0.0:
+		return
+	_prop_timer = float(_stage.get("prop_interval", 4.0))
+	var kinds: Array = _stage.get("props", [])
+	if kinds.is_empty() or _enemies.props.size() >= int(_stage.get("max_props", 6)):
+		return
+	var dir := Vector2.from_angle(randf() * TAU)
+	_enemies.spawn_prop(kinds.pick_random(), _player.position + dir * _spawn_radius() * randf_range(1.0, 1.5))
 
 
 func _spawn_radius() -> float:

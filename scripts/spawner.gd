@@ -8,9 +8,11 @@ extends Node
 ## Difficulty keeps up with the cat: enemy health grows with the cat's level
 ## and with the Curse power-up, which also brings more and faster enemies.
 ##
-## Pacing: a soft cap limits how many regular enemies are alive at once, and
-## calm periods (after a boss falls, plus a short lull every few minutes)
-## stop regular spawning so the player can breathe.
+## Pacing: a soft cap limits how many regular enemies are alive at once. The
+## cap is re-rolled every half minute or so inside a range that grows with
+## time, so the pressure ebbs and flows. Calm periods (after a boss falls,
+## plus a lull every few minutes) stop regular spawning. Spawn rate, lulls,
+## events and boss arrivals all get a little randomness so runs differ.
 
 signal boss_spawned(boss_id: String)
 signal stage_cleared
@@ -26,12 +28,14 @@ const ELITE_EVERY := 40.0
 const ELITE_HP := 8.0
 const RING_RADIUS := 240.0
 const SWARM_TIME := 7.0
-## Alive-enemy cap for regular spawns: starts here, grows per minute, tops out.
-const CAP_BASE := 170
-const CAP_PER_MINUTE := 5
-const CAP_MAX := 260
-const LULL_EVERY := 150.0
-const LULL_TIME := 10.0
+## Alive-enemy cap ranges by minute: [minute, low, high], interpolated.
+const CAP_RANGES := [[0, 70, 120], [5, 150, 200], [12, 250, 330], [17, 300, 400]]
+const CAP_REROLL := [30.0, 60.0]
+const LULL_EVERY := [120.0, 180.0]
+const LULL_TIME := [8.0, 14.0]
+const BOSS_DELAY := [0.0, 20.0]
+const EVENT_JITTER := 0.5
+const ELITE_EVERY_RANGE := [30.0, 50.0]
 
 @export var stage_id := "LIVING_ROOM"
 
@@ -49,7 +53,12 @@ var _prop_timer := 1.0
 var _elite_timer := ELITE_EVERY
 var _wave_minute := -1
 var _events_done := 0
-var _lull_timer := LULL_EVERY
+var _lull_timer := 150.0
+var _cap := 100
+var _cap_timer := 0.0
+var _events: Array = []
+var _pending_bosses: Array = []
+var _boss_timer := 0.0
 var _cleared := false
 
 
@@ -58,6 +67,13 @@ func setup(player: Player, enemies: EnemyManager) -> void:
 	_enemies = enemies
 	stage_id = Profile.selected_stage
 	_stage = GameData.stages[stage_id]
+	_lull_timer = randf_range(LULL_EVERY[0], LULL_EVERY[1])
+	# Every run shifts the timed events a little.
+	for ev: Dictionary in _stage.get("events", []):
+		var e := ev.duplicate()
+		e["minute"] = maxf(float(e["minute"]) + randf_range(-EVENT_JITTER, EVENT_JITTER), 0.5)
+		_events.append(e)
+	_events.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a["minute"] < b["minute"])
 
 
 func stage() -> Dictionary:
@@ -82,17 +98,35 @@ func calm_for(seconds: float) -> void:
 	calm = maxf(calm, seconds)
 
 
-## How many regular enemies may be alive right now.
+## How many regular enemies may be alive right now (re-rolled now and then).
 func alive_cap() -> int:
-	return mini(CAP_BASE + floori(elapsed / 60.0) * CAP_PER_MINUTE, CAP_MAX)
+	return _cap
+
+
+func _roll_cap() -> void:
+	var minute := elapsed / 60.0
+	var lo := float(CAP_RANGES[0][1])
+	var hi := float(CAP_RANGES[0][2])
+	for i in CAP_RANGES.size():
+		var r: Array = CAP_RANGES[i]
+		if minute >= r[0]:
+			lo = r[1]
+			hi = r[2]
+			if i + 1 < CAP_RANGES.size():
+				var nxt: Array = CAP_RANGES[i + 1]
+				var k: float = (minute - float(r[0])) / float(nxt[0] - r[0])
+				lo = lerpf(r[1], nxt[1], k)
+				hi = lerpf(r[2], nxt[2], k)
+	_cap = randi_range(roundi(lo), roundi(hi))
+	_cap_timer = randf_range(CAP_REROLL[0], CAP_REROLL[1])
 
 
 ## Jumps the clock (dev tool) without firing every skipped event at once.
 func skip_to(seconds: float) -> void:
 	elapsed = seconds
-	var events: Array = _stage.get("events", [])
-	while _events_done < events.size() and float(events[_events_done]["minute"]) * 60.0 <= elapsed:
+	while _events_done < _events.size() and float(_events[_events_done]["minute"]) * 60.0 <= elapsed:
 		_events_done += 1
+	_roll_cap()
 
 
 ## Health multiplier for enemies spawned right now.
@@ -120,10 +154,13 @@ func _physics_process(delta: float) -> void:
 	if paused:
 		return
 	_tick_props(delta)
+	_cap_timer -= delta
+	if _cap_timer <= 0.0:
+		_roll_cap()
 	_lull_timer -= delta
 	if _lull_timer <= 0.0:
-		_lull_timer = LULL_EVERY
-		calm_for(LULL_TIME)
+		_lull_timer = randf_range(LULL_EVERY[0], LULL_EVERY[1])
+		calm_for(randf_range(LULL_TIME[0], LULL_TIME[1]))
 	if calm > 0.0:
 		calm -= delta
 		return
@@ -132,20 +169,27 @@ func _physics_process(delta: float) -> void:
 	var radius := _spawn_radius()
 	if int(wave["minute"]) != _wave_minute:
 		_wave_minute = int(wave["minute"])
-		for boss_id: String in wave.get("bosses", []):
-			_spawn(boss_id, _player.position + Vector2.from_angle(randf() * TAU) * radius)
-			boss_spawned.emit(boss_id)
+		# Bosses arrive a little after their wave starts, not on the dot.
+		_pending_bosses.append_array(wave.get("bosses", []))
+		_boss_timer = randf_range(BOSS_DELAY[0], BOSS_DELAY[1])
+	if not _pending_bosses.is_empty():
+		_boss_timer -= delta
+		if _boss_timer <= 0.0:
+			for boss_id: String in _pending_bosses:
+				_spawn(boss_id, _player.position + Vector2.from_angle(randf() * TAU) * radius)
+				boss_spawned.emit(boss_id)
+			_pending_bosses.clear()
 	if elapsed >= ELITE_FROM:
 		_elite_timer -= delta
 		if _elite_timer <= 0.0:
-			_elite_timer = ELITE_EVERY
+			_elite_timer = randf_range(ELITE_EVERY_RANGE[0], ELITE_EVERY_RANGE[1])
 			var elite := _spawn((wave["enemies"] as Array).pick_random(), _player.position + Vector2.from_angle(randf() * TAU) * radius)
 			if elite != null:
 				elite.make_elite(ELITE_HP)
 	_timer -= delta
 	if _timer > 0.0:
 		return
-	_timer = float(wave["interval"]) / _player.stat("curse")
+	_timer = float(wave["interval"]) * randf_range(0.75, 1.25) / _player.stat("curse")
 	_enemies.spawn_radius = radius
 	_enemies.relocate_distance = radius * 1.5
 	# Top up to the wave's minimum at once, then trickle more in until the
@@ -171,10 +215,9 @@ func _spawn(id: String, pos: Vector2) -> Enemy:
 ## Timed events from the stage: "ring" surrounds the cat with a closing
 ## circle, "swarm" sends a pack charging straight across the screen.
 func _tick_events() -> void:
-	var events: Array = _stage.get("events", [])
-	if _events_done >= events.size():
+	if _events_done >= _events.size():
 		return
-	var ev: Dictionary = events[_events_done]
+	var ev: Dictionary = _events[_events_done]
 	if elapsed < float(ev["minute"]) * 60.0:
 		return
 	_events_done += 1

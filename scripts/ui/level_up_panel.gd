@@ -86,7 +86,7 @@ func _pick(index: int) -> void:
 
 func _make_card(index: int, offer: Dictionary) -> Button:
 	var card := Button.new()
-	card.custom_minimum_size = Vector2(260, 200)
+	card.custom_minimum_size = Vector2(260, 240)
 	card.focus_mode = Control.FOCUS_ALL
 	card.add_theme_stylebox_override("normal", _style(CARD_BORDER))
 	card.add_theme_stylebox_override("hover", _style(CARD_FOCUS))
@@ -108,6 +108,10 @@ func _make_card(index: int, offer: Dictionary) -> Button:
 	var tag := _label(16, CARD_FOCUS if offer["level"] == 1 else Color("b9a8c9"))
 	tag.text = "%d · %s" % [index + 1, Upgrades.tag(offer)] if Upgrades.tag(offer) != "" else str(index + 1)
 	content.add_child(tag)
+
+	var icon := IconView.new(offer["kind"] if offer["kind"] != "heal" else "passive", offer["id"], 44.0)
+	icon.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	content.add_child(icon)
 
 	var name_label := _label(24, Color.WHITE)
 	name_label.text = Upgrades.title(offer)

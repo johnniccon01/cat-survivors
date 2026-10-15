@@ -10,7 +10,7 @@ var treasure: TreasurePanel
 
 var _xp_fill: ColorRect
 var _level_label: Label
-var _inventory_label: Label
+var _inventory: InventoryBar
 var _time_label: Label
 var _kills_label: Label
 var _gold_label: Label
@@ -71,11 +71,8 @@ func _ready() -> void:
 	_gold_label.label_settings.font_color = Color("f2c14e")
 	add_child(_gold_label)
 
-	_inventory_label = _label(15, HORIZONTAL_ALIGNMENT_LEFT)
-	_inventory_label.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
-	_inventory_label.offset_top = 22
-	_inventory_label.offset_left = 12
-	add_child(_inventory_label)
+	_inventory = InventoryBar.new()
+	add_child(_inventory)
 
 	_debug_label = _label(14, HORIZONTAL_ALIGNMENT_LEFT)
 	_debug_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
@@ -198,14 +195,8 @@ func update_xp(player: Player) -> void:
 
 
 func update_inventory(player: Player) -> void:
-	var lines: Array[String] = []
-	for weapon: Weapon in player.weapons.get_children():
-		lines.append("%s %d" % [Upgrades.item_name("weapon", weapon.id), weapon.level])
-	if not player.passives.is_empty():
-		lines.append("")
-	for id: String in player.passives:
-		lines.append("%s %d" % [Upgrades.item_name("passive", id), player.passives[id]])
-	_inventory_label.text = "\n".join(lines)
+	_inventory.player = player
+	_inventory.refresh()
 
 
 func update_gold(amount: int, charms: int = 0) -> void:

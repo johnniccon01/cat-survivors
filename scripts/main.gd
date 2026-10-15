@@ -29,8 +29,9 @@ const VICTORY_GOLD := 150
 const DEATH_GOLD_KEPT := 0.5
 ## Cat flaps only open from this point of the run on.
 const EXTRACT_FROM := 180.0
-## A cat flap always opens at these minutes, even without a boss or quest.
-const FLAP_MINUTES := [5, 10, 15]
+## A cat flap always opens around these minutes (±30 s), even without a
+## boss or quest.
+const FLAP_MINUTES := [5.0, 10.0, 15.0]
 ## Quiet time after a boss falls.
 const BOSS_BREATHER := 12.0
 ## Charm drop chances.
@@ -63,6 +64,7 @@ var extraction: Extraction
 ## Charms picked up this run: only kept by escaping or winning.
 var run_charms: Array[String] = []
 var _flap_index := 0
+var _flap_times: Array[float] = []
 var chests_opened := 0
 
 var _args := OS.get_cmdline_user_args()
@@ -93,6 +95,8 @@ func _ready() -> void:
 		_catch_up.call_deferred(spawner.elapsed)
 	_bot_time += spawner.elapsed
 	night.setup(spawner, player)
+	for m: float in FLAP_MINUTES:
+		_flap_times.append(m * 60.0 + randf_range(-30.0, 30.0))
 	quests = QuestDirector.new()
 	add_child(quests)
 	quests.setup(self)
@@ -161,7 +165,7 @@ func _process(_delta: float) -> void:
 		_xp_seen = pickups.total_xp
 		_max_alive = maxi(_max_alive, enemies.enemies.size())
 	hud.update_quest(quests.active)
-	if _flap_index < FLAP_MINUTES.size() and spawner.elapsed >= FLAP_MINUTES[_flap_index] * 60.0:
+	if _flap_index < _flap_times.size() and spawner.elapsed >= _flap_times[_flap_index]:
 		_flap_index += 1
 		_open_extraction(true)
 	hud.update_extraction(extraction)

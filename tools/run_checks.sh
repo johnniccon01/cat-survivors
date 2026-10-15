@@ -50,7 +50,8 @@ run_one() {
   local entry="$1" name args out errors summary
   name="${entry%%|*}"
   args="${entry#*|}"
-  out=$(timeout 280 "$GODOT" --headless --path . -- $args 2>&1)
+  # Own log file, so test runs never push the player's logs out of the rotation.
+  out=$(timeout 280 "$GODOT" --headless --log-file "${TMPDIR:-/tmp}/catsurvivors_$name.log" --path . -- $args 2>&1)
   errors=$(echo "$out" | grep -E "SCRIPT ERROR|Parse Error|ERROR: " | grep -vE "resources still in use|ObjectDB instances leaked" | sort | uniq -c | head -5)
   summary=$(echo "$out" | grep -E "^(BOT|TEST): (time|weapons after|quests_done|active quest)" | tr '\n' ' ' | cut -c1-200)
   if [ -n "$errors" ]; then

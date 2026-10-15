@@ -90,10 +90,16 @@ static func describe(id: String) -> String:
 	return "%s – %s" % [TranslationServer.translate("RARITY_" + String(data["rarity"]).to_upper()), TranslationServer.translate("CHARM_%s_DESC" % id)]
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if not visible or not (event is InputEventKey or event is InputEventJoypadButton) or not event.is_pressed() or event.is_echo():
+## _input, not _unhandled_input: the panel must see keys before the GUI
+## focus of the screen behind it does.
+func _input(event: InputEvent) -> void:
+	if not visible or not (event is InputEventKey or event is InputEventJoypadButton):
 		return
+	# Swallow every key while open (releases too), so the menu behind can't
+	# react to it.
 	get_viewport().set_input_as_handled()
+	if not event.is_pressed() or event.is_echo():
+		return
 	if event.is_action_pressed("move_up") or event.is_action_pressed("ui_up"):
 		_index = (_index - 2 + _ids.size()) % _ids.size()
 	elif event.is_action_pressed("move_down") or event.is_action_pressed("ui_down"):

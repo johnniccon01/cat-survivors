@@ -100,6 +100,9 @@ func _add_button(text: String, action: Callable) -> void:
 
 func _open(panel: Control) -> void:
 	Audio.play("click", -6.0, 0.0)
+	# Otherwise the arrows and Enter would still drive the menu buttons hidden
+	# behind the panel (Enter could even press Quit).
+	get_viewport().gui_release_focus()
 	panel.call("open")
 
 

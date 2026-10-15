@@ -87,10 +87,16 @@ func _refresh() -> void:
 	_desc.text = tr("POWERUP_%s_DESC" % _ids[_index])
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if not visible or not (event is InputEventKey or event is InputEventJoypadButton) or not event.is_pressed() or event.is_echo():
+## _input, not _unhandled_input: the panel must see keys before the GUI
+## focus of the screen behind it does.
+func _input(event: InputEvent) -> void:
+	if not visible or not (event is InputEventKey or event is InputEventJoypadButton):
 		return
+	# Swallow every key while open (releases too), so the menu behind can't
+	# react to it.
 	get_viewport().set_input_as_handled()
+	if not event.is_pressed() or event.is_echo():
+		return
 	var cols := 2
 	if event.is_action_pressed("move_up") or event.is_action_pressed("ui_up"):
 		_index = (_index - cols + _ids.size()) % _ids.size()

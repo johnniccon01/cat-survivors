@@ -39,3 +39,7 @@ textures/canvas_textures/default_texture_filter=0
 [internationalization]
 
 locale/translations=PackedStringArray("res://locale/translations.en.translation", "res://locale/translations.sk.translation")
+
+[debug]
+
+file_logging/max_log_files=30

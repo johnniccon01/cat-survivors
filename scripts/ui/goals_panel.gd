@@ -65,11 +65,15 @@ func _row(id: String) -> Control:
 	return row
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if not visible or not event.is_pressed() or event.is_echo():
+## _input, not _unhandled_input: the panel must see keys before the GUI
+## focus of the screen behind it does.
+func _input(event: InputEvent) -> void:
+	if not visible or not (event is InputEventKey or event is InputEventJoypadButton):
+		return
+	get_viewport().set_input_as_handled()
+	if not event.is_pressed() or event.is_echo():
 		return
 	if event.is_action_pressed("goals") or event.is_action_pressed("pause"):
-		get_viewport().set_input_as_handled()
 		visible = false
 		closed.emit()
 

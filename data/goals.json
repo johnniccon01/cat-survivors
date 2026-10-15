@@ -1,0 +1,19 @@
+{
+  "FIRST_ESCAPE":  { "stats": ["escapes"], "target": 1, "reward": { "gold": 100 } },
+  "SOCK_HUNTER":   { "stats": ["kills:SOCK", "kills:SOCK_STRIPED", "kills:SOCK_KING"], "target": 1000, "reward": { "gold": 300 } },
+  "DUST_BUSTER":   { "stats": ["kills:DUST_BUNNY"], "target": 500, "reward": { "gold": 200 } },
+  "BUBBLE_POPPER": { "stats": ["kills:BUBBLE"], "target": 500, "reward": { "charm": "YARN_KNOT" } },
+  "RAT_CATCHER":   { "stats": ["kills:RAT", "kills:GIANT_RAT", "kills:RAT_KING"], "target": 1000, "reward": { "charm": "IRON_TAG" } },
+  "BOSS_SLAYER":   { "stats": ["bosses"], "target": 10, "reward": { "gold": 400 } },
+  "QUESTER":       { "stats": ["quests"], "target": 20, "reward": { "gold": 300 } },
+  "TRAP_MASTER":   { "stats": ["trap_kills"], "target": 200, "reward": { "charm": "CATNIP_LEAF" } },
+  "ESCAPE_ARTIST": { "stats": ["escapes"], "target": 10, "reward": { "charm": "LUCKY_BELL" } },
+  "STREAK_3":      { "stats": ["best_streak"], "target": 3, "reward": { "charm": "STAR_COLLAR" } },
+  "STREAK_5":      { "stats": ["best_streak"], "target": 5, "reward": { "charm": "NINTH_LIFE" } },
+  "SURVIVOR":      { "stats": ["best_minutes"], "target": 15, "reward": { "charm": "MILK_TOOTH" } },
+  "VACUUM_KING":   { "stats": ["wins:LIVING_ROOM"], "target": 1, "reward": { "charm": "TWIN_KITTEN" } },
+  "RAT_KING":      { "stats": ["wins:BASEMENT"], "target": 1, "reward": { "gold": 1000 } },
+  "CAT_LOVER":     { "stats": ["cats_unlocked"], "target": 6, "reward": { "gold": 1000 } },
+  "VETERAN":       { "stats": ["runs"], "target": 25, "reward": { "gold": 500 } },
+  "TEN_THOUSAND":  { "stats": ["kills"], "target": 10000, "reward": { "gold": 1000 } }
+}

@@ -231,7 +231,13 @@
         "enemy": "ROOMBA",
         "count": 40
       }
-    ]
+    ],
+    "traps": [
+      "MOUSETRAP",
+      "MOUSETRAP",
+      "STOVE"
+    ],
+    "max_traps": 5
   },
   "BASEMENT": {
     "theme": "basement",
@@ -430,6 +436,13 @@
         "enemy": "MOTH",
         "count": 70
       }
-    ]
+    ],
+    "traps": [
+      "MOUSETRAP",
+      "STEAM_PIPE",
+      "STEAM_PIPE",
+      "SPARK_PUDDLE"
+    ],
+    "max_traps": 6
   }
 }

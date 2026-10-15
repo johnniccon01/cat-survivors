@@ -59,6 +59,8 @@ var _cap_timer := 0.0
 var _events: Array = []
 var _pending_bosses: Array = []
 var _boss_timer := 0.0
+var _traps: Array[Trap] = []
+var _trap_timer := 2.0
 var _cleared := false
 
 
@@ -154,6 +156,7 @@ func _physics_process(delta: float) -> void:
 	if paused:
 		return
 	_tick_props(delta)
+	_tick_traps(delta)
 	_cap_timer -= delta
 	if _cap_timer <= 0.0:
 		_roll_cap()
@@ -235,6 +238,29 @@ func _tick_events() -> void:
 				if e != null:
 					e.charge(-from, SWARM_TIME)
 	event_started.emit(ev["type"])
+
+
+## Keeps a few traps around the cat (they stay put; far ones are removed).
+func _tick_traps(delta: float) -> void:
+	for i in range(_traps.size() - 1, -1, -1):
+		var t: Variant = _traps[i]
+		if not is_instance_valid(t):
+			_traps.remove_at(i)
+		elif (t as Trap).position.distance_to(_player.position) > _spawn_radius() * 2.5:
+			(t as Trap).queue_free()
+			_traps.remove_at(i)
+	_trap_timer -= delta
+	if _trap_timer > 0.0:
+		return
+	_trap_timer = randf_range(4.0, 8.0)
+	var kinds: Array = _stage.get("traps", [])
+	if kinds.is_empty() or _traps.size() >= int(_stage.get("max_traps", 5)):
+		return
+	var trap := Trap.new()
+	trap.position = _player.position + Vector2.from_angle(randf() * TAU) * _spawn_radius() * randf_range(0.9, 1.4)
+	trap.setup(kinds.pick_random(), get_parent())
+	get_parent().add_child(trap)
+	_traps.append(trap)
 
 
 ## Keeps a few breakable props scattered around, just off screen.

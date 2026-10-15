@@ -20,13 +20,14 @@ var _stage_ids: Array[String] = []
 var _stage_index := 0
 var _shop: ShopPanel
 var _charms: CharmPanel
+var _goals: GoalsPanel
 var _worn: Label
 var _gold: Label
 
 
 func _ready() -> void:
 	for arg: String in OS.get_cmdline_user_args():
-		if arg.begins_with("--") and arg not in ["--shop", "--charms"]:
+		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--goals"]:
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
 			return
 	for id: String in GameData.cats:
@@ -42,6 +43,8 @@ func _ready() -> void:
 		_shop.open()
 	if "--charms" in OS.get_cmdline_user_args():
 		_charms.open()
+	if "--goals" in OS.get_cmdline_user_args():
+		_goals.open()
 
 
 func _build() -> void:
@@ -105,6 +108,9 @@ func _build() -> void:
 	_charms = CharmPanel.new()
 	add_child(_charms)
 	_charms.closed.connect(_refresh)
+	_goals = GoalsPanel.new()
+	add_child(_goals)
+	_goals.closed.connect(_refresh)
 
 
 func _refresh() -> void:
@@ -138,7 +144,11 @@ func _refresh() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _shop.visible or _charms.visible:
+	if _shop.visible or _charms.visible or _goals.visible:
+		return
+	if event.is_action_pressed("goals"):
+		Audio.play("click", -6.0, 0.0)
+		_goals.open()
 		return
 	if event.is_action_pressed("shop"):
 		Audio.play("click", -6.0, 0.0)

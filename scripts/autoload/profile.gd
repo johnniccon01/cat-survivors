@@ -18,6 +18,9 @@ const CHARM_SLOTS := 3
 ## Gold given instead when you bring home a charm you already own.
 const DUPLICATE_CHARM_GOLD := 50
 var charms: Array[String] = []
+## Lifetime counters for long-term goals ("kills", "kills:SOCK", "escapes"...)
+var stats: Dictionary = {}
+var goals_done: Array[String] = []
 var equipped_charms: Array[String] = []
 var best_streak := 0
 ## Gold spent on power-ups (refunded in full on request).
@@ -41,6 +44,9 @@ func _ready() -> void:
 		streak = cfg.get_value("streak", "current", 0)
 		for id: String in cfg.get_value("charms", "owned", []):
 			charms.append(id)
+		stats = cfg.get_value("stats", "counters", {})
+		for id: String in cfg.get_value("stats", "goals_done", []):
+			goals_done.append(id)
 		for id: String in cfg.get_value("charms", "equipped", []):
 			equipped_charms.append(id)
 		best_streak = cfg.get_value("streak", "best", 0)
@@ -98,6 +104,25 @@ func clear_stage(stage_id: String) -> bool:
 	cleared_stages.append(stage_id)
 	save()
 	return true
+
+
+## Bumps a lifetime counter in memory (saved with the next save()).
+func add_stat(key: String, amount: int = 1) -> void:
+	stats[key] = int(stats.get(key, 0)) + amount
+
+
+func set_stat_max(key: String, value: int) -> void:
+	stats[key] = maxi(int(stats.get(key, 0)), value)
+
+
+## Counter value; a few are computed from other profile data.
+func get_stat(key: String) -> int:
+	match key:
+		"best_streak":
+			return best_streak
+		"cats_unlocked":
+			return unlocked.size()
+	return int(stats.get(key, 0))
 
 
 func has_charm(id: String) -> bool:
@@ -237,6 +262,8 @@ func save() -> void:
 	cfg.set_value("shop", "gold", gold)
 	cfg.set_value("streak", "current", streak)
 	cfg.set_value("charms", "owned", charms)
+	cfg.set_value("stats", "counters", stats)
+	cfg.set_value("stats", "goals_done", goals_done)
 	cfg.set_value("charms", "equipped", equipped_charms)
 	cfg.set_value("streak", "best", best_streak)
 	cfg.set_value("shop", "spent", spent)

@@ -127,7 +127,7 @@ QUEST_FRIDGE_FIND,Find the fridge,Nájdi chladničku
 QUEST_FRIDGE_OPEN,Stay by the fridge to open it,Zostaň pri chladničke a otvor ju
 QUEST_FRIDGE_FIGHT,Defeat the leftovers: %d left,Poraz zvyšky: zostáva %d
 SELECT_TITLE,Choose your cat,Vyber si mačku
-SELECT_HINT,← → cat · ↑ ↓ map · Enter start · U upgrades · C charms · L language · M sound,← → mačka · ↑ ↓ mapa · Enter štart · U vylepšenia · C prívesky · L jazyk · M zvuk
+SELECT_HINT,← → cat · ↑ ↓ map · Enter start · U upgrades · C charms · G goals · L language · M sound,← → mačka · ↑ ↓ mapa · Enter štart · U vylepšenia · C prívesky · G ciele · L jazyk · M zvuk
 SELECT_LOCKED,???,???
 GAME_OVER_MENU,Esc – change cat,Esc – zmeniť mačku
 QUEST_RESCUE_ESCORT,Walk %s to the safe cat bed,Odprevaď: %s do bezpečného pelechu
@@ -239,3 +239,42 @@ CHARM_NINTH_LIFE_DESC,Come back once after dying,Po smrti sa raz vrátiš
 CHARM_TWIN_KITTEN_NAME,Twin Kitten,Mačacie dvojča
 CHARM_TWIN_KITTEN_DESC,+1 projectile for all weapons,+1 projektil pre všetky zbrane
 BREATHER,Boss down – catch your breath!,Boss porazený – vydýchni si!
+GOALS_TITLE,Goals,Ciele
+GOALS_HINT,G / Esc – back,G / Esc – späť
+GOAL_DONE,Goal complete: %s! (%s),Cieľ splnený: %s! (%s)
+GOAL_REWARD_GOLD,%d gold,%d zlata
+GOAL_REWARD_CHARM,Charm: %s,Prívesok: %s
+GOAL_FIRST_ESCAPE_NAME,First Escape,Prvý útek
+GOAL_FIRST_ESCAPE_DESC,Escape through a cat flap,Uteč mačacími dvierkami
+GOAL_SOCK_HUNTER_NAME,Sock Hunter,Lovec ponožiek
+GOAL_SOCK_HUNTER_DESC,Defeat 1000 socks,Poraz 1000 ponožiek
+GOAL_DUST_BUSTER_NAME,Dust Buster,Vysávač prachu
+GOAL_DUST_BUSTER_DESC,Defeat 500 dust bunnies,Poraz 500 chumáčov prachu
+GOAL_BUBBLE_POPPER_NAME,Bubble Popper,Prepichovač bublín
+GOAL_BUBBLE_POPPER_DESC,Pop 500 soap bubbles,Prasknúť 500 mydlových bublín
+GOAL_RAT_CATCHER_NAME,Rat Catcher,Lapač potkanov
+GOAL_RAT_CATCHER_DESC,Defeat 1000 rats,Poraz 1000 potkanov
+GOAL_BOSS_SLAYER_NAME,Boss Slayer,Premožiteľ bossov
+GOAL_BOSS_SLAYER_DESC,Defeat 10 bosses,Poraz 10 bossov
+GOAL_QUESTER_NAME,Busy Cat,Zaneprázdnená mačka
+GOAL_QUESTER_DESC,Complete 20 quests,Splň 20 questov
+GOAL_TRAP_MASTER_NAME,Trap Master,Majster pascí
+GOAL_TRAP_MASTER_DESC,Let traps defeat 200 enemies,Nechaj pasce poraziť 200 nepriateľov
+GOAL_ESCAPE_ARTIST_NAME,Escape Artist,Majster úniku
+GOAL_ESCAPE_ARTIST_DESC,Escape 10 times,Uteč 10-krát
+GOAL_STREAK_3_NAME,On a Roll,Na vlne
+GOAL_STREAK_3_DESC,Reach a streak of 3,Dosiahni sériu 3
+GOAL_STREAK_5_NAME,Unstoppable,Nezastaviteľná
+GOAL_STREAK_5_DESC,Reach a streak of 5,Dosiahni sériu 5
+GOAL_SURVIVOR_NAME,Survivor,Preživšia
+GOAL_SURVIVOR_DESC,Last 15 minutes in one night,Vydrž 15 minút v jednej noci
+GOAL_VACUUM_KING_NAME,Dethroned,Zosadený kráľ
+GOAL_VACUUM_KING_DESC,Defeat the Vacuum King,Poraz Kráľa vysávačov
+GOAL_RAT_KING_NAME,Pied Piper,Krysař
+GOAL_RAT_KING_DESC,Defeat the Rat King,Poraz Potkanieho kráľa
+GOAL_CAT_LOVER_NAME,Cat Lover,Milovník mačiek
+GOAL_CAT_LOVER_DESC,Unlock all 6 cats,Odomkni všetkých 6 mačiek
+GOAL_VETERAN_NAME,Veteran,Veterán
+GOAL_VETERAN_DESC,Play 25 nights,Odohraj 25 nocí
+GOAL_TEN_THOUSAND_NAME,Ten Thousand,Desaťtisíc
+GOAL_TEN_THOUSAND_DESC,Defeat 10000 enemies,Poraz 10000 nepriateľov

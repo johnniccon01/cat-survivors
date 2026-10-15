@@ -22,6 +22,13 @@ func _ready() -> void:
 	sb.set_content_margin_all(8)
 	_panel.add_theme_stylebox_override("panel", sb)
 	add_child(_panel)
+	_panel.visible = false
+	var hint := Label.new()
+	hint.text = "DEV: F1"
+	hint.position = Vector2(12, 690)
+	hint.add_theme_color_override("font_color", Color(0.9, 0.3, 0.3, 0.6))
+	hint.add_theme_font_size_override("font_size", 12)
+	add_child(hint)
 	var box := VBoxContainer.new()
 	_panel.add_child(box)
 	var title := Label.new()

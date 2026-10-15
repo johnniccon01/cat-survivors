@@ -1,0 +1,155 @@
+class_name Trap
+extends Node2D
+## A household hazard that hurts enemies and the cat alike, so it can be
+## used tactically: lure enemies over it, keep your own paws off it.
+##
+## Types (data/traps.json):
+##   snap  – a mousetrap: snaps on whatever steps in, then re-arms
+##   pulse – a zone that switches on and off (hot stove, sparking puddle)
+##   jet   – a steam pipe that blasts a line in front of it now and then
+
+const OUTLINE := Color("2b1d14")
+
+var id := ""
+var data: Dictionary
+var main: Node
+
+var _type := "snap"
+var _active := true
+var _timer := 0.0
+var _tick := 0.0
+var _dir := Vector2.RIGHT
+var _t := 0.0
+var _flash := 0.0
+
+
+func _init() -> void:
+	process_mode = Node.PROCESS_MODE_PAUSABLE
+	z_index = -3
+
+
+func setup(p_id: String, p_main: Node) -> void:
+	id = p_id
+	main = p_main
+	data = GameData.traps[id]
+	_type = data["type"]
+	_dir = Vector2.from_angle(randi_range(0, 3) * PI * 0.5)
+	# Stagger timers so traps don't all fire in sync.
+	_active = _type == "snap"
+	_timer = randf_range(0.0, float(data.get("off", 2.0)))
+
+
+func _physics_process(delta: float) -> void:
+	_t += delta
+	_flash = maxf(_flash - delta, 0.0)
+	match _type:
+		"snap":
+			_tick_snap(delta)
+		_:
+			_tick_cycle(delta)
+	queue_redraw()
+
+
+func _tick_snap(delta: float) -> void:
+	if not _active:
+		_timer -= delta
+		if _timer <= 0.0:
+			_active = true
+		return
+	var r := float(data["radius"])
+	var victims: Array[Enemy] = main.enemies.query_radius(position, r)
+	var cat_in: bool = position.distance_to(main.player.position) < r + Player.RADIUS
+	if victims.is_empty() and not cat_in:
+		return
+	_active = false
+	_flash = 0.2
+	_timer = float(data["rearm"])
+	Audio.play("hit", -4.0, 0.0)
+	for e in victims:
+		_hurt(e)
+	if cat_in:
+		main.player.take_damage(float(data["player_damage"]))
+
+
+func _tick_cycle(delta: float) -> void:
+	_timer -= delta
+	if _timer <= 0.0:
+		_active = not _active
+		_timer = float(data["on"] if _active else data["off"])
+		_tick = 0.0
+	if not _active:
+		return
+	_tick -= delta
+	if _tick > 0.0:
+		return
+	_tick = float(data["tick"])
+	var victims: Array[Enemy]
+	var cat_hit := false
+	if _type == "jet":
+		var to := position + _dir * float(data["length"])
+		var w := float(data["width"])
+		victims = main.enemies.query_segment(position, to, w)
+		var p: Vector2 = main.player.position
+		cat_hit = Geometry2D.get_closest_point_to_segment(p, position, to).distance_to(p) < w + Player.RADIUS
+	else:
+		var r := float(data["radius"])
+		victims = main.enemies.query_radius(position, r)
+		cat_hit = position.distance_to(main.player.position) < r + Player.RADIUS
+	for e in victims:
+		_hurt(e)
+	if cat_hit:
+		main.player.take_damage(float(data["player_damage"]))
+
+
+func _hurt(e: Enemy) -> void:
+	e.hit(float(data["damage"]), e.position - position, 0.6)
+	if e.dead:
+		Profile.add_stat("trap_kills")
+
+
+func _draw() -> void:
+	match id:
+		"MOUSETRAP":
+			draw_rect(Rect2(-8, -5, 16, 10), OUTLINE)
+			draw_rect(Rect2(-7, -4, 14, 8), Color("c9a26a"))
+			draw_rect(Rect2(-1, -4, 2, 8), Color("9aa0a6"))
+			if _active:
+				draw_line(Vector2(-6, -3), Vector2(-6, 3), Color("9aa0a6"), 1.0)
+				draw_rect(Rect2(3, -1, 3, 2), Color("f2d14e"))
+			else:
+				draw_line(Vector2(6, -3), Vector2(6, 3), Color("9aa0a6"), 2.0)
+			if _flash > 0.0:
+				draw_circle(Vector2.ZERO, 12.0, Color(1, 1, 1, _flash * 2.0))
+		"STOVE":
+			var r := float(data["radius"])
+			draw_rect(Rect2(-r - 4, -r - 4, (r + 4) * 2, (r + 4) * 2), Color("3a3a40"))
+			draw_rect(Rect2(-r - 4, -r - 4, (r + 4) * 2, (r + 4) * 2), OUTLINE, false, 1.0)
+			var heat := Color("ff5a2a") if _active else Color("5a5a62")
+			for k in 3:
+				draw_arc(Vector2.ZERO, r * (0.4 + k * 0.25), 0.0, TAU, 24, heat, 2.0)
+			if _active:
+				draw_circle(Vector2.ZERO, r, Color(1.0, 0.35, 0.1, 0.18 + 0.08 * sin(_t * 12.0)))
+		"SPARK_PUDDLE":
+			var r := float(data["radius"])
+			draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, r, r * 0.7, 16), Color(0.35, 0.55, 0.75, 0.6))
+			if _active:
+				for k in 5:
+					var a := _t * 9.0 + k * 1.3
+					var p1 := Vector2.from_angle(a) * r * 0.6 * Vector2(1, 0.7)
+					var p2 := p1 + Vector2.from_angle(a + 1.5) * 8.0
+					draw_line(p1, p2, Color("fff26b"), 1.5)
+				draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, r, r * 0.7, 16), Color(1, 1, 0.5, 0.15))
+		"STEAM_PIPE":
+			var side := _dir.orthogonal()
+			draw_line(-_dir * 10.0, Vector2.ZERO, OUTLINE, 9.0)
+			draw_line(-_dir * 10.0, Vector2.ZERO, Color("8a9096"), 6.0)
+			draw_circle(Vector2.ZERO, 4.0, Color("5a5e62"))
+			if _active:
+				var length := float(data["length"])
+				for k in 6:
+					var d := fposmod(_t * 160.0 + k * length / 6.0, length)
+					var spread := d / length * float(data["width"])
+					draw_circle(_dir * d + side * sin(_t * 7.0 + k) * spread * 0.5, 3.0 + spread * 0.5, Color(1, 1, 1, 0.55 * (1.0 - d / length)))
+			elif _timer < 0.6:
+				# Hissing warning before it blows.
+				draw_circle(_dir * 6.0, 2.0, Color(1, 1, 1, 0.6))

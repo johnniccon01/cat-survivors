@@ -27,7 +27,7 @@ Godot_v4.6.2-stable_win64_console.exe --headless --path . -- --bot
 - `--cat=ID` – hrá za danú mačku bez odomknutia
 - `--stage=ID` – hrá danú mapu bez odomknutia (LIVING_ROOM, BASEMENT)
 - `--levels=N` – začne s N náhodnými vylepšeniami (test neskorej hry)
-- `--extract` – hneď otvorí mačacie dvierka; `--drop-charm` – hneď hodí prívesok
+- `--extract` – hneď otvorí mačacie dvierka; `--drop-charm` – hneď hodí prívesok; `--traps` – položí všetky pasce vedľa mačky
 
 Testovacie behy (`--bot`) nikdy neukladajú profil.
 
@@ -44,6 +44,8 @@ Testovacie behy (`--bot`) nikdy neukladajú profil.
 - Výzva: HP nepriateľov rastie s levelom mačky a s Kliatbou; elitní nepriatelia od 4. minúty; udalosti `events` (kruh, roj) v `data/stages.json`.
 - Koniec hry: smrť (polovica zlata, prívesky prepadnú, séria padá), útek mačacími dvierkami (`scripts/world/extraction.gd`, otvárajú sa po bossovi alebo queste) alebo víťazstvo. Séria dáva bonus k zlatu.
 - `data/charms.json` – prívesky na obojok (C vo výbere mačky, max 3 nasadené). Padajú z elít, bossov a questov; domov sa prinesú len útekom alebo víťazstvom.
+- `data/traps.json` + `scripts/world/trap.gd` – pasce (pasca na myši, sporák, iskriaca mláka, parná rúrka) zraňujú nepriateľov aj mačku; ktoré pasce má mapa, je v `data/stages.json`.
+- `data/goals.json` + `scripts/progression/goals.gd` – dlhodobé ciele (G vo výbere mačky) s odmenami; štatistiky sa ukladajú v profile.
 - `data/props.json` – rozbitné predmety (krabice, kvetináče) a čo z nich padá.
 - Evolúcie: v `data/weapons.json` má základná zbraň `"evolve": {"with": PASÍVKA, "into": EVOLÚCIA}`. Zbraň na max leveli + vlastnená pasívka + truhlica z bossa = evolúcia.
 - Bossovia sú v `data/enemies.json` (`"boss": true`), do vĺn sa pridávajú cez `"bosses"` v `data/stages.json`.

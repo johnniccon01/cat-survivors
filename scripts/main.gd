@@ -21,6 +21,7 @@ extends Node2D
 ##   --extract          open a cat flap right away
 ##   --drop-charm       drop a random charm next to the cat at the start
 ##   --catch-up         with --start-minute: level the cat like the dev panel's skip does
+##   --traps            place one of every trap next to the cat
 
 const HEART_DROP_CHANCE := 0.005
 const COIN_DROP_CHANCE := 0.015
@@ -65,6 +66,7 @@ var extraction: Extraction
 var run_charms: Array[String] = []
 var _flap_index := 0
 var _flap_times: Array[float] = []
+var _goal_check := 2.0
 var chests_opened := 0
 
 var _args := OS.get_cmdline_user_args()
@@ -103,6 +105,7 @@ func _ready() -> void:
 	quests.finished_quest.connect(func(ok: bool) -> void:
 		quests_done += int(ok)
 		if ok:
+			Profile.add_stat("quests")
 			_maybe_drop_charm(player.position + Vector2(16, 16), CHARM_CHANCE_QUEST)
 			_open_extraction())
 	var forced := _arg("--quest=", "")
@@ -143,6 +146,14 @@ func _ready() -> void:
 		var dev := DevPanel.new()
 		dev.main = self
 		add_child(dev)
+	if "--traps" in _args:
+		var i := 0
+		for trap_id: String in GameData.traps:
+			var trap := Trap.new()
+			trap.position = player.position + Vector2(-90 + i * 60, 50)
+			trap.setup(trap_id, self)
+			add_child(trap)
+			i += 1
 	if "--drop-charm" in _args:
 		_maybe_drop_charm.call_deferred(player.position + Vector2(20, 0), 1.0)
 	if "--extract" in _args:
@@ -156,7 +167,12 @@ func _ready() -> void:
 				player.add_weapon(id)
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	# Long-term goals can complete mid-run; announce them as they happen.
+	_goal_check -= delta
+	if _goal_check <= 0.0 and not _run_over:
+		_goal_check = 2.0
+		_announce_goals(Goals.check())
 	hud.update_stats(spawner.elapsed, kills, enemies.enemies.size())
 	hud.update_gold(floori(run_gold), run_charms.size())
 	if _bot:
@@ -226,6 +242,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 	kills += 1
+	Profile.add_stat("kills")
+	Profile.add_stat("kills:" + id)
 	pickups.spawn_xp(pos, xp)
 	if GameData.enemies[id].get("final", false):
 		bosses_killed += 1
@@ -233,6 +251,7 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 		return
 	if GameData.enemies[id].get("boss", false):
 		bosses_killed += 1
+		Profile.add_stat("bosses")
 		pickups.spawn_named("chest", pos, 0.0)
 		pickups.spawn_named("coin", pos + Vector2(14, 6), 25.0)
 		_maybe_drop_charm(pos + Vector2(-14, 6), CHARM_CHANCE_BOSS)
@@ -390,6 +409,12 @@ func _end_run(kind: String) -> void:
 	Audio.stop_music()
 	var mult := Profile.streak_multiplier()
 	var lines: Array[String] = []
+	Profile.add_stat("runs")
+	Profile.set_stat_max("best_minutes", floori(spawner.elapsed / 60.0))
+	if kind == "extract":
+		Profile.add_stat("escapes")
+	elif kind == "victory":
+		Profile.add_stat("wins:" + spawner.stage_id)
 	var gold := 0
 	match kind:
 		"death":
@@ -426,6 +451,8 @@ func _end_run(kind: String) -> void:
 		if refund > 0:
 			lines.append(tr("SUMMARY_CHARMS_DUPES") % refund)
 	Profile.add_gold(gold)
+	for id in Goals.check():
+		lines.append(tr("GOAL_DONE") % [tr("GOAL_%s_NAME" % id), Goals.reward_text(id)])
 	lines.append(tr("SUMMARY_TOTAL") % Profile.gold)
 	hud.show_summary(lines)
 
@@ -438,6 +465,12 @@ func _catch_up(seconds: float) -> void:
 	dev._skip(seconds)
 	spawner.skip_to(start)
 	dev.free()
+
+
+func _announce_goals(ids: Array[String]) -> void:
+	for id in ids:
+		hud.show_banner(tr("GOAL_DONE") % [tr("GOAL_%s_NAME" % id), Goals.reward_text(id)], 4.0)
+		Audio.play("quest_done", -2.0, 0.0)
 
 
 func _charm_names() -> String:

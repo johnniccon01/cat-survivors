@@ -30,7 +30,8 @@ Godot_v4.6.2-stable_win64_console.exe --headless --path . -- --bot
 - `data/props.json` – rozbitné predmety (krabice, kvetináče) a čo z nich padá.
 - Evolúcie: v `data/weapons.json` má základná zbraň `"evolve": {"with": PASÍVKA, "into": EVOLÚCIA}`. Zbraň na max leveli + vlastnená pasívka + truhlica z bossa = evolúcia.
 - Bossovia sú v `data/enemies.json` (`"boss": true`), do vĺn sa pridávajú cez `"bosses"` v `data/stages.json`.
-- `scripts/world/floor.gd` – podlaha a procedurálne dekorácie (koberce, svetlo, hračky).
+- `scripts/world/floor.gd` + `floor_chunk.gd` – mapa po kúskoch 320×320: miestnosti (obývačka, kuchyňa, spálňa), nábytok, lampy; každá hra má inú mapu.
+- `scripts/world/night.gd` – stmievanie počas hry a ranný úsvit.
 - `scripts/enemies/enemy_manager.gd` – pohyb, kolízie a vyhľadávanie všetkých nepriateľov cez priestorovú mriežku.
 - `scripts/weapons/weapon.gd` – základ zbraní (cooldown, dávky, levely zo `weapons.json`); konkrétne zbrane ho rozširujú.
 - `scripts/spawner.gd` – spawnovanie mimo obrazovky podľa `stages.json`.

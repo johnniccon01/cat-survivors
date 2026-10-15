@@ -122,6 +122,18 @@ func query_radius(center: Vector2, r: float) -> Array[Enemy]:
 	return result
 
 
+## Enemies touching the segment a-b thickened by `width` on each side.
+func query_segment(a: Vector2, b: Vector2, width: float) -> Array[Enemy]:
+	var result: Array[Enemy] = []
+	var bounds := Rect2(a, Vector2.ZERO).expand(b).grow(width)
+	for enemy in query_rect(bounds):
+		var closest := Geometry2D.get_closest_point_to_segment(enemy.position, a, b)
+		var reach := width + enemy.radius
+		if closest.distance_squared_to(enemy.position) <= reach * reach:
+			result.append(enemy)
+	return result
+
+
 func _cell(pos: Vector2) -> Vector2i:
 	return Vector2i(floori(pos.x / CELL), floori(pos.y / CELL))
 

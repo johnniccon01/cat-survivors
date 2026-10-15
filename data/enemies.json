@@ -73,7 +73,7 @@
     "scale": 2.5,
     "color": "#f2ead8",
     "accent": "#7b5cc4",
-    "hp": 200,
+    "hp": 350,
     "speed": 48,
     "damage": 10,
     "radius": 16,

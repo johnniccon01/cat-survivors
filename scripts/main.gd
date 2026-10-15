@@ -36,6 +36,7 @@ var _run_over := false
 @onready var pickups: Pickups = $Pickups
 @onready var spawner: Spawner = $Spawner
 @onready var hud: Hud = $HUD
+@onready var night: CanvasModulate = $Night
 
 
 func _ready() -> void:
@@ -43,6 +44,7 @@ func _ready() -> void:
 	pickups.player = player
 	spawner.setup(player, enemies)
 	spawner.elapsed = float(_arg("--start-minute=", "0")) * 60.0
+	night.setup(spawner, player)
 	enemies.enemy_killed.connect(_on_enemy_killed)
 	enemies.prop_broken.connect(_on_prop_broken)
 	pickups.chest_collected.connect(_queue_modal.bind("chest"))

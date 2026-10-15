@@ -282,5 +282,229 @@
         "knockback": 1.0
       }
     ]
+  },
+  "LASER": {
+    "script": "res://scripts/weapons/laser.gd",
+    "rarity": 90,
+    "evolve": {
+      "with": "AMOUNT",
+      "into": "DISCO_LASER"
+    },
+    "levels": [
+      {
+        "damage": 12,
+        "interval": 1.5,
+        "repeat_interval": 0.08,
+        "amount": 1,
+        "area": 1.0,
+        "knockback": 0.2
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 6
+      },
+      {
+        "interval": -0.2
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 6,
+        "area": 0.25
+      },
+      {
+        "interval": -0.2
+      },
+      {
+        "amount": 1
+      }
+    ]
+  },
+  "MILK": {
+    "script": "res://scripts/weapons/milk.gd",
+    "rarity": 80,
+    "evolve": {
+      "with": "MAXHP",
+      "into": "MILK_LAKE"
+    },
+    "levels": [
+      {
+        "damage": 6,
+        "interval": 3.0,
+        "repeat_interval": 0.2,
+        "amount": 1,
+        "area": 1.0,
+        "duration": 2.5,
+        "knockback": 0.0
+      },
+      {
+        "amount": 1
+      },
+      {
+        "area": 0.2
+      },
+      {
+        "damage": 4,
+        "duration": 0.5
+      },
+      {
+        "amount": 1
+      },
+      {
+        "area": 0.2
+      },
+      {
+        "damage": 4,
+        "duration": 0.5
+      },
+      {
+        "amount": 1
+      }
+    ]
+  },
+  "BELL": {
+    "script": "res://scripts/weapons/bell.gd",
+    "rarity": 80,
+    "evolve": {
+      "with": "ARMOR",
+      "into": "THUNDER_BELL"
+    },
+    "levels": [
+      {
+        "damage": 15,
+        "interval": 3.0,
+        "repeat_interval": 0.3,
+        "amount": 1,
+        "area": 1.0,
+        "knockback": 2.0
+      },
+      {
+        "damage": 5
+      },
+      {
+        "area": 0.2
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 10
+      },
+      {
+        "interval": -0.4
+      },
+      {
+        "area": 0.2
+      },
+      {
+        "damage": 10
+      }
+    ]
+  },
+  "FEATHER": {
+    "script": "res://scripts/weapons/feather.gd",
+    "rarity": 90,
+    "evolve": {
+      "with": "MAGNET",
+      "into": "PHOENIX_FEATHER"
+    },
+    "levels": [
+      {
+        "damage": 12,
+        "interval": 1.6,
+        "repeat_interval": 0.15,
+        "amount": 1,
+        "speed": 1.0,
+        "area": 1.0,
+        "knockback": 0.6,
+        "duration": 3.0
+      },
+      {
+        "damage": 6
+      },
+      {
+        "amount": 1
+      },
+      {
+        "speed": 0.25
+      },
+      {
+        "damage": 6
+      },
+      {
+        "amount": 1
+      },
+      {
+        "area": 0.25
+      },
+      {
+        "damage": 10
+      }
+    ]
+  },
+  "DISCO_LASER": {
+    "script": "res://scripts/weapons/laser.gd",
+    "evolved": true,
+    "rainbow": true,
+    "levels": [
+      {
+        "damage": 30,
+        "interval": 0.8,
+        "repeat_interval": 0.04,
+        "amount": 6,
+        "area": 1.6,
+        "knockback": 0.4
+      }
+    ]
+  },
+  "MILK_LAKE": {
+    "script": "res://scripts/weapons/milk.gd",
+    "evolved": true,
+    "levels": [
+      {
+        "damage": 16,
+        "interval": 2.2,
+        "repeat_interval": 0.1,
+        "amount": 4,
+        "area": 1.9,
+        "duration": 4.0,
+        "knockback": 0.0
+      }
+    ]
+  },
+  "THUNDER_BELL": {
+    "script": "res://scripts/weapons/bell.gd",
+    "evolved": true,
+    "thunder": true,
+    "levels": [
+      {
+        "damage": 45,
+        "interval": 2.0,
+        "repeat_interval": 0.25,
+        "amount": 2,
+        "area": 1.7,
+        "knockback": 3.0
+      }
+    ]
+  },
+  "PHOENIX_FEATHER": {
+    "script": "res://scripts/weapons/feather.gd",
+    "evolved": true,
+    "fire": true,
+    "levels": [
+      {
+        "damage": 30,
+        "interval": 1.1,
+        "repeat_interval": 0.1,
+        "amount": 4,
+        "speed": 1.3,
+        "area": 1.5,
+        "knockback": 0.8,
+        "duration": 3.0
+      }
+    ]
   }
 }

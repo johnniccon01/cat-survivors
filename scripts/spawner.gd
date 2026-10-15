@@ -29,6 +29,10 @@ func setup(player: Player, enemies: EnemyManager) -> void:
 	_stage = GameData.stages[stage_id]
 
 
+func duration_minutes() -> float:
+	return float(_stage.get("duration_minutes", 30))
+
+
 func current_wave() -> Dictionary:
 	var minute := floori(elapsed / 60.0)
 	var waves: Array = _stage["waves"]
@@ -45,7 +49,7 @@ func _physics_process(delta: float) -> void:
 	if _cleared:
 		return
 	elapsed += delta
-	if elapsed >= float(_stage.get("duration_minutes", 30)) * 60.0:
+	if elapsed >= duration_minutes() * 60.0:
 		_cleared = true
 		stage_cleared.emit()
 		return

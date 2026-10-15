@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="5_spawner"]
 [ext_resource type="Script" path="res://scripts/ui/hud.gd" id="6_hud"]
 [ext_resource type="Script" path="res://scripts/pickups/pickups.gd" id="7_pickups"]
+[ext_resource type="Script" path="res://scripts/world/night.gd" id="8_night"]
 
 [node name="Main" type="Node2D"]
 process_mode = 3
@@ -30,6 +31,9 @@ process_mode = 1
 [node name="Spawner" type="Node" parent="."]
 process_mode = 1
 script = ExtResource("5_spawner")
+
+[node name="Night" type="CanvasModulate" parent="."]
+script = ExtResource("8_night")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("6_hud")

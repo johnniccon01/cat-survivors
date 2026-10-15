@@ -70,3 +70,19 @@ WEAPON_BONE_CAROUSEL_NAME,Bone Carousel,Kostený kolotoč
 WEAPON_BONE_CAROUSEL_DESC,Evolved Fish Bones: six bones that never stop spinning.,"Evolúcia Rybích kostí: šesť kostí, ktoré sa točia bez prestávky."
 EVOLVE_HINT,Evolves with %s + a boss chest.,S pasívkou %s a truhlicou z bossa sa vyvinie.
 EVOLVE_PAIR,Can evolve %s.,Umožní evolúciu: %s.
+WEAPON_LASER_NAME,Laser Pointer,Laserové ukazovátko
+WEAPON_LASER_DESC,Fires a beam at a random enemy that hits everything in its path.,"Vystrelí lúč na náhodného nepriateľa, zasiahne všetko v ceste."
+WEAPON_MILK_NAME,Spilled Milk,Rozliate mlieko
+WEAPON_MILK_DESC,Spills puddles that hurt enemies standing in them.,"Rozlieva mláky, ktoré zraňujú nepriateľov, čo v nich stoja."
+WEAPON_BELL_NAME,Bell,Zvonček
+WEAPON_BELL_DESC,Rings a shockwave that knocks enemies far back.,"Zazvoní a vyšle vlnu, ktorá nepriateľov odhodí ďaleko."
+WEAPON_FEATHER_NAME,Feather Toy,Pierková hračka
+WEAPON_FEATHER_DESC,Flies out like a boomerang and comes back.,Letí ako bumerang a vracia sa späť.
+WEAPON_DISCO_LASER_NAME,Disco Laser,Disko laser
+WEAPON_DISCO_LASER_DESC,Evolved Laser Pointer: a rainbow storm of beams.,Evolúcia ukazovátka: dúhová búrka lúčov.
+WEAPON_MILK_LAKE_NAME,Milk Lake,Mliečne jazero
+WEAPON_MILK_LAKE_DESC,Evolved Spilled Milk: huge lasting puddles everywhere.,"Evolúcia mlieka: obrovské mláky, ktoré dlho vydržia."
+WEAPON_THUNDER_BELL_NAME,Thunder Bell,Hromový zvon
+WEAPON_THUNDER_BELL_DESC,Evolved Bell: massive double shockwaves.,Evolúcia zvončeka: mohutné dvojité vlny.
+WEAPON_PHOENIX_FEATHER_NAME,Phoenix Feather,Fénixovo pero
+WEAPON_PHOENIX_FEATHER_DESC,Evolved Feather Toy: four blazing boomerangs.,Evolúcia pierka: štyri planúce bumerangy.

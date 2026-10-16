@@ -19,5 +19,11 @@
   "BIRD_WATCHER":  { "stats": ["kills:PIGEON", "kills:GULL", "kills:CROW", "kills:BIG_GULL", "kills:PIGEON_EMPEROR"], "target": 1000, "reward": { "gold": 400 } },
   "CAT_LOVER":     { "stats": ["cats_unlocked"], "target": 8, "reward": { "gold": 1000 } },
   "VETERAN":       { "stats": ["runs"], "target": 25, "reward": { "gold": 500 } },
-  "TEN_THOUSAND":  { "stats": ["kills"], "target": 10000, "reward": { "gold": 1000 } }
+  "TEN_THOUSAND":  { "stats": ["kills"], "target": 10000, "reward": { "gold": 1000 } },
+  "GNOME_TOPPLER": { "stats": ["kills:GNOME"], "target": 300, "reward": { "charm": "CLOVER_LEAF" } },
+  "WEB_WEAVER":    { "stats": ["kills:SPIDER", "kills:SPITTER_SPIDER", "kills:SPIDER_QUEEN"], "target": 500, "reward": { "charm": "SPIDER_SILK" } },
+  "FROG_PRINCE":   { "stats": ["kills:FROG"], "target": 200, "reward": { "gold": 400 } },
+  "STORM_CHASER":  { "stats": ["kills:DIVE_GULL", "kills:BIG_GULL"], "target": 200, "reward": { "charm": "WIND_FEATHER" } },
+  "NIGHT_OWL":     { "stats": ["best_minutes"], "target": 20, "reward": { "charm": "CRESCENT_MOON" } },
+  "BOSS_HUNTER":   { "stats": ["bosses"], "target": 50, "reward": { "charm": "GOLDEN_FANG" } }
 }

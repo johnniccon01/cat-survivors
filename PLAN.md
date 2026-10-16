@@ -52,7 +52,7 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 - [x] Nové zbrane: Myška na kľúčik, Pavučina, Kropič, Anténa (každú odomkne prejdenie mapy) + evolúcie, pasívy Dlhý spánok a Rýchly hod
 - [x] Nové správanie: prachový mrak sa rozpadá, pľujúci pavúk a žaba strieľajú, útočná čajka sa vrhá; bossovia privolávajú pomocníkov
 - [ ] Úplne noví bossovia (napr. jeden stredný boss na mapu s vlastným útokom)
-- [ ] Viac charmov a dlhodobých cieľov
+- [x] Viac charmov a cieľov: 5 nových charmov (štvorlístok, pavúčie vlákno, pierko vetra, polmesiac, zlatý tesák), 6 nových cieľov; zoznam cieľov sa dá posúvať
 - [ ] Bestiár / zbierka: prehľad nepriateľov, mačiek a zbraní, ktoré si už stretol
 - [ ] Nové režimy: nekonečná noc po víťazstve, výzvy s obmedzeniami
 

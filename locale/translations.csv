@@ -240,7 +240,7 @@ CHARM_TWIN_KITTEN_NAME,Twin Kitten,Mačacie dvojča
 CHARM_TWIN_KITTEN_DESC,+1 projectile for all weapons,+1 projektil pre všetky zbrane
 BREATHER,Boss down – catch your breath!,Boss porazený – vydýchni si!
 GOALS_TITLE,Goals,Ciele
-GOALS_HINT,G / Esc – back,G / Esc – späť
+GOALS_HINT,Arrows / wheel scroll · G / Esc – back,Šípky / koliesko posúvajú · G / Esc – späť
 GOAL_DONE,Goal complete: %s! (%s),Cieľ splnený: %s! (%s)
 GOAL_REWARD_GOLD,%d gold,%d zlata
 GOAL_REWARD_CHARM,Charm: %s,Prívesok: %s
@@ -358,3 +358,25 @@ PASSIVE_DURATION_DESC,+10% duration of weapon effects.,+10 % trvanie efektov zbr
 PASSIVE_PROJ_SPEED_NAME,Quick Toss,Rýchly hod
 PASSIVE_PROJ_SPEED_DESC,+10% projectile speed.,+10 % rýchlosť projektilov.
 SUMMARY_WEAPON_UNLOCKED,New weapon unlocked: %s,Nová zbraň odomknutá: %s
+CHARM_CLOVER_LEAF_NAME,Four-leaf Clover,Štvorlístok
+CHARM_CLOVER_LEAF_DESC,+12% luck,+12 % šťastie
+CHARM_SPIDER_SILK_NAME,Spider Silk,Pavúčie vlákno
+CHARM_SPIDER_SILK_DESC,+12% duration of weapon effects,+12 % trvanie efektov zbraní
+CHARM_WIND_FEATHER_NAME,Wind Feather,Pierko vetra
+CHARM_WIND_FEATHER_DESC,+15% projectile speed,+15 % rýchlosť projektilov
+CHARM_CRESCENT_MOON_NAME,Crescent Moon,Polmesiac
+CHARM_CRESCENT_MOON_DESC,+5% critical hit chance,+5 % šanca na kritický zásah
+CHARM_GOLDEN_FANG_NAME,Golden Fang,Zlatý tesák
+CHARM_GOLDEN_FANG_DESC,Critical hits deal +30% more,Kritické zásahy o 30 % silnejšie
+GOAL_GNOME_TOPPLER_NAME,Gnome Toppler,Kolkár
+GOAL_GNOME_TOPPLER_DESC,Defeat 300 garden gnomes,Poraz 300 záhradných trpaslíkov
+GOAL_WEB_WEAVER_NAME,Web Weaver,Tkáč sietí
+GOAL_WEB_WEAVER_DESC,Defeat 500 spiders,Poraz 500 pavúkov
+GOAL_FROG_PRINCE_NAME,Frog Prince,Žabí princ
+GOAL_FROG_PRINCE_DESC,Defeat 200 frogs,Poraz 200 žiab
+GOAL_STORM_CHASER_NAME,Storm Chaser,Lovec búrok
+GOAL_STORM_CHASER_DESC,Defeat 200 diving gulls,Poraz 200 útočných čajok
+GOAL_NIGHT_OWL_NAME,Night Owl,Nočná sova
+GOAL_NIGHT_OWL_DESC,Survive a whole night (20 minutes),Prežiť celú noc (20 minút)
+GOAL_BOSS_HUNTER_NAME,Boss Hunter,Lovec bossov
+GOAL_BOSS_HUNTER_DESC,Defeat 50 bosses,Poraz 50 bossov

@@ -11,5 +11,10 @@
   "STAR_COLLAR":  { "stat": "growth",   "value": 0.08, "rarity": "rare",   "color": "#8fd3ff" },
   "IRON_TAG":     { "stat": "armor",    "value": 1.0,  "rarity": "rare",   "color": "#9aa0a6" },
   "NINTH_LIFE":   { "stat": "revival",  "value": 1.0,  "rarity": "epic",   "color": "#c77dff" },
-  "TWIN_KITTEN":  { "stat": "amount",   "value": 1.0,  "rarity": "epic",   "color": "#ff9f43" }
+  "TWIN_KITTEN":  { "stat": "amount",   "value": 1.0,  "rarity": "epic",   "color": "#ff9f43" },
+  "CLOVER_LEAF":  { "stat": "luck",     "value": 0.12, "rarity": "common", "color": "#5ea84a" },
+  "SPIDER_SILK":  { "stat": "duration", "value": 0.12, "rarity": "common", "color": "#eef0f4" },
+  "WIND_FEATHER": { "stat": "proj_speed", "value": 0.15, "rarity": "common", "color": "#8fd3ff" },
+  "CRESCENT_MOON": { "stat": "crit_chance", "value": 0.05, "rarity": "rare", "color": "#f2e6a0" },
+  "GOLDEN_FANG":  { "stat": "crit_mult", "value": 0.3,  "rarity": "epic",   "color": "#f2a03a" }
 }

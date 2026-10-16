@@ -1,14 +1,18 @@
 class_name GoalsPanel
 extends ColorRect
-## List of long-term goals with progress and rewards. G / Esc closes.
+## List of long-term goals with progress and rewards. Arrows or the mouse
+## wheel scroll, G / Esc closes.
 
 signal closed
 
 const GOLD := Color("f2c14e")
 const DONE := Color("6cd48a")
 const OUTLINE := Color("2b1d14")
+const LIST_HEIGHT := 540.0
+const SCROLL_STEP := 54
 
 var _list: VBoxContainer
+var _scroll: ScrollContainer
 
 
 func _ready() -> void:
@@ -24,9 +28,13 @@ func _ready() -> void:
 	var title := _label(36, GOLD, HORIZONTAL_ALIGNMENT_CENTER)
 	title.text = "GOALS_TITLE"
 	box.add_child(title)
+	_scroll = ScrollContainer.new()
+	_scroll.custom_minimum_size = Vector2(1000, LIST_HEIGHT)
+	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	box.add_child(_scroll)
 	_list = VBoxContainer.new()
 	_list.add_theme_constant_override("separation", 3)
-	box.add_child(_list)
+	_scroll.add_child(_list)
 	var hint := _label(16, Color("8f7ea3"), HORIZONTAL_ALIGNMENT_CENTER)
 	hint.text = "GOALS_HINT"
 	box.add_child(hint)
@@ -37,6 +45,7 @@ func open() -> void:
 		child.queue_free()
 	for id: String in GameData.goals:
 		_list.add_child(_row(id))
+	_scroll.scroll_vertical = 0
 	visible = true
 
 
@@ -71,7 +80,16 @@ func _input(event: InputEvent) -> void:
 	if not visible or not (event is InputEventKey or event is InputEventJoypadButton):
 		return
 	get_viewport().set_input_as_handled()
-	if not event.is_pressed() or event.is_echo():
+	if not event.is_pressed():
+		return
+	# Holding an arrow keeps scrolling.
+	if event.is_action_pressed("move_down", true) or event.is_action_pressed("ui_down", true):
+		_scroll.scroll_vertical += SCROLL_STEP
+		return
+	if event.is_action_pressed("move_up", true) or event.is_action_pressed("ui_up", true):
+		_scroll.scroll_vertical -= SCROLL_STEP
+		return
+	if event.is_echo():
 		return
 	if event.is_action_pressed("goals") or event.is_action_pressed("pause"):
 		visible = false

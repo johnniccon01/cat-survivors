@@ -45,6 +45,15 @@ func _build() -> void:
 	bg.color = UiStyle.BG
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(bg)
+	# Night over the city (tools/gen_title.py), pixel-sharp at any size.
+	var art := TextureRect.new()
+	art.texture = load("res://assets/title.png")
+	art.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	art.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(art)
 
 	# A little parade of the cats you have unlocked, walking along the bottom.
 	var ids: Array = GameData.cats.keys().filter(func(id: String) -> bool: return not GameData.cats[id].get("hidden", false) or Profile.is_unlocked(id))

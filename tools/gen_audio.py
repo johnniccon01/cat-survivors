@@ -7,6 +7,7 @@ noise), so there are no third-party assets or licences involved.
 
 writes into assets/audio/. Re-run after tweaking anything below.
 """
+import sys
 import array
 import math
 import os
@@ -246,17 +247,27 @@ DRUM_HAT = hat()
 DRUM_OPEN = hat(True)
 
 
-def song(name, bpm, chords_a, mel_a, chords_b, mel_b, style="drive", lead_kind="square", lead_duty=0.25, drums=True, gain=1.1):
+def song(name, bpm, sections, order=("A", "B", "A+", "B+"), style="drive", lead_kind="square", lead_duty=0.25, drums=True, gain=1.1):
+    """`sections`: name -> (chords, melody). `order` lists the sections to
+    play; a "+" suffix adds the harmony voice, "~" is a breakdown (no drums,
+    long bass notes, quieter arpeggio)."""
     beat = 60.0 / bpm
     bar = beat * 4
-    parts = [(chords_a, mel_a, False), (chords_b, mel_b, False), (chords_a, mel_a, True), (chords_b, mel_b, True)]
+    for key, (chords, mel) in sections.items():
+        beats = sum(b for _, b in parse_melody(mel))
+        assert abs(beats - 4 * len(chords)) < 1e-6, "%s %s: %s beats for %d bars" % (name, key, beats, len(chords))
+    parts = []
+    for entry in order:
+        key = entry.rstrip("+~")
+        chords, mel = sections[key]
+        parts.append((chords, mel, "+" in entry, "~" in entry))
     bars_total = sum(len(p[0]) for p in parts)
     total = bars_total * bar
     lead = Track(total)
     back = Track(total)
     t0 = 0.0
     bar_index = 0
-    for chords, mel_text, harmony in parts:
+    for chords, mel_text, harmony, calm in parts:
         # --- accompaniment, bar by bar ---
         for ci, c in enumerate(chords):
             root, minor = parse_chord(c)
@@ -265,7 +276,10 @@ def song(name, bpm, chords_a, mel_a, chords_b, mel_b, style="drive", lead_kind="
             # Bass
             for k in range(8):
                 pos = bt + k * beat * 0.5
-                if style == "drive":
+                if calm:
+                    if k % 4 == 0:
+                        back.add(note(beat * 1.9, hz(36 + root), "tri", 0.3, release=0.2), pos)
+                elif style == "drive":
                     m = 36 + root + (12 if k % 2 else 0)
                     back.add(note(beat * 0.45, hz(m), "tri", 0.34, release=0.03), pos)
                 elif style == "gallop":
@@ -274,13 +288,14 @@ def song(name, bpm, chords_a, mel_a, chords_b, mel_b, style="drive", lead_kind="
                 elif k % 2 == 0:  # "bounce": root on beats, fifth on 2 and 4
                     m = 36 + root + (7 if k in (2, 6) else 0)
                     back.add(note(beat * 0.85, hz(m), "tri", 0.32, release=0.08), pos)
-            # 16th-note arpeggio across two octaves
+            # 16th-note arpeggio across two octaves (8ths, softer, in a breakdown)
             arp = [60 + tones[0], 60 + tones[1], 60 + tones[2], 72 + tones[0], 60 + tones[2], 60 + tones[1]]
-            for k in range(16):
+            steps = 8 if calm else 16
+            for k in range(steps):
                 m = arp[k % len(arp)] - (12 if style == "bounce" else 0)
-                back.add(note(beat * 0.2, hz(m), "square", 0.035, duty=0.125, release=0.02), bt + k * beat * 0.25)
+                back.add(note(beat * (0.4 if calm else 0.2), hz(m), "square", 0.025 if calm else 0.035, duty=0.125, release=0.02), bt + k * beat * (4.0 / steps))
             # Drums
-            if drums:
+            if drums and not calm:
                 is_fill = (bar_index + ci) % 4 == 3
                 for k in range(8):
                     pos = bt + k * beat * 0.5
@@ -291,6 +306,8 @@ def song(name, bpm, chords_a, mel_a, chords_b, mel_b, style="drive", lead_kind="
                     if is_fill and k >= 5:
                         back.add(DRUM_SNARE, pos + beat * 0.25)
                     back.add(DRUM_OPEN if (k == 7 and is_fill) else DRUM_HAT, pos)
+            elif drums and calm and ci % 2 == 1:
+                back.add(DRUM_OPEN, bt + beat * 3.5)
         # --- melody (+ echo, + harmony on repeats) ---
         t = t0
         for m, beats in parse_melody(mel_text):
@@ -311,85 +328,252 @@ def song(name, bpm, chords_a, mel_a, chords_b, mel_b, style="drive", lead_kind="
 
 
 # --- the songs ----------------------------------------------------------------
+#
+# Every map has a long day/evening track (A B, repeats, a calm bridge C, a
+# climax D, then home) and a night track that takes over half way through
+# the night. Final bosses and the devil have their own themes.
 
-def music():
+MAP_ORDER = ("A", "B", "A+", "B+", "C~", "C", "D", "D+", "A+", "B+")
+NIGHT_ORDER = ("A", "B", "A+", "B+", "C", "C+", "A+", "B+")
+
+
+def music(only=None):
+    def want(n):
+        return only is None or n in only
+
     # Apartment: bouncy C major, a hummable hook.
-    song("music_apartment", 132,
-         ["C", "G", "Am", "F", "C", "G", "F", "G"],
-         "E5:.5 G5:.5 C6:1 B5:.5 G5:.5 E5:1  D5:.5 G5:.5 B5:1 A5:.5 G5:.5 D5:1  "
-         "C5:.5 E5:.5 A5:1 G5:.5 E5:.5 C5:1  F5:1 E5:.5 D5:.5 C5:2  "
-         "E5:.5 G5:.5 C6:1 D6:.5 C6:.5 G5:1  B5:.5 D6:.5 G6:1 F6:.5 D6:.5 B5:1  "
-         "A5:1 G5:.5 F5:.5 E5:.5 F5:.5 G5:1  G5:3 R:1",
-         ["Am", "F", "C", "G", "Am", "F", "G", "G"],
-         "A5:1.5 G5:.5 E5:1 C5:1  F5:1.5 E5:.5 C5:1 A4:1  E5:.5 F5:.5 G5:1 C6:1 G5:1  "
-         "D5:.5 E5:.5 F5:.5 G5:.5 B5:2  A5:.5 B5:.5 C6:1 B5:.5 A5:.5 E5:1  "
-         "F5:.5 G5:.5 A5:1 G5:.5 F5:.5 C5:1  B4:.5 D5:.5 G5:1 F5:.5 D5:.5 B4:1  D5:2 G5:2",
-         style="bounce")
+    if want("music_apartment"):
+        song("music_apartment", 132, {
+            "A": (["C", "G", "Am", "F", "C", "G", "F", "G"],
+                  "E5:.5 G5:.5 C6:1 B5:.5 G5:.5 E5:1  D5:.5 G5:.5 B5:1 A5:.5 G5:.5 D5:1  "
+                  "C5:.5 E5:.5 A5:1 G5:.5 E5:.5 C5:1  F5:1 E5:.5 D5:.5 C5:2  "
+                  "E5:.5 G5:.5 C6:1 D6:.5 C6:.5 G5:1  B5:.5 D6:.5 G6:1 F6:.5 D6:.5 B5:1  "
+                  "A5:1 G5:.5 F5:.5 E5:.5 F5:.5 G5:1  G5:3 R:1"),
+            "B": (["Am", "F", "C", "G", "Am", "F", "G", "G"],
+                  "A5:1.5 G5:.5 E5:1 C5:1  F5:1.5 E5:.5 C5:1 A4:1  E5:.5 F5:.5 G5:1 C6:1 G5:1  "
+                  "D5:.5 E5:.5 F5:.5 G5:.5 B5:2  A5:.5 B5:.5 C6:1 B5:.5 A5:.5 E5:1  "
+                  "F5:.5 G5:.5 A5:1 G5:.5 F5:.5 C5:1  B4:.5 D5:.5 G5:1 F5:.5 D5:.5 B4:1  D5:2 G5:2"),
+            "C": (["F", "G", "Em", "Am", "F", "G", "C", "C"],
+                  "C5:2 E5:1 F5:1  G5:2 B4:1 D5:1  E5:1.5 D5:.5 B4:1 G4:1  A4:3 C5:1  "
+                  "F5:1 A5:1 C6:1 A5:1  G5:1 B5:1 D6:1 B5:1  C6:1 G5:1 E5:1 C5:1  C5:3 R:1"),
+            "D": (["C", "Em", "F", "G", "Am", "Em", "F", "G"],
+                  "G5:.5 A5:.5 G5:.5 E5:.5 C6:1 G5:1  B5:.5 C6:.5 B5:.5 G5:.5 E5:2  "
+                  "A5:.5 C6:.5 A5:.5 F5:.5 C5:1 F5:1  G5:.5 B5:.5 D6:.5 B5:.5 G5:2  "
+                  "E6:1 D6:.5 C6:.5 A5:1 C6:1  B5:1 G5:.5 E5:.5 B4:2  "
+                  "C6:.5 A5:.5 F5:.5 A5:.5 C6:1 F6:1  D6:1 B5:1 G5:2"),
+        }, MAP_ORDER, style="bounce")
 
     # Basement: dark A minor, driving octave bass.
-    song("music_basement", 116,
-         ["Am", "Am", "F", "G", "Am", "Am", "E", "E"],
-         "A4:.5 C5:.5 E5:.5 A5:1.5 G5:.5 E5:.5  F5:.5 E5:.5 D5:.5 C5:.5 B4:1 C5:1  "
-         "A4:.5 C5:.5 F5:.5 A5:1.5 G5:.5 F5:.5  G5:1 F5:.5 E5:.5 D5:2  "
-         "A4:.5 C5:.5 E5:.5 A5:1 B5:.5 C6:1  B5:.5 A5:.5 G5:.5 E5:.5 C5:2  "
-         "B4:.5 D5:.5 E5:.5 G#5:1 F5:.5 E5:1  E5:3 R:1",
-         ["Dm", "Dm", "Am", "Am", "F", "G", "E", "E"],
-         "D5:1 F5:1 A5:1.5 G5:.5  F5:.5 E5:.5 D5:1 A4:2  C5:1 E5:1 A5:1.5 B5:.5  "
-         "C6:.5 B5:.5 A5:1 E5:2  F5:.5 G5:.5 A5:1 C6:1 A5:1  B5:.5 A5:.5 G5:1 D5:2  "
-         "E5:.5 F5:.5 G#5:1 B5:1 G#5:1  E5:2 R:2",
-         style="drive")
+    if want("music_basement"):
+        song("music_basement", 116, {
+            "A": (["Am", "Am", "F", "G", "Am", "Am", "E", "E"],
+                  "A4:.5 C5:.5 E5:.5 A5:1.5 G5:.5 E5:.5  F5:.5 E5:.5 D5:.5 C5:.5 B4:1 C5:1  "
+                  "A4:.5 C5:.5 F5:.5 A5:1.5 G5:.5 F5:.5  G5:1 F5:.5 E5:.5 D5:2  "
+                  "A4:.5 C5:.5 E5:.5 A5:1 B5:.5 C6:1  B5:.5 A5:.5 G5:.5 E5:.5 C5:2  "
+                  "B4:.5 D5:.5 E5:.5 G#5:1 F5:.5 E5:1  E5:3 R:1"),
+            "B": (["Dm", "Dm", "Am", "Am", "F", "G", "E", "E"],
+                  "D5:1 F5:1 A5:1.5 G5:.5  F5:.5 E5:.5 D5:1 A4:2  C5:1 E5:1 A5:1.5 B5:.5  "
+                  "C6:.5 B5:.5 A5:1 E5:2  F5:.5 G5:.5 A5:1 C6:1 A5:1  B5:.5 A5:.5 G5:1 D5:2  "
+                  "E5:.5 F5:.5 G#5:1 B5:1 G#5:1  E5:2 R:2"),
+            "C": (["Am", "G", "F", "E", "Am", "G", "F", "E"],
+                  "E5:2 D5:1 C5:1  B4:2 C5:1 D5:1  C5:2 B4:1 A4:1  G#4:3 R:1  "
+                  "E5:1 F5:1 G5:1 A5:1  B5:2 G5:2  A5:1 G5:1 F5:1 E5:1  E5:3 R:1"),
+            "D": (["Dm", "E", "Am", "C", "Dm", "E", "Am", "Am"],
+                  "D5:.5 F5:.5 A5:.5 D6:.5 C6:1 A5:1  B5:.5 G#5:.5 E5:.5 B4:.5 E5:2  "
+                  "A5:.5 C6:.5 E6:1 D6:.5 C6:.5 A5:1  G5:.5 E5:.5 C5:.5 E5:.5 G5:2  "
+                  "F5:1 A5:1 D6:1 F6:1  E6:1 D6:.5 B5:.5 G#5:2  "
+                  "A5:.5 B5:.5 C6:.5 B5:.5 A5:1 E5:1  A5:3 R:1"),
+        }, MAP_ORDER, style="drive")
 
     # Garden: sunny F major, soft triangle "flute" lead.
-    song("music_garden", 124,
-         ["F", "C", "Dm", "Bb", "F", "C", "Bb", "C"],
-         "C5:.5 F5:.5 A5:1 G5:.5 F5:.5 C5:1  E5:.5 G5:.5 C6:1 Bb5:.5 G5:.5 E5:1  "
-         "D5:.5 F5:.5 A5:1 C6:.5 A5:.5 F5:1  D5:1 F5:1 Bb5:2  "
-         "A5:.5 C6:.5 A5:.5 F5:.5 G5:1 A5:1  G5:.5 E5:.5 C5:1 E5:.5 G5:.5 C6:1  "
-         "Bb5:.5 A5:.5 G5:.5 F5:.5 D5:1 F5:1  E5:1 G5:1 C5:2",
-         ["Dm", "Bb", "F", "C", "Dm", "Bb", "C", "C"],
-         "A5:1.5 F5:.5 D5:1 F5:1  Bb5:1.5 F5:.5 D5:1 Bb4:1  A5:.5 G5:.5 F5:1 C6:1 A5:1  "
-         "G5:3 R:1  D6:1 C6:.5 A5:.5 F5:1 A5:1  Bb5:1 A5:.5 F5:.5 D5:2  "
-         "C5:.5 E5:.5 G5:.5 Bb5:.5 C6:1 Bb5:1  G5:2 E5:2",
-         style="bounce", lead_kind="tri", lead_duty=0.5, gain=1.3)
+    if want("music_garden"):
+        song("music_garden", 124, {
+            "A": (["F", "C", "Dm", "Bb", "F", "C", "Bb", "C"],
+                  "C5:.5 F5:.5 A5:1 G5:.5 F5:.5 C5:1  E5:.5 G5:.5 C6:1 Bb5:.5 G5:.5 E5:1  "
+                  "D5:.5 F5:.5 A5:1 C6:.5 A5:.5 F5:1  D5:1 F5:1 Bb5:2  "
+                  "A5:.5 C6:.5 A5:.5 F5:.5 G5:1 A5:1  G5:.5 E5:.5 C5:1 E5:.5 G5:.5 C6:1  "
+                  "Bb5:.5 A5:.5 G5:.5 F5:.5 D5:1 F5:1  E5:1 G5:1 C5:2"),
+            "B": (["Dm", "Bb", "F", "C", "Dm", "Bb", "C", "C"],
+                  "A5:1.5 F5:.5 D5:1 F5:1  Bb5:1.5 F5:.5 D5:1 Bb4:1  A5:.5 G5:.5 F5:1 C6:1 A5:1  "
+                  "G5:3 R:1  D6:1 C6:.5 A5:.5 F5:1 A5:1  Bb5:1 A5:.5 F5:.5 D5:2  "
+                  "C5:.5 E5:.5 G5:.5 Bb5:.5 C6:1 Bb5:1  G5:2 E5:2"),
+            "C": (["Bb", "C", "Am", "Dm", "Bb", "C", "F", "F"],
+                  "D5:2 F5:1 Bb5:1  C6:2 G5:1 E5:1  C5:1.5 E5:.5 A5:2  F5:3 R:1  "
+                  "Bb5:1 A5:1 G5:1 F5:1  E5:1 G5:1 C6:2  A5:1 F5:1 C5:1 A4:1  F5:3 R:1"),
+            "D": (["F", "Am", "Bb", "C", "Dm", "Am", "Bb", "C"],
+                  "F5:.5 G5:.5 A5:.5 C6:.5 F6:1 C6:1  E6:.5 C6:.5 A5:.5 E5:.5 A5:2  "
+                  "D6:.5 C6:.5 Bb5:.5 F5:.5 D5:1 F5:1  E5:.5 G5:.5 C6:.5 G5:.5 E5:2  "
+                  "F5:1 A5:1 D6:1 A5:1  C6:1 A5:.5 E5:.5 C5:2  "
+                  "D5:.5 F5:.5 Bb5:.5 D6:.5 F6:1 D6:1  C6:1 Bb5:1 G5:2"),
+        }, MAP_ORDER, style="bounce", lead_kind="tri", lead_duty=0.5, gain=1.3)
 
     # Rooftop: epic night run, D minor, galloping bass.
-    song("music_rooftop", 146,
-         ["Dm", "Bb", "C", "A", "Dm", "Bb", "Gm", "A"],
-         "D5:.5 F5:.5 A5:.5 D6:1.5 C6:.5 A5:.5  Bb5:1 A5:.5 G5:.5 F5:1 D5:1  "
-         "E5:.5 G5:.5 C6:.5 E6:1.5 D6:.5 C6:.5  C#6:1 E6:1 A5:2  "
-         "D6:.5 C6:.5 A5:.5 F5:.5 D5:1 F5:1  G5:.5 F5:.5 D5:.5 Bb4:.5 D5:1 F5:1  "
-         "G5:.5 A5:.5 Bb5:1 A5:.5 G5:.5 D5:1  E5:.5 F5:.5 G5:.5 A5:.5 C#6:2",
-         ["Bb", "C", "Dm", "Dm", "Gm", "A", "Dm", "A"],
-         "F5:1 Bb5:1 D6:1.5 C6:.5  E5:1 G5:1 C6:1.5 Bb5:.5  A5:.5 D6:.5 F6:1 E6:.5 D6:.5 A5:1  "
-         "D6:3 R:1  G5:.5 Bb5:.5 D6:1 C6:.5 Bb5:.5 G5:1  A5:.5 C#6:.5 E6:1 D6:.5 C#6:.5 A5:1  "
-         "F5:.5 A5:.5 D6:1 F6:1 E6:1  C#6:2 A5:2",
-         style="gallop", lead_duty=0.5)
+    if want("music_rooftop"):
+        song("music_rooftop", 146, {
+            "A": (["Dm", "Bb", "C", "A", "Dm", "Bb", "Gm", "A"],
+                  "D5:.5 F5:.5 A5:.5 D6:1.5 C6:.5 A5:.5  Bb5:1 A5:.5 G5:.5 F5:1 D5:1  "
+                  "E5:.5 G5:.5 C6:.5 E6:1.5 D6:.5 C6:.5  C#6:1 E6:1 A5:2  "
+                  "D6:.5 C6:.5 A5:.5 F5:.5 D5:1 F5:1  G5:.5 F5:.5 D5:.5 Bb4:.5 D5:1 F5:1  "
+                  "G5:.5 A5:.5 Bb5:1 A5:.5 G5:.5 D5:1  E5:.5 F5:.5 G5:.5 A5:.5 C#6:2"),
+            "B": (["Bb", "C", "Dm", "Dm", "Gm", "A", "Dm", "A"],
+                  "F5:1 Bb5:1 D6:1.5 C6:.5  E5:1 G5:1 C6:1.5 Bb5:.5  A5:.5 D6:.5 F6:1 E6:.5 D6:.5 A5:1  "
+                  "D6:3 R:1  G5:.5 Bb5:.5 D6:1 C6:.5 Bb5:.5 G5:1  A5:.5 C#6:.5 E6:1 D6:.5 C#6:.5 A5:1  "
+                  "F5:.5 A5:.5 D6:1 F6:1 E6:1  C#6:2 A5:2"),
+            "C": (["Gm", "A", "Dm", "Bb", "Gm", "A", "Dm", "Dm"],
+                  "G5:2 Bb5:1 D6:1  C#6:2 A5:1 E5:1  F5:1.5 E5:.5 D5:2  F5:2 Bb5:2  "
+                  "G5:1 A5:1 Bb5:1 D6:1  E6:2 C#6:2  D6:1 A5:1 F5:1 D5:1  D5:3 R:1"),
+            "D": (["Dm", "C", "Bb", "A", "Dm", "C", "Bb", "A"],
+                  "A5:.5 D6:.5 F6:.5 D6:.5 A5:1 F5:1  G5:.5 C6:.5 E6:.5 C6:.5 G5:2  "
+                  "F5:.5 Bb5:.5 D6:.5 F6:.5 D6:1 Bb5:1  C#6:.5 E6:.5 A6:.5 E6:.5 C#6:2  "
+                  "D6:1 F6:1 E6:.5 D6:.5 C6:1  E6:1 C6:1 G5:2  "
+                  "F5:.5 G5:.5 A5:.5 Bb5:.5 D6:1 F6:1  E6:1 C#6:1 A5:2"),
+        }, MAP_ORDER, style="gallop", lead_duty=0.5)
 
-    # Final boss: fast E minor.
-    boss_a = ("E5:.5 E5:.5 G5:.5 E5:.5 B5:1 A5:1  G5:.5 G5:.5 E5:.5 G5:.5 C6:1 B5:1  "
-              "A5:.5 A5:.5 F#5:.5 A5:.5 D6:1 C6:1  B5:1 D#6:1 F#6:2  "
-              "E6:.5 D6:.5 B5:.5 G5:.5 E5:1 G5:1  C6:.5 B5:.5 G5:.5 E5:.5 C5:1 E5:1  "
-              "A5:.5 C6:.5 E6:1 D6:.5 C6:.5 A5:1  B5:.5 A5:.5 G5:.5 F#5:.5 D#5:2")
-    boss_b = ("E5:1 G5:1 B5:1 E6:1  C6:1 B5:.5 A5:.5 G5:2  D5:1 F#5:1 A5:1 D6:1  "
-              "B5:1 A5:.5 G5:.5 F#5:2  G5:.5 A5:.5 B5:1 E6:1 D6:1  C6:.5 B5:.5 A5:1 E5:2  "
-              "F#5:.5 G5:.5 A5:1 C6:1 A5:1  B5:2 B4:2")
-    song("music_boss", 160,
-         ["Em", "C", "D", "B", "Em", "C", "Am", "B"], boss_a,
-         ["Em", "C", "D", "B", "Em", "Am", "D", "B"], boss_b,
-         style="drive")
+    # --- night tracks: from half way through the night ---
+    if want("music_apartment_night"):
+        song("music_apartment_night", 138, {
+            "A": (["Am", "F", "C", "G", "Am", "F", "E", "E"],
+                  "A4:.5 C5:.5 E5:.5 A5:.5 G5:1 E5:1  F5:.5 A5:.5 C6:.5 A5:.5 F5:2  "
+                  "E5:.5 G5:.5 C6:.5 G5:.5 E5:1 C5:1  D5:.5 G5:.5 B5:.5 G5:.5 D5:2  "
+                  "A5:1 C6:1 B5:.5 A5:.5 E5:1  F5:1 A5:1 C6:2  "
+                  "B5:.5 G#5:.5 E5:.5 G#5:.5 B5:1 E6:1  E6:3 R:1"),
+            "B": (["F", "G", "Em", "Am", "F", "G", "E", "Am"],
+                  "C6:1.5 A5:.5 F5:1 A5:1  D6:1.5 B5:.5 G5:1 B5:1  E6:1 B5:1 G5:1 E5:1  A5:2 C6:2  "
+                  "F6:1 E6:.5 D6:.5 C6:1 A5:1  D6:1 C6:.5 B5:.5 G5:2  "
+                  "G#5:.5 B5:.5 E6:1 D6:.5 B5:.5 G#5:1  A5:3 R:1"),
+            "C": (["Dm", "Am", "F", "E", "Dm", "Am", "F", "E"],
+                  "D5:1 F5:1 A5:1 D6:1  C6:1 A5:1 E5:1 C5:1  F5:1 A5:1 C6:1 F6:1  E6:2 B5:2  "
+                  "D6:.5 C6:.5 A5:.5 F5:.5 D5:2  E5:.5 A5:.5 C6:.5 E6:.5 A5:2  "
+                  "F5:.5 A5:.5 C6:.5 F6:.5 E6:1 C6:1  B5:1 G#5:1 E5:2"),
+        }, NIGHT_ORDER, style="drive")
 
-    # Main menu: the apartment tune, calmer and without drums.
-    song("music_menu", 100,
-         ["C", "Am", "F", "G", "C", "Am", "F", "G"],
-         "E5:1 G5:1 C6:2  C6:1 A5:1 E5:2  F5:1 A5:1 C6:1.5 A5:.5  G5:4  "
-         "E5:1 G5:1 C6:1 D6:1  E6:1 C6:1 A5:2  F5:1 E5:.5 D5:.5 C5:1 D5:1  G4:4",
-         ["F", "G", "Em", "Am", "F", "G", "C", "C"],
-         "A5:1.5 G5:.5 F5:2  B5:1.5 A5:.5 G5:2  G5:1 E5:1 B4:2  C5:1 E5:1 A5:2  "
-         "A5:1 C6:1 F6:2  D6:1 B5:1 G5:2  E5:1 G5:1 C6:2  C6:4",
-         style="bounce", drums=False, lead_kind="tri", lead_duty=0.5, gain=1.3)
+    if want("music_basement_night"):
+        song("music_basement_night", 100, {
+            "A": (["Em", "Em", "C", "D", "Em", "Em", "B", "B"],
+                  "E4:1 G4:.5 B4:.5 E5:1 D5:1  B4:1 G4:1 E4:2  C5:1 E5:.5 G5:.5 C6:1 B5:1  "
+                  "A5:1 F#5:1 D5:2  E5:.5 G5:.5 B5:.5 E6:.5 D6:1 B5:1  G5:1 E5:1 B4:2  "
+                  "D#5:1 F#5:1 B5:1 A5:1  B5:3 R:1"),
+            "B": (["Am", "Am", "Em", "Em", "C", "D", "B", "B"],
+                  "A5:2 C6:1 B5:1  A5:1 E5:1 C5:2  B4:1 E5:1 G5:1 B5:1  E6:3 R:1  "
+                  "C6:1 G5:1 E5:1 C5:1  D5:1 F#5:1 A5:1 D6:1  D#6:1 B5:1 F#5:1 D#5:1  B4:3 R:1"),
+            "C": (["C", "D", "Em", "Em", "C", "D", "B", "Em"],
+                  "G5:.5 E5:.5 C5:.5 E5:.5 G5:1 C6:1  A5:.5 F#5:.5 D5:.5 F#5:.5 A5:2  "
+                  "B5:.5 G5:.5 E5:.5 G5:.5 B5:1 E6:1  D6:1 B5:1 G5:2  "
+                  "C6:1 E6:1 D6:.5 C6:.5 G5:1  A5:1 D6:1 F#5:2  "
+                  "D#6:.5 B5:.5 F#5:.5 B5:.5 D#6:1 F#6:1  E6:3 R:1"),
+        }, NIGHT_ORDER, style="drive", lead_duty=0.125)
+
+    if want("music_garden_night"):
+        song("music_garden_night", 118, {
+            "A": (["G", "D", "Em", "C", "G", "D", "C", "D"],
+                  "B4:.5 D5:.5 G5:1 F#5:.5 D5:.5 A4:1  A4:.5 D5:.5 F#5:1 E5:.5 D5:.5 A4:1  "
+                  "G4:.5 B4:.5 E5:1 D5:.5 B4:.5 G4:1  C5:1 E5:1 G5:2  "
+                  "B5:.5 A5:.5 G5:1 D5:1 B4:1  A4:.5 D5:.5 F#5:1 A5:2  "
+                  "G5:.5 E5:.5 C5:.5 E5:.5 G5:1 C6:1  A5:3 R:1"),
+            "B": (["Em", "C", "G", "D", "Em", "C", "D", "D"],
+                  "E5:1.5 G5:.5 B5:1 E6:1  C6:1.5 B5:.5 G5:1 E5:1  D5:1 G5:1 B5:1 D6:1  A5:2 F#5:2  "
+                  "G5:1 B5:1 E6:1 B5:1  C6:1 A5:.5 G5:.5 E5:2  F#5:.5 G5:.5 A5:1 D6:1 C6:1  A5:2 D5:2"),
+            "C": (["C", "G", "Am", "Em", "C", "G", "Am", "D"],
+                  "E5:2 G5:1 C6:1  B5:2 G5:1 D5:1  C5:1 E5:1 A5:1 C6:1  B5:3 R:1  "
+                  "E6:1 D6:.5 C6:.5 G5:1 E5:1  D6:1 B5:.5 G5:.5 D5:2  "
+                  "C6:.5 B5:.5 A5:.5 E5:.5 C5:1 E5:1  F#5:1 A5:1 D6:2"),
+        }, NIGHT_ORDER, style="bounce", lead_duty=0.5)
+
+    if want("music_rooftop_night"):
+        song("music_rooftop_night", 152, {
+            "A": (["Bm", "G", "A", "F#", "Bm", "G", "Em", "F#"],
+                  "B4:.5 D5:.5 F#5:.5 B5:1.5 A5:.5 F#5:.5  G5:1 F#5:.5 E5:.5 D5:1 B4:1  "
+                  "C#5:.5 E5:.5 A5:.5 C#6:1.5 B5:.5 A5:.5  A#5:1 C#6:1 F#5:2  "
+                  "B5:.5 A5:.5 F#5:.5 D5:.5 B4:1 D5:1  E5:.5 D5:.5 B4:.5 G4:.5 B4:1 D5:1  "
+                  "E5:.5 F#5:.5 G5:1 F#5:.5 E5:.5 B4:1  C#5:.5 D5:.5 E5:.5 F#5:.5 A#5:2"),
+            "B": (["G", "A", "Bm", "Bm", "Em", "F#", "Bm", "F#"],
+                  "D5:1 G5:1 B5:1.5 A5:.5  C#5:1 E5:1 A5:1.5 G5:.5  F#5:.5 B5:.5 D6:1 C#6:.5 B5:.5 F#5:1  "
+                  "B5:3 R:1  E5:.5 G5:.5 B5:1 A5:.5 G5:.5 E5:1  F#5:.5 A#5:.5 C#6:1 B5:.5 A#5:.5 F#5:1  "
+                  "D5:.5 F#5:.5 B5:1 D6:1 C#6:1  A#5:2 F#5:2"),
+            "C": (["Em", "F#", "G", "A", "Em", "F#", "Bm", "Bm"],
+                  "E5:2 G5:1 B5:1  A#5:2 F#5:1 C#5:1  D5:1.5 E5:.5 B5:2  C#6:2 A5:2  "
+                  "B5:1 E6:1 D6:1 B5:1  C#6:1 A#5:1 F#5:2  B5:1 F#5:1 D5:1 B4:1  B4:3 R:1"),
+        }, NIGHT_ORDER, style="gallop")
+
+    # --- final bosses ---
+    if want("music_boss"):
+        # The Vacuum King (and the default): fast E minor.
+        song("music_boss", 160, {
+            "A": (["Em", "C", "D", "B", "Em", "C", "Am", "B"],
+                  "E5:.5 E5:.5 G5:.5 E5:.5 B5:1 A5:1  G5:.5 G5:.5 E5:.5 G5:.5 C6:1 B5:1  "
+                  "A5:.5 A5:.5 F#5:.5 A5:.5 D6:1 C6:1  B5:1 D#6:1 F#6:2  "
+                  "E6:.5 D6:.5 B5:.5 G5:.5 E5:1 G5:1  C6:.5 B5:.5 G5:.5 E5:.5 C5:1 E5:1  "
+                  "A5:.5 C6:.5 E6:1 D6:.5 C6:.5 A5:1  B5:.5 A5:.5 G5:.5 F#5:.5 D#5:2"),
+            "B": (["Em", "C", "D", "B", "Em", "Am", "D", "B"],
+                  "E5:1 G5:1 B5:1 E6:1  C6:1 B5:.5 A5:.5 G5:2  D5:1 F#5:1 A5:1 D6:1  "
+                  "B5:1 A5:.5 G5:.5 F#5:2  G5:.5 A5:.5 B5:1 E6:1 D6:1  C6:.5 B5:.5 A5:1 E5:2  "
+                  "F#5:.5 G5:.5 A5:1 C6:1 A5:1  B5:2 B4:2"),
+        }, style="drive")
+
+    if want("music_boss_rat"):
+        song("music_boss_rat", 168, {
+            "A": (["Am", "F", "G", "E", "Am", "F", "Dm", "E"],
+                  "A5:.5 A5:.5 C6:.5 A5:.5 E6:1 C6:1  F5:.5 F5:.5 A5:.5 F5:.5 C6:1 A5:1  "
+                  "G5:.5 G5:.5 B5:.5 G5:.5 D6:1 B5:1  G#5:1 B5:1 E6:2  "
+                  "A5:.5 C6:.5 E6:.5 C6:.5 A5:1 E5:1  F5:.5 A5:.5 C6:.5 A5:.5 F5:1 C5:1  "
+                  "D5:.5 F5:.5 A5:.5 D6:.5 F6:1 D6:1  E6:1 D6:.5 B5:.5 G#5:2"),
+            "B": (["F", "G", "Am", "Am", "Dm", "E", "Am", "E"],
+                  "C6:1 A5:1 F5:1 C6:1  D6:1 B5:1 G5:1 D6:1  E6:1.5 D6:.5 C6:1 A5:1  E6:3 R:1  "
+                  "F6:1 D6:1 A5:1 F5:1  G#5:1 B5:1 D6:1 E6:1  C6:.5 B5:.5 A5:1 E5:1 A5:1  B5:2 G#5:2"),
+        }, style="drive")
+
+    if want("music_boss_mower"):
+        song("music_boss_mower", 164, {
+            "A": (["Cm", "Ab", "Bb", "G", "Cm", "Ab", "Fm", "G"],
+                  "C5:.5 Eb5:.5 G5:.5 C6:1.5 Bb5:.5 G5:.5  Ab5:1 G5:.5 F5:.5 Eb5:1 C5:1  "
+                  "D5:.5 F5:.5 Bb5:.5 D6:1.5 C6:.5 Bb5:.5  B5:1 D6:1 G5:2  "
+                  "C6:.5 Bb5:.5 G5:.5 Eb5:.5 C5:1 Eb5:1  F5:.5 Eb5:.5 C5:.5 Ab4:.5 C5:1 Eb5:1  "
+                  "F5:.5 G5:.5 Ab5:1 G5:.5 F5:.5 C5:1  D5:.5 Eb5:.5 F5:.5 G5:.5 B5:2"),
+            "B": (["Ab", "Bb", "Cm", "Cm", "Fm", "G", "Cm", "G"],
+                  "Eb5:1 Ab5:1 C6:1.5 Bb5:.5  D5:1 F5:1 Bb5:1.5 Ab5:.5  G5:.5 C6:.5 Eb6:1 D6:.5 C6:.5 G5:1  "
+                  "C6:3 R:1  F5:.5 Ab5:.5 C6:1 Bb5:.5 Ab5:.5 F5:1  G5:.5 B5:.5 D6:1 C6:.5 B5:.5 G5:1  "
+                  "Eb5:.5 G5:.5 C6:1 Eb6:1 D6:1  B5:2 G5:2"),
+        }, style="gallop", lead_duty=0.5)
+
+    if want("music_boss_bruno"):
+        song("music_boss_bruno", 172, {
+            "A": (["Gm", "Eb", "F", "D", "Gm", "Eb", "Cm", "D"],
+                  "G5:.5 G5:.5 Bb5:.5 G5:.5 D6:1 Bb5:1  Eb5:.5 Eb5:.5 G5:.5 Eb5:.5 Bb5:1 G5:1  "
+                  "F5:.5 F5:.5 A5:.5 F5:.5 C6:1 A5:1  F#5:1 A5:1 D6:2  "
+                  "G5:.5 Bb5:.5 D6:.5 Bb5:.5 G5:1 D5:1  Eb5:.5 G5:.5 Bb5:.5 G5:.5 Eb5:1 Bb4:1  "
+                  "C5:.5 Eb5:.5 G5:.5 C6:.5 Eb6:1 C6:1  D6:1 C6:.5 A5:.5 F#5:2"),
+            "B": (["Eb", "F", "Gm", "Gm", "Cm", "D", "Gm", "D"],
+                  "Bb5:1 G5:1 Eb5:1 Bb5:1  C6:1 A5:1 F5:1 C6:1  D6:1.5 C6:.5 Bb5:1 G5:1  D6:3 R:1  "
+                  "Eb6:1 C6:1 G5:1 Eb5:1  F#5:1 A5:1 C6:1 D6:1  Bb5:.5 A5:.5 G5:1 D5:1 G5:1  A5:2 F#5:2"),
+        }, style="drive", lead_duty=0.5)
+
+    if want("music_menu"):
+        # Main menu: the apartment tune, calmer and without drums.
+        song("music_menu", 100, {
+            "A": (["C", "Am", "F", "G", "C", "Am", "F", "G"],
+                  "E5:1 G5:1 C6:2  C6:1 A5:1 E5:2  F5:1 A5:1 C6:1.5 A5:.5  G5:4  "
+                  "E5:1 G5:1 C6:1 D6:1  E6:1 C6:1 A5:2  F5:1 E5:.5 D5:.5 C5:1 D5:1  G4:4"),
+            "B": (["F", "G", "Em", "Am", "F", "G", "C", "C"],
+                  "A5:1.5 G5:.5 F5:2  B5:1.5 A5:.5 G5:2  G5:1 E5:1 B4:2  C5:1 E5:1 A5:2  "
+                  "A5:1 C6:1 F6:2  D6:1 B5:1 G5:2  E5:1 G5:1 C6:2  C6:4"),
+        }, style="bounce", drums=False, lead_kind="tri", lead_duty=0.5, gain=1.3)
+
+    if want("music_devil"):
+        # Slow and heavy, a tritone at its heart.
+        song("music_devil", 84, {
+            "A": (["Cm", "Cm", "Gb", "Gb", "Cm", "Cm", "G", "G"],
+                  "C5:2 Eb5:1 Gb5:1  G5:2 Gb5:2  Gb5:1 Eb5:1 Db5:1 C5:1  Db5:4  "
+                  "C5:1 C6:1 Bb5:1 G5:1  Gb5:2 Eb5:2  D5:1 F5:1 Ab5:1 B5:1  B5:3 R:1"),
+            "B": (["Ab", "G", "Cm", "Cm", "Ab", "G", "Gb", "G"],
+                  "Ab5:2 C6:1 Eb6:1  D6:2 B5:2  C6:1 G5:1 Eb5:1 C5:1  C5:3 R:1  "
+                  "Eb6:1 C6:1 Ab5:1 Eb5:1  D5:1 G5:1 B5:1 D6:1  Db6:2 Gb5:2  G5:3 R:1"),
+        }, style="drive", lead_kind="saw", lead_duty=0.5, gain=1.2)
 
 
 if __name__ == "__main__":
-    sfx()
-    music()
+    # `python tools/gen_audio.py music_garden music_boss` rebuilds only those.
+    names = sys.argv[1:]
+    if not names:
+        sfx()
+    music(set(names) if names else None)
     print("written to", OUT)

@@ -70,9 +70,9 @@ Testovacie behy (`--bot`) nikdy neukladajú profil.
 
 ## Zvuk
 
-Všetky zvuky a hudba sú syntetizované skriptom `tools/gen_audio.py` (žiadne cudzie súbory ani licencie). Po úprave stačí spustiť `python tools/gen_audio.py` a súbory v `assets/audio/` sa prepíšu. Prehrávanie rieši autoload `scripts/autoload/audio.gd`.
+Všetky zvuky a hudba sú syntetizované skriptom `tools/gen_audio.py` (žiadne cudzie súbory ani licencie). Po úprave stačí spustiť `python tools/gen_audio.py` a súbory v `assets/audio/` sa prepíšu; `python tools/gen_audio.py music_garden music_boss_rat` prepíše len vybrané skladby. Každá mapa má dlhú dennú skladbu (`music`) a nočnú (`music_night`, hrá od polovice noci), finálni bossovia a diabol majú vlastnú (`music` v `data/enemies.json`). Prehrávanie rieši autoload `scripts/autoload/audio.gd`.
 
-Pixel-art sprity mačiek a nepriateľov kreslí skript `tools/gen_sprites.py` (tiež bez cudzích súborov). Po úprave stačí spustiť `python tools/gen_sprites.py`; vznikne `assets/sprites/*.png` a `sprites.json`, ktoré číta `scripts/util/sprites.gd`. Nepriateľ bez spritu sa nakreslí starými vektorovými tvarmi.
+Obrázok v hlavnom menu (nočné mesto, mesiac a mačky) kreslí `tools/gen_title.py` do `assets/title.png`. Pixel-art sprity mačiek a nepriateľov kreslí skript `tools/gen_sprites.py` (tiež bez cudzích súborov). Po úprave stačí spustiť `python tools/gen_sprites.py`; vznikne `assets/sprites/*.png` a `sprites.json`, ktoré číta `scripts/util/sprites.gd`. Nepriateľ bez spritu sa nakreslí starými vektorovými tvarmi.
 
 ## Preklady
 

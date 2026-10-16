@@ -263,7 +263,8 @@
       1.4,
       1.0
     ],
-    "music": "music_apartment"
+    "music": "music_apartment",
+    "music_night": "music_apartment_night"
   },
   "BASEMENT": {
     "theme": "basement",
@@ -500,7 +501,8 @@
       1.45,
       1.0
     ],
-    "music": "music_basement"
+    "music": "music_basement",
+    "music_night": "music_basement_night"
   },
   "GARDEN": {
     "theme": "garden",
@@ -737,7 +739,8 @@
         ],
         "hp_mult": 6.0
       }
-    ]
+    ],
+    "music_night": "music_garden_night"
   },
   "ROOFTOP": {
     "theme": "rooftop",
@@ -977,6 +980,7 @@
     "angel": {
       "after_minute": 15,
       "chance": 0.0005
-    }
+    },
+    "music_night": "music_rooftop_night"
   }
 }

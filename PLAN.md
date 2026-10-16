@@ -42,7 +42,8 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 - [ ] Ceny vylepšení v obchode a sila charmov – nie je niečo príliš silné alebo zbytočné?
 - [ ] Výkon: skontrolovať FPS v skutočnej hre pri 300+ nepriateľoch, prípadne optimalizovať
 - [ ] Príbehové questy aj pre Pivnicu, Záhradu a Strechu (teraz má príbeh len Byt – obojok)
-- [ ] Hudba: tvoja spätná väzba na skladby jednotlivých máp (ja ich nepočujem)
+- [x] Hudba: dlhšie skladby máp (2–2,7 min), nočná skladba od polovice noci, vlastná hudba pre každého finálneho bossa a diabla
+- [ ] Hudba: tvoja spätná väzba na skladby (ja ich nepočujem)
 - [ ] Prejsť všetky texty v slovenčine (gramatika, rod mačiek)
 
 ## Fáza 2 – Nový obsah
@@ -62,7 +63,8 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 
 - [ ] Sprity aj pre nábytok, podlahy, zbrane a projektily (teraz sú kreslené vektorovo)
 - [ ] Animácie smrti nepriateľov a lepšie efekty zásahov
-- [ ] Titulná obrazovka a ikona hry
+- [x] Obrázok v hlavnom menu (nočné mesto, mesiac, mačky)
+- [ ] Ikona hry (.exe)
 - [ ] Viac zvukov (kroky, mňaukanie pri level-upe, zvuky bossov)
 
 ## Fáza 4 – Pred vydaním

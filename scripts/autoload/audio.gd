@@ -15,6 +15,7 @@ var _next := 0
 var _last_played: Dictionary = {}
 var _music: AudioStreamPlayer
 var _music_name := ""
+var _fade: Tween
 
 
 func _ready() -> void:
@@ -72,6 +73,8 @@ func play_music(track: String) -> void:
 	stream.loop_end = int(stream.get_length() * stream.mix_rate)
 	_music_name = track
 	_music.stream = stream
+	if _fade == null or not _fade.is_running():
+		_music.volume_db = MUSIC_DB
 	_music.play()
 
 
@@ -83,6 +86,18 @@ func _exit_tree() -> void:
 		p.stop()
 		p.stream = null
 	_streams.clear()
+
+
+## Fades the current music out and `track` in (e.g. when night falls).
+func crossfade_music(track: String, seconds: float = 2.0) -> void:
+	if track == _music_name:
+		return
+	if _fade != null and _fade.is_valid():
+		_fade.kill()
+	_fade = create_tween()
+	_fade.tween_property(_music, "volume_db", -40.0, seconds * 0.5)
+	_fade.tween_callback(func() -> void: play_music(track))
+	_fade.tween_property(_music, "volume_db", MUSIC_DB, seconds * 0.5)
 
 
 ## Holds the music (e.g. during the angel's rescue) and picks it up again.

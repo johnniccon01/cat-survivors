@@ -52,6 +52,8 @@ const MAX_COMPANIONS := 1
 const DEVIL_ID := "DEVIL_CAT"
 ## The devil shows up this long after the second angel save.
 const DEVIL_DELAY := 4.0
+## Share of the night after which the map's night track plays.
+const NIGHT_MUSIC_AT := 0.5
 ## The devil moves this much faster than the cat's current speed.
 const DEVIL_SPEED_OVER_CAT := 1.15
 
@@ -107,6 +109,8 @@ var _final_started := 0.0
 var _page_time := INF
 var _page_item: Pickup
 var _has_page := false
+## The map track playing now (day or night).
+var _music_track := ""
 
 @onready var player: Player = $Player
 @onready var enemies: EnemyManager = $Enemies
@@ -229,7 +233,7 @@ func _ready() -> void:
 		_open_extraction.call_deferred(true)
 	if "--test-evolution" in _args:
 		_test_evolution.call_deferred()
-	Audio.play_music(spawner.stage().get("music", "music_apartment"))
+	Audio.play_music(_map_music())
 	# --branch=WEAPON:BRANCH:RANK[,...] gives weapons a branch (tests).
 	for spec: String in _arg("--branch=", "").split(",", false):
 		var parts := spec.split(":")
@@ -290,6 +294,7 @@ func _process(delta: float) -> void:
 			spawner.elapsed, player.level, kills, player.hp, player.max_hp,
 			enemies.enemies.size(), player.is_dead])
 		print("BOT: hurt=%.0f armor=%.1f regen=%.2f max_hp=%.0f" % [player.damage_taken, player.stat("armor"), player.stat("regen"), player.max_hp])
+		print("BOT: music=%s" % Audio.get("_music_name"))
 		print("BOT: weapons=%s passives=%s props_broken=%d bosses_killed=%d chests=%d won=%s" % [
 			weapons, player.passives, props_broken, bosses_killed, chests_opened, _run_over and not player.is_dead])
 		print("BOT: damage numbers on screen=%d" % enemies.numbers._numbers.size())
@@ -609,6 +614,15 @@ func _catch_up(seconds: float) -> void:
 	dev.free()
 
 
+## The map's track: its night version from half way through the night.
+func _map_music() -> String:
+	var stage := spawner.stage()
+	var day: String = stage.get("music", "music_apartment")
+	if spawner.elapsed >= spawner.duration_minutes() * 60.0 * NIGHT_MUSIC_AT:
+		return stage.get("music_night", day)
+	return day
+
+
 ## Distance, time on the brink and the diary page, for the quest book.
 func _track_run(delta: float) -> void:
 	hud.update_page(_page_item.position if is_instance_valid(_page_item) else null)
@@ -625,6 +639,12 @@ func _track_run(delta: float) -> void:
 			Profile.set_flag("brink")
 	else:
 		_brink_t = 0.0
+	# Night falls: switch to the map's night track (not over a boss theme).
+	if final_boss == null and not is_instance_valid(devil) and not _rescuing:
+		var track := _map_music()
+		if track != _music_track:
+			_music_track = track
+			Audio.crossfade_music(track, 3.0)
 	if spawner.elapsed >= _page_time and final_boss == null:
 		_page_time = INF
 		_page_item = pickups.spawn_page(player.position + Vector2.from_angle(randf() * TAU) * randf_range(480.0, 640.0))
@@ -734,7 +754,7 @@ func _devil_rises() -> void:
 	devil.immortal = spawner.elapsed < _devil_mortal_from()
 	_devil_portal = null
 	player.shake(10.0, 0.6)
-	Audio.play_music("music_boss")
+	Audio.play_music(GameData.enemies[DEVIL_ID].get("music", "music_boss"))
 	if _bot:
 		print("BOT: devil summoned")
 
@@ -793,7 +813,7 @@ func _on_final_boss(boss: Enemy) -> void:
 		extraction.queue_free()
 		extraction = null
 	Audio.play("warning", 0.0, 0.0)
-	Audio.play_music("music_boss")
+	Audio.play_music(GameData.enemies[boss.id].get("music", "music_boss"))
 	spawner.paused = true
 	hud.show_banner(tr("FINAL_BOSS_WARNING") % tr("ENEMY_%s_NAME" % boss.id), 4.0)
 

@@ -41,6 +41,25 @@ func _main_menu() -> void:
 		_expect(not panel.visible, "%s closes on Esc" % entry[1])
 		_expect(_focus_text() == "MENU_PLAY", "%s: focus back on Play (got %s)" % [entry[1], _focus_text()])
 
+	# Journal: left/right switch tabs (wrapping), up/down scroll.
+	for i in 3:
+		await _press(KEY_DOWN)
+	var journal: Control = current_scene.get("_journal")
+	await _press(KEY_ENTER)
+	_expect(journal.visible and journal.get("tab") == "quests", "journal opens on quests")
+	for step: Array in [[KEY_RIGHT, "goals"], [KEY_RIGHT, "bestiary"], [KEY_RIGHT, "quests"], [KEY_LEFT, "bestiary"], [KEY_D, "quests"], [KEY_A, "bestiary"]]:
+		await _press(step[0])
+		_expect(journal.get("tab") == step[1], "journal %s -> %s (got %s)" % [OS.get_keycode_string(step[0]), step[1], journal.get("tab")])
+	var scroll: ScrollContainer = journal.get("_scroll")
+	for i in 6:
+		await _press(KEY_DOWN)
+	_expect(scroll.scroll_vertical > 0, "journal scrolls down")
+	for i in 10:
+		await _press(KEY_UP)
+	_expect(scroll.scroll_vertical == 0, "journal scrolls back up")
+	await _press(KEY_ESCAPE)
+	_expect(not journal.visible and _focus_text() == "MENU_PLAY", "journal closes on Esc")
+
 	# Settings: focus has to stay inside the panel whichever way you go.
 	for i in 4:
 		await _press(KEY_DOWN)
@@ -105,7 +124,38 @@ func _character_select() -> void:
 func _in_game() -> void:
 	var main := current_scene
 	var hud: Node = main.get("hud")
+	var cat: Node2D = main.get("player")
+	cat.set("god", true)
 	await _frames(30)
+	# Movement: WASD and arrows, diagonals not faster, nothing while paused.
+	var single := 0.0
+	for entry: Array in [[[KEY_D], Vector2.RIGHT], [[KEY_A], Vector2.LEFT], [[KEY_W], Vector2.UP], [[KEY_S], Vector2.DOWN],
+			[[KEY_RIGHT], Vector2.RIGHT], [[KEY_LEFT], Vector2.LEFT], [[KEY_UP], Vector2.UP], [[KEY_DOWN], Vector2.DOWN],
+			[[KEY_W, KEY_D], Vector2(1, -1).normalized()]]:
+		var from := cat.position
+		await _hold(entry[0], 30)
+		var moved := cat.position - from
+		var names := ", ".join((entry[0] as Array).map(func(k: Key) -> String: return OS.get_keycode_string(k)))
+		_expect(moved.length() > 20.0 and moved.normalized().dot(entry[1]) > 0.9, "%s moves the cat %s (moved %s)" % [names, entry[1], moved])
+		if (entry[0] as Array).size() == 1 and single == 0.0:
+			single = moved.length()
+		elif (entry[0] as Array).size() == 2:
+			_expect(moved.length() < single * 1.2, "diagonal is not faster (%.0f vs %.0f)" % [moved.length(), single])
+	await _press(KEY_ESCAPE)
+	var still := cat.position
+	await _hold([KEY_D], 30)
+	_expect(cat.position.distance_to(still) < 1.0, "no movement while paused")
+	await _press(KEY_ESCAPE)
+	_expect(not paused, "Esc resumes after the movement check")
+	# M mutes and unmutes.
+	var settings_node := root.get_node("Settings")
+	var was_muted: bool = settings_node.get("muted")
+	await _press(KEY_M)
+	await _press(KEY_ESCAPE)
+	await _press(KEY_M)
+	_expect(settings_node.get("muted") != was_muted, "M toggles sound in the pause menu")
+	await _press(KEY_M)
+	await _press(KEY_ESCAPE)
 	# Pause menu and its settings.
 	await _press(KEY_ESCAPE)
 	_expect(paused, "Esc pauses")
@@ -138,6 +188,22 @@ func _in_game() -> void:
 	await _press(KEY_ENTER)
 	await _frames(5)
 	_expect(not level_up.visible and not paused, "Enter picks a card and the game goes on")
+
+	# Level-up with number keys, and the reroll key.
+	main.call("_queue_modal", "level")
+	await _frames(70)
+	await _press(KEY_2)
+	await _frames(5)
+	_expect(not level_up.visible and not paused, "number key 2 picks the second card")
+	cat.set("rerolls_left", 1)
+	main.call("_queue_modal", "level")
+	await _frames(70)
+	await _press(KEY_R)
+	await _frames(70)
+	_expect(level_up.visible and int(cat.get("rerolls_left")) == 0, "R rerolls the cards once")
+	await _press(KEY_1)
+	await _frames(5)
+	_expect(not level_up.visible, "after a reroll a card can still be picked")
 
 	# Chest: any key closes it once everything is shown.
 	var treasure: Control = hud.get("treasure")
@@ -174,6 +240,20 @@ func _check_trapped(panel: Control, what: String) -> void:
 		await _press(key)
 		var focus := root.gui_get_focus_owner()
 		_expect(focus != null and panel.is_ancestor_of(focus), "%s: focus stays inside after %s (got %s)" % [what, OS.get_keycode_string(key), focus.get_path() if focus else "none"])
+
+
+## Holds `keys` down together for `frames` physics frames, then lets go.
+func _hold(keys: Array, frames: int) -> void:
+	for pressed in [true, false]:
+		for key: Key in keys:
+			var e := InputEventKey.new()
+			e.keycode = key
+			e.physical_keycode = key
+			e.pressed = pressed
+			Input.parse_input_event(e)
+		# Physics frames: the same game time whatever the screen's frame rate.
+		for i in (frames if pressed else 3):
+			await physics_frame
 
 
 func _press(key: Key) -> void:

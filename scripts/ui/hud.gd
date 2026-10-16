@@ -34,6 +34,7 @@ var _quest_title: Label
 var _quest_text: Label
 var _quest_arrow: QuestArrow
 var _extract_arrow: QuestArrow
+var _page_arrow: QuestArrow
 var _extract_label: Label
 var _extract_overlay: Control
 var _boss_bar: ColorRect
@@ -164,6 +165,10 @@ void fragment() {
 	_extract_arrow.color = Color("6cd48a")
 	add_child(_extract_arrow)
 	move_child(_extract_arrow, 0)
+	_page_arrow = QuestArrow.new()
+	_page_arrow.color = Color("efe2c0")
+	add_child(_page_arrow)
+	move_child(_page_arrow, 0)
 	_extract_label = _label(18, HORIZONTAL_ALIGNMENT_RIGHT)
 	_extract_label.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
 	_extract_label.offset_top = 136
@@ -280,6 +285,11 @@ func show_summary(lines: Array[String]) -> void:
 func show_extracted(elapsed: float, kills: int) -> void:
 	(_extract_overlay.get_node("Box").get_child(1) as Label).text = tr("EXTRACT_STATS") % [_format_time(elapsed), kills]
 	_extract_overlay.visible = true
+
+
+## Arrow to the diary page lying on the map (null hides it).
+func update_page(pos: Variant) -> void:
+	_page_arrow.target = pos
 
 
 ## Countdown and arrow for an open cat flap (null hides them).

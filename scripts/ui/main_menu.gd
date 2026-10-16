@@ -5,11 +5,12 @@ extends Control
 const SELECT_SCENE := "res://scenes/character_select.tscn"
 const MAIN_SCENE := "res://scenes/main.tscn"
 ## Flags that keep the menu up instead of jumping into a run.
-const PANEL_FLAGS := ["--shop", "--charms", "--goals", "--settings", "--ui-test"]
+const PANEL_FLAGS := ["--shop", "--charms", "--goals", "--questbook", "--settings", "--ui-test", "--no-save"]
 
 var _shop: ShopPanel
 var _charms: CharmPanel
 var _goals: GoalsPanel
+var _questbook: QuestBookPanel
 var _settings: SettingsPanel
 var _buttons: VBoxContainer
 var _status: Label
@@ -31,6 +32,8 @@ func _ready() -> void:
 		_open(_charms)
 	elif "--goals" in args:
 		_open(_goals)
+	elif "--questbook" in args:
+		_open(_questbook)
 	elif "--settings" in args:
 		_open(_settings)
 
@@ -43,7 +46,7 @@ func _build() -> void:
 	add_child(bg)
 
 	# A little parade of the cats you have unlocked, walking along the bottom.
-	var ids: Array = GameData.cats.keys().filter(func(id: String) -> bool: return not GameData.cats[id].get("hidden", false))
+	var ids: Array = GameData.cats.keys().filter(func(id: String) -> bool: return not GameData.cats[id].get("hidden", false) or Profile.is_unlocked(id))
 	var gap := 1040.0 / maxf(ids.size() - 1, 1)
 	var i := 0
 	for id: String in ids:
@@ -80,13 +83,15 @@ func _build() -> void:
 	_shop = ShopPanel.new()
 	_charms = CharmPanel.new()
 	_goals = GoalsPanel.new()
+	_questbook = QuestBookPanel.new()
 	_settings = SettingsPanel.new()
 	_add_button("MENU_UPGRADES", func() -> void: _open(_shop))
 	_add_button("MENU_CHARMS", func() -> void: _open(_charms))
 	_add_button("MENU_GOALS", func() -> void: _open(_goals))
+	_add_button("MENU_QUESTBOOK", func() -> void: _open(_questbook))
 	_add_button("MENU_SETTINGS", func() -> void: _open(_settings))
 	_add_button("MENU_QUIT", func() -> void: get_tree().quit())
-	for panel: Control in [_shop, _charms, _goals, _settings]:
+	for panel: Control in [_shop, _charms, _goals, _questbook, _settings]:
 		add_child(panel)
 		panel.closed.connect(_on_panel_closed)
 	_refresh()

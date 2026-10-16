@@ -175,6 +175,8 @@ func evolve_weapon(from_id: String, into_id: String) -> void:
 	old.queue_free()
 	var evolved := add_weapon(into_id)
 	weapons.move_child(evolved, index)
+	if controller == "input" or controller == "bot":
+		Profile.set_flag("evolved:" + into_id)
 	inventory_changed.emit()
 
 
@@ -343,6 +345,10 @@ func _bot_input(delta: float) -> Vector2:
 		away += d / maxf(d.length_squared(), 1.0)
 	if away != Vector2.ZERO:
 		return (away.normalized() + wander * 0.3).normalized()
+	# A diary page on the map is worth a detour.
+	var page: Variant = get_parent().get("_page_item")
+	if is_instance_valid(page):
+		return ((page as Node2D).position - position).normalized()
 	# Only escape through a cat flap when the test asks for it (--extract);
 	# otherwise balance runs would end the moment a flap opens.
 	var flap: Node2D = get_parent().get("extraction")

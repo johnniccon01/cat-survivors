@@ -52,6 +52,7 @@ scenarios=(
   "duel_into_final|--bot --levels=30 --quest=TIGER --stage=BASEMENT --start-minute=19.8 --catch-up --bot-time=40"
   "extract_charm|--bot --drop-charm --extract --bot-time=60"
   "traps|--bot --traps --bot-time=60"
+  "diary_page|--bot --page --extract --levels=20 --bot-time=150"
 )
 
 run_one() {

@@ -20,6 +20,7 @@ extends Node2D
 ##   --start-weapon=ID  start with weapon ID instead of the cat's own
 ##   --levels=N         start with N random level-up picks (to test late game)
 ##   --extract          open a cat flap right away
+##   --page             the map's diary page appears after 5 s
 ##   --drop-charm       drop a random charm next to the cat at the start
 ##   --catch-up         with --start-minute: level the cat like the dev panel's skip does
 ##   --traps            place one of every trap next to the cat
@@ -93,6 +94,18 @@ var _kill_every := float(_arg("--kill-cat-every=", "0"))
 var _next_kill := INF
 ## Cats unlocked by beating a cat final boss, listed on the summary.
 var _run_unlocks: Array[String] = []
+## Quest book tracking for this run.
+var _hearts := 0
+var _distance := 0.0
+var _last_pos := Vector2.ZERO
+var _brink_t := 0.0
+var _was_on_brink := false
+var _final_started := 0.0
+## The map's diary page: when it appears, the item on the floor, and whether
+## the cat is carrying it.
+var _page_time := INF
+var _page_item: Pickup
+var _has_page := false
 
 @onready var player: Player = $Player
 @onready var enemies: EnemyManager = $Enemies
@@ -142,6 +155,21 @@ func _ready() -> void:
 		pickups.spawn_named("coin", pos + Vector2(8, 0), 10.0)
 		_maybe_drop_charm(pos + Vector2(-8, 0), CHARM_CHANCE_ELITE))
 	pickups.charm_collected.connect(_on_charm_collected)
+	pickups.heart_collected.connect(func() -> void: _hearts += 1)
+	pickups.page_collected.connect(func() -> void:
+		_has_page = true
+		_page_item = null
+		hud.show_banner(tr("PAGE_FOUND"), 4.0)
+		# Test runs with --extract carry the page straight out.
+		if _bot:
+			print("BOT: page picked up at %.1f" % spawner.elapsed)
+		if _bot and "--extract" in _args:
+			if extraction != null:
+				extraction.position = player.position + Vector2(120, 0)
+			_open_extraction(true))
+	_last_pos = player.position
+	if not Profile.has_flag("page:" + spawner.stage_id):
+		_page_time = 5.0 if "--page" in _args else randf_range(360.0, 660.0)
 	pickups.gold_collected.connect(func(amount: float) -> void: run_gold += amount * player.stat("greed") * player.stat("curse"))
 	pickups.chest_collected.connect(_queue_modal.bind("chest"))
 	spawner.boss_spawned.connect(func(_id: String) -> void:
@@ -220,11 +248,13 @@ func _process(delta: float) -> void:
 	if is_instance_valid(devil) and devil.immortal and spawner.elapsed >= _devil_mortal_from():
 		devil.immortal = false
 		hud.show_banner(tr("DEVIL_WEAK"), 4.0)
+	_track_run(delta)
 	# Long-term goals can complete mid-run; announce them as they happen.
 	_goal_check -= delta
 	if _goal_check <= 0.0 and not _run_over:
 		_goal_check = 2.0
 		_announce_goals(Goals.check())
+		_announce_quests(QuestBook.check())
 	if OS.is_debug_build():
 		hud.debug_extra = " · budget %d/%d (x%.2f)" % [roundi(enemies.budget_used), spawner.alive_cap(), spawner.intensity()]
 	hud.update_stats(spawner.elapsed, kills, enemies.enemies.size())
@@ -271,6 +301,7 @@ func _process(delta: float) -> void:
 			far += int(it.position.distance_to(player.position) > 600.0)
 		print("BOT: xp per minute ", " ".join(per_minute), " | pickups by kind=", kinds, " attracted=", attracted, " far=", far, " xp_count=", pickups._xp_count)
 		print("BOT: quests_done=%d companions=%s" % [quests_done, companions.map(func(c: Player) -> String: return c.cat_id)])
+		print("BOT: page carried=%s kept=%s questbook=%s" % [_has_page, Profile.has_flag("page:" + spawner.stage_id), Profile.questbook])
 		var q := quests.active
 		if q != null:
 			print("BOT: active quest %s started=%s objective=%s" % [q.quest_id, q.started, q.objective()])
@@ -409,6 +440,7 @@ func _next_modal() -> void:
 	if kind == "chest":
 		Audio.play("chest", -2.0, 0.0)
 		chests_opened += 1
+		Profile.add_stat("chests")
 		# Luck makes the bigger treasures more likely.
 		var luck := player.stat("luck")
 		var rolls := [[1, 70.0], [3, 25.0 * luck], [5, 5.0 * luck * luck]]
@@ -495,10 +527,16 @@ func _end_run(kind: String) -> void:
 	var lines: Array[String] = []
 	Profile.add_stat("runs")
 	Profile.set_stat_max("best_minutes", floori(spawner.elapsed / 60.0))
+	Profile.set_stat_max("best_minutes:" + spawner.stage_id, floori(spawner.elapsed / 60.0))
+	Profile.set_stat_max("best_level", player.level)
+	Profile.set_stat_max("best_run_gold", floori(run_gold))
+	# Quest book distance is in "metres" (16 px).
+	Profile.add_stat("distance", floori(_distance / 16.0))
 	if kind == "extract":
 		Profile.add_stat("escapes")
 	elif kind == "victory":
 		Profile.add_stat("wins:" + spawner.stage_id)
+		_victory_flags()
 	var gold := 0
 	match kind:
 		"death":
@@ -535,6 +573,12 @@ func _end_run(kind: String) -> void:
 				for id: String in GameData.stages:
 					if GameData.stages[id].get("requires", "") == spawner.stage_id:
 						hud.show_banner(tr("STAGE_UNLOCKED") % tr("STAGE_%s_NAME" % id), 6.0)
+	if _has_page:
+		if kind != "death":
+			Profile.set_flag("page:" + spawner.stage_id)
+			lines.append(tr("SUMMARY_PAGE_KEPT"))
+		else:
+			lines.append(tr("SUMMARY_PAGE_LOST"))
 	if kind != "death" and not run_charms.is_empty():
 		var refund := Profile.bank_charms(run_charms)
 		lines.append(tr("SUMMARY_CHARMS_KEPT") % _charm_names())
@@ -543,6 +587,8 @@ func _end_run(kind: String) -> void:
 	Profile.add_gold(gold)
 	for id in Goals.check():
 		lines.append(tr("GOAL_DONE") % [tr("GOAL_%s_NAME" % id), Goals.reward_text(id)])
+	for entry in QuestBook.check():
+		lines.append(QuestBook.completed_text(entry))
 	lines.append(tr("SUMMARY_TOTAL") % Profile.gold)
 	hud.show_summary(lines)
 
@@ -555,6 +601,38 @@ func _catch_up(seconds: float) -> void:
 	dev._skip(seconds)
 	spawner.skip_to(start)
 	dev.free()
+
+
+## Distance, time on the brink and the diary page, for the quest book.
+func _track_run(delta: float) -> void:
+	hud.update_page(_page_item.position if is_instance_valid(_page_item) else null)
+	if _run_over or get_tree().paused or player.is_dead:
+		return
+	var step := player.position.distance_to(_last_pos)
+	if step < 40.0:
+		_distance += step
+	_last_pos = player.position
+	if player.hp < player.max_hp * 0.1:
+		_brink_t += delta
+		if _brink_t >= 30.0 and not _was_on_brink:
+			_was_on_brink = true
+			Profile.set_flag("brink")
+	else:
+		_brink_t = 0.0
+	if spawner.elapsed >= _page_time and final_boss == null:
+		_page_time = INF
+		_page_item = pickups.spawn_page(player.position + Vector2.from_angle(randf() * TAU) * randf_range(480.0, 640.0))
+		hud.show_banner(tr("PAGE_APPEARED"), 4.0)
+		Audio.play("quest", -2.0, 0.0)
+
+
+func _announce_quests(done: Array[Array]) -> void:
+	for entry in done:
+		hud.show_banner(QuestBook.completed_text(entry), 4.0)
+		Audio.play("quest_done", -2.0, 0.0)
+		var reward: Dictionary = QuestBook.lines()[entry[0]]["tiers"][entry[1] - 1]["reward"]
+		if reward.has("cat"):
+			hud.show_banner(tr("QUEST_UNLOCKED") % tr("CAT_%s_NAME" % reward["cat"]), 5.0)
 
 
 func _announce_goals(ids: Array[String]) -> void:
@@ -645,6 +723,7 @@ func summon_devil() -> void:
 
 
 func _devil_rises() -> void:
+	Profile.set_flag("devil_met")
 	devil = enemies.spawn(DEVIL_ID, _devil_portal.position)
 	devil.immortal = spawner.elapsed < _devil_mortal_from()
 	_devil_portal = null
@@ -680,8 +759,25 @@ func _level_burst() -> void:
 	add_child(ring)
 
 
+## Special ways of winning, recorded as profile flags for the quest book.
+func _victory_flags() -> void:
+	var stage := spawner.stage_id
+	Profile.set_flag("won_with:" + player.cat_id)
+	if _hearts == 0:
+		Profile.set_flag("win_no_hearts:" + stage)
+	if player.weapon_count() <= 3:
+		Profile.set_flag("win_few_weapons:" + stage)
+	if _final_started > 0.0 and spawner.elapsed - _final_started <= 90.0:
+		Profile.set_flag("fast_final:" + stage)
+	if player.hp >= player.max_hp * 0.5:
+		Profile.set_flag("win_healthy:" + stage)
+	if _was_on_brink:
+		Profile.set_flag("brink_win")
+
+
 func _on_final_boss(boss: Enemy) -> void:
 	final_boss = boss
+	_final_started = spawner.elapsed
 	player.shake(8.0, 0.8)
 	# The field was just cleared, so a running quest can't finish fairly.
 	if quests.active != null:

@@ -21,6 +21,7 @@ var _stage_index := 0
 var _shop: ShopPanel
 var _charms: CharmPanel
 var _goals: GoalsPanel
+var _questbook: QuestBookPanel
 var _worn: Label
 var _gold: Label
 
@@ -31,7 +32,8 @@ func _ready() -> void:
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
 			return
 	for id: String in GameData.cats:
-		if not GameData.cats[id].get("hidden", false):
+		# Secret cats only show up once they are unlocked.
+		if not GameData.cats[id].get("hidden", false) or Profile.is_unlocked(id):
 			_ids.append(id)
 	_index = maxi(_ids.find(Profile.selected_cat), 0)
 	for id: String in GameData.stages:
@@ -112,6 +114,9 @@ func _build() -> void:
 	_goals = GoalsPanel.new()
 	add_child(_goals)
 	_goals.closed.connect(_refresh)
+	_questbook = QuestBookPanel.new()
+	add_child(_questbook)
+	_questbook.closed.connect(_refresh)
 
 
 func _refresh() -> void:
@@ -145,7 +150,11 @@ func _refresh() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _shop.visible or _charms.visible or _goals.visible:
+	if _shop.visible or _charms.visible or _goals.visible or _questbook.visible:
+		return
+	if event.is_action_pressed("questbook"):
+		Audio.play("click", -6.0, 0.0)
+		_questbook.open()
 		return
 	if event.is_action_pressed("goals"):
 		Audio.play("click", -6.0, 0.0)

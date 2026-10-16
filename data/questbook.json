@@ -1,0 +1,625 @@
+{
+  "chapters": [
+    "main",
+    "maps",
+    "story"
+  ],
+  "lines": {
+    "NIGHT_WATCH": {
+      "chapter": "main",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 100
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes"
+          ],
+          "target": 15,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes"
+          ],
+          "target": 20,
+          "reward": {
+            "charm": "SARDINE_TIN"
+          }
+        }
+      ]
+    },
+    "GROWING_UP": {
+      "chapter": "main",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_level"
+          ],
+          "target": 20,
+          "reward": {
+            "gold": 100
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level"
+          ],
+          "target": 35,
+          "reward": {
+            "gold": 250
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level"
+          ],
+          "target": 50,
+          "reward": {
+            "gold": 500
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level"
+          ],
+          "target": 65,
+          "reward": {
+            "gold": 1000
+          }
+        }
+      ]
+    },
+    "WANDERER": {
+      "chapter": "main",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "distance"
+          ],
+          "target": 5000,
+          "reward": {
+            "gold": 150
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "distance"
+          ],
+          "target": 25000,
+          "reward": {
+            "charm": "MOUSE_TAIL"
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "distance"
+          ],
+          "target": 100000,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
+    "CRITIC": {
+      "chapter": "main",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "crits"
+          ],
+          "target": 500,
+          "reward": {
+            "gold": 150
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "crits"
+          ],
+          "target": 3000,
+          "reward": {
+            "charm": "FISH_BONE"
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "crits"
+          ],
+          "target": 15000,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
+    "TREASURE": {
+      "chapter": "main",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "chests"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 100
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "chests"
+          ],
+          "target": 25,
+          "reward": {
+            "charm": "MAGNET_PAW"
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "chests"
+          ],
+          "target": 100,
+          "reward": {
+            "gold": 600
+          }
+        }
+      ]
+    },
+    "PIGGY_BANK": {
+      "chapter": "main",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_run_gold"
+          ],
+          "target": 100,
+          "reward": {
+            "gold": 100
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_run_gold"
+          ],
+          "target": 250,
+          "reward": {
+            "charm": "GOLD_WHISKER"
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_run_gold"
+          ],
+          "target": 500,
+          "reward": {
+            "gold": 500
+          }
+        }
+      ]
+    },
+    "ALCHEMIST": {
+      "chapter": "main",
+      "tiers": [
+        {
+          "type": "flags",
+          "prefix": "evolved:",
+          "target": 1,
+          "reward": {
+            "gold": 150
+          }
+        },
+        {
+          "type": "flags",
+          "prefix": "evolved:",
+          "target": 4,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "flags",
+          "prefix": "evolved:",
+          "target": 8,
+          "reward": {
+            "gold": 700
+          }
+        },
+        {
+          "type": "flags",
+          "prefix": "evolved:",
+          "target": 13,
+          "reward": {
+            "gold": 1500
+          }
+        }
+      ]
+    },
+    "ON_THE_BRINK": {
+      "chapter": "main",
+      "tiers": [
+        {
+          "type": "flag",
+          "flag": "brink",
+          "target": 1,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "brink_win",
+          "target": 1,
+          "reward": {
+            "gold": 700
+          }
+        }
+      ]
+    },
+    "RESCUER": {
+      "chapter": "main",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "rescues"
+          ],
+          "target": 3,
+          "reward": {
+            "gold": 150
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "rescues"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "rescues"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 900
+          }
+        }
+      ]
+    },
+    "DUELIST": {
+      "chapter": "main",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "duels_won"
+          ],
+          "target": 3,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "duels_won"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 600
+          }
+        }
+      ]
+    },
+    "FAMILY": {
+      "chapter": "main",
+      "tiers": [
+        {
+          "type": "flags",
+          "prefix": "won_with:",
+          "target": 2,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "flags",
+          "prefix": "won_with:",
+          "target": 5,
+          "reward": {
+            "gold": 500
+          }
+        },
+        {
+          "type": "flags",
+          "prefix": "won_with:",
+          "target": 8,
+          "reward": {
+            "gold": 1200
+          }
+        }
+      ]
+    },
+    "APARTMENT": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:LIVING_ROOM"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 100
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:LIVING_ROOM"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_no_hearts:LIVING_ROOM",
+          "target": 1,
+          "reward": {
+            "gold": 500
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:LIVING_ROOM"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
+    "BASEMENT": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:BASEMENT"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 150
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:BASEMENT"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_few_weapons:BASEMENT",
+          "target": 1,
+          "reward": {
+            "gold": 600
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:BASEMENT"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 900
+          }
+        }
+      ]
+    },
+    "GARDEN": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:GARDEN"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:GARDEN"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "fast_final:GARDEN",
+          "target": 1,
+          "reward": {
+            "gold": 700
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:GARDEN"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 1000
+          }
+        }
+      ]
+    },
+    "ROOFTOP": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:ROOFTOP"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 250
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:ROOFTOP"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 500
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:ROOFTOP",
+          "target": 1,
+          "reward": {
+            "gold": 800
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:ROOFTOP"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 1200
+          }
+        }
+      ]
+    },
+    "OLD_DIARY": {
+      "chapter": "story",
+      "tiers": [
+        {
+          "type": "flag",
+          "flag": "page:LIVING_ROOM",
+          "target": 1,
+          "reward": {
+            "gold": 150
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "page:BASEMENT",
+          "target": 1,
+          "reward": {
+            "gold": 250
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "page:GARDEN",
+          "target": 1,
+          "reward": {
+            "gold": 350
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "page:ROOFTOP",
+          "target": 1,
+          "reward": {
+            "cat": "ANGEL"
+          }
+        }
+      ]
+    },
+    "DEVILS_BARGAIN": {
+      "chapter": "story",
+      "tiers": [
+        {
+          "type": "flag",
+          "flag": "angel_seen",
+          "target": 1,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "devil_met",
+          "target": 1,
+          "reward": {
+            "gold": 600
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "devil_slain",
+          "target": 1,
+          "reward": {
+            "cat": "DEVIL"
+          }
+        }
+      ],
+      "secret": true
+    }
+  }
+}

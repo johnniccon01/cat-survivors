@@ -47,8 +47,9 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 
 ## Fáza 2 – Nový obsah
 
-- [ ] Tajomstvá: odomknúť anjel mačku tajným questom
-- [ ] Tajomstvá: odomknúť diabol mačku (napr. prežiť s ňou 30 min a poraziť ju)
+- [x] Kniha questov (štýl Halls of Torment): 17 línií, 57 krokov – mačací život, miesta, tajomstvá (Q vo výbere mačky, tlačidlo v menu)
+- [x] Tajomstvá: anjel mačka sa odomkne 4 stránkami denníka (jedna ukrytá na každej mape), diabol mačka questom Diablova zmluva
+- [ ] Zvážiť spojenie Cieľov a Knihy questov do jedného miesta
 - [x] Nové zbrane: Myška na kľúčik, Pavučina, Kropič, Anténa (každú odomkne prejdenie mapy) + evolúcie, pasívy Dlhý spánok a Rýchly hod
 - [x] Nové správanie: prachový mrak sa rozpadá, pľujúci pavúk a žaba strieľajú, útočná čajka sa vrhá; bossovia privolávajú pomocníkov
 - [ ] Úplne noví bossovia (napr. jeden stredný boss na mapu s vlastným útokom)

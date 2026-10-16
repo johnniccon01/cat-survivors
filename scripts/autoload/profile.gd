@@ -27,6 +27,8 @@ var best_streak := 0
 var spent := 0
 ## power-up id -> bought rank
 var powerups: Dictionary = {}
+## Quest book: line id -> steps done
+var questbook: Dictionary = {}
 
 
 func _ready() -> void:
@@ -56,6 +58,7 @@ func _ready() -> void:
 		best_streak = cfg.get_value("streak", "best", 0)
 		spent = cfg.get_value("shop", "spent", 0)
 		powerups = cfg.get_value("shop", "powerups", {})
+		questbook = cfg.get_value("questbook", "steps", {})
 	for id: String in GameData.cats:
 		if GameData.cats[id].get("unlocked", false) and id not in unlocked:
 			unlocked.append(id)
@@ -272,4 +275,5 @@ func save() -> void:
 	cfg.set_value("streak", "best", best_streak)
 	cfg.set_value("shop", "spent", spent)
 	cfg.set_value("shop", "powerups", powerups)
+	cfg.set_value("questbook", "steps", questbook)
 	cfg.save(PATH)

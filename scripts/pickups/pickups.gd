@@ -7,6 +7,8 @@ extends Node2D
 signal chest_collected
 signal gold_collected(amount: float)
 signal charm_collected(charm_id: String)
+signal heart_collected
+signal page_collected
 
 const MAX_XP := 300
 ## Chests are not pulled by the magnet; the cat has to walk over them.
@@ -44,6 +46,12 @@ func spawn_xp(pos: Vector2, value: float) -> void:
 			_xp_count -= 1
 	_xp_count += 1
 	_spawn(Pickup.Kind.XP, pos, value)
+
+
+## Places the map's diary page; returns it so the HUD can point at it.
+func spawn_page(pos: Vector2) -> Pickup:
+	_spawn(Pickup.Kind.PAGE, pos, 0.0)
+	return items[-1]
 
 
 ## Drops a specific charm.
@@ -116,6 +124,7 @@ func _collect(item: Pickup) -> void:
 		Pickup.Kind.HEART, Pickup.Kind.SARDINE:
 			Audio.play("heal", -4.0)
 			player.heal(item.value)
+			heart_collected.emit()
 		Pickup.Kind.MAGNET:
 			Audio.play("magnet", -4.0, 0.0)
 			# Pull every kibble on the map towards the cat.
@@ -131,4 +140,7 @@ func _collect(item: Pickup) -> void:
 		Pickup.Kind.CHARM:
 			Audio.play("chest", -4.0, 0.0)
 			charm_collected.emit(item.charm_id)
+		Pickup.Kind.PAGE:
+			Audio.play("quest_done", -2.0, 0.0)
+			page_collected.emit()
 	item.queue_free()

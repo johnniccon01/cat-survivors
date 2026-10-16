@@ -14,6 +14,7 @@ var powerups: Dictionary = {}
 var charms: Dictionary = {}
 var traps: Dictionary = {}
 var goals: Dictionary = {}
+var questbook: Dictionary = {}
 ## Weighted drop table for broken props: [{kind, weight, value}]
 var loot: Array = []
 
@@ -27,6 +28,7 @@ func _ready() -> void:
 	charms = _load_json("res://data/charms.json")
 	traps = _load_json("res://data/traps.json")
 	goals = _load_json("res://data/goals.json")
+	questbook = _load_json("res://data/questbook.json")
 	var props_file := _load_json("res://data/props.json")
 	props = props_file.get("props", {})
 	loot = props_file.get("loot", [])
@@ -62,6 +64,7 @@ func _setup_input() -> void:
 	_add_keys("reroll", [KEY_R])
 	_add_keys("charms", [KEY_C])
 	_add_keys("goals", [KEY_G])
+	_add_keys("questbook", [KEY_Q])
 	_add_keys("toggle_numbers", [KEY_N])
 	_add_keys("toggle_shake", [KEY_K])
 	_add_axis("move_left", JOY_AXIS_LEFT_X, -1.0)

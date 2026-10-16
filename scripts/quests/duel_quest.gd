@@ -37,6 +37,7 @@ func _on_start() -> void:
 func _tick(_delta: float) -> void:
 	if started and (not is_instance_valid(_rival) or _rival.dead):
 		_open_arena()
+		Profile.add_stat("duels_won")
 		main.cat_joined(cat_id)
 		complete()
 

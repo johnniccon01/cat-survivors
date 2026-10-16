@@ -85,6 +85,7 @@ func _tick(delta: float) -> void:
 				var pos := _escort.position
 				main.enemies.escorts.erase(_escort)
 				_escort.queue_free()
+				Profile.add_stat("rescues")
 				main.cat_joined(cat_id, pos)
 				complete()
 

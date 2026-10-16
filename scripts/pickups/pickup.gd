@@ -3,7 +3,7 @@ extends Node2D
 ## A collectible lying on the floor. Movement and collection are handled by
 ## Pickups.
 
-enum Kind { XP, HEART, SARDINE, MAGNET, CHEST, COIN, CHARM }
+enum Kind { XP, HEART, SARDINE, MAGNET, CHEST, COIN, CHARM, PAGE }
 
 const OUTLINE := Color("2b1d14")
 
@@ -47,8 +47,22 @@ func _draw() -> void:
 			_draw_coin()
 		Kind.CHARM:
 			_draw_charm()
+		Kind.PAGE:
+			_draw_page()
 		_:
 			_draw_kibble()
+
+
+## A torn page of the old cat's diary, glowing so it can be spotted.
+func _draw_page() -> void:
+	_shadow_and_lift()
+	for i in 3:
+		draw_circle(Vector2(0, -2), 10.0 + i * 5.0, Color(1.0, 0.95, 0.7, 0.07))
+	var page := PackedVector2Array([Vector2(-5, -8), Vector2(5, -7), Vector2(6, 5), Vector2(1, 4), Vector2(-4, 6)])
+	draw_colored_polygon(page, Color("efe2c0"))
+	draw_polyline(Shapes.closed(page), OUTLINE, 1.0)
+	for y: float in [-4.0, -1.0, 2.0]:
+		draw_line(Vector2(-3, y), Vector2(3, y + 0.5), Color("8a6a4a"), 1.0)
 
 
 func _draw_charm() -> void:

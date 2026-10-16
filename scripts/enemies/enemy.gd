@@ -335,6 +335,7 @@ func hit(amount: float, direction: Vector2, knockback: float, can_crit: bool = t
 		crit = randf() < cat.stat("crit_chance") * cat.stat("luck")
 		if crit:
 			amount *= cat.stat("crit_mult")
+			Profile.add_stat("crits")
 	if manager.numbers != null and not is_prop:
 		manager.numbers.add(position, amount, crit)
 	hp -= amount

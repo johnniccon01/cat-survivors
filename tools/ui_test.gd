@@ -27,7 +27,7 @@ func _run() -> void:
 func _main_menu() -> void:
 	_expect(_focus_text() == "MENU_PLAY", "menu starts on Play, got %s" % _focus_text())
 	# Each panel: walk down to its button, open it, mash keys, close it.
-	for entry: Array in [[1, "_shop"], [2, "_charms"], [3, "_goals"]]:
+	for entry: Array in [[1, "_shop"], [2, "_charms"], [3, "_goals"], [4, "_questbook"]]:
 		for i in entry[0]:
 			await _press(KEY_DOWN)
 		var panel: Control = current_scene.get(entry[1])
@@ -42,7 +42,7 @@ func _main_menu() -> void:
 		_expect(_focus_text() == "MENU_PLAY", "%s: focus back on Play (got %s)" % [entry[1], _focus_text()])
 
 	# Settings: focus has to stay inside the panel whichever way you go.
-	for i in 4:
+	for i in 5:
 		await _press(KEY_DOWN)
 	var settings: Control = current_scene.get("_settings")
 	await _press(KEY_ENTER)
@@ -78,7 +78,7 @@ func _character_select() -> void:
 	await _press(KEY_UP)
 	_expect(sel.get("_stage_index") == stage, "Down/Up move the stage and back")
 	# Panels opened from here: keys go to the panel, Esc closes only the panel.
-	for entry: Array in [[KEY_C, "_charms"], [KEY_U, "_shop"], [KEY_G, "_goals"]]:
+	for entry: Array in [[KEY_C, "_charms"], [KEY_U, "_shop"], [KEY_G, "_goals"], [KEY_Q, "_questbook"]]:
 		var panel: Control = sel.get(entry[1])
 		await _press(entry[0])
 		_expect(panel.visible, "select: %s opens" % entry[1])

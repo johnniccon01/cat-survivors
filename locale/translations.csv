@@ -127,7 +127,7 @@ QUEST_FRIDGE_FIND,Find the fridge,Nájdi chladničku
 QUEST_FRIDGE_OPEN,Stay by the fridge to open it,Zostaň pri chladničke a otvor ju
 QUEST_FRIDGE_FIGHT,Defeat the leftovers: %d left,Poraz zvyšky: zostáva %d
 SELECT_TITLE,Choose your cat,Vyber si mačku
-SELECT_HINT,← → cat · ↑ ↓ map · Enter start · U upgrades · C charms · G goals · Esc menu,← → mačka · ↑ ↓ mapa · Enter štart · U vylepšenia · C prívesky · G ciele · Esc menu
+SELECT_HINT,← → cat · ↑ ↓ map · Enter start · U upgrades · C charms · G goals · Q quests · Esc menu,← → mačka · ↑ ↓ mapa · Enter štart · U vylepšenia · C prívesky · G ciele · Q questy · Esc menu
 SELECT_LOCKED,???,???
 GAME_OVER_MENU,Esc – change cat,Esc – zmeniť mačku
 QUEST_RESCUE_ESCORT,Walk %s to the safe cat bed,Odprevaď: %s do bezpečného pelechu
@@ -380,3 +380,96 @@ GOAL_NIGHT_OWL_NAME,Night Owl,Nočná sova
 GOAL_NIGHT_OWL_DESC,Survive a whole night (20 minutes),Prežiť celú noc (20 minút)
 GOAL_BOSS_HUNTER_NAME,Boss Hunter,Lovec bossov
 GOAL_BOSS_HUNTER_DESC,Defeat 50 bosses,Poraz 50 bossov
+MENU_QUESTBOOK,Quest book,Kniha questov
+QB_TITLE,Quest book,Kniha questov
+QB_HINT,Arrows / wheel scroll · Q / Esc – back,Šípky / koliesko posúvajú · Q / Esc – späť
+QB_CHAPTER_MAIN,The cat's life,Mačací život
+QB_CHAPTER_MAPS,Places,Miesta
+QB_CHAPTER_STORY,Secrets,Tajomstvá
+QB_SECRET,??? – a secret not yet discovered,"??? – tajomstvo, ktoré si ešte neodhalil"
+QB_DONE,All steps done!,Všetky kroky splnené!
+QB_STEP,Step %d/%d,Krok %d/%d
+QB_REWARD_CAT,New cat: %s,Nová mačka: %s
+QB_COMPLETED,Quest: %s (step %d) – %s,Quest: %s (krok %d) – %s
+PAGE_APPEARED,Something rustles nearby... a diary page!,Niečo neďaleko zašušťalo... stránka denníka!
+PAGE_FOUND,Diary page found! Win or escape to keep it,Našiel si stránku denníka! Vyhraj alebo uteč a ponecháš si ju
+SUMMARY_PAGE_KEPT,Diary page brought home,Stránka denníka je doma
+SUMMARY_PAGE_LOST,The diary page was lost,Stránka denníka sa stratila
+CAT_ANGEL_DESC,The white cat from the diary. Starts with Spilled Milk; heals 1 health per second.,Biela mačka z denníka. Začína s Rozliatym mliekom; lieči 1 zdravie za sekundu.
+CAT_ANGEL_HINT,Read the old diary to the end.,Dočítaj starý denník.
+CAT_DEVIL_DESC,It came for you twice. Starts with Laser Pointer; +50% damage.,Prišla si po teba dvakrát. Začína s laserom; +50 % poškodenie.
+CAT_DEVIL_HINT,Make a bargain with the devil.,Uzavri zmluvu s diablom.
+QB_NIGHT_WATCH_NAME,Night Watch,Nočná hliadka
+QB_NIGHT_WATCH_1,Survive 5 minutes in one night.,Prežiť 5 minút v jednej noci.
+QB_NIGHT_WATCH_2,Survive 10 minutes in one night.,Prežiť 10 minút v jednej noci.
+QB_NIGHT_WATCH_3,Survive 15 minutes in one night.,Prežiť 15 minút v jednej noci.
+QB_NIGHT_WATCH_4,Last until morning (20 minutes).,Vydržať do rána (20 minút).
+QB_GROWING_UP_NAME,Growing Up,Rastieme
+QB_GROWING_UP_1,Reach level 20 in one night.,Dosiahnuť level 20 v jednej noci.
+QB_GROWING_UP_2,Reach level 35 in one night.,Dosiahnuť level 35 v jednej noci.
+QB_GROWING_UP_3,Reach level 50 in one night.,Dosiahnuť level 50 v jednej noci.
+QB_GROWING_UP_4,Reach level 65 in one night.,Dosiahnuť level 65 v jednej noci.
+QB_WANDERER_NAME,Wanderer,Túlavá mačka
+QB_WANDERER_1,Walk a total of 5 km.,Prejsť spolu 5 km.
+QB_WANDERER_2,Walk a total of 25 km.,Prejsť spolu 25 km.
+QB_WANDERER_3,Walk a total of 100 km.,Prejsť spolu 100 km.
+QB_CRITIC_NAME,Sharp Claws,Ostré pazúry
+QB_CRITIC_1,Land 500 critical hits.,Zasadiť 500 kritických zásahov.
+QB_CRITIC_2,"Land 3,000 critical hits.",Zasadiť 3 000 kritických zásahov.
+QB_CRITIC_3,"Land 15,000 critical hits.",Zasadiť 15 000 kritických zásahov.
+QB_TREASURE_NAME,Treasure Hunter,Lovec pokladov
+QB_TREASURE_1,Open 5 treasure chests.,Otvoriť 5 truhlíc.
+QB_TREASURE_2,Open 25 treasure chests.,Otvoriť 25 truhlíc.
+QB_TREASURE_3,Open 100 treasure chests.,Otvoriť 100 truhlíc.
+QB_PIGGY_BANK_NAME,Piggy Bank,Pokladnička
+QB_PIGGY_BANK_1,Pick up 100 gold in one night.,Nazbierať 100 zlata v jednej noci.
+QB_PIGGY_BANK_2,Pick up 250 gold in one night.,Nazbierať 250 zlata v jednej noci.
+QB_PIGGY_BANK_3,Pick up 500 gold in one night.,Nazbierať 500 zlata v jednej noci.
+QB_ALCHEMIST_NAME,Alchemist,Alchymista
+QB_ALCHEMIST_1,Evolve a weapon.,Vyvinúť jednu zbraň.
+QB_ALCHEMIST_2,Evolve 4 different weapons.,Vyvinúť 4 rôzne zbrane.
+QB_ALCHEMIST_3,Evolve 8 different weapons.,Vyvinúť 8 rôznych zbraní.
+QB_ALCHEMIST_4,Evolve all 13 weapons.,Vyvinúť všetkých 13 zbraní.
+QB_ON_THE_BRINK_NAME,On the Brink,Na pokraji
+QB_ON_THE_BRINK_1,Stay alive for 30 seconds with less than 10% health.,Vydržať 30 sekúnd s menej ako 10 % zdravia.
+QB_ON_THE_BRINK_2,Win a night after being on the brink.,"Vyhrať noc, v ktorej si bol na pokraji."
+QB_RESCUER_NAME,Rescuer,Záchranár
+QB_RESCUER_1,Bring 3 rescued cats home.,Doviesť domov 3 zachránené mačky.
+QB_RESCUER_2,Bring 10 rescued cats home.,Doviesť domov 10 zachránených mačiek.
+QB_RESCUER_3,Bring 25 rescued cats home.,Doviesť domov 25 zachránených mačiek.
+QB_DUELIST_NAME,Yard Champion,Šampión dvora
+QB_DUELIST_1,Win 3 duels.,Vyhrať 3 súboje.
+QB_DUELIST_2,Win 10 duels.,Vyhrať 10 súbojov.
+QB_FAMILY_NAME,One Big Family,Veľká rodina
+QB_FAMILY_1,Win a night with 2 different cats.,Vyhrať noc s 2 rôznymi mačkami.
+QB_FAMILY_2,Win a night with 5 different cats.,Vyhrať noc s 5 rôznymi mačkami.
+QB_FAMILY_3,Win a night with 8 different cats.,Vyhrať noc s 8 rôznymi mačkami.
+QB_APARTMENT_NAME,The Apartment,Byt
+QB_APARTMENT_1,Survive 10 minutes in the Apartment.,Prežiť 10 minút v Byte.
+QB_APARTMENT_2,Defeat the Vacuum King.,Poraziť Kráľa vysávačov.
+QB_APARTMENT_3,Win in the Apartment without picking up a single heart.,Vyhrať v Byte bez zdvihnutia jediného srdiečka.
+QB_APARTMENT_4,Win in the Apartment 5 times.,Vyhrať v Byte 5-krát.
+QB_BASEMENT_NAME,The Basement,Pivnica
+QB_BASEMENT_1,Survive 10 minutes in the Basement.,Prežiť 10 minút v Pivnici.
+QB_BASEMENT_2,Defeat the Rat King.,Poraziť Potkanieho kráľa.
+QB_BASEMENT_3,Win in the Basement with 3 weapons or fewer.,Vyhrať v Pivnici s najviac 3 zbraňami.
+QB_BASEMENT_4,Win in the Basement 5 times.,Vyhrať v Pivnici 5-krát.
+QB_GARDEN_NAME,The Garden,Záhrada
+QB_GARDEN_1,Survive 10 minutes in the Garden.,Prežiť 10 minút v Záhrade.
+QB_GARDEN_2,Defeat the Lawnmower.,Poraziť Kosačku.
+QB_GARDEN_3,Defeat the Lawnmower within 90 seconds.,Poraziť Kosačku do 90 sekúnd.
+QB_GARDEN_4,Win in the Garden 5 times.,Vyhrať v Záhrade 5-krát.
+QB_ROOFTOP_NAME,The Rooftop,Strecha
+QB_ROOFTOP_1,Survive 10 minutes on the Rooftop.,Prežiť 10 minút na Streche.
+QB_ROOFTOP_2,Defeat Bruno.,Poraziť Bruna.
+QB_ROOFTOP_3,Beat Bruno with at least half of your health left.,Poraziť Bruna s aspoň polovicou zdravia.
+QB_ROOFTOP_4,Win on the Rooftop 5 times.,Vyhrať na Streche 5-krát.
+QB_OLD_DIARY_NAME,The Old Cat's Diary,Denník starej mačky
+QB_OLD_DIARY_1,Find the diary page hidden in the Apartment and bring it home (win or escape).,Nájsť stránku denníka ukrytú v Byte a odniesť ju domov (vyhrať alebo utiecť).
+QB_OLD_DIARY_2,Find the diary page hidden in the Basement and bring it home.,Nájsť stránku denníka ukrytú v Pivnici a odniesť ju domov.
+QB_OLD_DIARY_3,Find the diary page hidden in the Garden and bring it home.,Nájsť stránku denníka ukrytú v Záhrade a odniesť ju domov.
+QB_OLD_DIARY_4,Find the last page on the Rooftop. The diary tells of a white cat with wings...,Nájsť poslednú stránku na Streche. Denník rozpráva o bielej mačke s krídlami...
+QB_DEVILS_BARGAIN_NAME,The Devil's Bargain,Diablova zmluva
+QB_DEVILS_BARGAIN_1,Be saved by the angel cat.,Nechať sa zachrániť anjel mačkou.
+QB_DEVILS_BARGAIN_2,Meet the one who comes after the angel.,"Stretnúť toho, kto prichádza po anjelovi."
+QB_DEVILS_BARGAIN_3,Defeat the Devil Cat. (It only weakens after 30 minutes.),Poraziť Diabol mačku. (Zoslabne až po 30 minútach.)

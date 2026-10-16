@@ -21,6 +21,8 @@ var budget_used := 0.0
 ## Late-night scaling for newly spawned enemies, set by the spawner.
 var damage_mult := 1.0
 var speed_mult := 1.0
+## Enemies on fire from a weapon branch.
+var burning: Array[Enemy] = []
 ## Floating damage numbers (set by main).
 var numbers: DamageNumbers
 ## Breakable boxes and plants: static, hit by weapons, ignored by targeting.
@@ -93,6 +95,41 @@ func clear_all() -> void:
 	budget_used = 0.0
 
 
+## Sets an enemy on fire: `per_tick` damage every half second for `seconds`.
+func ignite(enemy: Enemy, per_tick: float, seconds: float) -> void:
+	if enemy.burn_t <= 0.0:
+		burning.append(enemy)
+		enemy.burn_tick = 0.5
+	enemy.burn_damage = maxf(enemy.burn_damage, per_tick)
+	enemy.burn_t = maxf(enemy.burn_t, seconds)
+
+
+## Burn ticks, run after the enemy loop so deaths don't disturb it.
+func _tick_burning(delta: float) -> void:
+	if burning.is_empty():
+		return
+	# Rebuilt every frame: burning enemies may die (and be freed) meanwhile.
+	var still: Array[Enemy] = []
+	for item: Variant in burning:
+		if not is_instance_valid(item):
+			continue
+		var enemy := item as Enemy
+		if enemy.dead:
+			continue
+		enemy.burn_t -= delta
+		enemy.burn_tick -= delta
+		if enemy.burn_tick <= 0.0:
+			enemy.burn_tick = 0.5
+			enemy.hit(enemy.burn_damage, Vector2.ZERO, 0.0, false)
+		if enemy.dead:
+			continue
+		if enemy.burn_t > 0.0:
+			still.append(enemy)
+		else:
+			enemy.burn_damage = 0.0
+	burning = still
+
+
 func spawn_prop(id: String, pos: Vector2) -> Enemy:
 	var prop := Enemy.new()
 	prop.setup(id, GameData.props[id], self)
@@ -156,6 +193,7 @@ func _physics_process(delta: float) -> void:
 			var reach := enemy.radius + Player.RADIUS
 			if not c.is_dead and enemy.position.distance_squared_to(c.position) < reach * reach:
 				c.take_damage(enemy.damage, enemy.fatal)
+	_tick_burning(delta)
 	for i in range(enemies.size() - 1, -1, -1):
 		if enemies[i].wants_despawn:
 			despawn(enemies[i])

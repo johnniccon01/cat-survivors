@@ -181,9 +181,25 @@ func evolve_weapon(from_id: String, into_id: String) -> void:
 	weapons.remove_child(old)
 	old.queue_free()
 	var evolved := add_weapon(into_id)
+	evolved.branch = old.branch
+	evolved.branch_rank = old.branch_rank
 	weapons.move_child(evolved, index)
 	if controller == "input" or controller == "bot":
 		Profile.set_flag("evolved:" + into_id)
+	inventory_changed.emit()
+
+
+## Picks a branch for a weapon, or raises it to rank 2.
+func choose_branch(weapon_id: String, branch_id: String) -> void:
+	var w := get_weapon(weapon_id)
+	if w == null:
+		return
+	if w.branch == branch_id:
+		w.branch_rank = mini(w.branch_rank + 1, 2)
+	else:
+		w.branch = branch_id
+		w.branch_rank = 1
+	_mark_used("branch:" + branch_id)
 	inventory_changed.emit()
 
 

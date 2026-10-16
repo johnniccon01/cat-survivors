@@ -13,7 +13,7 @@ func shoot(index: int) -> void:
 	var center := player.position + Vector2(side * (size.x * 0.5 + 4.0), -4.0 - row * (size.y + 2.0))
 	var rect := Rect2(center - size * 0.5, size)
 	for enemy in enemies.query_rect(rect):
-		enemy.hit(damage(), Vector2(side, 0), stat("knockback", 1.0))
+		strike(enemy, damage(), Vector2(side, 0), stat("knockback", 1.0))
 	var fx := ScratchEffect.new()
 	fx.position = center
 	fx.size = size

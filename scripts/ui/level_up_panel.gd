@@ -109,7 +109,8 @@ func _make_card(index: int, offer: Dictionary) -> Button:
 	tag.text = "%d · %s" % [index + 1, Upgrades.tag(offer)] if Upgrades.tag(offer) != "" else str(index + 1)
 	content.add_child(tag)
 
-	var icon := IconView.new(offer["kind"] if offer["kind"] != "heal" else "passive", offer["id"], 44.0)
+	var icon_kind: String = {"heal": "passive", "branch": "weapon"}.get(offer["kind"], offer["kind"])
+	var icon := IconView.new(icon_kind, offer["id"], 44.0)
 	icon.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	content.add_child(icon)
 

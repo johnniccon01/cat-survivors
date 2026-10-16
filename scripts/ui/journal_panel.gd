@@ -204,7 +204,9 @@ func _build_bestiary() -> void:
 		var icon := IconView.new("weapon", id, 40.0)
 		if not known:
 			icon.modulate = SILHOUETTE
-		grid.add_child(_card(icon, tr("WEAPON_%s_NAME" % id) if known else "???", _weapon_text(id) if known else tr("BESTIARY_UNUSED"), known))
+		var card := _card(icon, tr("WEAPON_%s_NAME" % id) if known else "???", _weapon_text(id) if known else tr("BESTIARY_UNUSED"), known)
+		card.custom_minimum_size.y = 96
+		grid.add_child(card)
 	var passives: Array = GameData.passives.keys()
 	_header("%s   %s" % [tr("BESTIARY_PASSIVES"), tr("BESTIARY_FOUND") % [passives.filter(func(p: String) -> bool: return Profile.has_flag("used:" + p)).size(), passives.size()]])
 	grid = _grid()
@@ -272,6 +274,12 @@ func _weapon_text(id: String) -> String:
 	var evo: Dictionary = data.get("evolve", {})
 	if not evo.is_empty():
 		text += "\n" + tr("BESTIARY_EVOLVES") % [tr("PASSIVE_%s_NAME" % evo["with"]), tr("WEAPON_%s_NAME" % evo["into"])]
+	var branches: Dictionary = GameData.branches.get(id, {})
+	if not branches.is_empty():
+		var names: Array[String] = []
+		for b: String in branches:
+			names.append(tr("BRANCH_%s_NAME" % b) if Profile.has_flag("used:branch:" + b) else "???")
+		text += "\n" + tr("BESTIARY_BRANCHES") % ", ".join(names)
 	return text
 
 

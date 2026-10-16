@@ -3,6 +3,8 @@ extends Node2D
 ## A spilled-milk puddle that damages enemies inside it every `tick` seconds.
 
 var enemies: EnemyManager
+## The weapon that made this (for its branch effects); may be null.
+var source: Weapon
 var radius := 22.0
 var damage := 6.0
 var tick := 0.35
@@ -34,7 +36,7 @@ func _physics_process(delta: float) -> void:
 	if _tick_timer <= 0.0:
 		_tick_timer = tick
 		for enemy in enemies.query_radius(position, radius * 0.85):
-			enemy.hit(damage, Vector2.ZERO, 0.0)
+			Weapon.strike_from(source, enemy, damage, Vector2.ZERO, 0.0)
 	queue_redraw()
 
 

@@ -55,6 +55,11 @@ var fatal := false
 ## Speed factor while caught in a web, and how long that lasts.
 var _slow := 1.0
 var _slow_t := 0.0
+## Branch effects: burning (handled by the manager) and the chill tint.
+var burn_damage := 0.0
+var burn_t := 0.0
+var burn_tick := 0.0
+var _chill_t := 0.0
 ## Health multiplier this enemy was spawned with (its splits and summons use it).
 var hp_mult := 1.0
 ## Bosses that call in helpers: id, how many, how often.
@@ -113,6 +118,11 @@ func slow_down(factor: float, seconds: float) -> void:
 	if _slow_t <= 0.0 or factor < _slow:
 		_slow = factor
 	_slow_t = maxf(_slow_t, seconds)
+
+
+## Shows the frosty tint for `seconds` (the slow itself is slow_down).
+func chill(seconds: float) -> void:
+	_chill_t = maxf(_chill_t, seconds)
 
 
 func charge(dir: Vector2, seconds: float) -> void:
@@ -174,6 +184,9 @@ func tick(delta: float, target: Vector2, push: Vector2) -> void:
 	if _slow_t > 0.0:
 		_slow_t -= delta
 		move *= _slow
+	if _chill_t > 0.0:
+		_chill_t -= delta
+	modulate = Color(1.35, 0.8, 0.55) if burn_t > 0.0 else (Color(0.7, 0.9, 1.4) if _chill_t > 0.0 else Color.WHITE)
 	position += (move + _knock + push) * delta
 	_knock = _knock.move_toward(Vector2.ZERO, KNOCK_DECAY * delta)
 	if absf(dir.x) > 0.2:

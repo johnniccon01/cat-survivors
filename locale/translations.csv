@@ -564,3 +564,88 @@ BESTIARY_UNUSED,Not used yet,Ešte si ju nepoužil
 BESTIARY_EVOLVES,Evolves with %s into %s,S pasívkou %s sa vyvinie na %s
 BESTIARY_EVOLVED_FROM,Evolution of %s,Evolúcia zbrane %s
 BESTIARY_FOUND,Found %d / %d,Objavené %d / %d
+TAG_BRANCH,BRANCH,VETVA
+TAG_BRANCH_2,BRANCH II,VETVA II
+BRANCH_TITLE,%s: %s,%s: %s
+BRANCH_CHOOSE,Pick one: the other branches of this weapon close.,Vyber si jednu – ostatné vetvy tejto zbrane sa zavrú.
+BRANCH_RANK2,Stronger: %s,Silnejšie: %s
+BESTIARY_BRANCHES,Branches: %s,Vetvy: %s
+BRANCH_FLAME_CLAWS_NAME,Flame Claws,Ohnivé pazúry
+BRANCH_FLAME_CLAWS_DESC,Scratches set enemies on fire.,Škrabance zapália nepriateľov.
+BRANCH_FROST_CLAWS_NAME,Frost Claws,Mrazivé pazúry
+BRANCH_FROST_CLAWS_DESC,Scratches chill enemies and slow them down.,Škrabance nepriateľov zmrazia a spomalia.
+BRANCH_BLOODTHIRST_NAME,Bloodthirst,Krvilačnosť
+BRANCH_BLOODTHIRST_DESC,Defeating an enemy may heal you.,Porazený nepriateľ ťa môže vyliečiť.
+BRANCH_TANGLE_NAME,Tangle,Zamotanie
+BRANCH_TANGLE_DESC,Enemies get tangled in the thread and slow down.,Nepriatelia sa zamotajú do nite a spomalia.
+BRANCH_RICOCHET_NAME,Ricochet,Odraz
+BRANCH_RICOCHET_DESC,The ball pierces more enemies and flies faster.,Klbko prerazí viac nepriateľov a letí rýchlejšie.
+BRANCH_SPOOL_NAME,Big Spool,Veľká cievka
+BRANCH_SPOOL_DESC,Throws more balls of yarn.,Hádže viac klbiek.
+BRANCH_STICKY_NAME,Sticky Fur,Lepkavá srsť
+BRANCH_STICKY_DESC,Hit enemies get stuck and slow down.,Zasiahnutí nepriatelia sa prilepia a spomalia.
+BRANCH_EXPLOSIVE_NAME,Explosive Furball,Výbušná guľa
+BRANCH_EXPLOSIVE_DESC,Hairballs may explode on hit.,Chlpáče môžu pri zásahu vybuchnúť.
+BRANCH_HEAVY_NAME,Heavy Furball,Ťažký chlpáč
+BRANCH_HEAVY_DESC,Hits much harder and pushes enemies away.,Udrie oveľa silnejšie a odhodí nepriateľov.
+BRANCH_FRENZY_NAME,Frenzy,Šialenstvo
+BRANCH_FRENZY_DESC,The catnip cloud hurts more often.,Oblak šanty zraňuje častejšie.
+BRANCH_WILD_GROWTH_NAME,Wild Growth,Bujný rast
+BRANCH_WILD_GROWTH_DESC,A much bigger catnip cloud.,Oveľa väčší oblak šanty.
+BRANCH_SLEEPY_NAME,Sleepy Herb,Uspávajúca bylinka
+BRANCH_SLEEPY_DESC,Enemies in the cloud get drowsy and slow.,Nepriatelia v oblaku zaspávajú a spomalia.
+BRANCH_SHARP_BONES_NAME,Sharp Bones,Ostré kosti
+BRANCH_SHARP_BONES_DESC,Finishes off weak enemies instantly.,Slabých nepriateľov hneď dorazí.
+BRANCH_SPIN_NAME,Fast Spin,Rýchla otočka
+BRANCH_SPIN_DESC,Bones circle much faster.,Kosti krúžia oveľa rýchlejšie.
+BRANCH_MORE_BONES_NAME,Full Skeleton,Celá kostra
+BRANCH_MORE_BONES_DESC,More bones circle around you.,Okolo teba krúži viac kostí.
+BRANCH_BURNING_BEAM_NAME,Burning Beam,Pálivý lúč
+BRANCH_BURNING_BEAM_DESC,The beam sets enemies on fire.,Lúč zapáli nepriateľov.
+BRANCH_PRISM_NAME,Prism,Hranol
+BRANCH_PRISM_DESC,Fires more beams.,Strieľa viac lúčov.
+BRANCH_OVERLOAD_NAME,Overload,Preťaženie
+BRANCH_OVERLOAD_DESC,Hits may spark over to a nearby enemy.,Zásah môže preskočiť iskrou na blízkeho nepriateľa.
+BRANCH_HOT_MILK_NAME,Hot Milk,Horúce mlieko
+BRANCH_HOT_MILK_DESC,Puddles burn whoever steps in.,"Mláky popália každého, kto do nich vstúpi."
+BRANCH_ICY_MILK_NAME,Icy Milk,Ľadové mlieko
+BRANCH_ICY_MILK_DESC,Puddles freeze enemies to a crawl.,"Mláky nepriateľov zmrazia, takmer sa nepohnú."
+BRANCH_BIG_SPILL_NAME,Big Spill,Veľká potopa
+BRANCH_BIG_SPILL_DESC,Bigger puddles that last longer.,"Väčšie mláky, ktoré dlhšie vydržia."
+BRANCH_THUNDER_RING_NAME,Thunder Ring,Hromový zvon
+BRANCH_THUNDER_RING_DESC,The shockwave may spark to more enemies.,Vlna môže preskočiť iskrou na ďalších nepriateľov.
+BRANCH_LOUD_NAME,Very Loud,Poriadne nahlas
+BRANCH_LOUD_DESC,A wider ring that pushes harder.,"Širší kruh, ktorý odhodí silnejšie."
+BRANCH_QUICK_RING_NAME,Quick Ring,Rýchle zvonenie
+BRANCH_QUICK_RING_DESC,Rings much more often.,Zvoní oveľa častejšie.
+BRANCH_FIRE_FEATHER_NAME,Fire Feather,Ohnivé pierko
+BRANCH_FIRE_FEATHER_DESC,Feathers set enemies on fire.,Pierka zapália nepriateľov.
+BRANCH_RAZOR_NAME,Razor Edge,Ostrá hrana
+BRANCH_RAZOR_DESC,"Cuts through more enemies, harder.",Prereže viac nepriateľov a silnejšie.
+BRANCH_FLOCK_NAME,Flock,Kŕdeľ
+BRANCH_FLOCK_DESC,Throws more feathers.,Hádže viac pierok.
+BRANCH_FIRECRACKER_NAME,Firecracker,Petarda
+BRANCH_FIRECRACKER_DESC,Mice may explode when they bump into enemies.,Myšky môžu pri náraze vybuchnúť.
+BRANCH_FAST_SPRING_NAME,Strong Spring,Silné pero
+BRANCH_FAST_SPRING_DESC,Mice run faster and longer.,Myšky bežia rýchlejšie a dlhšie.
+BRANCH_LITTER_NAME,A Whole Litter,Celý vrh
+BRANCH_LITTER_DESC,More mice at once.,Viac myšiek naraz.
+BRANCH_VENOM_NAME,Venom,Jed
+BRANCH_VENOM_DESC,The web poisons enemies caught in it.,"Sieť otrávi nepriateľov, čo sa do nej chytia."
+BRANCH_STEEL_SILK_NAME,Steel Silk,Oceľové vlákno
+BRANCH_STEEL_SILK_DESC,Webs last much longer.,Siete vydržia oveľa dlhšie.
+BRANCH_WIDE_WEB_NAME,Wide Web,Široká sieť
+BRANCH_WIDE_WEB_DESC,Much bigger webs.,Oveľa väčšie siete.
+BRANCH_ICE_WATER_NAME,Ice Water,Ľadová voda
+BRANCH_ICE_WATER_DESC,The jets freeze enemies.,Prúdy nepriateľov zmrazia.
+BRANCH_BOILING_NAME,Boiling Water,Vriaca voda
+BRANCH_BOILING_DESC,The jets scald enemies.,Prúdy nepriateľov obaria.
+BRANCH_PRESSURE_NAME,High Pressure,Vysoký tlak
+BRANCH_PRESSURE_DESC,Stronger jets that push enemies far away.,"Silnejšie prúdy, ktoré odhodia nepriateľov ďaleko."
+BRANCH_OVERCHARGE_NAME,Overcharge,Prebitie
+BRANCH_OVERCHARGE_DESC,Much stronger sparks.,Oveľa silnejšie iskry.
+BRANCH_LONG_ARC_NAME,Long Arc,Dlhý oblúk
+BRANCH_LONG_ARC_DESC,The spark jumps to more enemies.,Iskra preskočí na viac nepriateľov.
+BRANCH_SHORT_CIRCUIT_NAME,Short Circuit,Skrat
+BRANCH_SHORT_CIRCUIT_DESC,Hits may explode in a burst of sparks.,Zásah môže vybuchnúť v spŕške iskier.
+KIND_BRANCH,Weapon branch,Vetva zbrane

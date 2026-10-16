@@ -9,6 +9,8 @@ const BONE := Color("eae4d3")
 
 var player: Player
 var enemies: EnemyManager
+## The weapon that made this (for its branch effects); may be null.
+var source: Weapon
 var angle := 0.0
 var orbit_radius := 40.0
 var angular_speed := 3.0
@@ -40,7 +42,7 @@ func _physics_process(delta: float) -> void:
 		if _time - float(_last_hit.get(key, -INF)) < HIT_DELAY:
 			continue
 		_last_hit[key] = _time
-		enemy.hit(damage, enemy.position - player.position, knockback)
+		Weapon.strike_from(source, enemy, damage, enemy.position - player.position, knockback)
 
 
 func _draw() -> void:

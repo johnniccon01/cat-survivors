@@ -21,11 +21,11 @@ func shoot(_index: int) -> void:
 		hit[current.get_instance_id()] = true
 		points.append(current.position)
 		var from := current.position
-		current.hit(damage(), current.position - points[points.size() - 2], stat("knockback", 0.2))
+		strike(current, damage(), current.position - points[points.size() - 2], stat("knockback", 0.2))
 		if storm:
 			for e in enemies.query_radius(from, 22.0 * area()):
 				if not hit.has(e.get_instance_id()):
-					e.hit(damage() * 0.4, e.position - from, 0.3)
+					strike(e, damage() * 0.4, e.position - from, 0.3)
 		current = _next(from, hit)
 		jumps -= 1
 	_bolt(points)
@@ -37,7 +37,7 @@ func shoot(_index: int) -> void:
 		while next != null and n >= 0:
 			hit[next.get_instance_id()] = true
 			fork.append(next.position)
-			next.hit(damage() * 0.7, next.position - fork[fork.size() - 2], 0.2)
+			strike(next, damage() * 0.7, next.position - fork[fork.size() - 2], 0.2)
 			next = _next(next.position, hit)
 			n -= 1
 		_bolt(fork)

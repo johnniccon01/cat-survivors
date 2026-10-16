@@ -22,6 +22,7 @@ func shoot(_index: int) -> void:
 		return
 	Audio.play("splash", -12.0 - (6.0 if player.is_companion() else 0.0))
 	_spin = SprinklerSpin.new()
+	_spin.source = self
 	_spin.enemies = enemies
 	_spin.follow = player
 	_spin.arms = amount()

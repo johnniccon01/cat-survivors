@@ -3,6 +3,8 @@ extends Node2D
 ## An expanding ring that hits each enemy once as it passes over them.
 
 var enemies: EnemyManager
+## The weapon that made this (for its branch effects); may be null.
+var source: Weapon
 var max_radius := 90.0
 var expand_time := 0.45
 var damage := 15.0
@@ -32,7 +34,7 @@ func _physics_process(delta: float) -> void:
 			if _hit.has(key):
 				continue
 			_hit[key] = true
-			enemy.hit(damage, enemy.position - position, knockback)
+			Weapon.strike_from(source, enemy, damage, enemy.position - position, knockback)
 	queue_redraw()
 
 

@@ -8,6 +8,8 @@ const OUTLINE := Color("2b1d14")
 const STEER := 5.0
 
 var enemies: EnemyManager
+## The weapon that made this (for its branch effects); may be null.
+var source: Weapon
 var velocity := Vector2.ZERO
 var damage := 10.0
 var knockback := 0.4
@@ -46,7 +48,7 @@ func _physics_process(delta: float) -> void:
 		if _hit.has(key):
 			continue
 		_hit[key] = true
-		enemy.hit(damage, velocity, knockback)
+		Weapon.strike_from(source, enemy, damage, velocity, knockback)
 		if robo:
 			_explode()
 			queue_free()

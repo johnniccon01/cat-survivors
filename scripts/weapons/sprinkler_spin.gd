@@ -3,6 +3,8 @@ extends Node2D
 ## The spinning water jets of the Sprinkler, centred on the cat.
 
 var enemies: EnemyManager
+## The weapon that made this (for its branch effects); may be null.
+var source: Weapon
 var follow: Node2D
 var arms := 1
 var length := 70.0
@@ -36,7 +38,7 @@ func _physics_process(delta: float) -> void:
 		for i in arms:
 			var dir := Vector2.from_angle(_angle + TAU * i / arms)
 			for enemy in enemies.query_segment(position, position + dir * length, 7.0):
-				enemy.hit(damage, dir, knockback)
+				Weapon.strike_from(source, enemy, damage, dir, knockback)
 	queue_redraw()
 
 

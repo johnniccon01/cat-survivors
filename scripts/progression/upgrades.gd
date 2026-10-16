@@ -3,6 +3,9 @@ class_name Upgrades
 ## An offer is a Dictionary: { kind: "weapon"|"passive"|"heal", id, level }.
 
 const HEAL_AMOUNT := 30.0
+## Weapon levels at which a branch, and its second rank, can be offered.
+const BRANCH_FROM := 3
+const BRANCH_RANK2_FROM := 6
 
 ## Translation key for each weapon stat shown in level-up descriptions.
 const STAT_TEXT := {
@@ -34,6 +37,7 @@ static func roll(player: Player, count: int = 3, owned_only: bool = false) -> Ar
 				pool.append({"kind": "weapon", "id": id, "level": owned.level + 1, "weight": data.get("rarity", 100)})
 		elif not owned_only and player.weapon_count() < Player.MAX_WEAPONS and not _has_evolution_of(player, id):
 			pool.append({"kind": "weapon", "id": id, "level": 1, "weight": data.get("rarity", 100)})
+	_add_branch_offers(player, pool)
 	for id: String in GameData.passives:
 		var data: Dictionary = GameData.passives[id]
 		var lvl: int = player.passives.get(id, 0)
@@ -52,8 +56,26 @@ static func roll(player: Player, count: int = 3, owned_only: bool = false) -> Ar
 	return offers
 
 
+## Branches: from weapon level 3 one of three branches can be picked (the
+## others then close); from level 6, or once evolved, it can reach rank 2.
+static func _add_branch_offers(player: Player, pool: Array[Dictionary]) -> void:
+	for weapon: Weapon in player.weapons.get_children():
+		var branches: Dictionary = GameData.branches.get(weapon.base_id(), {})
+		if branches.is_empty():
+			continue
+		var evolved: bool = weapon.data.get("evolved", false)
+		if weapon.branch == "":
+			if weapon.level >= BRANCH_FROM or evolved:
+				for b: String in branches:
+					pool.append({"kind": "branch", "id": weapon.id, "branch": b, "level": 1, "weight": 45})
+		elif weapon.branch_rank == 1 and (weapon.level >= BRANCH_RANK2_FROM or evolved):
+			pool.append({"kind": "branch", "id": weapon.id, "branch": weapon.branch, "level": 2, "weight": 60})
+
+
 static func apply(player: Player, offer: Dictionary) -> void:
 	match offer["kind"]:
+		"branch":
+			player.choose_branch(offer["id"], offer["branch"])
 		"weapon":
 			if offer["level"] == 1:
 				player.add_weapon(offer["id"])
@@ -106,12 +128,16 @@ static func item_name(kind: String, id: String) -> String:
 static func title(offer: Dictionary) -> String:
 	if offer["kind"] == "heal":
 		return _t("HEAL_NAME")
+	if offer["kind"] == "branch":
+		return _t("BRANCH_%s_NAME" % offer["branch"])
 	return item_name(offer["kind"], offer["id"])
 
 
 static func tag(offer: Dictionary) -> String:
 	if offer["kind"] == "heal":
 		return ""
+	if offer["kind"] == "branch":
+		return "%s · %s" % [_t("TAG_BRANCH_2" if offer["level"] == 2 else "TAG_BRANCH"), item_name("weapon", offer["id"])]
 	if offer["level"] == 1:
 		return _t("TAG_NEW")
 	return _t("TAG_LEVEL") % offer["level"]
@@ -146,6 +172,9 @@ static func _evolution_hint(offer: Dictionary) -> String:
 
 static func _base_description(offer: Dictionary) -> String:
 	var kind: String = offer["kind"]
+	if kind == "branch":
+		var desc := _t("BRANCH_%s_DESC" % offer["branch"])
+		return _t("BRANCH_RANK2") % desc if offer["level"] == 2 else "%s\n%s" % [desc, _t("BRANCH_CHOOSE")]
 	if kind == "heal":
 		return _t("HEAL_DESC") % HEAL_AMOUNT
 	if kind == "passive" or offer["level"] == 1:

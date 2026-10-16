@@ -15,6 +15,7 @@ func shoot(_index: int) -> void:
 	if not targets.is_empty():
 		pos = targets.pick_random().position
 	var puddle := MilkPuddle.new()
+	puddle.source = self
 	puddle.enemies = enemies
 	puddle.position = pos
 	puddle.radius = BASE_RADIUS * area()

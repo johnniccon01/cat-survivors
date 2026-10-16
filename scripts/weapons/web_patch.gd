@@ -4,6 +4,8 @@ extends Node2D
 ## hurts them every `tick` seconds. Silk webs shimmer and hold harder.
 
 var enemies: EnemyManager
+## The weapon that made this (for its branch effects); may be null.
+var source: Weapon
 var radius := 26.0
 var damage := 4.0
 var tick := 0.5
@@ -34,7 +36,7 @@ func _physics_process(delta: float) -> void:
 		# Held for a moment longer than this frame so they stay stuck in it.
 		enemy.slow_down(slow if not enemy.is_boss else maxf(slow, 0.6), 0.15)
 		if hurt:
-			enemy.hit(damage, Vector2.ZERO, 0.0)
+			Weapon.strike_from(source, enemy, damage, Vector2.ZERO, 0.0)
 	queue_redraw()
 
 

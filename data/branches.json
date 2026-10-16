@@ -1,0 +1,620 @@
+{
+  "SCRATCH": {
+    "FLAME_CLAWS": {
+      "ranks": [
+        {
+          "burn": [
+            0.15,
+            3.0
+          ]
+        },
+        {
+          "burn": [
+            0.25,
+            4.0
+          ]
+        }
+      ]
+    },
+    "FROST_CLAWS": {
+      "ranks": [
+        {
+          "chill": [
+            0.6,
+            1.5
+          ]
+        },
+        {
+          "chill": [
+            0.4,
+            2.2
+          ]
+        }
+      ]
+    },
+    "BLOODTHIRST": {
+      "ranks": [
+        {
+          "vamp": 0.15
+        },
+        {
+          "vamp": 0.3
+        }
+      ]
+    }
+  },
+  "YARN": {
+    "TANGLE": {
+      "ranks": [
+        {
+          "chill": [
+            0.6,
+            1.5
+          ]
+        },
+        {
+          "chill": [
+            0.4,
+            2.2
+          ]
+        }
+      ]
+    },
+    "RICOCHET": {
+      "ranks": [
+        {
+          "mods": {
+            "pierce": 2,
+            "speed": 0.2
+          }
+        },
+        {
+          "mods": {
+            "pierce": 4,
+            "speed": 0.4
+          }
+        }
+      ]
+    },
+    "SPOOL": {
+      "ranks": [
+        {
+          "mods": {
+            "amount": 1
+          }
+        },
+        {
+          "mods": {
+            "amount": 2
+          }
+        }
+      ]
+    }
+  },
+  "HAIRBALL": {
+    "STICKY": {
+      "ranks": [
+        {
+          "chill": [
+            0.6,
+            1.5
+          ]
+        },
+        {
+          "chill": [
+            0.4,
+            2.2
+          ]
+        }
+      ]
+    },
+    "EXPLOSIVE": {
+      "ranks": [
+        {
+          "blast": [
+            0.2,
+            0.6,
+            30
+          ]
+        },
+        {
+          "blast": [
+            0.35,
+            0.9,
+            40
+          ]
+        }
+      ]
+    },
+    "HEAVY": {
+      "ranks": [
+        {
+          "mods": {
+            "damage": 0.4,
+            "knockback": 0.5
+          }
+        },
+        {
+          "mods": {
+            "damage": 0.8,
+            "knockback": 1.0
+          }
+        }
+      ]
+    }
+  },
+  "CATNIP": {
+    "FRENZY": {
+      "ranks": [
+        {
+          "mods": {
+            "interval": -0.2
+          }
+        },
+        {
+          "mods": {
+            "interval": -0.35
+          }
+        }
+      ]
+    },
+    "WILD_GROWTH": {
+      "ranks": [
+        {
+          "mods": {
+            "area": 0.3
+          }
+        },
+        {
+          "mods": {
+            "area": 0.6
+          }
+        }
+      ]
+    },
+    "SLEEPY": {
+      "ranks": [
+        {
+          "chill": [
+            0.6,
+            1.5
+          ]
+        },
+        {
+          "chill": [
+            0.4,
+            2.2
+          ]
+        }
+      ]
+    }
+  },
+  "FISHBONES": {
+    "SHARP_BONES": {
+      "ranks": [
+        {
+          "execute": 0.12
+        },
+        {
+          "execute": 0.2
+        }
+      ]
+    },
+    "SPIN": {
+      "ranks": [
+        {
+          "mods": {
+            "speed": 0.4
+          }
+        },
+        {
+          "mods": {
+            "speed": 0.8
+          }
+        }
+      ]
+    },
+    "MORE_BONES": {
+      "ranks": [
+        {
+          "mods": {
+            "amount": 1
+          }
+        },
+        {
+          "mods": {
+            "amount": 2
+          }
+        }
+      ]
+    }
+  },
+  "LASER": {
+    "BURNING_BEAM": {
+      "ranks": [
+        {
+          "burn": [
+            0.15,
+            3.0
+          ]
+        },
+        {
+          "burn": [
+            0.25,
+            4.0
+          ]
+        }
+      ]
+    },
+    "PRISM": {
+      "ranks": [
+        {
+          "mods": {
+            "amount": 1
+          }
+        },
+        {
+          "mods": {
+            "amount": 2
+          }
+        }
+      ]
+    },
+    "OVERLOAD": {
+      "ranks": [
+        {
+          "shock": [
+            0.25,
+            0.5
+          ]
+        },
+        {
+          "shock": [
+            0.4,
+            0.8
+          ]
+        }
+      ]
+    }
+  },
+  "MILK": {
+    "HOT_MILK": {
+      "ranks": [
+        {
+          "burn": [
+            0.15,
+            3.0
+          ]
+        },
+        {
+          "burn": [
+            0.25,
+            4.0
+          ]
+        }
+      ]
+    },
+    "ICY_MILK": {
+      "ranks": [
+        {
+          "chill": [
+            0.6,
+            1.5
+          ]
+        },
+        {
+          "chill": [
+            0.4,
+            2.2
+          ]
+        }
+      ]
+    },
+    "BIG_SPILL": {
+      "ranks": [
+        {
+          "mods": {
+            "area": 0.3,
+            "duration": 0.3
+          }
+        },
+        {
+          "mods": {
+            "area": 0.6,
+            "duration": 0.6
+          }
+        }
+      ]
+    }
+  },
+  "BELL": {
+    "THUNDER_RING": {
+      "ranks": [
+        {
+          "shock": [
+            0.25,
+            0.5
+          ]
+        },
+        {
+          "shock": [
+            0.4,
+            0.8
+          ]
+        }
+      ]
+    },
+    "LOUD": {
+      "ranks": [
+        {
+          "mods": {
+            "area": 0.3,
+            "knockback": 0.5
+          }
+        },
+        {
+          "mods": {
+            "area": 0.6,
+            "knockback": 1.0
+          }
+        }
+      ]
+    },
+    "QUICK_RING": {
+      "ranks": [
+        {
+          "mods": {
+            "interval": -0.25
+          }
+        },
+        {
+          "mods": {
+            "interval": -0.4
+          }
+        }
+      ]
+    }
+  },
+  "FEATHER": {
+    "FIRE_FEATHER": {
+      "ranks": [
+        {
+          "burn": [
+            0.15,
+            3.0
+          ]
+        },
+        {
+          "burn": [
+            0.25,
+            4.0
+          ]
+        }
+      ]
+    },
+    "RAZOR": {
+      "ranks": [
+        {
+          "mods": {
+            "pierce": 2,
+            "damage": 0.2
+          }
+        },
+        {
+          "mods": {
+            "pierce": 4,
+            "damage": 0.4
+          }
+        }
+      ]
+    },
+    "FLOCK": {
+      "ranks": [
+        {
+          "mods": {
+            "amount": 1
+          }
+        },
+        {
+          "mods": {
+            "amount": 2
+          }
+        }
+      ]
+    }
+  },
+  "MOUSE_TOY": {
+    "FIRECRACKER": {
+      "ranks": [
+        {
+          "blast": [
+            0.2,
+            0.6,
+            30
+          ]
+        },
+        {
+          "blast": [
+            0.35,
+            0.9,
+            40
+          ]
+        }
+      ]
+    },
+    "FAST_SPRING": {
+      "ranks": [
+        {
+          "mods": {
+            "speed": 0.4,
+            "duration": 0.3
+          }
+        },
+        {
+          "mods": {
+            "speed": 0.8,
+            "duration": 0.6
+          }
+        }
+      ]
+    },
+    "LITTER": {
+      "ranks": [
+        {
+          "mods": {
+            "amount": 1
+          }
+        },
+        {
+          "mods": {
+            "amount": 2
+          }
+        }
+      ]
+    }
+  },
+  "COBWEB": {
+    "VENOM": {
+      "ranks": [
+        {
+          "burn": [
+            0.15,
+            3.0
+          ]
+        },
+        {
+          "burn": [
+            0.25,
+            4.0
+          ]
+        }
+      ]
+    },
+    "STEEL_SILK": {
+      "ranks": [
+        {
+          "mods": {
+            "duration": 0.5
+          }
+        },
+        {
+          "mods": {
+            "duration": 1.0
+          }
+        }
+      ]
+    },
+    "WIDE_WEB": {
+      "ranks": [
+        {
+          "mods": {
+            "area": 0.35
+          }
+        },
+        {
+          "mods": {
+            "area": 0.7
+          }
+        }
+      ]
+    }
+  },
+  "SPRINKLER": {
+    "ICE_WATER": {
+      "ranks": [
+        {
+          "chill": [
+            0.6,
+            1.5
+          ]
+        },
+        {
+          "chill": [
+            0.4,
+            2.2
+          ]
+        }
+      ]
+    },
+    "BOILING": {
+      "ranks": [
+        {
+          "burn": [
+            0.15,
+            3.0
+          ]
+        },
+        {
+          "burn": [
+            0.25,
+            4.0
+          ]
+        }
+      ]
+    },
+    "PRESSURE": {
+      "ranks": [
+        {
+          "mods": {
+            "damage": 0.3,
+            "knockback": 0.6
+          }
+        },
+        {
+          "mods": {
+            "damage": 0.6,
+            "knockback": 1.2
+          }
+        }
+      ]
+    }
+  },
+  "ANTENNA": {
+    "OVERCHARGE": {
+      "ranks": [
+        {
+          "mods": {
+            "damage": 0.4
+          }
+        },
+        {
+          "mods": {
+            "damage": 0.8
+          }
+        }
+      ]
+    },
+    "LONG_ARC": {
+      "ranks": [
+        {
+          "mods": {
+            "pierce": 2
+          }
+        },
+        {
+          "mods": {
+            "pierce": 4
+          }
+        }
+      ]
+    },
+    "SHORT_CIRCUIT": {
+      "ranks": [
+        {
+          "blast": [
+            0.2,
+            0.6,
+            30
+          ]
+        },
+        {
+          "blast": [
+            0.35,
+            0.9,
+            40
+          ]
+        }
+      ]
+    }
+  }
+}

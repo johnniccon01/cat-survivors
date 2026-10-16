@@ -11,6 +11,7 @@ func shoot(index: int) -> void:
 	# Spread consecutive shots to alternating sides, leaning towards the facing.
 	var spread := (index + 1) * 25.0 * (1 if index % 2 == 0 else -1)
 	var p := Projectile.new()
+	p.source = self
 	p.enemies = enemies
 	p.style = "hairball"
 	p.position = player.position + Vector2(0, -6)

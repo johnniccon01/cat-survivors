@@ -15,6 +15,7 @@ func shoot(_index: int) -> void:
 	if not targets.is_empty():
 		pos = targets.pick_random().position
 	var web := WebPatch.new()
+	web.source = self
 	web.enemies = enemies
 	web.position = pos
 	web.radius = BASE_RADIUS * area()

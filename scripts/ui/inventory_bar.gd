@@ -34,6 +34,12 @@ func _draw() -> void:
 		if i < weapons.size():
 			var w: Weapon = weapons[i]
 			Icons.draw(self, "weapon", w.id, rect)
+			if w.branch != "":
+				# One dot per branch rank, coloured by what the branch does.
+				for k in w.branch_rank:
+					var p := rect.position + Vector2(4 + k * 6, 4)
+					draw_circle(p, 2.6, OUTLINE)
+					draw_circle(p, 2.0, InventoryBar.branch_color(w.branch_effect()))
 			if Icons.is_evolved("weapon", w.id):
 				draw_rect(rect.grow(1.0), GOLD, false, 2.0)
 				_badge(rect, "★", GOLD)
@@ -57,6 +63,23 @@ func _draw() -> void:
 func _empty(rect: Rect2) -> void:
 	draw_rect(rect, Color(0, 0, 0, 0.35))
 	draw_rect(rect, Color(1, 1, 1, 0.12), false, 1.0)
+
+
+## Colour that tells the kind of a weapon branch (fire, frost, spark...).
+static func branch_color(fx: Dictionary) -> Color:
+	if fx.has("burn"):
+		return Color("ff8a3d")
+	if fx.has("chill"):
+		return Color("8fd3ff")
+	if fx.has("shock"):
+		return Color("ffe066")
+	if fx.has("blast"):
+		return Color("e04646")
+	if fx.has("execute"):
+		return Color("f4f1ea")
+	if fx.has("vamp"):
+		return Color("c94f8a")
+	return Color("6cd48a")
 
 
 ## Small number (or MAX / star) in the bottom-right corner of a slot.

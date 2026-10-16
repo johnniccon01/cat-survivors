@@ -12,6 +12,7 @@ func shoot(_index: int) -> void:
 	if target != null:
 		dir = (target.position - player.position).normalized()
 	var p := Projectile.new()
+	p.source = self
 	p.enemies = enemies
 	p.style = "yarn"
 	p.position = player.position + Vector2(0, -4)

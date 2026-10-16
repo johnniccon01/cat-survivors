@@ -18,6 +18,7 @@ extends Node2D
 ##   --quest=ID         starts quest ID next to the cat (LUNA, TIGER, RED_DOT...)
 ##   --cat=ID           play as cat ID (see data/cats.json)
 ##   --start-weapon=ID  start with weapon ID instead of the cat's own
+##   --branch=W:B:R     give weapon W branch B at rank R (comma-separated list)
 ##   --levels=N         start with N random level-up picks (to test late game)
 ##   --extract          open a cat flap right away
 ##   --page             the map's diary page appears after 5 s
@@ -229,6 +230,11 @@ func _ready() -> void:
 	if "--test-evolution" in _args:
 		_test_evolution.call_deferred()
 	Audio.play_music(spawner.stage().get("music", "music_apartment"))
+	# --branch=WEAPON:BRANCH:RANK[,...] gives weapons a branch (tests).
+	for spec: String in _arg("--branch=", "").split(",", false):
+		var parts := spec.split(":")
+		for r in int(parts[2]) if parts.size() > 2 else 1:
+			player.choose_branch(parts[0], parts[1])
 	if "--all-weapons" in _args:
 		for id: String in GameData.weapons:
 			if not GameData.weapons[id].get("evolved", false) and player.get_weapon(id) == null:
@@ -277,7 +283,7 @@ func _process(delta: float) -> void:
 	if _bot and (spawner.elapsed >= _bot_time or _run_over):
 		var weapons: Array[String] = []
 		for w: Weapon in player.weapons.get_children():
-			weapons.append("%s:%d" % [w.id, w.level])
+			weapons.append("%s:%d%s" % [w.id, w.level, "" if w.branch == "" else "[%s%d]" % [w.branch, w.branch_rank]])
 		if is_instance_valid(final_boss):
 			print("BOT: final boss hp=%.0f/%.0f" % [final_boss.hp, final_boss.max_hp])
 		print("BOT: time=%.1f level=%d kills=%d hp=%.0f/%.0f enemies=%d dead=%s" % [

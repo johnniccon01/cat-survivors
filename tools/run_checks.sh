@@ -35,6 +35,8 @@ scenarios=(
   "evolution_cobweb|--test-evolution --start-weapon=COBWEB"
   "evolution_sprinkler|--test-evolution --start-weapon=SPRINKLER"
   "evolution_antenna|--test-evolution --start-weapon=ANTENNA"
+  "branches_fx|--bot --start-weapon=SCRATCH,LASER,MILK,HAIRBALL,BELL,ANTENNA --branch=SCRATCH:FLAME_CLAWS:2,LASER:OVERLOAD:2,MILK:ICY_MILK:2,HAIRBALL:EXPLOSIVE:2,BELL:THUNDER_RING:1,ANTENNA:SHORT_CIRCUIT:2 --levels=10 --bot-time=120"
+  "branches_misc|--bot --start-minute=6 --catch-up --start-weapon=FISHBONES,SCRATCH,YARN,COBWEB,SPRINKLER,MOUSE_TOY --branch=FISHBONES:SHARP_BONES:2,SCRATCH:BLOODTHIRST:2,YARN:RICOCHET:2,COBWEB:VENOM:1,SPRINKLER:BOILING:2,MOUSE_TOY:FIRECRACKER:2 --bot-time=500"
   "new_weapons|--bot --start-minute=8 --catch-up --start-weapon=ANTENNA --all-weapons --bot-time=600"
   "quest_clover|--bot --stage=GARDEN --levels=20 --quest=CLOVER --bot-time=150"
   "angel_devil|--bot --stage=ROOFTOP --start-minute=16 --catch-up --angel-chance=1 --kill-cat-every=8 --bot-time=90"

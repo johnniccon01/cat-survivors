@@ -15,6 +15,7 @@ func shoot(_index: int) -> void:
 	var count := amount()
 	for i in count:
 		var bone := OrbitProjectile.new()
+		bone.source = self
 		bone.player = player
 		bone.enemies = enemies
 		bone.angle = TAU * i / count

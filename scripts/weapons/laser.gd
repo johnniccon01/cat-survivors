@@ -17,7 +17,7 @@ func shoot(index: int) -> void:
 	var to := from + dir * BASE_LENGTH * area()
 	var width := BASE_WIDTH * area()
 	for enemy in enemies.query_segment(from, to, width):
-		enemy.hit(damage(), dir, stat("knockback", 0.2))
+		strike(enemy, damage(), dir, stat("knockback", 0.2))
 	var beam := BeamEffect.new()
 	beam.from = from
 	beam.to = to

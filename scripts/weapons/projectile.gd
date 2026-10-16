@@ -8,6 +8,8 @@ extends Node2D
 const OUTLINE := Color("2b1d14")
 
 var enemies: EnemyManager
+## The weapon that made this (for its branch effects); may be null.
+var source: Weapon
 var velocity := Vector2.ZERO
 var gravity := 0.0
 var spin := 0.0
@@ -51,7 +53,7 @@ func _physics_process(delta: float) -> void:
 		if _hit.has(key):
 			continue
 		_hit[key] = true
-		enemy.hit(damage, velocity, knockback)
+		Weapon.strike_from(source, enemy, damage, velocity, knockback)
 		if pierce > 0:
 			pierce -= 1
 			if pierce == 0:

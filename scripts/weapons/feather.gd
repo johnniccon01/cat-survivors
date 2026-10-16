@@ -17,6 +17,7 @@ func shoot(index: int) -> void:
 	# Extra feathers fan out around the main direction.
 	dir = dir.rotated((index - (amount() - 1) * 0.5) * 0.35)
 	var p := Projectile.new()
+	p.source = self
 	p.enemies = enemies
 	p.style = "phoenix" if data.get("fire", false) else "feather"
 	p.position = player.position + Vector2(0, -4)

@@ -13,6 +13,7 @@ func shoot(_index: int) -> void:
 	if not targets.is_empty():
 		dir = (targets.pick_random().position - player.position).normalized().rotated(randf_range(-0.3, 0.3))
 	var mouse := ToyMouse.new()
+	mouse.source = self
 	mouse.enemies = enemies
 	mouse.position = player.position + Vector2(0, 4)
 	mouse.velocity = dir * proj_speed()

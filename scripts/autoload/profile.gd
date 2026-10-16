@@ -31,7 +31,11 @@ var powerups: Dictionary = {}
 
 func _ready() -> void:
 	var cfg := ConfigFile.new()
-	if cfg.load(PATH) == OK:
+	# Automated tests start from a fresh profile, so their results don't depend
+	# on how far the player has got.
+	var args := OS.get_cmdline_user_args()
+	var fresh := "--bot" in args or "--ui-test" in args
+	if not fresh and cfg.load(PATH) == OK:
 		for id: String in cfg.get_value("cats", "unlocked", []):
 			unlocked.append(id)
 		selected_cat = cfg.get_value("cats", "selected", selected_cat)

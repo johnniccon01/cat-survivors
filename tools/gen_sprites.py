@@ -513,6 +513,18 @@ def enemy_canvas(shape, frame, data):
         c.ellipse(24, 14, 1.4, 1.2, "nose")
         for x in ((10, 15) if frame else (11, 16)):
             c.rect(x, 22, 2, 2, "accent")
+    elif shape == "frog":
+        hop = frame
+        for x in (7, 19):
+            c.ellipse(x, 22 - hop, 3.5, 2.2, "body")
+        c.ellipse(13, 17 - hop, 8, 6, "body")
+        c.ellipse(13, 19 - hop, 5.5, 3, "accent", only=("body",))
+        for x in (9, 17):
+            c.ellipse(x, 11 - hop, 2.8, 2.8, "body")
+            c.set(x, 11 - hop, "white"); c.set(x + 1, 11 - hop, "pupil")
+        for x in range(10, 17):
+            c.set(x, 15 - hop, "ink")
+        c.ellipse(13, 13 - hop, 1.2, 0.8, "top", only=("body",))
     elif shape == "sack":
         c.poly([(8, 9), (20, 9), (23, 24), (5, 24)], "body")
         c.rect(10, 6, 8, 4, "body")

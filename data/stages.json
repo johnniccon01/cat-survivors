@@ -71,7 +71,8 @@
         "enemies": [
           "SOCK_STRIPED",
           "DUST_BUNNY",
-          "ROOMBA"
+          "ROOMBA",
+          "DUST_CLOUD"
         ]
       },
       {
@@ -97,7 +98,8 @@
         "enemies": [
           "SLIPPER",
           "DUST_BUNNY",
-          "SOCK_STRIPED"
+          "SOCK_STRIPED",
+          "DUST_CLOUD"
         ],
         "hp_mult": 1.5
       },
@@ -337,7 +339,8 @@
         "enemies": [
           "RAT",
           "SPIDER",
-          "MOTH"
+          "MOTH",
+          "SPITTER_SPIDER"
         ],
         "hp_mult": 1.5
       },
@@ -349,7 +352,8 @@
         "enemies": [
           "SPIDER",
           "RAT",
-          "SLIPPER"
+          "SLIPPER",
+          "SPITTER_SPIDER"
         ],
         "hp_mult": 2.0,
         "bosses": [
@@ -364,7 +368,8 @@
         "enemies": [
           "RAT",
           "SPIDER",
-          "MOTH"
+          "MOTH",
+          "SPITTER_SPIDER"
         ],
         "hp_mult": 2.5
       },
@@ -376,7 +381,8 @@
         "enemies": [
           "RAT",
           "SPIDER",
-          "SLIPPER"
+          "SLIPPER",
+          "SPITTER_SPIDER"
         ],
         "hp_mult": 3.0,
         "bosses": [
@@ -391,7 +397,8 @@
         "enemies": [
           "RAT",
           "SPIDER",
-          "MOTH"
+          "MOTH",
+          "SPITTER_SPIDER"
         ],
         "hp_mult": 3.5
       },
@@ -403,7 +410,8 @@
         "enemies": [
           "SPIDER",
           "RAT",
-          "SLIPPER"
+          "SLIPPER",
+          "SPITTER_SPIDER"
         ],
         "hp_mult": 4.5,
         "bosses": [
@@ -418,7 +426,8 @@
         "enemies": [
           "RAT",
           "SPIDER",
-          "MOTH"
+          "MOTH",
+          "SPITTER_SPIDER"
         ],
         "hp_mult": 5.5
       }
@@ -636,7 +645,8 @@
         "enemies": [
           "BEE",
           "CROW",
-          "SNAIL"
+          "SNAIL",
+          "FROG"
         ],
         "hp_mult": 2.0
       },
@@ -648,7 +658,8 @@
         "enemies": [
           "CROW",
           "MOLE",
-          "GNOME"
+          "GNOME",
+          "FROG"
         ],
         "hp_mult": 2.5,
         "bosses": [
@@ -663,7 +674,8 @@
         "enemies": [
           "BEE",
           "CROW",
-          "SNAIL"
+          "SNAIL",
+          "FROG"
         ],
         "hp_mult": 3.0
       },
@@ -675,7 +687,8 @@
         "enemies": [
           "GNOME",
           "MOLE",
-          "CROW"
+          "CROW",
+          "FROG"
         ],
         "hp_mult": 3.5,
         "bosses": [
@@ -690,7 +703,8 @@
         "enemies": [
           "BEE",
           "GNOME",
-          "SNAIL"
+          "SNAIL",
+          "FROG"
         ],
         "hp_mult": 4.0
       },
@@ -702,7 +716,8 @@
         "enemies": [
           "CROW",
           "GNOME",
-          "MOLE"
+          "MOLE",
+          "FROG"
         ],
         "hp_mult": 5.0,
         "bosses": [
@@ -717,7 +732,8 @@
         "enemies": [
           "GNOME",
           "CROW",
-          "BEE"
+          "BEE",
+          "FROG"
         ],
         "hp_mult": 6.0
       }
@@ -865,7 +881,8 @@
         "enemies": [
           "BAT",
           "GULL",
-          "RACCOON"
+          "RACCOON",
+          "DIVE_GULL"
         ],
         "hp_mult": 2.0
       },
@@ -877,7 +894,8 @@
         "enemies": [
           "RACCOON",
           "PIGEON",
-          "GULL"
+          "GULL",
+          "DIVE_GULL"
         ],
         "hp_mult": 3.0,
         "bosses": [
@@ -892,7 +910,8 @@
         "enemies": [
           "BAT",
           "GULL",
-          "PIGEON"
+          "PIGEON",
+          "DIVE_GULL"
         ],
         "hp_mult": 3.5
       },
@@ -904,7 +923,8 @@
         "enemies": [
           "RACCOON",
           "GULL",
-          "BAT"
+          "BAT",
+          "DIVE_GULL"
         ],
         "hp_mult": 4.0,
         "bosses": [
@@ -919,7 +939,8 @@
         "enemies": [
           "PIGEON",
           "RACCOON",
-          "GULL"
+          "GULL",
+          "DIVE_GULL"
         ],
         "hp_mult": 5.0
       },
@@ -931,7 +952,8 @@
         "enemies": [
           "GULL",
           "RACCOON",
-          "BAT"
+          "BAT",
+          "DIVE_GULL"
         ],
         "hp_mult": 6.0,
         "bosses": [
@@ -946,7 +968,8 @@
         "enemies": [
           "RACCOON",
           "GULL",
-          "PIGEON"
+          "PIGEON",
+          "DIVE_GULL"
         ],
         "hp_mult": 7.0
       }

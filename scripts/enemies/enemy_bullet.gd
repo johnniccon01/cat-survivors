@@ -8,7 +8,7 @@ var velocity := Vector2.ZERO
 var damage := 6.0
 var lifetime := 3.0
 var player: Player
-## "laser" (red dot) or "hair" (hairball).
+## "laser" (red dot), "hair" (hairball) or "spit" (green blob).
 var style := "laser"
 
 var _t := 0.0
@@ -34,6 +34,11 @@ func _physics_process(delta: float) -> void:
 
 
 func _draw() -> void:
+	if style == "spit":
+		draw_circle(Vector2.ZERO, 4.0, Color("2b1d14"))
+		draw_circle(Vector2.ZERO, 3.0, Color("8fd04a"))
+		draw_circle(Vector2(-1, -1), 1.0, Color("d8f0a0"))
+		return
 	if style == "hair":
 		draw_circle(Vector2.ZERO, 4.0, Color("2b1d14"))
 		draw_circle(Vector2.ZERO, 3.0, Color("8a6a4a"))

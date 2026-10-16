@@ -3,7 +3,7 @@
 Živý zoznam toho, čo je hotové, čo robíme teraz a čo príde. Po každom kroku
 ho aktualizujeme: hotové odškrtneme `[x]`, nové nápady pridáme do Zásobníka.
 
-Naposledy aktualizované: 16. 10. 2026
+Naposledy aktualizované: 16. 10. 2026 (fáza 2 rozbehnutá)
 
 ---
 
@@ -31,13 +31,14 @@ Hra je hrateľná od menu po koniec noci na 4 mapách:
 ## Teraz
 
 - [ ] Vyskúšať novú obtiažnosť, anjela a diabla (`Spustit\4 Test anjel a diabol.bat`) a dať spätnú väzbu
-- [ ] Pushnúť posledné 4 commity na GitHub (po tvojom OK)
+- [x] Pushnúť posledné commity na GitHub – odteraz sa pushuje po každom otestovanom kroku
 
 ## Fáza 1 – Doladenie podľa hrania
 
 Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 
 - [ ] Obtiažnosť: doladiť rast poškodenia a HP nepriateľov podľa tvojich hier (každá mapa zvlášť)
+- [ ] Začiatok neskorších máp: mačka bez vylepšení zomiera pri prvom bossovi (3. min) v Pivnici a Záhrade – zvážiť ľahší štart
 - [ ] Ceny vylepšení v obchode a sila charmov – nie je niečo príliš silné alebo zbytočné?
 - [ ] Výkon: skontrolovať FPS v skutočnej hre pri 300+ nepriateľoch, prípadne optimalizovať
 - [ ] Príbehové questy aj pre Pivnicu, Záhradu a Strechu (teraz má príbeh len Byt – obojok)
@@ -48,8 +49,9 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 
 - [ ] Tajomstvá: odomknúť anjel mačku tajným questom
 - [ ] Tajomstvá: odomknúť diabol mačku (napr. prežiť s ňou 30 min a poraziť ju)
-- [ ] Nové zbrane a pasívy (napr. 1–2 viazané na každú mapu) a ich evolúcie
-- [ ] Ďalší bossovia a nové správanie nepriateľov (strieľajúci, deliaci sa, štít)
+- [x] Nové zbrane: Myška na kľúčik, Pavučina, Kropič, Anténa (každú odomkne prejdenie mapy) + evolúcie, pasívy Dlhý spánok a Rýchly hod
+- [x] Nové správanie: prachový mrak sa rozpadá, pľujúci pavúk a žaba strieľajú, útočná čajka sa vrhá; bossovia privolávajú pomocníkov
+- [ ] Úplne noví bossovia (napr. jeden stredný boss na mapu s vlastným útokom)
 - [ ] Viac charmov a dlhodobých cieľov
 - [ ] Bestiár / zbierka: prehľad nepriateľov, mačiek a zbraní, ktoré si už stretol
 - [ ] Nové režimy: nekonečná noc po víťazstve, výzvy s obmedzeniami

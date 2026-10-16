@@ -48,6 +48,7 @@ func spawn(id: String, pos: Vector2, hp_mult: float = 1.0) -> Enemy:
 	enemy.setup(id, GameData.enemies[id], self)
 	enemy.max_hp *= hp_mult
 	enemy.hp = enemy.max_hp
+	enemy.hp_mult = hp_mult
 	if not enemy.persistent:
 		enemy.damage *= damage_mult
 		enemy.speed *= speed_mult
@@ -114,6 +115,14 @@ func on_enemy_dead(enemy: Enemy) -> void:
 		enemies.erase(enemy)
 		budget_used -= enemy.cost
 		enemy_killed.emit(enemy.id, enemy.position, enemy.xp)
+		# Some enemies burst into smaller ones.
+		var data: Dictionary = GameData.enemies[enemy.id]
+		if data.has("split_into"):
+			var n := int(data.get("split_count", 2))
+			for i in n:
+				var child := spawn(data["split_into"], enemy.position + Vector2.from_angle(TAU * i / n) * enemy.radius, enemy.hp_mult)
+				if child != null:
+					child._knock = Vector2.from_angle(TAU * i / n) * 120.0
 		if enemy.is_elite:
 			elite_killed.emit(enemy.position)
 	poof.position = enemy.position

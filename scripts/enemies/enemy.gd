@@ -55,6 +55,13 @@ var fatal := false
 ## Speed factor while caught in a web, and how long that lasts.
 var _slow := 1.0
 var _slow_t := 0.0
+## Health multiplier this enemy was spawned with (its splits and summons use it).
+var hp_mult := 1.0
+## Bosses that call in helpers: id, how many, how often.
+var _summon_id := ""
+var _summon_count := 0
+var _summon_every := 0.0
+var _summon_timer := 0.0
 ## Soft glow under cats like the devil.
 var _aura := Color(0, 0, 0, 0)
 var _stripes := false
@@ -91,6 +98,10 @@ func setup(p_id: String, data: Dictionary, p_manager: EnemyManager) -> void:
 	_base_scale = data.get("scale", 1.0)
 	scale = Vector2(_base_scale, _base_scale)
 	persistent = data.get("persistent", false)
+	_summon_id = data.get("summon", "")
+	_summon_count = int(data.get("summon_count", 0))
+	_summon_every = float(data.get("summon_every", 8.0))
+	_summon_timer = _summon_every * 0.6
 	fatal = data.get("fatal", false)
 	if data.has("aura"):
 		_aura = Color(data["aura"])
@@ -150,6 +161,16 @@ func tick(delta: float, target: Vector2, push: Vector2) -> void:
 			move = _tick_shooter(delta, target, dir)
 		"final":
 			move = _tick_final(delta, target, dir)
+		"spit":
+			move = _tick_spit(delta, target, dir)
+		"dive":
+			move = _tick_dive(delta, target, dir)
+	if _summon_id != "":
+		_summon_timer -= delta
+		if _summon_timer <= 0.0:
+			_summon_timer = _summon_every
+			for i in _summon_count:
+				manager.spawn(_summon_id, position + Vector2.from_angle(TAU * i / _summon_count + randf()) * radius * 1.6, hp_mult)
 	if _slow_t > 0.0:
 		_slow_t -= delta
 		move *= _slow
@@ -232,6 +253,42 @@ func _tick_final(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 			return Vector2.ZERO
 	if hp < max_hp * 0.5 and _state != "suck":
 		return _tick_dash(delta, dir)
+	return dir * speed
+
+
+## Regular ranged enemy: keeps some distance and spits a slow blob now and then.
+func _tick_spit(delta: float, target: Vector2, dir: Vector2) -> Vector2:
+	var dist := position.distance_to(target)
+	_shoot_t -= delta
+	if _shoot_t <= 0.0 and dist < 220.0:
+		_shoot_t = randf_range(2.2, 3.0)
+		manager.spawn_bullet(position, dir, damage * 0.7, "spit")
+		_flash = 0.06
+	if dist < 110.0:
+		return -dir * speed * 0.7
+	if dist > 150.0:
+		return dir * speed
+	return dir.orthogonal() * speed * 0.4
+
+
+## Regular diver: when close, stops for a moment, then swoops at the cat.
+func _tick_dive(delta: float, target: Vector2, dir: Vector2) -> Vector2:
+	_state_t -= delta
+	match _state:
+		"windup":
+			if _state_t <= 0.0:
+				_state = "dash"
+				_state_t = 0.35
+				_dash_dir = dir
+			return -dir * speed * 0.2
+		"dash":
+			if _state_t <= 0.0:
+				_state = "chase"
+				_state_t = randf_range(2.5, 3.5)
+			return _dash_dir * speed * 3.5
+	if _state_t <= 0.0 and position.distance_to(target) < 160.0:
+		_state = "windup"
+		_state_t = 0.5
 	return dir * speed
 
 

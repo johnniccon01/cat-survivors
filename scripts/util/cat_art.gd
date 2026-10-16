@@ -143,7 +143,7 @@ static func _draw_sprite(ci: CanvasItem, sprite: Dictionary, lk: Dictionary, fac
 	ci.draw_set_transform(offset, 0.0, Vector2(facing, 1) * zoom)
 	var s: float = lk["size"]
 	# A silhouette keeps secrets: no wings, halo or horns to give it away.
-	var extras := not lk.get("silhouette", false)
+	var extras: bool = not lk.get("silhouette", false)
 	if extras and lk.get("wings", false) and not dead:
 		_draw_wings(ci, s, walk_t)
 	Sprites.draw_frame(ci, sprite, col, row, tint)

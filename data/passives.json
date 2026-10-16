@@ -189,5 +189,45 @@
         "luck": 0.1
       }
     ]
+  },
+  "DURATION": {
+    "rarity": 80,
+    "levels": [
+      {
+        "duration": 0.1
+      },
+      {
+        "duration": 0.1
+      },
+      {
+        "duration": 0.1
+      },
+      {
+        "duration": 0.1
+      },
+      {
+        "duration": 0.1
+      }
+    ]
+  },
+  "PROJ_SPEED": {
+    "rarity": 80,
+    "levels": [
+      {
+        "proj_speed": 0.1
+      },
+      {
+        "proj_speed": 0.1
+      },
+      {
+        "proj_speed": 0.1
+      },
+      {
+        "proj_speed": 0.1
+      },
+      {
+        "proj_speed": 0.1
+      }
+    ]
   }
 }

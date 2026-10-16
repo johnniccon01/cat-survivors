@@ -52,6 +52,9 @@ var immortal := false
 var persistent := false
 ## Its touch kills outright, through revivals and the angel (the devil cat).
 var fatal := false
+## Speed factor while caught in a web, and how long that lasts.
+var _slow := 1.0
+var _slow_t := 0.0
 ## Soft glow under cats like the devil.
 var _aura := Color(0, 0, 0, 0)
 var _stripes := false
@@ -91,6 +94,14 @@ func setup(p_id: String, data: Dictionary, p_manager: EnemyManager) -> void:
 	fatal = data.get("fatal", false)
 	if data.has("aura"):
 		_aura = Color(data["aura"])
+
+
+## Slows the enemy to `factor` of its speed for `seconds` (webs); the
+## strongest current slow wins.
+func slow_down(factor: float, seconds: float) -> void:
+	if _slow_t <= 0.0 or factor < _slow:
+		_slow = factor
+	_slow_t = maxf(_slow_t, seconds)
 
 
 func charge(dir: Vector2, seconds: float) -> void:
@@ -139,6 +150,9 @@ func tick(delta: float, target: Vector2, push: Vector2) -> void:
 			move = _tick_shooter(delta, target, dir)
 		"final":
 			move = _tick_final(delta, target, dir)
+	if _slow_t > 0.0:
+		_slow_t -= delta
+		move *= _slow
 	position += (move + _knock + push) * delta
 	_knock = _knock.move_toward(Vector2.ZERO, KNOCK_DECAY * delta)
 	if absf(dir.x) > 0.2:

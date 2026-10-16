@@ -88,6 +88,30 @@ static func _weapon(ci: CanvasItem, id: String) -> void:
 			var vane := PackedVector2Array([Vector2(4, 12), Vector2(6, 6), Vector2(13, 3), Vector2(10, 10)])
 			ci.draw_colored_polygon(vane, Color("6fc2ff"))
 			ci.draw_polyline(Shapes.closed(vane), OUTLINE, 1.0)
+		"MOUSE_TOY":
+			ci.draw_line(Vector2(3, 11), Vector2(1, 9), Color("d9a0a8"), 1.0)
+			ci.draw_colored_polygon(Shapes.ellipse(Vector2(8, 10), 5.5, 3.5, 12), OUTLINE)
+			ci.draw_colored_polygon(Shapes.ellipse(Vector2(8, 10), 4.5, 2.6, 12), Color("9a9aa2"))
+			ci.draw_circle(Vector2(11, 7), 1.6, Color("d9a0a8"))
+			ci.draw_line(Vector2(7, 7), Vector2(7, 4), Color("c9a24a"), 1.0)
+			ci.draw_line(Vector2(5, 4), Vector2(9, 4), Color("f2c14e"), 1.5)
+		"COBWEB":
+			for i in 6:
+				ci.draw_line(Vector2(8, 8), Vector2(8, 8) + Vector2.from_angle(TAU * i / 6.0) * 6.5, Color("eef0f4"), 1.0)
+			for r: float in [2.5, 4.5, 6.5]:
+				ci.draw_arc(Vector2(8, 8), r, 0.0, TAU, 6, Color("eef0f4"), 1.0)
+		"SPRINKLER":
+			ci.draw_circle(Vector2(8, 9), 2.5, OUTLINE)
+			ci.draw_circle(Vector2(8, 9), 1.8, Color("4a8a4a"))
+			for i in 3:
+				var d := Vector2.from_angle(-PI * 0.5 + (i - 1) * 0.7)
+				for k in 3:
+					ci.draw_circle(Vector2(8, 9) + d * (3.5 + k * 1.8), 0.9, Color("8fd3ff"))
+		"ANTENNA":
+			ci.draw_line(Vector2(5, 14), Vector2(5, 3), Color("c9ced2"), 1.0)
+			ci.draw_line(Vector2(2, 5), Vector2(8, 5), Color("c9ced2"), 1.0)
+			ci.draw_line(Vector2(3, 8), Vector2(7, 8), Color("c9ced2"), 1.0)
+			ci.draw_polyline(PackedVector2Array([Vector2(9, 3), Vector2(12, 7), Vector2(10, 8), Vector2(14, 13)]), Color("ffe066"), 1.5)
 		_:
 			ci.draw_circle(Vector2(8, 8), 4.0, Color.WHITE)
 
@@ -134,6 +158,15 @@ static func _passive(ci: CanvasItem, id: String) -> void:
 		"ARMOR":
 			ci.draw_arc(Vector2(8, 8), 5.0, 0.0, TAU, 16, Color("c94f4f"), 2.0)
 			ci.draw_circle(Vector2(8, 13), 2.0, Color("f2c14e"))
+		"DURATION":
+			var glass := PackedVector2Array([Vector2(4, 2), Vector2(12, 2), Vector2(8, 8), Vector2(12, 14), Vector2(4, 14), Vector2(8, 8)])
+			ci.draw_colored_polygon(glass, Color("e8dcc0"))
+			ci.draw_polyline(Shapes.closed(glass), OUTLINE, 1.0)
+			ci.draw_colored_polygon(PackedVector2Array([Vector2(6, 13), Vector2(10, 13), Vector2(8, 10)]), Color("c9a24a"))
+		"PROJ_SPEED":
+			ci.draw_colored_polygon(PackedVector2Array([Vector2(8, 5), Vector2(14, 8), Vector2(8, 11)]), Color("f3e7d0"))
+			for y: float in [5.5, 8.0, 10.5]:
+				ci.draw_line(Vector2(2, y), Vector2(7, y), Color("8fd3ff"), 1.0)
 		"LUCK":
 			# Beckoning lucky cat paw with a coin.
 			ci.draw_circle(Vector2(8, 10), 4.5, Color("f4f1ea"))

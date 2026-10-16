@@ -25,6 +25,9 @@ static func roll(player: Player, count: int = 3, owned_only: bool = false) -> Ar
 		var data: Dictionary = GameData.weapons[id]
 		if data.get("evolved", false):
 			continue
+		# Some weapons only show up once their map has been cleared.
+		if data.has("requires_stage") and data["requires_stage"] not in Profile.cleared_stages and player.get_weapon(id) == null:
+			continue
 		var owned := player.get_weapon(id)
 		if owned != null:
 			if owned.level < owned.max_level():
@@ -131,10 +134,13 @@ static func _evolution_hint(offer: Dictionary) -> String:
 			if not evolve.is_empty() and offer["level"] == data["levels"].size():
 				return _t("EVOLVE_HINT") % item_name("passive", evolve["with"])
 		"passive":
+			var names: Array[String] = []
 			for id: String in GameData.weapons:
 				var evolve: Dictionary = GameData.weapons[id].get("evolve", {})
 				if evolve.get("with", "") == offer["id"]:
-					return _t("EVOLVE_PAIR") % item_name("weapon", id)
+					names.append(item_name("weapon", id))
+			if not names.is_empty():
+				return _t("EVOLVE_PAIR") % ", ".join(names)
 	return ""
 
 

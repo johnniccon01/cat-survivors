@@ -337,3 +337,24 @@ DEVIL_SLAIN,You defeated the Devil Cat!,Porazil si Diabol mačku!
 SUMMARY_CAT_UNLOCKED,New cat unlocked: %s,Nová mačka odomknutá: %s
 ANGEL_FALLEN,The cat has fallen...,Mačka padla...
 DEVIL_TOOK,The Devil Cat took %s...,Diabol mačka si odniesla mačku %s...
+WEAPON_MOUSE_TOY_NAME,Wind-up Mouse,Myška na kľúčik
+WEAPON_MOUSE_TOY_DESC,Lets wind-up mice loose that bump through enemies.,"Vypúšťa naťahovacie myšky, ktoré narážajú do nepriateľov."
+WEAPON_ROBO_MOUSE_NAME,Robo-Mouse,Robomyš
+WEAPON_ROBO_MOUSE_DESC,Evolved Wind-up Mouse: mice hunt enemies down and explode.,Evolúcia myšky: myšky prenasledujú nepriateľov a vybuchnú.
+WEAPON_COBWEB_NAME,Cobweb,Pavučina
+WEAPON_COBWEB_DESC,Throws sticky webs that slow and hurt enemies.,"Hádže lepkavé siete, ktoré spomaľujú a zraňujú nepriateľov."
+WEAPON_SILK_TRAP_NAME,Silk Trap,Hodvábna pasca
+WEAPON_SILK_TRAP_DESC,Evolved Cobweb: huge webs that hold enemies in place.,"Evolúcia pavučiny: obrovské siete, ktoré nepriateľov zastavia."
+WEAPON_SPRINKLER_NAME,Sprinkler,Kropič
+WEAPON_SPRINKLER_DESC,Spins water jets around you that push enemies back.,"Točí okolo teba prúdy vody, ktoré odhadzujú nepriateľov."
+WEAPON_MONSOON_NAME,Monsoon,Monzún
+WEAPON_MONSOON_DESC,"Evolved Sprinkler: never stops, four strong jets.","Evolúcia kropiča: nikdy neprestane, štyri silné prúdy."
+WEAPON_ANTENNA_NAME,Antenna,Anténa
+WEAPON_ANTENNA_DESC,A spark that jumps from enemy to enemy.,"Iskra, ktorá preskakuje z nepriateľa na nepriateľa."
+WEAPON_STORM_ANTENNA_NAME,Storm Antenna,Búrková anténa
+WEAPON_STORM_ANTENNA_DESC,Evolved Antenna: forked lightning that also shocks around every hit.,"Evolúcia antény: rozvetvený blesk, ktorý zasiahne aj okolie."
+PASSIVE_DURATION_NAME,Long Nap,Dlhý spánok
+PASSIVE_DURATION_DESC,+10% duration of weapon effects.,+10 % trvanie efektov zbraní.
+PASSIVE_PROJ_SPEED_NAME,Quick Toss,Rýchly hod
+PASSIVE_PROJ_SPEED_DESC,+10% projectile speed.,+10 % rýchlosť projektilov.
+SUMMARY_WEAPON_UNLOCKED,New weapon unlocked: %s,Nová zbraň odomknutá: %s

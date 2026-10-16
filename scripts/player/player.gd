@@ -95,7 +95,17 @@ func _ready() -> void:
 	revivals_left = int(stats["revival"])
 	rerolls_left = int(stats["reroll"])
 	if controller != "escort":
-		add_weapon(GameData.cats[cat_id]["weapon"])
+		for id in _start_weapons():
+			add_weapon(id)
+
+
+## The cat's own weapon, or --start-weapon=ID[,ID...] (tests) for the played cat.
+func _start_weapons() -> PackedStringArray:
+	if controller == "input" or controller == "bot":
+		for arg: String in OS.get_cmdline_user_args():
+			if arg.begins_with("--start-weapon="):
+				return arg.trim_prefix("--start-weapon=").split(",")
+	return PackedStringArray([GameData.cats[cat_id]["weapon"]])
 
 
 func is_companion() -> bool:

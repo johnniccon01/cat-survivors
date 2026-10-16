@@ -506,5 +506,235 @@
         "duration": 3.0
       }
     ]
+  },
+  "MOUSE_TOY": {
+    "script": "res://scripts/weapons/mouse_toy.gd",
+    "rarity": 90,
+    "requires_stage": "LIVING_ROOM",
+    "levels": [
+      {
+        "damage": 12,
+        "interval": 1.6,
+        "repeat_interval": 0.12,
+        "amount": 2,
+        "speed": 110,
+        "pierce": 2,
+        "area": 1.0,
+        "knockback": 0.4,
+        "duration": 2.2
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 6
+      },
+      {
+        "pierce": 1
+      },
+      {
+        "amount": 1
+      },
+      {
+        "interval": -0.3
+      },
+      {
+        "damage": 8
+      },
+      {
+        "amount": 1
+      }
+    ],
+    "evolve": {
+      "with": "PROJ_SPEED",
+      "into": "ROBO_MOUSE"
+    }
+  },
+  "ROBO_MOUSE": {
+    "script": "res://scripts/weapons/mouse_toy.gd",
+    "evolved": true,
+    "robo": true,
+    "levels": [
+      {
+        "damage": 30,
+        "interval": 1.0,
+        "repeat_interval": 0.08,
+        "amount": 6,
+        "speed": 150,
+        "pierce": 1,
+        "area": 1.3,
+        "knockback": 0.6,
+        "duration": 3.0
+      }
+    ]
+  },
+  "COBWEB": {
+    "script": "res://scripts/weapons/cobweb.gd",
+    "rarity": 80,
+    "requires_stage": "BASEMENT",
+    "levels": [
+      {
+        "damage": 4,
+        "interval": 3.0,
+        "repeat_interval": 0.2,
+        "amount": 1,
+        "area": 1.0,
+        "duration": 3.0
+      },
+      {
+        "amount": 1
+      },
+      {
+        "area": 0.2
+      },
+      {
+        "damage": 3
+      },
+      {
+        "duration": 1.0
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 3
+      },
+      {
+        "area": 0.25
+      }
+    ],
+    "evolve": {
+      "with": "AREA",
+      "into": "SILK_TRAP"
+    }
+  },
+  "SILK_TRAP": {
+    "script": "res://scripts/weapons/cobweb.gd",
+    "evolved": true,
+    "silk": true,
+    "levels": [
+      {
+        "damage": 12,
+        "interval": 2.2,
+        "repeat_interval": 0.15,
+        "amount": 4,
+        "area": 1.6,
+        "duration": 5.0,
+        "slow": 0.05
+      }
+    ]
+  },
+  "SPRINKLER": {
+    "script": "res://scripts/weapons/sprinkler.gd",
+    "rarity": 80,
+    "requires_stage": "GARDEN",
+    "levels": [
+      {
+        "damage": 7,
+        "interval": 4.0,
+        "amount": 1,
+        "area": 1.0,
+        "speed": 1.0,
+        "duration": 2.5,
+        "knockback": 0.8
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 4
+      },
+      {
+        "duration": 1.0
+      },
+      {
+        "area": 0.2
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 5
+      },
+      {
+        "duration": 1.0
+      }
+    ],
+    "evolve": {
+      "with": "DURATION",
+      "into": "MONSOON"
+    }
+  },
+  "MONSOON": {
+    "script": "res://scripts/weapons/sprinkler.gd",
+    "evolved": true,
+    "levels": [
+      {
+        "damage": 16,
+        "interval": 1.0,
+        "amount": 4,
+        "area": 1.4,
+        "speed": 1.3,
+        "duration": 2.0,
+        "knockback": 1.2
+      }
+    ]
+  },
+  "ANTENNA": {
+    "script": "res://scripts/weapons/antenna.gd",
+    "rarity": 80,
+    "requires_stage": "ROOFTOP",
+    "levels": [
+      {
+        "damage": 14,
+        "interval": 1.8,
+        "repeat_interval": 0.15,
+        "amount": 1,
+        "pierce": 2,
+        "area": 1.0,
+        "knockback": 0.2
+      },
+      {
+        "pierce": 1
+      },
+      {
+        "damage": 6
+      },
+      {
+        "amount": 1
+      },
+      {
+        "pierce": 1
+      },
+      {
+        "interval": -0.3
+      },
+      {
+        "damage": 8
+      },
+      {
+        "pierce": 2
+      }
+    ],
+    "evolve": {
+      "with": "LUCK",
+      "into": "STORM_ANTENNA"
+    }
+  },
+  "STORM_ANTENNA": {
+    "script": "res://scripts/weapons/antenna.gd",
+    "evolved": true,
+    "storm": true,
+    "levels": [
+      {
+        "damage": 30,
+        "interval": 1.1,
+        "repeat_interval": 0.12,
+        "amount": 3,
+        "pierce": 6,
+        "area": 1.3,
+        "knockback": 0.3
+      }
+    ]
   }
 }

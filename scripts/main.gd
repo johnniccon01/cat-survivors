@@ -17,6 +17,7 @@ extends Node2D
 ##   --test-evolution   maxes the starting weapon + its partner passive, opens a chest, prints, quits
 ##   --quest=ID         starts quest ID next to the cat (LUNA, TIGER, RED_DOT...)
 ##   --cat=ID           play as cat ID (see data/cats.json)
+##   --start-weapon=ID  start with weapon ID instead of the cat's own
 ##   --levels=N         start with N random level-up picks (to test late game)
 ##   --extract          open a cat flap right away
 ##   --drop-charm       drop a random charm next to the cat at the start
@@ -528,6 +529,9 @@ func _end_run(kind: String) -> void:
 			Audio.play("victory", -2.0, 0.0)
 			hud.show_victory(kills)
 			if Profile.clear_stage(spawner.stage_id):
+				for wid: String in GameData.weapons:
+					if GameData.weapons[wid].get("requires_stage", "") == spawner.stage_id:
+						lines.append(tr("SUMMARY_WEAPON_UNLOCKED") % tr("WEAPON_%s_NAME" % wid))
 				for id: String in GameData.stages:
 					if GameData.stages[id].get("requires", "") == spawner.stage_id:
 						hud.show_banner(tr("STAGE_UNLOCKED") % tr("STAGE_%s_NAME" % id), 6.0)

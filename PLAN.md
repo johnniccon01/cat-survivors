@@ -1,0 +1,92 @@
+# Plán – Cat Survivors
+
+Živý zoznam toho, čo je hotové, čo robíme teraz a čo príde. Po každom kroku
+ho aktualizujeme: hotové odškrtneme `[x]`, nové nápady pridáme do Zásobníka.
+
+Naposledy aktualizované: 16. 10. 2026
+
+---
+
+## Kde sme
+
+Hra je hrateľná od menu po koniec noci na 4 mapách:
+
+- **Mapy:** Byt → Pivnica → Záhrada → Strecha (každá sa odomkne porazením
+  finálneho bossa predchádzajúcej), každá s vlastnou podlahou, nábytkom,
+  nepriateľmi, bossmi, pascami a hudbou.
+- **Mačky:** 8 hrateľných (Mica, Luna, Snehulka, Mrňa, Tiger, Barón,
+  Ďatelinka, Bruno) + 2 tajné (anjel, diabol).
+- **Boj:** 9 zbraní s evolúciami, 10 pasív, kritické zásahy a šťastie,
+  čísla poškodenia, otrasy.
+- **Priebeh noci:** rozpočet nepriateľov s krivkou intenzity, oddychy,
+  udalosti (kruhy, roje), elity, bossovia, finálny boss, mačacie dvierka na
+  útek, série výhier.
+- **Questy:** záchrany a súboje mačiek, vedľajšie úlohy, príbehový quest v byte.
+- **Meta:** zlato, obchod s vylepšeniami, charmy, dlhodobé ciele.
+- **Tajomstvo:** anjel ťa na streche po 15. minúte s malou šancou zachráni;
+  po dvoch záchranách príde diabol, ktorý zabije isto.
+- **Technika:** menu, nastavenia, pauza, SK/EN, pixel-art sprity, 36
+  automatických testov (`tools/run_checks.sh`), spúšťače v `Spustit\`.
+
+## Teraz
+
+- [ ] Vyskúšať novú obtiažnosť, anjela a diabla (`Spustit\4 Test anjel a diabol.bat`) a dať spätnú väzbu
+- [ ] Pushnúť posledné 4 commity na GitHub (po tvojom OK)
+
+## Fáza 1 – Doladenie podľa hrania
+
+Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
+
+- [ ] Obtiažnosť: doladiť rast poškodenia a HP nepriateľov podľa tvojich hier (každá mapa zvlášť)
+- [ ] Ceny vylepšení v obchode a sila charmov – nie je niečo príliš silné alebo zbytočné?
+- [ ] Výkon: skontrolovať FPS v skutočnej hre pri 300+ nepriateľoch, prípadne optimalizovať
+- [ ] Príbehové questy aj pre Pivnicu, Záhradu a Strechu (teraz má príbeh len Byt – obojok)
+- [ ] Hudba: tvoja spätná väzba na skladby jednotlivých máp (ja ich nepočujem)
+- [ ] Prejsť všetky texty v slovenčine (gramatika, rod mačiek)
+
+## Fáza 2 – Nový obsah
+
+- [ ] Tajomstvá: odomknúť anjel mačku tajným questom
+- [ ] Tajomstvá: odomknúť diabol mačku (napr. prežiť s ňou 30 min a poraziť ju)
+- [ ] Nové zbrane a pasívy (napr. 1–2 viazané na každú mapu) a ich evolúcie
+- [ ] Ďalší bossovia a nové správanie nepriateľov (strieľajúci, deliaci sa, štít)
+- [ ] Viac charmov a dlhodobých cieľov
+- [ ] Bestiár / zbierka: prehľad nepriateľov, mačiek a zbraní, ktoré si už stretol
+- [ ] Nové režimy: nekonečná noc po víťazstve, výzvy s obmedzeniami
+
+## Fáza 3 – Grafika a zvuk
+
+- [ ] Sprity aj pre nábytok, podlahy, zbrane a projektily (teraz sú kreslené vektorovo)
+- [ ] Animácie smrti nepriateľov a lepšie efekty zásahov
+- [ ] Titulná obrazovka a ikona hry
+- [ ] Viac zvukov (kroky, mňaukanie pri level-upe, zvuky bossov)
+
+## Fáza 4 – Pred vydaním
+
+- [ ] Odstrániť dev panel (F1) a ladiace prepínače z vydanej verzie
+- [ ] Export: samostatný Windows `.exe`, otestovať na inom počítači
+- [ ] Ovládanie: otestovať gamepad, umožniť zmenu kláves
+- [ ] Viac jazykov (napr. čeština, nemčina)
+- [ ] Návod pri prvej hre (ovládanie, čo sú dvierka, charmy, questy)
+- [ ] Záloha a bezpečné načítanie profilu pri zmenách verzií
+
+## Otvorené otázky (rozhoduješ ty)
+
+- Co-op pre dvoch hráčov – áno alebo nie? (pýtal si sa na začiatku)
+- Koľko máp chceme celkovo a ako sa skončí príbeh?
+- Vydanie: len pre seba, itch.io alebo Steam?
+
+## Zásobník nápadov
+
+Sem píšeme nápady, ktoré zatiaľ nemajú miesto vo fázach.
+
+- Denný/týždenný beh s pevným seedom
+- Kozmetika pre mačky (obojky, klobúky) za zlato
+- Achievementy
+
+## Ako pracujeme
+
+- Každý väčší krok = commit; na GitHub pushujeme, keď povieš.
+- Pred commitom vždy prejdú testy: `bash tools/run_checks.sh`.
+- Testovacie behy nikdy neukladajú tvoj profil (`--bot`, `--ui-test`, `--no-save`).
+- Dev nástroje sú v poriadku počas vývoja, pred vydaním ich odstránime.

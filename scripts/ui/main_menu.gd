@@ -5,12 +5,11 @@ extends Control
 const SELECT_SCENE := "res://scenes/character_select.tscn"
 const MAIN_SCENE := "res://scenes/main.tscn"
 ## Flags that keep the menu up instead of jumping into a run.
-const PANEL_FLAGS := ["--shop", "--charms", "--goals", "--questbook", "--settings", "--ui-test", "--no-save"]
+const PANEL_FLAGS := ["--shop", "--charms", "--goals", "--questbook", "--journal", "--settings", "--ui-test", "--no-save"]
 
 var _shop: ShopPanel
 var _charms: CharmPanel
-var _goals: GoalsPanel
-var _questbook: QuestBookPanel
+var _journal: JournalPanel
 var _settings: SettingsPanel
 var _buttons: VBoxContainer
 var _status: Label
@@ -31,9 +30,11 @@ func _ready() -> void:
 	elif "--charms" in args:
 		_open(_charms)
 	elif "--goals" in args:
-		_open(_goals)
+		_open(_journal, "goals")
 	elif "--questbook" in args:
-		_open(_questbook)
+		_open(_journal, "quests")
+	elif "--journal" in args:
+		_open(_journal, "bestiary")
 	elif "--settings" in args:
 		_open(_settings)
 
@@ -82,16 +83,14 @@ func _build() -> void:
 		get_tree().change_scene_to_file(SELECT_SCENE))
 	_shop = ShopPanel.new()
 	_charms = CharmPanel.new()
-	_goals = GoalsPanel.new()
-	_questbook = QuestBookPanel.new()
+	_journal = JournalPanel.new()
 	_settings = SettingsPanel.new()
 	_add_button("MENU_UPGRADES", func() -> void: _open(_shop))
 	_add_button("MENU_CHARMS", func() -> void: _open(_charms))
-	_add_button("MENU_GOALS", func() -> void: _open(_goals))
-	_add_button("MENU_QUESTBOOK", func() -> void: _open(_questbook))
+	_add_button("MENU_JOURNAL", func() -> void: _open(_journal))
 	_add_button("MENU_SETTINGS", func() -> void: _open(_settings))
 	_add_button("MENU_QUIT", func() -> void: get_tree().quit())
-	for panel: Control in [_shop, _charms, _goals, _questbook, _settings]:
+	for panel: Control in [_shop, _charms, _journal, _settings]:
 		add_child(panel)
 		panel.closed.connect(_on_panel_closed)
 	_refresh()
@@ -104,13 +103,16 @@ func _add_button(text: String, action: Callable) -> void:
 	_buttons.add_child(b)
 
 
-func _open(panel: Control) -> void:
+func _open(panel: Control, tab: String = "") -> void:
 	Audio.play("click", -6.0, 0.0)
 	# Otherwise the arrows and Enter would still drive the menu buttons hidden
 	# behind the panel (Enter could even press Quit).
 	get_viewport().gui_release_focus()
 	_set_menu_focusable(false)
-	panel.call("open")
+	if panel is JournalPanel:
+		(panel as JournalPanel).open(tab)
+	else:
+		panel.call("open")
 
 
 func _on_panel_closed() -> void:

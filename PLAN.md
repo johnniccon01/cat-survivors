@@ -49,12 +49,12 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 
 - [x] Kniha questov (štýl Halls of Torment): 17 línií, 57 krokov – mačací život, miesta, tajomstvá (Q vo výbere mačky, tlačidlo v menu)
 - [x] Tajomstvá: anjel mačka sa odomkne 4 stránkami denníka (jedna ukrytá na každej mape), diabol mačka questom Diablova zmluva
-- [ ] Zvážiť spojenie Cieľov a Knihy questov do jedného miesta
+- [x] Denník: questy, ciele a bestiár na jednom mieste (tlačidlo Denník, pri výbere mačky Q / G / J)
 - [x] Nové zbrane: Myška na kľúčik, Pavučina, Kropič, Anténa (každú odomkne prejdenie mapy) + evolúcie, pasívy Dlhý spánok a Rýchly hod
 - [x] Nové správanie: prachový mrak sa rozpadá, pľujúci pavúk a žaba strieľajú, útočná čajka sa vrhá; bossovia privolávajú pomocníkov
 - [ ] Úplne noví bossovia (napr. jeden stredný boss na mapu s vlastným útokom)
 - [x] Viac charmov a cieľov: 5 nových charmov (štvorlístok, pavúčie vlákno, pierko vetra, polmesiac, zlatý tesák), 6 nových cieľov; zoznam cieľov sa dá posúvať
-- [ ] Bestiár / zbierka: prehľad nepriateľov, mačiek a zbraní, ktoré si už stretol
+- [x] Bestiár: mačky, nepriatelia podľa máp (počet porazených, popis), zbrane s evolúciami, pasívky; neobjavené ako ???
 - [ ] Nové režimy: nekonečná noc po víťazstve, výzvy s obmedzeniami
 
 ## Fáza 3 – Grafika a zvuk

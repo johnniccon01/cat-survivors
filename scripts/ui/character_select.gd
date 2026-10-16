@@ -20,15 +20,14 @@ var _stage_ids: Array[String] = []
 var _stage_index := 0
 var _shop: ShopPanel
 var _charms: CharmPanel
-var _goals: GoalsPanel
-var _questbook: QuestBookPanel
+var _journal: JournalPanel
 var _worn: Label
 var _gold: Label
 
 
 func _ready() -> void:
 	for arg: String in OS.get_cmdline_user_args():
-		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--goals", "--ui-test"]:
+		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--goals", "--journal", "--ui-test"]:
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
 			return
 	for id: String in GameData.cats:
@@ -47,7 +46,9 @@ func _ready() -> void:
 	if "--charms" in OS.get_cmdline_user_args():
 		_charms.open()
 	if "--goals" in OS.get_cmdline_user_args():
-		_goals.open()
+		_journal.open("goals")
+	if "--journal" in OS.get_cmdline_user_args():
+		_journal.open("bestiary")
 
 
 func _build() -> void:
@@ -111,12 +112,9 @@ func _build() -> void:
 	_charms = CharmPanel.new()
 	add_child(_charms)
 	_charms.closed.connect(_refresh)
-	_goals = GoalsPanel.new()
-	add_child(_goals)
-	_goals.closed.connect(_refresh)
-	_questbook = QuestBookPanel.new()
-	add_child(_questbook)
-	_questbook.closed.connect(_refresh)
+	_journal = JournalPanel.new()
+	add_child(_journal)
+	_journal.closed.connect(_refresh)
 
 
 func _refresh() -> void:
@@ -150,16 +148,13 @@ func _refresh() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _shop.visible or _charms.visible or _goals.visible or _questbook.visible:
+	if _shop.visible or _charms.visible or _journal.visible:
 		return
-	if event.is_action_pressed("questbook"):
-		Audio.play("click", -6.0, 0.0)
-		_questbook.open()
-		return
-	if event.is_action_pressed("goals"):
-		Audio.play("click", -6.0, 0.0)
-		_goals.open()
-		return
+	for entry: Array in [["questbook", "quests"], ["goals", "goals"], ["journal", "bestiary"]]:
+		if event.is_action_pressed(entry[0]):
+			Audio.play("click", -6.0, 0.0)
+			_journal.open(entry[1])
+			return
 	if event.is_action_pressed("shop"):
 		Audio.play("click", -6.0, 0.0)
 		_shop.open()

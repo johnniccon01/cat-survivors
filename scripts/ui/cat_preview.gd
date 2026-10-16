@@ -8,6 +8,8 @@ const SILHOUETTE := Color(0.12, 0.09, 0.15)
 var cat_id := "MICA"
 var locked := false
 var walking := false
+## Drawing scale (the select screen uses 3, the journal less).
+var zoom := 3.0
 
 var _t := 0.0
 
@@ -25,4 +27,4 @@ func _draw() -> void:
 		lk["stripes"] = false
 		lk["patches"] = false
 		lk["silhouette"] = true
-	CatArt.draw(self, lk, 1, _t, false, false, "normal", size * 0.5, 3.0, walking)
+	CatArt.draw(self, lk, 1, _t, false, false, "normal", size * 0.5, zoom, walking)

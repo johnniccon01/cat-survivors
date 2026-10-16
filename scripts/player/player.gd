@@ -108,6 +108,12 @@ func _start_weapons() -> PackedStringArray:
 	return PackedStringArray([GameData.cats[cat_id]["weapon"]])
 
 
+## The bestiary shows weapons and passives once the played cat has had them.
+func _mark_used(id: String) -> void:
+	if controller == "input" or controller == "bot":
+		Profile.set_flag("used:" + id)
+
+
 func is_companion() -> bool:
 	return controller == "follow"
 
@@ -157,6 +163,7 @@ func add_weapon(id: String) -> Weapon:
 	var data: Dictionary = GameData.weapons[id]
 	var weapon: Weapon = load(data["script"]).new()
 	weapon.setup(id, data, self)
+	_mark_used(id)
 	weapons.add_child(weapon)
 	inventory_changed.emit()
 	return weapon
@@ -181,6 +188,7 @@ func evolve_weapon(from_id: String, into_id: String) -> void:
 
 
 func add_passive(id: String) -> void:
+	_mark_used(id)
 	passives[id] = passives.get(id, 0) + 1
 	_recalc_stats()
 	inventory_changed.emit()

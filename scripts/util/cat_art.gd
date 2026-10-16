@@ -142,14 +142,16 @@ static func _draw_sprite(ci: CanvasItem, sprite: Dictionary, lk: Dictionary, fac
 	var tint := Color(0.12, 0.09, 0.15) if lk.get("silhouette", false) else Color.WHITE
 	ci.draw_set_transform(offset, 0.0, Vector2(facing, 1) * zoom)
 	var s: float = lk["size"]
-	if lk.get("wings", false) and not dead:
+	# A silhouette keeps secrets: no wings, halo or horns to give it away.
+	var extras := not lk.get("silhouette", false)
+	if extras and lk.get("wings", false) and not dead:
 		_draw_wings(ci, s, walk_t)
 	Sprites.draw_frame(ci, sprite, col, row, tint)
-	if lk.get("halo", false) and not dead:
+	if extras and lk.get("halo", false) and not dead:
 		var c := Vector2(9.5, -21.0 + sin(walk_t * 0.4)) * s
 		ci.draw_polyline(Shapes.closed(Shapes.ellipse(c, 5.5 * s, 1.8 * s, 16)), OUTLINE, 2.5)
 		ci.draw_polyline(Shapes.closed(Shapes.ellipse(c, 5.5 * s, 1.8 * s, 16)), Color("f2d14e"), 1.2)
-	if lk.get("horns", false):
+	if extras and lk.get("horns", false):
 		for horn: Array in [[Vector2(5, -13), Vector2(3, -21)], [Vector2(12, -13), Vector2(15, -21)]]:
 			var base: Vector2 = horn[0] * s
 			var tip: Vector2 = horn[1] * s

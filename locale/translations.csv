@@ -127,7 +127,7 @@ QUEST_FRIDGE_FIND,Find the fridge,Nájdi chladničku
 QUEST_FRIDGE_OPEN,Stay by the fridge to open it,Zostaň pri chladničke a otvor ju
 QUEST_FRIDGE_FIGHT,Defeat the leftovers: %d left,Poraz zvyšky: zostáva %d
 SELECT_TITLE,Choose your cat,Vyber si mačku
-SELECT_HINT,← → cat · ↑ ↓ map · Enter start · U upgrades · C charms · G goals · Q quests · Esc menu,← → mačka · ↑ ↓ mapa · Enter štart · U vylepšenia · C prívesky · G ciele · Q questy · Esc menu
+SELECT_HINT,← → cat · ↑ ↓ map · Enter start · U upgrades · C charms · Q / G / J journal · Esc menu,← → mačka · ↑ ↓ mapa · Enter štart · U vylepšenia · C prívesky · Q / G / J denník · Esc menu
 SELECT_LOCKED,???,???
 GAME_OVER_MENU,Esc – change cat,Esc – zmeniť mačku
 QUEST_RESCUE_ESCORT,Walk %s to the safe cat bed,Odprevaď: %s do bezpečného pelechu
@@ -473,3 +473,94 @@ QB_DEVILS_BARGAIN_NAME,The Devil's Bargain,Diablova zmluva
 QB_DEVILS_BARGAIN_1,Be saved by the angel cat.,Nechať sa zachrániť anjel mačkou.
 QB_DEVILS_BARGAIN_2,Meet the one who comes after the angel.,"Stretnúť toho, kto prichádza po anjelovi."
 QB_DEVILS_BARGAIN_3,Defeat the Devil Cat. (It only weakens after 30 minutes.),Poraziť Diabol mačku. (Zoslabne až po 30 minútach.)
+ENEMY_SOCK_NAME,Lost Sock,Stratená ponožka
+ENEMY_SOCK_DESC,Escaped from the washing machine and wants revenge.,Ušla z práčky a chce sa pomstiť.
+ENEMY_DUST_BUNNY_NAME,Dust Bunny,Prachový zajačik
+ENEMY_DUST_BUNNY_DESC,"Lives under the sofa. Quick, but falls apart in a sneeze.","Žije pod gaučom. Rýchly, ale rozpadne sa aj od kýchnutia."
+ENEMY_SOCK_STRIPED_NAME,Striped Sock,Pruhovaná ponožka
+ENEMY_SOCK_STRIPED_DESC,The older sibling. Thicker and angrier.,Starší súrodenec. Hrubšia a nahnevanejšia.
+ENEMY_BUBBLE_NAME,Soap Bubble,Mydlová bublina
+ENEMY_BUBBLE_DESC,Floats in fast and pops on your nose.,Priletí rýchlo a praskne ti na nose.
+ENEMY_ROOMBA_NAME,Robot Vacuum,Robotický vysávač
+ENEMY_ROOMBA_DESC,Thinks the cat is a crumb.,"Myslí si, že mačka je omrvinka."
+ENEMY_SLIPPER_NAME,Fluffy Slipper,Chlpatá papuča
+ENEMY_SLIPPER_DESC,Smells of feet. Hits like a brick.,Smrdí nohami. Udrie ako tehla.
+ENEMY_DUST_CLOUD_NAME,Dust Cloud,Prachový mrak
+ENEMY_DUST_CLOUD_DESC,A whole sofa's worth of dust. Bursts into bunnies.,Prach spod celého gauča. Rozpadne sa na zajačikov.
+ENEMY_SOCK_KING_NAME,Sock King,Ponožkový kráľ
+ENEMY_SOCK_KING_DESC,Rules the laundry basket and calls his loyal socks.,Vládne košu na prádlo a volá si verné ponožky.
+ENEMY_MEGA_ROOMBA_NAME,Mega Roomba,Mega vysávač
+ENEMY_MEGA_ROOMBA_DESC,Upgraded with a red light and a bad attitude.,Vylepšený o červené svetlo a zlú náladu.
+ENEMY_VACUUM_NAME,The Vacuum,Vysávač
+ENEMY_VACUUM_DESC,The loudest thing in the flat.,Najhlučnejšia vec v byte.
+ENEMY_VACUUM_KING_DESC,The final boss of the Apartment. It sucks. Literally.,Finálny boss Bytu. Vysáva. Doslova.
+ENEMY_RAT_NAME,Rat,Potkan
+ENEMY_RAT_DESC,"Fast, hungry and never alone.","Rýchly, hladný a nikdy nie sám."
+ENEMY_SPIDER_NAME,Spider,Pavúk
+ENEMY_SPIDER_DESC,"Eight legs, zero manners.","Osem nôh, nula slušnosti."
+ENEMY_MOTH_NAME,Moth,Mol
+ENEMY_MOTH_DESC,Loves the light bulbs. And your fur.,Miluje žiarovky. A tvoju srsť.
+ENEMY_SPITTER_SPIDER_NAME,Spitter Spider,Pľujúci pavúk
+ENEMY_SPITTER_SPIDER_DESC,Keeps its distance and spits green goo.,Drží si odstup a pľuje zelený sliz.
+ENEMY_GIANT_RAT_NAME,Giant Rat,Obrovský potkan
+ENEMY_GIANT_RAT_DESC,Charges like a train through the basement.,Rúti sa pivnicou ako vlak.
+ENEMY_SPIDER_QUEEN_NAME,Spider Queen,Pavúčia kráľovná
+ENEMY_SPIDER_QUEEN_DESC,Shoots from afar and lays new spiders.,Strieľa z diaľky a liahne nových pavúkov.
+ENEMY_RAT_KING_DESC,The final boss of the Basement. His roar shakes the pipes.,Finálny boss Pivnice. Jeho rev trasie rúrami.
+ENEMY_BEE_NAME,Bee,Včela
+ENEMY_BEE_DESC,"Buzzing, fast, and very territorial.","Bzučí, je rýchla a bráni svoje územie."
+ENEMY_SNAIL_NAME,Snail,Slimák
+ENEMY_SNAIL_DESC,"Slow, but its shell is hard to crack.","Pomalý, ale ulitu ťažko rozbiješ."
+ENEMY_MOLE_NAME,Mole,Krtko
+ENEMY_MOLE_DESC,Pops up from the lawn when you least expect it.,"Vyliezne z trávnika, keď to najmenej čakáš."
+ENEMY_CROW_NAME,Crow,Vrana
+ENEMY_CROW_DESC,Clever and quick. Steals shiny things.,Múdra a rýchla. Kradne lesklé veci.
+ENEMY_GNOME_NAME,Garden Gnome,Záhradný trpaslík
+ENEMY_GNOME_DESC,Stands still all day. Not at night.,Celý deň stojí. V noci nie.
+ENEMY_FROG_NAME,Frog,Žaba
+ENEMY_FROG_DESC,Spits from the pond's edge.,Pľuje z okraja jazierka.
+ENEMY_GIANT_SNAIL_NAME,Giant Snail,Obrovský slimák
+ENEMY_GIANT_SNAIL_DESC,Leaves a trail the size of a road.,Nechá za sebou slizovú stopu ako cestu.
+ENEMY_HORNET_QUEEN_NAME,Hornet Queen,Sršňová kráľovná
+ENEMY_HORNET_QUEEN_DESC,Her stingers fly and her swarm follows.,Jej žihadlá lietajú a roj ide za ňou.
+ENEMY_LAWNMOWER_DESC,The final boss of the Garden. Mows down anything.,Finálny boss Záhrady. Pokosí čokoľvek.
+ENEMY_PIGEON_NAME,Pigeon,Holub
+ENEMY_PIGEON_DESC,Owns every roof in town. So it says.,Vlastní každú strechu v meste. Vraví.
+ENEMY_BAT_NAME,Bat,Netopier
+ENEMY_BAT_DESC,"Comes out at night, flies in zigzags.",V noci vylieta a lieta cikcak.
+ENEMY_GULL_NAME,Gull,Čajka
+ENEMY_GULL_DESC,Loud and greedy. Wants your sardines.,Hlučná a chamtivá. Chce tvoje sardinky.
+ENEMY_DIVE_GULL_NAME,Diving Gull,Útočná čajka
+ENEMY_DIVE_GULL_DESC,"Stops, aims, and dives straight at you.","Zastaví sa, zamieri a strmhlav sa vrhne na teba."
+ENEMY_RACCOON_NAME,Raccoon,Medvedík čistotný
+ENEMY_RACCOON_DESC,A masked bandit with heavy paws.,Bandita s maskou a ťažkými labami.
+ENEMY_BIG_GULL_NAME,Big Gull,Obria čajka
+ENEMY_BIG_GULL_DESC,The leader of the flock. Charges hard.,Vodca kŕdľa. Útočí v plnej rýchlosti.
+ENEMY_TRASH_BANDIT_NAME,Trash Bandit,Medvedí zlodej
+ENEMY_TRASH_BANDIT_DESC,Throws garbage from a distance.,Hádže smeti z diaľky.
+ENEMY_PIGEON_EMPEROR_DESC,Commands every pigeon on the roofs.,Velí všetkým holubom na strechách.
+ENEMY_RIVAL_BRUNO_DESC,The final boss of the Rooftop. A huge tomcat who never lost a fight.,"Finálny boss Strechy. Obrovský kocúr, ktorý ešte neprehral."
+ENEMY_RIVAL_TIGER_NAME,Tiger (rival),Tiger (súper)
+ENEMY_RIVAL_TIGER_DESC,"The boss of the yard, until you beat him.","Šéf dvora, kým ho neporazíš."
+ENEMY_RIVAL_BARON_NAME,Baron (rival),Barón (súper)
+ENEMY_RIVAL_BARON_DESC,Shoots lasers from his cushion.,Strieľa lasery zo svojho vankúša.
+ENEMY_DEVIL_CAT_DESC,Comes for those the angel saved twice.,"Prichádza po tých, ktorých anjel zachránil dvakrát."
+MENU_JOURNAL,Journal,Denník
+JOURNAL_TITLE,Journal,Denník
+JOURNAL_TAB_QUESTS,Quests,Questy
+JOURNAL_TAB_GOALS,Goals,Ciele
+JOURNAL_TAB_BESTIARY,Bestiary,Bestiár
+JOURNAL_HINT,← → tab · ↑ ↓ / wheel scroll · Esc – back,← → karta · ↑ ↓ / koliesko posúva · Esc – späť
+BESTIARY_CATS,Cats,Mačky
+BESTIARY_ENEMIES,Enemies – %s,Nepriatelia – %s
+BESTIARY_OTHERS,Rivals and secrets,Súperi a tajomstvá
+BESTIARY_WEAPONS,Weapons,Zbrane
+BESTIARY_PASSIVES,Passives,Pasívky
+BESTIARY_KILLS,Defeated: %d,Porazených: %d
+BESTIARY_BOSS,Boss,Boss
+BESTIARY_FINAL,Final boss,Finálny boss
+BESTIARY_UNKNOWN,Not met yet,Ešte si ho nestretol
+BESTIARY_UNUSED,Not used yet,Ešte si ju nepoužil
+BESTIARY_EVOLVES,Evolves with %s into %s,S pasívkou %s sa vyvinie na %s
+BESTIARY_EVOLVED_FROM,Evolution of %s,Evolúcia zbrane %s
+BESTIARY_FOUND,Found %d / %d,Objavené %d / %d

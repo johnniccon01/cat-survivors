@@ -27,6 +27,7 @@ extends Node2D
 ##   --tutorial         the bot gets the first-night tips (fresh profile)
 ##   --endless          the bot carries on into the endless night after a win
 ##   --endless-now      start straight in the endless night (tests)
+##   --god              the cat can't be hurt (performance checks)
 ##   --drop-charm       drop a random charm next to the cat at the start
 ##   --catch-up         with --start-minute: level the cat like the dev panel's skip does
 ##   --traps            place one of every trap next to the cat
@@ -175,6 +176,8 @@ func _ready() -> void:
 	_tutorial = Profile.get_stat("runs") == 0 and not Profile.has_flag("tutorial_done") and (not _bot or "--tutorial" in _args)
 	if "--golden" in _args:
 		_golden_t = 2.0
+	if "--god" in _args:
+		player.god = true
 	if "--endless-now" in _args:
 		_start_endless.call_deferred()
 	if "--devil" in _args:

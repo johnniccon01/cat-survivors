@@ -40,7 +40,7 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 - [ ] Obtiažnosť: doladiť rast poškodenia a HP nepriateľov podľa tvojich hier (každá mapa zvlášť)
 - [ ] Začiatok neskorších máp: mačka bez vylepšení zomiera pri prvom bossovi (3. min) v Pivnici a Záhrade – zvážiť ľahší štart
 - [ ] Ceny vylepšení v obchode a sila charmov – nie je niečo príliš silné alebo zbytočné?
-- [ ] Výkon: skontrolovať FPS v skutočnej hre pri 300+ nepriateľoch, prípadne optimalizovať
+- [x] Výkon: 114–144 FPS v 17. minúte na Streche, stabilných 144 v nekonečnej noci so šampiónmi (RTX 4070 Ti, 144 Hz) – netreba optimalizovať
 - [x] Príbehové questy pre každú mapu: obojok (Byt) → stará mapa (Pivnica) → kľúč pod stromom (Záhrada) → Brunov odkaz (Strecha); quest Cesta nahor
 - [x] Hudba: dlhšie skladby máp (2–2,7 min), nočná skladba od polovice noci, vlastná hudba pre každého finálneho bossa a diabla
 - [ ] Hudba: tvoja spätná väzba na skladby (ja ich nepočujem)

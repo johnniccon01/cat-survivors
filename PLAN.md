@@ -67,7 +67,7 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 - [ ] Sprity aj pre nábytok, podlahy, zbrane a projektily (teraz sú kreslené vektorovo)
 - [ ] Animácie smrti nepriateľov a lepšie efekty zásahov
 - [x] Obrázok v hlavnom menu (nočné mesto, mesiac, mačky)
-- [ ] Ikona hry (.exe)
+- [x] Ikona hry: Micina hlava v pixel-arte (tools/gen_icon.py); .ico pre .exe pri exporte
 - [ ] Viac zvukov (kroky, mňaukanie pri level-upe, zvuky bossov)
 
 ## Fáza 4 – Pred vydaním

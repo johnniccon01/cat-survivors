@@ -68,6 +68,22 @@ Testovacie behy (`--bot`) nikdy neukladajú profil.
 - `scripts/player/`, `scripts/fx/`, `scripts/ui/`, `scripts/world/` – mačka, efekty, HUD, podlaha.
 
 
+## Herné systémy (prehľad)
+
+- **Vetvy zbraní** – `data/branches.json`: 3 vetvy na každú zbraň, od levelu 3 si vyberieš jednu, od levelu 6 / po evolúcii 2. stupeň. Efekty (oheň, mráz, iskra, výbuch, poprava, cicanie zdravia, zosilnenia) rieši `Weapon.strike()`.
+- **Šampióni** – `data/champions.json`: od 2. minúty časť bežných nepriateľov s aurou a vlastnosťou (rýchly, obrnený, obor, delič, regenerujúci, bombér).
+- **Strední bossovia** – Žehlička, Kotol, Strašiak, Búrkový mrak (12.–13. minúta); ich útoky (`EnemyHazard`) sa vopred ukážu.
+- **Zlatá myš** – občas pribehne a uteká; po chytení vysype zlato.
+- **Nekonečná noc** – po výhre klávesom E pokračuješ, nepriatelia silnejú každou minútou.
+- **Výzvy** – `data/challenges.json`, klávesom X pri výbere mačky: sťaženia, ktoré násobia zlato.
+- **Denník** – questy (`data/questbook.json`), ciele (`data/goals.json`) a bestiár v jednom okne.
+- **Príbeh** – na každej mape príbehový quest (`story` v `data/stages.json`, texty `QUEST_<TEXT>_*`) a stránka denníka, ktorá odomyká anjel mačku.
+- **Tipy pre nových hráčov** – počas úplne prvej noci.
+- **Ovládanie** – klávesnica (pohyb sa dá premapovať v Nastaveniach) aj gamepad (páčka/šípky, A potvrdí, B späť, Start pauza).
+- **Profil** – `user://profile.cfg`, pred každým uložením záloha `profile.bak.cfg`.
+
+Ladiace prepínače (za `--`): `--stage=`, `--cat=`, `--start-minute=N --catch-up`, `--levels=N`, `--start-weapon=A,B`, `--branch=W:B:R`, `--champions`, `--golden`, `--page`, `--endless-now`, `--challenges=A,B`, `--devil`, `--angel-chance=1`, `--kill-cat-every=N`, `--god`, `--no-save`. Úplný zoznam je na začiatku `scripts/main.gd`.
+
 ## Zvuk
 
 Všetky zvuky a hudba sú syntetizované skriptom `tools/gen_audio.py` (žiadne cudzie súbory ani licencie). Po úprave stačí spustiť `python tools/gen_audio.py` a súbory v `assets/audio/` sa prepíšu; `python tools/gen_audio.py music_garden music_boss_rat` prepíše len vybrané skladby. Každá mapa má dlhú dennú skladbu (`music`) a nočnú (`music_night`, hrá od polovice noci), finálni bossovia a diabol majú vlastnú (`music` v `data/enemies.json`). Prehrávanie rieši autoload `scripts/autoload/audio.gd`.

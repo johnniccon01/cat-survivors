@@ -78,7 +78,7 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 - [x] Zmena kláves pohybu v Nastaveniach (šípky a ovládač fungujú vždy), návrat na WASD
 - [ ] Viac jazykov (napr. čeština, nemčina)
 - [x] Návod pri prvej hre: tipy počas prvej noci (pohyb, zbrane, granulky, level, quest, dvierka, pauza, šampióni)
-- [ ] Záloha a bezpečné načítanie profilu pri zmenách verzií
+- [x] Záloha profilu: pred každým uložením sa odloží predchádzajúca verzia; poškodený profil sa načíta zo zálohy
 
 ## Otvorené otázky (rozhoduješ ty)
 

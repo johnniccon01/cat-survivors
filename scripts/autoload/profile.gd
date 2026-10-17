@@ -4,6 +4,8 @@ extends Node
 ## Stored in user://profile.cfg.
 
 const PATH := "user://profile.cfg"
+## The previous save, kept in case the main file gets damaged.
+const BACKUP := "user://profile.bak.cfg"
 
 var unlocked: Array[String] = []
 var selected_cat := "MICA"
@@ -39,7 +41,15 @@ func _ready() -> void:
 	# on how far the player has got.
 	var args := OS.get_cmdline_user_args()
 	var fresh := "--bot" in args or "--ui-test" in args
-	if not fresh and cfg.load(PATH) == OK:
+	var loaded := false
+	if not fresh:
+		loaded = cfg.load(PATH) == OK
+		if not loaded and FileAccess.file_exists(BACKUP):
+			# The profile is missing or broken: fall back to the last good one.
+			loaded = cfg.load(BACKUP) == OK
+			if loaded:
+				push_warning("Profile: %s could not be read, using the backup" % PATH)
+	if loaded:
 		for id: String in cfg.get_value("cats", "unlocked", []):
 			unlocked.append(id)
 		selected_cat = cfg.get_value("cats", "selected", selected_cat)
@@ -307,4 +317,9 @@ func save() -> void:
 	cfg.set_value("shop", "powerups", powerups)
 	cfg.set_value("questbook", "steps", questbook)
 	cfg.set_value("challenge", "active", challenges)
+	# Keep the last good save before writing the new one.
+	if FileAccess.file_exists(PATH):
+		var previous := ConfigFile.new()
+		if previous.load(PATH) == OK:
+			DirAccess.copy_absolute(ProjectSettings.globalize_path(PATH), ProjectSettings.globalize_path(BACKUP))
 	cfg.save(PATH)

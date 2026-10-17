@@ -712,3 +712,11 @@ QB_DARING_NAME,Daredevil,Odvážlivec
 QB_DARING_1,Win a night with a challenge on.,Vyhrať noc so zapnutou výzvou.
 QB_DARING_2,Win with each of the 5 challenges.,Vyhrať s každou z 5 výziev.
 QB_DARING_3,Win a night with 3 challenges at once.,Vyhrať noc s 3 výzvami naraz.
+TIP_MOVE,Move with WASD or the arrow keys – that's all you steer!,Hýb sa klávesmi WASD alebo šípkami – nič iné neovládaš!
+TIP_WEAPONS,Your weapons fire on their own. Keep moving and stay out of reach!,Zbrane strieľajú samé. Hýb sa a nenechaj sa chytiť!
+TIP_XP,Pick up the blue kibble to gain levels.,"Zbieraj modré granulky, aby si získaval levely."
+TIP_LEVELS,Each level lets you pick a new weapon or upgrade (1 / 2 / 3 or Enter).,Každý level si vyberieš novú zbraň alebo vylepšenie (1 / 2 / 3 alebo Enter).
+TIP_QUEST,A quest! Follow the golden arrow at the edge of the screen.,Quest! Choď za zlatou šípkou na okraji obrazovky.
+TIP_FLAP,A cat flap is open: stand in it to escape and keep your gold and charms.,Otvorili sa dvierka: postav sa do nich a utečieš so zlatom aj príveskami.
+TIP_PAUSE,Esc pauses the game. Survive until morning to win the night!,Esc pozastaví hru. Prežij do rána a vyhráš noc!
+TIP_CHAMPION,"Glowing enemies are champions: tougher, but worth much more.","Žiariaci nepriatelia sú šampióni: odolnejší, ale oplatí sa ich poraziť."

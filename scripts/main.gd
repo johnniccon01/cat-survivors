@@ -24,6 +24,7 @@ extends Node2D
 ##   --page             the map's diary page appears after 5 s
 ##   --champions        half of all regular enemies come as champions
 ##   --golden           the golden mouse shows up after 2 s
+##   --tutorial         the bot gets the first-night tips (fresh profile)
 ##   --endless          the bot carries on into the endless night after a win
 ##   --endless-now      start straight in the endless night (tests)
 ##   --drop-charm       drop a random charm next to the cat at the start
@@ -129,6 +130,9 @@ var _banked_gold := 0.0
 var _last_end := ""
 var _champion_seen := false
 var _challenge_shown := false
+## First night ever: short tips appear as things happen (see _tutorial).
+var _tutorial := false
+var _tips_shown: Dictionary = {}
 
 @onready var player: Player = $Player
 @onready var enemies: EnemyManager = $Enemies
@@ -167,6 +171,8 @@ func _ready() -> void:
 			Profile.add_stat("quests")
 			_maybe_drop_charm(player.position + Vector2(16, 16), CHARM_CHANCE_QUEST)
 			_open_extraction())
+	# Only for brand-new players (no night played yet).
+	_tutorial = Profile.get_stat("runs") == 0 and not Profile.has_flag("tutorial_done") and (not _bot or "--tutorial" in _args)
 	if "--golden" in _args:
 		_golden_t = 2.0
 	if "--endless-now" in _args:
@@ -579,6 +585,8 @@ func _end_run(kind: String) -> void:
 	var mult := Profile.streak_multiplier()
 	var lines: Array[String] = []
 	Profile.add_stat("runs")
+	if _tutorial:
+		Profile.set_flag("tutorial_done")
 	Profile.set_stat_max("best_minutes", floori(spawner.elapsed / 60.0))
 	Profile.set_stat_max("best_minutes:" + spawner.stage_id, floori(spawner.elapsed / 60.0))
 	Profile.set_stat_max("best_level", player.level)
@@ -689,6 +697,8 @@ func _track_run(delta: float) -> void:
 	if not Profile.challenges.is_empty() and spawner.elapsed < 1.0 and not _challenge_shown:
 		_challenge_shown = true
 		hud.show_banner(tr("CHALLENGES_ON") % [", ".join(Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))), Profile.challenge_gold()], 4.0)
+	if _tutorial:
+		_tutorial_tips()
 	if not _champion_seen and int(Engine.get_process_frames()) % 30 == 0:
 		for e in enemies.enemies:
 			if e.champion != "":
@@ -714,6 +724,42 @@ func _track_run(delta: float) -> void:
 		_page_item = pickups.spawn_page(player.position + Vector2.from_angle(randf() * TAU) * randf_range(480.0, 640.0))
 		hud.show_banner(tr("PAGE_APPEARED"), 4.0)
 		Audio.play("quest", -2.0, 0.0)
+
+
+## Tips for the very first night, each shown once when it becomes useful.
+func _tutorial_tips() -> void:
+	if get_tree().paused or _run_over:
+		return
+	var t := spawner.elapsed
+	if t > 1.0:
+		_tip("MOVE")
+	if t > 7.0:
+		_tip("WEAPONS")
+	if t > 14.0 and pickups.items.size() > 0:
+		_tip("XP")
+	if player.level >= 2 and t > 20.0:
+		_tip("LEVELS")
+	if quests.active != null:
+		_tip("QUEST")
+	if extraction != null:
+		_tip("FLAP")
+	if t > 60.0:
+		_tip("PAUSE")
+	if _champion_seen:
+		_tip("CHAMPION")
+
+
+func _tip(id: String) -> void:
+	if _tips_shown.has(id):
+		return
+	# One tip at a time: wait until the last one had a few seconds.
+	for shown: float in _tips_shown.values():
+		if Time.get_ticks_msec() / 1000.0 - shown < 5.0:
+			return
+	_tips_shown[id] = Time.get_ticks_msec() / 1000.0
+	hud.show_banner(tr("TIP_%s" % id), 5.0)
+	if _bot:
+		print("BOT: tip ", id)
 
 
 func _on_champion_killed(affix: String, pos: Vector2) -> void:

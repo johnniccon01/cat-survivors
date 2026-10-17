@@ -76,7 +76,7 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 - [ ] Export: samostatný Windows `.exe`, otestovať na inom počítači
 - [ ] Ovládanie: otestovať gamepad, umožniť zmenu kláves
 - [ ] Viac jazykov (napr. čeština, nemčina)
-- [ ] Návod pri prvej hre (ovládanie, čo sú dvierka, charmy, questy)
+- [x] Návod pri prvej hre: tipy počas prvej noci (pohyb, zbrane, granulky, level, quest, dvierka, pauza, šampióni)
 - [ ] Záloha a bezpečné načítanie profilu pri zmenách verzií
 
 ## Otvorené otázky (rozhoduješ ty)

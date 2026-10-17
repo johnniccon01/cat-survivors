@@ -213,6 +213,7 @@ func _ready() -> void:
 	pickups.gold_collected.connect(func(amount: float) -> void: run_gold += amount * player.stat("greed") * player.stat("curse"))
 	pickups.chest_collected.connect(_queue_modal.bind("chest"))
 	spawner.boss_spawned.connect(func(_id: String) -> void:
+		Audio.play("roar", -2.0, 0.1)
 		player.shake(5.0, 0.5)
 		hud.show_banner(tr("BOSS_WARNING"))
 		Audio.play("warning", -4.0, 0.0))
@@ -411,6 +412,7 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 	if id == GOLDEN_MOUSE:
 		Profile.add_stat("golden_mice")
 		hud.show_banner(tr("GOLDEN_MOUSE_CAUGHT"), 3.0)
+		Audio.play("squeak", 0.0, 0.0)
 		Audio.play("chest", -2.0, 0.0)
 		for i in GOLDEN_COINS:
 			pickups.spawn_named("coin", pos + Vector2.from_angle(TAU * i / GOLDEN_COINS) * 14.0, 5.0)
@@ -509,6 +511,7 @@ func _next_modal() -> void:
 			hud.treasure.open(results)
 		return
 	Audio.play("levelup", -4.0, 0.0)
+	Audio.play("meow", -9.0, 0.15)
 	_level_burst()
 	# Luck above 1.0 is the chance of a fourth card.
 	var offers := Upgrades.roll(player, 4 if randf() < player.stat("luck") - 1.0 else 3)
@@ -715,7 +718,7 @@ func _track_run(delta: float) -> void:
 			_golden_t = randf_range(GOLDEN_EVERY[0], GOLDEN_EVERY[1])
 			enemies.spawn(GOLDEN_MOUSE, player.position + Vector2.from_angle(randf() * TAU) * 230.0)
 			hud.show_banner(tr("GOLDEN_MOUSE_APPEARED"), 3.5)
-			Audio.play("magnet", -4.0, 0.0)
+			Audio.play("squeak", -2.0, 0.1)
 	# Night falls: switch to the map's night track (not over a boss theme).
 	if final_boss == null and not is_instance_valid(devil) and not _rescuing:
 		var track := _map_music()
@@ -766,6 +769,7 @@ func _tip(id: String) -> void:
 
 
 func _on_champion_killed(affix: String, pos: Vector2) -> void:
+	Audio.play("sparkle", -6.0, 0.1)
 	Profile.add_stat("champions")
 	Profile.add_stat("champions:" + affix)
 	pickups.spawn_named("coin", pos + Vector2(6, 0), 3.0)
@@ -938,6 +942,7 @@ func _on_final_boss(boss: Enemy) -> void:
 		extraction.queue_free()
 		extraction = null
 	Audio.play("warning", 0.0, 0.0)
+	Audio.play("roar", 2.0, 0.0)
 	Audio.play_music(GameData.enemies[boss.id].get("music", "music_boss"))
 	spawner.paused = true
 	hud.show_banner(tr("FINAL_BOSS_WARNING") % tr("ENEMY_%s_NAME" % boss.id), 4.0)

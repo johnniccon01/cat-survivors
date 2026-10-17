@@ -68,7 +68,7 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 - [ ] Animácie smrti nepriateľov a lepšie efekty zásahov
 - [x] Obrázok v hlavnom menu (nočné mesto, mesiac, mačky)
 - [x] Ikona hry: Micina hlava v pixel-arte (tools/gen_icon.py); .ico pre .exe pri exporte
-- [ ] Viac zvukov (kroky, mňaukanie pri level-upe, zvuky bossov)
+- [x] Viac zvukov: rev bossov, mňauknutie pri level-upe, pišťanie zlatej myši, trblietanie šampióna, praskanie iskier, hrom, cinkanie mincí
 
 ## Fáza 4 – Pred vydaním
 

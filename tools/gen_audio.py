@@ -123,6 +123,24 @@ def sfx():
     save("gameover", seq(*[tone(0.22, f, None, "tri", 0.4) for f in (392, 370, 349)], tone(0.7, 330, 260, "tri", 0.4, release=0.6, vibrato=4)))
 
     secret_sfx()
+    more_sfx()
+
+
+def more_sfx():
+    """Boss roar, golden mouse squeak, champion sparkle, sparks, thunder, coins."""
+    growl = mix(tone(0.9, 90, 60, "saw", 0.35, attack=0.08, release=0.4, vibrato=9),
+                tone(0.9, 135, 90, "square", 0.15, duty=0.3, attack=0.08, release=0.4, vibrato=7),
+                lowpass(tone(0.9, 0, 0, "noise", 0.35, attack=0.05, release=0.5), 0.08))
+    save("roar", growl, gain=1.3)
+    save("squeak", seq(tone(0.06, 1700, 2300, "square", 0.22, duty=0.25), silence(0.03), tone(0.08, 1900, 2600, "square", 0.22, duty=0.25, release=0.05)))
+    save("sparkle", mix(*[seq(silence(i * 0.05), tone(0.25, f, None, "sine", 0.18, release=0.2)) for i, f in enumerate((1568, 2093, 2637, 3136))]))
+    crack = []
+    for i in range(6):
+        crack += lowpass(tone(0.02, 0, 0, "noise", 0.5, attack=0.001, release=0.01), 0.6) + silence(0.012 * (i % 3))
+    save("zap", mix(crack, tone(0.14, 2400, 900, "square", 0.12, duty=0.125, release=0.05)))
+    save("thunder", mix(lowpass(tone(1.1, 0, 0, "noise", 0.8, attack=0.005, release=0.9), 0.12),
+                        lowpass(tone(0.08, 0, 0, "noise", 0.7, attack=0.001, release=0.05), 0.7)), gain=1.4)
+    save("coin", seq(tone(0.05, 1319, None, "square", 0.18, duty=0.25), tone(0.12, 1976, None, "square", 0.18, duty=0.25, release=0.1)))
 
 
 def secret_sfx():

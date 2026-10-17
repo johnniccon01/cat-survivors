@@ -39,7 +39,7 @@ func _physics_process(delta: float) -> void:
 		_struck = _t
 		if inside:
 			player.take_damage(damage)
-		Audio.play("laser" if style == "lightning" else "hit", -10.0)
+		Audio.play("thunder" if style == "lightning" else "hit", -6.0 if style == "lightning" else -10.0)
 	elif _struck >= 0.0 and _t - _struck > 0.25:
 		queue_free()
 		return

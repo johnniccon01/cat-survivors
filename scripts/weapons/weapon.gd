@@ -93,6 +93,7 @@ func strike(enemy: Enemy, amount_hit: float, dir: Vector2, knockback: float) -> 
 		var other := _nearest_other(enemy, 80.0)
 		if other != null:
 			other.hit(amount_hit * float(fx["shock"][1]), other.position - enemy.position, 0.2, false)
+			Audio.play("zap", -16.0)
 			var bolt := ChainBolt.new()
 			bolt.points = PackedVector2Array([enemy.position, other.position])
 			world.add_child(bolt)

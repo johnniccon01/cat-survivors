@@ -11,7 +11,7 @@ func shoot(_index: int) -> void:
 	var first := enemies.nearest(player.position, RANGE)
 	if first == null:
 		return
-	Audio.play("laser", -16.0 - (6.0 if player.is_companion() else 0.0))
+	Audio.play("zap", -12.0 - (6.0 if player.is_companion() else 0.0))
 	var storm: bool = data.get("storm", false)
 	var hit: Dictionary = {}
 	var points := PackedVector2Array([player.position + Vector2(0, -6)])

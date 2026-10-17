@@ -135,7 +135,7 @@ func _collect(item: Pickup) -> void:
 		Pickup.Kind.CHEST:
 			chest_collected.emit()
 		Pickup.Kind.COIN:
-			Audio.play("xp", -10.0, 0.0)
+			Audio.play("coin", -9.0, 0.08)
 			gold_collected.emit(item.value)
 		Pickup.Kind.CHARM:
 			Audio.play("chest", -4.0, 0.0)

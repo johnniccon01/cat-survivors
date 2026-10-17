@@ -24,6 +24,10 @@ var return_accel := 0.0
 
 var _hit: Dictionary = {}
 var _returning := false
+## Recent positions, for the motion trail.
+var _trail: PackedVector2Array = []
+const TRAIL := 6
+const TRAIL_COLORS := {"feather": Color("6fc2ff"), "phoenix": Color("ff8a3d"), "hairball": Color("a8774f")}
 
 
 func _init() -> void:
@@ -46,6 +50,9 @@ func _physics_process(delta: float) -> void:
 		if _returning and to_owner.length() < 10.0:
 			queue_free()
 			return
+	_trail.append(position)
+	if _trail.size() > TRAIL:
+		_trail.remove_at(0)
 	position += velocity * delta
 	rotation += spin * delta
 	for enemy in enemies.query_radius(position, radius):
@@ -62,6 +69,11 @@ func _physics_process(delta: float) -> void:
 
 
 func _draw() -> void:
+	# A fading trail behind the projectile (drawn in world space).
+	var tc: Color = TRAIL_COLORS.get(style, Color("e0628f"))
+	for i in range(1, _trail.size()):
+		var k := float(i) / _trail.size()
+		draw_line(to_local(_trail[i - 1]), to_local(_trail[i]), Color(tc, 0.35 * k), radius * 1.4 * k)
 	var s := radius / 4.0
 	match style:
 		"feather", "phoenix":

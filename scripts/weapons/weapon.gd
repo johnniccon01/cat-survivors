@@ -74,6 +74,8 @@ func branch_effect() -> Dictionary:
 
 ## Hits an enemy with this weapon, then applies the branch's on-hit effect.
 func strike(enemy: Enemy, amount_hit: float, dir: Vector2, knockback: float) -> void:
+	if not enemy.dead and not enemy.is_prop:
+		HitFx.spawn(world, enemy.position, id)
 	enemy.hit(amount_hit, dir, knockback)
 	var fx := branch_effect()
 	if fx.is_empty() or enemy == null:

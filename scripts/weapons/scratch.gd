@@ -18,4 +18,6 @@ func shoot(index: int) -> void:
 	fx.position = center
 	fx.size = size
 	fx.side = side
+	if id != "SCRATCH":
+		fx.color = Color(1.0, 0.6, 0.25)
 	world.add_child(fx)

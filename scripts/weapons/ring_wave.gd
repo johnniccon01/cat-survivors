@@ -40,6 +40,8 @@ func _physics_process(delta: float) -> void:
 
 func _draw() -> void:
 	var a := clampf(1.3 - _age / expand_time, 0.0, 1.0)
+	draw_circle(Vector2.ZERO, _radius, Color(color, 0.06 * a))
+	draw_arc(Vector2.ZERO, _radius, 0.0, TAU, 48, Color(color, 0.12 * a), 14.0)
 	draw_arc(Vector2.ZERO, _radius, 0.0, TAU, 48, Color(color, 0.25 * a), 6.0)
 	draw_arc(Vector2.ZERO, _radius, 0.0, TAU, 48, Color(color, 0.9 * a), 2.0)
 	draw_arc(Vector2.ZERO, _radius * 0.8, 0.0, TAU, 40, Color(1, 1, 1, 0.35 * a), 1.0)

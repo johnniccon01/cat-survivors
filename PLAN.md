@@ -134,7 +134,7 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Únik dvierkami: čakanie 5 s → 3 s
 - [x] Státie na mieste kratšie (miska 40 → 25 s, obrana 45 → 30 s, zóny kratšie); silní bossovia z príbehov až neskôr v noci (`after_minute`)
 - [x] Menu: šípky aj W/S, pohyb sa zacyklí; výber mačky s veľkým detailom (zbraň, výhry, level, bossovia) a karty máp s obrázkom a finálnym bossom
-- [ ] Efekty zbraní prepracovať
+- [x] Efekty zbraní: zásahový záblesk vo farbe zbrane, stopy za strelami, väčšie škrabance so švihom (oranžové po evolúcii), žiarivý laser s iskrami, plnšia vlna zvončeka
 - [x] Achievementy: 40 úspechov (záložka Úspechy v Denníku, oznámenie v hre, tajné ako ???)
 - [ ] Ak nie je čo robiť: ďalšia mapa
 - Ďalšie jazyky zatiaľ nie. Menej testov medzi krokmi, poriadny test na konci.

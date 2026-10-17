@@ -147,6 +147,19 @@ func _in_game() -> void:
 	_expect(cat.position.distance_to(still) < 1.0, "no movement while paused")
 	await _press(KEY_ESCAPE)
 	_expect(not paused, "Esc resumes after the movement check")
+	# Gamepad: left stick moves, Start pauses and resumes, A picks in menus.
+	for entry: Array in [[JOY_AXIS_LEFT_X, 1.0, Vector2.RIGHT], [JOY_AXIS_LEFT_X, -1.0, Vector2.LEFT], [JOY_AXIS_LEFT_Y, -1.0, Vector2.UP]]:
+		var from := cat.position
+		await _stick(entry[0], entry[1], 30)
+		var moved := cat.position - from
+		_expect(moved.length() > 20.0 and moved.normalized().dot(entry[2]) > 0.9, "left stick moves the cat %s (moved %s)" % [entry[2], moved])
+	await _pad(JOY_BUTTON_START)
+	_expect(paused, "Start pauses")
+	await _pad(JOY_BUTTON_DPAD_DOWN)
+	_expect(_focus_text() == "MENU_SETTINGS", "d-pad moves in the pause menu (got %s)" % _focus_text())
+	await _pad(JOY_BUTTON_DPAD_UP)
+	await _pad(JOY_BUTTON_A)
+	_expect(not paused, "A on Resume resumes")
 	# M mutes and unmutes.
 	var settings_node := root.get_node("Settings")
 	var was_muted: bool = settings_node.get("muted")
@@ -254,6 +267,27 @@ func _hold(keys: Array, frames: int) -> void:
 		# Physics frames: the same game time whatever the screen's frame rate.
 		for i in (frames if pressed else 3):
 			await physics_frame
+
+
+## Pushes a stick axis for `frames` physics frames, then lets go.
+func _stick(axis: JoyAxis, value: float, frames: int) -> void:
+	for v in [value, 0.0]:
+		var e := InputEventJoypadMotion.new()
+		e.axis = axis
+		e.axis_value = v
+		Input.parse_input_event(e)
+		for i in (frames if v != 0.0 else 3):
+			await physics_frame
+
+
+func _pad(button: JoyButton) -> void:
+	for pressed in [true, false]:
+		var e := InputEventJoypadButton.new()
+		e.button_index = button
+		e.pressed = pressed
+		Input.parse_input_event(e)
+		await _frames(2)
+	await _frames(2)
 
 
 func _press(key: Key) -> void:

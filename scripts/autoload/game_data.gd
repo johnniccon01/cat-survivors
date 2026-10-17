@@ -85,6 +85,11 @@ func _setup_input() -> void:
 	_add_axis("move_down", JOY_AXIS_LEFT_Y, 1.0)
 	_add_button("pause", JOY_BUTTON_START)
 	_add_button("restart", JOY_BUTTON_A)
+	# Godot's menu actions have no gamepad face buttons by default: A confirms,
+	# B goes back (and works like Esc in our panels).
+	_add_button("ui_accept", JOY_BUTTON_A)
+	_add_button("ui_cancel", JOY_BUTTON_B)
+	_add_button("pause", JOY_BUTTON_B)
 
 
 func _ensure_action(action: String) -> void:

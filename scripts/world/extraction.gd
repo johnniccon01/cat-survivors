@@ -8,7 +8,7 @@ signal escaped
 signal closed
 
 const OPEN_TIME := 60.0
-const CHANNEL_TIME := 5.0
+const CHANNEL_TIME := 3.0
 const RADIUS := 36.0
 const PRESSURE_EVERY := 1.0
 const OUTLINE := Color("2b1d14")

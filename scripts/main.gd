@@ -125,6 +125,7 @@ const HOURGLASS_SECONDS := 3.0
 const THORN_RADIUS := 80.0
 const THORN_DAMAGE := 20.0
 var _freeze_t := 0.0
+var _rex_calm := false
 ## The story choice waiting in the modal queue.
 var _choice: Dictionary = {}
 var _magnet_t := 0.0
@@ -760,6 +761,11 @@ func _track_run(delta: float) -> void:
 		_distance += step
 	_last_pos = player.position
 	_tick_artifacts(delta)
+	# Rex, once you have won his respect, gives up half way through the fight.
+	if final_boss != null and final_boss.id == "GUARD_DOG" and not _rex_calm and ChainStep.is_done("REX_RESPECT") and final_boss.hp < final_boss.max_hp * 0.5:
+		_rex_calm = true
+		hud.show_banner(tr("REX_GIVES_UP"), 5.0)
+		final_boss.hit(final_boss.hp + 1.0, Vector2.ZERO, 0.0, false)
 	if player.hp < player.max_hp * 0.1:
 		_brink_t += delta
 		if _brink_t >= 30.0 and not _was_on_brink:

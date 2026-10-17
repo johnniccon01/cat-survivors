@@ -938,3 +938,129 @@ CHAIN_BOILER_1,Bring the three boiler parts,Prines tri súčiastky kotla,Přines
 CHAIN_BOILER_1_START,"A valve, a wrench and a fuse – the strongest of the basement guard them.","Ventil, kľúč a poistka – strážia ich najsilnejší z pivnice.","Ventil, klíč a pojistka – hlídají je nejsilnější ze sklepa."
 CHAIN_BOILER_1_DONE,The boiler rumbles and warms up. From now on you can warm up next to it.,Kotol zahučal a zohrial sa. Odteraz sa pri ňom môžeš zohriať.,Kotel zahučel a zahřál se. Odteď se u něj můžeš ohřát.
 CHAIN_BOILER_REWARD,the warm boiler heals in the Basement,teplý kotol lieči v Pivnici,teplý kotel léčí ve Sklepě
+ARTIFACT_GNOME_HAT_NAME,Gnome Hat,Trpasličia čiapka,Trpasličí čepice
+ARTIFACT_GNOME_HAT_DESC,"A thank-you from the gnomes: +10% luck, +20% gold.","Poďakovanie od trpaslíkov: +10 % šťastie, +20 % zlata.","Poděkování od trpaslíků: +10 % štěstí, +20 % zlata."
+ARTIFACT_MOLE_CLAW_NAME,Mole Claw,Krtčí pazúr,Krtčí dráp
+ARTIFACT_MOLE_CLAW_DESC,"A thank-you from the moles: +10% damage, +10% area.","Poďakovanie od krtkov: +10 % poškodenie, +10 % plocha.","Poděkování od krtků: +10 % poškození, +10 % plocha."
+ARTIFACT_HONEY_POT_NAME,Honey Pot,Hrniec medu,Hrnec medu
+ARTIFACT_HONEY_POT_DESC,Sweet and healing: +1 health per second.,Sladký a liečivý: +1 zdravie za sekundu.,Sladký a léčivý: +1 zdraví za sekundu.
+ENEMY_GNOME_KING_NAME,The Gnome King,Trpasličí kráľ,Trpasličí král
+ENEMY_GNOME_KING_DESC,Rules the garden gnomes and throws whatever he finds.,"Vládne záhradným trpaslíkom a hádže všetko, čo nájde.","Vládne zahradním trpaslíkům a hází všechno, co najde."
+ENEMY_MOLE_KING_NAME,The Mole King,Krtčí kráľ,Krtčí král
+ENEMY_MOLE_KING_DESC,Digs under the lawn and bursts out at full speed.,Podkopáva trávnik a vyrazí na teba plnou rýchlosťou.,Podkopává trávník a vyrazí na tebe plnou rychlostí.
+CHAIN_GNOME_WAR_NAME,The Gnome War,Trpasličia vojna,Trpasličí válka
+CHAIN_GNOME_WAR_DESC,Gnomes and moles are fighting over the vegetable patch.,Trpaslíci a krtkovia sa bijú o zeleninový záhon.,Trpaslíci a krtci se perou o zeleninový záhon.
+CHAIN_GNOME_WAR_1,Defend the vegetable patch,Ubráň zeleninový záhon,Ubraň zeleninový záhon
+CHAIN_GNOME_WAR_1_START,The gnomes are stealing carrots! Don't let them near the patch!,Trpaslíci kradnú mrkvu! Nepusť ich k záhonu!,Trpaslíci kradou mrkev! Nepusť je k záhonu!
+CHAIN_GNOME_WAR_1_DONE,The gnomes say the moles started it. Fresh molehills lead away...,"Trpaslíci tvrdia, že začali krtkovia. Od záhona vedú čerstvé krtince...","Trpaslíci tvrdí, že začali krtci. Od záhonu vedou čerstvé krtince..."
+CHAIN_GNOME_WAR_2,Follow the molehills,Sleduj krtince,Sleduj krtince
+CHAIN_GNOME_WAR_2_DONE,At the end of the tunnel sits an old mole. He wants to talk.,Na konci tunela sedí starý krtko. Chce sa rozprávať.,Na konci tunelu sedí starý krtek. Chce si promluvit.
+CHAIN_GNOME_WAR_3,Talk to the old mole,Porozprávaj sa so starým krtkom,Promluv si se starým krtkem
+CHAIN_GNOME_WAR_3_ASK,"""The gnomes took our garden, so we dig under theirs. Whose side are you on, cat?""","„Trpaslíci nám vzali záhradu, tak my podkopávame tú ich. Na čej strane si, mačka?“","„Trpaslíci nám vzali zahradu, tak my podkopáváme tu jejich. Na čí straně jsi, kočko?“"
+CHAIN_GNOME_WAR_3_MOLES,Help the moles (Mole Claw),Pomôcť krtkom (Krtčí pazúr),Pomoct krtkům (Krtčí dráp)
+CHAIN_GNOME_WAR_3_GNOMES,Help the gnomes (Gnome Hat),Pomôcť trpaslíkom (Trpasličia čiapka),Pomoct trpaslíkům (Trpasličí čepice)
+CHAIN_GNOME_WAR_4,Defeat the Gnome King,Poraz trpasličieho kráľa,Poraz trpasličího krále
+CHAIN_GNOME_WAR_4_START,The Gnome King himself has come for the vegetables!,Pre zeleninu si prišiel sám trpasličí kráľ!,Pro zeleninu si přišel sám trpasličí král!
+CHAIN_GNOME_WAR_4_DONE,The moles get their garden back. They dig you a present.,Krtkovia majú záhradu späť. Vyhrabali ti darček.,Krtci mají zahradu zpátky. Vyhrabali ti dárek.
+CHAIN_GNOME_WAR_5,Defeat the Mole King,Poraz krtčieho kráľa,Poraz krtčího krále
+CHAIN_GNOME_WAR_5_START,The Mole King bursts out of the lawn!,Z trávnika vyrazil krtčí kráľ!,Z trávníku vyrazil krtčí král!
+CHAIN_GNOME_WAR_5_DONE,The tunnels are quiet. The gnomes give you a tiny red hat.,V tuneloch je ticho. Trpaslíci ti dali malú červenú čiapku.,V tunelech je ticho. Trpaslíci ti dali malou červenou čepici.
+CHAIN_HONEY_NAME,Honey for Clover,Med pre Ďatelinku,Med pro Jetelinku
+CHAIN_HONEY_DESC,Clover would love some honey. The bees want flowers for it.,Ďatelinka by chcela med. Včely zaň chcú kvety.,Jetelinka by chtěla med. Včely za něj chtějí květiny.
+CHAIN_HONEY_1,Bring flowers to the beehive,Nos kvety k úľu,Nos květiny k úlu
+CHAIN_HONEY_1_START,"Three flowers, one at a time – and don't get hit more than ten times!","Tri kvety, po jednom – a nedaj sa zasiahnuť viac ako desaťkrát!","Tři květiny, po jedné – a nenech se zasáhnout víc než desetkrát!"
+CHAIN_HONEY_1_DONE,The bees buzz happily. But the hive is shaking – the hornet queen is angry!,Včely spokojne bzučia. Ale úľ sa trasie – sršňa kráľovná zúri!,Včely spokojeně bzučí. Ale úl se třese – sršní královna zuří!
+CHAIN_HONEY_2,Defeat the Hornet Queen,Poraz sršniu kráľovnú,Poraz sršní královnu
+CHAIN_HONEY_2_START,She wants the honey for herself!,Med chce len pre seba!,Med chce jen pro sebe!
+CHAIN_HONEY_2_DONE,The bees fill a whole pot of honey. Clover purrs.,Včely naplnili celý hrniec medu. Ďatelinka priadie.,Včely naplnily celý hrnec medu. Jetelinka přede.
+CHAIN_SCARECROW_NAME,The Scarecrow Comes Alive,Strašiak ožíva,Strašák ožívá
+CHAIN_SCARECROW_DESC,The crows tore the old scarecrow apart and took its clothes.,Vrany roztrhali starého strašiaka a odniesli mu šaty.,Vrány roztrhaly starého strašáka a odnesly mu šaty.
+CHAIN_SCARECROW_1,"Get the hat, scarf and pumpkin back from the crows","Získaj od vrán klobúk, šál a tekvicu","Získej od vran klobouk, šálu a dýni"
+CHAIN_SCARECROW_1_START,Defeat crows – they drop what they stole. Bring it to the pole.,"Poraz vrany – pustia, čo ukradli. Dones to k tyči.","Poraz vrány – pustí, co ukradly. Dones to k tyči."
+CHAIN_SCARECROW_1_DONE,The scarecrow stands again. Its button eyes are watching the sky...,Strašiak opäť stojí. Jeho gombíkové oči sledujú oblohu...,Strašák zase stojí. Jeho knoflíkové oči sledují oblohu...
+CHAIN_SCARECROW_REWARD,the scarecrow hits birds in the Garden,strašiak bije vtáky v Záhrade,strašák bije ptáky v Zahradě
+CHAIN_EMPTY,Nothing here – but someone is!,Nič tu nie je – ale niekto áno!,Nic tu není – ale někdo ano!
+ARTIFACT_RACCOON_MASK_NAME,Raccoon Mask,Mývalia maska,Mývalí maska
+ARTIFACT_RACCOON_MASK_DESC,A thief's eye for loot: +15% experience.,Zlodejské oko na korisť: +15 % skúseností.,Zlodějské oko na kořist: +15 % zkušeností.
+ENEMY_RIVAL_BRUNO_TRIAL_NAME,Bruno (trial),Bruno (skúška),Bruno (zkouška)
+ENEMY_RIVAL_BRUNO_TRIAL_DESC,Bruno tests you himself. He hits hard but fair.,"Bruno ťa skúša sám. Udiera tvrdo, ale férovo.","Bruno tě zkouší sám. Udeří tvrdě, ale férově."
+ENEMY_RACCOON_THIEF_NAME,Raccoon Thief,Mýval zlodej,Mýval zloděj
+ENEMY_RACCOON_THIEF_DESC,Stole a collar and runs over the roofs with it.,Ukradol obojok a uteká s ním po strechách.,Ukradl obojek a utíká s ním po střechách.
+CHAIN_BRUNO_TRIAL_NAME,Bruno's Trial,Brunova skúška,Brunova zkouška
+CHAIN_BRUNO_TRIAL_DESC,Bruno only respects cats who prove themselves.,"Bruno rešpektuje len mačky, ktoré sa osvedčia.","Bruno respektuje jen kočky, které se osvědčí."
+CHAIN_BRUNO_TRIAL_1,Run over the chimneys in order,Prebehni komíny v poradí,Přeběhni komíny v pořadí
+CHAIN_BRUNO_TRIAL_1_START,"""Five chimneys, one after another, in one minute. Go!"" – Bruno","„Päť komínov, jeden za druhým, za minútu. Bež!“ – Bruno","„Pět komínů, jeden za druhým, za minutu. Běž!“ – Bruno"
+CHAIN_BRUNO_TRIAL_1_DONE,"""Not bad. Now let's see if you can fight.""","„Nie zlé. Teraz uvidíme, či vieš bojovať.“","„Není to špatné. Teď uvidíme, jestli umíš bojovat.“"
+CHAIN_BRUNO_TRIAL_2,Defeat the Pigeon Emperor without healing,Poraz holubieho cisára bez liečenia,Poraz holubího císaře bez léčení
+CHAIN_BRUNO_TRIAL_2_START,"""Beat the Pigeon Emperor – and don't touch a single heart!""",„Poraz holubieho cisára – a nedotkni sa ani jedného srdiečka!“,„Poraz holubího císaře – a nedotkni se ani jednoho srdíčka!“
+CHAIN_BRUNO_TRIAL_2_DONE,"""Good. One last thing: me. At dawn.""",„Dobre. Posledná vec: ja. Na úsvite.“,„Dobře. Poslední věc: já. Za úsvitu.“
+CHAIN_BRUNO_TRIAL_3,Beat Bruno in a duel,Poraz Bruna v súboji,Poraz Bruna v souboji
+CHAIN_BRUNO_TRIAL_3_START,"""Show me what you've got!""","„Ukáž, čo v tebe je!“","„Ukaž, co v tobě je!“"
+CHAIN_BRUNO_TRIAL_3_DONE,"Bruno laughs and shakes the dust off. ""From now on, I've got your back.""",Bruno sa zasmeje a otrasie prach. „Odteraz ti kryjem chrbát.“,Bruno se zasměje a otřese prach. „Odteď ti kryju záda.“
+CHAIN_BRUNO_TRIAL_REWARD,Bruno joins you every night,Bruno chodí s tebou každú noc,Bruno chodí s tebou každou noc
+CHAIN_STORM_ANTENNA_NAME,The Storm Antenna,Búrková anténa,Bouřková anténa
+CHAIN_STORM_ANTENNA_DESC,A storm is coming. Maybe its power can be caught.,Blíži sa búrka. Možno sa jej sila dá zachytiť.,Blíží se bouřka. Možná se její síla dá zachytit.
+CHAIN_STORM_ANTENNA_1,Charge the antennas in the storm,Nabi antény v búrke,Nabij antény v bouřce
+CHAIN_STORM_ANTENNA_1_START,Stand by each antenna while it charges – lightning will strike around you!,"Stoj pri každej anténe, kým sa nabije – okolo budú udierať blesky!","Stůj u každé antény, dokud se nenabije – kolem budou bít blesky!"
+CHAIN_STORM_ANTENNA_1_DONE,The big antenna hums with power. It will protect the roof.,Veľká anténa bzučí silou. Bude chrániť strechu.,Velká anténa bzučí silou. Bude chránit střechu.
+CHAIN_STORM_ANTENNA_REWARD,the charged antenna zaps enemies on the Rooftop,nabitá anténa strieľa blesky na Streche,nabitá anténa střílí blesky na Střeše
+CHAIN_STOLEN_COLLAR_NAME,The Stolen Collar,Ukradnutý obojok,Ukradený obojek
+CHAIN_STOLEN_COLLAR_DESC,A raccoon has stolen a collar from a sleeping cat.,Mýval ukradol obojok spiacej mačke.,Mýval ukradl obojek spící kočce.
+CHAIN_STOLEN_COLLAR_1,Chase the raccoon,Prenasleduj mývala,Pronásleduj mývala
+CHAIN_STOLEN_COLLAR_1_START,"There he goes, with the collar in his paws!","Tamto beží, s obojkom v labách!","Tamhle běží, s obojkem v tlapách!"
+CHAIN_STOLEN_COLLAR_1_DONE,He dropped his bag – it's empty. He must have hidden the collar in a bin.,Pustil vrecko – je prázdne. Obojok musel schovať do kontajnera.,Pustil pytel – je prázdný. Obojek musel schovat do kontejneru.
+CHAIN_STOLEN_COLLAR_2,Search the bins,Prehľadaj kontajnery,Prohledej kontejnery
+CHAIN_STOLEN_COLLAR_2_START,Four bins. The collar is in one of them – and his friends in the others.,Štyri kontajnery. Obojok je v jednom – a v ostatných jeho kamaráti.,Čtyři kontejnery. Obojek je v jednom – a v ostatních jeho kamarádi.
+CHAIN_STOLEN_COLLAR_2_DONE,Found it! The sleeping cat gets its collar back – and you get the thief's mask.,Mám ho! Spiaca mačka dostane obojok späť – a ty zlodejovu masku.,Mám ho! Spící kočka dostane obojek zpět – a ty zlodějovu masku.
+REX_GIVES_UP,Rex lies down and wags his tail. He's had enough!,Rex si ľahol a vrtí chvostom. Stačilo mu!,Rex si lehl a vrtí ocasem. Stačilo mu!
+ARTIFACT_LUNCHBOX_NAME,Lunchbox,Desiatový box,Svačinový box
+ARTIFACT_LUNCHBOX_DESC,"Always something to eat: +30 health, hearts heal 20% more.","Vždy je čo jesť: +30 zdravia, srdiečka liečia o 20 % viac.","Vždy je co jíst: +30 zdraví, srdíčka léčí o 20 % víc."
+ARTIFACT_REX_COLLAR_NAME,Rex's Collar,Rexov obojok,Rexův obojek
+ARTIFACT_REX_COLLAR_DESC,"A gift from an old friend: +1 armor, +10% damage.","Dar od starého priateľa: +1 brnenie, +10 % poškodenie.","Dar od starého přítele: +1 brnění, +10 % poškození."
+ARTIFACT_CAPTAINS_COMPASS_NAME,Captain's Compass,Kapitánov kompas,Kapitánův kompas
+ARTIFACT_CAPTAINS_COMPASS_DESC,"Always points to treasure: bigger magnet, +5% speed.","Vždy ukazuje k pokladu: väčší magnet, +5 % rýchlosť.","Vždy ukazuje k pokladu: větší magnet, +5 % rychlost."
+ARTIFACT_PIRATE_GOLD_NAME,Pirate Gold,Pirátske zlato,Pirátské zlato
+ARTIFACT_PIRATE_GOLD_DESC,Cursed? Maybe. Shiny? Definitely: +40% gold.,Prekliate? Možno. Lesklé? Určite: +40 % zlata.,Prokleté? Možná. Lesklé? Určitě: +40 % zlata.
+CHAIN_SHOPPING_LIST_NAME,Chonk's Shopping List,Tučkov nákupný zoznam,Buclíkův nákupní seznam
+CHAIN_SHOPPING_LIST_DESC,Chonk has a list. The shop closes soon.,Tučko má zoznam. Obchod čoskoro zatvára.,Buclík má seznam. Obchod brzy zavírá.
+CHAIN_SHOPPING_LIST_1,Bring everything on the list to the checkout,Dones všetko zo zoznamu k pokladni,Dones všechno ze seznamu k pokladně
+CHAIN_SHOPPING_LIST_1_START,"Fish, milk, ham, cheese and sardines – before closing time!","Ryba, mlieko, šunka, syr a sardinky – pred zatváracími hodinami!","Ryba, mléko, šunka, sýr a sardinky – před zavírací dobou!"
+CHAIN_SHOPPING_LIST_1_DONE,Everything's here. Chonk packs you a lunchbox.,Všetko je tu. Tučko ti zbalil desiatu.,Všechno je tu. Buclík ti zabalil svačinu.
+CHAIN_BLACKOUT_NAME,Power Cut,Výpadok prúdu,Výpadek proudu
+CHAIN_BLACKOUT_DESC,The lights went out. Someone has to fix the fuses.,Zhasli svetlá. Niekto musí opraviť poistky.,Zhasla světla. Někdo musí opravit pojistky.
+CHAIN_BLACKOUT_1,Switch the fuses back on in order,Zapni poistky v správnom poradí,Zapni pojistky ve správném pořadí
+CHAIN_BLACKOUT_1_START,"Darkness! Three fuse boxes – 1, 2, 3. The wrong one gives you a shock!","Tma! Tri poistkové skrine – 1, 2, 3. Zlá ťa kopne!","Tma! Tři pojistkové skříně – 1, 2, 3. Špatná tě kopne!"
+CHAIN_BLACKOUT_1_DONE,The lights hum back on.,Svetlá znova zabzučali.,Světla znovu zabzučela.
+CHAIN_REX_RESPECT_NAME,Rex's Respect,Rexov rešpekt,Rexův respekt
+CHAIN_REX_RESPECT_DESC,"Rex isn't bad, just lonely. Win him over – one night at a time.","Rex nie je zlý, len osamelý. Získaj si ho – každú noc kúsok.","Rex není zlý, jen osamělý. Získej si ho – každou noc kousek."
+CHAIN_REX_RESPECT_1,Bring Rex a bone,Dones Rexovi kosť,Dones Rexovi kost
+CHAIN_REX_RESPECT_1_START,There's a bone in the butcher's corner. Rex's kennel is at the back.,V mäsiarstve leží kosť. Rexova búda je vzadu.,V řeznictví leží kost. Rexova bouda je vzadu.
+CHAIN_REX_RESPECT_1_DONE,Rex sniffs the bone... and growls a little less.,Rex oňuchal kosť... a zavrčal o kúsok menej.,Rex očichal kost... a zavrčel o kousek méně.
+CHAIN_REX_RESPECT_2,Guard Rex's kennel,Stráž Rexovu búdu,Hlídej Rexovu boudu
+CHAIN_REX_RESPECT_2_START,Rex is asleep and the shopping carts are coming!,Rex spí a blížia sa nákupné vozíky!,Rex spí a blíží se nákupní vozíky!
+CHAIN_REX_RESPECT_2_DONE,Rex wakes up and sees who kept watch.,"Rex sa zobudil a videl, kto ho strážil.","Rex se probudil a viděl, kdo ho hlídal."
+CHAIN_REX_RESPECT_3,Bring Rex his favourite bone,Dones Rexovi jeho obľúbenú kosť,Dones Rexovi jeho oblíbenou kost
+CHAIN_REX_RESPECT_3_START,The big one – and don't let anything hit you too often!,Tú veľkú – a nedaj sa príliš často zasiahnuť!,Tu velkou – a nenech se moc často zasáhnout!
+CHAIN_REX_RESPECT_3_DONE,Rex gives you his old collar. From now on he won't fight to the end.,Rex ti dal svoj starý obojok. Odteraz nebude bojovať do konca.,Rex ti dal svůj starý obojek. Odteď nebude bojovat do konce.
+CHAIN_REX_RESPECT_REWARD,Rex gives up half way through,Rex sa v polovici boja vzdá,Rex se v půlce boje vzdá
+CHAIN_CAPTAINS_SHIP_NAME,The Captain's Ship,Kapitánova loď,Kapitánova loď
+CHAIN_CAPTAINS_SHIP_DESC,The Captain's old boat lies broken by the pier.,Kapitánova stará loďka leží rozbitá pri móle.,Kapitánova stará loďka leží rozbitá u mola.
+CHAIN_CAPTAINS_SHIP_1,"Bring the sail, the wheel and the rope","Prines plachtu, kormidlo a lano","Přines plachtu, kormidlo a lano"
+CHAIN_CAPTAINS_SHIP_1_START,"""The harbour gang took my gear. Get it back, sailor!"" – Captain","„Prístavná banda mi zobrala výstroj. Prines ju späť, námorník!“ – Kapitán","„Přístavní banda mi vzala výstroj. Přines ji zpátky, námořníku!“ – Kapitán"
+CHAIN_CAPTAINS_SHIP_1_DONE,The boat is fixed. Now it just has to get out of the harbour...,Loďka je opravená. Teraz sa musí dostať z prístavu...,Loďka je opravená. Teď se musí dostat z přístavu...
+CHAIN_CAPTAINS_SHIP_2,Defend the boat while it casts off,"Ubráň loďku, kým odrazí","Ubraň loďku, než odrazí"
+CHAIN_CAPTAINS_SHIP_2_DONE,The boat sails out. The Captain throws you his compass.,Loďka vyplávala. Kapitán ti hodil svoj kompas.,Loďka vyplula. Kapitán ti hodil svůj kompas.
+CHAIN_LIGHTHOUSE_NAME,The Lighthouse,Maják,Maják
+CHAIN_LIGHTHOUSE_DESC,The lighthouse went dark – and the jellyfish came.,Maják zhasol – a prišli medúzy.,Maják zhasl – a přišly medúzy.
+CHAIN_LIGHTHOUSE_1,Roll the oil barrels to the lighthouse,Dokotúľaj sudy s olejom k majáku,Dokutálej sudy s olejem k majáku
+CHAIN_LIGHTHOUSE_1_START,"Three barrels, one at a time. They are heavy – you'll be slower.","Tri sudy, po jednom. Sú ťažké – spomalia ťa.","Tři sudy, po jednom. Jsou těžké – zpomalí tě."
+CHAIN_LIGHTHOUSE_1_DONE,The light is back! Its beam sweeps over the sea.,Svetlo je späť! Jeho lúč prechádza nad morom.,Světlo je zpátky! Jeho paprsek přejíždí nad mořem.
+CHAIN_LIGHTHOUSE_REWARD,the lighthouse burns jellyfish at the Harbor,maják páli medúzy v Prístave,maják pálí medúzy v Přístavu
+CHAIN_PIRATE_TREASURE_NAME,Pirate Treasure,Pirátsky poklad,Pirátský poklad
+CHAIN_PIRATE_TREASURE_DESC,The pirate rats tore a treasure map into pieces.,Pirátske potkany roztrhali mapu pokladu na kúsky.,Pirátské krysy roztrhaly mapu pokladu na kousky.
+CHAIN_PIRATE_TREASURE_1,Get the map pieces from the pirate rats,Získaj kúsky mapy od pirátskych potkanov,Získej kousky mapy od pirátských krys
+CHAIN_PIRATE_TREASURE_1_DONE,The map is whole. X marks the spot!,Mapa je celá. Krížik označuje miesto!,Mapa je celá. Křížek označuje místo!
+CHAIN_PIRATE_TREASURE_2,Dig where the X is,"Vyhrab to, kde je krížik","Vyhrabej to, kde je křížek"
+CHAIN_PIRATE_TREASURE_2_DONE,A chest! But tentacles are wrapped around it...,Truhla! Ale okolo nej sú omotané chápadlá...,Truhla! Ale kolem ní jsou omotaná chapadla...
+CHAIN_PIRATE_TREASURE_3,Defeat the Octopus guarding the treasure,"Poraz chobotnicu, ktorá stráži poklad","Poraz chobotnici, která hlídá poklad"
+CHAIN_PIRATE_TREASURE_3_DONE,The chest is full of pirate gold!,Truhla je plná pirátskeho zlata!,Truhla je plná pirátského zlata!

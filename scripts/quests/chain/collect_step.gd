@@ -3,7 +3,10 @@ extends ChainStep
 ## spot. data: item (look), count, capacity (0 = no limit), spread [min, max],
 ## source "ground" | "guards" (an elite stands on each) | "kills" (drops
 ## from `enemy` with `chance`), enemy, guard_hp, deliver, look_to,
-## slow_each (speed lost per thing carried).
+## slow_each (speed lost per thing carried), items (a look per thing, in
+## turn, instead of one item), max_hits (-1 = any), spawn {enemy, every,
+## count} (keeps sending the enemies the things drop from), time_limit
+## (0 = none).
 
 const PICK_RADIUS := 20.0
 const DROP_RADIUS := 36.0
@@ -18,6 +21,10 @@ var _woke: Array[bool] = []
 var _carried := 0
 var _delivered := 0
 var _dropped := 0
+var _looks: Array[String] = []
+var _hits := 0
+var _spawn_t := 0.0
+var _left := 0.0
 
 
 func _ready() -> void:
@@ -30,16 +37,35 @@ func _ready() -> void:
 		_items.append(position + Vector2.from_angle(a) * randf_range(float(spread[0]), float(spread[1])))
 		_guards.append(null)
 		_woke.append(false)
+		_looks.append(_look(i))
+
+
+func _look(n: int) -> String:
+	var looks: Array = data.get("items", [])
+	return looks[n % looks.size()] if not looks.is_empty() else data.get("item", "sock")
 
 
 func _on_start() -> void:
+	_left = float(data.get("time_limit", 0.0))
 	if data.get("source", "ground") == "kills":
 		main.enemies.enemy_killed.connect(_on_killed)
+	if int(data.get("max_hits", -1)) >= 0:
+		player().hurt.connect(_on_hurt)
+
+
+func _on_hurt() -> void:
+	_hits += 1
+	if _hits > int(data.get("max_hits", -1)):
+		fail()
 
 
 func objective() -> String:
 	var n := int(data.get("count", 5))
 	var text := "%s %d/%d" % [step_text(), _delivered if data.get("deliver", false) else _delivered + _carried, n]
+	if int(data.get("max_hits", -1)) >= 0 and started:
+		text += " · " + tr("CHAIN_HITS") % [_hits, int(data["max_hits"])]
+	if float(data.get("time_limit", 0.0)) > 0.0 and started:
+		text += " · " + timer_text(_left)
 	if data.get("deliver", false) and _carried > 0:
 		text += " · " + tr("CHAIN_CARRYING") % _carried
 	return text
@@ -71,8 +97,19 @@ func _guarded(i: int) -> bool:
 	return data.get("source", "ground") == "guards" and (not _woke[i] or (is_instance_valid(_guards[i]) and not _guards[i].dead))
 
 
-func _tick(_delta: float) -> void:
+func _tick(delta: float) -> void:
 	var cat := player().position
+	if started and float(data.get("time_limit", 0.0)) > 0.0:
+		_left -= delta
+		if _left <= 0.0:
+			fail()
+			return
+	var spawn: Dictionary = data.get("spawn", {})
+	if started and not spawn.is_empty():
+		_spawn_t -= delta
+		if _spawn_t <= 0.0:
+			_spawn_t = float(spawn.get("every", 6.0))
+			spawn_wave_enemies(int(spawn.get("count", 3)), cat, 220.0, 280.0, spawn["enemy"])
 	for i in range(_items.size() - 1, -1, -1):
 		if data.get("source", "ground") == "guards" and not _woke[i] and cat.distance_to(_items[i]) < GUARD_WAKE:
 			_woke[i] = true
@@ -85,6 +122,7 @@ func _tick(_delta: float) -> void:
 		_items.remove_at(i)
 		_guards.remove_at(i)
 		_woke.remove_at(i)
+		_looks.remove_at(i)
 		_carried += 1
 		Audio.play("pop", -4.0, 0.0)
 	if not data.get("deliver", false):
@@ -109,6 +147,7 @@ func _on_killed(enemy_id: String, pos: Vector2, _xp: float) -> void:
 		_items.append(pos)
 		_guards.append(null)
 		_woke.append(true)
+		_looks.append(_look(_dropped - 1))
 
 
 func _exit_tree() -> void:
@@ -117,14 +156,13 @@ func _exit_tree() -> void:
 
 
 func _draw() -> void:
-	var item: String = data.get("item", "sock")
 	for i in _items.size():
 		if not _guarded(i):
-			draw_look(_items[i] - position, item)
+			draw_look(_items[i] - position, _looks[i])
 			draw_beacon(_items[i] - position, 12.0, Color("f2c14e"))
 	if data.get("deliver", false):
 		draw_look(Vector2.ZERO, data.get("look_to", "basket"))
 		if _carried > 0:
 			draw_beacon(Vector2.ZERO, DROP_RADIUS, Color("6cc46c"))
 	for k in _carried:
-		draw_look(player().position - position + Vector2(-6 + k * 12, -26), item)
+		draw_look(player().position - position + Vector2(-6 + k * 12, -26), _look(_delivered + k))

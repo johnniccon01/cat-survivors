@@ -75,5 +75,58 @@
       "armor": 2.0
     },
     "color": "#eef0f4"
+  },
+  "GNOME_HAT": {
+    "stats": {
+      "luck": 0.1,
+      "greed": 0.2
+    },
+    "color": "#d9534f"
+  },
+  "MOLE_CLAW": {
+    "stats": {
+      "might": 0.1,
+      "area": 0.1
+    },
+    "color": "#8a7a6a"
+  },
+  "HONEY_POT": {
+    "stats": {
+      "regen": 1.0
+    },
+    "color": "#f2c14e"
+  },
+  "RACCOON_MASK": {
+    "stats": {
+      "growth": 0.15
+    },
+    "color": "#2a2a30"
+  },
+  "LUNCHBOX": {
+    "stats": {
+      "max_hp": 30.0,
+      "heal_power": 0.2
+    },
+    "color": "#d9534f"
+  },
+  "REX_COLLAR": {
+    "stats": {
+      "armor": 1.0,
+      "might": 0.1
+    },
+    "color": "#8a6a4a"
+  },
+  "CAPTAINS_COMPASS": {
+    "stats": {
+      "magnet": 40.0,
+      "speed": 0.05
+    },
+    "color": "#c9a24a"
+  },
+  "PIRATE_GOLD": {
+    "stats": {
+      "greed": 0.4
+    },
+    "color": "#f2c14e"
   }
 }

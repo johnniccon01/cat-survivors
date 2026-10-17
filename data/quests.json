@@ -75,7 +75,7 @@
   },
   "side_quests": {
     "DEFEND_BOWL": {
-      "hold_time": 40.0,
+      "hold_time": 25.0,
       "radius": 50.0,
       "spawn_interval": 0.9,
       "spawn_count": 3

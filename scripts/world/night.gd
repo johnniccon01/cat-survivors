@@ -65,6 +65,9 @@ const THEME_KEYS := {"basement": BASEMENT_KEYS, "garden": GARDEN_KEYS, "rooftop"
 
 var spawner: Spawner
 var _keys: Array = KEYS
+## Above 0 while a quest has turned the lights off.
+var dark := 0
+var _cat_light: PointLight2D
 
 
 func setup(p_spawner: Spawner, player: Player) -> void:
@@ -76,16 +79,23 @@ func setup(p_spawner: Spawner, player: Player) -> void:
 	light.energy = 0.35
 	light.color = Color(1.0, 0.95, 0.85)
 	player.add_child(light)
+	_cat_light = light
 
 
 func _process(_delta: float) -> void:
 	if spawner == null:
 		return
 	var t := clampf(spawner.elapsed / (spawner.duration_minutes() * 60.0), 0.0, 1.0)
+	var tint: Color = _keys[-1][1]
 	for i in _keys.size() - 1:
 		var a: Array = _keys[i]
 		var b: Array = _keys[i + 1]
 		if t <= b[0]:
-			color = (a[1] as Color).lerp(b[1], (t - a[0]) / (b[0] - a[0]))
-			return
-	color = _keys[-1][1]
+			tint = (a[1] as Color).lerp(b[1], (t - a[0]) / (b[0] - a[0]))
+			break
+	if dark > 0:
+		tint = tint.darkened(0.82)
+	color = tint
+	if _cat_light != null:
+		_cat_light.energy = 1.4 if dark > 0 else 0.35
+		_cat_light.texture_scale = 3.2 if dark > 0 else 2.4

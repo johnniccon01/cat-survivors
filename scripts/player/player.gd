@@ -392,6 +392,11 @@ func _bot_input(delta: float) -> Vector2:
 	_bot_t += delta
 	var wander := Vector2(cos(_bot_t * 0.3), sin(_bot_t * 0.5))
 	var manager: EnemyManager = get_tree().get_first_node_in_group("enemy_manager")
+	# Standing in a quest zone matters more than dodging.
+	var quest_here: Quest = get_parent().quests.active if get_parent().get("quests") else null
+	if quest_here != null and quest_here.started and quest_here.target_position().distance_to(position) < 40.0:
+		var stay := quest_here.target_position() - position
+		return stay.normalized() if stay.length() > 6.0 else Vector2.ZERO
 	var away := Vector2.ZERO
 	for enemy in manager.query_radius(position, 36.0):
 		var d := position - enemy.position

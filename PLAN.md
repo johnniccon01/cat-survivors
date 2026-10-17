@@ -78,7 +78,7 @@ Mechaniky:
 - [x] Systém reťazcov (`data/chains.json`): kroky, ukladanie postupu, plánovanie počas noci, zobrazenie v Denníku
 - [ ] Kroky – hotové: stopy, naháňačka, nosenie (čas, spomalenie, max. zásahov), zbieranie (kapacita, strážcovia, z nepriateľov), zóny (poradie, čas, blesky), obrana (viac miest), boss (bez liečenia, na čas); voľba (pozastaví hru, vetvenie krokov), pasce na trase, odmena za krok; chýba: eskorta, zabitia pascami, tma. Pôvodne: stopy, naháňačka, nosenie (časový limit, spomalenie, max. zásahov), zbieranie (kapacita, veci zo strážcov alebo z nepriateľov), zóny (poradie, časový limit, blesky), obrana (miesto s HP, viac miest naraz), boss (bez liečenia, na čas), eskorta (viac mačiek, pomalá), voľba, zabitia pascami, tma s lampášom
 - [ ] Postavy, ktoré hovoria (riadky pri začiatku a konci kroku)
-- [ ] Trvalé zmeny máp: teplý kotol (liečenie), strašiak (odháňa vrany), nabitá anténa (strieľa), maják (odháňa medúzy), Bruno a Rex ako spojenci
+- [x] Trvalé zmeny máp: teplý kotol (liečenie), strašiak (odháňa vrany), nabitá anténa (strieľa), maják (odháňa medúzy), Bruno a Rex ako spojenci
 
 Byt:
 - [x] Zlodej granúl (odmena artefakt Plná miska): 5 stôp → dobehni Roombu → kľúčik do kuchyne do 60 s → ubráň špajzu
@@ -91,24 +91,24 @@ Pivnica:
 - [x] Oprava kotla: 3 súčiastky od elít → zanes ku kotlu → kotol odteraz lieči
 
 Záhrada:
-- [ ] Trpasličia vojna: ubráň záhon → tunel krtkov → voľba krtkovia/trpaslíci
-- [ ] Med pre Ďatelinku: 3 kvety k úľu (max. 3 zásahy) → sršňa kráľovná
-- [ ] Strašiak ožíva: klobúk, šál, tekvica z vrán → postav strašiaka → odháňa vrany
+- [x] Trpasličia vojna: ubráň záhon → tunel krtkov → voľba krtkovia/trpaslíci
+- [x] Med pre Ďatelinku (max. 10 zásahov): 3 kvety k úľu (max. 3 zásahy) → sršňa kráľovná
+- [x] Strašiak ožíva: klobúk, šál, tekvica z vrán → postav strašiaka → odháňa vrany
 
 Strecha:
-- [ ] Brunova skúška: 5 komínov za 60 s → holubí cisár bez liečenia → súboj na úsvite → Bruno spojenec
-- [ ] Búrková anténa: nabi 3 antény počas bleskov → anténa strieľa
-- [ ] Ukradnutý obojok: prenasleduj mývala → prehľadaj 4 kontajnery
+- [x] Brunova skúška: 5 komínov za 60 s → holubí cisár bez liečenia → súboj na úsvite → Bruno spojenec
+- [x] Búrková anténa: nabi 3 antény počas bleskov → anténa strieľa
+- [x] Ukradnutý obojok: prenasleduj mývala → prehľadaj 4 kontajnery
 
 Supermarket:
-- [ ] Tučkov nákupný zoznam: 5 vecí k pokladni pred zatvorením
-- [ ] Výpadok prúdu: tma → 3 ističe v správnom poradí, strážny robot bráni
-- [ ] Rexov rešpekt: 3 noci kosť Rexovi + ochrana pred vozíkmi → Rex sa po boji pridá
+- [x] Tučkov nákupný zoznam: 5 vecí k pokladni pred zatvorením
+- [x] Výpadok prúdu: tma → 3 ističe v správnom poradí, strážny robot bráni
+- [x] Rexov rešpekt: 3 noci kosť Rexovi + ochrana pred vozíkmi → Rex sa po boji pridá
 
 Prístav:
-- [ ] Kapitánova loď: plachta, kormidlo, lano → oprava → ubráň loď 90 s
-- [ ] Maják: olej z 3 sudov (pomalšie s nákladom) → maják odháňa medúzy
-- [ ] Pirátsky poklad: 3 kúsky mapy od pirátov → vykopať → chobotnica
+- [x] Kapitánova loď: plachta, kormidlo, lano → oprava → ubráň loď 90 s
+- [x] Maják: olej z 3 sudov (pomalšie s nákladom) → maják odháňa medúzy
+- [x] Pirátsky poklad: 3 kúsky mapy od pirátov → vykopať → chobotnica
 
 Cez všetky mapy:
 - [ ] Cesta domov: Mica hľadá starú majiteľku; každá mapa kapitola, predmet otvorí ďalšiu, koniec loďou domov
@@ -128,6 +128,16 @@ Samostatné questy:
 - [ ] Posledná prechádzka (stará mačka na obľúbené miesto)
 
 Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
+
+## Spätná väzba 18. 10. 2026
+
+- [x] Únik dvierkami: čakanie 5 s → 3 s
+- [x] Státie na mieste kratšie (miska 40 → 25 s, obrana 45 → 30 s, zóny kratšie); silní bossovia z príbehov až neskôr v noci (`after_minute`)
+- [ ] Menu, výber mapy a výber mačky prerobiť (pohyb v menu, krajší výber)
+- [ ] Efekty zbraní prepracovať
+- [ ] Achievementy
+- [ ] Ak nie je čo robiť: ďalšia mapa
+- Ďalšie jazyky zatiaľ nie. Menej testov medzi krokmi, poriadny test na konci.
 
 ## Fáza 3 – Grafika a zvuk
 

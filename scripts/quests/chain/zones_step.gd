@@ -3,7 +3,9 @@ extends ChainStep
 ## radius, spread [min, max], ordered (one after another, numbered),
 ## wrong_hurts (an ordered zone out of turn shocks the cat), time_limit
 ## (0 = none), during "converge" (enemies gather while you stand) |
-## "lightning" (bolts strike around you), decay, look.
+## "lightning" (bolts strike around you), decay, look, find_one (only one
+## zone hides the thing: finding it ends the step, the others spring
+## `ambush` {enemy, count}), guard_boss (a boss waiting at the first zone).
 
 const SHOCK := 8.0
 
@@ -13,6 +15,7 @@ var _current := 0
 var _left := 0.0
 var _pulse := 0.0
 var _shock_t := 0.0
+var _right := 0
 
 
 func _ready() -> void:
@@ -25,6 +28,12 @@ func _ready() -> void:
 	for i in n:
 		_fill.append(0.0)
 	_left = float(data.get("time_limit", 0.0))
+	_right = randi() % n
+
+
+func _on_start() -> void:
+	if data.has("guard_boss"):
+		main.enemies.spawn(data["guard_boss"], position + Vector2(60, 0), main.spawner.hp_multiplier())
 
 
 func _radius() -> float:
@@ -36,7 +45,7 @@ func _done_count() -> int:
 
 
 func objective() -> String:
-	var text := "%s %d/%d" % [step_text(), _done_count(), _zones.size()]
+	var text := step_text() if data.get("find_one", false) else "%s %d/%d" % [step_text(), _done_count(), _zones.size()]
 	if float(data.get("time_limit", 0.0)) > 0.0 and started:
 		text += " · " + timer_text(_left)
 	return text
@@ -81,6 +90,13 @@ func _tick(delta: float) -> void:
 			_fill[i] += delta / float(data.get("hold", 10.0))
 			if _fill[i] >= 1.0:
 				_fill[i] = 1.0
+				if data.get("find_one", false):
+					if i == _right:
+						complete()
+						return
+					var ambush: Dictionary = data.get("ambush", {})
+					spawn_wave_enemies(int(ambush.get("count", 3)), _zones[i], 30.0, 80.0, ambush.get("enemy", ""))
+					main.hud.show_banner(tr("CHAIN_EMPTY"), 2.0)
 				Audio.play("sparkle", -4.0, 0.0)
 				while _current < _fill.size() - 1 and _fill[_current] >= 1.0:
 					_current += 1

@@ -81,15 +81,22 @@ func _pick_story() -> String:
 	return story_id
 
 
-## The first quest chain with a step to play on this map tonight.
+## The first quest chain with a step to play on this map tonight; stories
+## already under way come before new ones.
 func _pick_chain() -> String:
-	for id: String in GameData.chains:
+	var ids: Array = GameData.chains.keys()
+	ids.sort_custom(func(x: String, y: String) -> bool: return ChainStep.progress_of(x) > 0 and ChainStep.progress_of(y) == 0)
+	for id: String in ids:
 		if ChainStep.is_done(id) or id in _chains_failed:
 			continue
 		var needs: Array = GameData.chains[id].get("requires", [])
 		if not needs.all(func(f: String) -> bool: return Profile.has_flag(f)):
 			continue
-		var stage := ChainStep.stage_of(id, ChainStep.progress_of(id) + 1)
+		var n := ChainStep.progress_of(id) + 1
+		# Big fights wait until later in the night, when the cat has grown.
+		if main.spawner.elapsed < float(ChainStep.steps(id)[n - 1].get("after_minute", 0.0)) * 60.0:
+			continue
+		var stage := ChainStep.stage_of(id, n)
 		if stage == "any" or stage == main.spawner.stage_id:
 			return id
 	return ""
@@ -143,8 +150,11 @@ func _start(quest_id: String, distance: float) -> void:
 
 
 func _on_finished(success: bool) -> void:
-	if not success and active is ChainStep:
-		_chains_failed.append((active as ChainStep).chain_id)
+	if active is ChainStep:
+		var id := (active as ChainStep).chain_id
+		# Failed steps wait for the next night, and so do "one_per_night" chains.
+		if not success or GameData.chains[id].get("one_per_night", false):
+			_chains_failed.append(id)
 	active = null
 	finished_quest.emit(success)
 	_timer = float(_cfg["schedule"]["gap"])

@@ -34,11 +34,11 @@
       },
       {
         "type": "defend",
-        "time": 45,
+        "time": 30,
         "mode": "enemies",
         "enemy": "DUST_BUNNY",
         "spawn_every": 3.0,
-        "spawn_count": 5,
+        "spawn_count": 4,
         "look": "pantry",
         "distance": 300
       }
@@ -67,7 +67,8 @@
         "enemy": "SOCK_KING",
         "hp_mult": 6.0,
         "look": "basket",
-        "distance": 260
+        "distance": 260,
+        "after_minute": 4
       }
     ]
   },
@@ -82,7 +83,7 @@
       {
         "type": "zones",
         "count": 3,
-        "hold": 10,
+        "hold": 7,
         "radius": 40,
         "spread": [
           200,
@@ -133,7 +134,8 @@
         "enemy": "RAT_GENERAL",
         "hp_mult": 1.5,
         "look": "hole",
-        "distance": 200
+        "distance": 200,
+        "after_minute": 6
       }
     ]
   },
@@ -175,7 +177,8 @@
         "distance": 200,
         "reward": {
           "gold": 800
-        }
+        },
+        "after_minute": 5
       }
     ]
   },
@@ -203,6 +206,422 @@
         "deliver": true,
         "look_to": "boiler",
         "distance": 300
+      }
+    ]
+  },
+  "GNOME_WAR": {
+    "stage": "GARDEN",
+    "reward": {
+      "gold": 700
+    },
+    "steps": [
+      {
+        "type": "defend",
+        "time": 30,
+        "mode": "enemies",
+        "enemy": "GNOME",
+        "spawn_every": 4.0,
+        "spawn_count": 3,
+        "look": "veggies"
+      },
+      {
+        "type": "trail",
+        "count": 5,
+        "spacing": [
+          130,
+          180
+        ],
+        "look": "molehill"
+      },
+      {
+        "type": "choice",
+        "options": [
+          "MOLES",
+          "GNOMES"
+        ],
+        "look": "molehill",
+        "distance": 200
+      },
+      {
+        "type": "boss",
+        "if": "choice:GNOME_WAR:MOLES",
+        "enemy": "GNOME_KING",
+        "hp_mult": 1.5,
+        "look": "veggies",
+        "distance": 300,
+        "reward": {
+          "artifact": "MOLE_CLAW"
+        },
+        "after_minute": 7
+      },
+      {
+        "type": "boss",
+        "if": "choice:GNOME_WAR:GNOMES",
+        "enemy": "MOLE_KING",
+        "hp_mult": 1.5,
+        "look": "molehill",
+        "distance": 300,
+        "reward": {
+          "artifact": "GNOME_HAT"
+        },
+        "after_minute": 7
+      }
+    ]
+  },
+  "HONEY": {
+    "stage": "GARDEN",
+    "reward": {
+      "artifact": "HONEY_POT"
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "items": [
+          "flower"
+        ],
+        "item": "flower",
+        "count": 3,
+        "capacity": 1,
+        "spread": [
+          200,
+          380
+        ],
+        "deliver": true,
+        "look_to": "beehive",
+        "max_hits": 10
+      },
+      {
+        "type": "boss",
+        "enemy": "HORNET_QUEEN",
+        "hp_mult": 3.0,
+        "look": "beehive",
+        "distance": 260,
+        "after_minute": 6
+      }
+    ]
+  },
+  "SCARECROW": {
+    "stage": "GARDEN",
+    "reward": {
+      "gold": 500,
+      "note": "CHAIN_SCARECROW_REWARD",
+      "feature": {
+        "stage": "GARDEN",
+        "kind": "scarecrow"
+      }
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "items": [
+          "hat",
+          "scarf",
+          "pumpkin"
+        ],
+        "count": 3,
+        "source": "kills",
+        "enemy": "CROW",
+        "chance": 0.25,
+        "deliver": true,
+        "look_to": "pole",
+        "spawn": {
+          "enemy": "CROW",
+          "every": 5.0,
+          "count": 4
+        },
+        "distance": 300
+      }
+    ]
+  },
+  "BRUNO_TRIAL": {
+    "stage": "ROOFTOP",
+    "reward": {
+      "gold": 1000,
+      "note": "CHAIN_BRUNO_TRIAL_REWARD",
+      "feature": {
+        "stage": "any",
+        "kind": "ally",
+        "cat": "BRUNO"
+      }
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 5,
+        "hold": 0.6,
+        "radius": 30,
+        "spread": [
+          160,
+          300
+        ],
+        "ordered": true,
+        "time_limit": 60,
+        "look": "chimney"
+      },
+      {
+        "type": "boss",
+        "enemy": "PIGEON_EMPEROR",
+        "hp_mult": 1.2,
+        "rule": "no_heal",
+        "look": "hint",
+        "distance": 300,
+        "after_minute": 8
+      },
+      {
+        "type": "boss",
+        "enemy": "RIVAL_BRUNO_TRIAL",
+        "look": "hint",
+        "distance": 260,
+        "after_minute": 14
+      }
+    ]
+  },
+  "STORM_ANTENNA": {
+    "stage": "ROOFTOP",
+    "reward": {
+      "gold": 600,
+      "note": "CHAIN_STORM_ANTENNA_REWARD",
+      "feature": {
+        "stage": "ROOFTOP",
+        "kind": "turret"
+      }
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 3,
+        "hold": 6,
+        "radius": 40,
+        "spread": [
+          200,
+          340
+        ],
+        "during": "lightning",
+        "look": "antenna"
+      }
+    ]
+  },
+  "STOLEN_COLLAR": {
+    "stage": "ROOFTOP",
+    "reward": {
+      "artifact": "RACCOON_MASK"
+    },
+    "steps": [
+      {
+        "type": "chase",
+        "enemy": "RACCOON_THIEF"
+      },
+      {
+        "type": "zones",
+        "count": 4,
+        "hold": 2,
+        "radius": 30,
+        "spread": [
+          160,
+          300
+        ],
+        "look": "bin",
+        "find_one": true,
+        "ambush": {
+          "enemy": "RACCOON",
+          "count": 3
+        },
+        "distance": 250
+      }
+    ]
+  },
+  "SHOPPING_LIST": {
+    "stage": "SUPERMARKET",
+    "reward": {
+      "artifact": "LUNCHBOX"
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "items": [
+          "fish",
+          "milk",
+          "ham",
+          "cheese",
+          "sardines"
+        ],
+        "count": 5,
+        "spread": [
+          220,
+          460
+        ],
+        "deliver": true,
+        "look_to": "register",
+        "time_limit": 150,
+        "spawn": {
+          "enemy": "FROZEN_CHICKEN",
+          "every": 8.0,
+          "count": 2
+        }
+      }
+    ]
+  },
+  "BLACKOUT": {
+    "stage": "SUPERMARKET",
+    "reward": {
+      "gold": 900
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 3,
+        "hold": 2,
+        "radius": 30,
+        "spread": [
+          180,
+          320
+        ],
+        "ordered": true,
+        "wrong_hurts": true,
+        "dark": true,
+        "look": "fuse",
+        "guard_boss": "SECURITY_BOT",
+        "after_minute": 3
+      }
+    ]
+  },
+  "REX_RESPECT": {
+    "stage": "SUPERMARKET",
+    "one_per_night": true,
+    "reward": {
+      "artifact": "REX_COLLAR",
+      "note": "CHAIN_REX_RESPECT_REWARD"
+    },
+    "steps": [
+      {
+        "type": "carry",
+        "item": "bone",
+        "to_distance": [
+          450,
+          600
+        ],
+        "time": 60,
+        "look_to": "doghouse"
+      },
+      {
+        "type": "defend",
+        "time": 30,
+        "mode": "enemies",
+        "enemy": "SHOPPING_CART",
+        "spawn_every": 4.0,
+        "spawn_count": 3,
+        "look": "doghouse"
+      },
+      {
+        "type": "carry",
+        "item": "bone",
+        "to_distance": [
+          500,
+          650
+        ],
+        "time": 60,
+        "max_hits": 8,
+        "look_to": "doghouse"
+      }
+    ]
+  },
+  "CAPTAINS_SHIP": {
+    "stage": "HARBOR",
+    "reward": {
+      "artifact": "CAPTAINS_COMPASS"
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "items": [
+          "sail",
+          "wheel",
+          "rope"
+        ],
+        "count": 3,
+        "source": "guards",
+        "guard_hp": 6.0,
+        "spread": [
+          200,
+          420
+        ],
+        "deliver": true,
+        "look_to": "boat",
+        "distance": 300
+      },
+      {
+        "type": "defend",
+        "time": 30,
+        "mode": "enemies",
+        "enemy": "CRAB",
+        "spawn_every": 3.5,
+        "spawn_count": 4,
+        "look": "boat",
+        "distance": 250
+      }
+    ]
+  },
+  "LIGHTHOUSE": {
+    "stage": "HARBOR",
+    "reward": {
+      "gold": 700,
+      "note": "CHAIN_LIGHTHOUSE_REWARD",
+      "feature": {
+        "stage": "HARBOR",
+        "kind": "lighthouse"
+      }
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "barrel",
+        "count": 3,
+        "capacity": 1,
+        "slow_each": 0.35,
+        "spread": [
+          220,
+          420
+        ],
+        "deliver": true,
+        "look_to": "lighthouse",
+        "distance": 300
+      }
+    ]
+  },
+  "PIRATE_TREASURE": {
+    "stage": "HARBOR",
+    "reward": {
+      "artifact": "PIRATE_GOLD"
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "map_piece",
+        "count": 3,
+        "source": "kills",
+        "enemy": "PIRATE_RAT",
+        "chance": 0.3,
+        "spawn": {
+          "enemy": "PIRATE_RAT",
+          "every": 6.0,
+          "count": 3
+        }
+      },
+      {
+        "type": "zones",
+        "count": 1,
+        "hold": 3,
+        "radius": 50,
+        "look": "x",
+        "distance": 350
+      },
+      {
+        "type": "boss",
+        "enemy": "OCTOPUS",
+        "hp_mult": 1.5,
+        "look": "x",
+        "distance": 120,
+        "after_minute": 5
       }
     ]
   }

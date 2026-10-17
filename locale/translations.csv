@@ -740,3 +740,9 @@ QB_STORY_1,Find out what happened by the front door (Apartment).,"Zisti, čo sa 
 QB_STORY_2,Search the old trunk in the Basement.,Prehľadaj starú truhlu v Pivnici.
 QB_STORY_3,Dig up what the map points to (Garden).,"Vyhrab, kam ukazuje mapa (Záhrada)."
 QB_STORY_4,Read the note on the Rooftop antenna.,Prečítaj odkaz na anténe na Streche.
+SET_KEY_MOVE_UP,Move up,Pohyb hore
+SET_KEY_MOVE_DOWN,Move down,Pohyb dole
+SET_KEY_MOVE_LEFT,Move left,Pohyb vľavo
+SET_KEY_MOVE_RIGHT,Move right,Pohyb vpravo
+SET_KEY_WAITING,press a key… (Esc cancels),stlač kláves… (Esc zruší)
+SET_KEYS_RESET,Reset keys to WASD,Vrátiť klávesy na WASD

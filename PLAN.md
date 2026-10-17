@@ -75,7 +75,7 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 - [ ] Odstrániť dev panel (F1) a ladiace prepínače z vydanej verzie
 - [ ] Export: samostatný Windows `.exe`, otestovať na inom počítači
 - [x] Gamepad: ľavá páčka, Start, šípky, A potvrdí, B späť – overené automatickým testom (opravené: A v menu predtým nefungovalo)
-- [ ] Zmena kláves v nastaveniach
+- [x] Zmena kláves pohybu v Nastaveniach (šípky a ovládač fungujú vždy), návrat na WASD
 - [ ] Viac jazykov (napr. čeština, nemčina)
 - [x] Návod pri prvej hre: tipy počas prvej noci (pohyb, zbrane, granulky, level, quest, dvierka, pauza, šampióni)
 - [ ] Záloha a bezpečné načítanie profilu pri zmenách verzií

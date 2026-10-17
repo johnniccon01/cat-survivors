@@ -67,6 +67,12 @@ func _main_menu() -> void:
 	await _press(KEY_ENTER)
 	_expect(settings.visible, "settings open")
 	await _check_trapped(settings, "menu settings")
+	# Rebind "move right" to L and back (not saved: --ui-test).
+	var settings_node := root.get_node("Settings")
+	settings_node.call("rebind", "move_right", KEY_L)
+	_expect(settings_node.call("key_name", "move_right") == "L", "move right rebinds to L")
+	settings_node.call("reset_keys")
+	_expect(settings_node.call("key_name", "move_right") == "D", "keys reset to WASD")
 	await _press(KEY_ESCAPE)
 	_expect(not settings.visible, "settings close on Esc")
 	_expect(_focus_text() == "MENU_PLAY", "after settings focus back on Play (got %s)" % _focus_text())

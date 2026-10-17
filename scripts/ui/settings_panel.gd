@@ -14,6 +14,9 @@ var _vsync: CheckButton
 var _numbers: CheckButton
 var _shake: CheckButton
 var _first: Control
+## Movement key buttons, and the action waiting for a new key (or "").
+var _key_buttons: Dictionary = {}
+var _waiting := ""
 
 
 func _ready() -> void:
@@ -22,7 +25,7 @@ func _ready() -> void:
 	var box := UiStyle.overlay(self, 0.97)
 	box.add_child(UiStyle.label("SETTINGS_TITLE", 40, UiStyle.GOLD))
 	_rows = VBoxContainer.new()
-	_rows.add_theme_constant_override("separation", 8)
+	_rows.add_theme_constant_override("separation", 5)
 	box.add_child(_rows)
 
 	_sound = _toggle("SET_SOUND", not Settings.muted, func(on: bool) -> void:
@@ -48,6 +51,27 @@ func _ready() -> void:
 		_refresh_language())
 	_rows.add_child(_language)
 	_refresh_language()
+	# Movement keys in two columns to keep the panel on screen.
+	var grid := GridContainer.new()
+	grid.columns = 2
+	grid.add_theme_constant_override("h_separation", 8)
+	grid.add_theme_constant_override("v_separation", 5)
+	_rows.add_child(grid)
+	for action: String in Settings.REBINDABLE:
+		var b := UiStyle.button("", 256, 17)
+		b.custom_minimum_size.y = 32
+		b.pressed.connect(func() -> void:
+			_waiting = action
+			_refresh_keys())
+		grid.add_child(b)
+		_key_buttons[action] = b
+	var reset := UiStyle.button("SET_KEYS_RESET", 520, 17)
+	reset.custom_minimum_size.y = 32
+	reset.pressed.connect(func() -> void:
+		Settings.reset_keys()
+		_refresh_keys())
+	_rows.add_child(reset)
+	_refresh_keys()
 
 	var back := UiStyle.button("SET_BACK", 520)
 	back.pressed.connect(close)
@@ -67,8 +91,29 @@ func open() -> void:
 
 
 func close() -> void:
+	_waiting = ""
 	visible = false
 	closed.emit()
+
+
+func _refresh_keys() -> void:
+	for action: String in _key_buttons:
+		var b: Button = _key_buttons[action]
+		var key := tr("SET_KEY_WAITING") if action == _waiting else Settings.key_name(action)
+		b.text = "%s: %s" % [tr("SET_KEY_%s" % action.to_upper()), key]
+
+
+## While waiting for a new movement key, the next key press is it (Esc
+## cancels). _input so the press doesn't also click a button.
+func _input(event: InputEvent) -> void:
+	if not visible or _waiting == "" or not (event is InputEventKey) or not event.is_pressed() or event.is_echo():
+		return
+	get_viewport().set_input_as_handled()
+	var key := (event as InputEventKey).physical_keycode
+	if key != KEY_ESCAPE:
+		Settings.rebind(_waiting, key)
+	_waiting = ""
+	_refresh_keys()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -83,7 +128,7 @@ func _refresh_language() -> void:
 
 func _slider(title: String, value: float, on_change: Callable) -> HSlider:
 	var row := HBoxContainer.new()
-	row.custom_minimum_size = Vector2(520, 40)
+	row.custom_minimum_size = Vector2(520, 34)
 	var l := UiStyle.label(title, 20, UiStyle.TEXT, HORIZONTAL_ALIGNMENT_LEFT)
 	l.custom_minimum_size.x = 260
 	row.add_child(l)
@@ -108,7 +153,7 @@ func _toggle(title: String, value: bool, on_change: Callable) -> CheckButton:
 	var c := CheckButton.new()
 	c.text = title
 	c.button_pressed = value
-	c.custom_minimum_size = Vector2(520, 40)
+	c.custom_minimum_size = Vector2(520, 34)
 	c.focus_mode = Control.FOCUS_ALL
 	c.add_theme_font_size_override("font_size", 20)
 	c.add_theme_color_override("font_color", UiStyle.TEXT)

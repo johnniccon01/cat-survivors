@@ -17,6 +17,10 @@ var music_volume := 0.7
 var sfx_volume := 0.8
 var fullscreen := false
 var vsync := true
+## Rebound movement keys: action -> physical keycode (replaces WASD; the
+## arrow keys and the gamepad keep working).
+var keys: Dictionary = {}
+const REBINDABLE: Array[String] = ["move_up", "move_down", "move_left", "move_right"]
 
 
 func _ready() -> void:
@@ -31,6 +35,9 @@ func _ready() -> void:
 		sfx_volume = cfg.get_value("audio", "sfx", sfx_volume)
 		fullscreen = cfg.get_value("display", "fullscreen", fullscreen)
 		vsync = cfg.get_value("display", "vsync", vsync)
+		keys = cfg.get_value("controls", "keys", {})
+	for action: String in keys:
+		_apply_key(action, keys[action])
 	if language not in LANGUAGES:
 		language = LANGUAGES[0]
 	TranslationServer.set_locale(language)
@@ -124,4 +131,36 @@ func _save() -> void:
 	cfg.set_value("audio", "sfx", sfx_volume)
 	cfg.set_value("display", "fullscreen", fullscreen)
 	cfg.set_value("display", "vsync", vsync)
+	cfg.set_value("controls", "keys", keys)
 	cfg.save(PATH)
+
+
+## The first (main) key of a movement action, e.g. "W".
+func key_name(action: String) -> String:
+	for e: InputEvent in InputMap.action_get_events(action):
+		if e is InputEventKey:
+			return OS.get_keycode_string((e as InputEventKey).physical_keycode)
+	return "—"
+
+
+## Puts `keycode` in place of the action's first key and remembers it.
+func rebind(action: String, keycode: int) -> void:
+	keys[action] = keycode
+	_apply_key(action, keycode)
+	_save()
+
+
+func reset_keys() -> void:
+	for action: String in keys:
+		_apply_key(action, {"move_up": KEY_W, "move_down": KEY_S, "move_left": KEY_A, "move_right": KEY_D}[action])
+	keys.clear()
+	_save()
+
+
+func _apply_key(action: String, keycode: int) -> void:
+	if not InputMap.has_action(action):
+		return
+	for e: InputEvent in InputMap.action_get_events(action):
+		if e is InputEventKey:
+			(e as InputEventKey).physical_keycode = keycode as Key
+			return

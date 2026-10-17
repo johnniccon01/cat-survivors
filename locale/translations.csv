@@ -676,3 +676,10 @@ QB_GOLD_DIGGER_NAME,Gold Digger,Zlatokop
 QB_GOLD_DIGGER_1,Catch a golden mouse.,Chytiť zlatú myš.
 QB_GOLD_DIGGER_2,Catch 10 golden mice.,Chytiť 10 zlatých myší.
 QB_GOLD_DIGGER_3,Catch 30 golden mice.,Chytiť 30 zlatých myší.
+ENDLESS_HINT,E – keep going: endless night,E – pokračovať: nekonečná noc
+ENDLESS_START,Endless night! It only gets harder from here...,Nekonečná noc! Odteraz už len ťažšie...
+ENDLESS_SUMMARY,"Endless night: %d extra minutes, +%d gold (kept in full)","Nekonečná noc: %d minút navyše, +%d zlata (celé tvoje)"
+QB_ENDLESS_NAME,Endless Night,Nekonečná noc
+QB_ENDLESS_1,Last 3 minutes in an endless night.,Vydržať 3 minúty v nekonečnej noci.
+QB_ENDLESS_2,Last 10 minutes in an endless night.,Vydržať 10 minút v nekonečnej noci.
+QB_ENDLESS_3,Last 20 minutes in an endless night.,Vydržať 20 minút v nekonečnej noci.

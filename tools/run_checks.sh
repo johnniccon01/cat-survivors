@@ -56,6 +56,7 @@ scenarios=(
   "traps|--bot --traps --bot-time=60"
   "champions|--bot --start-minute=6 --catch-up --champions --bot-time=480"
   "golden_mouse|--bot --golden --levels=20 --bot-time=60"
+  "endless|--bot --stage=GARDEN --start-minute=20 --catch-up --cat=TIGER --endless-now --bot-time=480"
   "diary_page|--bot --page --extract --levels=20 --bot-time=150"
 )
 

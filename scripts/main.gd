@@ -24,6 +24,8 @@ extends Node2D
 ##   --page             the map's diary page appears after 5 s
 ##   --champions        half of all regular enemies come as champions
 ##   --golden           the golden mouse shows up after 2 s
+##   --endless          the bot carries on into the endless night after a win
+##   --endless-now      start straight in the endless night (tests)
 ##   --drop-charm       drop a random charm next to the cat at the start
 ##   --catch-up         with --start-minute: level the cat like the dev panel's skip does
 ##   --traps            place one of every trap next to the cat
@@ -118,6 +120,10 @@ var _has_page := false
 ## The map track playing now (day or night).
 var _music_track := ""
 var _golden_t: float = GOLDEN_EVERY[0]
+## Endless night: whether it's on, and the gold already banked at the win.
+var _endless := false
+var _banked_gold := 0.0
+var _last_end := ""
 var _champion_seen := false
 
 @onready var player: Player = $Player
@@ -159,6 +165,8 @@ func _ready() -> void:
 			_open_extraction())
 	if "--golden" in _args:
 		_golden_t = 2.0
+	if "--endless-now" in _args:
+		_start_endless.call_deferred()
 	if "--devil" in _args:
 		summon_devil.call_deferred()
 	var forced := _arg("--quest=", "")
@@ -298,7 +306,7 @@ func _process(delta: float) -> void:
 		_open_extraction(true)
 	hud.update_extraction(extraction)
 	hud.update_boss(final_boss if is_instance_valid(final_boss) and not final_boss.dead else null)
-	if _bot and (spawner.elapsed >= _bot_time or _run_over):
+	if _bot and (spawner.elapsed >= _bot_time or (_run_over and not ("--endless" in _args and _last_end == "victory" and not _endless))):
 		var weapons: Array[String] = []
 		for w: Weapon in player.weapons.get_children():
 			weapons.append("%s:%d%s" % [w.id, w.level, "" if w.branch == "" else "[%s%d]" % [w.branch, w.branch_rank]])
@@ -308,7 +316,7 @@ func _process(delta: float) -> void:
 			spawner.elapsed, player.level, kills, player.hp, player.max_hp,
 			enemies.enemies.size(), player.is_dead])
 		print("BOT: hurt=%.0f armor=%.1f regen=%.2f max_hp=%.0f" % [player.damage_taken, player.stat("armor"), player.stat("regen"), player.max_hp])
-		print("BOT: music=%s golden_mice=%d champions=%d" % [Audio.get("_music_name"), Profile.get_stat("golden_mice"), Profile.get_stat("champions")])
+		print("BOT: music=%s golden_mice=%d champions=%d endless=%s endless_min=%.1f" % [Audio.get("_music_name"), Profile.get_stat("golden_mice"), Profile.get_stat("champions"), _endless, spawner.endless_minutes()])
 		print("BOT: weapons=%s passives=%s props_broken=%d bosses_killed=%d chests=%d won=%s" % [
 			weapons, player.passives, props_broken, bosses_killed, chests_opened, _run_over and not player.is_dead])
 		print("BOT: damage numbers on screen=%d" % enemies.numbers._numbers.size())
@@ -343,6 +351,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if _in_modal or _rescuing or hud.settings.visible:
 		return
 	if _run_over:
+		if event.is_action_pressed("endless") and _last_end == "victory" and not _endless:
+			_start_endless()
+			return
 		if event.is_action_pressed("restart"):
 			get_tree().paused = false
 			get_tree().reload_current_scene()
@@ -554,8 +565,12 @@ func _end_run(kind: String) -> void:
 	if _run_over:
 		return
 	_run_over = true
+	_last_end = kind
 	get_tree().paused = true
 	Audio.stop_music()
+	if _endless:
+		_end_endless(kind)
+		return
 	var mult := Profile.streak_multiplier()
 	var lines: Array[String] = []
 	Profile.add_stat("runs")
@@ -565,6 +580,7 @@ func _end_run(kind: String) -> void:
 	Profile.set_stat_max("best_run_gold", floori(run_gold))
 	# Quest book distance is in "metres" (16 px).
 	Profile.add_stat("distance", floori(_distance / 16.0))
+	_distance = 0.0
 	if kind == "extract":
 		Profile.add_stat("escapes")
 	elif kind == "victory":
@@ -862,8 +878,57 @@ func _on_final_boss(boss: Enemy) -> void:
 	hud.show_banner(tr("FINAL_BOSS_WARNING") % tr("ENEMY_%s_NAME" % boss.id), 4.0)
 
 
+## After a win, E keeps the night going: the final boss is gone, waves keep
+## coming stronger and stronger, a boss drops in every few minutes. The win
+## has been banked already; what you collect from now on is added on top.
+func _start_endless() -> void:
+	_endless = true
+	_run_over = false
+	_banked_gold = run_gold
+	hud.hide_end_screens()
+	final_boss = null
+	spawner.start_endless()
+	get_tree().paused = false
+	Profile.add_stat("endless_runs")
+	hud.show_banner(tr("ENDLESS_START"), 4.0)
+	Audio.play("warning", -2.0, 0.0)
+	_music_track = ""
+
+
+## The end of an endless night: whatever it ends with, the extra gold is
+## kept in full and the minutes count for records and quests.
+func _end_endless(kind: String) -> void:
+	var extra_minutes := floori(spawner.endless_minutes())
+	Profile.set_stat_max("best_endless_minutes", extra_minutes)
+	Profile.set_stat_max("best_minutes", floori(spawner.elapsed / 60.0))
+	Profile.set_stat_max("best_level", player.level)
+	Profile.add_stat("distance", floori(_distance / 16.0))
+	var gold := floori(run_gold - _banked_gold)
+	Profile.add_gold(gold)
+	var lines: Array[String] = [tr("ENDLESS_SUMMARY") % [extra_minutes, gold]]
+	if kind == "death":
+		Audio.play("gameover", -2.0, 0.0)
+		var cat_name := tr("CAT_%s_NAME" % player.cat_id)
+		hud.show_game_over(spawner.elapsed, kills, tr("DEVIL_TOOK") % cat_name if player.killed_by_fatal else tr("GAME_OVER_TITLE") % cat_name)
+	else:
+		Audio.play("victory", -2.0, 0.0)
+		hud.show_extracted(spawner.elapsed, kills)
+	if _has_page and kind != "death":
+		Profile.set_flag("page:" + spawner.stage_id)
+		lines.append(tr("SUMMARY_PAGE_KEPT"))
+	for id in Goals.check():
+		lines.append(tr("GOAL_DONE") % [tr("GOAL_%s_NAME" % id), Goals.reward_text(id)])
+	for entry in QuestBook.check():
+		lines.append(QuestBook.completed_text(entry))
+	lines.append(tr("SUMMARY_TOTAL") % Profile.gold)
+	Profile.save()
+	hud.show_summary(lines)
+
+
 func _on_stage_cleared() -> void:
 	_end_run("victory")
+	if _bot and "--endless" in _args and not _endless:
+		_start_endless.call_deferred()
 
 
 ## Picks from [[value, weight], ...] pairs.

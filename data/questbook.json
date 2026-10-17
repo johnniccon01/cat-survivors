@@ -690,6 +690,41 @@
           }
         }
       ]
+    },
+    "ENDLESS": {
+      "chapter": "main",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_endless_minutes"
+          ],
+          "target": 3,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_endless_minutes"
+          ],
+          "target": 10,
+          "reward": {
+            "charm": "NINTH_LIFE"
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_endless_minutes"
+          ],
+          "target": 20,
+          "reward": {
+            "gold": 2000
+          }
+        }
+      ]
     }
   }
 }

@@ -72,6 +72,7 @@ func _setup_input() -> void:
 	_add_keys("goals", [KEY_G])
 	_add_keys("questbook", [KEY_Q])
 	_add_keys("journal", [KEY_J])
+	_add_keys("endless", [KEY_E])
 	_add_keys("toggle_numbers", [KEY_N])
 	_add_keys("toggle_shake", [KEY_K])
 	_add_axis("move_left", JOY_AXIS_LEFT_X, -1.0)

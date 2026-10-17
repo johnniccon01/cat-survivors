@@ -136,7 +136,7 @@ void fragment() {
 	_over_overlay = _overlay(["GAME_OVER_TITLE", "", "GAME_OVER_HINT", "GAME_OVER_MENU"])
 	_over_stats = _over_overlay.get_node("Box").get_child(1)
 
-	_win_overlay = _overlay(["VICTORY_TITLE", "", "VICTORY_HINT", "GAME_OVER_MENU"])
+	_win_overlay = _overlay(["VICTORY_TITLE", "", "ENDLESS_HINT", "VICTORY_HINT", "GAME_OVER_MENU"])
 	_extract_overlay = _overlay(["EXTRACT_TITLE", "", "VICTORY_HINT", "GAME_OVER_MENU"])
 	_win_stats = _win_overlay.get_node("Box").get_child(1)
 
@@ -246,6 +246,16 @@ func show_banner(text: String, seconds: float = 3.0) -> void:
 	_banner.visible = true
 
 
+## Hides the end screens (and their summary lines) when the night goes on.
+func hide_end_screens() -> void:
+	for overlay: Control in [_over_overlay, _win_overlay, _extract_overlay]:
+		overlay.visible = false
+		var box := overlay.get_node("Box")
+		for child in box.get_children():
+			if child.has_meta("summary"):
+				child.queue_free()
+
+
 func show_victory(kills: int) -> void:
 	_win_stats.text = tr("VICTORY_STATS") % kills
 	_win_overlay.visible = true
@@ -278,6 +288,7 @@ func show_summary(lines: Array[String]) -> void:
 			var line := _label(22, HORIZONTAL_ALIGNMENT_CENTER)
 			line.text = lines[i]
 			line.label_settings.font_color = Color("f2c14e")
+			line.set_meta("summary", true)
 			box.add_child(line)
 			box.move_child(line, 2 + i)
 

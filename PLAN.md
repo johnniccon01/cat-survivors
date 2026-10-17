@@ -59,7 +59,8 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 - [x] Bestiár: mačky, nepriatelia podľa máp (počet porazených, popis), zbrane s evolúciami, pasívky; neobjavené ako ???
 - [x] Šampióni: 6 druhov (rýchly, obrnený, obor, delič, regenerujúci, bombér) od 2. minúty, v bestiári aj v questoch
 - [x] Zlatá myš: občas pribehne, uteká, po chytení vysype zlato a truhlicu
-- [ ] Nové režimy: nekonečná noc po víťazstve, výzvy s obmedzeniami
+- [x] Nekonečná noc: po výhre klávesou E pokračuješ, nepriatelia silnejú každou minútou, boss každé 2,5 min, zlato navyše je celé tvoje; quest Nekonečná noc
+- [ ] Výzvy s obmedzeniami (napr. len jedna zbraň, bez liečenia)
 
 ## Fáza 3 – Grafika a zvuk
 

@@ -34,6 +34,12 @@ const LEVEL_SCALING := 0.035
 ## strong late-game cat still has to watch out.
 const DAMAGE_PER_MINUTE_SQ := 0.006
 const CHAMPION_PER_MINUTE := 0.004
+## Endless night tuning.
+const ENDLESS_HP_PER_MINUTE := 0.6
+## Extra enemy speed per endless minute, up to ENDLESS_SPEED_MAX on top.
+const ENDLESS_SPEED_PER_MINUTE := 0.03
+const ENDLESS_SPEED_MAX := 0.4
+const ENDLESS_BOSS_EVERY := 150.0
 const CHAMPION_MAX := 0.06
 const SPEED_PER_MINUTE := 0.015
 const SPEED_MAX_BONUS := 0.3
@@ -78,6 +84,10 @@ var _boss_timer := 0.0
 var _traps: Array[Trap] = []
 var _trap_timer := 2.0
 var _cleared := false
+## Endless night: after the final boss the night just goes on.
+var endless := false
+var _endless_from := 0.0
+var _endless_boss_t := 0.0
 
 
 func setup(player: Player, enemies: EnemyManager) -> void:
@@ -118,7 +128,7 @@ func calm_for(seconds: float) -> void:
 
 ## Spawn budget right now: rolled range x minute intensity x curse x mercy.
 func alive_cap() -> int:
-	var b := _cap * intensity() * _player.stat("curse")
+	var b := _cap * intensity() * _player.stat("curse") * minf(1.0 + 0.04 * endless_minutes(), 1.6)
 	if _player.hp < _player.max_hp * MERCY_HP:
 		b *= MERCY
 	return roundi(b)
@@ -161,7 +171,36 @@ func skip_to(seconds: float) -> void:
 ## Health multiplier for enemies spawned right now.
 func hp_multiplier() -> float:
 	var level_bonus := maxf(_player.level - LEVEL_SCALING_FROM, 0) * LEVEL_SCALING
-	return float(current_wave().get("hp_mult", 1.0)) * (1.0 + level_bonus) * _player.stat("curse")
+	return float(current_wave().get("hp_mult", 1.0)) * (1.0 + level_bonus) * _player.stat("curse") * endless_factor()
+
+
+## Endless night: +60 % enemy health for every minute past the final boss.
+func endless_factor() -> float:
+	return 1.0 + ENDLESS_HP_PER_MINUTE * endless_minutes() if endless else 1.0
+
+
+func endless_minutes() -> float:
+	return maxf(elapsed - _endless_from, 0.0) / 60.0 if endless else 0.0
+
+
+## Starts the endless night after the final boss has fallen.
+func start_endless() -> void:
+	endless = true
+	_cleared = false
+	paused = false
+	_endless_from = elapsed
+	_endless_boss_t = ENDLESS_BOSS_EVERY * 0.5
+	calm_for(6.0)
+
+
+## Every boss the stage's waves can send.
+func _stage_bosses() -> Array:
+	var ids: Array = []
+	for w: Dictionary in _stage["waves"]:
+		for b: String in w.get("bosses", []):
+			if b not in ids:
+				ids.append(b)
+	return ids
 
 
 func _physics_process(delta: float) -> void:
@@ -169,10 +208,19 @@ func _physics_process(delta: float) -> void:
 		return
 	elapsed += delta
 	_enemies.damage_mult = 1.0 + DAMAGE_PER_MINUTE_SQ * pow(elapsed / 60.0, 2.0)
-	_enemies.speed_mult = 1.0 + minf(SPEED_PER_MINUTE * elapsed / 60.0, SPEED_MAX_BONUS)
+	_enemies.speed_mult = 1.0 + minf(SPEED_PER_MINUTE * elapsed / 60.0, SPEED_MAX_BONUS) + minf(ENDLESS_SPEED_PER_MINUTE * endless_minutes(), ENDLESS_SPEED_MAX)
 	if _cleared:
 		return
-	if elapsed >= duration_minutes() * 60.0:
+	if endless:
+		_endless_boss_t -= delta
+		if _endless_boss_t <= 0.0 and calm <= 0.0:
+			_endless_boss_t = ENDLESS_BOSS_EVERY
+			var pool := _stage_bosses()
+			if not pool.is_empty():
+				var boss_id: String = pool.pick_random()
+				_spawn(boss_id, _player.position + Vector2.from_angle(randf() * TAU) * _spawn_radius())
+				boss_spawned.emit(boss_id)
+	elif elapsed >= duration_minutes() * 60.0:
 		_cleared = true
 		var final_id: String = _stage.get("final_boss", "")
 		if final_id == "":

@@ -422,6 +422,7 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 		_boss_impact()
 		bosses_killed += 1
 		Profile.add_stat("bosses")
+		Profile.add_stat("bosses_cat:" + player.cat_id)
 		pickups.spawn_named("chest", pos, 0.0)
 		pickups.spawn_named("coin", pos + Vector2(14, 6), 25.0)
 		_maybe_drop_charm(pos + Vector2(-14, 6), CHARM_CHANCE_BOSS)
@@ -596,6 +597,7 @@ func _end_run(kind: String) -> void:
 	Profile.set_stat_max("best_minutes", floori(spawner.elapsed / 60.0))
 	Profile.set_stat_max("best_minutes:" + spawner.stage_id, floori(spawner.elapsed / 60.0))
 	Profile.set_stat_max("best_level", player.level)
+	Profile.set_stat_max("best_level_cat:" + player.cat_id, player.level)
 	Profile.set_stat_max("best_run_gold", floori(run_gold))
 	# Quest book distance is in "metres" (16 px).
 	Profile.add_stat("distance", floori(_distance / 16.0))
@@ -604,6 +606,7 @@ func _end_run(kind: String) -> void:
 		Profile.add_stat("escapes")
 	elif kind == "victory":
 		Profile.add_stat("wins:" + spawner.stage_id)
+		Profile.add_stat("wins_cat:" + player.cat_id)
 		_victory_flags()
 	var gold := 0
 	match kind:

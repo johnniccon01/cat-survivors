@@ -2,7 +2,8 @@
   "chapters": [
     "main",
     "maps",
-    "story"
+    "story",
+    "cats"
   ],
   "lines": {
     "STORY": {
@@ -890,6 +891,572 @@
           "target": 1,
           "reward": {
             "gold": 2500
+          }
+        }
+      ]
+    },
+    "CATS_MICA": {
+      "chapter": "cats",
+      "cat": "MICA",
+      "text": "CATLINE",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:MICA"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level_cat:MICA"
+          ],
+          "target": 40,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "bosses_cat:MICA"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:MICA"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
+    "CATS_LUNA": {
+      "chapter": "cats",
+      "cat": "LUNA",
+      "text": "CATLINE",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:LUNA"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level_cat:LUNA"
+          ],
+          "target": 40,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "bosses_cat:LUNA"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:LUNA"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
+    "CATS_SNOWBALL": {
+      "chapter": "cats",
+      "cat": "SNOWBALL",
+      "text": "CATLINE",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:SNOWBALL"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level_cat:SNOWBALL"
+          ],
+          "target": 40,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "bosses_cat:SNOWBALL"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:SNOWBALL"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
+    "CATS_PIP": {
+      "chapter": "cats",
+      "cat": "PIP",
+      "text": "CATLINE",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:PIP"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level_cat:PIP"
+          ],
+          "target": 40,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "bosses_cat:PIP"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:PIP"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
+    "CATS_TIGER": {
+      "chapter": "cats",
+      "cat": "TIGER",
+      "text": "CATLINE",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:TIGER"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level_cat:TIGER"
+          ],
+          "target": 40,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "bosses_cat:TIGER"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:TIGER"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
+    "CATS_BARON": {
+      "chapter": "cats",
+      "cat": "BARON",
+      "text": "CATLINE",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:BARON"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level_cat:BARON"
+          ],
+          "target": 40,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "bosses_cat:BARON"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:BARON"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
+    "CATS_CLOVER": {
+      "chapter": "cats",
+      "cat": "CLOVER",
+      "text": "CATLINE",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:CLOVER"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level_cat:CLOVER"
+          ],
+          "target": 40,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "bosses_cat:CLOVER"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:CLOVER"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
+    "CATS_BRUNO": {
+      "chapter": "cats",
+      "cat": "BRUNO",
+      "text": "CATLINE",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:BRUNO"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level_cat:BRUNO"
+          ],
+          "target": 40,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "bosses_cat:BRUNO"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:BRUNO"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
+    "CATS_TUCKO": {
+      "chapter": "cats",
+      "cat": "TUCKO",
+      "text": "CATLINE",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:TUCKO"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level_cat:TUCKO"
+          ],
+          "target": 40,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "bosses_cat:TUCKO"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:TUCKO"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
+    "CATS_KAPITAN": {
+      "chapter": "cats",
+      "cat": "KAPITAN",
+      "text": "CATLINE",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:KAPITAN"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level_cat:KAPITAN"
+          ],
+          "target": 40,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "bosses_cat:KAPITAN"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:KAPITAN"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
+    "CATS_ANGEL": {
+      "chapter": "cats",
+      "cat": "ANGEL",
+      "text": "CATLINE",
+      "secret": true,
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:ANGEL"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level_cat:ANGEL"
+          ],
+          "target": 40,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "bosses_cat:ANGEL"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:ANGEL"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
+    "CATS_DEVIL": {
+      "chapter": "cats",
+      "cat": "DEVIL",
+      "text": "CATLINE",
+      "secret": true,
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:DEVIL"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level_cat:DEVIL"
+          ],
+          "target": 40,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "bosses_cat:DEVIL"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:DEVIL"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 800
           }
         }
       ]

@@ -4,10 +4,22 @@ class_name QuestBook
 ## counters ("stat"), a single flag ("flag") or how many flags share a prefix
 ## ("flags", e.g. every "evolved:..." weapon). Steps pay out gold, a charm or
 ## a new cat. Profile.questbook stores how many steps of each line are done.
+## A line with "cat" is named after that cat; one with "text" shares its step
+## texts (QB_<text>_<n>) with other lines.
 
 
 static func lines() -> Dictionary:
 	return GameData.questbook.get("lines", {})
+
+
+static func line_name(id: String) -> String:
+	var cat: String = lines()[id].get("cat", "")
+	return _t("CAT_%s_NAME" % cat) if cat != "" else _t("QB_%s_NAME" % id)
+
+
+## Text of step n (1-based).
+static func step_text(id: String, n: int) -> String:
+	return _t("QB_%s_%d" % [lines()[id].get("text", id), n])
 
 
 static func steps_done(id: String) -> int:
@@ -97,7 +109,7 @@ static func completed_text(entry: Array) -> String:
 	var id: String = entry[0]
 	var n: int = entry[1]
 	var reward: Dictionary = lines()[id]["tiers"][n - 1]["reward"]
-	return _t("QB_COMPLETED") % [_t("QB_%s_NAME" % id), n, reward_text(reward)]
+	return _t("QB_COMPLETED") % [line_name(id), n, reward_text(reward)]
 
 
 static func _t(key: String) -> String:

@@ -124,7 +124,7 @@ func _quest_row(id: String) -> Control:
 		desc.text = "      " + tr("QB_SECRET")
 		return row
 	var steps := QuestBook.steps_done(id)
-	name_label.text = "%s %s" % ["✓" if done else "·", tr("QB_%s_NAME" % id)]
+	name_label.text = "%s %s" % ["✓" if done else "·", QuestBook.line_name(id)]
 	dots.text = "●".repeat(steps) + "○".repeat(n - steps)
 	if done:
 		desc.text = "      " + tr("QB_DONE")
@@ -132,7 +132,7 @@ func _quest_row(id: String) -> Control:
 	var step := QuestBook.current(id)
 	count.text = "%d/%d" % [mini(QuestBook.progress(step), QuestBook.target(step)), QuestBook.target(step)]
 	reward.text = "  " + QuestBook.reward_text(step["reward"])
-	desc.text = "      %s  %s" % [tr("QB_STEP") % [steps + 1, n], tr("QB_%s_%d" % [id, steps + 1])]
+	desc.text = "      %s  %s" % [tr("QB_STEP") % [steps + 1, n], QuestBook.step_text(id, steps + 1)]
 	return row
 
 

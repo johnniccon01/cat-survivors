@@ -56,6 +56,14 @@
           "reward": {
             "artifact": "ANGEL_FEATHER"
           }
+        },
+        {
+          "type": "flag",
+          "flag": "blueprint",
+          "target": 1,
+          "reward": {
+            "gold": 800
+          }
         }
       ]
     },
@@ -690,6 +698,49 @@
           "target": 5,
           "reward": {
             "artifact": "HOURGLASS"
+          }
+        }
+      ]
+    },
+    "FACTORY": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:FACTORY"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:FACTORY"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 800
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:FACTORY",
+          "target": 1,
+          "reward": {
+            "gold": 1400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:FACTORY"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 2000
           }
         }
       ]
@@ -1453,6 +1504,53 @@
           "type": "stat",
           "keys": [
             "wins_cat:DEVIL"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
+    "CATS_BOLT": {
+      "chapter": "cats",
+      "cat": "BOLT",
+      "text": "CATLINE",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:BOLT"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level_cat:BOLT"
+          ],
+          "target": 40,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "bosses_cat:BOLT"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:BOLT"
           ],
           "target": 5,
           "reward": {

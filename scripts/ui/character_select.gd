@@ -92,7 +92,7 @@ func _build() -> void:
 	top.add_theme_constant_override("separation", 18)
 	root.add_child(top)
 	var grid := GridContainer.new()
-	grid.columns = 6
+	grid.columns = 7 if _ids.size() > 12 else 6
 	grid.add_theme_constant_override("h_separation", 8)
 	grid.add_theme_constant_override("v_separation", 8)
 	top.add_child(grid)
@@ -159,6 +159,8 @@ func _build() -> void:
 	root.add_child(maps)
 	for i in _stage_ids.size():
 		var card := MapCard.new(_stage_ids[i])
+		if _stage_ids.size() > 6:
+			card.custom_minimum_size.x = 166
 		card.gui_input.connect(_on_map_input.bind(i))
 		maps.add_child(card)
 		_map_cards.append(card)

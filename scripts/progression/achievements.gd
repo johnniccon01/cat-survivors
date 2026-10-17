@@ -5,7 +5,7 @@ class_name Achievements
 ##   all_stats        every listed counter is at least 1
 ##   flag / all_flags a flag, or every listed flag, is set
 ##   flags_prefix     how many flags start with the prefix (target)
-##   chains           how many stories are finished (target)
+##   chains           how many stories are finished (target, or "all")
 ##   cats / artifacts how many cats are unlocked / artifacts owned (target)
 ## "secret" ones show as ??? until earned. Profile.achievements keeps the
 ## earned ids.
@@ -25,6 +25,8 @@ static func target(id: String) -> int:
 		return (a["all_stats"] as Array).size()
 	if a.has("all_flags"):
 		return (a["all_flags"] as Array).size()
+	if a.get("all", false) and a.has("chains"):
+		return GameData.chains.size()
 	return int(a.get("target", 1))
 
 

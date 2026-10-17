@@ -814,11 +814,8 @@
         "stage": "HARBOR"
       },
       {
-        "type": "boss",
-        "enemy": "ROBO_VACUUM_3000",
-        "hp_mult": 1.0,
-        "look": "hint",
-        "after_minute": 10
+        "type": "final",
+        "stage": "FACTORY"
       }
     ]
   },
@@ -1027,6 +1024,65 @@
         "slow": 0.6,
         "hp": 80,
         "look_to": "chimney"
+      }
+    ]
+  },
+  "CONVEYOR_JAM": {
+    "stage": "FACTORY",
+    "reward": {
+      "artifact": "SPARE_PARTS"
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "gear",
+        "count": 4,
+        "source": "guards",
+        "guard_hp": 6.0,
+        "spread": [
+          200,
+          420
+        ],
+        "deliver": true,
+        "look_to": "fuse",
+        "distance": 300
+      }
+    ]
+  },
+  "SHUTDOWN": {
+    "stage": "FACTORY",
+    "reward": {
+      "gold": 1200
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 4,
+        "hold": 1.5,
+        "radius": 30,
+        "spread": [
+          150,
+          260
+        ],
+        "ordered": true,
+        "wrong_hurts": true,
+        "time_limit": 100,
+        "dark": true,
+        "look": "fuse",
+        "after_minute": 3
+      }
+    ]
+  },
+  "ROGUE_DRONES": {
+    "stage": "FACTORY",
+    "reward": {
+      "artifact": "OVERCLOCK"
+    },
+    "steps": [
+      {
+        "type": "chase",
+        "enemy": "ROGUE_DRONE",
+        "times": 3
       }
     ]
   }

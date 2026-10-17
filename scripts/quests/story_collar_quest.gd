@@ -58,6 +58,8 @@ func _draw() -> void:
 			_draw_bin()
 		"bottle":
 			_draw_bottle()
+		"blueprint":
+			_draw_blueprint()
 		_:
 			_draw_door()
 	if _stage == "find":
@@ -123,6 +125,16 @@ func _draw_bottle() -> void:
 	draw_rect(Rect2(13, -2, 3, 4), Color("a07a4a"))
 	draw_rect(Rect2(-8, -2, 12, 4), Color("efe2c0"))
 	draw_set_transform(Vector2.ZERO)
+
+
+## Factory: the Robo-Vacuum's blueprint on a workbench.
+func _draw_blueprint() -> void:
+	draw_rect(Rect2(-30, -18, 60, 36), OUTLINE)
+	draw_rect(Rect2(-29, -17, 58, 34), Color("6b4630"))
+	draw_rect(Rect2(-22, -13, 44, 26), Color("2a5a9a"))
+	draw_arc(Vector2(0, 0), 9.0, 0.0, TAU, 20, Color(1, 1, 1, 0.8), 1.0)
+	draw_line(Vector2(-18, 8), Vector2(18, 8), Color(1, 1, 1, 0.8), 1.0)
+	draw_line(Vector2(-18, -9), Vector2(-6, -9), Color(1, 1, 1, 0.8), 1.0)
 
 
 func _draw_door() -> void:

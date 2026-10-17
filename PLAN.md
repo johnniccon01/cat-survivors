@@ -3,19 +3,19 @@
 Živý zoznam toho, čo je hotové, čo robíme teraz a čo príde. Po každom kroku
 ho aktualizujeme: hotové odškrtneme `[x]`, nové nápady pridáme do Zásobníka.
 
-Naposledy aktualizované: 17. 10. 2026 (nové mapy Supermarket a Prístav)
+Naposledy aktualizované: 18. 10. 2026 (príbehy, achievementy, Továreň)
 
 ---
 
 ## Kde sme
 
-Hra je hrateľná od menu po koniec noci na 6 mapách:
+Hra je hrateľná od menu po koniec noci na 7 mapách:
 
-- **Mapy:** Byt → Pivnica → Záhrada → Strecha → Supermarket → Prístav (každá sa odomkne porazením
+- **Mapy:** Byt → Pivnica → Záhrada → Strecha → Supermarket → Prístav → Továreň (každá sa odomkne porazením
   finálneho bossa predchádzajúcej), každá s vlastnou podlahou, nábytkom,
   nepriateľmi, bossmi, pascami a hudbou.
-- **Mačky:** 10 hrateľných (Mica, Luna, Snehulka, Mrňa, Tiger, Barón,
-  Ďatelinka, Bruno, Tučko, Kapitán) + 2 tajné (anjel, diabol).
+- **Mačky:** 11 hrateľných (Mica, Luna, Snehulka, Mrňa, Tiger, Barón,
+  Ďatelinka, Bruno, Tučko, Kapitán, Šrubka) + 2 tajné (anjel, diabol).
 - **Boj:** 9 zbraní s evolúciami, 10 pasív, kritické zásahy a šťastie,
   čísla poškodenia, otrasy.
 - **Priebeh noci:** rozpočet nepriateľov s krivkou intenzity, oddychy,
@@ -136,7 +136,7 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Menu: šípky aj W/S, pohyb sa zacyklí; výber mačky s veľkým detailom (zbraň, výhry, level, bossovia) a karty máp s obrázkom a finálnym bossom
 - [x] Efekty zbraní: zásahový záblesk vo farbe zbrane, stopy za strelami, väčšie škrabance so švihom (oranžové po evolúcii), žiarivý laser s iskrami, plnšia vlna zvončeka
 - [x] Achievementy: 40 úspechov (záložka Úspechy v Denníku, oznámenie v hre, tajné ako ???)
-- [ ] Ak nie je čo robiť: ďalšia mapa
+- [x] Mapa 7 – Továreň (po Prístave): sklad, montáž, pásová linka; šrúbikové chrobáky, pružinové roboty, drony, zvárači, mini-vysávače, drviče; bossovia montážna ruka, kováčsky golem, hydraulický lis (stredný), kráľovná dronov, finálny Robo-vysávač 3000; pasce elektrická podlaha a lis; mačka Šrubka (z klietky); príbeh plán stroja; 3 príbehy (zaseknutá linka, núdzové zastavenie v tme, zblúdilé drony); hudba deň/noc/boss
 - Ďalšie jazyky zatiaľ nie. Menej testov medzi krokmi, poriadny test na konci.
 
 ## Fáza 3 – Grafika a zvuk

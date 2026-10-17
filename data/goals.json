@@ -29,5 +29,7 @@
   "GUARD_DOG":     { "stats": ["wins:SUPERMARKET"], "target": 1, "reward": { "gold": 2500 } },
   "KRAKEN":        { "stats": ["wins:HARBOR"], "target": 1, "reward": { "gold": 3000 } },
   "AISLE_FIVE":    { "stats": ["kills:TIN_CAN", "kills:BANANA", "kills:SHOPPING_CART", "kills:FROZEN_CHICKEN", "kills:SPRAY_BOTTLE"], "target": 1000, "reward": { "gold": 500 } },
-  "SEAFOOD":       { "stats": ["kills:CRAB", "kills:JELLYFISH", "kills:EEL", "kills:PIRATE_RAT"], "target": 1000, "reward": { "gold": 500 } }
+  "SEAFOOD":       { "stats": ["kills:CRAB", "kills:JELLYFISH", "kills:EEL", "kills:PIRATE_RAT"], "target": 1000, "reward": { "gold": 500 } },
+  "R3000":         { "stats": ["wins:FACTORY"], "target": 1, "reward": { "gold": 4000 } },
+  "SCRAP_METAL":   { "stats": ["kills:BOLT_BUG", "kills:SPRING_BOT", "kills:DRONE", "kills:WELDER", "kills:MINI_VAC", "kills:CRUSHER"], "target": 1000, "reward": { "gold": 600 } }
 }

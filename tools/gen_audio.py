@@ -483,6 +483,24 @@ def music(only=None):
                   "D6:1 A5:1 F5:1 A5:1  C6:1 A5:1 F5:2  G5:.5 A5:.5 Bb5:.5 D6:.5 G6:1 D6:1  C#6:1 E6:1 A5:2"),
         }, MAP_ORDER, style="drive", lead_duty=0.5)
 
+    # Factory: a hammering machine hall in E minor.
+    if want("music_factory"):
+        song("music_factory", 140, {
+            "A": (["Em", "Em", "C", "D", "Em", "Em", "Am", "B"],
+                  "E5:.5 E5:.5 G5:.5 E5:.5 B5:1 G5:1  E5:.5 E5:.5 G5:.5 B5:.5 D6:1 B5:1  C6:.5 B5:.5 G5:.5 E5:.5 C5:1 E5:1  "
+                  "D5:.5 F#5:.5 A5:.5 D6:.5 F#6:2  E6:1 D6:.5 B5:.5 G5:1 E5:1  G5:.5 A5:.5 B5:.5 G5:.5 E5:2  "
+                  "A5:1 C6:1 E6:1 C6:1  B5:1 D#6:1 F#6:2"),
+            "B": (["C", "D", "B", "Em", "C", "D", "B", "B"],
+                  "G5:1 C6:1 E6:1.5 D6:.5  A5:1 D6:1 F#6:1.5 E6:.5  D#6:1 B5:1 F#5:1 D#5:1  E5:3 R:1  "
+                  "C6:.5 E6:.5 G6:.5 E6:.5 C6:2  D6:.5 F#6:.5 A6:.5 F#6:.5 D6:2  B5:.5 D#6:.5 F#6:.5 D#6:.5 B5:2  F#5:1 B5:1 D#6:2"),
+            "C": (["Am", "Em", "Am", "B", "Am", "Em", "C", "B"],
+                  "A5:2 C6:1 E6:1  G5:2 B5:1 E6:1  A5:1 E5:1 C6:1 A5:1  B5:3 R:1  "
+                  "E6:1 C6:.5 A5:.5 E5:2  B5:1 G5:.5 E5:.5 B4:2  C5:1 E5:1 G5:1 C6:1  D#6:2 B5:2"),
+            "D": (["Em", "D", "C", "B", "Em", "D", "C", "B"],
+                  "E5:.5 G5:.5 B5:.5 E6:.5 B5:1 G5:1  D5:.5 F#5:.5 A5:.5 D6:.5 A5:2  C5:.5 E5:.5 G5:.5 C6:.5 E6:1 C6:1  "
+                  "B4:.5 D#5:.5 F#5:.5 B5:.5 D#6:2  G6:1 F#6:.5 E6:.5 B5:2  F#6:1 E6:.5 D6:.5 A5:2  E6:1 D6:.5 C6:.5 G5:2  D#6:1 F#6:1 B6:2"),
+        }, MAP_ORDER, style="drive", lead_duty=0.25)
+
     # --- night tracks: from half way through the night ---
     if want("music_apartment_night"):
         song("music_apartment_night", 138, {
@@ -581,6 +599,19 @@ def music(only=None):
                   "A5:1 D6:1 C6:1 A5:1  B5:1 G#5:1 E5:2  A5:1 E5:1 C5:1 A4:1  A4:3 R:1"),
         }, NIGHT_ORDER, style="gallop")
 
+    if want("music_factory_night"):
+        song("music_factory_night", 156, {
+            "A": (["Bm", "Bm", "G", "A", "Bm", "Bm", "Em", "F#"],
+                  "B4:.5 B4:.5 D5:.5 B4:.5 F#5:1 D5:1  B4:.5 D5:.5 F#5:.5 B5:.5 A5:1 F#5:1  G5:.5 F#5:.5 D5:.5 B4:.5 G4:1 B4:1  "
+                  "A4:.5 C#5:.5 E5:.5 A5:.5 C#6:2  B5:1 A5:.5 F#5:.5 D5:1 B4:1  D5:.5 E5:.5 F#5:.5 D5:.5 B4:2  E5:1 G5:1 B5:1 G5:1  F#5:1 A#5:1 C#6:2"),
+            "B": (["G", "A", "F#", "Bm", "G", "A", "F#", "F#"],
+                  "D5:1 G5:1 B5:1.5 A5:.5  E5:1 A5:1 C#6:1.5 B5:.5  A#5:1 F#5:1 C#5:1 A#4:1  B4:3 R:1  "
+                  "G5:.5 B5:.5 D6:.5 B5:.5 G5:2  A5:.5 C#6:.5 E6:.5 C#6:.5 A5:2  F#5:.5 A#5:.5 C#6:.5 A#5:.5 F#5:2  C#5:1 F#5:1 A#5:2"),
+            "C": (["Em", "Bm", "Em", "F#", "Em", "Bm", "G", "F#"],
+                  "E5:2 G5:1 B5:1  D5:2 F#5:1 B5:1  E5:1 B4:1 G5:1 E5:1  F#5:3 R:1  "
+                  "B5:1 G5:.5 E5:.5 B4:2  F#5:1 D5:.5 B4:.5 F#4:2  G4:1 B4:1 D5:1 G5:1  A#5:2 F#5:2"),
+        }, NIGHT_ORDER, style="gallop")
+
     # --- final bosses ---
     if want("music_boss"):
         # The Vacuum King (and the default): fast E minor.
@@ -657,6 +688,17 @@ def music(only=None):
                   "F5:2 Ab5:1 C6:1  G5:2 Eb5:1 C5:1  Ab5:1 C6:1 Eb6:1 C6:1  D6:2 B5:2  "
                   "C6:.5 Ab5:.5 F5:1 Ab5:1 C6:1  Eb6:.5 C6:.5 G5:1 C6:1 Eb6:1  F6:1 Eb6:.5 C6:.5 Ab5:2  G5:1 B5:1 D6:2"),
         }, style="gallop", lead_kind="saw", lead_duty=0.5, gain=1.15)
+
+    if want("music_boss_r3000"):
+        # The Robo-Vacuum 3000: a fast, buzzing A minor.
+        song("music_boss_r3000", 176, {
+            "A": (["Am", "Am", "F", "G", "Am", "Am", "Dm", "E"],
+                  "A4:.5 A4:.5 C5:.5 A4:.5 E5:1 C5:1  A4:.5 C5:.5 E5:.5 A5:.5 G5:1 E5:1  F5:.5 E5:.5 C5:.5 A4:.5 F4:1 A4:1  "
+                  "G4:.5 B4:.5 D5:.5 G5:.5 B5:2  A5:1 G5:.5 E5:.5 C5:1 A4:1  C5:.5 D5:.5 E5:.5 C5:.5 A4:2  D5:1 F5:1 A5:1 F5:1  E5:1 G#5:1 B5:2"),
+            "B": (["F", "G", "E", "Am", "F", "G", "E", "E"],
+                  "C5:1 F5:1 A5:1.5 G5:.5  D5:1 G5:1 B5:1.5 A5:.5  G#5:1 E5:1 B4:1 G#4:1  A4:3 R:1  "
+                  "F5:.5 A5:.5 C6:.5 A5:.5 F5:2  G5:.5 B5:.5 D6:.5 B5:.5 G5:2  E5:.5 G#5:.5 B5:.5 G#5:.5 E5:2  B4:1 E5:1 G#5:2"),
+        }, style="drive", lead_kind="saw", lead_duty=0.5, gain=1.15)
 
     if want("music_menu"):
         # Main menu: the apartment tune, calmer and without drums.

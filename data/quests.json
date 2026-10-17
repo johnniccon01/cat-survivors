@@ -71,6 +71,18 @@
     "KAPITAN": {
       "type": "duel",
       "rival": "RIVAL_KAPITAN"
+    },
+    "BOLT": {
+      "type": "rescue",
+      "poi": "cage",
+      "guards": "MINI_VAC",
+      "guard_count": 24,
+      "free_time": 4.0,
+      "escort_distance": [
+        480.0,
+        620.0
+      ],
+      "escort_hp": 60.0
     }
   },
   "side_quests": {
@@ -151,6 +163,13 @@
       "ambush_count": 24,
       "text": "BOTTLE_MESSAGE",
       "poi": "bottle"
+    },
+    "BLUEPRINT": {
+      "flag": "blueprint",
+      "ambush": "DRONE",
+      "ambush_count": 22,
+      "text": "BLUEPRINT",
+      "poi": "blueprint"
     }
   }
 }

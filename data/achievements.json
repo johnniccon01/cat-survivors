@@ -18,7 +18,8 @@
       "wins:GARDEN",
       "wins:ROOFTOP",
       "wins:SUPERMARKET",
-      "wins:HARBOR"
+      "wins:HARBOR",
+      "wins:FACTORY"
     ]
   },
   "HUNTER": {
@@ -61,7 +62,7 @@
   },
   "THE_END": {
     "chains": true,
-    "target": 31
+    "all": true
   },
   "HOMECOMING": {
     "flag": "chain:WAY_HOME"

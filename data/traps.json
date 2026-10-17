@@ -103,5 +103,21 @@
     "on": 2.0,
     "off": 3.0,
     "tick": 0.4
+  },
+  "ELECTRIC_FLOOR": {
+    "type": "pulse",
+    "radius": 28,
+    "damage": 16,
+    "player_damage": 9,
+    "on": 1.2,
+    "off": 2.4,
+    "tick": 0.3
+  },
+  "PRESS_PLATE": {
+    "type": "snap",
+    "radius": 12,
+    "damage": 60,
+    "player_damage": 14,
+    "rearm": 4.0
   }
 }

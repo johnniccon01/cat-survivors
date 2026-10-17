@@ -33,7 +33,7 @@ Godot_v4.6.2-stable_win64_console.exe --headless --path . -- --bot
 - `--test-evolution` – overí evolúciu Škrabanca a skončí
 - `--quest=ID` – hneď spustí quest (LUNA, SNOWBALL, PIP, TIGER, BARON, DEFEND_BOWL, RED_DOT, FRIDGE)
 - `--cat=ID` – hrá za danú mačku bez odomknutia
-- `--stage=ID` – hrá danú mapu bez odomknutia (LIVING_ROOM, BASEMENT, GARDEN, ROOFTOP, SUPERMARKET, HARBOR)
+- `--stage=ID` – hrá danú mapu bez odomknutia (LIVING_ROOM, BASEMENT, GARDEN, ROOFTOP, SUPERMARKET, HARBOR, FACTORY)
 - `--levels=N` – začne s N náhodnými vylepšeniami (test neskorej hry)
 - `--test-numbers` – zobrazí ukážku čísel poškodenia; `--pause` – hneď otvorí pauzové menu
 - Hlavné menu: `--shop`, `--charms`, `--goals`, `--settings` otvoria daný panel
@@ -47,7 +47,7 @@ Testovacie behy (`--bot`) nikdy neukladajú profil.
 - `scripts/progression/upgrades.gd` – výber ponúk pri level-upe a ich aplikovanie.
 - `scripts/pickups/` – XP granule, srdiečka a sardinky (liečenie), magnet.
 - `data/cats.json` – mačky (vzhľad, štartová zbraň, bonus). Odomknuté mačky sa ukladajú do `user://profile.cfg`. Mačky s `"hidden": true` (anjel, diabol) sa nedajú vybrať. Ďatelinku zachrániš v záhrade, Bruno je finálny boss strechy a po jeho porazení sa odomkne.
-- `data/stages.json` – mapy (byt, pivnica, záhrada, strecha, supermarket, prístav): vlny, bossovia, finálny boss, hudba, ktoré mačky a príbehový quest tam patria. Každá ďalšia mapa sa odomkne porazením finálneho bossa predchádzajúcej (Kráľ vysávačov → Potkaní kráľ → Kosačka → Bruno → pes Rex → Kraken).
+- `data/stages.json` – mapy (byt, pivnica, záhrada, strecha, supermarket, prístav, továreň): vlny, bossovia, finálny boss, hudba, ktoré mačky a príbehový quest tam patria. Každá ďalšia mapa sa odomkne porazením finálneho bossa predchádzajúcej (Kráľ vysávačov → Potkaní kráľ → Kosačka → Bruno → pes Rex → Kraken → Robo-vysávač 3000).
 - Tajomstvo: kľúč `"angel"` v mape (zatiaľ len strecha) dáva malú šancu, že po `after_minute` ťa pri smrti oživí anjel mačka. Dve oživenia v jednej hre privolajú diabol mačku (`DEVIL_CAT` v `data/enemies.json`), ktorá zabíja na pár zásahov a zraniť sa dá až od `mortal_from_minute`. Na testovanie: `-- --angel-chance=1`, `-- --devil`, alebo tlačidlá v dev paneli (F1).
 - `data/quests.json` + `scripts/quests/` – questy: záchrany a súboje mačiek, vedľajšie úlohy, poradie počas noci.
 - `scripts/ui/character_select.gd` – výber mačky pred hrou.
@@ -60,7 +60,7 @@ Testovacie behy (`--bot`) nikdy neukladajú profil.
 - `data/props.json` – rozbitné predmety (krabice, kvetináče) a čo z nich padá.
 - Evolúcie: v `data/weapons.json` má základná zbraň `"evolve": {"with": PASÍVKA, "into": EVOLÚCIA}`. Zbraň na max leveli + vlastnená pasívka + truhlica z bossa = evolúcia.
 - Bossovia sú v `data/enemies.json` (`"boss": true`), do vĺn sa pridávajú cez `"bosses"` v `data/stages.json`.
-- `scripts/world/floor.gd` + `floor_chunk.gd` – mapa po kúskoch 320×320: zóny podľa témy mapy (byt, pivnica, záhrada, strecha, supermarket, prístav), nábytok, lampy; každá hra má inú mapu.
+- `scripts/world/floor.gd` + `floor_chunk.gd` – mapa po kúskoch 320×320: zóny podľa témy mapy (byt, pivnica, záhrada, strecha, supermarket, prístav, továreň), nábytok, lampy; každá hra má inú mapu.
 - `scripts/world/night.gd` – stmievanie počas hry a ranný úsvit.
 - `scripts/enemies/enemy_manager.gd` – pohyb, kolízie a vyhľadávanie všetkých nepriateľov cez priestorovú mriežku.
 - `scripts/weapons/weapon.gd` – základ zbraní (cooldown, dávky, levely zo `weapons.json`); konkrétne zbrane ho rozširujú.
@@ -77,6 +77,8 @@ Testovacie behy (`--bot`) nikdy neukladajú profil.
 - **Nekonečná noc** – po výhre klávesom E pokračuješ, nepriatelia silnejú každou minútou.
 - **Výzvy** – `data/challenges.json`, klávesom X pri výbere mačky: sťaženia, ktoré násobia zlato.
 - **Denník** – questy (`data/questbook.json`), ciele (`data/goals.json`) a bestiár v jednom okne.
+- **Príbehy (reťazce questov)** – `data/chains.json` + `scripts/quests/chain/`: dlhé questy s krokmi cez viac nocí (stopy, naháňačka, nosenie, zbieranie, zóny, obrana, boss, eskorta, voľba, pasce, finálny boss). Postup je v `Profile.chains`, poradie rieši `quest_director.gd`; trvalé zmeny máp (kotol, strašiak, anténa, maják, spojenci) robí `scripts/world/map_feature.gd`. Testovanie: `-- --quest=KIBBLE_THIEF`, `-- --chain-step=KIBBLE_THIEF:2`, `-- --choice=1`.
+- **Achievementy** – `data/achievements.json` + `scripts/progression/achievements.gd`, záložka Úspechy v Denníku.
 - **Artefakty** – `data/artifacts.json` + `scripts/ui/artifact_panel.gd`: trvalé predmety z knihy questov (odmena `"artifact"` v `data/questbook.json`), do noci sa berú 2 (kláves V). Efekty sú štatistiky mačky (`stats`), niektoré s vlastnou logikou v `main.gd` (presýpacie hodiny, magnetické jadro, tŕňový obojok). Na testovanie: `-- --artifacts=HOURGLASS,THORN_COLLAR`.
 - **Príbeh** – na každej mape príbehový quest (`story` v `data/stages.json`, texty `QUEST_<TEXT>_*`) a stránka denníka, ktorá odomyká anjel mačku.
 - **Tipy pre nových hráčov** – počas úplne prvej noci.

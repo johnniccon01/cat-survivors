@@ -199,6 +199,23 @@ func _draw() -> void:
 					draw_polyline(Shapes.closed(Shapes.ellipse(Vector2.ZERO, r * f, r * 0.7 * f, 16)), Color(0.8, 0.6, 1.0, 0.7 * (1.0 - f)), 1.5)
 				for k in 4:
 					draw_circle(Vector2.from_angle(_t * 1.5 + k * TAU / 4.0) * r * 0.5, 3.0, Color(0.8, 0.5, 1.0, 0.6))
+		"ELECTRIC_FLOOR":
+			var r := float(data["radius"])
+			draw_rect(Rect2(-r, -r * 0.7, r * 2, r * 1.4), Color("3a3e44"))
+			for k in 4:
+				draw_line(Vector2(-r + 4, -r * 0.7 + 4 + k * r * 0.4), Vector2(r - 4, -r * 0.7 + 4 + k * r * 0.4), Color("6a6e72"), 1.0)
+			if _active:
+				for k in 6:
+					var p1 := Vector2(randf_range(-r, r) * 0.8, randf_range(-r, r) * 0.5)
+					draw_line(p1, p1 + Vector2.from_angle(_t * 12.0 + k) * 7.0, Color("9ae0ff"), 1.5)
+				draw_rect(Rect2(-r, -r * 0.7, r * 2, r * 1.4), Color(0.6, 0.9, 1.0, 0.18))
+		"PRESS_PLATE":
+			draw_rect(Rect2(-10, -10, 20, 20), OUTLINE)
+			draw_rect(Rect2(-9, -9, 18, 18), Color("c9a24a") if _active else Color("6a6e72"))
+			for k in 3:
+				draw_line(Vector2(-9 + k * 6, -9), Vector2(-3 + k * 6, 9), Color("2b2b2b"), 2.0)
+			if _flash > 0.0:
+				draw_circle(Vector2.ZERO, 14.0, Color(1, 1, 1, _flash * 2.0))
 		"MOUSETRAP":
 			draw_rect(Rect2(-8, -5, 16, 10), OUTLINE)
 			draw_rect(Rect2(-7, -4, 14, 8), Color("c9a26a"))

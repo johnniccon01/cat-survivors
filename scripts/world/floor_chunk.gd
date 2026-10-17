@@ -19,8 +19,9 @@ const GARDEN_ITEMS: Array[String] = ["leaf", "leaf", "pebble", "flower", "acorn"
 const ROOFTOP_ITEMS: Array[String] = ["leaf", "pebble", "feather", "bottle_cap", "bolt"]
 const SUPERMARKET_ITEMS: Array[String] = ["receipt", "grape", "price_tag", "coin_small", "crumbs"]
 const HARBOR_ITEMS: Array[String] = ["shell", "starfish", "pebble", "rope_bit", "feather"]
+const FACTORY_ITEMS: Array[String] = ["bolt", "bolt", "rag", "coin_small", "crumbs"]
 const THEME_ITEMS := {"basement": BASEMENT_ITEMS, "garden": GARDEN_ITEMS, "rooftop": ROOFTOP_ITEMS,
-	"supermarket": SUPERMARKET_ITEMS, "harbor": HARBOR_ITEMS}
+	"supermarket": SUPERMARKET_ITEMS, "harbor": HARBOR_ITEMS, "factory": FACTORY_ITEMS}
 ## Zones per theme, from low noise to high noise.
 const THEME_ZONES := {
 	"apartment": ["kitchen", "living", "bedroom"],
@@ -29,6 +30,7 @@ const THEME_ZONES := {
 	"rooftop": ["deck", "tar", "tiles"],
 	"supermarket": ["produce", "aisle", "freezer"],
 	"harbor": ["beach", "dock", "pier"],
+	"factory": ["storage_bay", "assembly", "conveyor"],
 }
 const FURNITURE := {
 	"living": ["sofa", "armchair", "coffee_table", "bookshelf", "tv", "floor_lamp", "plant", "cat_tree"],
@@ -49,8 +51,11 @@ const FURNITURE := {
 	"beach": ["beach_umbrella", "towel", "sandcastle", "lifebuoy", "beach_umbrella"],
 	"dock": ["bollard", "barrels", "crates", "rope_coil", "harbor_lamp", "fish_crate"],
 	"pier": ["rope_coil", "lifebuoy", "fish_net", "bollard", "harbor_lamp", "fish_crate"],
+	"storage_bay": ["pallet_stack", "pallet_stack", "barrels", "crates", "factory_lamp"],
+	"assembly": ["machine", "robot_arm", "control_panel", "factory_lamp", "machine"],
+	"conveyor": ["gear_pile", "robot_arm", "factory_lamp", "control_panel"],
 }
-const LAMPS := ["floor_lamp", "nightstand", "bulb", "garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp"]
+const LAMPS := ["floor_lamp", "nightstand", "bulb", "garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp", "factory_lamp"]
 const LAMP_COLOR := Color(1.0, 0.82, 0.55)
 
 static var _light_texture: Texture2D
@@ -139,6 +144,8 @@ func _draw_ground() -> void:
 			_draw_dock(size)
 		"pier":
 			_draw_pier(area)
+		"storage_bay", "assembly", "conveyor":
+			_draw_factory(size, desc["zone"])
 		_:
 			_draw_planks(area)
 	var strip := Color("3e2a1c")
@@ -148,6 +155,8 @@ func _draw_ground() -> void:
 		strip = Color("4a4a52")
 	elif desc["zone"] in ["aisle", "produce", "freezer"]:
 		strip = Color("8a9096")
+	elif desc["zone"] in ["storage_bay", "assembly", "conveyor"]:
+		strip = Color("c9a24a")
 	elif desc["zone"] in ["beach", "dock", "pier"]:
 		strip = Color(0.25, 0.3, 0.35, 0.35)
 	if desc["edge_right"]:
@@ -428,6 +437,31 @@ func _draw_pier(area: Rect2) -> void:
 		draw_rect(board, Color("7a5a3a").darkened((h % 5) * 0.04))
 		for x in range(int(h % 50), int(area.size.x), 70):
 			draw_rect(Rect2(x, i * step + 4, 2, 2).intersection(area), Color("3a2a1a"))
+
+
+func _draw_factory(size: float, zone: String) -> void:
+	var base := Color("5a6068") if zone != "assembly" else Color("666a70")
+	draw_rect(Rect2(0, 0, size, size), base)
+	var step := 40.0
+	var n := int(size / step)
+	for ix in n:
+		for iy in n:
+			var p := Vector2(ix * step, iy * step)
+			draw_rect(Rect2(p + Vector2(1, 1), Vector2(step - 2, step - 2)), base.lightened(0.05) if (ix + iy) % 2 == 0 else base)
+			for corner: Vector2 in [Vector2(4, 4), Vector2(step - 4, 4), Vector2(4, step - 4), Vector2(step - 4, step - 4)]:
+				draw_circle(p + corner, 1.2, base.darkened(0.3))
+	if zone == "conveyor":
+		# Two belts across the chunk, arrows showing the way they run.
+		for y: float in [size * 0.3, size * 0.7]:
+			draw_rect(Rect2(0, y - 18, size, 36), Color("2a2c30"))
+			draw_rect(Rect2(0, y - 20, size, 3), Color("c9a24a"))
+			draw_rect(Rect2(0, y + 17, size, 3), Color("c9a24a"))
+			for x in range(0, int(size), 32):
+				draw_colored_polygon(PackedVector2Array([Vector2(x + 8, y - 6), Vector2(x + 18, y), Vector2(x + 8, y + 6)]), Color("4a4e54"))
+	elif zone == "assembly":
+		draw_rect(Rect2(0, size * 0.5 - 3, size, 6), Color("c9a24a"))
+		for x in range(0, int(size), 16):
+			draw_colored_polygon(PackedVector2Array([Vector2(x, size * 0.5 - 3), Vector2(x + 8, size * 0.5 - 3), Vector2(x + 2, size * 0.5 + 3), Vector2(x - 6, size * 0.5 + 3)]), Color("2b2b2b"))
 
 
 # --- Decor ------------------------------------------------------------------
@@ -766,7 +800,7 @@ func _draw_furniture(f: Dictionary) -> void:
 			draw_circle(Vector2.ZERO, 16.0, Color("c9c4bc"))
 			draw_circle(Vector2.ZERO, 12.0, Color("6fb0e0"))
 			draw_rect(Rect2(-5, -6, 3, 2), Color(1, 1, 1, 0.7))
-		"garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp":
+		"garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp", "factory_lamp":
 			draw_circle(Vector2.ZERO, 8.0, OUTLINE)
 			draw_circle(Vector2.ZERO, 7.0, Color("3a3a40"))
 			draw_circle(Vector2.ZERO, 4.0, Color("fff3c8"))
@@ -976,6 +1010,35 @@ func _draw_furniture(f: Dictionary) -> void:
 				var p := Vector2(-14 + k * 7, -6 + (k % 2) * 10)
 				draw_colored_polygon(Shapes.ellipse(p, 6, 2.5, 10), Color("aab4c0"))
 				draw_colored_polygon(PackedVector2Array([p + Vector2(5, 0), p + Vector2(9, -3), p + Vector2(9, 3)]), Color("8a96a4"))
+		"machine":
+			_box(Rect2(-36, -26, 72, 52), Color("6a7a8a"))
+			draw_rect(Rect2(-30, -20, 30, 18), Color("2a3a4a"))
+			draw_circle(Vector2(18, -10), 8.0, Color("c9ced2"))
+			draw_line(Vector2(18, -10), Vector2(22, -15), Color("d9534f"), 2.0)
+			for i in 3:
+				draw_circle(Vector2(-24 + i * 10, 14), 3.0, [Color("5ad16a"), Color("f2c14e"), Color("d9534f")][i])
+		"robot_arm":
+			draw_circle(Vector2.ZERO, 14.0, OUTLINE)
+			draw_circle(Vector2.ZERO, 13.0, Color("f2c14e"))
+			draw_line(Vector2.ZERO, Vector2(30, -14), Color("4a4e54"), 6.0)
+			draw_line(Vector2(30, -14), Vector2(44, 4), Color("4a4e54"), 5.0)
+			draw_circle(Vector2(30, -14), 4.0, Color("2a2c30"))
+		"pallet_stack":
+			_box(Rect2(-24, -24, 48, 48), Color("b08a5a"))
+			for k in 3:
+				draw_rect(Rect2(-22, -20 + k * 15, 44, 4), Color("8a6a42"))
+			_box(Rect2(-14, -14, 28, 28), Color("c8955a"))
+		"control_panel":
+			_box(Rect2(-26, -12, 52, 24), Color("3a3e44"))
+			for i in 5:
+				draw_rect(Rect2(-22 + i * 9, -6, 6, 5), [Color("5ad16a"), Color("d9534f"), Color("f2c14e")][i % 3])
+			draw_rect(Rect2(-20, 3, 40, 4), Color("9ae0ff"))
+		"gear_pile":
+			for p: Vector2 in [Vector2(-8, -4), Vector2(8, 2), Vector2(-2, 8)]:
+				for k in 8:
+					draw_line(p + Vector2.from_angle(TAU * k / 8.0) * 8.0, p + Vector2.from_angle(TAU * k / 8.0) * 11.0, Color("8a8e94"), 3.0)
+				draw_circle(p, 9.0, Color("8a8e94"))
+				draw_circle(p, 3.0, Color("3a3e44"))
 		"cat_bed":
 			draw_circle(Vector2.ZERO, 18.0, OUTLINE)
 			draw_circle(Vector2.ZERO, 17.0, color)

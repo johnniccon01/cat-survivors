@@ -1129,7 +1129,7 @@ CHAIN_WHO_IS_BEHIND_5,Defeat Rex (Supermarket),Poraz Rexa (Supermarket),Poraz Re
 CHAIN_WHO_IS_BEHIND_6,Defeat the Kraken (Harbor),Poraz Krakena (Prístav),Poraz Krakena (Přístav)
 CHAIN_WHO_IS_BEHIND_1_DONE,A chip with the logo R-3000 falls out of the Vacuum King.,Z Kráľa vysávačov vypadol čip s logom R-3000.,Z Krále vysavačů vypadl čip s logem R-3000.
 CHAIN_WHO_IS_BEHIND_6_DONE,Six chips. Together they show a map – to the factory of the Robo-Vacuum 3000!,Šesť čipov. Spolu ukazujú mapu – k továrni Robo-vysávača 3000!,Šest čipů. Spolu ukazují mapu – k továrně Robo-vysavače 3000!
-CHAIN_WHO_IS_BEHIND_7,Defeat the Robo-Vacuum 3000,Poraz Robo-vysávač 3000,Poraz Robo-vysavač 3000
+CHAIN_WHO_IS_BEHIND_7,Defeat the Robo-Vacuum 3000 (Factory),Poraz Robo-vysávač 3000 (Továreň),Poraz Robo-vysavač 3000 (Továrna)
 CHAIN_WHO_IS_BEHIND_7_START,"""HAIR DETECTED. CLEANING.""",„ZISTENÝ CHLP. ČISTÍM.“,„ZJIŠTĚN CHLUP. ČISTÍM.“
 CHAIN_WHO_IS_BEHIND_7_DONE,The machine sparks and goes silent. Its remote is yours.,Stroj zaiskril a stíchol. Jeho ovládač je tvoj.,Stroj zajiskřil a ztichl. Jeho ovladač je tvůj.
 CHAIN_NIGHT_COURIER_NAME,Night Courier,Nočný kuriér,Noční kurýr
@@ -1262,3 +1262,63 @@ ACH_ENDLESS_DESC,Keep going after the dawn,Pokračuj aj po úsvite,Pokračuj i p
 SELECT_START_WEAPON,Starts with: %s,Začína so zbraňou: %s,Začíná se zbraní: %s
 SELECT_CAT_STATS,Wins: %d   ·   Best level: %d   ·   Bosses: %d,Výhry: %d   ·   Najvyšší level: %d   ·   Bossovia: %d,Výhry: %d   ·   Nejvyšší level: %d   ·   Bossové: %d
 SELECT_MAP_BEST,Longest night: %d min,Najdlhšia noc: %d min,Nejdelší noc: %d min
+STAGE_FACTORY_NAME,The Factory,Továreň,Továrna
+STAGE_FACTORY_HINT,Clear the Harbor,Prejdi Prístav,Projdi Přístav
+STORY_FACTORY_INTRO,Machines hum in the dark. This is where it all began...,V tme hučia stroje. Tu to všetko začalo...,Ve tmě hučí stroje. Tady to všechno začalo...
+ENEMY_BOLT_BUG_NAME,Bolt Bug,Šrúbikový chrobák,Šroubkový brouk
+ENEMY_BOLT_BUG_DESC,A nut that grew legs. Comes in swarms.,"Matica, ktorej narástli nohy. Chodí v rojoch.","Matka, které narostly nohy. Chodí v rojích."
+ENEMY_SPRING_BOT_NAME,Spring Bot,Pružinový robot,Pružinový robot
+ENEMY_SPRING_BOT_DESC,"Squeezes its spring, then jumps at you.",Stlačí pružinu a potom na teba skočí.,Stlačí pružinu a pak na tebe skočí.
+ENEMY_DRONE_NAME,Drone,Dron,Dron
+ENEMY_DRONE_DESC,"Hovers, aims, and dives at you.","Vznáša sa, zamieri a vrhne sa na teba.","Vznáší se, zamíří a vrhne se na tebe."
+ENEMY_WELDER_NAME,Welder,Zvárač,Svářeč
+ENEMY_WELDER_DESC,Keeps its distance and spits hot sparks.,Drží si odstup a pľuje horúce iskry.,Drží si odstup a plive horké jiskry.
+ENEMY_MINI_VAC_NAME,Mini Vacuum,Mini-vysávač,Mini-vysavač
+ENEMY_MINI_VAC_DESC,A small copy of the big one. Just as hungry for hair.,Malá kópia toho veľkého. Rovnako hladná po chlpoch.,Malá kopie toho velkého. Stejně hladová po chlupech.
+ENEMY_CRUSHER_NAME,Crusher,Drvič,Drtič
+ENEMY_CRUSHER_DESC,"Slow, heavy and very hard to stop.","Pomalý, ťažký a veľmi ťažko zastaviteľný.","Pomalý, těžký a velmi těžko zastavitelný."
+ENEMY_ASSEMBLY_ARM_NAME,The Assembly Arm,Montážna ruka,Montážní rameno
+ENEMY_ASSEMBLY_ARM_DESC,Throws spare parts with deadly precision.,Hádže náhradné diely so smrtiacou presnosťou.,Hází náhradní díly se smrtící přesností.
+ENEMY_FORGE_GOLEM_NAME,The Forge Golem,Kováčsky golem,Kovářský golem
+ENEMY_FORGE_GOLEM_DESC,Glows red hot and charges through the hall.,Žiari do červena a rúti sa halou.,Žhne do ruda a řítí se halou.
+ENEMY_PRESS_NAME,The Hydraulic Press,Hydraulický lis,Hydraulický lis
+ENEMY_PRESS_DESC,Drops crushing weights where you stand.,"Púšťa drvivé závažia tam, kde stojíš.","Pouští drtivá závaží tam, kde stojíš."
+ENEMY_DRONE_QUEEN_NAME,The Drone Queen,Kráľovná dronov,Královna dronů
+ENEMY_DRONE_QUEEN_DESC,Shoots and sends her drones after you.,Strieľa a posiela na teba svoje drony.,Střílí a posílá na tebe své drony.
+ENEMY_ROGUE_DRONE_NAME,Rogue Drone,Zblúdilý dron,Zbloudilý dron
+ENEMY_ROGUE_DRONE_DESC,Broke loose from the line. It runs – catch it!,Utrhol sa z linky. Uteká – chyť ho!,Utrhl se z linky. Utíká – chyť ho!
+CAT_BOLT_NAME,Bolt,Šrubka,Šroubek
+CAT_BOLT_DESC,"A factory cat who knows every machine. Starts with Antenna; attacks 5% more often, faster projectiles.","Továrenská mačka, ktorá pozná každý stroj. Začína s Anténou; útočí o 5 % častejšie, rýchlejšie strely.","Tovární kočka, která zná každý stroj. Začíná s Anténou; útočí o 5 % častěji, rychlejší střely."
+CAT_BOLT_HINT,Free her from the cage in the Factory.,Vysloboď ju z klietky v Továrni.,Vysvoboď ji z klece v Továrně.
+QB_FACTORY_NAME,The Factory,Továreň,Továrna
+QB_FACTORY_1,Survive 10 minutes in the Factory.,Prežiť 10 minút v Továrni.,Přežít 10 minut v Továrně.
+QB_FACTORY_2,Defeat the Robo-Vacuum 3000.,Poraziť Robo-vysávač 3000.,Porazit Robo-vysavač 3000.
+QB_FACTORY_3,Beat it with at least half of your health left.,Poraziť ho s aspoň polovicou zdravia.,Porazit ho s alespoň polovinou zdraví.
+QB_FACTORY_4,Win in the Factory 5 times.,Vyhrať v Továrni 5-krát.,Vyhrát v Továrně 5krát.
+QB_STORY_7,Find the blueprint in the Factory.,Nájdi plán v Továrni.,Najdi plán v Továrně.
+QUEST_BLUEPRINT_TITLE,The blueprint,Plán stroja,Plán stroje
+QUEST_BLUEPRINT_FIND,There's a blueprint on a workbench,Na pracovnom stole leží plán,Na pracovním stole leží plán
+QUEST_BLUEPRINT_AMBUSH,Drones! Defeat them: %d left,Drony! Poraz ich: zostáva %d,Drony! Poraz je: zbývá %d
+QUEST_BLUEPRINT_PICK,Take the blueprint,Zober plán,Vezmi plán
+QUEST_BLUEPRINT_FOUND,"""R-3000: a house with no hair at all."" So that's the plan!",„R-3000: dom úplne bez chlpov.“ Tak toto je ten plán!,„R-3000: dům úplně bez chlupů.“ Tak tohle je ten plán!
+GOAL_R3000_NAME,Hair Stays,Chlpy zostávajú,Chlupy zůstávají
+GOAL_R3000_DESC,Defeat the Robo-Vacuum 3000 in the Factory,Poraz Robo-vysávač 3000 v Továrni,Poraz Robo-vysavač 3000 v Továrně
+GOAL_SCRAP_METAL_NAME,Scrap Metal,Šrot,Šrot
+GOAL_SCRAP_METAL_DESC,Defeat 1000 Factory enemies,Poraz 1000 nepriateľov z Továrne,Poraz 1000 nepřátel z Továrny
+ARTIFACT_SPARE_PARTS_NAME,Spare Parts,Náhradné diely,Náhradní díly
+ARTIFACT_SPARE_PARTS_DESC,"Patched up and sturdy: +1 armor, +20 health.","Zalepené a pevné: +1 brnenie, +20 zdravia.","Zalepené a pevné: +1 brnění, +20 zdraví."
+ARTIFACT_OVERCLOCK_NAME,Overclock Chip,Pretaktovaný čip,Přetaktovaný čip
+ARTIFACT_OVERCLOCK_DESC,"Attacks 10% more often, faster projectiles.","Útoky o 10 % častejšie, rýchlejšie strely.","Útoky o 10 % častěji, rychlejší střely."
+CHAIN_CONVEYOR_JAM_NAME,The Jammed Line,Zaseknutá linka,Zaseknutá linka
+CHAIN_CONVEYOR_JAM_DESC,The conveyor stopped – its gears are guarded by the strongest machines.,Linka stojí – jej ozubené kolesá strážia najsilnejšie stroje.,Linka stojí – její ozubená kola hlídají nejsilnější stroje.
+CHAIN_CONVEYOR_JAM_1,Bring the four gears back to the line,Vráť štyri ozubené kolesá na linku,Vrať čtyři ozubená kola na linku
+CHAIN_CONVEYOR_JAM_1_DONE,The belts start rolling – out come some spare parts for you.,Pásy sa rozbehli – vypadli z nich náhradné diely pre teba.,Pásy se rozjely – vypadly z nich náhradní díly pro tebe.
+CHAIN_SHUTDOWN_NAME,Emergency Stop,Núdzové zastavenie,Nouzové zastavení
+CHAIN_SHUTDOWN_DESC,Shut the factory down before it builds more vacuums.,"Vypni továreň, kým nevyrobí ďalšie vysávače.","Vypni továrnu, než vyrobí další vysavače."
+CHAIN_SHUTDOWN_1,Pull the four levers in order,Stiahni štyri páky v správnom poradí,Stáhni čtyři páky ve správném pořadí
+CHAIN_SHUTDOWN_1_START,"The lights go out! Levers 1 to 4, in 100 seconds – the wrong one shocks!","Svetlá zhasli! Páky 1 až 4, za 100 sekúnd – zlá kopne!","Světla zhasla! Páky 1 až 4, za 100 sekund – špatná kopne!"
+CHAIN_SHUTDOWN_1_DONE,The machines groan and stop. For now.,Stroje zastonali a zastali. Zatiaľ.,Stroje zasténaly a zastavily. Zatím.
+CHAIN_ROGUE_DRONES_NAME,Rogue Drones,Zblúdilé drony,Zbloudilé drony
+CHAIN_ROGUE_DRONES_DESC,Three drones broke loose – with the factory's best chip inside.,Utrhli sa tri drony – a v nich najlepší čip továrne.,Utrhly se tři drony – a v nich nejlepší čip továrny.
+CHAIN_ROGUE_DRONES_1,Catch the rogue drones,Chyť zblúdilé drony,Chyť zbloudilé drony
+CHAIN_ROGUE_DRONES_1_DONE,The last drone drops its overclock chip.,Posledný dron pustil pretaktovaný čip.,Poslední dron upustil přetaktovaný čip.

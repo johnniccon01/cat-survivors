@@ -81,11 +81,11 @@ func _pick_story() -> String:
 	return story_id
 
 
-## The first quest chain with a step to play on this map tonight; stories
-## already under way come before new ones.
+## The first quest chain with a step to play on this map tonight (see
+## _chain_rank for the order).
 func _pick_chain() -> String:
 	var ids: Array = GameData.chains.keys()
-	ids.sort_custom(func(x: String, y: String) -> bool: return ChainStep.progress_of(x) > 0 and ChainStep.progress_of(y) == 0)
+	ids.sort_custom(func(x: String, y: String) -> bool: return _chain_rank(x) < _chain_rank(y))
 	for id: String in ids:
 		if ChainStep.is_done(id) or id in _chains_failed:
 			continue
@@ -104,6 +104,14 @@ func _pick_chain() -> String:
 		if stage == "any" or stage == main.spawner.stage_id:
 			return id
 	return ""
+
+
+## Stories under way first, then this map's own stories, then the ones
+## that can happen anywhere.
+func _chain_rank(id: String) -> int:
+	if ChainStep.progress_of(id) > 0:
+		return 0
+	return 2 if GameData.chains[id].get("stage", "any") == "any" else 1
 
 
 func _pick_cat() -> String:

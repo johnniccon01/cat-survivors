@@ -125,6 +125,19 @@
     },
     "unlock": "KAPITAN"
   },
+  "BOLT": {
+    "fur": "#9aa0a6",
+    "dark": "#5a6068",
+    "belly": "#d8dce0",
+    "eyes": "#5ad1e6",
+    "stripes": true,
+    "weapon": "ANTENNA",
+    "bonus": {
+      "cooldown": -0.05,
+      "proj_speed": 0.2
+    },
+    "unlock": "BOLT"
+  },
   "ANGEL": {
     "fur": "#fffaf0",
     "dark": "#e8dcc0",

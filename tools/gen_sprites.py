@@ -664,6 +664,71 @@ def enemy_canvas(shape, frame, data):
         c.poly([(3, 16), (7, 15), (6, 19)], "body"); c.poly([(25, 16), (21, 15), (22, 19)], "body")
         c.thick_line([(14, 4), (20, 1), (25, 3)], 0.6, "accent")
         c.set(12, 13, "eye"); c.set(16, 13, "eye")
+    elif shape == "nut":
+        step = frame
+        for side in (-1, 1):
+            for i in range(2):
+                c.thick_line([(14 + side * 5, 15 + i * 4), (14 + side * 9, 18 + i * 4 + (step if i else -step))], 0.6, "ink")
+        c.poly([(14, 7), (21, 11), (21, 19), (14, 23), (7, 19), (7, 11)], "body")
+        c.ellipse(14, 15, 3, 3, "ink", only=("body",))
+        c.rect(8, 11, 12, 2, "top", only=("body",))
+        c.set(11, 10, "eye"); c.set(17, 10, "eye")
+    elif shape == "spring":
+        squash = frame
+        for i in range(4):
+            y = 22 - i * (4 - squash)
+            c.ellipse(14, y, 6, 1.6, "accent")
+        c.ellipse(14, 9 + squash * 2, 7, 5, "body")
+        c.ellipse(14, 7 + squash * 2, 4, 2, "top", only=("body",))
+        c.set(11, 9 + squash * 2, "eye"); c.set(17, 9 + squash * 2, "eye")
+    elif shape == "drone":
+        spin = frame
+        for dx, dy in ((-8, -6), (8, -6), (-8, 6), (8, 6)):
+            c.thick_line([(14, 14), (14 + dx, 14 + dy)], 0.7, "ink")
+            if spin:
+                c.ellipse(14 + dx, 14 + dy, 4, 1.2, "wing")
+            else:
+                c.ellipse(14 + dx, 14 + dy, 1.2, 3.5, "wing")
+        c.ellipse(14, 14, 5, 4, "body")
+        c.ellipse(14, 13, 3, 1.5, "top", only=("body",))
+        c.set(14, 15, "eye")
+    elif shape == "welder":
+        c.rect(8, 10, 12, 13, "body")
+        c.rect(8, 10, 12, 3, "top", only=("body",))
+        c.rect(10, 4, 8, 6, "accent")
+        c.rect(11, 6, 6, 2, "ink")
+        c.set(12, 6, "eye"); c.set(15, 6, "eye")
+        c.thick_line([(20, 14), (25, 11)], 1.0, "accent")
+        if frame:
+            c.ellipse(26, 10, 2, 2, "glint")
+        for x in (10, 17):
+            c.rect(x, 23, 2, 3, "ink")
+    elif shape == "crusher":
+        bob = frame
+        c.rect(4, 8 + bob, 20, 15, "body")
+        c.rect(4, 8 + bob, 20, 4, "top", only=("body",))
+        for x in range(6, 23, 4):
+            c.rect(x, 21 + bob, 2, 3, "accent")
+        c.rect(8, 13 + bob, 12, 3, "ink")
+        c.set(10, 14 + bob, "eye"); c.set(17, 14 + bob, "eye")
+        c.rect(2, 12, 3, 8, "accent"); c.rect(23, 12, 3, 8, "accent")
+    elif shape == "arm":
+        swing = frame
+        c.ellipse(14, 22, 9, 4, "accent")
+        c.thick_line([(14, 21), (11, 12)], 2.0, "body")
+        c.thick_line([(11, 12), (19 + swing * 2, 6)], 1.6, "body")
+        c.ellipse(11, 12, 2.4, 2.4, "ink")
+        c.thick_line([(19 + swing * 2, 6), (23 + swing * 2, 3)], 0.6, "accent")
+        c.thick_line([(19 + swing * 2, 6), (24 + swing * 2, 8)], 0.6, "accent")
+        c.set(14, 19, "eye")
+    elif shape == "press":
+        drop = frame * 3
+        c.rect(3, 3, 22, 5, "accent")
+        c.rect(6, 8, 2, 12, "ink"); c.rect(20, 8, 2, 12, "ink")
+        c.rect(7, 8 + drop, 14, 8, "body")
+        c.rect(7, 8 + drop, 14, 2, "top", only=("body",))
+        c.set(11, 12 + drop, "eye"); c.set(16, 12 + drop, "eye")
+        c.rect(3, 22, 22, 3, "accent")
     elif shape == "sack":
         c.poly([(8, 9), (20, 9), (23, 24), (5, 24)], "body")
         c.rect(10, 6, 8, 4, "body")

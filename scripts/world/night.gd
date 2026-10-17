@@ -60,8 +60,18 @@ const HARBOR_KEYS := [
 	[1.0, Color(1.0, 0.93, 0.84)],
 ]
 
+## Factory: orange furnace light, then a cold machine-hall night.
+const FACTORY_KEYS := [
+	[0.0, Color(1.0, 0.88, 0.76)],
+	[0.2, Color(0.8, 0.76, 0.84)],
+	[0.4, Color(0.62, 0.64, 0.78)],
+	[0.85, Color(0.62, 0.64, 0.78)],
+	[0.95, Color(0.95, 0.8, 0.72)],
+	[1.0, Color(1.0, 0.93, 0.84)],
+]
+
 const THEME_KEYS := {"basement": BASEMENT_KEYS, "garden": GARDEN_KEYS, "rooftop": ROOFTOP_KEYS,
-	"supermarket": SUPERMARKET_KEYS, "harbor": HARBOR_KEYS}
+	"supermarket": SUPERMARKET_KEYS, "harbor": HARBOR_KEYS, "factory": FACTORY_KEYS}
 
 var spawner: Spawner
 var _keys: Array = KEYS

@@ -62,6 +62,20 @@
       "radius": 7,
       "color": "#8a5a3b",
       "accent": "#4a3a2a"
+    },
+    "TOOLBOX": {
+      "shape": "box",
+      "hp": 1,
+      "radius": 8,
+      "color": "#d9534f",
+      "accent": "#9aa0a6"
+    },
+    "OIL_DRUM": {
+      "shape": "paint_can",
+      "hp": 1,
+      "radius": 7,
+      "color": "#3a5a8a",
+      "accent": "#c9ced2"
     }
   },
   "loot": [

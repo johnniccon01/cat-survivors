@@ -155,6 +155,14 @@ func _draw() -> void:
 				draw_circle(p, 4.0, OUTLINE)
 			if trapped:
 				CatArt.draw(self, look, 1, 0.0, false, false, "sad", Vector2(0, -2))
+		"cage":
+			draw_rect(Rect2(-26, -26, 52, 44), Color(0.2, 0.2, 0.24, 0.6))
+			if trapped:
+				CatArt.draw(self, look, 1, 0.0, false, false, "sad", Vector2(0, 0))
+			for x in range(-24, 28, 8):
+				draw_line(Vector2(x, -26), Vector2(x, 18), Color("9aa0a6"), 2.0)
+			draw_rect(Rect2(-28, -30, 56, 6), Color("6a6e72"))
+			draw_rect(Rect2(-28, 16, 56, 6), Color("6a6e72"))
 		"rat_nest":
 			for i in 9:
 				var a := TAU * i / 9.0

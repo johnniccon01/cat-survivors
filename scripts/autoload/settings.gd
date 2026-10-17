@@ -6,7 +6,7 @@ extends Node
 ## its code here is all a new language needs.
 
 const PATH := "user://settings.cfg"
-const LANGUAGES: Array[String] = ["en", "sk"]
+const LANGUAGES: Array[String] = ["en", "sk", "cs"]
 
 var language := "en"
 var muted := false

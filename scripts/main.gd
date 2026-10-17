@@ -633,7 +633,7 @@ func _end_run(kind: String) -> void:
 			lines.append(tr("SUMMARY_GOLD") % [gold, roundi((mult - 1.0) * 100.0)])
 			lines.append(tr("SUMMARY_STREAK") % [Profile.streak, Profile.best_streak])
 			Audio.play("victory", -2.0, 0.0)
-			hud.show_victory(kills)
+			hud.show_victory(kills, tr("CAT_%s_NAME" % player.cat_id))
 			if Profile.clear_stage(spawner.stage_id):
 				for wid: String in GameData.weapons:
 					if GameData.weapons[wid].get("requires_stage", "") == spawner.stage_id:

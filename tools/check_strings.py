@@ -21,16 +21,17 @@ for n, row in enumerate(rows, start=2):
     if key in keys:
         problems.append("line %d: %s listed twice (also line %d)" % (n, key, keys[key]))
     keys[key] = n
-    if len(row) < 3:
-        problems.append("line %d: %s has no Slovak column" % (n, key))
+    if len(row) < len(header):
+        problems.append("line %d: %s has fewer columns than the header" % (n, key))
         continue
-    en, sk = row[1], row[2]
-    if en.strip() == "" and sk.strip() == "":
+    texts = row[1:len(header)]
+    if all(t.strip() == "" for t in texts):
         continue  # intentionally empty (e.g. a hint that says nothing)
-    if sk.strip() == "" or en.strip() == "":
-        problems.append("line %d: %s is missing a language" % (n, key))
-    if sorted(PLACEHOLDER.findall(en)) != sorted(PLACEHOLDER.findall(sk)):
-        problems.append("line %d: %s placeholders differ: %s / %s" % (n, key, PLACEHOLDER.findall(en), PLACEHOLDER.findall(sk)))
+    for lang, text in zip(header[1:], texts):
+        if text.strip() == "":
+            problems.append("line %d: %s has no %s text" % (n, key, lang))
+        if sorted(PLACEHOLDER.findall(text)) != sorted(PLACEHOLDER.findall(texts[0])):
+            problems.append("line %d: %s placeholders differ in %s: %s / %s" % (n, key, lang, PLACEHOLDER.findall(texts[0]), PLACEHOLDER.findall(text)))
 
 # Literal keys used in scripts: tr("KEY"), .text = "KEY", label("KEY", ...).
 used = set()

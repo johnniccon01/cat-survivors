@@ -44,7 +44,7 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 - [x] Príbehové questy pre každú mapu: obojok (Byt) → stará mapa (Pivnica) → kľúč pod stromom (Záhrada) → Brunov odkaz (Strecha); quest Cesta nahor
 - [x] Hudba: dlhšie skladby máp (2–2,7 min), nočná skladba od polovice noci, vlastná hudba pre každého finálneho bossa a diabla
 - [ ] Hudba: tvoja spätná väzba na skladby (ja ich nepočujem)
-- [ ] Prejsť všetky texty v slovenčine (gramatika, rod mačiek)
+- [x] Texty: neutrálne oslovenie namiesto „Prežila si / Porazil si…“, meno mačky na víťaznej obrazovke, automatická kontrola prekladov
 
 ## Fáza 2 – Nový obsah
 
@@ -76,7 +76,7 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 - [ ] Export: samostatný Windows `.exe`, otestovať na inom počítači
 - [x] Gamepad: ľavá páčka, Start, šípky, A potvrdí, B späť – overené automatickým testom (opravené: A v menu predtým nefungovalo)
 - [x] Zmena kláves pohybu v Nastaveniach (šípky a ovládač fungujú vždy), návrat na WASD
-- [ ] Viac jazykov (napr. čeština, nemčina)
+- [x] Čeština ako tretí jazyk (747 textov); ďalšie jazyky = nový stĺpec v translations.csv
 - [x] Návod pri prvej hre: tipy počas prvej noci (pohyb, zbrane, granulky, level, quest, dvierka, pauza, šampióni)
 - [x] Záloha profilu: pred každým uložením sa odloží predchádzajúca verzia; poškodený profil sa načíta zo zálohy
 

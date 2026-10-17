@@ -256,8 +256,8 @@ func hide_end_screens() -> void:
 				child.queue_free()
 
 
-func show_victory(kills: int) -> void:
-	_win_stats.text = tr("VICTORY_STATS") % kills
+func show_victory(kills: int, cat_name: String = "") -> void:
+	_win_stats.text = tr("VICTORY_STATS") % [cat_name, kills]
 	_win_overlay.visible = true
 
 

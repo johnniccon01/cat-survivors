@@ -1,748 +1,748 @@
-keys,en,sk
-LANGUAGE_NAME,English,Slovenčina
-DECIMAL_SEP,.,","
-HUD_KILLS,Defeated: %d,Porazení: %d
-PAUSE_TITLE,PAUSED,PAUZA
-PAUSE_HINT,Keyboard shortcuts:,Klávesové skratky:
-PAUSE_LANGUAGE,L – language: %s,L – jazyk: %s
-GAME_OVER_TITLE,%s gave up!,Mačka %s to zabalila!
-GAME_OVER_STATS,You survived %s and defeated %d enemies.,Prežila si %s a porazila %d nepriateľov.
-GAME_OVER_HINT,R / Enter – try again,R / Enter – skúsiť znova
-LEVEL_UP_TITLE,Level %d!,Level %d!
-TAG_NEW,NEW!,NOVÉ!
-TAG_LEVEL,Level %d,Úroveň %d
-KIND_WEAPON,Weapon,Zbraň
-KIND_PASSIVE,Upgrade,Vylepšenie
-KIND_HEAL,Food,Jedlo
-HEAL_NAME,Sardine,Sardinka
-HEAL_DESC,Restores %d health.,Doplní %d zdravia.
-STAT_DAMAGE,+%s damage,+%s poškodenie
-STAT_AMOUNT,+%s projectile,+%s projektil
-STAT_PIERCE,+%s pierce,+%s prieraz
-STAT_AREA,+%s%% area,+%s %% plocha
-STAT_SPEED,+%s%% speed,+%s %% rýchlosť
-STAT_DURATION,+%s%% duration,+%s %% trvanie
-STAT_INTERVAL,%s s cooldown,%s s cooldown
-WEAPON_SCRATCH_NAME,Scratch,Škrabanec
-WEAPON_SCRATCH_DESC,Swipes to the side the cat is facing. Passes through enemies.,"Škrabne do strany, kam sa mačka pozerá. Prechádza cez nepriateľov."
-WEAPON_YARN_NAME,Ball of Yarn,Klbko vlny
-WEAPON_YARN_DESC,Thrown at the nearest enemy.,Hodí klbko na najbližšieho nepriateľa.
-WEAPON_HAIRBALL_NAME,Hairball,Chlpáč
-WEAPON_HAIRBALL_DESC,Coughed up in an arc. Pierces several enemies.,"Vyvrhne chlpatú guľu, ktorá letí oblúkom a prerazí viac nepriateľov."
-WEAPON_CATNIP_NAME,Catnip,Šanta
-WEAPON_CATNIP_DESC,A dizzying aura that hurts nearby enemies.,Omamná aura okolo mačky zraňuje blízkych nepriateľov.
-WEAPON_FISHBONES_NAME,Fish Bones,Rybie kosti
-WEAPON_FISHBONES_DESC,Fish bones circle around the cat.,Rybie kosti krúžia okolo mačky.
-PASSIVE_MIGHT_NAME,Sharp Claws,Ostré pazúry
-PASSIVE_MIGHT_DESC,+10% damage for all weapons.,+10 % poškodenie všetkých zbraní.
-PASSIVE_SPEED_NAME,Quick Paws,Rýchle labky
-PASSIVE_SPEED_DESC,+10% movement speed.,+10 % rýchlosť pohybu.
-PASSIVE_MAXHP_NAME,Bowl of Milk,Miska mlieka
-PASSIVE_MAXHP_DESC,+20 max health.,+20 maximálne zdravie.
-PASSIVE_COOLDOWN_NAME,Catnap,Šlofík
-PASSIVE_COOLDOWN_DESC,Weapons attack 8% more often.,Zbrane útočia o 8 % častejšie.
-PASSIVE_AREA_NAME,Fluffy Tail,Huňatý chvost
-PASSIVE_AREA_DESC,+10% attack area.,+10 % plocha útokov.
-PASSIVE_MAGNET_NAME,Sensitive Whiskers,Citlivé fúzy
-PASSIVE_MAGNET_DESC,Pick up kibble from further away.,Granule priťahuješ z väčšej diaľky.
-PASSIVE_AMOUNT_NAME,Kittens,Mačiatka
-PASSIVE_AMOUNT_DESC,+1 projectile for all weapons.,+1 projektil pre všetky zbrane.
-PASSIVE_REGEN_NAME,Can of Tuna,Konzerva tuniaka
-PASSIVE_REGEN_DESC,Recovers 0.3 HP per second.,"Obnovuje 0,3 HP za sekundu."
-PASSIVE_ARMOR_NAME,Collar,Obojok
-PASSIVE_ARMOR_DESC,Take 1 less damage from every hit.,Každý zásah ťa zraní o 1 menej.
-TREASURE_TITLE,Treasure!,Poklad!
-TREASURE_HINT,Press any key to continue,Pokračuj ľubovoľným klávesom
-TREASURE_EVOLVED,EVOLVED!,EVOLÚCIA!
-BOSS_WARNING,A boss approaches!,Blíži sa boss!
-VICTORY_TITLE,Morning has come!,Nastalo ráno!
-VICTORY_STATS,Mica survived the night and defeated %d enemies.,Mica prežila noc a porazila %d nepriateľov.
-VICTORY_HINT,R / Enter – play again,R / Enter – hrať znova
-WEAPON_TIGER_CLAWS_NAME,Tiger Claws,Tigrie pazúry
-WEAPON_TIGER_CLAWS_DESC,"Evolved Scratch: rips both sides at once, hard.","Evolúcia Škrabanca: trhá na obe strany naraz, poriadne."
-WEAPON_YARN_STORM_NAME,Yarn Storm,Vlnená búrka
-WEAPON_YARN_STORM_DESC,Evolved Ball of Yarn: a constant barrage of piercing yarn.,Evolúcia Klbka: neustála paľba prierazných klbiek.
-WEAPON_FURBALL_COMET_NAME,Furball Comet,Chlpatá kométa
-WEAPON_FURBALL_COMET_DESC,Evolved Hairball: huge furballs that never stop.,"Evolúcia Chlpáča: obrovské chumáče, ktoré nič nezastaví."
-WEAPON_CATNIP_GARDEN_NAME,Catnip Garden,Šantová záhrada
-WEAPON_CATNIP_GARDEN_DESC,Evolved Catnip: a huge aura that also heals the cat.,"Evolúcia Šanty: obrovská aura, ktorá mačku aj lieči."
-WEAPON_BONE_CAROUSEL_NAME,Bone Carousel,Kostený kolotoč
-WEAPON_BONE_CAROUSEL_DESC,Evolved Fish Bones: six bones that never stop spinning.,"Evolúcia Rybích kostí: šesť kostí, ktoré sa točia bez prestávky."
-EVOLVE_HINT,Evolves with %s + a boss chest.,S pasívkou %s a truhlicou z bossa sa vyvinie.
-EVOLVE_PAIR,Can evolve %s.,Umožní evolúciu: %s.
-WEAPON_LASER_NAME,Laser Pointer,Laserové ukazovátko
-WEAPON_LASER_DESC,Fires a beam at a random enemy that hits everything in its path.,"Vystrelí lúč na náhodného nepriateľa, zasiahne všetko v ceste."
-WEAPON_MILK_NAME,Spilled Milk,Rozliate mlieko
-WEAPON_MILK_DESC,Spills puddles that hurt enemies standing in them.,"Rozlieva mláky, ktoré zraňujú nepriateľov, čo v nich stoja."
-WEAPON_BELL_NAME,Bell,Zvonček
-WEAPON_BELL_DESC,Rings a shockwave that knocks enemies far back.,"Zazvoní a vyšle vlnu, ktorá nepriateľov odhodí ďaleko."
-WEAPON_FEATHER_NAME,Feather Toy,Pierková hračka
-WEAPON_FEATHER_DESC,Flies out like a boomerang and comes back.,Letí ako bumerang a vracia sa späť.
-WEAPON_DISCO_LASER_NAME,Disco Laser,Disko laser
-WEAPON_DISCO_LASER_DESC,Evolved Laser Pointer: a rainbow storm of beams.,Evolúcia ukazovátka: dúhová búrka lúčov.
-WEAPON_MILK_LAKE_NAME,Milk Lake,Mliečne jazero
-WEAPON_MILK_LAKE_DESC,Evolved Spilled Milk: huge lasting puddles everywhere.,"Evolúcia mlieka: obrovské mláky, ktoré dlho vydržia."
-WEAPON_THUNDER_BELL_NAME,Thunder Bell,Hromový zvon
-WEAPON_THUNDER_BELL_DESC,Evolved Bell: massive double shockwaves.,Evolúcia zvončeka: mohutné dvojité vlny.
-WEAPON_PHOENIX_FEATHER_NAME,Phoenix Feather,Fénixovo pero
-WEAPON_PHOENIX_FEATHER_DESC,Evolved Feather Toy: four blazing boomerangs.,Evolúcia pierka: štyri planúce bumerangy.
-CAT_MICA_NAME,Mica,Mica
-CAT_LUNA_NAME,Luna,Luna
-CAT_SNOWBALL_NAME,Snowball,Snehulka
-CAT_PIP_NAME,Pip,Mrňa
-CAT_TIGER_NAME,Tiger,Tiger
-CAT_BARON_NAME,Baron,Barón
-CAT_MICA_DESC,A brave ginger tabby. Starts with Scratch.,Statočná ryšavá mačka. Začína so Škrabancom.
-CAT_LUNA_DESC,A black cat of the night. Starts with Ball of Yarn; attacks 10% more often.,Čierna mačka noci. Začína s Klbkom; útočí o 10 % častejšie.
-CAT_SNOWBALL_DESC,A fluffy white cloud. Starts with Fish Bones; +15% area.,Chlpatý biely obláčik. Začína s Rybími kosťami; +15 % plocha.
-CAT_PIP_DESC,A tiny fast kitten. Starts with Feather Toy; faster and better magnet.,Malé rýchle mačiatko. Začína s Pierkom; rýchlejšie a s lepším magnetom.
-CAT_TIGER_DESC,The tough boss of the yard. Starts with Bell; +40 max health.,Tvrdý šéf dvora. Začína so Zvončekom; +40 zdravia.
-CAT_BARON_DESC,A posh Siamese. Starts with Laser Pointer; +15% damage.,Nafúkaný siamský aristokrat. Začína s laserom; +15 % poškodenie.
-CAT_LUNA_HINT,Rescue her from the box fort.,Zachráň ju z krabicovej pevnosti.
-CAT_SNOWBALL_HINT,Rescue her from the laundry basket.,Zachráň ju z koša na prádlo.
-CAT_PIP_HINT,Rescue it from under the bed.,Zachráň ho spod postele.
-CAT_TIGER_HINT,Beat him in a duel on his turf.,Poraz ho v súboji na jeho revíri.
-CAT_BARON_HINT,Beat him in a duel on his cushion.,Poraz ho v súboji na jeho vankúši.
-QUEST_NEW,New quest: %s,Nová úloha: %s
-QUEST_DONE,Quest complete!,Úloha splnená!
-QUEST_FAILED,Quest failed,Úloha zlyhala
-QUEST_JOINED,%s joined you!,%s sa k tebe pridáva!
-QUEST_UNLOCKED,New cat unlocked: %s,Nová mačka odomknutá: %s
-QUEST_RESCUE_TITLE,Rescue %s,Zachráň: %s
-QUEST_RESCUE_FIND,Find %s (follow the arrow),Nájdi: %s (sleduj šípku)
-QUEST_RESCUE_GUARDS,Defeat the guards: %d left,Poraz strážcov: zostáva %d
-QUEST_RESCUE_FREE,Stay close to free %s,Zostaň blízko a osloboď: %s
-QUEST_DUEL_TITLE,Duel: %s,Súboj: %s
-QUEST_DUEL_FIND,Find the turf of %s,Nájdi revír: %s
-QUEST_DUEL_FIGHT,Defeat %s,Poraz: %s
-QUEST_DUEL_CHALLENGE,%s challenges you!,%s ťa vyzýva na súboj!
-QUEST_BOWL_TITLE,Guard the food bowl,Ubráň misku
-QUEST_BOWL_FIND,Find the food bowl,Nájdi misku s jedlom
-QUEST_BOWL_HOLD,Stay by the bowl: %d s,Zostaň pri miske: %d s
-QUEST_DOT_TITLE,The red dot,Červená bodka
-QUEST_DOT_FIND,Find the laser pointer,Nájdi laserové ukazovátko
-QUEST_DOT_CATCH,Catch the dot: %d/%d (%d s),Chyť bodku: %d/%d (%d s)
-QUEST_FRIDGE_TITLE,Midnight snack,Polnočná desiata
-QUEST_FRIDGE_FIND,Find the fridge,Nájdi chladničku
-QUEST_FRIDGE_OPEN,Stay by the fridge to open it,Zostaň pri chladničke a otvor ju
-QUEST_FRIDGE_FIGHT,Defeat the leftovers: %d left,Poraz zvyšky: zostáva %d
-SELECT_TITLE,Choose your cat,Vyber si mačku
-SELECT_HINT,← → cat · ↑ ↓ map · Enter start · U upgrades · C charms · X challenges · Q / G / J journal · Esc menu,← → mačka · ↑ ↓ mapa · Enter štart · U vylepšenia · C prívesky · X výzvy · Q / G / J denník · Esc menu
-SELECT_LOCKED,???,???
-GAME_OVER_MENU,Esc – change cat,Esc – zmeniť mačku
-QUEST_RESCUE_ESCORT,Walk %s to the safe cat bed,Odprevaď: %s do bezpečného pelechu
-QUEST_RESCUE_REVIVE,%s is down! Stay close to help,%s padla! Postoj pri nej a pomôž
-FINAL_BOSS_WARNING,%s awakens!,%s sa prebúdza!
-ENEMY_VACUUM_KING_NAME,The Vacuum King,Kráľ vysávačov
-SELECT_STAGE,Map:,Mapa:
-STAGE_LIVING_ROOM_NAME,The Apartment,Byt
-STAGE_BASEMENT_NAME,The Basement,Pivnica
-STAGE_LIVING_ROOM_HINT,,
-STAGE_BASEMENT_HINT,Defeat the Vacuum King,Poraz Kráľa vysávačov
-STAGE_UNLOCKED,New map unlocked: %s!,Nová mapa odomknutá: %s!
-ENEMY_RAT_KING_NAME,The Rat King,Potkaní kráľ
-QUEST_COLLAR_TITLE,Strange noises by the door,Čudné zvuky pri dverách
-QUEST_COLLAR_FIND,Check the front door,Pozri sa k vchodovým dverám
-QUEST_COLLAR_AMBUSH,Rats! Defeat them: %d left,Potkany! Poraz ich: zostáva %d
-QUEST_COLLAR_PICK,Pick up the collar,Zober obojok
-QUEST_COLLAR_FOUND,"Luna's collar! Rat tracks lead down to the basement...","Lunin obojok! Potkanie stopy vedú dolu do pivnice..."
-STORY_BASEMENT_COLLAR,Luna's scent is everywhere down here. The rats have her!,Lunin pach je tu všade. Potkany ju majú!
-STORY_BASEMENT_INTRO,Something is squeaking in the dark...,V tme niečo piští...
-PAUSE_SOUND,M – sound: %s,M – zvuk: %s
-SOUND_ON,on,zapnutý
-SOUND_OFF,off,vypnutý
-SELECT_GOLD,Gold: %d,Zlato: %d
-HUD_GOLD,Gold: %d,Zlato: %d
-GOLD_EARNED,+%d gold (total %d),+%d zlata (spolu %d)
-SHOP_TITLE,Upgrades,Vylepšenia
-SHOP_GOLD,Gold: %d,Zlato: %d
-SHOP_MAX,MAX,MAX
-SHOP_HINT,Arrows choose · Enter buy · Backspace refund all · U / Esc back,Šípky výber · Enter kúpiť · Backspace vrátiť všetko · U / Esc späť
-POWERUP_MIGHT_NAME,Might,Sila
-POWERUP_MIGHT_DESC,+5% damage per rank.,+5 % poškodenie za stupeň.
-POWERUP_ARMOR_NAME,Armor,Brnenie
-POWERUP_ARMOR_DESC,Every hit hurts 1 less per rank.,Každý zásah zraní o 1 menej za stupeň.
-POWERUP_MAX_HEALTH_NAME,Max Health,Zdravie
-POWERUP_MAX_HEALTH_DESC,+10 max health per rank.,+10 maximálne zdravie za stupeň.
-POWERUP_RECOVERY_NAME,Recovery,Regenerácia
-POWERUP_RECOVERY_DESC,Recover 0.1 HP per second per rank.,"Obnova 0,1 HP za sekundu za stupeň."
-POWERUP_COOLDOWN_NAME,Cooldown,Cooldown
-POWERUP_COOLDOWN_DESC,Weapons attack 2.5% faster per rank.,"Zbrane útočia o 2,5 % rýchlejšie za stupeň."
-POWERUP_AREA_NAME,Area,Plocha
-POWERUP_AREA_DESC,+5% attack area per rank.,+5 % plocha útokov za stupeň.
-POWERUP_MOVE_SPEED_NAME,Move Speed,Rýchlosť
-POWERUP_MOVE_SPEED_DESC,+5% movement speed per rank.,+5 % rýchlosť pohybu za stupeň.
-POWERUP_MAGNET_NAME,Magnet,Magnet
-POWERUP_MAGNET_DESC,Pick up kibble from further away.,Granule priťahuješ z väčšej diaľky.
-POWERUP_GROWTH_NAME,Growth,Rast
-POWERUP_GROWTH_DESC,+3% experience per rank.,+3 % skúseností za stupeň.
-POWERUP_GREED_NAME,Greed,Chamtivosť
-POWERUP_GREED_DESC,+10% gold per rank.,+10 % zlata za stupeň.
-POWERUP_REVIVAL_NAME,Revival,Oživenie
-POWERUP_REVIVAL_DESC,Come back once with half health after dying.,Po smrti sa raz vrátiš s polovicou zdravia.
-POWERUP_REROLL_NAME,Reroll,Prehodenie
-POWERUP_REROLL_DESC,Press R on the level-up screen to get new offers (once per rank each run).,Na level-up obrazovke stlač R a dostaneš nové ponuky (raz za stupeň v každej hre).
-POWERUP_CURSE_NAME,Curse,Kliatba
-POWERUP_CURSE_DESC,"Harder runs: enemies are 10% tougher, faster and more numerous per rank, but you get 10% more gold.","Ťažšia hra: nepriatelia sú o 10 % silnejší, rýchlejší a početnejší za stupeň, ale dostaneš o 10 % viac zlata."
-LEVELUP_REROLL,R – reroll (%d left),R – prehodiť ponuku (zostáva %d)
-REVIVED,Revived!,Oživenie!
-EVENT_RING,Surrounded!,Obkľúčenie!
-EVENT_SWARM,A swarm is coming!,Blíži sa roj!
-EXTRACT_OPEN,A cat flap opened! Escape through it (60 s),Otvorili sa mačacie dvierka! Uteč nimi (60 s)
-EXTRACT_CLOSED,The cat flap closed,Mačacie dvierka sa zavreli
-EXTRACT_TRACKER,Cat flap: %d s,Mačacie dvierka: %d s
-EXTRACT_TITLE,You slipped out!,Mačka ušla!
-EXTRACT_STATS,You escaped after %s with %d enemies defeated.,Utiekla si po %s a porazila %d nepriateľov.
-SUMMARY_GOLD,+%d gold (streak bonus +%d %%),+%d zlata (bonus série +%d %%)
-SUMMARY_GOLD_DEATH,+%d gold (half of %d – the rest is lost),+%d zlata (polovica z %d – zvyšok prepadol)
-SUMMARY_STREAK,Streak: %d (best %d),Séria: %d (rekord %d)
-SUMMARY_STREAK_LOST,Streak of %d lost!,Séria %d je preč!
-SUMMARY_TOTAL,Total gold: %d,Spolu zlata: %d
-SELECT_STREAK,Streak %d (best %d) +%d %% gold,Séria %d (rekord %d) +%d %% zlata
-HUD_CHARMS,Charms: %d (escape to keep),Prívesky: %d (uteč a ponecháš si ich)
-CHARM_FOUND,Charm found: %s! Escape or win to keep it,Nájdený prívesok: %s! Uteč alebo vyhraj a ponecháš si ho
-SUMMARY_CHARMS_LOST,Charms lost: %s,Stratené prívesky: %s
-SUMMARY_CHARMS_KEPT,Charms brought home: %s,Prívesky prinesené domov: %s
-SUMMARY_CHARMS_DUPES,+%d gold for charms you already had,"+%d zlata za prívesky, ktoré už máš"
-SELECT_CHARMS,Charms: %s,Prívesky: %s
-CHARMS_TITLE,Collar charms,Prívesky na obojok
-CHARMS_EQUIPPED,Worn: %d / %d,Nasadené: %d / %d
-CHARMS_HINT,Arrows choose · Enter wear / take off · C / Esc back,Šípky výber · Enter nasadiť / zložiť · C / Esc späť
-CHARMS_UNKNOWN,"Not found yet. Charms drop from elites, bosses and quests – escape or win to bring them home.","Ešte nenájdený. Prívesky padajú z elít, bossov a questov – uteč alebo vyhraj a prinesieš ich domov."
-RARITY_COMMON,Common,Bežný
-RARITY_RARE,Rare,Vzácny
-RARITY_EPIC,Epic,Epický
-CHARM_FISH_BONE_NAME,Fish Bone,Rybacia kosť
-CHARM_FISH_BONE_DESC,+10% damage,+10 % poškodenie
-CHARM_MOUSE_TAIL_NAME,Mouse Tail,Myší chvost
-CHARM_MOUSE_TAIL_DESC,+8% movement speed,+8 % rýchlosť pohybu
-CHARM_MILK_TOOTH_NAME,Milk Tooth,Mliečny zúbok
-CHARM_MILK_TOOTH_DESC,+20 max health,+20 maximálne zdravie
-CHARM_YARN_KNOT_NAME,Yarn Knot,Uzlík vlny
-CHARM_YARN_KNOT_DESC,+10% attack area,+10 % plocha útokov
-CHARM_GOLD_WHISKER_NAME,Golden Whisker,Zlatý fúz
-CHARM_GOLD_WHISKER_DESC,+15% gold,+15 % zlata
-CHARM_SARDINE_TIN_NAME,Sardine Tin,Plechovka sardiniek
-CHARM_SARDINE_TIN_DESC,Recover 0.3 HP per second,"Obnova 0,3 HP za sekundu"
-CHARM_MAGNET_PAW_NAME,Magnet Paw,Magnetická labka
-CHARM_MAGNET_PAW_DESC,Pick up kibble from further away,Granule priťahuješ z väčšej diaľky
-CHARM_LUCKY_BELL_NAME,Lucky Bell,Zvonček šťastia
-CHARM_LUCKY_BELL_DESC,+1 reroll on level-ups,+1 prehodenie ponuky v level-upe
-CHARM_CATNIP_LEAF_NAME,Catnip Leaf,Lístok šanty
-CHARM_CATNIP_LEAF_DESC,Weapons attack 6% faster,Zbrane útočia o 6 % rýchlejšie
-CHARM_STAR_COLLAR_NAME,Star Collar,Hviezdny obojok
-CHARM_STAR_COLLAR_DESC,+8% experience,+8 % skúseností
-CHARM_IRON_TAG_NAME,Iron Tag,Železná známka
-CHARM_IRON_TAG_DESC,Every hit hurts 1 less,Každý zásah zraní o 1 menej
-CHARM_NINTH_LIFE_NAME,Ninth Life,Deviaty život
-CHARM_NINTH_LIFE_DESC,Come back once after dying,Po smrti sa raz vrátiš
-CHARM_TWIN_KITTEN_NAME,Twin Kitten,Mačacie dvojča
-CHARM_TWIN_KITTEN_DESC,+1 projectile for all weapons,+1 projektil pre všetky zbrane
-BREATHER,Boss down – catch your breath!,Boss porazený – vydýchni si!
-GOALS_TITLE,Goals,Ciele
-GOALS_HINT,Arrows / wheel scroll · G / Esc – back,Šípky / koliesko posúvajú · G / Esc – späť
-GOAL_DONE,Goal complete: %s! (%s),Cieľ splnený: %s! (%s)
-GOAL_REWARD_GOLD,%d gold,%d zlata
-GOAL_REWARD_CHARM,Charm: %s,Prívesok: %s
-GOAL_FIRST_ESCAPE_NAME,First Escape,Prvý útek
-GOAL_FIRST_ESCAPE_DESC,Escape through a cat flap,Uteč mačacími dvierkami
-GOAL_SOCK_HUNTER_NAME,Sock Hunter,Lovec ponožiek
-GOAL_SOCK_HUNTER_DESC,Defeat 1000 socks,Poraz 1000 ponožiek
-GOAL_DUST_BUSTER_NAME,Dust Buster,Vysávač prachu
-GOAL_DUST_BUSTER_DESC,Defeat 500 dust bunnies,Poraz 500 chumáčov prachu
-GOAL_BUBBLE_POPPER_NAME,Bubble Popper,Prepichovač bublín
-GOAL_BUBBLE_POPPER_DESC,Pop 500 soap bubbles,Prasknúť 500 mydlových bublín
-GOAL_RAT_CATCHER_NAME,Rat Catcher,Lapač potkanov
-GOAL_RAT_CATCHER_DESC,Defeat 1000 rats,Poraz 1000 potkanov
-GOAL_BOSS_SLAYER_NAME,Boss Slayer,Premožiteľ bossov
-GOAL_BOSS_SLAYER_DESC,Defeat 10 bosses,Poraz 10 bossov
-GOAL_QUESTER_NAME,Busy Cat,Zaneprázdnená mačka
-GOAL_QUESTER_DESC,Complete 20 quests,Splň 20 questov
-GOAL_TRAP_MASTER_NAME,Trap Master,Majster pascí
-GOAL_TRAP_MASTER_DESC,Let traps defeat 200 enemies,Nechaj pasce poraziť 200 nepriateľov
-GOAL_ESCAPE_ARTIST_NAME,Escape Artist,Majster úniku
-GOAL_ESCAPE_ARTIST_DESC,Escape 10 times,Uteč 10-krát
-GOAL_STREAK_3_NAME,On a Roll,Na vlne
-GOAL_STREAK_3_DESC,Reach a streak of 3,Dosiahni sériu 3
-GOAL_STREAK_5_NAME,Unstoppable,Nezastaviteľná
-GOAL_STREAK_5_DESC,Reach a streak of 5,Dosiahni sériu 5
-GOAL_SURVIVOR_NAME,Survivor,Preživšia
-GOAL_SURVIVOR_DESC,Last 15 minutes in one night,Vydrž 15 minút v jednej noci
-GOAL_VACUUM_KING_NAME,Dethroned,Zosadený kráľ
-GOAL_VACUUM_KING_DESC,Defeat the Vacuum King,Poraz Kráľa vysávačov
-GOAL_RAT_KING_NAME,Pied Piper,Krysař
-GOAL_RAT_KING_DESC,Defeat the Rat King,Poraz Potkanieho kráľa
-GOAL_CAT_LOVER_NAME,Cat Lover,Milovník mačiek
-GOAL_VETERAN_NAME,Veteran,Veterán
-GOAL_VETERAN_DESC,Play 25 nights,Odohraj 25 nocí
-GOAL_TEN_THOUSAND_NAME,Ten Thousand,Desaťtisíc
-GOAL_TEN_THOUSAND_DESC,Defeat 10000 enemies,Poraz 10000 nepriateľov
-PAUSE_NUMBERS,N – damage numbers: %s,N – čísla poškodenia: %s
-PAUSE_SHAKE,K – screen shake: %s,K – otrasy obrazovky: %s
-PASSIVE_LUCK_NAME,Lucky Cat,Mačka šťastia
-PASSIVE_LUCK_DESC,"+10% luck: more crits, bigger chests, more drops, sometimes a 4th card.","+10 % šťastie: viac kritických zásahov, väčšie truhlice, viac predmetov, občas 4. karta."
-POWERUP_LUCK_NAME,Luck,Šťastie
-POWERUP_LUCK_DESC,"+10% luck per rank: crits, chests, drops and a chance of a 4th level-up card.","+10 % šťastie za stupeň: kritické zásahy, truhlice, predmety a šanca na 4. kartu."
-MENU_TAGLINE,One cat. One night. Way too many socks.,Jedna mačka. Jedna noc. Priveľa ponožiek.
-MENU_PLAY,Play,Hrať
-MENU_UPGRADES,Upgrades,Vylepšenia
-MENU_CHARMS,Charms,Prívesky
-MENU_GOALS,Goals,Ciele
-MENU_SETTINGS,Settings,Nastavenia
-MENU_QUIT,Quit,Koniec
-SETTINGS_TITLE,Settings,Nastavenia
-SET_MASTER,Master volume,Celková hlasitosť
-SET_MUSIC,Music,Hudba
-SET_SFX,Sound effects,Zvukové efekty
-SET_FULLSCREEN,Fullscreen,Celá obrazovka
-SET_VSYNC,VSync,VSync
-SET_NUMBERS,Damage numbers,Čísla poškodenia
-SET_SHAKE,Screen shake,Otrasy obrazovky
-SET_LANGUAGE,Language,Jazyk
-SET_BACK,Back,Späť
-PAUSE_RESUME,Resume,Pokračovať
-PAUSE_GIVE_UP,Give up (counts as death),Vzdať sa (ako smrť)
-SET_SOUND,Sound,Zvuk
-STAGE_GARDEN_NAME,The Garden,Záhrada
-STAGE_GARDEN_HINT,Defeat the Rat King,Poraz Potkanieho kráľa
-STAGE_ROOFTOP_NAME,The Rooftop,Strecha
-ENEMY_LAWNMOWER_NAME,The Lawnmower,Kosačka
-ENEMY_PIGEON_EMPEROR_NAME,The Pigeon Emperor,Holubí cisár
-STORY_GARDEN_INTRO,Fresh air at last... but something is buzzing in the flowerbeds.,Konečne čerstvý vzduch... ale v záhonoch niečo bzučí.
-GOAL_LAWNMOWER_NAME,Lawn Keeper,Strážca trávnika
-GOAL_LAWNMOWER_DESC,Defeat the Lawnmower,Poraz Kosačku
-GOAL_BUG_SWATTER_NAME,Bug Swatter,Plácačka
-GOAL_BUG_SWATTER_DESC,Defeat 1000 bees,Poraz 1000 včiel
-GOAL_BIRD_WATCHER_NAME,Bird Watcher,Ornitológ
-GOAL_BIRD_WATCHER_DESC,Defeat 1000 birds,Poraz 1000 vtákov
-GOAL_CAT_LOVER_DESC,Unlock all 8 cats,Odomkni všetkých 8 mačiek
-GOAL_BRUNO_NAME,Top Cat,Kráľ strechy
-GOAL_BRUNO_DESC,Defeat Bruno on the rooftop,Poraz Bruna na streche
-STAGE_ROOFTOP_HINT,Clear the Garden,Prejdi Záhradu
-STORY_ROOFTOP_INTRO,The whole city below. They say a huge tomcat rules these roofs...,Celé mesto pod labkami. Vraj tieto strechy ovláda obrovský kocúr...
-CAT_CLOVER_NAME,Clover,Ďatelinka
-CAT_CLOVER_DESC,A lucky tuxedo cat from the garden. Starts with Catnip; +20% luck.,Šťastná mačka vo fraku zo záhrady. Začína so Šantou; +20 % šťastie.
-CAT_CLOVER_HINT,Rescue her from the garden shed.,Zachráň ju zo záhradnej búdy.
-CAT_BRUNO_NAME,Bruno,Bruno
-CAT_BRUNO_DESC,"The huge tomcat who ruled the rooftops. Starts with Hairball; +20% damage, +20 health.","Obrovský kocúr, pán striech. Začína s Chlpáčom; +20 % poškodenie, +20 zdravia."
-CAT_BRUNO_HINT,Defeat him on the rooftop.,Poraz ho na streche.
-CAT_ANGEL_NAME,Angel Cat,Anjel mačka
-CAT_DEVIL_NAME,Devil Cat,Diabol mačka
-ENEMY_RIVAL_BRUNO_NAME,"Bruno, King of the Rooftops","Bruno, kráľ striech"
-ENEMY_DEVIL_CAT_NAME,The Devil Cat,Diabol mačka
-ANGEL_SAVED,An angel cat came down and saved you!,Zostúpila anjel mačka a zachránila ťa!
-DEVIL_COMING,The angel came twice... something dark has noticed you.,Anjel prišiel dvakrát... všimlo si ťa niečo temné.
-DEVIL_WEAK,The Devil Cat weakens! Now it can be hurt.,Diabol mačka slabne! Teraz sa dá zraniť.
-DEVIL_SLAIN,You defeated the Devil Cat!,Porazil si Diabol mačku!
-SUMMARY_CAT_UNLOCKED,New cat unlocked: %s,Nová mačka odomknutá: %s
-ANGEL_FALLEN,The cat has fallen...,Mačka padla...
-DEVIL_TOOK,The Devil Cat took %s...,Diabol mačka si odniesla mačku %s...
-WEAPON_MOUSE_TOY_NAME,Wind-up Mouse,Myška na kľúčik
-WEAPON_MOUSE_TOY_DESC,Lets wind-up mice loose that bump through enemies.,"Vypúšťa naťahovacie myšky, ktoré narážajú do nepriateľov."
-WEAPON_ROBO_MOUSE_NAME,Robo-Mouse,Robomyš
-WEAPON_ROBO_MOUSE_DESC,Evolved Wind-up Mouse: mice hunt enemies down and explode.,Evolúcia myšky: myšky prenasledujú nepriateľov a vybuchnú.
-WEAPON_COBWEB_NAME,Cobweb,Pavučina
-WEAPON_COBWEB_DESC,Throws sticky webs that slow and hurt enemies.,"Hádže lepkavé siete, ktoré spomaľujú a zraňujú nepriateľov."
-WEAPON_SILK_TRAP_NAME,Silk Trap,Hodvábna pasca
-WEAPON_SILK_TRAP_DESC,Evolved Cobweb: huge webs that hold enemies in place.,"Evolúcia pavučiny: obrovské siete, ktoré nepriateľov zastavia."
-WEAPON_SPRINKLER_NAME,Sprinkler,Kropič
-WEAPON_SPRINKLER_DESC,Spins water jets around you that push enemies back.,"Točí okolo teba prúdy vody, ktoré odhadzujú nepriateľov."
-WEAPON_MONSOON_NAME,Monsoon,Monzún
-WEAPON_MONSOON_DESC,"Evolved Sprinkler: never stops, four strong jets.","Evolúcia kropiča: nikdy neprestane, štyri silné prúdy."
-WEAPON_ANTENNA_NAME,Antenna,Anténa
-WEAPON_ANTENNA_DESC,A spark that jumps from enemy to enemy.,"Iskra, ktorá preskakuje z nepriateľa na nepriateľa."
-WEAPON_STORM_ANTENNA_NAME,Storm Antenna,Búrková anténa
-WEAPON_STORM_ANTENNA_DESC,Evolved Antenna: forked lightning that also shocks around every hit.,"Evolúcia antény: rozvetvený blesk, ktorý zasiahne aj okolie."
-PASSIVE_DURATION_NAME,Long Nap,Dlhý spánok
-PASSIVE_DURATION_DESC,+10% duration of weapon effects.,+10 % trvanie efektov zbraní.
-PASSIVE_PROJ_SPEED_NAME,Quick Toss,Rýchly hod
-PASSIVE_PROJ_SPEED_DESC,+10% projectile speed.,+10 % rýchlosť projektilov.
-SUMMARY_WEAPON_UNLOCKED,New weapon unlocked: %s,Nová zbraň odomknutá: %s
-CHARM_CLOVER_LEAF_NAME,Four-leaf Clover,Štvorlístok
-CHARM_CLOVER_LEAF_DESC,+12% luck,+12 % šťastie
-CHARM_SPIDER_SILK_NAME,Spider Silk,Pavúčie vlákno
-CHARM_SPIDER_SILK_DESC,+12% duration of weapon effects,+12 % trvanie efektov zbraní
-CHARM_WIND_FEATHER_NAME,Wind Feather,Pierko vetra
-CHARM_WIND_FEATHER_DESC,+15% projectile speed,+15 % rýchlosť projektilov
-CHARM_CRESCENT_MOON_NAME,Crescent Moon,Polmesiac
-CHARM_CRESCENT_MOON_DESC,+5% critical hit chance,+5 % šanca na kritický zásah
-CHARM_GOLDEN_FANG_NAME,Golden Fang,Zlatý tesák
-CHARM_GOLDEN_FANG_DESC,Critical hits deal +30% more,Kritické zásahy o 30 % silnejšie
-GOAL_GNOME_TOPPLER_NAME,Gnome Toppler,Kolkár
-GOAL_GNOME_TOPPLER_DESC,Defeat 300 garden gnomes,Poraz 300 záhradných trpaslíkov
-GOAL_WEB_WEAVER_NAME,Web Weaver,Tkáč sietí
-GOAL_WEB_WEAVER_DESC,Defeat 500 spiders,Poraz 500 pavúkov
-GOAL_FROG_PRINCE_NAME,Frog Prince,Žabí princ
-GOAL_FROG_PRINCE_DESC,Defeat 200 frogs,Poraz 200 žiab
-GOAL_STORM_CHASER_NAME,Storm Chaser,Lovec búrok
-GOAL_STORM_CHASER_DESC,Defeat 200 diving gulls,Poraz 200 útočných čajok
-GOAL_NIGHT_OWL_NAME,Night Owl,Nočná sova
-GOAL_NIGHT_OWL_DESC,Survive a whole night (20 minutes),Prežiť celú noc (20 minút)
-GOAL_BOSS_HUNTER_NAME,Boss Hunter,Lovec bossov
-GOAL_BOSS_HUNTER_DESC,Defeat 50 bosses,Poraz 50 bossov
-MENU_QUESTBOOK,Quest book,Kniha questov
-QB_TITLE,Quest book,Kniha questov
-QB_HINT,Arrows / wheel scroll · Q / Esc – back,Šípky / koliesko posúvajú · Q / Esc – späť
-QB_CHAPTER_MAIN,The cat's life,Mačací život
-QB_CHAPTER_MAPS,Places,Miesta
-QB_CHAPTER_STORY,Secrets,Tajomstvá
-QB_SECRET,??? – a secret not yet discovered,"??? – tajomstvo, ktoré si ešte neodhalil"
-QB_DONE,All steps done!,Všetky kroky splnené!
-QB_STEP,Step %d/%d,Krok %d/%d
-QB_REWARD_CAT,New cat: %s,Nová mačka: %s
-QB_COMPLETED,Quest: %s (step %d) – %s,Quest: %s (krok %d) – %s
-PAGE_APPEARED,Something rustles nearby... a diary page!,Niečo neďaleko zašušťalo... stránka denníka!
-PAGE_FOUND,Diary page found! Win or escape to keep it,Našiel si stránku denníka! Vyhraj alebo uteč a ponecháš si ju
-SUMMARY_PAGE_KEPT,Diary page brought home,Stránka denníka je doma
-SUMMARY_PAGE_LOST,The diary page was lost,Stránka denníka sa stratila
-CAT_ANGEL_DESC,The white cat from the diary. Starts with Spilled Milk; heals 1 health per second.,Biela mačka z denníka. Začína s Rozliatym mliekom; lieči 1 zdravie za sekundu.
-CAT_ANGEL_HINT,Read the old diary to the end.,Dočítaj starý denník.
-CAT_DEVIL_DESC,It came for you twice. Starts with Laser Pointer; +50% damage.,Prišla si po teba dvakrát. Začína s laserom; +50 % poškodenie.
-CAT_DEVIL_HINT,Make a bargain with the devil.,Uzavri zmluvu s diablom.
-QB_NIGHT_WATCH_NAME,Night Watch,Nočná hliadka
-QB_NIGHT_WATCH_1,Survive 5 minutes in one night.,Prežiť 5 minút v jednej noci.
-QB_NIGHT_WATCH_2,Survive 10 minutes in one night.,Prežiť 10 minút v jednej noci.
-QB_NIGHT_WATCH_3,Survive 15 minutes in one night.,Prežiť 15 minút v jednej noci.
-QB_NIGHT_WATCH_4,Last until morning (20 minutes).,Vydržať do rána (20 minút).
-QB_GROWING_UP_NAME,Growing Up,Rastieme
-QB_GROWING_UP_1,Reach level 20 in one night.,Dosiahnuť level 20 v jednej noci.
-QB_GROWING_UP_2,Reach level 35 in one night.,Dosiahnuť level 35 v jednej noci.
-QB_GROWING_UP_3,Reach level 50 in one night.,Dosiahnuť level 50 v jednej noci.
-QB_GROWING_UP_4,Reach level 65 in one night.,Dosiahnuť level 65 v jednej noci.
-QB_WANDERER_NAME,Wanderer,Túlavá mačka
-QB_WANDERER_1,Walk a total of 5 km.,Prejsť spolu 5 km.
-QB_WANDERER_2,Walk a total of 25 km.,Prejsť spolu 25 km.
-QB_WANDERER_3,Walk a total of 100 km.,Prejsť spolu 100 km.
-QB_CRITIC_NAME,Sharp Claws,Ostré pazúry
-QB_CRITIC_1,Land 500 critical hits.,Zasadiť 500 kritických zásahov.
-QB_CRITIC_2,"Land 3,000 critical hits.",Zasadiť 3 000 kritických zásahov.
-QB_CRITIC_3,"Land 15,000 critical hits.",Zasadiť 15 000 kritických zásahov.
-QB_TREASURE_NAME,Treasure Hunter,Lovec pokladov
-QB_TREASURE_1,Open 5 treasure chests.,Otvoriť 5 truhlíc.
-QB_TREASURE_2,Open 25 treasure chests.,Otvoriť 25 truhlíc.
-QB_TREASURE_3,Open 100 treasure chests.,Otvoriť 100 truhlíc.
-QB_PIGGY_BANK_NAME,Piggy Bank,Pokladnička
-QB_PIGGY_BANK_1,Pick up 100 gold in one night.,Nazbierať 100 zlata v jednej noci.
-QB_PIGGY_BANK_2,Pick up 250 gold in one night.,Nazbierať 250 zlata v jednej noci.
-QB_PIGGY_BANK_3,Pick up 500 gold in one night.,Nazbierať 500 zlata v jednej noci.
-QB_ALCHEMIST_NAME,Alchemist,Alchymista
-QB_ALCHEMIST_1,Evolve a weapon.,Vyvinúť jednu zbraň.
-QB_ALCHEMIST_2,Evolve 4 different weapons.,Vyvinúť 4 rôzne zbrane.
-QB_ALCHEMIST_3,Evolve 8 different weapons.,Vyvinúť 8 rôznych zbraní.
-QB_ALCHEMIST_4,Evolve all 13 weapons.,Vyvinúť všetkých 13 zbraní.
-QB_ON_THE_BRINK_NAME,On the Brink,Na pokraji
-QB_ON_THE_BRINK_1,Stay alive for 30 seconds with less than 10% health.,Vydržať 30 sekúnd s menej ako 10 % zdravia.
-QB_ON_THE_BRINK_2,Win a night after being on the brink.,"Vyhrať noc, v ktorej si bol na pokraji."
-QB_RESCUER_NAME,Rescuer,Záchranár
-QB_RESCUER_1,Bring 3 rescued cats home.,Doviesť domov 3 zachránené mačky.
-QB_RESCUER_2,Bring 10 rescued cats home.,Doviesť domov 10 zachránených mačiek.
-QB_RESCUER_3,Bring 25 rescued cats home.,Doviesť domov 25 zachránených mačiek.
-QB_DUELIST_NAME,Yard Champion,Šampión dvora
-QB_DUELIST_1,Win 3 duels.,Vyhrať 3 súboje.
-QB_DUELIST_2,Win 10 duels.,Vyhrať 10 súbojov.
-QB_FAMILY_NAME,One Big Family,Veľká rodina
-QB_FAMILY_1,Win a night with 2 different cats.,Vyhrať noc s 2 rôznymi mačkami.
-QB_FAMILY_2,Win a night with 5 different cats.,Vyhrať noc s 5 rôznymi mačkami.
-QB_FAMILY_3,Win a night with 8 different cats.,Vyhrať noc s 8 rôznymi mačkami.
-QB_APARTMENT_NAME,The Apartment,Byt
-QB_APARTMENT_1,Survive 10 minutes in the Apartment.,Prežiť 10 minút v Byte.
-QB_APARTMENT_2,Defeat the Vacuum King.,Poraziť Kráľa vysávačov.
-QB_APARTMENT_3,Win in the Apartment without picking up a single heart.,Vyhrať v Byte bez zdvihnutia jediného srdiečka.
-QB_APARTMENT_4,Win in the Apartment 5 times.,Vyhrať v Byte 5-krát.
-QB_BASEMENT_NAME,The Basement,Pivnica
-QB_BASEMENT_1,Survive 10 minutes in the Basement.,Prežiť 10 minút v Pivnici.
-QB_BASEMENT_2,Defeat the Rat King.,Poraziť Potkanieho kráľa.
-QB_BASEMENT_3,Win in the Basement with 3 weapons or fewer.,Vyhrať v Pivnici s najviac 3 zbraňami.
-QB_BASEMENT_4,Win in the Basement 5 times.,Vyhrať v Pivnici 5-krát.
-QB_GARDEN_NAME,The Garden,Záhrada
-QB_GARDEN_1,Survive 10 minutes in the Garden.,Prežiť 10 minút v Záhrade.
-QB_GARDEN_2,Defeat the Lawnmower.,Poraziť Kosačku.
-QB_GARDEN_3,Defeat the Lawnmower within 90 seconds.,Poraziť Kosačku do 90 sekúnd.
-QB_GARDEN_4,Win in the Garden 5 times.,Vyhrať v Záhrade 5-krát.
-QB_ROOFTOP_NAME,The Rooftop,Strecha
-QB_ROOFTOP_1,Survive 10 minutes on the Rooftop.,Prežiť 10 minút na Streche.
-QB_ROOFTOP_2,Defeat Bruno.,Poraziť Bruna.
-QB_ROOFTOP_3,Beat Bruno with at least half of your health left.,Poraziť Bruna s aspoň polovicou zdravia.
-QB_ROOFTOP_4,Win on the Rooftop 5 times.,Vyhrať na Streche 5-krát.
-QB_OLD_DIARY_NAME,The Old Cat's Diary,Denník starej mačky
-QB_OLD_DIARY_1,Find the diary page hidden in the Apartment and bring it home (win or escape).,Nájsť stránku denníka ukrytú v Byte a odniesť ju domov (vyhrať alebo utiecť).
-QB_OLD_DIARY_2,Find the diary page hidden in the Basement and bring it home.,Nájsť stránku denníka ukrytú v Pivnici a odniesť ju domov.
-QB_OLD_DIARY_3,Find the diary page hidden in the Garden and bring it home.,Nájsť stránku denníka ukrytú v Záhrade a odniesť ju domov.
-QB_OLD_DIARY_4,Find the last page on the Rooftop. The diary tells of a white cat with wings...,Nájsť poslednú stránku na Streche. Denník rozpráva o bielej mačke s krídlami...
-QB_DEVILS_BARGAIN_NAME,The Devil's Bargain,Diablova zmluva
-QB_DEVILS_BARGAIN_1,Be saved by the angel cat.,Nechať sa zachrániť anjel mačkou.
-QB_DEVILS_BARGAIN_2,Meet the one who comes after the angel.,"Stretnúť toho, kto prichádza po anjelovi."
-QB_DEVILS_BARGAIN_3,Defeat the Devil Cat. (It only weakens after 30 minutes.),Poraziť Diabol mačku. (Zoslabne až po 30 minútach.)
-ENEMY_SOCK_NAME,Lost Sock,Stratená ponožka
-ENEMY_SOCK_DESC,Escaped from the washing machine and wants revenge.,Ušla z práčky a chce sa pomstiť.
-ENEMY_DUST_BUNNY_NAME,Dust Bunny,Prachový zajačik
-ENEMY_DUST_BUNNY_DESC,"Lives under the sofa. Quick, but falls apart in a sneeze.","Žije pod gaučom. Rýchly, ale rozpadne sa aj od kýchnutia."
-ENEMY_SOCK_STRIPED_NAME,Striped Sock,Pruhovaná ponožka
-ENEMY_SOCK_STRIPED_DESC,The older sibling. Thicker and angrier.,Starší súrodenec. Hrubšia a nahnevanejšia.
-ENEMY_BUBBLE_NAME,Soap Bubble,Mydlová bublina
-ENEMY_BUBBLE_DESC,Floats in fast and pops on your nose.,Priletí rýchlo a praskne ti na nose.
-ENEMY_ROOMBA_NAME,Robot Vacuum,Robotický vysávač
-ENEMY_ROOMBA_DESC,Thinks the cat is a crumb.,"Myslí si, že mačka je omrvinka."
-ENEMY_SLIPPER_NAME,Fluffy Slipper,Chlpatá papuča
-ENEMY_SLIPPER_DESC,Smells of feet. Hits like a brick.,Smrdí nohami. Udrie ako tehla.
-ENEMY_DUST_CLOUD_NAME,Dust Cloud,Prachový mrak
-ENEMY_DUST_CLOUD_DESC,A whole sofa's worth of dust. Bursts into bunnies.,Prach spod celého gauča. Rozpadne sa na zajačikov.
-ENEMY_SOCK_KING_NAME,Sock King,Ponožkový kráľ
-ENEMY_SOCK_KING_DESC,Rules the laundry basket and calls his loyal socks.,Vládne košu na prádlo a volá si verné ponožky.
-ENEMY_MEGA_ROOMBA_NAME,Mega Roomba,Mega vysávač
-ENEMY_MEGA_ROOMBA_DESC,Upgraded with a red light and a bad attitude.,Vylepšený o červené svetlo a zlú náladu.
-ENEMY_VACUUM_NAME,The Vacuum,Vysávač
-ENEMY_VACUUM_DESC,The loudest thing in the flat.,Najhlučnejšia vec v byte.
-ENEMY_VACUUM_KING_DESC,The final boss of the Apartment. It sucks. Literally.,Finálny boss Bytu. Vysáva. Doslova.
-ENEMY_RAT_NAME,Rat,Potkan
-ENEMY_RAT_DESC,"Fast, hungry and never alone.","Rýchly, hladný a nikdy nie sám."
-ENEMY_SPIDER_NAME,Spider,Pavúk
-ENEMY_SPIDER_DESC,"Eight legs, zero manners.","Osem nôh, nula slušnosti."
-ENEMY_MOTH_NAME,Moth,Mol
-ENEMY_MOTH_DESC,Loves the light bulbs. And your fur.,Miluje žiarovky. A tvoju srsť.
-ENEMY_SPITTER_SPIDER_NAME,Spitter Spider,Pľujúci pavúk
-ENEMY_SPITTER_SPIDER_DESC,Keeps its distance and spits green goo.,Drží si odstup a pľuje zelený sliz.
-ENEMY_GIANT_RAT_NAME,Giant Rat,Obrovský potkan
-ENEMY_GIANT_RAT_DESC,Charges like a train through the basement.,Rúti sa pivnicou ako vlak.
-ENEMY_SPIDER_QUEEN_NAME,Spider Queen,Pavúčia kráľovná
-ENEMY_SPIDER_QUEEN_DESC,Shoots from afar and lays new spiders.,Strieľa z diaľky a liahne nových pavúkov.
-ENEMY_RAT_KING_DESC,The final boss of the Basement. His roar shakes the pipes.,Finálny boss Pivnice. Jeho rev trasie rúrami.
-ENEMY_BEE_NAME,Bee,Včela
-ENEMY_BEE_DESC,"Buzzing, fast, and very territorial.","Bzučí, je rýchla a bráni svoje územie."
-ENEMY_SNAIL_NAME,Snail,Slimák
-ENEMY_SNAIL_DESC,"Slow, but its shell is hard to crack.","Pomalý, ale ulitu ťažko rozbiješ."
-ENEMY_MOLE_NAME,Mole,Krtko
-ENEMY_MOLE_DESC,Pops up from the lawn when you least expect it.,"Vyliezne z trávnika, keď to najmenej čakáš."
-ENEMY_CROW_NAME,Crow,Vrana
-ENEMY_CROW_DESC,Clever and quick. Steals shiny things.,Múdra a rýchla. Kradne lesklé veci.
-ENEMY_GNOME_NAME,Garden Gnome,Záhradný trpaslík
-ENEMY_GNOME_DESC,Stands still all day. Not at night.,Celý deň stojí. V noci nie.
-ENEMY_FROG_NAME,Frog,Žaba
-ENEMY_FROG_DESC,Spits from the pond's edge.,Pľuje z okraja jazierka.
-ENEMY_GIANT_SNAIL_NAME,Giant Snail,Obrovský slimák
-ENEMY_GIANT_SNAIL_DESC,Leaves a trail the size of a road.,Nechá za sebou slizovú stopu ako cestu.
-ENEMY_HORNET_QUEEN_NAME,Hornet Queen,Sršňová kráľovná
-ENEMY_HORNET_QUEEN_DESC,Her stingers fly and her swarm follows.,Jej žihadlá lietajú a roj ide za ňou.
-ENEMY_LAWNMOWER_DESC,The final boss of the Garden. Mows down anything.,Finálny boss Záhrady. Pokosí čokoľvek.
-ENEMY_PIGEON_NAME,Pigeon,Holub
-ENEMY_PIGEON_DESC,Owns every roof in town. So it says.,Vlastní každú strechu v meste. Vraví.
-ENEMY_BAT_NAME,Bat,Netopier
-ENEMY_BAT_DESC,"Comes out at night, flies in zigzags.",V noci vylieta a lieta cikcak.
-ENEMY_GULL_NAME,Gull,Čajka
-ENEMY_GULL_DESC,Loud and greedy. Wants your sardines.,Hlučná a chamtivá. Chce tvoje sardinky.
-ENEMY_DIVE_GULL_NAME,Diving Gull,Útočná čajka
-ENEMY_DIVE_GULL_DESC,"Stops, aims, and dives straight at you.","Zastaví sa, zamieri a strmhlav sa vrhne na teba."
-ENEMY_RACCOON_NAME,Raccoon,Medvedík čistotný
-ENEMY_RACCOON_DESC,A masked bandit with heavy paws.,Bandita s maskou a ťažkými labami.
-ENEMY_BIG_GULL_NAME,Big Gull,Obria čajka
-ENEMY_BIG_GULL_DESC,The leader of the flock. Charges hard.,Vodca kŕdľa. Útočí v plnej rýchlosti.
-ENEMY_TRASH_BANDIT_NAME,Trash Bandit,Medvedí zlodej
-ENEMY_TRASH_BANDIT_DESC,Throws garbage from a distance.,Hádže smeti z diaľky.
-ENEMY_PIGEON_EMPEROR_DESC,Commands every pigeon on the roofs.,Velí všetkým holubom na strechách.
-ENEMY_RIVAL_BRUNO_DESC,The final boss of the Rooftop. A huge tomcat who never lost a fight.,"Finálny boss Strechy. Obrovský kocúr, ktorý ešte neprehral."
-ENEMY_RIVAL_TIGER_NAME,Tiger (rival),Tiger (súper)
-ENEMY_RIVAL_TIGER_DESC,"The boss of the yard, until you beat him.","Šéf dvora, kým ho neporazíš."
-ENEMY_RIVAL_BARON_NAME,Baron (rival),Barón (súper)
-ENEMY_RIVAL_BARON_DESC,Shoots lasers from his cushion.,Strieľa lasery zo svojho vankúša.
-ENEMY_DEVIL_CAT_DESC,Comes for those the angel saved twice.,"Prichádza po tých, ktorých anjel zachránil dvakrát."
-MENU_JOURNAL,Journal,Denník
-JOURNAL_TITLE,Journal,Denník
-JOURNAL_TAB_QUESTS,Quests,Questy
-JOURNAL_TAB_GOALS,Goals,Ciele
-JOURNAL_TAB_BESTIARY,Bestiary,Bestiár
-JOURNAL_HINT,← → tab · ↑ ↓ / wheel scroll · Esc – back,← → karta · ↑ ↓ / koliesko posúva · Esc – späť
-BESTIARY_CATS,Cats,Mačky
-BESTIARY_ENEMIES,Enemies – %s,Nepriatelia – %s
-BESTIARY_OTHERS,Rivals and secrets,Súperi a tajomstvá
-BESTIARY_WEAPONS,Weapons,Zbrane
-BESTIARY_PASSIVES,Passives,Pasívky
-BESTIARY_KILLS,Defeated: %d,Porazených: %d
-BESTIARY_BOSS,Boss,Boss
-BESTIARY_FINAL,Final boss,Finálny boss
-BESTIARY_UNKNOWN,Not met yet,Ešte si ho nestretol
-BESTIARY_UNUSED,Not used yet,Ešte si ju nepoužil
-BESTIARY_EVOLVES,Evolves with %s into %s,S pasívkou %s sa vyvinie na %s
-BESTIARY_EVOLVED_FROM,Evolution of %s,Evolúcia zbrane %s
-BESTIARY_FOUND,Found %d / %d,Objavené %d / %d
-TAG_BRANCH,BRANCH,VETVA
-TAG_BRANCH_2,BRANCH II,VETVA II
-BRANCH_TITLE,%s: %s,%s: %s
-BRANCH_CHOOSE,Pick one: the other branches of this weapon close.,Vyber si jednu – ostatné vetvy tejto zbrane sa zavrú.
-BRANCH_RANK2,Stronger: %s,Silnejšie: %s
-BESTIARY_BRANCHES,Branches: %s,Vetvy: %s
-BRANCH_FLAME_CLAWS_NAME,Flame Claws,Ohnivé pazúry
-BRANCH_FLAME_CLAWS_DESC,Scratches set enemies on fire.,Škrabance zapália nepriateľov.
-BRANCH_FROST_CLAWS_NAME,Frost Claws,Mrazivé pazúry
-BRANCH_FROST_CLAWS_DESC,Scratches chill enemies and slow them down.,Škrabance nepriateľov zmrazia a spomalia.
-BRANCH_BLOODTHIRST_NAME,Bloodthirst,Krvilačnosť
-BRANCH_BLOODTHIRST_DESC,Defeating an enemy may heal you.,Porazený nepriateľ ťa môže vyliečiť.
-BRANCH_TANGLE_NAME,Tangle,Zamotanie
-BRANCH_TANGLE_DESC,Enemies get tangled in the thread and slow down.,Nepriatelia sa zamotajú do nite a spomalia.
-BRANCH_RICOCHET_NAME,Ricochet,Odraz
-BRANCH_RICOCHET_DESC,The ball pierces more enemies and flies faster.,Klbko prerazí viac nepriateľov a letí rýchlejšie.
-BRANCH_SPOOL_NAME,Big Spool,Veľká cievka
-BRANCH_SPOOL_DESC,Throws more balls of yarn.,Hádže viac klbiek.
-BRANCH_STICKY_NAME,Sticky Fur,Lepkavá srsť
-BRANCH_STICKY_DESC,Hit enemies get stuck and slow down.,Zasiahnutí nepriatelia sa prilepia a spomalia.
-BRANCH_EXPLOSIVE_NAME,Explosive Furball,Výbušná guľa
-BRANCH_EXPLOSIVE_DESC,Hairballs may explode on hit.,Chlpáče môžu pri zásahu vybuchnúť.
-BRANCH_HEAVY_NAME,Heavy Furball,Ťažký chlpáč
-BRANCH_HEAVY_DESC,Hits much harder and pushes enemies away.,Udrie oveľa silnejšie a odhodí nepriateľov.
-BRANCH_FRENZY_NAME,Frenzy,Šialenstvo
-BRANCH_FRENZY_DESC,The catnip cloud hurts more often.,Oblak šanty zraňuje častejšie.
-BRANCH_WILD_GROWTH_NAME,Wild Growth,Bujný rast
-BRANCH_WILD_GROWTH_DESC,A much bigger catnip cloud.,Oveľa väčší oblak šanty.
-BRANCH_SLEEPY_NAME,Sleepy Herb,Uspávajúca bylinka
-BRANCH_SLEEPY_DESC,Enemies in the cloud get drowsy and slow.,Nepriatelia v oblaku zaspávajú a spomalia.
-BRANCH_SHARP_BONES_NAME,Sharp Bones,Ostré kosti
-BRANCH_SHARP_BONES_DESC,Finishes off weak enemies instantly.,Slabých nepriateľov hneď dorazí.
-BRANCH_SPIN_NAME,Fast Spin,Rýchla otočka
-BRANCH_SPIN_DESC,Bones circle much faster.,Kosti krúžia oveľa rýchlejšie.
-BRANCH_MORE_BONES_NAME,Full Skeleton,Celá kostra
-BRANCH_MORE_BONES_DESC,More bones circle around you.,Okolo teba krúži viac kostí.
-BRANCH_BURNING_BEAM_NAME,Burning Beam,Pálivý lúč
-BRANCH_BURNING_BEAM_DESC,The beam sets enemies on fire.,Lúč zapáli nepriateľov.
-BRANCH_PRISM_NAME,Prism,Hranol
-BRANCH_PRISM_DESC,Fires more beams.,Strieľa viac lúčov.
-BRANCH_OVERLOAD_NAME,Overload,Preťaženie
-BRANCH_OVERLOAD_DESC,Hits may spark over to a nearby enemy.,Zásah môže preskočiť iskrou na blízkeho nepriateľa.
-BRANCH_HOT_MILK_NAME,Hot Milk,Horúce mlieko
-BRANCH_HOT_MILK_DESC,Puddles burn whoever steps in.,"Mláky popália každého, kto do nich vstúpi."
-BRANCH_ICY_MILK_NAME,Icy Milk,Ľadové mlieko
-BRANCH_ICY_MILK_DESC,Puddles freeze enemies to a crawl.,"Mláky nepriateľov zmrazia, takmer sa nepohnú."
-BRANCH_BIG_SPILL_NAME,Big Spill,Veľká potopa
-BRANCH_BIG_SPILL_DESC,Bigger puddles that last longer.,"Väčšie mláky, ktoré dlhšie vydržia."
-BRANCH_THUNDER_RING_NAME,Thunder Ring,Hromový zvon
-BRANCH_THUNDER_RING_DESC,The shockwave may spark to more enemies.,Vlna môže preskočiť iskrou na ďalších nepriateľov.
-BRANCH_LOUD_NAME,Very Loud,Poriadne nahlas
-BRANCH_LOUD_DESC,A wider ring that pushes harder.,"Širší kruh, ktorý odhodí silnejšie."
-BRANCH_QUICK_RING_NAME,Quick Ring,Rýchle zvonenie
-BRANCH_QUICK_RING_DESC,Rings much more often.,Zvoní oveľa častejšie.
-BRANCH_FIRE_FEATHER_NAME,Fire Feather,Ohnivé pierko
-BRANCH_FIRE_FEATHER_DESC,Feathers set enemies on fire.,Pierka zapália nepriateľov.
-BRANCH_RAZOR_NAME,Razor Edge,Ostrá hrana
-BRANCH_RAZOR_DESC,"Cuts through more enemies, harder.",Prereže viac nepriateľov a silnejšie.
-BRANCH_FLOCK_NAME,Flock,Kŕdeľ
-BRANCH_FLOCK_DESC,Throws more feathers.,Hádže viac pierok.
-BRANCH_FIRECRACKER_NAME,Firecracker,Petarda
-BRANCH_FIRECRACKER_DESC,Mice may explode when they bump into enemies.,Myšky môžu pri náraze vybuchnúť.
-BRANCH_FAST_SPRING_NAME,Strong Spring,Silné pero
-BRANCH_FAST_SPRING_DESC,Mice run faster and longer.,Myšky bežia rýchlejšie a dlhšie.
-BRANCH_LITTER_NAME,A Whole Litter,Celý vrh
-BRANCH_LITTER_DESC,More mice at once.,Viac myšiek naraz.
-BRANCH_VENOM_NAME,Venom,Jed
-BRANCH_VENOM_DESC,The web poisons enemies caught in it.,"Sieť otrávi nepriateľov, čo sa do nej chytia."
-BRANCH_STEEL_SILK_NAME,Steel Silk,Oceľové vlákno
-BRANCH_STEEL_SILK_DESC,Webs last much longer.,Siete vydržia oveľa dlhšie.
-BRANCH_WIDE_WEB_NAME,Wide Web,Široká sieť
-BRANCH_WIDE_WEB_DESC,Much bigger webs.,Oveľa väčšie siete.
-BRANCH_ICE_WATER_NAME,Ice Water,Ľadová voda
-BRANCH_ICE_WATER_DESC,The jets freeze enemies.,Prúdy nepriateľov zmrazia.
-BRANCH_BOILING_NAME,Boiling Water,Vriaca voda
-BRANCH_BOILING_DESC,The jets scald enemies.,Prúdy nepriateľov obaria.
-BRANCH_PRESSURE_NAME,High Pressure,Vysoký tlak
-BRANCH_PRESSURE_DESC,Stronger jets that push enemies far away.,"Silnejšie prúdy, ktoré odhodia nepriateľov ďaleko."
-BRANCH_OVERCHARGE_NAME,Overcharge,Prebitie
-BRANCH_OVERCHARGE_DESC,Much stronger sparks.,Oveľa silnejšie iskry.
-BRANCH_LONG_ARC_NAME,Long Arc,Dlhý oblúk
-BRANCH_LONG_ARC_DESC,The spark jumps to more enemies.,Iskra preskočí na viac nepriateľov.
-BRANCH_SHORT_CIRCUIT_NAME,Short Circuit,Skrat
-BRANCH_SHORT_CIRCUIT_DESC,Hits may explode in a burst of sparks.,Zásah môže vybuchnúť v spŕške iskier.
-KIND_BRANCH,Weapon branch,Vetva zbrane
-CHAMPION_SWIFT_NAME,Swift,Rýchly
-CHAMPION_SWIFT_DESC,Much faster than its kind.,Oveľa rýchlejší než ostatní.
-CHAMPION_ARMORED_NAME,Armored,Obrnený
-CHAMPION_ARMORED_DESC,Takes far less damage.,Dostáva oveľa menej poškodenia.
-CHAMPION_GIANT_NAME,Giant,Obor
-CHAMPION_GIANT_DESC,"Huge, tough and hits hard.","Obrovský, odolný a silno udiera."
-CHAMPION_SPLITTER_NAME,Splitter,Delič
-CHAMPION_SPLITTER_DESC,Splits into three when defeated.,Po porazení sa rozdelí na troch.
-CHAMPION_REGEN_NAME,Regenerating,Regenerujúci
-CHAMPION_REGEN_DESC,Heals itself quickly.,Rýchlo sa lieči.
-CHAMPION_BOMBER_NAME,Bomber,Bombér
-CHAMPION_BOMBER_DESC,Explodes a moment after being defeated – step away!,Chvíľu po porazení vybuchne – uhni!
-CHAMPION_APPEARED,A champion appears: %s!,Objavil sa šampión: %s!
-BESTIARY_CHAMPIONS,Champions,Šampióni
-ENEMY_GOLDEN_MOUSE_NAME,Golden Mouse,Zlatá myš
-ENEMY_GOLDEN_MOUSE_DESC,Runs away with a pocket full of gold. Catch it!,Uteká s vreckami plnými zlata. Chyť ju!
-GOLDEN_MOUSE_APPEARED,A golden mouse! Catch it before it gets away!,"Zlatá myš! Chyť ju, kým neutečie!"
-GOLDEN_MOUSE_CAUGHT,Golden mouse caught – gold everywhere!,Zlatá myš chytená – všade zlato!
-GOLDEN_MOUSE_GONE,The golden mouse got away...,Zlatá myš utiekla...
-QB_CHAMPION_HUNTER_NAME,Champion Hunter,Lovec šampiónov
-QB_CHAMPION_HUNTER_1,Defeat 10 champions.,Poraziť 10 šampiónov.
-QB_CHAMPION_HUNTER_2,Defeat 50 champions.,Poraziť 50 šampiónov.
-QB_CHAMPION_HUNTER_3,Defeat 200 champions.,Poraziť 200 šampiónov.
-QB_GOLD_DIGGER_NAME,Gold Digger,Zlatokop
-QB_GOLD_DIGGER_1,Catch a golden mouse.,Chytiť zlatú myš.
-QB_GOLD_DIGGER_2,Catch 10 golden mice.,Chytiť 10 zlatých myší.
-QB_GOLD_DIGGER_3,Catch 30 golden mice.,Chytiť 30 zlatých myší.
-ENDLESS_HINT,E – keep going: endless night,E – pokračovať: nekonečná noc
-ENDLESS_START,Endless night! It only gets harder from here...,Nekonečná noc! Odteraz už len ťažšie...
-ENDLESS_SUMMARY,"Endless night: %d extra minutes, +%d gold (kept in full)","Nekonečná noc: %d minút navyše, +%d zlata (celé tvoje)"
-QB_ENDLESS_NAME,Endless Night,Nekonečná noc
-QB_ENDLESS_1,Last 3 minutes in an endless night.,Vydržať 3 minúty v nekonečnej noci.
-QB_ENDLESS_2,Last 10 minutes in an endless night.,Vydržať 10 minút v nekonečnej noci.
-QB_ENDLESS_3,Last 20 minutes in an endless night.,Vydržať 20 minút v nekonečnej noci.
-ENEMY_IRON_NAME,The Iron,Žehlička
-ENEMY_IRON_DESC,Charges across the flat and leaves scalding steam behind.,Rúti sa bytom a nechá za sebou horúcu paru.
-ENEMY_BOILER_NAME,The Boiler,Kotol
-ENEMY_BOILER_DESC,"Stops, rumbles, and sprays a spiral of hot rivets.","Zastaví sa, zahučí a vystrelí špirálu horúcich nitov."
-ENEMY_SCARECROW_NAME,The Scarecrow,Strašiak
-ENEMY_SCARECROW_DESC,Marks the ground and stabs it with a pitchfork. Calls its crows.,Označí zem a zabodne do nej vidly. Volá si vrany.
-ENEMY_THUNDERCLOUD_NAME,The Thundercloud,Búrkový mrak
-ENEMY_THUNDERCLOUD_DESC,Drifts overhead and calls lightning down where it points.,"Pláva nad strechami a zosiela blesky tam, kam ukáže."
-CHALLENGES_TITLE,Challenges,Výzvy
-CHALLENGES_HINT,↑ ↓ choose · Enter on / off · X / Esc back,↑ ↓ výber · Enter zapnúť / vypnúť · X / Esc späť
-CHALLENGES_GOLD,Gold from the night: x%.2f,Zlato z noci: ×%.2f
-CHALLENGES_MULT,gold x%.1f,zlato ×%.1f
-CHALLENGES_ON,Challenges: %s (gold x%.2f),Výzvy: %s (zlato ×%.2f)
-SELECT_CHALLENGES,Challenges (X): %s · gold x%.2f,Výzvy (X): %s · zlato ×%.2f
-SUMMARY_CHALLENGE,Challenges x%.2f: +%d gold,Výzvy ×%.2f: +%d zlata
-CHALLENGE_HYPER_NAME,Turbo,Turbo
-CHALLENGE_HYPER_DESC,Everything runs 25% faster – you too.,Všetko beží o 25 % rýchlejšie – aj ty.
-CHALLENGE_GLASS_NAME,Glass Cat,Krehká mačka
-CHALLENGE_GLASS_DESC,"Half the health, but +50% damage.","Polovica zdravia, ale +50 % poškodenie."
-CHALLENGE_NO_HEAL_NAME,No Healing,Bez liečenia
-CHALLENGE_NO_HEAL_DESC,"Hearts, sardines and regeneration don't heal you.","Srdiečka, sardinky ani regenerácia ťa nevyliečia."
-CHALLENGE_ONE_WEAPON_NAME,One Weapon,Jediná zbraň
-CHALLENGE_ONE_WEAPON_DESC,You keep your starting weapon – no others.,Ostane ti len štartová zbraň – žiadne ďalšie.
-CHALLENGE_CURSED_NAME,Cursed Night,Prekliata noc
-CHALLENGE_CURSED_DESC,"More enemies, tougher and faster.","Viac nepriateľov, odolnejších a rýchlejších."
-QB_DARING_NAME,Daredevil,Odvážlivec
-QB_DARING_1,Win a night with a challenge on.,Vyhrať noc so zapnutou výzvou.
-QB_DARING_2,Win with each of the 5 challenges.,Vyhrať s každou z 5 výziev.
-QB_DARING_3,Win a night with 3 challenges at once.,Vyhrať noc s 3 výzvami naraz.
-TIP_MOVE,Move with WASD or the arrow keys – that's all you steer!,Hýb sa klávesmi WASD alebo šípkami – nič iné neovládaš!
-TIP_WEAPONS,Your weapons fire on their own. Keep moving and stay out of reach!,Zbrane strieľajú samé. Hýb sa a nenechaj sa chytiť!
-TIP_XP,Pick up the blue kibble to gain levels.,"Zbieraj modré granulky, aby si získaval levely."
-TIP_LEVELS,Each level lets you pick a new weapon or upgrade (1 / 2 / 3 or Enter).,Každý level si vyberieš novú zbraň alebo vylepšenie (1 / 2 / 3 alebo Enter).
-TIP_QUEST,A quest! Follow the golden arrow at the edge of the screen.,Quest! Choď za zlatou šípkou na okraji obrazovky.
-TIP_FLAP,A cat flap is open: stand in it to escape and keep your gold and charms.,Otvorili sa dvierka: postav sa do nich a utečieš so zlatom aj príveskami.
-TIP_PAUSE,Esc pauses the game. Survive until morning to win the night!,Esc pozastaví hru. Prežij do rána a vyhráš noc!
-TIP_CHAMPION,"Glowing enemies are champions: tougher, but worth much more.","Žiariaci nepriatelia sú šampióni: odolnejší, ale oplatí sa ich poraziť."
-QUEST_OLD_MAP_TITLE,The old trunk,Stará truhla
-QUEST_OLD_MAP_FIND,Look inside the old trunk,Pozri sa do starej truhly
-QUEST_OLD_MAP_AMBUSH,Spiders! Defeat them: %d left,Pavúky! Poraz ich: zostáva %d
-QUEST_OLD_MAP_PICK,Take the rolled-up paper,Zober zrolovaný papier
-QUEST_OLD_MAP_FOUND,An old map of the garden: an X under the big tree...,Stará mapa záhrady: krížik pod veľkým stromom...
-QUEST_ROOF_KEY_TITLE,The X under the tree,Krížik pod stromom
-QUEST_ROOF_KEY_FIND,Dig where the map's X is,"Vyhrab to, kde je na mape krížik"
-QUEST_ROOF_KEY_AMBUSH,Moles everywhere! Defeat them: %d left,Všade krtkovia! Poraz ich: zostáva %d
-QUEST_ROOF_KEY_PICK,Pick up what's in the hole,"Zober, čo je v jame"
-QUEST_ROOF_KEY_FOUND,A rusty key – it opens the hatch to the roof!,Hrdzavý kľúč – otvára poklop na strechu!
-QUEST_BRUNO_NOTE_TITLE,A note on the antenna,Odkaz na anténe
-QUEST_BRUNO_NOTE_FIND,Something is pinned to the antenna,Na anténe niečo visí
-QUEST_BRUNO_NOTE_AMBUSH,Pigeons guard it! Defeat them: %d left,Holuby ho strážia! Poraz ich: zostáva %d
-QUEST_BRUNO_NOTE_PICK,Take the note,Zober odkaz
-QUEST_BRUNO_NOTE_FOUND,"""Whoever made it this far: face me at dawn. – Bruno""",„Kto sa dostal až sem: postav sa mi na úsvite. – Bruno“
-QB_STORY_NAME,The Way Up,Cesta nahor
-QB_STORY_1,Find out what happened by the front door (Apartment).,"Zisti, čo sa stalo pri dverách (Byt)."
-QB_STORY_2,Search the old trunk in the Basement.,Prehľadaj starú truhlu v Pivnici.
-QB_STORY_3,Dig up what the map points to (Garden).,"Vyhrab, kam ukazuje mapa (Záhrada)."
-QB_STORY_4,Read the note on the Rooftop antenna.,Prečítaj odkaz na anténe na Streche.
-SET_KEY_MOVE_UP,Move up,Pohyb hore
-SET_KEY_MOVE_DOWN,Move down,Pohyb dole
-SET_KEY_MOVE_LEFT,Move left,Pohyb vľavo
-SET_KEY_MOVE_RIGHT,Move right,Pohyb vpravo
-SET_KEY_WAITING,press a key… (Esc cancels),stlač kláves… (Esc zruší)
-SET_KEYS_RESET,Reset keys to WASD,Vrátiť klávesy na WASD
+keys,en,sk,cs
+LANGUAGE_NAME,English,Slovenčina,Čeština
+DECIMAL_SEP,.,",",","
+HUD_KILLS,Defeated: %d,Porazení: %d,Poraženo: %d
+PAUSE_TITLE,PAUSED,PAUZA,PAUZA
+PAUSE_HINT,Keyboard shortcuts:,Klávesové skratky:,Klávesové zkratky:
+PAUSE_LANGUAGE,L – language: %s,L – jazyk: %s,L – jazyk: %s
+GAME_OVER_TITLE,%s gave up!,Mačka %s to zabalila!,Kočka %s to zabalila!
+GAME_OVER_STATS,You survived %s and defeated %d enemies.,"Prežitý čas %s, porazených nepriateľov: %d.","Přežitý čas %s, poražených nepřátel: %d."
+GAME_OVER_HINT,R / Enter – try again,R / Enter – skúsiť znova,R / Enter – zkusit znovu
+LEVEL_UP_TITLE,Level %d!,Level %d!,Level %d!
+TAG_NEW,NEW!,NOVÉ!,NOVÉ!
+TAG_LEVEL,Level %d,Úroveň %d,Úroveň %d
+KIND_WEAPON,Weapon,Zbraň,Zbraň
+KIND_PASSIVE,Upgrade,Vylepšenie,Vylepšení
+KIND_HEAL,Food,Jedlo,Jídlo
+HEAL_NAME,Sardine,Sardinka,Sardinka
+HEAL_DESC,Restores %d health.,Doplní %d zdravia.,Doplní %d zdraví.
+STAT_DAMAGE,+%s damage,+%s poškodenie,+%s poškození
+STAT_AMOUNT,+%s projectile,+%s projektil,+%s projektil
+STAT_PIERCE,+%s pierce,+%s prieraz,+%s průraz
+STAT_AREA,+%s%% area,+%s %% plocha,+%s %% plocha
+STAT_SPEED,+%s%% speed,+%s %% rýchlosť,+%s %% rychlost
+STAT_DURATION,+%s%% duration,+%s %% trvanie,+%s %% trvání
+STAT_INTERVAL,%s s cooldown,%s s cooldown,%s s cooldown
+WEAPON_SCRATCH_NAME,Scratch,Škrabanec,Škrábanec
+WEAPON_SCRATCH_DESC,Swipes to the side the cat is facing. Passes through enemies.,"Škrabne do strany, kam sa mačka pozerá. Prechádza cez nepriateľov.","Škrábne do strany, kam se kočka dívá. Prochází nepřáteli."
+WEAPON_YARN_NAME,Ball of Yarn,Klbko vlny,Klubko vlny
+WEAPON_YARN_DESC,Thrown at the nearest enemy.,Hodí klbko na najbližšieho nepriateľa.,Hodí klubko na nejbližšího nepřítele.
+WEAPON_HAIRBALL_NAME,Hairball,Chlpáč,Chlupáč
+WEAPON_HAIRBALL_DESC,Coughed up in an arc. Pierces several enemies.,"Vyvrhne chlpatú guľu, ktorá letí oblúkom a prerazí viac nepriateľov.","Vyvrhne chlupatou kouli, která letí obloukem a prorazí víc nepřátel."
+WEAPON_CATNIP_NAME,Catnip,Šanta,Šanta
+WEAPON_CATNIP_DESC,A dizzying aura that hurts nearby enemies.,Omamná aura okolo mačky zraňuje blízkych nepriateľov.,Omamná aura kolem kočky zraňuje blízké nepřátele.
+WEAPON_FISHBONES_NAME,Fish Bones,Rybie kosti,Rybí kosti
+WEAPON_FISHBONES_DESC,Fish bones circle around the cat.,Rybie kosti krúžia okolo mačky.,Rybí kosti krouží kolem kočky.
+PASSIVE_MIGHT_NAME,Sharp Claws,Ostré pazúry,Ostré drápy
+PASSIVE_MIGHT_DESC,+10% damage for all weapons.,+10 % poškodenie všetkých zbraní.,+10 % poškození všech zbraní.
+PASSIVE_SPEED_NAME,Quick Paws,Rýchle labky,Rychlé tlapky
+PASSIVE_SPEED_DESC,+10% movement speed.,+10 % rýchlosť pohybu.,+10 % rychlost pohybu.
+PASSIVE_MAXHP_NAME,Bowl of Milk,Miska mlieka,Miska mléka
+PASSIVE_MAXHP_DESC,+20 max health.,+20 maximálne zdravie.,+20 maximální zdraví.
+PASSIVE_COOLDOWN_NAME,Catnap,Šlofík,Šlofík
+PASSIVE_COOLDOWN_DESC,Weapons attack 8% more often.,Zbrane útočia o 8 % častejšie.,Zbraně útočí o 8 % častěji.
+PASSIVE_AREA_NAME,Fluffy Tail,Huňatý chvost,Huňatý ocas
+PASSIVE_AREA_DESC,+10% attack area.,+10 % plocha útokov.,+10 % plocha útoků.
+PASSIVE_MAGNET_NAME,Sensitive Whiskers,Citlivé fúzy,Citlivé vousky
+PASSIVE_MAGNET_DESC,Pick up kibble from further away.,Granule priťahuješ z väčšej diaľky.,Granule přitahuješ z větší dálky.
+PASSIVE_AMOUNT_NAME,Kittens,Mačiatka,Koťátka
+PASSIVE_AMOUNT_DESC,+1 projectile for all weapons.,+1 projektil pre všetky zbrane.,+1 projektil pro všechny zbraně.
+PASSIVE_REGEN_NAME,Can of Tuna,Konzerva tuniaka,Konzerva tuňáka
+PASSIVE_REGEN_DESC,Recovers 0.3 HP per second.,"Obnovuje 0,3 HP za sekundu.","Obnovuje 0,3 HP za sekundu."
+PASSIVE_ARMOR_NAME,Collar,Obojok,Obojek
+PASSIVE_ARMOR_DESC,Take 1 less damage from every hit.,Každý zásah ťa zraní o 1 menej.,Každý zásah tě zraní o 1 méně.
+TREASURE_TITLE,Treasure!,Poklad!,Poklad!
+TREASURE_HINT,Press any key to continue,Pokračuj ľubovoľným klávesom,Pokračuj libovolnou klávesou
+TREASURE_EVOLVED,EVOLVED!,EVOLÚCIA!,EVOLUCE!
+BOSS_WARNING,A boss approaches!,Blíži sa boss!,Blíží se boss!
+VICTORY_TITLE,Morning has come!,Nastalo ráno!,Nastalo ráno!
+VICTORY_STATS,%s survived the night and defeated %d enemies.,Mačka %s prežila noc a porazila %d nepriateľov.,Kočka %s přežila noc a porazila %d nepřátel.
+VICTORY_HINT,R / Enter – play again,R / Enter – hrať znova,R / Enter – hrát znovu
+WEAPON_TIGER_CLAWS_NAME,Tiger Claws,Tigrie pazúry,Tygří drápy
+WEAPON_TIGER_CLAWS_DESC,"Evolved Scratch: rips both sides at once, hard.","Evolúcia Škrabanca: trhá na obe strany naraz, poriadne.","Evoluce Škrábance: trhá na obě strany naráz, pořádně."
+WEAPON_YARN_STORM_NAME,Yarn Storm,Vlnená búrka,Vlněná bouře
+WEAPON_YARN_STORM_DESC,Evolved Ball of Yarn: a constant barrage of piercing yarn.,Evolúcia Klbka: neustála paľba prierazných klbiek.,Evoluce Klubka: neustálá palba průrazných klubek.
+WEAPON_FURBALL_COMET_NAME,Furball Comet,Chlpatá kométa,Chlupatá kometa
+WEAPON_FURBALL_COMET_DESC,Evolved Hairball: huge furballs that never stop.,"Evolúcia Chlpáča: obrovské chumáče, ktoré nič nezastaví.","Evoluce Chlupáče: obrovské chomáče, které nic nezastaví."
+WEAPON_CATNIP_GARDEN_NAME,Catnip Garden,Šantová záhrada,Šantová zahrada
+WEAPON_CATNIP_GARDEN_DESC,Evolved Catnip: a huge aura that also heals the cat.,"Evolúcia Šanty: obrovská aura, ktorá mačku aj lieči.","Evoluce Šanty: obrovská aura, která kočku i léčí."
+WEAPON_BONE_CAROUSEL_NAME,Bone Carousel,Kostený kolotoč,Kostěný kolotoč
+WEAPON_BONE_CAROUSEL_DESC,Evolved Fish Bones: six bones that never stop spinning.,"Evolúcia Rybích kostí: šesť kostí, ktoré sa točia bez prestávky.","Evoluce Rybích kostí: šest kostí, které se točí bez přestávky."
+EVOLVE_HINT,Evolves with %s + a boss chest.,S pasívkou %s a truhlicou z bossa sa vyvinie.,S pasivkou %s a truhlou z bosse se vyvine.
+EVOLVE_PAIR,Can evolve %s.,Umožní evolúciu: %s.,Umožní evoluci: %s.
+WEAPON_LASER_NAME,Laser Pointer,Laserové ukazovátko,Laserové ukazovátko
+WEAPON_LASER_DESC,Fires a beam at a random enemy that hits everything in its path.,"Vystrelí lúč na náhodného nepriateľa, zasiahne všetko v ceste.",Vystřelí paprsek na náhodného nepřítele a zasáhne vše v cestě.
+WEAPON_MILK_NAME,Spilled Milk,Rozliate mlieko,Rozlité mléko
+WEAPON_MILK_DESC,Spills puddles that hurt enemies standing in them.,"Rozlieva mláky, ktoré zraňujú nepriateľov, čo v nich stoja.","Rozlévá louže, které zraňují nepřátele, kteří v nich stojí."
+WEAPON_BELL_NAME,Bell,Zvonček,Zvoneček
+WEAPON_BELL_DESC,Rings a shockwave that knocks enemies far back.,"Zazvoní a vyšle vlnu, ktorá nepriateľov odhodí ďaleko.","Zazvoní a vyšle vlnu, která nepřátele odhodí daleko."
+WEAPON_FEATHER_NAME,Feather Toy,Pierková hračka,Pírková hračka
+WEAPON_FEATHER_DESC,Flies out like a boomerang and comes back.,Letí ako bumerang a vracia sa späť.,Letí jako bumerang a vrací se zpět.
+WEAPON_DISCO_LASER_NAME,Disco Laser,Disko laser,Disko laser
+WEAPON_DISCO_LASER_DESC,Evolved Laser Pointer: a rainbow storm of beams.,Evolúcia ukazovátka: dúhová búrka lúčov.,Evoluce ukazovátka: duhová bouře paprsků.
+WEAPON_MILK_LAKE_NAME,Milk Lake,Mliečne jazero,Mléčné jezero
+WEAPON_MILK_LAKE_DESC,Evolved Spilled Milk: huge lasting puddles everywhere.,"Evolúcia mlieka: obrovské mláky, ktoré dlho vydržia.","Evoluce mléka: obrovské louže, které dlouho vydrží."
+WEAPON_THUNDER_BELL_NAME,Thunder Bell,Hromový zvon,Hromový zvon
+WEAPON_THUNDER_BELL_DESC,Evolved Bell: massive double shockwaves.,Evolúcia zvončeka: mohutné dvojité vlny.,Evoluce zvonečku: mohutné dvojité vlny.
+WEAPON_PHOENIX_FEATHER_NAME,Phoenix Feather,Fénixovo pero,Fénixovo pero
+WEAPON_PHOENIX_FEATHER_DESC,Evolved Feather Toy: four blazing boomerangs.,Evolúcia pierka: štyri planúce bumerangy.,Evoluce pírka: čtyři planoucí bumerangy.
+CAT_MICA_NAME,Mica,Mica,Mica
+CAT_LUNA_NAME,Luna,Luna,Luna
+CAT_SNOWBALL_NAME,Snowball,Snehulka,Sněhulka
+CAT_PIP_NAME,Pip,Mrňa,Prcek
+CAT_TIGER_NAME,Tiger,Tiger,Tygr
+CAT_BARON_NAME,Baron,Barón,Baron
+CAT_MICA_DESC,A brave ginger tabby. Starts with Scratch.,Statočná ryšavá mačka. Začína so Škrabancom.,Statečná zrzavá kočka. Začíná se Škrábancem.
+CAT_LUNA_DESC,A black cat of the night. Starts with Ball of Yarn; attacks 10% more often.,Čierna mačka noci. Začína s Klbkom; útočí o 10 % častejšie.,Černá kočka noci. Začíná s Klubkem; útočí o 10 % častěji.
+CAT_SNOWBALL_DESC,A fluffy white cloud. Starts with Fish Bones; +15% area.,Chlpatý biely obláčik. Začína s Rybími kosťami; +15 % plocha.,Chlupatý bílý obláček. Začíná s Rybími kostmi; +15 % plocha.
+CAT_PIP_DESC,A tiny fast kitten. Starts with Feather Toy; faster and better magnet.,Malé rýchle mačiatko. Začína s Pierkom; rýchlejšie a s lepším magnetom.,Malé rychlé kotě. Začíná s Pírkem; rychlejší a s lepším magnetem.
+CAT_TIGER_DESC,The tough boss of the yard. Starts with Bell; +40 max health.,Tvrdý šéf dvora. Začína so Zvončekom; +40 zdravia.,Tvrdý šéf dvora. Začíná se Zvonečkem; +40 zdraví.
+CAT_BARON_DESC,A posh Siamese. Starts with Laser Pointer; +15% damage.,Nafúkaný siamský aristokrat. Začína s laserom; +15 % poškodenie.,Nafoukaný siamský aristokrat. Začíná s laserem; +15 % poškození.
+CAT_LUNA_HINT,Rescue her from the box fort.,Zachráň ju z krabicovej pevnosti.,Zachraň ji z krabicové pevnosti.
+CAT_SNOWBALL_HINT,Rescue her from the laundry basket.,Zachráň ju z koša na prádlo.,Zachraň ji z koše na prádlo.
+CAT_PIP_HINT,Rescue it from under the bed.,Zachráň ho spod postele.,Zachraň ho zpod postele.
+CAT_TIGER_HINT,Beat him in a duel on his turf.,Poraz ho v súboji na jeho revíri.,Poraz ho v souboji na jeho revíru.
+CAT_BARON_HINT,Beat him in a duel on his cushion.,Poraz ho v súboji na jeho vankúši.,Poraz ho v souboji na jeho polštáři.
+QUEST_NEW,New quest: %s,Nová úloha: %s,Nový úkol: %s
+QUEST_DONE,Quest complete!,Úloha splnená!,Úkol splněn!
+QUEST_FAILED,Quest failed,Úloha zlyhala,Úkol se nezdařil
+QUEST_JOINED,%s joined you!,%s sa k tebe pridáva!,%s se k tobě přidává!
+QUEST_UNLOCKED,New cat unlocked: %s,Nová mačka odomknutá: %s,Nová kočka odemčena: %s
+QUEST_RESCUE_TITLE,Rescue %s,Zachráň: %s,Zachraň: %s
+QUEST_RESCUE_FIND,Find %s (follow the arrow),Nájdi: %s (sleduj šípku),Najdi: %s (sleduj šipku)
+QUEST_RESCUE_GUARDS,Defeat the guards: %d left,Poraz strážcov: zostáva %d,Poraz strážce: zbývá %d
+QUEST_RESCUE_FREE,Stay close to free %s,Zostaň blízko a osloboď: %s,Zůstaň blízko a osvoboď: %s
+QUEST_DUEL_TITLE,Duel: %s,Súboj: %s,Souboj: %s
+QUEST_DUEL_FIND,Find the turf of %s,Nájdi revír: %s,Najdi revír: %s
+QUEST_DUEL_FIGHT,Defeat %s,Poraz: %s,Poraz: %s
+QUEST_DUEL_CHALLENGE,%s challenges you!,%s ťa vyzýva na súboj!,%s tě vyzývá na souboj!
+QUEST_BOWL_TITLE,Guard the food bowl,Ubráň misku,Ubraň misku
+QUEST_BOWL_FIND,Find the food bowl,Nájdi misku s jedlom,Najdi misku s jídlem
+QUEST_BOWL_HOLD,Stay by the bowl: %d s,Zostaň pri miske: %d s,Zůstaň u misky: %d s
+QUEST_DOT_TITLE,The red dot,Červená bodka,Červená tečka
+QUEST_DOT_FIND,Find the laser pointer,Nájdi laserové ukazovátko,Najdi laserové ukazovátko
+QUEST_DOT_CATCH,Catch the dot: %d/%d (%d s),Chyť bodku: %d/%d (%d s),Chyť tečku: %d/%d (%d s)
+QUEST_FRIDGE_TITLE,Midnight snack,Polnočná desiata,Půlnoční svačina
+QUEST_FRIDGE_FIND,Find the fridge,Nájdi chladničku,Najdi lednici
+QUEST_FRIDGE_OPEN,Stay by the fridge to open it,Zostaň pri chladničke a otvor ju,Zůstaň u lednice a otevři ji
+QUEST_FRIDGE_FIGHT,Defeat the leftovers: %d left,Poraz zvyšky: zostáva %d,Poraz zbytky: zbývá %d
+SELECT_TITLE,Choose your cat,Vyber si mačku,Vyber si kočku
+SELECT_HINT,← → cat · ↑ ↓ map · Enter start · U upgrades · C charms · X challenges · Q / G / J journal · Esc menu,← → mačka · ↑ ↓ mapa · Enter štart · U vylepšenia · C prívesky · X výzvy · Q / G / J denník · Esc menu,← → kočka · ↑ ↓ mapa · Enter start · U vylepšení · C přívěsky · X výzvy · Q / G / J deník · Esc menu
+SELECT_LOCKED,???,???,???
+GAME_OVER_MENU,Esc – change cat,Esc – zmeniť mačku,Esc – změnit kočku
+QUEST_RESCUE_ESCORT,Walk %s to the safe cat bed,Odprevaď: %s do bezpečného pelechu,Doprovoď: %s do bezpečného pelechu
+QUEST_RESCUE_REVIVE,%s is down! Stay close to help,%s padla! Postoj pri nej a pomôž,%s padla! Postav se k ní a pomoz
+FINAL_BOSS_WARNING,%s awakens!,%s sa prebúdza!,%s se probouzí!
+ENEMY_VACUUM_KING_NAME,The Vacuum King,Kráľ vysávačov,Král vysavačů
+SELECT_STAGE,Map:,Mapa:,Mapa:
+STAGE_LIVING_ROOM_NAME,The Apartment,Byt,Byt
+STAGE_BASEMENT_NAME,The Basement,Pivnica,Sklep
+STAGE_LIVING_ROOM_HINT,,,
+STAGE_BASEMENT_HINT,Defeat the Vacuum King,Poraz Kráľa vysávačov,Poraz Krále vysavačů
+STAGE_UNLOCKED,New map unlocked: %s!,Nová mapa odomknutá: %s!,Nová mapa odemčena: %s!
+ENEMY_RAT_KING_NAME,The Rat King,Potkaní kráľ,Krysí král
+QUEST_COLLAR_TITLE,Strange noises by the door,Čudné zvuky pri dverách,Divné zvuky u dveří
+QUEST_COLLAR_FIND,Check the front door,Pozri sa k vchodovým dverám,Podívej se ke vchodovým dveřím
+QUEST_COLLAR_AMBUSH,Rats! Defeat them: %d left,Potkany! Poraz ich: zostáva %d,Krysy! Poraz je: zbývá %d
+QUEST_COLLAR_PICK,Pick up the collar,Zober obojok,Vezmi obojek
+QUEST_COLLAR_FOUND,Luna's collar! Rat tracks lead down to the basement...,Lunin obojok! Potkanie stopy vedú dolu do pivnice...,Lunin obojek! Krysí stopy vedou dolů do sklepa...
+STORY_BASEMENT_COLLAR,Luna's scent is everywhere down here. The rats have her!,Lunin pach je tu všade. Potkany ju majú!,Lunin pach je tu všude. Krysy ji mají!
+STORY_BASEMENT_INTRO,Something is squeaking in the dark...,V tme niečo piští...,Ve tmě něco piští...
+PAUSE_SOUND,M – sound: %s,M – zvuk: %s,M – zvuk: %s
+SOUND_ON,on,zapnutý,zapnutý
+SOUND_OFF,off,vypnutý,vypnutý
+SELECT_GOLD,Gold: %d,Zlato: %d,Zlato: %d
+HUD_GOLD,Gold: %d,Zlato: %d,Zlato: %d
+GOLD_EARNED,+%d gold (total %d),+%d zlata (spolu %d),+%d zlata (celkem %d)
+SHOP_TITLE,Upgrades,Vylepšenia,Vylepšení
+SHOP_GOLD,Gold: %d,Zlato: %d,Zlato: %d
+SHOP_MAX,MAX,MAX,MAX
+SHOP_HINT,Arrows choose · Enter buy · Backspace refund all · U / Esc back,Šípky výber · Enter kúpiť · Backspace vrátiť všetko · U / Esc späť,Šipky výběr · Enter koupit · Backspace vrátit vše · U / Esc zpět
+POWERUP_MIGHT_NAME,Might,Sila,Síla
+POWERUP_MIGHT_DESC,+5% damage per rank.,+5 % poškodenie za stupeň.,+5 % poškození za stupeň.
+POWERUP_ARMOR_NAME,Armor,Brnenie,Brnění
+POWERUP_ARMOR_DESC,Every hit hurts 1 less per rank.,Každý zásah zraní o 1 menej za stupeň.,Každý zásah zraní o 1 méně za stupeň.
+POWERUP_MAX_HEALTH_NAME,Max Health,Zdravie,Zdraví
+POWERUP_MAX_HEALTH_DESC,+10 max health per rank.,+10 maximálne zdravie za stupeň.,+10 maximální zdraví za stupeň.
+POWERUP_RECOVERY_NAME,Recovery,Regenerácia,Regenerace
+POWERUP_RECOVERY_DESC,Recover 0.1 HP per second per rank.,"Obnova 0,1 HP za sekundu za stupeň.","Obnova 0,1 HP za sekundu za stupeň."
+POWERUP_COOLDOWN_NAME,Cooldown,Cooldown,Cooldown
+POWERUP_COOLDOWN_DESC,Weapons attack 2.5% faster per rank.,"Zbrane útočia o 2,5 % rýchlejšie za stupeň.","Zbraně útočí o 2,5 % rychleji za stupeň."
+POWERUP_AREA_NAME,Area,Plocha,Plocha
+POWERUP_AREA_DESC,+5% attack area per rank.,+5 % plocha útokov za stupeň.,+5 % plocha útoků za stupeň.
+POWERUP_MOVE_SPEED_NAME,Move Speed,Rýchlosť,Rychlost
+POWERUP_MOVE_SPEED_DESC,+5% movement speed per rank.,+5 % rýchlosť pohybu za stupeň.,+5 % rychlost pohybu za stupeň.
+POWERUP_MAGNET_NAME,Magnet,Magnet,Magnet
+POWERUP_MAGNET_DESC,Pick up kibble from further away.,Granule priťahuješ z väčšej diaľky.,Granule přitahuješ z větší dálky.
+POWERUP_GROWTH_NAME,Growth,Rast,Růst
+POWERUP_GROWTH_DESC,+3% experience per rank.,+3 % skúseností za stupeň.,+3 % zkušeností za stupeň.
+POWERUP_GREED_NAME,Greed,Chamtivosť,Chamtivost
+POWERUP_GREED_DESC,+10% gold per rank.,+10 % zlata za stupeň.,+10 % zlata za stupeň.
+POWERUP_REVIVAL_NAME,Revival,Oživenie,Oživení
+POWERUP_REVIVAL_DESC,Come back once with half health after dying.,Po smrti sa raz vrátiš s polovicou zdravia.,Po smrti se jednou vrátíš s polovinou zdraví.
+POWERUP_REROLL_NAME,Reroll,Prehodenie,Přehození
+POWERUP_REROLL_DESC,Press R on the level-up screen to get new offers (once per rank each run).,Na level-up obrazovke stlač R a dostaneš nové ponuky (raz za stupeň v každej hre).,Na obrazovce level-upu stiskni R a dostaneš nové nabídky (jednou za stupeň v každé hře).
+POWERUP_CURSE_NAME,Curse,Kliatba,Kletba
+POWERUP_CURSE_DESC,"Harder runs: enemies are 10% tougher, faster and more numerous per rank, but you get 10% more gold.","Ťažšia hra: nepriatelia sú o 10 % silnejší, rýchlejší a početnejší za stupeň, ale dostaneš o 10 % viac zlata.","Těžší hra: nepřátelé jsou o 10 % silnější, rychlejší a početnější za stupeň, ale dostaneš o 10 % víc zlata."
+LEVELUP_REROLL,R – reroll (%d left),R – prehodiť ponuku (zostáva %d),R – přehodit nabídku (zbývá %d)
+REVIVED,Revived!,Oživenie!,Oživení!
+EVENT_RING,Surrounded!,Obkľúčenie!,Obklíčení!
+EVENT_SWARM,A swarm is coming!,Blíži sa roj!,Blíží se roj!
+EXTRACT_OPEN,A cat flap opened! Escape through it (60 s),Otvorili sa mačacie dvierka! Uteč nimi (60 s),Otevřela se kočičí dvířka! Uteč jimi (60 s)
+EXTRACT_CLOSED,The cat flap closed,Mačacie dvierka sa zavreli,Kočičí dvířka se zavřela
+EXTRACT_TRACKER,Cat flap: %d s,Mačacie dvierka: %d s,Kočičí dvířka: %d s
+EXTRACT_TITLE,You slipped out!,Mačka ušla!,Kočka utekla!
+EXTRACT_STATS,You escaped after %s with %d enemies defeated.,"Útek po %s, porazených nepriateľov: %d.","Útěk po %s, poražených nepřátel: %d."
+SUMMARY_GOLD,+%d gold (streak bonus +%d %%),+%d zlata (bonus série +%d %%),+%d zlata (bonus série +%d %%)
+SUMMARY_GOLD_DEATH,+%d gold (half of %d – the rest is lost),+%d zlata (polovica z %d – zvyšok prepadol),+%d zlata (polovina z %d – zbytek propadl)
+SUMMARY_STREAK,Streak: %d (best %d),Séria: %d (rekord %d),Série: %d (rekord %d)
+SUMMARY_STREAK_LOST,Streak of %d lost!,Séria %d je preč!,Série %d je pryč!
+SUMMARY_TOTAL,Total gold: %d,Spolu zlata: %d,Celkem zlata: %d
+SELECT_STREAK,Streak %d (best %d) +%d %% gold,Séria %d (rekord %d) +%d %% zlata,Série %d (rekord %d) +%d %% zlata
+HUD_CHARMS,Charms: %d (escape to keep),Prívesky: %d (uteč a ponecháš si ich),Přívěsky: %d (uteč a necháš si je)
+CHARM_FOUND,Charm found: %s! Escape or win to keep it,Nájdený prívesok: %s! Uteč alebo vyhraj a ponecháš si ho,Nalezen přívěsek: %s! Uteč nebo vyhraj a necháš si ho
+SUMMARY_CHARMS_LOST,Charms lost: %s,Stratené prívesky: %s,Ztracené přívěsky: %s
+SUMMARY_CHARMS_KEPT,Charms brought home: %s,Prívesky prinesené domov: %s,Přívěsky doneseny domů: %s
+SUMMARY_CHARMS_DUPES,+%d gold for charms you already had,"+%d zlata za prívesky, ktoré už máš","+%d zlata za přívěsky, které už máš"
+SELECT_CHARMS,Charms: %s,Prívesky: %s,Přívěsky: %s
+CHARMS_TITLE,Collar charms,Prívesky na obojok,Přívěsky na obojek
+CHARMS_EQUIPPED,Worn: %d / %d,Nasadené: %d / %d,Nasazeno: %d / %d
+CHARMS_HINT,Arrows choose · Enter wear / take off · C / Esc back,Šípky výber · Enter nasadiť / zložiť · C / Esc späť,Šipky výběr · Enter nasadit / sundat · C / Esc zpět
+CHARMS_UNKNOWN,"Not found yet. Charms drop from elites, bosses and quests – escape or win to bring them home.","Ešte nenájdený. Prívesky padajú z elít, bossov a questov – uteč alebo vyhraj a prinesieš ich domov.","Ještě nenalezeno. Přívěsky padají z elit, bossů a questů – uteč nebo vyhraj a doneseš je domů."
+RARITY_COMMON,Common,Bežný,Běžný
+RARITY_RARE,Rare,Vzácny,Vzácný
+RARITY_EPIC,Epic,Epický,Epický
+CHARM_FISH_BONE_NAME,Fish Bone,Rybacia kosť,Rybí kost
+CHARM_FISH_BONE_DESC,+10% damage,+10 % poškodenie,+10 % poškození
+CHARM_MOUSE_TAIL_NAME,Mouse Tail,Myší chvost,Myší ocásek
+CHARM_MOUSE_TAIL_DESC,+8% movement speed,+8 % rýchlosť pohybu,+8 % rychlost pohybu
+CHARM_MILK_TOOTH_NAME,Milk Tooth,Mliečny zúbok,Mléčný zoubek
+CHARM_MILK_TOOTH_DESC,+20 max health,+20 maximálne zdravie,+20 maximální zdraví
+CHARM_YARN_KNOT_NAME,Yarn Knot,Uzlík vlny,Uzlík vlny
+CHARM_YARN_KNOT_DESC,+10% attack area,+10 % plocha útokov,+10 % plocha útoků
+CHARM_GOLD_WHISKER_NAME,Golden Whisker,Zlatý fúz,Zlatý vousek
+CHARM_GOLD_WHISKER_DESC,+15% gold,+15 % zlata,+15 % zlata
+CHARM_SARDINE_TIN_NAME,Sardine Tin,Plechovka sardiniek,Plechovka sardinek
+CHARM_SARDINE_TIN_DESC,Recover 0.3 HP per second,"Obnova 0,3 HP za sekundu","Obnova 0,3 HP za sekundu"
+CHARM_MAGNET_PAW_NAME,Magnet Paw,Magnetická labka,Magnetická tlapka
+CHARM_MAGNET_PAW_DESC,Pick up kibble from further away,Granule priťahuješ z väčšej diaľky,Granule přitahuješ z větší dálky
+CHARM_LUCKY_BELL_NAME,Lucky Bell,Zvonček šťastia,Zvoneček štěstí
+CHARM_LUCKY_BELL_DESC,+1 reroll on level-ups,+1 prehodenie ponuky v level-upe,+1 přehození nabídky v level-upu
+CHARM_CATNIP_LEAF_NAME,Catnip Leaf,Lístok šanty,Lístek šanty
+CHARM_CATNIP_LEAF_DESC,Weapons attack 6% faster,Zbrane útočia o 6 % rýchlejšie,Zbraně útočí o 6 % rychleji
+CHARM_STAR_COLLAR_NAME,Star Collar,Hviezdny obojok,Hvězdný obojek
+CHARM_STAR_COLLAR_DESC,+8% experience,+8 % skúseností,+8 % zkušeností
+CHARM_IRON_TAG_NAME,Iron Tag,Železná známka,Železná známka
+CHARM_IRON_TAG_DESC,Every hit hurts 1 less,Každý zásah zraní o 1 menej,Každý zásah zraní o 1 méně
+CHARM_NINTH_LIFE_NAME,Ninth Life,Deviaty život,Devátý život
+CHARM_NINTH_LIFE_DESC,Come back once after dying,Po smrti sa raz vrátiš,Po smrti se jednou vrátíš
+CHARM_TWIN_KITTEN_NAME,Twin Kitten,Mačacie dvojča,Kočičí dvojče
+CHARM_TWIN_KITTEN_DESC,+1 projectile for all weapons,+1 projektil pre všetky zbrane,+1 projektil pro všechny zbraně
+BREATHER,Boss down – catch your breath!,Boss porazený – vydýchni si!,Boss poražen – vydechni si!
+GOALS_TITLE,Goals,Ciele,Cíle
+GOALS_HINT,Arrows / wheel scroll · G / Esc – back,Šípky / koliesko posúvajú · G / Esc – späť,Šipky / kolečko posouvají · G / Esc – zpět
+GOAL_DONE,Goal complete: %s! (%s),Cieľ splnený: %s! (%s),Cíl splněn: %s! (%s)
+GOAL_REWARD_GOLD,%d gold,%d zlata,%d zlata
+GOAL_REWARD_CHARM,Charm: %s,Prívesok: %s,Přívěsek: %s
+GOAL_FIRST_ESCAPE_NAME,First Escape,Prvý útek,První útěk
+GOAL_FIRST_ESCAPE_DESC,Escape through a cat flap,Uteč mačacími dvierkami,Uteč kočičími dvířky
+GOAL_SOCK_HUNTER_NAME,Sock Hunter,Lovec ponožiek,Lovec ponožek
+GOAL_SOCK_HUNTER_DESC,Defeat 1000 socks,Poraz 1000 ponožiek,Poraz 1000 ponožek
+GOAL_DUST_BUSTER_NAME,Dust Buster,Vysávač prachu,Vysavač prachu
+GOAL_DUST_BUSTER_DESC,Defeat 500 dust bunnies,Poraz 500 chumáčov prachu,Poraz 500 chuchvalců prachu
+GOAL_BUBBLE_POPPER_NAME,Bubble Popper,Prepichovač bublín,Propichovač bublin
+GOAL_BUBBLE_POPPER_DESC,Pop 500 soap bubbles,Prasknúť 500 mydlových bublín,Prasknout 500 mýdlových bublin
+GOAL_RAT_CATCHER_NAME,Rat Catcher,Lapač potkanov,Krysař
+GOAL_RAT_CATCHER_DESC,Defeat 1000 rats,Poraz 1000 potkanov,Poraz 1000 krys
+GOAL_BOSS_SLAYER_NAME,Boss Slayer,Premožiteľ bossov,Přemožitel bossů
+GOAL_BOSS_SLAYER_DESC,Defeat 10 bosses,Poraz 10 bossov,Poraz 10 bossů
+GOAL_QUESTER_NAME,Busy Cat,Zaneprázdnená mačka,Zaneprázdněná kočka
+GOAL_QUESTER_DESC,Complete 20 quests,Splň 20 questov,Splň 20 questů
+GOAL_TRAP_MASTER_NAME,Trap Master,Majster pascí,Mistr pastí
+GOAL_TRAP_MASTER_DESC,Let traps defeat 200 enemies,Nechaj pasce poraziť 200 nepriateľov,Nech pasti porazit 200 nepřátel
+GOAL_ESCAPE_ARTIST_NAME,Escape Artist,Majster úniku,Mistr útěku
+GOAL_ESCAPE_ARTIST_DESC,Escape 10 times,Uteč 10-krát,Uteč 10krát
+GOAL_STREAK_3_NAME,On a Roll,Na vlne,Na vlně
+GOAL_STREAK_3_DESC,Reach a streak of 3,Dosiahni sériu 3,Dosáhni série 3
+GOAL_STREAK_5_NAME,Unstoppable,Nezastaviteľná,Nezastavitelná
+GOAL_STREAK_5_DESC,Reach a streak of 5,Dosiahni sériu 5,Dosáhni série 5
+GOAL_SURVIVOR_NAME,Survivor,Preživšia,Přeživší
+GOAL_SURVIVOR_DESC,Last 15 minutes in one night,Vydrž 15 minút v jednej noci,Vydrž 15 minut v jedné noci
+GOAL_VACUUM_KING_NAME,Dethroned,Zosadený kráľ,Sesazený král
+GOAL_VACUUM_KING_DESC,Defeat the Vacuum King,Poraz Kráľa vysávačov,Poraz Krále vysavačů
+GOAL_RAT_KING_NAME,Pied Piper,Krysař,Krysař z Hammelnu
+GOAL_RAT_KING_DESC,Defeat the Rat King,Poraz Potkanieho kráľa,Poraz Krysího krále
+GOAL_CAT_LOVER_NAME,Cat Lover,Milovník mačiek,Milovník koček
+GOAL_VETERAN_NAME,Veteran,Veterán,Veterán
+GOAL_VETERAN_DESC,Play 25 nights,Odohraj 25 nocí,Odehraj 25 nocí
+GOAL_TEN_THOUSAND_NAME,Ten Thousand,Desaťtisíc,Deset tisíc
+GOAL_TEN_THOUSAND_DESC,Defeat 10000 enemies,Poraz 10000 nepriateľov,Poraz 10000 nepřátel
+PAUSE_NUMBERS,N – damage numbers: %s,N – čísla poškodenia: %s,N – čísla poškození: %s
+PAUSE_SHAKE,K – screen shake: %s,K – otrasy obrazovky: %s,K – otřesy obrazovky: %s
+PASSIVE_LUCK_NAME,Lucky Cat,Mačka šťastia,Kočka štěstí
+PASSIVE_LUCK_DESC,"+10% luck: more crits, bigger chests, more drops, sometimes a 4th card.","+10 % šťastie: viac kritických zásahov, väčšie truhlice, viac predmetov, občas 4. karta.","+10 % štěstí: víc kritických zásahů, větší truhly, víc předmětů, občas 4. karta."
+POWERUP_LUCK_NAME,Luck,Šťastie,Štěstí
+POWERUP_LUCK_DESC,"+10% luck per rank: crits, chests, drops and a chance of a 4th level-up card.","+10 % šťastie za stupeň: kritické zásahy, truhlice, predmety a šanca na 4. kartu.","+10 % štěstí za stupeň: kritické zásahy, truhly, předměty a šance na 4. kartu."
+MENU_TAGLINE,One cat. One night. Way too many socks.,Jedna mačka. Jedna noc. Priveľa ponožiek.,Jedna kočka. Jedna noc. Příliš mnoho ponožek.
+MENU_PLAY,Play,Hrať,Hrát
+MENU_UPGRADES,Upgrades,Vylepšenia,Vylepšení
+MENU_CHARMS,Charms,Prívesky,Přívěsky
+MENU_GOALS,Goals,Ciele,Cíle
+MENU_SETTINGS,Settings,Nastavenia,Nastavení
+MENU_QUIT,Quit,Koniec,Konec
+SETTINGS_TITLE,Settings,Nastavenia,Nastavení
+SET_MASTER,Master volume,Celková hlasitosť,Celková hlasitost
+SET_MUSIC,Music,Hudba,Hudba
+SET_SFX,Sound effects,Zvukové efekty,Zvukové efekty
+SET_FULLSCREEN,Fullscreen,Celá obrazovka,Celá obrazovka
+SET_VSYNC,VSync,VSync,VSync
+SET_NUMBERS,Damage numbers,Čísla poškodenia,Čísla poškození
+SET_SHAKE,Screen shake,Otrasy obrazovky,Otřesy obrazovky
+SET_LANGUAGE,Language,Jazyk,Jazyk
+SET_BACK,Back,Späť,Zpět
+PAUSE_RESUME,Resume,Pokračovať,Pokračovat
+PAUSE_GIVE_UP,Give up (counts as death),Vzdať sa (ako smrť),Vzdát se (jako smrt)
+SET_SOUND,Sound,Zvuk,Zvuk
+STAGE_GARDEN_NAME,The Garden,Záhrada,Zahrada
+STAGE_GARDEN_HINT,Defeat the Rat King,Poraz Potkanieho kráľa,Poraz Krysího krále
+STAGE_ROOFTOP_NAME,The Rooftop,Strecha,Střecha
+ENEMY_LAWNMOWER_NAME,The Lawnmower,Kosačka,Sekačka
+ENEMY_PIGEON_EMPEROR_NAME,The Pigeon Emperor,Holubí cisár,Holubí císař
+STORY_GARDEN_INTRO,Fresh air at last... but something is buzzing in the flowerbeds.,Konečne čerstvý vzduch... ale v záhonoch niečo bzučí.,Konečně čerstvý vzduch... ale v záhonech něco bzučí.
+GOAL_LAWNMOWER_NAME,Lawn Keeper,Strážca trávnika,Strážce trávníku
+GOAL_LAWNMOWER_DESC,Defeat the Lawnmower,Poraz Kosačku,Poraz Sekačku
+GOAL_BUG_SWATTER_NAME,Bug Swatter,Plácačka,Plácačka
+GOAL_BUG_SWATTER_DESC,Defeat 1000 bees,Poraz 1000 včiel,Poraz 1000 včel
+GOAL_BIRD_WATCHER_NAME,Bird Watcher,Ornitológ,Ornitolog
+GOAL_BIRD_WATCHER_DESC,Defeat 1000 birds,Poraz 1000 vtákov,Poraz 1000 ptáků
+GOAL_CAT_LOVER_DESC,Unlock all 8 cats,Odomkni všetkých 8 mačiek,Odemkni všech 8 koček
+GOAL_BRUNO_NAME,Top Cat,Kráľ strechy,Král střechy
+GOAL_BRUNO_DESC,Defeat Bruno on the rooftop,Poraz Bruna na streche,Poraz Bruna na střeše
+STAGE_ROOFTOP_HINT,Clear the Garden,Prejdi Záhradu,Projdi Zahradu
+STORY_ROOFTOP_INTRO,The whole city below. They say a huge tomcat rules these roofs...,Celé mesto pod labkami. Vraj tieto strechy ovláda obrovský kocúr...,Celé město pod tlapkami. Prý tyhle střechy ovládá obrovský kocour...
+CAT_CLOVER_NAME,Clover,Ďatelinka,Jetelinka
+CAT_CLOVER_DESC,A lucky tuxedo cat from the garden. Starts with Catnip; +20% luck.,Šťastná mačka vo fraku zo záhrady. Začína so Šantou; +20 % šťastie.,Šťastná kočka ve fraku ze zahrady. Začíná se Šantou; +20 % štěstí.
+CAT_CLOVER_HINT,Rescue her from the garden shed.,Zachráň ju zo záhradnej búdy.,Zachraň ji ze zahradní kůlny.
+CAT_BRUNO_NAME,Bruno,Bruno,Bruno
+CAT_BRUNO_DESC,"The huge tomcat who ruled the rooftops. Starts with Hairball; +20% damage, +20 health.","Obrovský kocúr, pán striech. Začína s Chlpáčom; +20 % poškodenie, +20 zdravia.","Obrovský kocour, pán střech. Začíná s Chlupáčem; +20 % poškození, +20 zdraví."
+CAT_BRUNO_HINT,Defeat him on the rooftop.,Poraz ho na streche.,Poraz ho na střeše.
+CAT_ANGEL_NAME,Angel Cat,Anjel mačka,Andělská kočka
+CAT_DEVIL_NAME,Devil Cat,Diabol mačka,Ďábelská kočka
+ENEMY_RIVAL_BRUNO_NAME,"Bruno, King of the Rooftops","Bruno, kráľ striech","Bruno, král střech"
+ENEMY_DEVIL_CAT_NAME,The Devil Cat,Diabol mačka,Ďábelská kočka
+ANGEL_SAVED,An angel cat came down and saved you!,Zostúpila anjel mačka a zachránila ťa!,Sestoupila andělská kočka a zachránila tě!
+DEVIL_COMING,The angel came twice... something dark has noticed you.,Anjel prišiel dvakrát... všimlo si ťa niečo temné.,Anděl přišel dvakrát... všimlo si tě něco temného.
+DEVIL_WEAK,The Devil Cat weakens! Now it can be hurt.,Diabol mačka slabne! Teraz sa dá zraniť.,Ďábelská kočka slábne! Teď se dá zranit.
+DEVIL_SLAIN,The Devil Cat is defeated!,Diabol mačka je porazená!,Ďábelská kočka je poražena!
+SUMMARY_CAT_UNLOCKED,New cat unlocked: %s,Nová mačka odomknutá: %s,Nová kočka odemčena: %s
+ANGEL_FALLEN,The cat has fallen...,Mačka padla...,Kočka padla...
+DEVIL_TOOK,The Devil Cat took %s...,Diabol mačka si odniesla mačku %s...,Ďábelská kočka si odnesla kočku %s...
+WEAPON_MOUSE_TOY_NAME,Wind-up Mouse,Myška na kľúčik,Myška na klíček
+WEAPON_MOUSE_TOY_DESC,Lets wind-up mice loose that bump through enemies.,"Vypúšťa naťahovacie myšky, ktoré narážajú do nepriateľov.","Vypouští natahovací myšky, které narážejí do nepřátel."
+WEAPON_ROBO_MOUSE_NAME,Robo-Mouse,Robomyš,Robomyš
+WEAPON_ROBO_MOUSE_DESC,Evolved Wind-up Mouse: mice hunt enemies down and explode.,Evolúcia myšky: myšky prenasledujú nepriateľov a vybuchnú.,Evoluce myšky: myšky pronásledují nepřátele a vybuchnou.
+WEAPON_COBWEB_NAME,Cobweb,Pavučina,Pavučina
+WEAPON_COBWEB_DESC,Throws sticky webs that slow and hurt enemies.,"Hádže lepkavé siete, ktoré spomaľujú a zraňujú nepriateľov.","Hází lepkavé sítě, které zpomalují a zraňují nepřátele."
+WEAPON_SILK_TRAP_NAME,Silk Trap,Hodvábna pasca,Hedvábná past
+WEAPON_SILK_TRAP_DESC,Evolved Cobweb: huge webs that hold enemies in place.,"Evolúcia pavučiny: obrovské siete, ktoré nepriateľov zastavia.","Evoluce pavučiny: obrovské sítě, které nepřátele zastaví."
+WEAPON_SPRINKLER_NAME,Sprinkler,Kropič,Kropič
+WEAPON_SPRINKLER_DESC,Spins water jets around you that push enemies back.,"Točí okolo teba prúdy vody, ktoré odhadzujú nepriateľov.","Točí kolem tebe proudy vody, které odhazují nepřátele."
+WEAPON_MONSOON_NAME,Monsoon,Monzún,Monzun
+WEAPON_MONSOON_DESC,"Evolved Sprinkler: never stops, four strong jets.","Evolúcia kropiča: nikdy neprestane, štyri silné prúdy.","Evoluce kropiče: nikdy nepřestane, čtyři silné proudy."
+WEAPON_ANTENNA_NAME,Antenna,Anténa,Anténa
+WEAPON_ANTENNA_DESC,A spark that jumps from enemy to enemy.,"Iskra, ktorá preskakuje z nepriateľa na nepriateľa.","Jiskra, která přeskakuje z nepřítele na nepřítele."
+WEAPON_STORM_ANTENNA_NAME,Storm Antenna,Búrková anténa,Bouřková anténa
+WEAPON_STORM_ANTENNA_DESC,Evolved Antenna: forked lightning that also shocks around every hit.,"Evolúcia antény: rozvetvený blesk, ktorý zasiahne aj okolie.","Evoluce antény: rozvětvený blesk, který zasáhne i okolí."
+PASSIVE_DURATION_NAME,Long Nap,Dlhý spánok,Dlouhý spánek
+PASSIVE_DURATION_DESC,+10% duration of weapon effects.,+10 % trvanie efektov zbraní.,+10 % trvání efektů zbraní.
+PASSIVE_PROJ_SPEED_NAME,Quick Toss,Rýchly hod,Rychlý hod
+PASSIVE_PROJ_SPEED_DESC,+10% projectile speed.,+10 % rýchlosť projektilov.,+10 % rychlost projektilů.
+SUMMARY_WEAPON_UNLOCKED,New weapon unlocked: %s,Nová zbraň odomknutá: %s,Nová zbraň odemčena: %s
+CHARM_CLOVER_LEAF_NAME,Four-leaf Clover,Štvorlístok,Čtyřlístek
+CHARM_CLOVER_LEAF_DESC,+12% luck,+12 % šťastie,+12 % štěstí
+CHARM_SPIDER_SILK_NAME,Spider Silk,Pavúčie vlákno,Pavoučí vlákno
+CHARM_SPIDER_SILK_DESC,+12% duration of weapon effects,+12 % trvanie efektov zbraní,+12 % trvání efektů zbraní
+CHARM_WIND_FEATHER_NAME,Wind Feather,Pierko vetra,Pírko větru
+CHARM_WIND_FEATHER_DESC,+15% projectile speed,+15 % rýchlosť projektilov,+15 % rychlost projektilů
+CHARM_CRESCENT_MOON_NAME,Crescent Moon,Polmesiac,Půlměsíc
+CHARM_CRESCENT_MOON_DESC,+5% critical hit chance,+5 % šanca na kritický zásah,+5 % šance na kritický zásah
+CHARM_GOLDEN_FANG_NAME,Golden Fang,Zlatý tesák,Zlatý tesák
+CHARM_GOLDEN_FANG_DESC,Critical hits deal +30% more,Kritické zásahy o 30 % silnejšie,Kritické zásahy o 30 % silnější
+GOAL_GNOME_TOPPLER_NAME,Gnome Toppler,Kolkár,Kuželkář
+GOAL_GNOME_TOPPLER_DESC,Defeat 300 garden gnomes,Poraz 300 záhradných trpaslíkov,Poraz 300 zahradních trpaslíků
+GOAL_WEB_WEAVER_NAME,Web Weaver,Tkáč sietí,Tkadlec sítí
+GOAL_WEB_WEAVER_DESC,Defeat 500 spiders,Poraz 500 pavúkov,Poraz 500 pavouků
+GOAL_FROG_PRINCE_NAME,Frog Prince,Žabí princ,Žabí princ
+GOAL_FROG_PRINCE_DESC,Defeat 200 frogs,Poraz 200 žiab,Poraz 200 žab
+GOAL_STORM_CHASER_NAME,Storm Chaser,Lovec búrok,Lovec bouří
+GOAL_STORM_CHASER_DESC,Defeat 200 diving gulls,Poraz 200 útočných čajok,Poraz 200 útočných racků
+GOAL_NIGHT_OWL_NAME,Night Owl,Nočná sova,Noční sova
+GOAL_NIGHT_OWL_DESC,Survive a whole night (20 minutes),Prežiť celú noc (20 minút),Přežít celou noc (20 minut)
+GOAL_BOSS_HUNTER_NAME,Boss Hunter,Lovec bossov,Lovec bossů
+GOAL_BOSS_HUNTER_DESC,Defeat 50 bosses,Poraz 50 bossov,Poraz 50 bossů
+MENU_QUESTBOOK,Quest book,Kniha questov,Kniha questů
+QB_TITLE,Quest book,Kniha questov,Kniha questů
+QB_HINT,Arrows / wheel scroll · Q / Esc – back,Šípky / koliesko posúvajú · Q / Esc – späť,Šipky / kolečko posouvají · Q / Esc – zpět
+QB_CHAPTER_MAIN,The cat's life,Mačací život,Kočičí život
+QB_CHAPTER_MAPS,Places,Miesta,Místa
+QB_CHAPTER_STORY,Secrets,Tajomstvá,Tajemství
+QB_SECRET,??? – a secret not yet discovered,??? – zatiaľ neodhalené tajomstvo,??? – zatím neodhalené tajemství
+QB_DONE,All steps done!,Všetky kroky splnené!,Všechny kroky splněny!
+QB_STEP,Step %d/%d,Krok %d/%d,Krok %d/%d
+QB_REWARD_CAT,New cat: %s,Nová mačka: %s,Nová kočka: %s
+QB_COMPLETED,Quest: %s (step %d) – %s,Quest: %s (krok %d) – %s,Quest: %s (krok %d) – %s
+PAGE_APPEARED,Something rustles nearby... a diary page!,Niečo neďaleko zašušťalo... stránka denníka!,Něco opodál zašustilo... stránka deníku!
+PAGE_FOUND,Diary page found! Win or escape to keep it,Stránka denníka je tvoja! Vyhraj alebo uteč a ponecháš si ju,Stránka deníku je tvoje! Vyhraj nebo uteč a necháš si ji
+SUMMARY_PAGE_KEPT,Diary page brought home,Stránka denníka je doma,Stránka deníku je doma
+SUMMARY_PAGE_LOST,The diary page was lost,Stránka denníka sa stratila,Stránka deníku se ztratila
+CAT_ANGEL_DESC,The white cat from the diary. Starts with Spilled Milk; heals 1 health per second.,Biela mačka z denníka. Začína s Rozliatym mliekom; lieči 1 zdravie za sekundu.,Bílá kočka z deníku. Začíná s Rozlitým mlékem; léčí 1 zdraví za sekundu.
+CAT_ANGEL_HINT,Read the old diary to the end.,Dočítaj starý denník.,Dočti starý deník.
+CAT_DEVIL_DESC,It came for you twice. Starts with Laser Pointer; +50% damage.,Prišla si po teba dvakrát. Začína s laserom; +50 % poškodenie.,Přišla si pro tebe dvakrát. Začíná s laserem; +50 % poškození.
+CAT_DEVIL_HINT,Make a bargain with the devil.,Uzavri zmluvu s diablom.,Uzavři smlouvu s ďáblem.
+QB_NIGHT_WATCH_NAME,Night Watch,Nočná hliadka,Noční hlídka
+QB_NIGHT_WATCH_1,Survive 5 minutes in one night.,Prežiť 5 minút v jednej noci.,Přežít 5 minut v jedné noci.
+QB_NIGHT_WATCH_2,Survive 10 minutes in one night.,Prežiť 10 minút v jednej noci.,Přežít 10 minut v jedné noci.
+QB_NIGHT_WATCH_3,Survive 15 minutes in one night.,Prežiť 15 minút v jednej noci.,Přežít 15 minut v jedné noci.
+QB_NIGHT_WATCH_4,Last until morning (20 minutes).,Vydržať do rána (20 minút).,Vydržet do rána (20 minut).
+QB_GROWING_UP_NAME,Growing Up,Rastieme,Rosteme
+QB_GROWING_UP_1,Reach level 20 in one night.,Dosiahnuť level 20 v jednej noci.,Dosáhnout levelu 20 v jedné noci.
+QB_GROWING_UP_2,Reach level 35 in one night.,Dosiahnuť level 35 v jednej noci.,Dosáhnout levelu 35 v jedné noci.
+QB_GROWING_UP_3,Reach level 50 in one night.,Dosiahnuť level 50 v jednej noci.,Dosáhnout levelu 50 v jedné noci.
+QB_GROWING_UP_4,Reach level 65 in one night.,Dosiahnuť level 65 v jednej noci.,Dosáhnout levelu 65 v jedné noci.
+QB_WANDERER_NAME,Wanderer,Túlavá mačka,Toulavá kočka
+QB_WANDERER_1,Walk a total of 5 km.,Prejsť spolu 5 km.,Ujít celkem 5 km.
+QB_WANDERER_2,Walk a total of 25 km.,Prejsť spolu 25 km.,Ujít celkem 25 km.
+QB_WANDERER_3,Walk a total of 100 km.,Prejsť spolu 100 km.,Ujít celkem 100 km.
+QB_CRITIC_NAME,Sharp Claws,Ostré pazúry,Ostré drápy
+QB_CRITIC_1,Land 500 critical hits.,Zasadiť 500 kritických zásahov.,Zasadit 500 kritických zásahů.
+QB_CRITIC_2,"Land 3,000 critical hits.",Zasadiť 3 000 kritických zásahov.,Zasadit 3 000 kritických zásahů.
+QB_CRITIC_3,"Land 15,000 critical hits.",Zasadiť 15 000 kritických zásahov.,Zasadit 15 000 kritických zásahů.
+QB_TREASURE_NAME,Treasure Hunter,Lovec pokladov,Lovec pokladů
+QB_TREASURE_1,Open 5 treasure chests.,Otvoriť 5 truhlíc.,Otevřít 5 truhel.
+QB_TREASURE_2,Open 25 treasure chests.,Otvoriť 25 truhlíc.,Otevřít 25 truhel.
+QB_TREASURE_3,Open 100 treasure chests.,Otvoriť 100 truhlíc.,Otevřít 100 truhel.
+QB_PIGGY_BANK_NAME,Piggy Bank,Pokladnička,Pokladnička
+QB_PIGGY_BANK_1,Pick up 100 gold in one night.,Nazbierať 100 zlata v jednej noci.,Nasbírat 100 zlata v jedné noci.
+QB_PIGGY_BANK_2,Pick up 250 gold in one night.,Nazbierať 250 zlata v jednej noci.,Nasbírat 250 zlata v jedné noci.
+QB_PIGGY_BANK_3,Pick up 500 gold in one night.,Nazbierať 500 zlata v jednej noci.,Nasbírat 500 zlata v jedné noci.
+QB_ALCHEMIST_NAME,Alchemist,Alchymista,Alchymista
+QB_ALCHEMIST_1,Evolve a weapon.,Vyvinúť jednu zbraň.,Vyvinout jednu zbraň.
+QB_ALCHEMIST_2,Evolve 4 different weapons.,Vyvinúť 4 rôzne zbrane.,Vyvinout 4 různé zbraně.
+QB_ALCHEMIST_3,Evolve 8 different weapons.,Vyvinúť 8 rôznych zbraní.,Vyvinout 8 různých zbraní.
+QB_ALCHEMIST_4,Evolve all 13 weapons.,Vyvinúť všetkých 13 zbraní.,Vyvinout všech 13 zbraní.
+QB_ON_THE_BRINK_NAME,On the Brink,Na pokraji,Na pokraji
+QB_ON_THE_BRINK_1,Stay alive for 30 seconds with less than 10% health.,Vydržať 30 sekúnd s menej ako 10 % zdravia.,Vydržet 30 sekund s méně než 10 % zdraví.
+QB_ON_THE_BRINK_2,Win a night after being on the brink.,"Vyhrať noc, v ktorej bola mačka na pokraji.","Vyhrát noc, ve které byla kočka na pokraji."
+QB_RESCUER_NAME,Rescuer,Záchranár,Zachránce
+QB_RESCUER_1,Bring 3 rescued cats home.,Doviesť domov 3 zachránené mačky.,Dovést domů 3 zachráněné kočky.
+QB_RESCUER_2,Bring 10 rescued cats home.,Doviesť domov 10 zachránených mačiek.,Dovést domů 10 zachráněných koček.
+QB_RESCUER_3,Bring 25 rescued cats home.,Doviesť domov 25 zachránených mačiek.,Dovést domů 25 zachráněných koček.
+QB_DUELIST_NAME,Yard Champion,Šampión dvora,Šampion dvora
+QB_DUELIST_1,Win 3 duels.,Vyhrať 3 súboje.,Vyhrát 3 souboje.
+QB_DUELIST_2,Win 10 duels.,Vyhrať 10 súbojov.,Vyhrát 10 soubojů.
+QB_FAMILY_NAME,One Big Family,Veľká rodina,Velká rodina
+QB_FAMILY_1,Win a night with 2 different cats.,Vyhrať noc s 2 rôznymi mačkami.,Vyhrát noc se 2 různými kočkami.
+QB_FAMILY_2,Win a night with 5 different cats.,Vyhrať noc s 5 rôznymi mačkami.,Vyhrát noc s 5 různými kočkami.
+QB_FAMILY_3,Win a night with 8 different cats.,Vyhrať noc s 8 rôznymi mačkami.,Vyhrát noc s 8 různými kočkami.
+QB_APARTMENT_NAME,The Apartment,Byt,Byt
+QB_APARTMENT_1,Survive 10 minutes in the Apartment.,Prežiť 10 minút v Byte.,Přežít 10 minut v Bytě.
+QB_APARTMENT_2,Defeat the Vacuum King.,Poraziť Kráľa vysávačov.,Porazit Krále vysavačů.
+QB_APARTMENT_3,Win in the Apartment without picking up a single heart.,Vyhrať v Byte bez zdvihnutia jediného srdiečka.,Vyhrát v Bytě bez sebrání jediného srdíčka.
+QB_APARTMENT_4,Win in the Apartment 5 times.,Vyhrať v Byte 5-krát.,Vyhrát v Bytě 5krát.
+QB_BASEMENT_NAME,The Basement,Pivnica,Sklep
+QB_BASEMENT_1,Survive 10 minutes in the Basement.,Prežiť 10 minút v Pivnici.,Přežít 10 minut ve Sklepě.
+QB_BASEMENT_2,Defeat the Rat King.,Poraziť Potkanieho kráľa.,Porazit Krysího krále.
+QB_BASEMENT_3,Win in the Basement with 3 weapons or fewer.,Vyhrať v Pivnici s najviac 3 zbraňami.,Vyhrát ve Sklepě nejvýš se 3 zbraněmi.
+QB_BASEMENT_4,Win in the Basement 5 times.,Vyhrať v Pivnici 5-krát.,Vyhrát ve Sklepě 5krát.
+QB_GARDEN_NAME,The Garden,Záhrada,Zahrada
+QB_GARDEN_1,Survive 10 minutes in the Garden.,Prežiť 10 minút v Záhrade.,Přežít 10 minut v Zahradě.
+QB_GARDEN_2,Defeat the Lawnmower.,Poraziť Kosačku.,Porazit Sekačku.
+QB_GARDEN_3,Defeat the Lawnmower within 90 seconds.,Poraziť Kosačku do 90 sekúnd.,Porazit Sekačku do 90 sekund.
+QB_GARDEN_4,Win in the Garden 5 times.,Vyhrať v Záhrade 5-krát.,Vyhrát v Zahradě 5krát.
+QB_ROOFTOP_NAME,The Rooftop,Strecha,Střecha
+QB_ROOFTOP_1,Survive 10 minutes on the Rooftop.,Prežiť 10 minút na Streche.,Přežít 10 minut na Střeše.
+QB_ROOFTOP_2,Defeat Bruno.,Poraziť Bruna.,Porazit Bruna.
+QB_ROOFTOP_3,Beat Bruno with at least half of your health left.,Poraziť Bruna s aspoň polovicou zdravia.,Porazit Bruna s alespoň polovinou zdraví.
+QB_ROOFTOP_4,Win on the Rooftop 5 times.,Vyhrať na Streche 5-krát.,Vyhrát na Střeše 5krát.
+QB_OLD_DIARY_NAME,The Old Cat's Diary,Denník starej mačky,Deník staré kočky
+QB_OLD_DIARY_1,Find the diary page hidden in the Apartment and bring it home (win or escape).,Nájsť stránku denníka ukrytú v Byte a odniesť ju domov (vyhrať alebo utiecť).,Najít stránku deníku ukrytou v Bytě a donést ji domů (vyhrát nebo utéct).
+QB_OLD_DIARY_2,Find the diary page hidden in the Basement and bring it home.,Nájsť stránku denníka ukrytú v Pivnici a odniesť ju domov.,Najít stránku deníku ukrytou ve Sklepě a donést ji domů.
+QB_OLD_DIARY_3,Find the diary page hidden in the Garden and bring it home.,Nájsť stránku denníka ukrytú v Záhrade a odniesť ju domov.,Najít stránku deníku ukrytou v Zahradě a donést ji domů.
+QB_OLD_DIARY_4,Find the last page on the Rooftop. The diary tells of a white cat with wings...,Nájsť poslednú stránku na Streche. Denník rozpráva o bielej mačke s krídlami...,Najít poslední stránku na Střeše. Deník vypráví o bílé kočce s křídly...
+QB_DEVILS_BARGAIN_NAME,The Devil's Bargain,Diablova zmluva,Ďáblova smlouva
+QB_DEVILS_BARGAIN_1,Be saved by the angel cat.,Nechať sa zachrániť anjel mačkou.,Nechat se zachránit andělskou kočkou.
+QB_DEVILS_BARGAIN_2,Meet the one who comes after the angel.,"Stretnúť toho, kto prichádza po anjelovi.","Potkat toho, kdo přichází po andělovi."
+QB_DEVILS_BARGAIN_3,Defeat the Devil Cat. (It only weakens after 30 minutes.),Poraziť Diabol mačku. (Zoslabne až po 30 minútach.),Porazit Ďábelskou kočku. (Zeslábne až po 30 minutách.)
+ENEMY_SOCK_NAME,Lost Sock,Stratená ponožka,Ztracená ponožka
+ENEMY_SOCK_DESC,Escaped from the washing machine and wants revenge.,Ušla z práčky a chce sa pomstiť.,Utekla z pračky a chce se pomstít.
+ENEMY_DUST_BUNNY_NAME,Dust Bunny,Prachový zajačik,Prachový zajíček
+ENEMY_DUST_BUNNY_DESC,"Lives under the sofa. Quick, but falls apart in a sneeze.","Žije pod gaučom. Rýchly, ale rozpadne sa aj od kýchnutia.","Žije pod gaučem. Rychlý, ale rozpadne se i z kýchnutí."
+ENEMY_SOCK_STRIPED_NAME,Striped Sock,Pruhovaná ponožka,Pruhovaná ponožka
+ENEMY_SOCK_STRIPED_DESC,The older sibling. Thicker and angrier.,Starší súrodenec. Hrubšia a nahnevanejšia.,Starší sourozenec. Tlustší a naštvanější.
+ENEMY_BUBBLE_NAME,Soap Bubble,Mydlová bublina,Mýdlová bublina
+ENEMY_BUBBLE_DESC,Floats in fast and pops on your nose.,Priletí rýchlo a praskne ti na nose.,Přiletí rychle a praskne ti na nose.
+ENEMY_ROOMBA_NAME,Robot Vacuum,Robotický vysávač,Robotický vysavač
+ENEMY_ROOMBA_DESC,Thinks the cat is a crumb.,"Myslí si, že mačka je omrvinka.","Myslí si, že kočka je drobek."
+ENEMY_SLIPPER_NAME,Fluffy Slipper,Chlpatá papuča,Chlupatá bačkora
+ENEMY_SLIPPER_DESC,Smells of feet. Hits like a brick.,Smrdí nohami. Udrie ako tehla.,Smrdí nohama. Udeří jako cihla.
+ENEMY_DUST_CLOUD_NAME,Dust Cloud,Prachový mrak,Prachový mrak
+ENEMY_DUST_CLOUD_DESC,A whole sofa's worth of dust. Bursts into bunnies.,Prach spod celého gauča. Rozpadne sa na zajačikov.,Prach zpod celého gauče. Rozpadne se na zajíčky.
+ENEMY_SOCK_KING_NAME,Sock King,Ponožkový kráľ,Ponožkový král
+ENEMY_SOCK_KING_DESC,Rules the laundry basket and calls his loyal socks.,Vládne košu na prádlo a volá si verné ponožky.,Vládne koši na prádlo a volá si věrné ponožky.
+ENEMY_MEGA_ROOMBA_NAME,Mega Roomba,Mega vysávač,Mega vysavač
+ENEMY_MEGA_ROOMBA_DESC,Upgraded with a red light and a bad attitude.,Vylepšený o červené svetlo a zlú náladu.,Vylepšený o červené světlo a špatnou náladu.
+ENEMY_VACUUM_NAME,The Vacuum,Vysávač,Vysavač
+ENEMY_VACUUM_DESC,The loudest thing in the flat.,Najhlučnejšia vec v byte.,Nejhlučnější věc v bytě.
+ENEMY_VACUUM_KING_DESC,The final boss of the Apartment. It sucks. Literally.,Finálny boss Bytu. Vysáva. Doslova.,Finální boss Bytu. Vysává. Doslova.
+ENEMY_RAT_NAME,Rat,Potkan,Krysa
+ENEMY_RAT_DESC,"Fast, hungry and never alone.","Rýchly, hladný a nikdy nie sám.","Rychlá, hladová a nikdy sama."
+ENEMY_SPIDER_NAME,Spider,Pavúk,Pavouk
+ENEMY_SPIDER_DESC,"Eight legs, zero manners.","Osem nôh, nula slušnosti.","Osm nohou, nula slušnosti."
+ENEMY_MOTH_NAME,Moth,Mol,Mol
+ENEMY_MOTH_DESC,Loves the light bulbs. And your fur.,Miluje žiarovky. A tvoju srsť.,Miluje žárovky. A tvou srst.
+ENEMY_SPITTER_SPIDER_NAME,Spitter Spider,Pľujúci pavúk,Plivající pavouk
+ENEMY_SPITTER_SPIDER_DESC,Keeps its distance and spits green goo.,Drží si odstup a pľuje zelený sliz.,Drží si odstup a plive zelený sliz.
+ENEMY_GIANT_RAT_NAME,Giant Rat,Obrovský potkan,Obrovská krysa
+ENEMY_GIANT_RAT_DESC,Charges like a train through the basement.,Rúti sa pivnicou ako vlak.,Řítí se sklepem jako vlak.
+ENEMY_SPIDER_QUEEN_NAME,Spider Queen,Pavúčia kráľovná,Pavoučí královna
+ENEMY_SPIDER_QUEEN_DESC,Shoots from afar and lays new spiders.,Strieľa z diaľky a liahne nových pavúkov.,Střílí z dálky a líhne nové pavouky.
+ENEMY_RAT_KING_DESC,The final boss of the Basement. His roar shakes the pipes.,Finálny boss Pivnice. Jeho rev trasie rúrami.,Finální boss Sklepa. Jeho řev otřásá trubkami.
+ENEMY_BEE_NAME,Bee,Včela,Včela
+ENEMY_BEE_DESC,"Buzzing, fast, and very territorial.","Bzučí, je rýchla a bráni svoje územie.","Bzučí, je rychlá a brání své území."
+ENEMY_SNAIL_NAME,Snail,Slimák,Šnek
+ENEMY_SNAIL_DESC,"Slow, but its shell is hard to crack.","Pomalý, ale ulitu ťažko rozbiješ.","Pomalý, ale ulitu těžko rozbiješ."
+ENEMY_MOLE_NAME,Mole,Krtko,Krtek
+ENEMY_MOLE_DESC,Pops up from the lawn when you least expect it.,"Vyliezne z trávnika, keď to najmenej čakáš.","Vyleze z trávníku, když to nejméně čekáš."
+ENEMY_CROW_NAME,Crow,Vrana,Vrána
+ENEMY_CROW_DESC,Clever and quick. Steals shiny things.,Múdra a rýchla. Kradne lesklé veci.,Chytrá a rychlá. Krade lesklé věci.
+ENEMY_GNOME_NAME,Garden Gnome,Záhradný trpaslík,Zahradní trpaslík
+ENEMY_GNOME_DESC,Stands still all day. Not at night.,Celý deň stojí. V noci nie.,Celý den stojí. V noci ne.
+ENEMY_FROG_NAME,Frog,Žaba,Žába
+ENEMY_FROG_DESC,Spits from the pond's edge.,Pľuje z okraja jazierka.,Plive z okraje jezírka.
+ENEMY_GIANT_SNAIL_NAME,Giant Snail,Obrovský slimák,Obrovský šnek
+ENEMY_GIANT_SNAIL_DESC,Leaves a trail the size of a road.,Nechá za sebou slizovú stopu ako cestu.,Nechá za sebou slizovou stopu jako silnici.
+ENEMY_HORNET_QUEEN_NAME,Hornet Queen,Sršňová kráľovná,Sršní královna
+ENEMY_HORNET_QUEEN_DESC,Her stingers fly and her swarm follows.,Jej žihadlá lietajú a roj ide za ňou.,Její žihadla létají a roj jde za ní.
+ENEMY_LAWNMOWER_DESC,The final boss of the Garden. Mows down anything.,Finálny boss Záhrady. Pokosí čokoľvek.,Finální boss Zahrady. Poseká cokoli.
+ENEMY_PIGEON_NAME,Pigeon,Holub,Holub
+ENEMY_PIGEON_DESC,Owns every roof in town. So it says.,Vlastní každú strechu v meste. Vraví.,Vlastní každou střechu ve městě. Prý.
+ENEMY_BAT_NAME,Bat,Netopier,Netopýr
+ENEMY_BAT_DESC,"Comes out at night, flies in zigzags.",V noci vylieta a lieta cikcak.,V noci vylétá a létá cikcak.
+ENEMY_GULL_NAME,Gull,Čajka,Racek
+ENEMY_GULL_DESC,Loud and greedy. Wants your sardines.,Hlučná a chamtivá. Chce tvoje sardinky.,Hlučný a chamtivý. Chce tvoje sardinky.
+ENEMY_DIVE_GULL_NAME,Diving Gull,Útočná čajka,Útočný racek
+ENEMY_DIVE_GULL_DESC,"Stops, aims, and dives straight at you.","Zastaví sa, zamieri a strmhlav sa vrhne na teba.","Zastaví se, zamíří a střemhlav se na tebe vrhne."
+ENEMY_RACCOON_NAME,Raccoon,Medvedík čistotný,Mýval
+ENEMY_RACCOON_DESC,A masked bandit with heavy paws.,Bandita s maskou a ťažkými labami.,Bandita s maskou a těžkými tlapami.
+ENEMY_BIG_GULL_NAME,Big Gull,Obria čajka,Obří racek
+ENEMY_BIG_GULL_DESC,The leader of the flock. Charges hard.,Vodca kŕdľa. Útočí v plnej rýchlosti.,Vůdce hejna. Útočí v plné rychlosti.
+ENEMY_TRASH_BANDIT_NAME,Trash Bandit,Medvedí zlodej,Mývalí zloděj
+ENEMY_TRASH_BANDIT_DESC,Throws garbage from a distance.,Hádže smeti z diaľky.,Hází odpadky z dálky.
+ENEMY_PIGEON_EMPEROR_DESC,Commands every pigeon on the roofs.,Velí všetkým holubom na strechách.,Velí všem holubům na střechách.
+ENEMY_RIVAL_BRUNO_DESC,The final boss of the Rooftop. A huge tomcat who never lost a fight.,"Finálny boss Strechy. Obrovský kocúr, ktorý ešte neprehral.","Finální boss Střechy. Obrovský kocour, který ještě neprohrál."
+ENEMY_RIVAL_TIGER_NAME,Tiger (rival),Tiger (súper),Tygr (soupeř)
+ENEMY_RIVAL_TIGER_DESC,"The boss of the yard, until you beat him.","Šéf dvora, kým ho neporazíš.","Šéf dvora, dokud ho neporazíš."
+ENEMY_RIVAL_BARON_NAME,Baron (rival),Barón (súper),Baron (soupeř)
+ENEMY_RIVAL_BARON_DESC,Shoots lasers from his cushion.,Strieľa lasery zo svojho vankúša.,Střílí lasery ze svého polštáře.
+ENEMY_DEVIL_CAT_DESC,Comes for those the angel saved twice.,"Prichádza po tých, ktorých anjel zachránil dvakrát.","Přichází pro ty, které anděl zachránil dvakrát."
+MENU_JOURNAL,Journal,Denník,Deník
+JOURNAL_TITLE,Journal,Denník,Deník
+JOURNAL_TAB_QUESTS,Quests,Questy,Questy
+JOURNAL_TAB_GOALS,Goals,Ciele,Cíle
+JOURNAL_TAB_BESTIARY,Bestiary,Bestiár,Bestiář
+JOURNAL_HINT,← → tab · ↑ ↓ / wheel scroll · Esc – back,← → karta · ↑ ↓ / koliesko posúva · Esc – späť,← → karta · ↑ ↓ / kolečko posouvá · Esc – zpět
+BESTIARY_CATS,Cats,Mačky,Kočky
+BESTIARY_ENEMIES,Enemies – %s,Nepriatelia – %s,Nepřátelé – %s
+BESTIARY_OTHERS,Rivals and secrets,Súperi a tajomstvá,Soupeři a tajemství
+BESTIARY_WEAPONS,Weapons,Zbrane,Zbraně
+BESTIARY_PASSIVES,Passives,Pasívky,Pasivky
+BESTIARY_KILLS,Defeated: %d,Porazených: %d,Poraženo: %d
+BESTIARY_BOSS,Boss,Boss,Boss
+BESTIARY_FINAL,Final boss,Finálny boss,Finální boss
+BESTIARY_UNKNOWN,Not met yet,Zatiaľ nestretnutý,Zatím nepotkáno
+BESTIARY_UNUSED,Not used yet,Zatiaľ nepoužitá,Zatím nepoužito
+BESTIARY_EVOLVES,Evolves with %s into %s,S pasívkou %s sa vyvinie na %s,S pasivkou %s se vyvine na %s
+BESTIARY_EVOLVED_FROM,Evolution of %s,Evolúcia zbrane %s,Evoluce zbraně %s
+BESTIARY_FOUND,Found %d / %d,Objavené %d / %d,Objeveno %d / %d
+TAG_BRANCH,BRANCH,VETVA,VĚTEV
+TAG_BRANCH_2,BRANCH II,VETVA II,VĚTEV II
+BRANCH_TITLE,%s: %s,%s: %s,%s: %s
+BRANCH_CHOOSE,Pick one: the other branches of this weapon close.,Vyber si jednu – ostatné vetvy tejto zbrane sa zavrú.,Vyber si jednu – ostatní větve této zbraně se zavřou.
+BRANCH_RANK2,Stronger: %s,Silnejšie: %s,Silnější: %s
+BESTIARY_BRANCHES,Branches: %s,Vetvy: %s,Větve: %s
+BRANCH_FLAME_CLAWS_NAME,Flame Claws,Ohnivé pazúry,Ohnivé drápy
+BRANCH_FLAME_CLAWS_DESC,Scratches set enemies on fire.,Škrabance zapália nepriateľov.,Škrábance zapálí nepřátele.
+BRANCH_FROST_CLAWS_NAME,Frost Claws,Mrazivé pazúry,Mrazivé drápy
+BRANCH_FROST_CLAWS_DESC,Scratches chill enemies and slow them down.,Škrabance nepriateľov zmrazia a spomalia.,Škrábance nepřátele zmrazí a zpomalí.
+BRANCH_BLOODTHIRST_NAME,Bloodthirst,Krvilačnosť,Krvežíznivost
+BRANCH_BLOODTHIRST_DESC,Defeating an enemy may heal you.,Porazený nepriateľ ťa môže vyliečiť.,Poražený nepřítel tě může vyléčit.
+BRANCH_TANGLE_NAME,Tangle,Zamotanie,Zamotání
+BRANCH_TANGLE_DESC,Enemies get tangled in the thread and slow down.,Nepriatelia sa zamotajú do nite a spomalia.,Nepřátelé se zamotají do nitě a zpomalí.
+BRANCH_RICOCHET_NAME,Ricochet,Odraz,Odraz
+BRANCH_RICOCHET_DESC,The ball pierces more enemies and flies faster.,Klbko prerazí viac nepriateľov a letí rýchlejšie.,Klubko prorazí víc nepřátel a letí rychleji.
+BRANCH_SPOOL_NAME,Big Spool,Veľká cievka,Velká cívka
+BRANCH_SPOOL_DESC,Throws more balls of yarn.,Hádže viac klbiek.,Hází víc klubek.
+BRANCH_STICKY_NAME,Sticky Fur,Lepkavá srsť,Lepkavá srst
+BRANCH_STICKY_DESC,Hit enemies get stuck and slow down.,Zasiahnutí nepriatelia sa prilepia a spomalia.,Zasažení nepřátelé se přilepí a zpomalí.
+BRANCH_EXPLOSIVE_NAME,Explosive Furball,Výbušná guľa,Výbušná koule
+BRANCH_EXPLOSIVE_DESC,Hairballs may explode on hit.,Chlpáče môžu pri zásahu vybuchnúť.,Chlupáče mohou při zásahu vybuchnout.
+BRANCH_HEAVY_NAME,Heavy Furball,Ťažký chlpáč,Těžký chlupáč
+BRANCH_HEAVY_DESC,Hits much harder and pushes enemies away.,Udrie oveľa silnejšie a odhodí nepriateľov.,Udeří mnohem silněji a odhodí nepřátele.
+BRANCH_FRENZY_NAME,Frenzy,Šialenstvo,Šílenství
+BRANCH_FRENZY_DESC,The catnip cloud hurts more often.,Oblak šanty zraňuje častejšie.,Oblak šanty zraňuje častěji.
+BRANCH_WILD_GROWTH_NAME,Wild Growth,Bujný rast,Bujný růst
+BRANCH_WILD_GROWTH_DESC,A much bigger catnip cloud.,Oveľa väčší oblak šanty.,Mnohem větší oblak šanty.
+BRANCH_SLEEPY_NAME,Sleepy Herb,Uspávajúca bylinka,Uspávací bylinka
+BRANCH_SLEEPY_DESC,Enemies in the cloud get drowsy and slow.,Nepriatelia v oblaku zaspávajú a spomalia.,Nepřátelé v oblaku usínají a zpomalí.
+BRANCH_SHARP_BONES_NAME,Sharp Bones,Ostré kosti,Ostré kosti
+BRANCH_SHARP_BONES_DESC,Finishes off weak enemies instantly.,Slabých nepriateľov hneď dorazí.,Slabé nepřátele hned dorazí.
+BRANCH_SPIN_NAME,Fast Spin,Rýchla otočka,Rychlá otočka
+BRANCH_SPIN_DESC,Bones circle much faster.,Kosti krúžia oveľa rýchlejšie.,Kosti krouží mnohem rychleji.
+BRANCH_MORE_BONES_NAME,Full Skeleton,Celá kostra,Celá kostra
+BRANCH_MORE_BONES_DESC,More bones circle around you.,Okolo teba krúži viac kostí.,Kolem tebe krouží víc kostí.
+BRANCH_BURNING_BEAM_NAME,Burning Beam,Pálivý lúč,Pálivý paprsek
+BRANCH_BURNING_BEAM_DESC,The beam sets enemies on fire.,Lúč zapáli nepriateľov.,Paprsek zapálí nepřátele.
+BRANCH_PRISM_NAME,Prism,Hranol,Hranol
+BRANCH_PRISM_DESC,Fires more beams.,Strieľa viac lúčov.,Střílí víc paprsků.
+BRANCH_OVERLOAD_NAME,Overload,Preťaženie,Přetížení
+BRANCH_OVERLOAD_DESC,Hits may spark over to a nearby enemy.,Zásah môže preskočiť iskrou na blízkeho nepriateľa.,Zásah může přeskočit jiskrou na blízkého nepřítele.
+BRANCH_HOT_MILK_NAME,Hot Milk,Horúce mlieko,Horké mléko
+BRANCH_HOT_MILK_DESC,Puddles burn whoever steps in.,"Mláky popália každého, kto do nich vstúpi.","Louže popálí každého, kdo do nich vstoupí."
+BRANCH_ICY_MILK_NAME,Icy Milk,Ľadové mlieko,Ledové mléko
+BRANCH_ICY_MILK_DESC,Puddles freeze enemies to a crawl.,"Mláky nepriateľov zmrazia, takmer sa nepohnú.","Louže nepřátele zmrazí, skoro se nepohnou."
+BRANCH_BIG_SPILL_NAME,Big Spill,Veľká potopa,Velká potopa
+BRANCH_BIG_SPILL_DESC,Bigger puddles that last longer.,"Väčšie mláky, ktoré dlhšie vydržia.","Větší louže, které déle vydrží."
+BRANCH_THUNDER_RING_NAME,Thunder Ring,Hromový zvon,Hromový zvon
+BRANCH_THUNDER_RING_DESC,The shockwave may spark to more enemies.,Vlna môže preskočiť iskrou na ďalších nepriateľov.,Vlna může přeskočit jiskrou na další nepřátele.
+BRANCH_LOUD_NAME,Very Loud,Poriadne nahlas,Pořádně nahlas
+BRANCH_LOUD_DESC,A wider ring that pushes harder.,"Širší kruh, ktorý odhodí silnejšie.","Širší kruh, který odhodí silněji."
+BRANCH_QUICK_RING_NAME,Quick Ring,Rýchle zvonenie,Rychlé zvonění
+BRANCH_QUICK_RING_DESC,Rings much more often.,Zvoní oveľa častejšie.,Zvoní mnohem častěji.
+BRANCH_FIRE_FEATHER_NAME,Fire Feather,Ohnivé pierko,Ohnivé pírko
+BRANCH_FIRE_FEATHER_DESC,Feathers set enemies on fire.,Pierka zapália nepriateľov.,Pírka zapálí nepřátele.
+BRANCH_RAZOR_NAME,Razor Edge,Ostrá hrana,Ostrá hrana
+BRANCH_RAZOR_DESC,"Cuts through more enemies, harder.",Prereže viac nepriateľov a silnejšie.,Prořízne víc nepřátel a silněji.
+BRANCH_FLOCK_NAME,Flock,Kŕdeľ,Hejno
+BRANCH_FLOCK_DESC,Throws more feathers.,Hádže viac pierok.,Hází víc pírek.
+BRANCH_FIRECRACKER_NAME,Firecracker,Petarda,Petarda
+BRANCH_FIRECRACKER_DESC,Mice may explode when they bump into enemies.,Myšky môžu pri náraze vybuchnúť.,Myšky mohou při nárazu vybuchnout.
+BRANCH_FAST_SPRING_NAME,Strong Spring,Silné pero,Silné pero
+BRANCH_FAST_SPRING_DESC,Mice run faster and longer.,Myšky bežia rýchlejšie a dlhšie.,Myšky běží rychleji a déle.
+BRANCH_LITTER_NAME,A Whole Litter,Celý vrh,Celý vrh
+BRANCH_LITTER_DESC,More mice at once.,Viac myšiek naraz.,Víc myšek naráz.
+BRANCH_VENOM_NAME,Venom,Jed,Jed
+BRANCH_VENOM_DESC,The web poisons enemies caught in it.,"Sieť otrávi nepriateľov, čo sa do nej chytia.","Síť otráví nepřátele, kteří se do ní chytí."
+BRANCH_STEEL_SILK_NAME,Steel Silk,Oceľové vlákno,Ocelové vlákno
+BRANCH_STEEL_SILK_DESC,Webs last much longer.,Siete vydržia oveľa dlhšie.,Sítě vydrží mnohem déle.
+BRANCH_WIDE_WEB_NAME,Wide Web,Široká sieť,Široká síť
+BRANCH_WIDE_WEB_DESC,Much bigger webs.,Oveľa väčšie siete.,Mnohem větší sítě.
+BRANCH_ICE_WATER_NAME,Ice Water,Ľadová voda,Ledová voda
+BRANCH_ICE_WATER_DESC,The jets freeze enemies.,Prúdy nepriateľov zmrazia.,Proudy nepřátele zmrazí.
+BRANCH_BOILING_NAME,Boiling Water,Vriaca voda,Vroucí voda
+BRANCH_BOILING_DESC,The jets scald enemies.,Prúdy nepriateľov obaria.,Proudy nepřátele opaří.
+BRANCH_PRESSURE_NAME,High Pressure,Vysoký tlak,Vysoký tlak
+BRANCH_PRESSURE_DESC,Stronger jets that push enemies far away.,"Silnejšie prúdy, ktoré odhodia nepriateľov ďaleko.","Silnější proudy, které odhodí nepřátele daleko."
+BRANCH_OVERCHARGE_NAME,Overcharge,Prebitie,Přebití
+BRANCH_OVERCHARGE_DESC,Much stronger sparks.,Oveľa silnejšie iskry.,Mnohem silnější jiskry.
+BRANCH_LONG_ARC_NAME,Long Arc,Dlhý oblúk,Dlouhý oblouk
+BRANCH_LONG_ARC_DESC,The spark jumps to more enemies.,Iskra preskočí na viac nepriateľov.,Jiskra přeskočí na víc nepřátel.
+BRANCH_SHORT_CIRCUIT_NAME,Short Circuit,Skrat,Zkrat
+BRANCH_SHORT_CIRCUIT_DESC,Hits may explode in a burst of sparks.,Zásah môže vybuchnúť v spŕške iskier.,Zásah může vybuchnout ve spršce jisker.
+KIND_BRANCH,Weapon branch,Vetva zbrane,Větev zbraně
+CHAMPION_SWIFT_NAME,Swift,Rýchly,Rychlý
+CHAMPION_SWIFT_DESC,Much faster than its kind.,Oveľa rýchlejší než ostatní.,Mnohem rychlejší než ostatní.
+CHAMPION_ARMORED_NAME,Armored,Obrnený,Obrněný
+CHAMPION_ARMORED_DESC,Takes far less damage.,Dostáva oveľa menej poškodenia.,Dostává mnohem méně poškození.
+CHAMPION_GIANT_NAME,Giant,Obor,Obr
+CHAMPION_GIANT_DESC,"Huge, tough and hits hard.","Obrovský, odolný a silno udiera.","Obrovský, odolný a silně udeří."
+CHAMPION_SPLITTER_NAME,Splitter,Delič,Dělič
+CHAMPION_SPLITTER_DESC,Splits into three when defeated.,Po porazení sa rozdelí na troch.,Po poražení se rozdělí na tři.
+CHAMPION_REGEN_NAME,Regenerating,Regenerujúci,Regenerující
+CHAMPION_REGEN_DESC,Heals itself quickly.,Rýchlo sa lieči.,Rychle se léčí.
+CHAMPION_BOMBER_NAME,Bomber,Bombér,Bombér
+CHAMPION_BOMBER_DESC,Explodes a moment after being defeated – step away!,Chvíľu po porazení vybuchne – uhni!,Chvíli po poražení vybuchne – uhni!
+CHAMPION_APPEARED,A champion appears: %s!,Objavil sa šampión: %s!,Objevil se šampion: %s!
+BESTIARY_CHAMPIONS,Champions,Šampióni,Šampioni
+ENEMY_GOLDEN_MOUSE_NAME,Golden Mouse,Zlatá myš,Zlatá myš
+ENEMY_GOLDEN_MOUSE_DESC,Runs away with a pocket full of gold. Catch it!,Uteká s vreckami plnými zlata. Chyť ju!,Utíká s kapsami plnými zlata. Chyť ji!
+GOLDEN_MOUSE_APPEARED,A golden mouse! Catch it before it gets away!,"Zlatá myš! Chyť ju, kým neutečie!","Zlatá myš! Chyť ji, než uteče!"
+GOLDEN_MOUSE_CAUGHT,Golden mouse caught – gold everywhere!,Zlatá myš chytená – všade zlato!,Zlatá myš chycena – všude zlato!
+GOLDEN_MOUSE_GONE,The golden mouse got away...,Zlatá myš utiekla...,Zlatá myš utekla...
+QB_CHAMPION_HUNTER_NAME,Champion Hunter,Lovec šampiónov,Lovec šampionů
+QB_CHAMPION_HUNTER_1,Defeat 10 champions.,Poraziť 10 šampiónov.,Porazit 10 šampionů.
+QB_CHAMPION_HUNTER_2,Defeat 50 champions.,Poraziť 50 šampiónov.,Porazit 50 šampionů.
+QB_CHAMPION_HUNTER_3,Defeat 200 champions.,Poraziť 200 šampiónov.,Porazit 200 šampionů.
+QB_GOLD_DIGGER_NAME,Gold Digger,Zlatokop,Zlatokop
+QB_GOLD_DIGGER_1,Catch a golden mouse.,Chytiť zlatú myš.,Chytit zlatou myš.
+QB_GOLD_DIGGER_2,Catch 10 golden mice.,Chytiť 10 zlatých myší.,Chytit 10 zlatých myší.
+QB_GOLD_DIGGER_3,Catch 30 golden mice.,Chytiť 30 zlatých myší.,Chytit 30 zlatých myší.
+ENDLESS_HINT,E – keep going: endless night,E – pokračovať: nekonečná noc,E – pokračovat: nekonečná noc
+ENDLESS_START,Endless night! It only gets harder from here...,Nekonečná noc! Odteraz už len ťažšie...,Nekonečná noc! Odteď už jen tíž...
+ENDLESS_SUMMARY,"Endless night: %d extra minutes, +%d gold (kept in full)","Nekonečná noc: %d minút navyše, +%d zlata (celé tvoje)","Nekonečná noc: %d minut navíc, +%d zlata (celé tvoje)"
+QB_ENDLESS_NAME,Endless Night,Nekonečná noc,Nekonečná noc
+QB_ENDLESS_1,Last 3 minutes in an endless night.,Vydržať 3 minúty v nekonečnej noci.,Vydržet 3 minuty v nekonečné noci.
+QB_ENDLESS_2,Last 10 minutes in an endless night.,Vydržať 10 minút v nekonečnej noci.,Vydržet 10 minut v nekonečné noci.
+QB_ENDLESS_3,Last 20 minutes in an endless night.,Vydržať 20 minút v nekonečnej noci.,Vydržet 20 minut v nekonečné noci.
+ENEMY_IRON_NAME,The Iron,Žehlička,Žehlička
+ENEMY_IRON_DESC,Charges across the flat and leaves scalding steam behind.,Rúti sa bytom a nechá za sebou horúcu paru.,Řítí se bytem a nechá za sebou horkou páru.
+ENEMY_BOILER_NAME,The Boiler,Kotol,Kotel
+ENEMY_BOILER_DESC,"Stops, rumbles, and sprays a spiral of hot rivets.","Zastaví sa, zahučí a vystrelí špirálu horúcich nitov.","Zastaví se, zahučí a vystřelí spirálu horkých nýtů."
+ENEMY_SCARECROW_NAME,The Scarecrow,Strašiak,Strašák
+ENEMY_SCARECROW_DESC,Marks the ground and stabs it with a pitchfork. Calls its crows.,Označí zem a zabodne do nej vidly. Volá si vrany.,Označí zem a zabodne do ní vidle. Volá si vrány.
+ENEMY_THUNDERCLOUD_NAME,The Thundercloud,Búrkový mrak,Bouřkový mrak
+ENEMY_THUNDERCLOUD_DESC,Drifts overhead and calls lightning down where it points.,"Pláva nad strechami a zosiela blesky tam, kam ukáže.","Pluje nad střechami a sesílá blesky tam, kam ukáže."
+CHALLENGES_TITLE,Challenges,Výzvy,Výzvy
+CHALLENGES_HINT,↑ ↓ choose · Enter on / off · X / Esc back,↑ ↓ výber · Enter zapnúť / vypnúť · X / Esc späť,↑ ↓ výběr · Enter zapnout / vypnout · X / Esc zpět
+CHALLENGES_GOLD,Gold from the night: x%.2f,Zlato z noci: ×%.2f,Zlato z noci: ×%.2f
+CHALLENGES_MULT,gold x%.1f,zlato ×%.1f,zlato ×%.1f
+CHALLENGES_ON,Challenges: %s (gold x%.2f),Výzvy: %s (zlato ×%.2f),Výzvy: %s (zlato ×%.2f)
+SELECT_CHALLENGES,Challenges (X): %s · gold x%.2f,Výzvy (X): %s · zlato ×%.2f,Výzvy (X): %s · zlato ×%.2f
+SUMMARY_CHALLENGE,Challenges x%.2f: +%d gold,Výzvy ×%.2f: +%d zlata,Výzvy ×%.2f: +%d zlata
+CHALLENGE_HYPER_NAME,Turbo,Turbo,Turbo
+CHALLENGE_HYPER_DESC,Everything runs 25% faster – you too.,Všetko beží o 25 % rýchlejšie – aj ty.,Všechno běží o 25 % rychleji – i ty.
+CHALLENGE_GLASS_NAME,Glass Cat,Krehká mačka,Křehká kočka
+CHALLENGE_GLASS_DESC,"Half the health, but +50% damage.","Polovica zdravia, ale +50 % poškodenie.","Polovina zdraví, ale +50 % poškození."
+CHALLENGE_NO_HEAL_NAME,No Healing,Bez liečenia,Bez léčení
+CHALLENGE_NO_HEAL_DESC,"Hearts, sardines and regeneration don't heal you.","Srdiečka, sardinky ani regenerácia ťa nevyliečia.","Srdíčka, sardinky ani regenerace tě nevyléčí."
+CHALLENGE_ONE_WEAPON_NAME,One Weapon,Jediná zbraň,Jediná zbraň
+CHALLENGE_ONE_WEAPON_DESC,You keep your starting weapon – no others.,Ostane ti len štartová zbraň – žiadne ďalšie.,Zůstane ti jen startovní zbraň – žádné další.
+CHALLENGE_CURSED_NAME,Cursed Night,Prekliata noc,Prokletá noc
+CHALLENGE_CURSED_DESC,"More enemies, tougher and faster.","Viac nepriateľov, odolnejších a rýchlejších.","Víc nepřátel, odolnějších a rychlejších."
+QB_DARING_NAME,Daredevil,Odvážlivec,Odvážlivec
+QB_DARING_1,Win a night with a challenge on.,Vyhrať noc so zapnutou výzvou.,Vyhrát noc se zapnutou výzvou.
+QB_DARING_2,Win with each of the 5 challenges.,Vyhrať s každou z 5 výziev.,Vyhrát s každou z 5 výzev.
+QB_DARING_3,Win a night with 3 challenges at once.,Vyhrať noc s 3 výzvami naraz.,Vyhrát noc se 3 výzvami naráz.
+TIP_MOVE,Move with WASD or the arrow keys – that's all you steer!,Hýb sa klávesmi WASD alebo šípkami – nič iné neovládaš!,Pohybuj se klávesami WASD nebo šipkami – nic jiného neovládáš!
+TIP_WEAPONS,Your weapons fire on their own. Keep moving and stay out of reach!,Zbrane strieľajú samé. Hýb sa a nenechaj sa chytiť!,Zbraně střílí samy. Hýbej se a nenech se chytit!
+TIP_XP,Pick up the blue kibble to gain levels.,"Zbieraj modré granulky, aby si získaval levely.","Sbírej modré granulky, abys získával levely."
+TIP_LEVELS,Each level lets you pick a new weapon or upgrade (1 / 2 / 3 or Enter).,Každý level si vyberieš novú zbraň alebo vylepšenie (1 / 2 / 3 alebo Enter).,Každý level si vybereš novou zbraň nebo vylepšení (1 / 2 / 3 nebo Enter).
+TIP_QUEST,A quest! Follow the golden arrow at the edge of the screen.,Quest! Choď za zlatou šípkou na okraji obrazovky.,Quest! Jdi za zlatou šipkou na okraji obrazovky.
+TIP_FLAP,A cat flap is open: stand in it to escape and keep your gold and charms.,Otvorili sa dvierka: postav sa do nich a utečieš so zlatom aj príveskami.,Otevřela se dvířka: postav se do nich a utečeš se zlatem i přívěsky.
+TIP_PAUSE,Esc pauses the game. Survive until morning to win the night!,Esc pozastaví hru. Prežij do rána a vyhráš noc!,Esc pozastaví hru. Přežij do rána a vyhraješ noc!
+TIP_CHAMPION,"Glowing enemies are champions: tougher, but worth much more.","Žiariaci nepriatelia sú šampióni: odolnejší, ale oplatí sa ich poraziť.","Zářící nepřátelé jsou šampioni: odolnější, ale vyplatí se je porazit."
+QUEST_OLD_MAP_TITLE,The old trunk,Stará truhla,Stará truhla
+QUEST_OLD_MAP_FIND,Look inside the old trunk,Pozri sa do starej truhly,Podívej se do staré truhly
+QUEST_OLD_MAP_AMBUSH,Spiders! Defeat them: %d left,Pavúky! Poraz ich: zostáva %d,Pavouci! Poraz je: zbývá %d
+QUEST_OLD_MAP_PICK,Take the rolled-up paper,Zober zrolovaný papier,Vezmi srolovaný papír
+QUEST_OLD_MAP_FOUND,An old map of the garden: an X under the big tree...,Stará mapa záhrady: krížik pod veľkým stromom...,Stará mapa zahrady: křížek pod velkým stromem...
+QUEST_ROOF_KEY_TITLE,The X under the tree,Krížik pod stromom,Křížek pod stromem
+QUEST_ROOF_KEY_FIND,Dig where the map's X is,"Vyhrab to, kde je na mape krížik","Vyhrabej to, kde je na mapě křížek"
+QUEST_ROOF_KEY_AMBUSH,Moles everywhere! Defeat them: %d left,Všade krtkovia! Poraz ich: zostáva %d,Všude krtci! Poraz je: zbývá %d
+QUEST_ROOF_KEY_PICK,Pick up what's in the hole,"Zober, čo je v jame","Vezmi, co je v jámě"
+QUEST_ROOF_KEY_FOUND,A rusty key – it opens the hatch to the roof!,Hrdzavý kľúč – otvára poklop na strechu!,Rezavý klíč – otvírá poklop na střechu!
+QUEST_BRUNO_NOTE_TITLE,A note on the antenna,Odkaz na anténe,Vzkaz na anténě
+QUEST_BRUNO_NOTE_FIND,Something is pinned to the antenna,Na anténe niečo visí,Na anténě něco visí
+QUEST_BRUNO_NOTE_AMBUSH,Pigeons guard it! Defeat them: %d left,Holuby ho strážia! Poraz ich: zostáva %d,Holubi ho hlídají! Poraz je: zbývá %d
+QUEST_BRUNO_NOTE_PICK,Take the note,Zober odkaz,Vezmi vzkaz
+QUEST_BRUNO_NOTE_FOUND,"""Whoever made it this far: face me at dawn. – Bruno""",„Kto sa dostal až sem: postav sa mi na úsvite. – Bruno“,„Kdo se dostal až sem: postav se mi za úsvitu. – Bruno“
+QB_STORY_NAME,The Way Up,Cesta nahor,Cesta vzhůru
+QB_STORY_1,Find out what happened by the front door (Apartment).,"Zisti, čo sa stalo pri dverách (Byt).","Zjisti, co se stalo u dveří (Byt)."
+QB_STORY_2,Search the old trunk in the Basement.,Prehľadaj starú truhlu v Pivnici.,Prohledej starou truhlu ve Sklepě.
+QB_STORY_3,Dig up what the map points to (Garden).,"Vyhrab, kam ukazuje mapa (Záhrada).","Vyhrabej, kam ukazuje mapa (Zahrada)."
+QB_STORY_4,Read the note on the Rooftop antenna.,Prečítaj odkaz na anténe na Streche.,Přečti vzkaz na anténě na Střeše.
+SET_KEY_MOVE_UP,Move up,Pohyb hore,Pohyb nahoru
+SET_KEY_MOVE_DOWN,Move down,Pohyb dole,Pohyb dolů
+SET_KEY_MOVE_LEFT,Move left,Pohyb vľavo,Pohyb vlevo
+SET_KEY_MOVE_RIGHT,Move right,Pohyb vpravo,Pohyb vpravo
+SET_KEY_WAITING,press a key… (Esc cancels),stlač kláves… (Esc zruší),stiskni klávesu… (Esc zruší)
+SET_KEYS_RESET,Reset keys to WASD,Vrátiť klávesy na WASD,Vrátit klávesy na WASD

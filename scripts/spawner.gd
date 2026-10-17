@@ -33,6 +33,8 @@ const LEVEL_SCALING := 0.035
 ## at 20) and get a little faster (+1.5 % per minute, at most +30 %), so a
 ## strong late-game cat still has to watch out.
 const DAMAGE_PER_MINUTE_SQ := 0.006
+const CHAMPION_PER_MINUTE := 0.004
+const CHAMPION_MAX := 0.06
 const SPEED_PER_MINUTE := 0.015
 const SPEED_MAX_BONUS := 0.3
 const ELITE_FROM := 240.0
@@ -246,7 +248,18 @@ func _spawn(id: String, pos: Vector2) -> Enemy:
 	var enemy := _enemies.spawn(id, pos, hp_multiplier())
 	if enemy != null:
 		enemy.speed *= 1.0 + (_player.stat("curse") - 1.0) * 0.5
+		if not enemy.is_boss and randf() < champion_chance():
+			enemy.make_champion(GameData.champions.keys().pick_random())
 	return enemy
+
+
+## Share of regular spawns that come as champions: none in the first two
+## minutes, then +0.4 % per minute up to 6 % (x curse).
+func champion_chance() -> float:
+	if "--champions" in OS.get_cmdline_user_args():
+		return 0.5
+	var minute := elapsed / 60.0
+	return clampf((minute - 2.0) * CHAMPION_PER_MINUTE, 0.0, CHAMPION_MAX) * _player.stat("curse")
 
 
 ## Timed events from the stage: "ring" surrounds the cat with a closing

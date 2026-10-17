@@ -17,6 +17,8 @@ var goals: Dictionary = {}
 var questbook: Dictionary = {}
 ## base weapon id -> branch id -> {ranks: [effect, effect]}
 var branches: Dictionary = {}
+## Champion affixes: id -> {hp, speed, damage, taken, scale, split, regen, bomb, color}
+var champions: Dictionary = {}
 ## Weighted drop table for broken props: [{kind, weight, value}]
 var loot: Array = []
 
@@ -32,6 +34,7 @@ func _ready() -> void:
 	goals = _load_json("res://data/goals.json")
 	questbook = _load_json("res://data/questbook.json")
 	branches = _load_json("res://data/branches.json")
+	champions = _load_json("res://data/champions.json")
 	var props_file := _load_json("res://data/props.json")
 	props = props_file.get("props", {})
 	loot = props_file.get("loot", [])

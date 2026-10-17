@@ -22,6 +22,8 @@ extends Node2D
 ##   --levels=N         start with N random level-up picks (to test late game)
 ##   --extract          open a cat flap right away
 ##   --page             the map's diary page appears after 5 s
+##   --champions        half of all regular enemies come as champions
+##   --golden           the golden mouse shows up after 2 s
 ##   --drop-charm       drop a random charm next to the cat at the start
 ##   --catch-up         with --start-minute: level the cat like the dev panel's skip does
 ##   --traps            place one of every trap next to the cat
@@ -52,6 +54,10 @@ const MAX_COMPANIONS := 1
 const DEVIL_ID := "DEVIL_CAT"
 ## The devil shows up this long after the second angel save.
 const DEVIL_DELAY := 4.0
+const GOLDEN_MOUSE := "GOLDEN_MOUSE"
+## Seconds between golden mouse visits (random in this range).
+const GOLDEN_EVERY := [150.0, 260.0]
+const GOLDEN_COINS := 10
 ## Share of the night after which the map's night track plays.
 const NIGHT_MUSIC_AT := 0.5
 ## The devil moves this much faster than the cat's current speed.
@@ -111,6 +117,8 @@ var _page_item: Pickup
 var _has_page := false
 ## The map track playing now (day or night).
 var _music_track := ""
+var _golden_t: float = GOLDEN_EVERY[0]
+var _champion_seen := false
 
 @onready var player: Player = $Player
 @onready var enemies: EnemyManager = $Enemies
@@ -149,6 +157,8 @@ func _ready() -> void:
 			Profile.add_stat("quests")
 			_maybe_drop_charm(player.position + Vector2(16, 16), CHARM_CHANCE_QUEST)
 			_open_extraction())
+	if "--golden" in _args:
+		_golden_t = 2.0
 	if "--devil" in _args:
 		summon_devil.call_deferred()
 	var forced := _arg("--quest=", "")
@@ -156,6 +166,10 @@ func _ready() -> void:
 		quests.force.call_deferred(forced)
 	enemies.enemy_killed.connect(_on_enemy_killed)
 	enemies.prop_broken.connect(_on_prop_broken)
+	enemies.champion_killed.connect(_on_champion_killed)
+	enemies.escaped.connect(func(enemy_id: String, _pos: Vector2) -> void:
+		if enemy_id == GOLDEN_MOUSE:
+			hud.show_banner(tr("GOLDEN_MOUSE_GONE"), 3.0))
 	enemies.elite_killed.connect(func(pos: Vector2) -> void:
 		pickups.spawn_named("coin", pos + Vector2(8, 0), 10.0)
 		_maybe_drop_charm(pos + Vector2(-8, 0), CHARM_CHANCE_ELITE))
@@ -294,7 +308,7 @@ func _process(delta: float) -> void:
 			spawner.elapsed, player.level, kills, player.hp, player.max_hp,
 			enemies.enemies.size(), player.is_dead])
 		print("BOT: hurt=%.0f armor=%.1f regen=%.2f max_hp=%.0f" % [player.damage_taken, player.stat("armor"), player.stat("regen"), player.max_hp])
-		print("BOT: music=%s" % Audio.get("_music_name"))
+		print("BOT: music=%s golden_mice=%d champions=%d" % [Audio.get("_music_name"), Profile.get_stat("golden_mice"), Profile.get_stat("champions")])
 		print("BOT: weapons=%s passives=%s props_broken=%d bosses_killed=%d chests=%d won=%s" % [
 			weapons, player.passives, props_broken, bosses_killed, chests_opened, _run_over and not player.is_dead])
 		print("BOT: damage numbers on screen=%d" % enemies.numbers._numbers.size())
@@ -369,6 +383,14 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 	if id == DEVIL_ID:
 		Profile.set_flag("devil_slain")
 		hud.show_banner(tr("DEVIL_SLAIN"), 5.0)
+	if id == GOLDEN_MOUSE:
+		Profile.add_stat("golden_mice")
+		hud.show_banner(tr("GOLDEN_MOUSE_CAUGHT"), 3.0)
+		Audio.play("chest", -2.0, 0.0)
+		for i in GOLDEN_COINS:
+			pickups.spawn_named("coin", pos + Vector2.from_angle(TAU * i / GOLDEN_COINS) * 14.0, 5.0)
+		pickups.spawn_named("chest", pos, 0.0)
+		return
 	if GameData.enemies[id].get("boss", false):
 		_boss_impact()
 		bosses_killed += 1
@@ -639,6 +661,20 @@ func _track_run(delta: float) -> void:
 			Profile.set_flag("brink")
 	else:
 		_brink_t = 0.0
+	if not _champion_seen and int(Engine.get_process_frames()) % 30 == 0:
+		for e in enemies.enemies:
+			if e.champion != "":
+				_champion_seen = true
+				hud.show_banner(tr("CHAMPION_APPEARED") % tr("CHAMPION_%s_NAME" % e.champion), 3.0)
+				break
+	# Now and then a golden mouse scurries by.
+	if final_boss == null and not _run_over:
+		_golden_t -= delta
+		if _golden_t <= 0.0:
+			_golden_t = randf_range(GOLDEN_EVERY[0], GOLDEN_EVERY[1])
+			enemies.spawn(GOLDEN_MOUSE, player.position + Vector2.from_angle(randf() * TAU) * 230.0)
+			hud.show_banner(tr("GOLDEN_MOUSE_APPEARED"), 3.5)
+			Audio.play("magnet", -4.0, 0.0)
 	# Night falls: switch to the map's night track (not over a boss theme).
 	if final_boss == null and not is_instance_valid(devil) and not _rescuing:
 		var track := _map_music()
@@ -650,6 +686,14 @@ func _track_run(delta: float) -> void:
 		_page_item = pickups.spawn_page(player.position + Vector2.from_angle(randf() * TAU) * randf_range(480.0, 640.0))
 		hud.show_banner(tr("PAGE_APPEARED"), 4.0)
 		Audio.play("quest", -2.0, 0.0)
+
+
+func _on_champion_killed(affix: String, pos: Vector2) -> void:
+	Profile.add_stat("champions")
+	Profile.add_stat("champions:" + affix)
+	pickups.spawn_named("coin", pos + Vector2(6, 0), 3.0)
+	pickups.spawn_named("coin", pos + Vector2(-6, 0), 3.0)
+	_maybe_drop_charm(pos + Vector2(0, 8), CHARM_CHANCE_ELITE * 0.5)
 
 
 func _announce_quests(done: Array[Array]) -> void:

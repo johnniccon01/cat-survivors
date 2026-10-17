@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Runs every automated scenario headless (4 at a time) and reports script
+# Runs every automated scenario headless (12 at a time) and reports script
 # errors.
 #   bash tools/run_checks.sh [path-to-godot-console-exe]
 # Exit code is the number of failing scenarios.
 GODOT="${1:-/c/Users/john.niccon/Downloads/Godot_v4.6.2-stable_win64.exe/Godot_v4.6.2-stable_win64_console.exe}"
-JOBS="${JOBS:-4}"
+JOBS="${JOBS:-12}"
 cd "$(dirname "$0")/.." || exit 1
 
 # "name|args after --" or "name|args after --|engine args" (e.g. a -s script).
@@ -54,6 +54,8 @@ scenarios=(
   "duel_into_final|--bot --levels=30 --quest=TIGER --stage=BASEMENT --start-minute=19.8 --catch-up --bot-time=40"
   "extract_charm|--bot --drop-charm --extract --bot-time=60"
   "traps|--bot --traps --bot-time=60"
+  "champions|--bot --start-minute=6 --catch-up --champions --bot-time=480"
+  "golden_mouse|--bot --golden --levels=20 --bot-time=60"
   "diary_page|--bot --page --extract --levels=20 --bot-time=150"
 )
 

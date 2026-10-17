@@ -56,6 +56,13 @@ var fatal := false
 var _slow := 1.0
 var _slow_t := 0.0
 ## Branch effects: burning (handled by the manager) and the chill tint.
+## Champion affix (data/champions.json) or "".
+var champion := ""
+var _champion_color := Color.WHITE
+var _taken := 1.0
+var _regen := 0.0
+## Flee behaviour (the golden mouse): seconds left before it gets away.
+var _flee_t := 0.0
 var burn_damage := 0.0
 var burn_t := 0.0
 var burn_tick := 0.0
@@ -103,6 +110,7 @@ func setup(p_id: String, data: Dictionary, p_manager: EnemyManager) -> void:
 	_base_scale = data.get("scale", 1.0)
 	scale = Vector2(_base_scale, _base_scale)
 	persistent = data.get("persistent", false)
+	_flee_t = float(data.get("flee_time", 0.0))
 	_summon_id = data.get("summon", "")
 	_summon_count = int(data.get("summon_count", 0))
 	_summon_every = float(data.get("summon_every", 8.0))
@@ -118,6 +126,29 @@ func slow_down(factor: float, seconds: float) -> void:
 	if _slow_t <= 0.0 or factor < _slow:
 		_slow = factor
 	_slow_t = maxf(_slow_t, seconds)
+
+
+## Turns this enemy into a champion: tougher, with one special trait and a
+## coloured aura; worth more XP.
+func make_champion(affix: String) -> void:
+	var c: Dictionary = GameData.champions[affix]
+	champion = affix
+	_champion_color = Color(c.get("color", "#ffffff"))
+	max_hp *= float(c.get("hp", 2.0))
+	hp = max_hp
+	speed *= float(c.get("speed", 1.0))
+	damage *= float(c.get("damage", 1.0))
+	_taken = float(c.get("taken", 1.0))
+	_regen = float(c.get("regen", 0.0))
+	knockback_resist = maxf(knockback_resist, float(c.get("knockback_resist", 0.5)))
+	var grow := float(c.get("scale", 1.2))
+	_base_scale *= grow
+	radius *= grow
+	scale = Vector2(_base_scale, _base_scale)
+	xp *= 5.0
+	manager.budget_used += cost * 2.0
+	cost *= 3.0
+	queue_redraw()
 
 
 ## Shows the frosty tint for `seconds` (the slow itself is slow_down).
@@ -175,6 +206,8 @@ func tick(delta: float, target: Vector2, push: Vector2) -> void:
 			move = _tick_spit(delta, target, dir)
 		"dive":
 			move = _tick_dive(delta, target, dir)
+		"flee":
+			move = _tick_flee(delta, dir)
 	if _summon_id != "":
 		_summon_timer -= delta
 		if _summon_timer <= 0.0:
@@ -184,6 +217,8 @@ func tick(delta: float, target: Vector2, push: Vector2) -> void:
 	if _slow_t > 0.0:
 		_slow_t -= delta
 		move *= _slow
+	if _regen > 0.0 and hp < max_hp:
+		hp = minf(max_hp, hp + max_hp * _regen * delta)
 	if _chill_t > 0.0:
 		_chill_t -= delta
 	modulate = Color(1.35, 0.8, 0.55) if burn_t > 0.0 else (Color(0.7, 0.9, 1.4) if _chill_t > 0.0 else Color.WHITE)
@@ -269,6 +304,15 @@ func _tick_final(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 	return dir * speed
 
 
+## Runs away from the cat, zig-zagging, and slips off after a while.
+func _tick_flee(delta: float, dir: Vector2) -> Vector2:
+	_flee_t -= delta
+	if _flee_t <= 0.0:
+		wants_despawn = true
+		manager.escaped.emit(id, position)
+	return (-dir + dir.orthogonal() * sin(_wobble * 0.5) * 0.8).normalized() * speed
+
+
 ## Regular ranged enemy: keeps some distance and spits a slow blob now and then.
 func _tick_spit(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 	var dist := position.distance_to(target)
@@ -342,6 +386,7 @@ func hit(amount: float, direction: Vector2, knockback: float, can_crit: bool = t
 		_flash = 0.05
 		queue_redraw()
 		return
+	amount *= _taken
 	var crit := false
 	var cat: Player = manager.player
 	if can_crit and cat != null and amount > 0.0:
@@ -364,6 +409,12 @@ func hit(amount: float, direction: Vector2, knockback: float, can_crit: bool = t
 
 func _draw() -> void:
 	var r := radius / _base_scale
+	if champion != "":
+		draw_colored_polygon(Shapes.ellipse(Vector2(0, r + 1), r + 4, 4.5), Color(_champion_color, 0.35))
+		draw_arc(Vector2(0, -1), r + 3.0, 0.0, TAU, 20, Color(_champion_color, 0.8), 1.0)
+	if id == "GOLDEN_MOUSE":
+		for k in 3:
+			draw_circle(Vector2(0, -1), r + 2.0 + k * 3.0, Color(1.0, 0.85, 0.3, 0.12))
 	var sprite := Sprites.enemy(id) if _shape != "cat" else {}
 	if not sprite.is_empty():
 		draw_colored_polygon(Shapes.ellipse(Vector2(1, r + 2), r, 2), Color(0, 0, 0, 0.25))

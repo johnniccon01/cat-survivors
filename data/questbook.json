@@ -620,6 +620,76 @@
         }
       ],
       "secret": true
+    },
+    "CHAMPION_HUNTER": {
+      "chapter": "main",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "champions"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "champions"
+          ],
+          "target": 50,
+          "reward": {
+            "charm": "IRON_TAG"
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "champions"
+          ],
+          "target": 200,
+          "reward": {
+            "gold": 1000
+          }
+        }
+      ]
+    },
+    "GOLD_DIGGER": {
+      "chapter": "main",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "golden_mice"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 150
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "golden_mice"
+          ],
+          "target": 10,
+          "reward": {
+            "charm": "GOLD_WHISKER"
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "golden_mice"
+          ],
+          "target": 30,
+          "reward": {
+            "gold": 1200
+          }
+        }
+      ]
     }
   }
 }

@@ -8,6 +8,9 @@ extends Node2D
 signal enemy_killed(enemy_id: String, pos: Vector2, xp: float)
 signal prop_broken(prop_id: String, pos: Vector2)
 signal elite_killed(pos: Vector2)
+signal champion_killed(affix: String, pos: Vector2)
+## A fleeing enemy (the golden mouse) got away.
+signal escaped(enemy_id: String, pos: Vector2)
 
 const CELL := 24.0
 const MAX_ENEMIES := 500
@@ -162,6 +165,21 @@ func on_enemy_dead(enemy: Enemy) -> void:
 					child._knock = Vector2.from_angle(TAU * i / n) * 120.0
 		if enemy.is_elite:
 			elite_killed.emit(enemy.position)
+		if enemy.champion != "":
+			champion_killed.emit(enemy.champion, enemy.position)
+			var c: Dictionary = GameData.champions[enemy.champion]
+			if c.has("split"):
+				var n := int(c["split"])
+				for i in n:
+					var child := spawn(enemy.id, enemy.position + Vector2.from_angle(TAU * i / n) * enemy.radius, enemy.hp_mult)
+					if child != null:
+						child._knock = Vector2.from_angle(TAU * i / n) * 140.0
+			if c.has("bomb"):
+				var bomb := ChampionBomb.new()
+				bomb.position = enemy.position
+				bomb.player = player
+				bomb.damage = enemy.damage * float(c["bomb"])
+				get_parent().add_child(bomb)
 	poof.position = enemy.position
 	get_parent().add_child(poof)
 	enemy.queue_free()

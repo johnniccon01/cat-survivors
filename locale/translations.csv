@@ -649,3 +649,30 @@ BRANCH_LONG_ARC_DESC,The spark jumps to more enemies.,Iskra preskočí na viac n
 BRANCH_SHORT_CIRCUIT_NAME,Short Circuit,Skrat
 BRANCH_SHORT_CIRCUIT_DESC,Hits may explode in a burst of sparks.,Zásah môže vybuchnúť v spŕške iskier.
 KIND_BRANCH,Weapon branch,Vetva zbrane
+CHAMPION_SWIFT_NAME,Swift,Rýchly
+CHAMPION_SWIFT_DESC,Much faster than its kind.,Oveľa rýchlejší než ostatní.
+CHAMPION_ARMORED_NAME,Armored,Obrnený
+CHAMPION_ARMORED_DESC,Takes far less damage.,Dostáva oveľa menej poškodenia.
+CHAMPION_GIANT_NAME,Giant,Obor
+CHAMPION_GIANT_DESC,"Huge, tough and hits hard.","Obrovský, odolný a silno udiera."
+CHAMPION_SPLITTER_NAME,Splitter,Delič
+CHAMPION_SPLITTER_DESC,Splits into three when defeated.,Po porazení sa rozdelí na troch.
+CHAMPION_REGEN_NAME,Regenerating,Regenerujúci
+CHAMPION_REGEN_DESC,Heals itself quickly.,Rýchlo sa lieči.
+CHAMPION_BOMBER_NAME,Bomber,Bombér
+CHAMPION_BOMBER_DESC,Explodes a moment after being defeated – step away!,Chvíľu po porazení vybuchne – uhni!
+CHAMPION_APPEARED,A champion appears: %s!,Objavil sa šampión: %s!
+BESTIARY_CHAMPIONS,Champions,Šampióni
+ENEMY_GOLDEN_MOUSE_NAME,Golden Mouse,Zlatá myš
+ENEMY_GOLDEN_MOUSE_DESC,Runs away with a pocket full of gold. Catch it!,Uteká s vreckami plnými zlata. Chyť ju!
+GOLDEN_MOUSE_APPEARED,A golden mouse! Catch it before it gets away!,"Zlatá myš! Chyť ju, kým neutečie!"
+GOLDEN_MOUSE_CAUGHT,Golden mouse caught – gold everywhere!,Zlatá myš chytená – všade zlato!
+GOLDEN_MOUSE_GONE,The golden mouse got away...,Zlatá myš utiekla...
+QB_CHAMPION_HUNTER_NAME,Champion Hunter,Lovec šampiónov
+QB_CHAMPION_HUNTER_1,Defeat 10 champions.,Poraziť 10 šampiónov.
+QB_CHAMPION_HUNTER_2,Defeat 50 champions.,Poraziť 50 šampiónov.
+QB_CHAMPION_HUNTER_3,Defeat 200 champions.,Poraziť 200 šampiónov.
+QB_GOLD_DIGGER_NAME,Gold Digger,Zlatokop
+QB_GOLD_DIGGER_1,Catch a golden mouse.,Chytiť zlatú myš.
+QB_GOLD_DIGGER_2,Catch 10 golden mice.,Chytiť 10 zlatých myší.
+QB_GOLD_DIGGER_3,Catch 30 golden mice.,Chytiť 30 zlatých myší.

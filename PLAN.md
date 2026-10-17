@@ -57,6 +57,8 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 - [ ] Úplne noví bossovia (napr. jeden stredný boss na mapu s vlastným útokom)
 - [x] Viac charmov a cieľov: 5 nových charmov (štvorlístok, pavúčie vlákno, pierko vetra, polmesiac, zlatý tesák), 6 nových cieľov; zoznam cieľov sa dá posúvať
 - [x] Bestiár: mačky, nepriatelia podľa máp (počet porazených, popis), zbrane s evolúciami, pasívky; neobjavené ako ???
+- [x] Šampióni: 6 druhov (rýchly, obrnený, obor, delič, regenerujúci, bombér) od 2. minúty, v bestiári aj v questoch
+- [x] Zlatá myš: občas pribehne, uteká, po chytení vysype zlato a truhlicu
 - [ ] Nové režimy: nekonečná noc po víťazstve, výzvy s obmedzeniami
 
 ## Fáza 3 – Grafika a zvuk

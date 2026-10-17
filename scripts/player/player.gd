@@ -369,6 +369,10 @@ func _bot_input(delta: float) -> Vector2:
 		away += d / maxf(d.length_squared(), 1.0)
 	if away != Vector2.ZERO:
 		return (away.normalized() + wander * 0.3).normalized()
+	# Chase a golden mouse if one is around.
+	for e in manager.enemies:
+		if e.id == "GOLDEN_MOUSE" and e.position.distance_to(position) < 500.0:
+			return (e.position - position).normalized()
 	# A diary page on the map is worth a detour.
 	var page: Variant = get_parent().get("_page_item")
 	if is_instance_valid(page):

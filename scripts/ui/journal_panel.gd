@@ -187,6 +187,18 @@ func _build_bestiary() -> void:
 	var others: Array = GameData.enemies.keys().filter(func(e: String) -> bool: return not placed.has(e))
 	_enemy_section(tr("BESTIARY_OTHERS"), others)
 
+	# Champion traits.
+	var champs: Array = GameData.champions.keys()
+	_header("%s   %s" % [tr("BESTIARY_CHAMPIONS"), tr("BESTIARY_FOUND") % [champs.filter(func(c: String) -> bool: return Profile.get_stat("champions:" + c) > 0).size(), champs.size()]])
+	var cgrid := _grid()
+	for c: String in champs:
+		var known := Profile.get_stat("champions:" + c) > 0
+		var swatch := ColorRect.new()
+		swatch.color = Color(GameData.champions[c]["color"]) if known else SILHOUETTE
+		swatch.custom_minimum_size = Vector2(40, 40)
+		cgrid.add_child(_card(swatch, tr("CHAMPION_%s_NAME" % c) if known else "???",
+			"%s\n%s" % [tr("BESTIARY_KILLS") % Profile.get_stat("champions:" + c), tr("CHAMPION_%s_DESC" % c)] if known else tr("BESTIARY_UNKNOWN"), known))
+
 	# Weapons (base first, each followed by its evolution) and passives.
 	var weapons: Array[String] = []
 	for id: String in GameData.weapons:

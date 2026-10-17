@@ -318,6 +318,9 @@ func _process(delta: float) -> void:
 	if _goal_check <= 0.0 and not _run_over:
 		_goal_check = 2.0
 		_announce_goals(Goals.check())
+		for id in Achievements.check():
+			hud.show_banner(tr("ACH_EARNED") % tr("ACH_%s_NAME" % id), 4.0)
+			Audio.play("sparkle", -2.0, 0.0)
 		_announce_quests(QuestBook.check())
 	if OS.is_debug_build():
 		hud.debug_extra = " · budget %d/%d (x%.2f)" % [roundi(enemies.budget_used), spawner.alive_cap(), spawner.intensity()]
@@ -693,6 +696,7 @@ func _end_run(kind: String) -> void:
 		gold += bonus
 		lines.append(tr("SUMMARY_CHALLENGE") % [Profile.challenge_gold(), bonus])
 	Profile.add_gold(gold)
+	Achievements.check()
 	for id in Goals.check():
 		lines.append(tr("GOAL_DONE") % [tr("GOAL_%s_NAME" % id), Goals.reward_text(id)])
 	for entry in QuestBook.check():
@@ -1062,6 +1066,7 @@ func _end_endless(kind: String) -> void:
 	if _has_page and kind != "death":
 		Profile.set_flag("page:" + spawner.stage_id)
 		lines.append(tr("SUMMARY_PAGE_KEPT"))
+	Achievements.check()
 	for id in Goals.check():
 		lines.append(tr("GOAL_DONE") % [tr("GOAL_%s_NAME" % id), Goals.reward_text(id)])
 	for entry in QuestBook.check():

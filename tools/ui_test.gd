@@ -47,7 +47,7 @@ func _main_menu() -> void:
 	var journal: Control = current_scene.get("_journal")
 	await _press(KEY_ENTER)
 	_expect(journal.visible and journal.get("tab") == "quests", "journal opens on quests")
-	for step: Array in [[KEY_RIGHT, "goals"], [KEY_RIGHT, "bestiary"], [KEY_RIGHT, "quests"], [KEY_LEFT, "bestiary"], [KEY_D, "quests"], [KEY_A, "bestiary"]]:
+	for step: Array in [[KEY_RIGHT, "achievements"], [KEY_RIGHT, "goals"], [KEY_RIGHT, "bestiary"], [KEY_RIGHT, "quests"], [KEY_LEFT, "bestiary"], [KEY_D, "quests"], [KEY_A, "bestiary"]]:
 		await _press(step[0])
 		_expect(journal.get("tab") == step[1], "journal %s -> %s (got %s)" % [OS.get_keycode_string(step[0]), step[1], journal.get("tab")])
 	var scroll: ScrollContainer = journal.get("_scroll")

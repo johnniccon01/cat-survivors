@@ -1,0 +1,203 @@
+{
+  "FIRST_STEPS": {
+    "stats": [
+      "runs"
+    ],
+    "target": 1
+  },
+  "FIRST_DAWN": {
+    "stats": [
+      "wins:LIVING_ROOM"
+    ],
+    "target": 1
+  },
+  "TOURIST": {
+    "all_stats": [
+      "wins:LIVING_ROOM",
+      "wins:BASEMENT",
+      "wins:GARDEN",
+      "wins:ROOFTOP",
+      "wins:SUPERMARKET",
+      "wins:HARBOR"
+    ]
+  },
+  "HUNTER": {
+    "stats": [
+      "kills"
+    ],
+    "target": 1000
+  },
+  "PREDATOR": {
+    "stats": [
+      "kills"
+    ],
+    "target": 25000
+  },
+  "APEX": {
+    "stats": [
+      "kills"
+    ],
+    "target": 100000
+  },
+  "BOSS_BANE": {
+    "stats": [
+      "bosses"
+    ],
+    "target": 25
+  },
+  "BOSS_LEGEND": {
+    "stats": [
+      "bosses"
+    ],
+    "target": 150
+  },
+  "STORYTELLER": {
+    "chains": true,
+    "target": 1
+  },
+  "BOOKWORM": {
+    "chains": true,
+    "target": 10
+  },
+  "THE_END": {
+    "chains": true,
+    "target": 31
+  },
+  "HOMECOMING": {
+    "flag": "chain:WAY_HOME"
+  },
+  "UNPLUGGED": {
+    "flag": "chain:WHO_IS_BEHIND"
+  },
+  "BIG_FAMILY": {
+    "cats": true,
+    "target": 10
+  },
+  "COLLECTOR": {
+    "artifacts": true,
+    "target": 10
+  },
+  "MUSEUM": {
+    "artifacts": true,
+    "target": 25
+  },
+  "EVOLUTION": {
+    "flags_prefix": "evolved:",
+    "target": 1
+  },
+  "ARSENAL": {
+    "flags_prefix": "evolved:",
+    "target": 13
+  },
+  "SHARP_CLAWS": {
+    "stats": [
+      "crits"
+    ],
+    "target": 10000
+  },
+  "GOLD_FEVER": {
+    "stats": [
+      "golden_mice"
+    ],
+    "target": 10
+  },
+  "CHAMPION": {
+    "stats": [
+      "champions"
+    ],
+    "target": 100
+  },
+  "GUARDIAN_ANGEL": {
+    "stats": [
+      "rescues"
+    ],
+    "target": 10
+  },
+  "TRAPPER": {
+    "stats": [
+      "trap_kills"
+    ],
+    "target": 500
+  },
+  "MARATHON": {
+    "stats": [
+      "distance"
+    ],
+    "target": 42195
+  },
+  "TREASURE_HUNTER": {
+    "stats": [
+      "chests"
+    ],
+    "target": 100
+  },
+  "ESCAPIST": {
+    "stats": [
+      "escapes"
+    ],
+    "target": 25
+  },
+  "DUELIST": {
+    "stats": [
+      "duels_won"
+    ],
+    "target": 10
+  },
+  "VETERAN": {
+    "stats": [
+      "runs"
+    ],
+    "target": 100
+  },
+  "CLOSE_CALL": {
+    "flag": "brink_win"
+  },
+  "NO_SNACKS": {
+    "flags_prefix": "win_no_hearts:",
+    "target": 1
+  },
+  "MINIMALIST": {
+    "flags_prefix": "win_few_weapons:",
+    "target": 1
+  },
+  "DAREDEVIL": {
+    "flag": "win_three_challenges"
+  },
+  "BUILDER": {
+    "all_flags": [
+      "chain:BOILER",
+      "chain:SCARECROW",
+      "chain:STORM_ANTENNA",
+      "chain:LIGHTHOUSE"
+    ]
+  },
+  "BEST_FRIENDS": {
+    "all_flags": [
+      "chain:BRUNO_TRIAL",
+      "chain:REX_RESPECT"
+    ]
+  },
+  "DIPLOMAT": {
+    "flag": "choice:SPIDER_WEB:GIFT"
+  },
+  "GOODBYE": {
+    "flag": "chain:LAST_WALK"
+  },
+  "MOTHERS_DAY": {
+    "flag": "chain:LOST_KITTENS"
+  },
+  "HEAVENLY": {
+    "flag": "angel_seen",
+    "secret": true
+  },
+  "DEVIL_SLAYER": {
+    "flag": "devil_slain",
+    "secret": true
+  },
+  "ENDLESS": {
+    "stats": [
+      "endless_runs"
+    ],
+    "target": 1
+  }
+}

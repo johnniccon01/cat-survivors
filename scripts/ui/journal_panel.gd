@@ -7,7 +7,7 @@ extends ColorRect
 
 signal closed
 
-const TABS := ["quests", "goals", "bestiary"]
+const TABS := ["quests", "achievements", "goals", "bestiary"]
 const GOLD := Color("f2c14e")
 const DONE := Color("6cd48a")
 const MUTED := Color("8f7ea3")
@@ -46,7 +46,7 @@ func _ready() -> void:
 		var b := Button.new()
 		b.text = "JOURNAL_TAB_%s" % t.to_upper()
 		b.focus_mode = Control.FOCUS_NONE
-		b.custom_minimum_size = Vector2(200, 36)
+		b.custom_minimum_size = Vector2(180, 36)
 		b.add_theme_font_size_override("font_size", 20)
 		b.pressed.connect(func() -> void: show_tab(t))
 		tabs.add_child(b)
@@ -84,6 +84,8 @@ func show_tab(which: String) -> void:
 			_build_quests()
 		"goals":
 			_build_goals()
+		"achievements":
+			_build_achievements()
 		_:
 			_build_bestiary()
 	_scroll.scroll_vertical = 0
@@ -175,6 +177,37 @@ func _chain_row(id: String) -> Control:
 		where += " · " + tr("CHAIN_NEEDS_CAT") % tr("CAT_%s_NAME" % need)
 	desc.text = "      %s\n      %s  %s  (%s)" % [tr("CHAIN_%s_DESC" % id), tr("QB_STEP") % [steps + 1, n], tr("CHAIN_%s_%d" % [id, steps + 1]), where]
 	return row
+
+
+# --- achievements -----------------------------------------------------------------
+
+func _build_achievements() -> void:
+	Achievements.check()
+	var ids: Array = Achievements.all().keys()
+	_header("%s   %s" % [tr("JOURNAL_TAB_ACHIEVEMENTS"), tr("BESTIARY_FOUND") % [ids.filter(func(a: String) -> bool: return Achievements.is_earned(a)).size(), ids.size()]])
+	var grid := GridContainer.new()
+	grid.columns = 2
+	grid.add_theme_constant_override("h_separation", 12)
+	grid.add_theme_constant_override("v_separation", 6)
+	_list.add_child(grid)
+	for id: String in ids:
+		var earned := Achievements.is_earned(id)
+		var secret: bool = Achievements.all()[id].get("secret", false)
+		var card := PanelContainer.new()
+		card.custom_minimum_size = Vector2(550, 58)
+		card.add_theme_stylebox_override("panel", UiStyle.box(UiStyle.PANEL_HOVER if earned else UiStyle.PANEL, GOLD if earned else UiStyle.BORDER))
+		var box := VBoxContainer.new()
+		box.add_theme_constant_override("separation", 0)
+		card.add_child(box)
+		var name_label := _label(18, GOLD if earned else TEXT, HORIZONTAL_ALIGNMENT_LEFT)
+		name_label.text = ("★ " if earned else "☆ ") + (tr("ACH_%s_NAME" % id) if earned or not secret else "???")
+		box.add_child(name_label)
+		var desc := _label(14, DONE if earned else MUTED, HORIZONTAL_ALIGNMENT_LEFT)
+		var goal := Achievements.target(id)
+		var count := "" if earned or goal <= 1 else "  (%d/%d)" % [mini(Achievements.progress(id), goal), goal]
+		desc.text = "   " + (tr("ACH_%s_DESC" % id) + count if earned or not secret else tr("QB_SECRET"))
+		box.add_child(desc)
+		grid.add_child(card)
 
 
 # --- goals ----------------------------------------------------------------------

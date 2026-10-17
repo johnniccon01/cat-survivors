@@ -39,6 +39,8 @@ var artifacts: Array[String] = []
 var equipped_artifacts: Array[String] = []
 ## Quest chains: chain id -> steps done.
 var chains: Dictionary = {}
+## Earned achievement ids.
+var achievements: Array[String] = []
 
 
 func _ready() -> void:
@@ -81,6 +83,8 @@ func _ready() -> void:
 			if GameData.challenges.has(id):
 				challenges.append(id)
 		chains = cfg.get_value("chains", "steps", {})
+		for id: String in cfg.get_value("achievements", "earned", []):
+			achievements.append(id)
 		for id: String in cfg.get_value("artifacts", "owned", []):
 			if GameData.artifacts.has(id):
 				artifacts.append(id)
@@ -379,6 +383,7 @@ func save() -> void:
 	cfg.set_value("challenge", "active", challenges)
 	cfg.set_value("artifacts", "owned", artifacts)
 	cfg.set_value("chains", "steps", chains)
+	cfg.set_value("achievements", "earned", achievements)
 	cfg.set_value("artifacts", "equipped", equipped_artifacts)
 	# Keep the last good save before writing the new one.
 	if FileAccess.file_exists(PATH):

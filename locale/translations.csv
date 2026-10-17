@@ -1177,3 +1177,85 @@ CHAIN_LAST_WALK_DESC,Old Whiskers wants to see his favourite roof one more time.
 CHAIN_LAST_WALK_1,Walk Old Whiskers to his favourite chimney,Odprevaď starého Fúzača k jeho obľúbenému komínu,Doprovoď starého Fouska k jeho oblíbenému komínu
 CHAIN_LAST_WALK_1_START,He walks slowly. Stay with him.,Kráča pomaly. Zostaň pri ňom.,Jde pomalu. Zůstaň u něj.
 CHAIN_LAST_WALK_1_DONE,"He lies down by the warm chimney and watches the moon. ""Thank you, little one."" He gives you his bell.","Ľahol si k teplému komínu a pozerá na mesiac. „Ďakujem, maličký.“ Dal ti svoj zvonček.","Lehl si k teplému komínu a dívá se na měsíc. „Děkuju, maličký.“ Dal ti svůj zvoneček."
+ACH_EARNED,Achievement: %s,Úspech: %s,Úspěch: %s
+JOURNAL_TAB_ACHIEVEMENTS,Achievements,Úspechy,Úspěchy
+ACH_FIRST_STEPS_NAME,First Steps,Prvé kroky,První kroky
+ACH_FIRST_STEPS_DESC,Play your first night,Odohraj prvú noc,Odehraj první noc
+ACH_FIRST_DAWN_NAME,First Dawn,Prvé ráno,První ráno
+ACH_FIRST_DAWN_DESC,Survive a whole night,Prežij celú noc,Přežij celou noc
+ACH_TOURIST_NAME,Tourist,Turista,Turista
+ACH_TOURIST_DESC,Win on every map,Vyhraj na každej mape,Vyhraj na každé mapě
+ACH_HUNTER_NAME,Hunter,Lovec,Lovec
+ACH_HUNTER_DESC,"Defeat 1,000 enemies",Poraz 1 000 nepriateľov,Poraz 1 000 nepřátel
+ACH_PREDATOR_NAME,Predator,Predátor,Predátor
+ACH_PREDATOR_DESC,"Defeat 25,000 enemies",Poraz 25 000 nepriateľov,Poraz 25 000 nepřátel
+ACH_APEX_NAME,Top of the Food Chain,Na vrchole potravinového reťazca,Na vrcholu potravního řetězce
+ACH_APEX_DESC,"Defeat 100,000 enemies",Poraz 100 000 nepriateľov,Poraz 100 000 nepřátel
+ACH_BOSS_BANE_NAME,Boss Bane,Postrach bossov,Postrach bossů
+ACH_BOSS_BANE_DESC,Defeat 25 bosses,Poraz 25 bossov,Poraz 25 bossů
+ACH_BOSS_LEGEND_NAME,Boss Legend,Legenda,Legenda
+ACH_BOSS_LEGEND_DESC,Defeat 150 bosses,Poraz 150 bossov,Poraz 150 bossů
+ACH_STORYTELLER_NAME,Storyteller,Rozprávač,Vypravěč
+ACH_STORYTELLER_DESC,Finish a story,Dokonči príbeh,Dokonči příběh
+ACH_BOOKWORM_NAME,Bookworm,Knihomoľ,Knihomol
+ACH_BOOKWORM_DESC,Finish 10 stories,Dokonči 10 príbehov,Dokonči 10 příběhů
+ACH_THE_END_NAME,The End,Koniec,Konec
+ACH_THE_END_DESC,Finish every story,Dokonči všetky príbehy,Dokonči všechny příběhy
+ACH_HOMECOMING_NAME,Homecoming,Návrat domov,Návrat domů
+ACH_HOMECOMING_DESC,Find the way home,Nájdi cestu domov,Najdi cestu domů
+ACH_UNPLUGGED_NAME,Unplugged,Odpojený,Odpojeno
+ACH_UNPLUGGED_DESC,Find out who is behind it all,"Zisti, kto za tým všetkým stojí","Zjisti, kdo za tím vším stojí"
+ACH_BIG_FAMILY_NAME,Big Family,Veľká rodina,Velká rodina
+ACH_BIG_FAMILY_DESC,Unlock 10 cats,Odomkni 10 mačiek,Odemkni 10 koček
+ACH_COLLECTOR_NAME,Collector,Zberateľ,Sběratel
+ACH_COLLECTOR_DESC,Own 10 artifacts,Získaj 10 artefaktov,Získej 10 artefaktů
+ACH_MUSEUM_NAME,Museum,Múzeum,Muzeum
+ACH_MUSEUM_DESC,Own 25 artifacts,Získaj 25 artefaktov,Získej 25 artefaktů
+ACH_EVOLUTION_NAME,Evolution,Evolúcia,Evoluce
+ACH_EVOLUTION_DESC,Evolve a weapon,Vyvin zbraň,Vyvin zbraň
+ACH_ARSENAL_NAME,Arsenal,Arzenál,Arzenál
+ACH_ARSENAL_DESC,Evolve every weapon,Vyvin všetky zbrane,Vyvin všechny zbraně
+ACH_SHARP_CLAWS_NAME,Sharp Claws,Ostré pazúry,Ostré drápy
+ACH_SHARP_CLAWS_DESC,"Land 10,000 critical hits",Zasaď 10 000 kritických zásahov,Zasaď 10 000 kritických zásahů
+ACH_GOLD_FEVER_NAME,Gold Fever,Zlatá horúčka,Zlatá horečka
+ACH_GOLD_FEVER_DESC,Catch 10 golden mice,Chyť 10 zlatých myší,Chyť 10 zlatých myší
+ACH_CHAMPION_NAME,Champion of Champions,Šampión šampiónov,Šampion šampionů
+ACH_CHAMPION_DESC,Defeat 100 champions,Poraz 100 šampiónov,Poraz 100 šampionů
+ACH_GUARDIAN_ANGEL_NAME,Guardian Angel,Strážny anjel,Strážný anděl
+ACH_GUARDIAN_ANGEL_DESC,Bring 10 rescued cats home,Doveď domov 10 zachránených mačiek,Doveď domů 10 zachráněných koček
+ACH_TRAPPER_NAME,Trapper,Lovec s pascami,Lovec s pastmi
+ACH_TRAPPER_DESC,Defeat 500 enemies with traps,Poraz 500 nepriateľov pascami,Poraz 500 nepřátel pastmi
+ACH_MARATHON_NAME,Marathon,Maratón,Maraton
+ACH_MARATHON_DESC,Walk 42 km in total,Prejdi spolu 42 km,Ujdi celkem 42 km
+ACH_TREASURE_HUNTER_NAME,Treasure Hunter,Hľadač pokladov,Hledač pokladů
+ACH_TREASURE_HUNTER_DESC,Open 100 chests,Otvor 100 truhlíc,Otevři 100 truhel
+ACH_ESCAPIST_NAME,Escapist,Únikový umelec,Únikový umělec
+ACH_ESCAPIST_DESC,Escape through the cat flap 25 times,Uteč dvierkami 25-krát,Uteč dvířky 25krát
+ACH_DUELIST_NAME,Duelist,Duelant,Duelant
+ACH_DUELIST_DESC,Win 10 duels,Vyhraj 10 súbojov,Vyhraj 10 soubojů
+ACH_VETERAN_NAME,Veteran,Veterán,Veterán
+ACH_VETERAN_DESC,Play 100 nights,Odohraj 100 nocí,Odehraj 100 nocí
+ACH_CLOSE_CALL_NAME,Close Call,O chlp,O chlup
+ACH_CLOSE_CALL_DESC,Win a night after being on the brink,"Vyhraj noc, v ktorej bola mačka na pokraji","Vyhraj noc, ve které byla kočka na pokraji"
+ACH_NO_SNACKS_NAME,No Snacks,Bez maškŕt,Bez mlsání
+ACH_NO_SNACKS_DESC,Win without picking up a heart,Vyhraj bez zdvihnutia srdiečka,Vyhraj bez sebrání srdíčka
+ACH_MINIMALIST_NAME,Minimalist,Minimalista,Minimalista
+ACH_MINIMALIST_DESC,Win with at most 3 weapons,Vyhraj s najviac 3 zbraňami,Vyhraj s nejvýš 3 zbraněmi
+ACH_DAREDEVIL_NAME,Daredevil,Odvážlivec,Odvážlivec
+ACH_DAREDEVIL_DESC,Win with three challenges at once,Vyhraj s tromi výzvami naraz,Vyhraj se třemi výzvami najednou
+ACH_BUILDER_NAME,Builder,Staviteľ,Stavitel
+ACH_BUILDER_DESC,"Fix the boiler, the scarecrow, the antenna and the lighthouse","Oprav kotol, strašiaka, anténu a maják","Oprav kotel, strašáka, anténu a maják"
+ACH_BEST_FRIENDS_NAME,Best Friends,Najlepší kamaráti,Nejlepší kamarádi
+ACH_BEST_FRIENDS_DESC,Win over Bruno and Rex,Získaj si Bruna aj Rexa,Získej si Bruna i Rexe
+ACH_DIPLOMAT_NAME,Diplomat,Diplomat,Diplomat
+ACH_DIPLOMAT_DESC,Make peace with the Spider Queen,Uzavri mier s pavúčou kráľovnou,Uzavři mír s pavoučí královnou
+ACH_GOODBYE_NAME,"Goodbye, Old Friend","Zbohom, starý priateľ","Sbohem, starý příteli"
+ACH_GOODBYE_DESC,Take Old Whiskers on his last walk,Odprevaď starého Fúzača na poslednú prechádzku,Doprovoď starého Fouska na poslední procházku
+ACH_MOTHERS_DAY_NAME,Mother's Day,Deň matiek,Den matek
+ACH_MOTHERS_DAY_DESC,Bring the lost kittens home,Priveď stratené mačiatka domov,Přiveď ztracená koťata domů
+ACH_HEAVENLY_NAME,Heavenly,Z neba,Z nebe
+ACH_HEAVENLY_DESC,Be saved by the angel,Nechaj sa zachrániť anjelom,Nech se zachránit andělem
+ACH_DEVIL_SLAYER_NAME,Devil Slayer,Krotiteľ diabla,Krotitel ďábla
+ACH_DEVIL_SLAYER_DESC,Defeat the Devil Cat,Poraz diabol mačku,Poraz ďábelskou kočku
+ACH_ENDLESS_NAME,Night Without End,Noc bez konca,Noc bez konce
+ACH_ENDLESS_DESC,Keep going after the dawn,Pokračuj aj po úsvite,Pokračuj i po úsvitu

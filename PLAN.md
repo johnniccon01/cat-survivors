@@ -133,7 +133,7 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 
 - [x] Únik dvierkami: čakanie 5 s → 3 s
 - [x] Státie na mieste kratšie (miska 40 → 25 s, obrana 45 → 30 s, zóny kratšie); silní bossovia z príbehov až neskôr v noci (`after_minute`)
-- [ ] Menu, výber mapy a výber mačky prerobiť (pohyb v menu, krajší výber)
+- [x] Menu: šípky aj W/S, pohyb sa zacyklí; výber mačky s veľkým detailom (zbraň, výhry, level, bossovia) a karty máp s obrázkom a finálnym bossom
 - [ ] Efekty zbraní prepracovať
 - [x] Achievementy: 40 úspechov (záložka Úspechy v Denníku, oznámenie v hre, tajné ako ???)
 - [ ] Ak nie je čo robiť: ďalšia mapa

@@ -26,6 +26,15 @@ func _run() -> void:
 
 func _main_menu() -> void:
 	_expect(_focus_text() == "MENU_PLAY", "menu starts on Play, got %s" % _focus_text())
+	# The arrows wrap around, and W/S move like up/down.
+	await _press(KEY_UP)
+	_expect(_focus_text() == "MENU_QUIT", "Up from Play wraps to Quit (got %s)" % _focus_text())
+	await _press(KEY_DOWN)
+	_expect(_focus_text() == "MENU_PLAY", "Down from Quit wraps to Play (got %s)" % _focus_text())
+	await _press(KEY_S)
+	_expect(_focus_text() == "MENU_UPGRADES", "S moves down (got %s)" % _focus_text())
+	await _press(KEY_W)
+	_expect(_focus_text() == "MENU_PLAY", "W moves up (got %s)" % _focus_text())
 	# Each panel: walk down to its button, open it, mash keys, close it.
 	for entry: Array in [[1, "_shop"], [2, "_charms"], [3, "_journal"]]:
 		for i in entry[0]:

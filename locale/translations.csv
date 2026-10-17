@@ -1259,3 +1259,6 @@ ACH_DEVIL_SLAYER_NAME,Devil Slayer,Krotiteľ diabla,Krotitel ďábla
 ACH_DEVIL_SLAYER_DESC,Defeat the Devil Cat,Poraz diabol mačku,Poraz ďábelskou kočku
 ACH_ENDLESS_NAME,Night Without End,Noc bez konca,Noc bez konce
 ACH_ENDLESS_DESC,Keep going after the dawn,Pokračuj aj po úsvite,Pokračuj i po úsvitu
+SELECT_START_WEAPON,Starts with: %s,Začína so zbraňou: %s,Začíná se zbraní: %s
+SELECT_CAT_STATS,Wins: %d   ·   Best level: %d   ·   Bosses: %d,Výhry: %d   ·   Najvyšší level: %d   ·   Bossovia: %d,Výhry: %d   ·   Nejvyšší level: %d   ·   Bossové: %d
+SELECT_MAP_BEST,Longest night: %d min,Najdlhšia noc: %d min,Nejdelší noc: %d min

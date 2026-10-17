@@ -103,7 +103,33 @@ func _build() -> void:
 		add_child(panel)
 		panel.closed.connect(_on_panel_closed)
 	_refresh()
+	_wrap_focus()
 	(_buttons.get_child(0) as Button).grab_focus.call_deferred()
+
+
+## Up from the first button goes to the last and down from the last to the
+## first.
+func _wrap_focus() -> void:
+	var list := _buttons.get_children()
+	for i in list.size():
+		var b: Button = list[i]
+		b.focus_neighbor_top = b.get_path_to(list[(i - 1 + list.size()) % list.size()])
+		b.focus_neighbor_bottom = b.get_path_to(list[(i + 1) % list.size()])
+
+
+## W and S move through the menu too.
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not event.is_pressed() or event.is_echo():
+		return
+	var focus := get_viewport().gui_get_focus_owner()
+	if focus == null or focus.get_parent() != _buttons:
+		return
+	var key := (event as InputEventKey).physical_keycode
+	if key == KEY_W or key == KEY_S:
+		var next := focus.get_node(focus.focus_neighbor_top if key == KEY_W else focus.focus_neighbor_bottom) as Control
+		if next != null:
+			next.grab_focus()
+			get_viewport().set_input_as_handled()
 
 
 func _add_button(text: String, action: Callable) -> void:

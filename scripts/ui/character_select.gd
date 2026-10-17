@@ -1,6 +1,8 @@
 extends Control
-## Cat selection before a run. Locked cats show as silhouettes with a hint
-## on how to get them. Any debug flag on the command line skips this screen.
+## Cat and map selection before a run: a grid of cats with the chosen one
+## shown big (starting weapon, wins with it), and a row of map cards. Locked
+## cats and maps show as silhouettes with a hint on how to get them. Any
+## debug flag on the command line skips this screen.
 
 const MAIN_SCENE := "res://scenes/main.tscn"
 const BG := Color("1d1626")
@@ -27,6 +29,11 @@ var _challenges: ChallengePanel
 var _challenge_label: Label
 var _worn: Label
 var _gold: Label
+var _big: CatPreview
+var _weapon_icon: IconView
+var _weapon_label: Label
+var _cat_stats: Label
+var _map_cards: Array[MapCard] = []
 
 
 func _ready() -> void:
@@ -66,64 +73,113 @@ func _build() -> void:
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(bg)
 
-	var box := VBoxContainer.new()
-	box.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	box.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	box.grow_vertical = Control.GROW_DIRECTION_BOTH
-	# More than eight cats go in two rows of smaller cards.
-	var two_rows := _ids.size() > 8
-	box.add_theme_constant_override("separation", 12 if two_rows else 22)
-	add_child(box)
+	var root := VBoxContainer.new()
+	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	root.offset_left = 32
+	root.offset_right = -32
+	root.offset_top = 14
+	root.offset_bottom = -10
+	root.add_theme_constant_override("separation", 12)
+	root.alignment = BoxContainer.ALIGNMENT_CENTER
+	add_child(root)
 
-	var title := _label(46, GOLD)
+	var title := _label(40, GOLD)
 	title.text = "SELECT_TITLE"
-	box.add_child(title)
+	root.add_child(title)
 
-	var center := CenterContainer.new()
-	box.add_child(center)
-	var row := GridContainer.new()
-	row.columns = ceili(_ids.size() / 2.0) if two_rows else maxi(_ids.size(), 1)
-	row.add_theme_constant_override("h_separation", 10)
-	row.add_theme_constant_override("v_separation", 10)
-	center.add_child(row)
+	# Top: the cats on the left, the chosen one big on the right.
+	var top := HBoxContainer.new()
+	top.add_theme_constant_override("separation", 18)
+	root.add_child(top)
+	var grid := GridContainer.new()
+	grid.columns = 6
+	grid.add_theme_constant_override("h_separation", 8)
+	grid.add_theme_constant_override("v_separation", 8)
+	top.add_child(grid)
 	for i in _ids.size():
 		var card := PanelContainer.new()
-		card.custom_minimum_size = Vector2(124, 128) if two_rows else Vector2(138, 170)
+		card.custom_minimum_size = Vector2(98, 112)
 		card.mouse_filter = Control.MOUSE_FILTER_STOP
 		card.gui_input.connect(_on_card_input.bind(i))
 		var preview := CatPreview.new()
 		preview.cat_id = _ids[i]
 		preview.locked = not Profile.is_unlocked(_ids[i])
-		if two_rows:
-			preview.zoom = 2.5
+		preview.zoom = 2.2
 		preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		card.add_child(preview)
-		row.add_child(card)
+		grid.add_child(card)
 		_cards.append(card)
 		_previews.append(preview)
 
-	_name = _label(32, Color.WHITE)
-	box.add_child(_name)
-	_desc = _label(20, Color("d9cce6"))
-	_desc.custom_minimum_size = Vector2(700, 60)
+	var detail := PanelContainer.new()
+	detail.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	detail.add_theme_stylebox_override("panel", UiStyle.box(CARD, BORDER))
+	top.add_child(detail)
+	var drow := HBoxContainer.new()
+	drow.add_theme_constant_override("separation", 10)
+	detail.add_child(drow)
+	_big = CatPreview.new()
+	_big.custom_minimum_size = Vector2(190, 210)
+	_big.zoom = 5.0
+	_big.walking = true
+	_big.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	drow.add_child(_big)
+	var info := VBoxContainer.new()
+	info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	info.add_theme_constant_override("separation", 6)
+	info.alignment = BoxContainer.ALIGNMENT_CENTER
+	drow.add_child(info)
+	_name = _label(30, Color.WHITE)
+	_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	info.add_child(_name)
+	_desc = _label(17, Color("d9cce6"))
+	_desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	box.add_child(_desc)
+	_desc.custom_minimum_size = Vector2(300, 0)
+	info.add_child(_desc)
+	var weapon_row := HBoxContainer.new()
+	weapon_row.add_theme_constant_override("separation", 8)
+	info.add_child(weapon_row)
+	_weapon_icon = IconView.new("weapon", "SCRATCH", 40.0)
+	weapon_row.add_child(_weapon_icon)
+	_weapon_label = _label(17, GOLD)
+	_weapon_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	_weapon_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	weapon_row.add_child(_weapon_label)
+	_cat_stats = _label(15, Color("8f7ea3"))
+	_cat_stats.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	info.add_child(_cat_stats)
 
-	_stage_label = _label(24, GOLD)
-	box.add_child(_stage_label)
+	# Middle: the maps.
+	_stage_label = _label(20, GOLD)
+	root.add_child(_stage_label)
+	var maps := HBoxContainer.new()
+	maps.alignment = BoxContainer.ALIGNMENT_CENTER
+	maps.add_theme_constant_override("separation", 8)
+	root.add_child(maps)
+	for i in _stage_ids.size():
+		var card := MapCard.new(_stage_ids[i])
+		card.gui_input.connect(_on_map_input.bind(i))
+		maps.add_child(card)
+		_map_cards.append(card)
 
-	_gold = _label(20, GOLD)
-	box.add_child(_gold)
-	_worn = _label(18, Color("c77dff"))
-	box.add_child(_worn)
-	_artifact_label = _label(18, Color("8fd3ff"))
-	box.add_child(_artifact_label)
-	_challenge_label = _label(18, Color("e04646"))
-	box.add_child(_challenge_label)
+	# Bottom: what you take along, and the keys.
+	var bottom := HBoxContainer.new()
+	bottom.alignment = BoxContainer.ALIGNMENT_CENTER
+	bottom.add_theme_constant_override("separation", 28)
+	root.add_child(bottom)
+	_gold = _label(17, GOLD)
+	bottom.add_child(_gold)
+	_worn = _label(17, Color("c77dff"))
+	bottom.add_child(_worn)
+	_artifact_label = _label(17, Color("8fd3ff"))
+	bottom.add_child(_artifact_label)
+	_challenge_label = _label(17, Color("e04646"))
+	root.add_child(_challenge_label)
 
-	var hint := _label(18, Color("8f7ea3"))
+	var hint := _label(16, Color("8f7ea3"))
 	hint.text = "SELECT_HINT"
-	box.add_child(hint)
+	root.add_child(hint)
 
 	_shop = ShopPanel.new()
 	add_child(_shop)
@@ -146,19 +202,25 @@ func _refresh() -> void:
 	var id := _ids[_index]
 	var unlocked := Profile.is_unlocked(id)
 	for i in _cards.size():
-		var sb := StyleBoxFlat.new()
-		sb.bg_color = CARD
-		sb.border_color = GOLD if i == _index else BORDER
-		sb.set_border_width_all(4 if i == _index else 2)
-		sb.set_corner_radius_all(10)
-		_cards[i].add_theme_stylebox_override("panel", sb)
+		_cards[i].add_theme_stylebox_override("panel", UiStyle.box(Color("5b4470") if i == _index else CARD, GOLD if i == _index else BORDER))
 		_previews[i].walking = i == _index and unlocked
+	_big.cat_id = id
+	_big.locked = not unlocked
+	_big.walking = unlocked
+	var weapon: String = GameData.cats[id]["weapon"]
+	_weapon_icon.id = weapon
+	_weapon_icon.visible = unlocked
+	_weapon_icon.queue_redraw()
 	if unlocked:
 		_name.text = tr("CAT_%s_NAME" % id)
 		_desc.text = tr("CAT_%s_DESC" % id)
+		_weapon_label.text = tr("SELECT_START_WEAPON") % tr("WEAPON_%s_NAME" % weapon)
+		_cat_stats.text = tr("SELECT_CAT_STATS") % [Profile.get_stat("wins_cat:" + id), Profile.get_stat("best_level_cat:" + id), Profile.get_stat("bosses_cat:" + id)]
 	else:
 		_name.text = tr("SELECT_LOCKED")
 		_desc.text = tr("CAT_%s_HINT" % id)
+		_weapon_label.text = ""
+		_cat_stats.text = ""
 	var worn: Array = Profile.equipped_charms.map(func(c: String) -> String: return tr("CHARM_%s_NAME" % c))
 	_worn.text = tr("SELECT_CHARMS") % ("—" if worn.is_empty() else ", ".join(worn))
 	var arts: Array = Profile.equipped_artifacts.map(func(a: String) -> String: return tr("ARTIFACT_%s_NAME" % a))
@@ -168,12 +230,20 @@ func _refresh() -> void:
 	_gold.text = tr("SELECT_GOLD") % Profile.gold
 	if Profile.streak > 0 or Profile.best_streak > 0:
 		_gold.text += "   ·   " + tr("SELECT_STREAK") % [Profile.streak, Profile.best_streak, roundi((Profile.streak_multiplier() - 1.0) * 100.0)]
+	for i in _map_cards.size():
+		_map_cards[i].selected = i == _stage_index
 	var stage_id := _stage_ids[_stage_index]
 	if Profile.is_stage_unlocked(stage_id):
-		var cleared := " ✓" if stage_id in Profile.cleared_stages else ""
-		_stage_label.text = "%s  ‹ %s%s ›" % [tr("SELECT_STAGE"), tr("STAGE_%s_NAME" % stage_id), cleared]
+		_stage_label.text = "%s  %s" % [tr("SELECT_STAGE"), tr("STAGE_%s_NAME" % stage_id)]
 	else:
-		_stage_label.text = "%s  ‹ ??? – %s ›" % [tr("SELECT_STAGE"), tr("STAGE_%s_HINT" % stage_id)]
+		_stage_label.text = "%s  ??? – %s" % [tr("SELECT_STAGE"), tr("STAGE_%s_HINT" % stage_id)]
+
+
+func _on_map_input(event: InputEvent, i: int) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		_stage_index = i
+		Audio.play("click", -6.0, 0.0)
+		_refresh()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -207,9 +277,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		_refresh()
 	elif event.is_action_pressed("move_up") or event.is_action_pressed("ui_up"):
 		_stage_index = (_stage_index - 1 + _stage_ids.size()) % _stage_ids.size()
+		Audio.play("click", -6.0, 0.0)
 		_refresh()
 	elif event.is_action_pressed("move_down") or event.is_action_pressed("ui_down"):
 		_stage_index = (_stage_index + 1) % _stage_ids.size()
+		Audio.play("click", -6.0, 0.0)
 		_refresh()
 	elif event.is_action_pressed("pause"):
 		Audio.play("click", -6.0, 0.0)
@@ -236,6 +308,7 @@ func _start() -> void:
 	var id := _ids[_index]
 	var stage_id := _stage_ids[_stage_index]
 	if not Profile.is_unlocked(id) or not Profile.is_stage_unlocked(stage_id):
+		Audio.play("hurt", -10.0, 0.0)
 		return
 	Profile.select_stage(stage_id)
 	Profile.select(id)

@@ -746,3 +746,83 @@ SET_KEY_MOVE_LEFT,Move left,Pohyb vľavo,Pohyb vlevo
 SET_KEY_MOVE_RIGHT,Move right,Pohyb vpravo,Pohyb vpravo
 SET_KEY_WAITING,press a key… (Esc cancels),stlač kláves… (Esc zruší),stiskni klávesu… (Esc zruší)
 SET_KEYS_RESET,Reset keys to WASD,Vrátiť klávesy na WASD,Vrátit klávesy na WASD
+STAGE_SUPERMARKET_NAME,The Supermarket,Supermarket,Supermarket
+STAGE_SUPERMARKET_HINT,Clear the Rooftop,Prejdi Strechu,Projdi Střechu
+STORY_SUPERMARKET_INTRO,The shop is closed for the night... but the shelves are moving.,Obchod je na noc zatvorený... ale regály sa hýbu.,Obchod je na noc zavřený... ale regály se hýbou.
+STAGE_HARBOR_NAME,The Harbor,Prístav,Přístav
+STAGE_HARBOR_HINT,Clear the Supermarket,Prejdi Supermarket,Projdi Supermarket
+STORY_HARBOR_INTRO,"Salt, fish and fog. Something huge sleeps under the pier...","Soľ, ryby a hmla. Pod mólom spí niečo obrovské...","Sůl, ryby a mlha. Pod molem spí něco obrovského..."
+ENEMY_TIN_CAN_NAME,Tin Can,Plechovka,Plechovka
+ENEMY_TIN_CAN_DESC,Rolled off the shelf and wants revenge.,Skotúľala sa z regálu a chce sa pomstiť.,Skutálela se z regálu a chce se pomstít.
+ENEMY_BANANA_NAME,Runaway Banana,Utečený banán,Uprchlý banán
+ENEMY_BANANA_DESC,"Small, fast and slippery.","Malý, rýchly a šmykľavý.","Malý, rychlý a kluzký."
+ENEMY_SHOPPING_CART_NAME,Shopping Cart,Nákupný vozík,Nákupní vozík
+ENEMY_SHOPPING_CART_DESC,"Stops, aims and rolls straight at you.","Zastaví sa, zamieri a rozbehne sa priamo na teba.","Zastaví se, zamíří a rozjede se přímo na tebe."
+ENEMY_FROZEN_CHICKEN_NAME,Frozen Chicken,Mrazené kura,Mražené kuře
+ENEMY_FROZEN_CHICKEN_DESC,Hard as a rock and twice as cold.,Tvrdé ako kameň a dvakrát také studené.,Tvrdé jako kámen a dvakrát tak studené.
+ENEMY_SPRAY_BOTTLE_NAME,Spray Bottle,Rozprašovač,Rozprašovač
+ENEMY_SPRAY_BOTTLE_DESC,Keeps its distance and sprays you. Every cat's nightmare.,Drží si odstup a strieka na teba. Nočná mora každej mačky.,Drží si odstup a stříká na tebe. Noční můra každé kočky.
+ENEMY_SECURITY_BOT_NAME,Security Bot,Strážny robot,Strážní robot
+ENEMY_SECURITY_BOT_DESC,Patrols the aisles and shoots at anything with fur.,Hliadkuje medzi regálmi a strieľa na všetko chlpaté.,Hlídkuje mezi regály a střílí na všechno chlupaté.
+ENEMY_FORKLIFT_NAME,The Forklift,Vysokozdvižný vozík,Vysokozdvižný vozík
+ENEMY_FORKLIFT_DESC,"Revs its engine, then charges down the aisle.",Vytočí motor a potom sa rúti uličkou.,Vytočí motor a pak se řítí uličkou.
+ENEMY_BANANA_BUNCH_NAME,The Banana Bunch,Banánový trs,Banánový trs
+ENEMY_BANANA_BUNCH_DESC,A whole bunch of bananas that sends its little ones after you.,"Celý trs banánov, ktorý na teba posiela svoje malé.","Celý trs banánů, který na tebe posílá svoje malé."
+ENEMY_CASH_REGISTER_NAME,The Cash Register,Registračná pokladňa,Registrační pokladna
+ENEMY_CASH_REGISTER_DESC,Spins and spits coins in every direction.,Točí sa a chrlí mince na všetky strany.,Točí se a chrlí mince na všechny strany.
+ENEMY_GUARD_DOG_NAME,Rex the Guard Dog,Strážny pes Rex,Hlídací pes Rex
+ENEMY_GUARD_DOG_DESC,The final boss of the Supermarket. He has guarded the shop for years and hates cats.,Finálny boss Supermarketu. Roky stráži obchod a neznáša mačky.,Finální boss Supermarketu. Léta hlídá obchod a nesnáší kočky.
+ENEMY_CRAB_NAME,Crab,Krab,Krab
+ENEMY_CRAB_DESC,Scuttles sideways and pinches hard.,Cupitá bokom a štípe poriadne.,Cupitá bokem a štípe pořádně.
+ENEMY_JELLYFISH_NAME,Jellyfish,Medúza,Medúza
+ENEMY_JELLYFISH_DESC,Floats slowly. Don't touch it.,Pomaly sa vznáša. Nedotýkaj sa jej.,Pomalu se vznáší. Nedotýkej se jí.
+ENEMY_EEL_NAME,Eel,Úhor,Úhoř
+ENEMY_EEL_DESC,"Coils up, then shoots forward like an arrow.",Stočí sa a potom vystrelí dopredu ako šíp.,Stočí se a pak vystřelí dopředu jako šíp.
+ENEMY_PIRATE_RAT_NAME,Pirate Rat,Pirátsky potkan,Pirátská krysa
+ENEMY_PIRATE_RAT_DESC,A ship's rat with a taste for cat food.,"Lodný potkan, ktorému chutia mačacie granule.","Lodní krysa, které chutnají kočičí granule."
+ENEMY_GIANT_CRAB_NAME,The Giant Crab,Obrovský krab,Obří krab
+ENEMY_GIANT_CRAB_DESC,Rams you with its huge claws raised.,Vrhá sa na teba so zdvihnutými obrovskými klepetami.,Vrhá se na tebe se zdviženými obřími klepety.
+ENEMY_OCTOPUS_NAME,The Octopus,Chobotnica,Chobotnice
+ENEMY_OCTOPUS_DESC,Shoots ink and calls jellyfish to help.,Strieľa atrament a volá na pomoc medúzy.,Střílí inkoust a volá na pomoc medúzy.
+ENEMY_ANCHOR_NAME,The Old Anchor,Stará kotva,Stará kotva
+ENEMY_ANCHOR_DESC,Rusty and heavy. Drops anchors where you stand.,"Hrdzavá a ťažká. Púšťa kotvy tam, kde stojíš.","Rezavá a těžká. Pouští kotvy tam, kde stojíš."
+ENEMY_KRAKEN_NAME,The Kraken,Kraken,Kraken
+ENEMY_KRAKEN_DESC,The final boss of the Harbor. It pulls everything into the deep.,Finálny boss Prístavu. Sťahuje všetko do hlbín.,Finální boss Přístavu. Stahuje všechno do hlubin.
+ENEMY_RIVAL_KAPITAN_NAME,Captain (rival),Kapitán (súper),Kapitán (soupeř)
+ENEMY_RIVAL_KAPITAN_DESC,An old sea cat. Charges like a wave.,Starý morský kocúr. Útočí ako vlna.,Starý mořský kocour. Útočí jako vlna.
+CAT_TUCKO_NAME,Chonk,Tučko,Buclík
+CAT_TUCKO_DESC,A big ginger who loves food. Starts with Wind-up Mouse; +50 health and a better magnet.,"Veľký ryšavec, ktorý miluje jedlo. Začína s Myškou na kľúčik; +50 zdravia a lepší magnet.","Velký zrzek, který miluje jídlo. Začíná s Myškou na klíček; +50 zdraví a lepší magnet."
+CAT_TUCKO_HINT,Free him from the shopping cart (Supermarket).,Vysloboď ho z nákupného vozíka (Supermarket).,Vysvoboď ho z nákupního vozíku (Supermarket).
+CAT_KAPITAN_NAME,Captain,Kapitán,Kapitán
+CAT_KAPITAN_DESC,"An old sea cat in a captain's cap. Starts with Sprinkler; +15% area, +10% speed.","Starý morský kocúr v kapitánskej čiapke. Začína s Kropičom; +15 % plocha, +10 % rýchlosť.","Starý mořský kocour v kapitánské čepici. Začíná s Kropičem; +15 % plocha, +10 % rychlost."
+CAT_KAPITAN_HINT,Beat him in a duel at the Harbor.,Poraz ho v súboji v Prístave.,Poraz ho v souboji v Přístavu.
+QB_SUPERMARKET_NAME,The Supermarket,Supermarket,Supermarket
+QB_SUPERMARKET_1,Survive 10 minutes in the Supermarket.,Prežiť 10 minút v Supermarkete.,Přežít 10 minut v Supermarketu.
+QB_SUPERMARKET_2,Defeat Rex.,Poraziť Rexa.,Porazit Rexe.
+QB_SUPERMARKET_3,Beat Rex with at least half of your health left.,Poraziť Rexa s aspoň polovicou zdravia.,Porazit Rexe s alespoň polovinou zdraví.
+QB_SUPERMARKET_4,Win in the Supermarket 5 times.,Vyhrať v Supermarkete 5-krát.,Vyhrát v Supermarketu 5krát.
+QB_HARBOR_NAME,The Harbor,Prístav,Přístav
+QB_HARBOR_1,Survive 10 minutes at the Harbor.,Prežiť 10 minút v Prístave.,Přežít 10 minut v Přístavu.
+QB_HARBOR_2,Defeat the Kraken.,Poraziť Krakena.,Porazit Krakena.
+QB_HARBOR_3,Beat the Kraken with at least half of your health left.,Poraziť Krakena s aspoň polovicou zdravia.,Porazit Krakena s alespoň polovinou zdraví.
+QB_HARBOR_4,Win at the Harbor 5 times.,Vyhrať v Prístave 5-krát.,Vyhrát v Přístavu 5krát.
+QB_STORY_5,Find the ticket in the Supermarket bin.,Nájdi lístok v koši v Supermarkete.,Najdi lístek v koši v Supermarketu.
+QB_STORY_6,Open the bottle washed up at the Harbor.,Otvor fľašu vyplavenú v Prístave.,Otevři láhev vyplavenou v Přístavu.
+QUEST_SHIP_TICKET_TITLE,A ticket in the bin,Lístok v koši,Lístek v koši
+QUEST_SHIP_TICKET_FIND,Something is sticking out of the bin,Z koša niečo trčí,Z koše něco trčí
+QUEST_SHIP_TICKET_AMBUSH,Tin cans attack! Defeat them: %d left,Útočia plechovky! Poraz ich: zostáva %d,Útočí plechovky! Poraz je: zbývá %d
+QUEST_SHIP_TICKET_PICK,Take the ticket,Zober lístok,Vezmi lístek
+QUEST_SHIP_TICKET_FOUND,A ferry ticket to the Harbor – someone left in a hurry.,Lístok na trajekt do Prístavu – niekto odchádzal v náhlivosti.,Lístek na trajekt do Přístavu – někdo odcházel ve spěchu.
+QUEST_BOTTLE_MESSAGE_TITLE,A message in a bottle,Odkaz vo fľaši,Vzkaz v láhvi
+QUEST_BOTTLE_MESSAGE_FIND,A bottle has washed up on the beach,Na pláž vyplavilo fľašu,Na pláž vyplavilo láhev
+QUEST_BOTTLE_MESSAGE_AMBUSH,Crabs guard it! Defeat them: %d left,Kraby ju strážia! Poraz ich: zostáva %d,Krabi ji hlídají! Poraz je: zbývá %d
+QUEST_BOTTLE_MESSAGE_PICK,Open the bottle,Otvor fľašu,Otevři láhev
+QUEST_BOTTLE_MESSAGE_FOUND,"""To the cat who climbed every roof: the sea is waiting.""","„Mačke, ktorá vyliezla na každú strechu: more čaká.“","„Kočce, která vylezla na každou střechu: moře čeká.“"
+GOAL_GUARD_DOG_NAME,Good Boy?,Dobrý pes?,Hodný pes?
+GOAL_GUARD_DOG_DESC,Defeat Rex in the Supermarket,Poraz Rexa v Supermarkete,Poraz Rexe v Supermarketu
+GOAL_KRAKEN_NAME,Sea Legs,Morský vlk,Mořský vlk
+GOAL_KRAKEN_DESC,Defeat the Kraken at the Harbor,Poraz Krakena v Prístave,Poraz Krakena v Přístavu
+GOAL_AISLE_FIVE_NAME,Clean-up on Aisle 5,Upratovanie v uličke 5,Úklid v uličce 5
+GOAL_AISLE_FIVE_DESC,Defeat 1000 Supermarket enemies,Poraz 1000 nepriateľov zo Supermarketu,Poraz 1000 nepřátel ze Supermarketu
+GOAL_SEAFOOD_NAME,Seafood Platter,Morské plody,Mořské plody
+GOAL_SEAFOOD_DESC,Defeat 1000 Harbor enemies,Poraz 1000 nepriateľov z Prístavu,Poraz 1000 nepřátel z Přístavu

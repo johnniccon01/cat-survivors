@@ -28,6 +28,7 @@ static func look(cat_id: String) -> Dictionary:
 			"halo": d.get("halo", false),
 			"wings": d.get("wings", false),
 			"horns": d.get("horns", false),
+			"hat": d.get("hat", false),
 			"id": cat_id,
 		}
 	return _looks[cat_id]
@@ -158,6 +159,14 @@ static func _draw_sprite(ci: CanvasItem, sprite: Dictionary, lk: Dictionary, fac
 			var tri := PackedVector2Array([base + Vector2(-1.8, 0) * s, tip, base + Vector2(1.8, 0) * s])
 			ci.draw_colored_polygon(tri, Color("c92a2a"))
 			ci.draw_polyline(Shapes.closed(tri), OUTLINE, 1.0)
+	if extras and lk.get("hat", false) and not dead:
+		# A captain's cap: white crown, navy band, black visor, gold badge.
+		var crown := PackedVector2Array([Vector2(3, -14) * s, Vector2(4, -19) * s, Vector2(15, -19) * s, Vector2(16, -14) * s])
+		ci.draw_colored_polygon(crown, Color("f4f1ea"))
+		ci.draw_polyline(Shapes.closed(crown), OUTLINE, 1.0)
+		ci.draw_rect(Rect2(Vector2(3, -15.5) * s, Vector2(13, 2) * s), Color("2a3a6a"))
+		ci.draw_colored_polygon(Shapes.ellipse(Vector2(13, -13.5) * s, 4.0 * s, 1.3 * s, 10), Color("1f1c25"))
+		ci.draw_circle(Vector2(9.5, -17) * s, 1.0 * s, Color("f2c14e"))
 	ci.draw_set_transform(Vector2.ZERO)
 
 

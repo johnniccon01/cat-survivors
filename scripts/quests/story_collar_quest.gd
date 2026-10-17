@@ -54,6 +54,10 @@ func _draw() -> void:
 			_draw_tree()
 		"antenna":
 			_draw_antenna()
+		"bin":
+			_draw_bin()
+		"bottle":
+			_draw_bottle()
 		_:
 			_draw_door()
 	if _stage == "find":
@@ -93,6 +97,32 @@ func _draw_antenna() -> void:
 		draw_line(Vector2(-12 + k * 2, -18 + k * 8), Vector2(12 - k * 2, -18 + k * 8), Color("9aa0a6"), 1.0)
 	draw_rect(Rect2(3, -6, 9, 11), Color("efe2c0"))
 	draw_rect(Rect2(3, -6, 9, 11), OUTLINE, false, 1.0)
+
+
+## Supermarket: a bin by the checkout with a ticket sticking out.
+func _draw_bin() -> void:
+	draw_rect(Rect2(-14, -16, 28, 30), OUTLINE)
+	draw_rect(Rect2(-13, -15, 26, 28), Color("4a8a5a"))
+	draw_rect(Rect2(-15, -18, 30, 5), Color("3a6a46"))
+	for x: float in [-7.0, 0.0, 7.0]:
+		draw_line(Vector2(x, -10), Vector2(x, 10), Color("3a6a46"), 1.0)
+	draw_set_transform(Vector2(6, -22), 0.3)
+	draw_rect(Rect2(-6, -4, 12, 7), Color("f2d14e"))
+	draw_rect(Rect2(-6, -4, 12, 7), OUTLINE, false, 1.0)
+	draw_line(Vector2(-3, -1), Vector2(3, -1), Color("d9534f"), 1.0)
+	draw_set_transform(Vector2.ZERO)
+
+
+## Harbor: a bottle washed up on the sand, a rolled note inside.
+func _draw_bottle() -> void:
+	draw_colored_polygon(Shapes.ellipse(Vector2(0, 8), 26, 8, 16), Color(0.3, 0.55, 0.75, 0.35))
+	draw_set_transform(Vector2.ZERO, -0.4)
+	draw_rect(Rect2(-12, -5, 20, 10), OUTLINE)
+	draw_rect(Rect2(-11, -4, 18, 8), Color(0.45, 0.75, 0.55, 0.85))
+	draw_rect(Rect2(7, -2.5, 6, 5), Color(0.45, 0.75, 0.55, 0.85))
+	draw_rect(Rect2(13, -2, 3, 4), Color("a07a4a"))
+	draw_rect(Rect2(-8, -2, 12, 4), Color("efe2c0"))
+	draw_set_transform(Vector2.ZERO)
 
 
 func _draw_door() -> void:

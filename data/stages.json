@@ -997,5 +997,487 @@
     },
     "music_night": "music_rooftop_night",
     "story": "BRUNO_NOTE"
+  },
+  "SUPERMARKET": {
+    "theme": "supermarket",
+    "music": "music_supermarket",
+    "music_night": "music_supermarket_night",
+    "requires": "ROOFTOP",
+    "cat_quests": [
+      "TUCKO"
+    ],
+    "story": "SHIP_TICKET",
+    "props": [
+      "CEREAL_BOX",
+      "CEREAL_BOX",
+      "CRATE"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "GUARD_DOG",
+    "events": [
+      {
+        "minute": 4.5,
+        "type": "swarm",
+        "enemy": "BANANA",
+        "count": 60
+      },
+      {
+        "minute": 6.0,
+        "type": "ring",
+        "enemy": "TIN_CAN",
+        "count": 48
+      },
+      {
+        "minute": 9.0,
+        "type": "swarm",
+        "enemy": "SHOPPING_CART",
+        "count": 40
+      },
+      {
+        "minute": 12.0,
+        "type": "ring",
+        "enemy": "FROZEN_CHICKEN",
+        "count": 36
+      },
+      {
+        "minute": 15.0,
+        "type": "swarm",
+        "enemy": "BANANA",
+        "count": 100
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "SHOPPING_CART",
+        "count": 50
+      }
+    ],
+    "traps": [
+      "FREEZER",
+      "FREEZER",
+      "BROKEN_LIGHT"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.65,
+      0.85,
+      1.0,
+      0.85,
+      1.15,
+      0.65,
+      1.15,
+      1.3,
+      1.4,
+      0.95,
+      0.65,
+      1.3,
+      1.45,
+      1.0,
+      1.45,
+      0.7,
+      1.45,
+      1.6,
+      1.1,
+      1.55,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.4,
+        "per_tick": 1,
+        "enemies": [
+          "TIN_CAN",
+          "BANANA"
+        ],
+        "hp_mult": 1.3
+      },
+      {
+        "minute": 1,
+        "minimum": 16,
+        "interval": 1.1,
+        "per_tick": 2,
+        "enemies": [
+          "TIN_CAN",
+          "BANANA",
+          "SPRAY_BOTTLE"
+        ],
+        "hp_mult": 1.4
+      },
+      {
+        "minute": 2,
+        "minimum": 28,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": [
+          "TIN_CAN",
+          "SPRAY_BOTTLE",
+          "BANANA"
+        ],
+        "hp_mult": 1.6
+      },
+      {
+        "minute": 3,
+        "minimum": 42,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "SPRAY_BOTTLE",
+          "TIN_CAN",
+          "SHOPPING_CART"
+        ],
+        "hp_mult": 1.8,
+        "bosses": [
+          "SECURITY_BOT"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.7,
+        "per_tick": 3,
+        "enemies": [
+          "BANANA",
+          "SHOPPING_CART",
+          "FROZEN_CHICKEN",
+          "SPRAY_BOTTLE"
+        ],
+        "hp_mult": 2.4
+      },
+      {
+        "minute": 7,
+        "minimum": 110,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "FROZEN_CHICKEN",
+          "TIN_CAN",
+          "SHOPPING_CART",
+          "SPRAY_BOTTLE"
+        ],
+        "hp_mult": 3.5,
+        "bosses": [
+          "FORKLIFT"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 150,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "BANANA",
+          "SHOPPING_CART",
+          "TIN_CAN",
+          "SPRAY_BOTTLE"
+        ],
+        "hp_mult": 4.2
+      },
+      {
+        "minute": 11,
+        "minimum": 180,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "FROZEN_CHICKEN",
+          "SHOPPING_CART",
+          "BANANA",
+          "SPRAY_BOTTLE"
+        ],
+        "hp_mult": 5.0,
+        "bosses": [
+          "BANANA_BUNCH"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 220,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "TIN_CAN",
+          "FROZEN_CHICKEN",
+          "SHOPPING_CART",
+          "SPRAY_BOTTLE"
+        ],
+        "hp_mult": 6.0,
+        "bosses": [
+          "CASH_REGISTER"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 260,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "SHOPPING_CART",
+          "FROZEN_CHICKEN",
+          "BANANA",
+          "SPRAY_BOTTLE"
+        ],
+        "hp_mult": 7.2,
+        "bosses": [
+          "FORKLIFT"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 300,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "FROZEN_CHICKEN",
+          "SHOPPING_CART",
+          "TIN_CAN",
+          "SPRAY_BOTTLE"
+        ],
+        "hp_mult": 8.5
+      }
+    ]
+  },
+  "HARBOR": {
+    "theme": "harbor",
+    "music": "music_harbor",
+    "music_night": "music_harbor_night",
+    "requires": "SUPERMARKET",
+    "cat_quests": [
+      "KAPITAN"
+    ],
+    "story": "BOTTLE_MESSAGE",
+    "props": [
+      "BARREL",
+      "BARREL",
+      "CRATE"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "KRAKEN",
+    "events": [
+      {
+        "minute": 4.5,
+        "type": "swarm",
+        "enemy": "JELLYFISH",
+        "count": 60
+      },
+      {
+        "minute": 6.0,
+        "type": "ring",
+        "enemy": "CRAB",
+        "count": 48
+      },
+      {
+        "minute": 9.0,
+        "type": "swarm",
+        "enemy": "EEL",
+        "count": 50
+      },
+      {
+        "minute": 12.0,
+        "type": "ring",
+        "enemy": "PIRATE_RAT",
+        "count": 36
+      },
+      {
+        "minute": 15.0,
+        "type": "swarm",
+        "enemy": "JELLYFISH",
+        "count": 100
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "EEL",
+        "count": 60
+      }
+    ],
+    "traps": [
+      "FISH_HOOK",
+      "TIDE_POOL",
+      "TIDE_POOL"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.65,
+      0.85,
+      1.0,
+      0.85,
+      1.15,
+      0.65,
+      1.15,
+      1.3,
+      1.4,
+      0.95,
+      0.65,
+      1.3,
+      1.45,
+      1.0,
+      1.45,
+      0.7,
+      1.45,
+      1.6,
+      1.1,
+      1.55,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.4,
+        "per_tick": 1,
+        "enemies": [
+          "JELLYFISH",
+          "CRAB"
+        ],
+        "hp_mult": 1.5
+      },
+      {
+        "minute": 1,
+        "minimum": 16,
+        "interval": 1.1,
+        "per_tick": 2,
+        "enemies": [
+          "JELLYFISH",
+          "CRAB",
+          "GULL"
+        ],
+        "hp_mult": 1.7
+      },
+      {
+        "minute": 2,
+        "minimum": 28,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": [
+          "CRAB",
+          "EEL",
+          "JELLYFISH"
+        ],
+        "hp_mult": 1.9
+      },
+      {
+        "minute": 3,
+        "minimum": 42,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "EEL",
+          "CRAB",
+          "GULL"
+        ],
+        "hp_mult": 2.2,
+        "bosses": [
+          "GIANT_CRAB"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.7,
+        "per_tick": 3,
+        "enemies": [
+          "JELLYFISH",
+          "EEL",
+          "PIRATE_RAT",
+          "DIVE_GULL"
+        ],
+        "hp_mult": 2.9
+      },
+      {
+        "minute": 7,
+        "minimum": 110,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "PIRATE_RAT",
+          "CRAB",
+          "EEL",
+          "DIVE_GULL"
+        ],
+        "hp_mult": 4.2,
+        "bosses": [
+          "OCTOPUS"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 150,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "JELLYFISH",
+          "EEL",
+          "CRAB",
+          "DIVE_GULL"
+        ],
+        "hp_mult": 5.0
+      },
+      {
+        "minute": 11,
+        "minimum": 180,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "PIRATE_RAT",
+          "EEL",
+          "JELLYFISH",
+          "DIVE_GULL"
+        ],
+        "hp_mult": 6.0,
+        "bosses": [
+          "GIANT_CRAB"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 220,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "CRAB",
+          "PIRATE_RAT",
+          "EEL",
+          "DIVE_GULL"
+        ],
+        "hp_mult": 7.2,
+        "bosses": [
+          "ANCHOR"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 260,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "EEL",
+          "PIRATE_RAT",
+          "JELLYFISH",
+          "DIVE_GULL"
+        ],
+        "hp_mult": 8.6,
+        "bosses": [
+          "OCTOPUS"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 300,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "PIRATE_RAT",
+          "EEL",
+          "CRAB",
+          "DIVE_GULL"
+        ],
+        "hp_mult": 10.0
+      }
+    ]
   }
 }

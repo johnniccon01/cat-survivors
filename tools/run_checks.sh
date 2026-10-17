@@ -67,6 +67,20 @@ scenarios=(
   "challenges|--bot --challenges=HYPER,GLASS,NO_HEAL,ONE_WEAPON,CURSED --levels=10 --bot-time=180"
   "tutorial|--bot --tutorial --bot-time=120"
   "diary_page|--bot --page --extract --levels=20 --bot-time=150"
+  "supermarket|--bot --stage=SUPERMARKET --cat=TIGER --bot-time=300"
+  "harbor|--bot --stage=HARBOR --cat=TIGER --bot-time=300"
+  "late_supermarket|--bot --stage=SUPERMARKET --start-minute=12 --catch-up --bot-time=240"
+  "late_harbor|--bot --stage=HARBOR --start-minute=12 --catch-up --bot-time=240"
+  "final_rex|--bot --stage=SUPERMARKET --start-minute=19.9 --catch-up --bot-time=60"
+  "final_kraken|--bot --stage=HARBOR --start-minute=19.9 --catch-up --bot-time=60"
+  "traps_supermarket|--bot --stage=SUPERMARKET --traps --bot-time=60"
+  "traps_harbor|--bot --stage=HARBOR --traps --bot-time=60"
+  "quest_tucko|--bot --stage=SUPERMARKET --levels=20 --quest=TUCKO --bot-time=150"
+  "quest_kapitan|--bot --stage=HARBOR --levels=30 --quest=KAPITAN --bot-time=150"
+  "story_ticket|--bot --stage=SUPERMARKET --cat=TIGER --levels=20 --quest=SHIP_TICKET --bot-time=120"
+  "story_bottle|--bot --stage=HARBOR --cat=TIGER --levels=20 --quest=BOTTLE_MESSAGE --bot-time=120"
+  "midboss_register|--bot --stage=SUPERMARKET --start-minute=12.9 --catch-up --cat=TIGER --bot-time=120"
+  "midboss_anchor|--bot --stage=HARBOR --start-minute=12.9 --catch-up --cat=TIGER --bot-time=120"
 )
 
 run_one() {
@@ -91,7 +105,8 @@ run_one() {
 export -f run_one
 export GODOT
 
-printf '%s\n' "${scenarios[@]}" | xargs -P "$JOBS" -I{} bash -c 'run_one "$@"' _ {} | tee /tmp/catsurvivors_checks.txt
+# ONLY="name1|name2" runs just those scenarios.
+printf '%s\n' "${scenarios[@]}" | grep -E "^(${ONLY:-[^|]+})\|" | xargs -P "$JOBS" -I{} bash -c 'run_one "$@"' _ {} | tee /tmp/catsurvivors_checks.txt
 fail=$(grep -c '^FAIL' /tmp/catsurvivors_checks.txt)
 # Translations: both languages present, placeholders matching, keys known.
 if ! python -I tools/check_strings.py | grep -v " 0 problems"; then :; fi

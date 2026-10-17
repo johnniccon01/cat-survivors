@@ -562,6 +562,108 @@ def enemy_canvas(shape, frame, data):
         c.set(11, 14 + bob, "eye"); c.set(17, 14 + bob, "eye")
         c.set(10, 13 + bob, "ink"); c.set(18, 13 + bob, "ink")
         c.thick_line([(14, 22 + bob), (12, 25), (15, 25), (13, 28)], 0.6, "accent")
+    elif shape == "banana":
+        bob = frame
+        c.thick_line([(6, 18 - bob), (9, 12 - bob), (15, 9 - bob), (21, 10 - bob)], 2.6, "body")
+        c.thick_line([(6, 18 - bob), (9, 13 - bob), (15, 10 - bob)], 1.2, "top")
+        c.rect(21, 8 - bob, 3, 3, "accent")
+        c.set(11, 13 - bob, "pupil"); c.set(15, 12 - bob, "pupil")
+        c.set(12, 15 - bob, "ink"); c.set(13, 15 - bob, "ink")
+    elif shape == "cart":
+        roll = frame
+        c.poly([(4, 8), (24, 8), (21, 18), (7, 18)], "body")
+        for x in range(6, 23, 3):
+            c.rect(x, 9, 1, 8, "ink", only=("body",))
+        c.rect(4, 8, 21, 2, "top")
+        c.thick_line([(24, 8), (26, 4)], 0.8, "accent")
+        for x in (9, 19):
+            c.ellipse(x + roll * 0.5, 21, 2.2, 2.2, "ink")
+        c.set(11, 13, "eye"); c.set(17, 13, "eye")
+    elif shape == "chicken":
+        c.ellipse(14, 16, 9, 7, "body")
+        c.ellipse(14, 13, 6, 3, "top", only=("body",))
+        for x in (6, 22):
+            c.thick_line([(x, 18), (x + (-3 if x < 14 else 3), 22 + frame)], 1.4, "belly")
+            c.ellipse(x + (-3 if x < 14 else 3), 23 + frame, 1.8, 1.4, "white")
+        c.set(10, 12, "accent"); c.set(18, 14, "accent"); c.set(14, 18, "accent")
+        c.set(11, 15, "pupil"); c.set(16, 15, "pupil")
+    elif shape == "spray":
+        c.rect(9, 10, 10, 14, "body")
+        c.rect(9, 18, 10, 4, "accent", only=("body",))
+        c.rect(11, 5, 6, 5, "white")
+        c.rect(17, 5, 5, 2, "white")
+        c.rect(15, 9, 2, 4, "ink")
+        if frame:
+            c.ellipse(24, 6, 2, 1.5, "bubble"); c.ellipse(26, 9, 1.4, 1.2, "bubble")
+        c.set(12, 14, "pupil"); c.set(16, 14, "pupil")
+    elif shape == "register":
+        c.rect(4, 12, 20, 12, "body")
+        c.rect(4, 12, 20, 3, "top", only=("body",))
+        c.rect(7, 4, 14, 8, "accent")
+        c.rect(9, 6, 10, 4, "ink")
+        c.set(11, 8, "eye"); c.set(16, 8, "eye")
+        c.rect(6, 22, 16, 2, "white" if frame else "accent")
+        for x in range(7, 21, 4):
+            c.rect(x, 17, 2, 2, "white")
+    elif shape == "dog":
+        sway = frame
+        c.thick_line([(4, 12), (2, 7 + sway)], 1.2, "body")
+        c.ellipse(12, 15, 8, 6, "body")
+        c.ellipse(12, 18, 5, 2.5, "belly", only=("body",))
+        c.ellipse(20, 10, 5, 4.5, "body")
+        c.ellipse(24, 12, 3, 2.4, "belly")
+        c.set(26, 11, "ink"); c.set(27, 11, "ink")
+        c.poly([(17, 7), (15, 2), (19, 5)], "accent")
+        c.poly([(22, 6), (23, 1), (25, 6)], "accent")
+        c.set(20, 9, "eye"); c.set(23, 9, "eye")
+        c.rect(14, 12, 8, 1, "accent", only=("body",))
+        for x in ((7, 16) if frame else (9, 14)):
+            c.rect(x, 20, 2, 4, "body")
+        c.set(24, 14, "white")
+    elif shape == "crab":
+        step = frame
+        for side in (-1, 1):
+            for i in range(3):
+                c.thick_line([(14 + side * 5, 16 + i * 2), (14 + side * (9 + i), 20 + i * 2 + (step if i % 2 else -step))], 0.6, "accent")
+            c.ellipse(14 + side * 10, 9, 3, 2.6, "body")
+            c.set(14 + side * 11, 8, "ink")
+        c.ellipse(14, 15, 7, 5, "body")
+        c.ellipse(14, 13, 5, 2, "top", only=("body",))
+        c.thick_line([(12, 11), (12, 8)], 0.4, "ink"); c.thick_line([(16, 11), (16, 8)], 0.4, "ink")
+        c.set(12, 7, "white"); c.set(16, 7, "white")
+    elif shape == "jelly":
+        pulse = frame
+        c.ellipse(14, 11, 8 - pulse * 0.5, 6 + pulse * 0.5, "bubble")
+        c.ellipse(14, 9, 4, 2, "glint", only=("bubble",))
+        for x in (9, 12, 16, 19):
+            c.thick_line([(x, 16), (x + (1 if (x + pulse) % 2 else -1), 21), (x, 25)], 0.5, "accent")
+        c.set(12, 12, "pupil"); c.set(16, 12, "pupil")
+    elif shape == "eel":
+        wave = [0, 1][frame]
+        pts = [(3 + i * 3, 15 + (2 if (i + wave) % 2 else -2)) for i in range(7)]
+        c.thick_line(pts, 2.2, "body")
+        c.thick_line(pts[:-1], 0.8, "accent")
+        c.ellipse(24, 15, 3.2, 2.6, "body")
+        c.set(25, 14, "eye"); c.set(27, 16, "ink")
+    elif shape == "octopus":
+        wave = frame
+        c.ellipse(14, 10, 8, 7, "body")
+        c.ellipse(12, 7, 3, 2, "top", only=("body",))
+        for i in range(5):
+            x = 7 + i * 3.5
+            c.thick_line([(x, 15), (x + (1 if (i + wave) % 2 else -1) * 2, 20), (x, 25)], 1.0, "body")
+            c.set(x, 21, "accent")
+        c.ellipse(11, 11, 1.8, 1.8, "white"); c.ellipse(17, 11, 1.8, 1.8, "white")
+        c.set(11, 11, "pupil"); c.set(17, 11, "pupil")
+    elif shape == "anchor":
+        swing = frame
+        c.thick_line([(14, 4), (14 + swing, 22)], 1.6, "body")
+        c.ellipse(14, 4, 3, 3, "body"); c.ellipse(14, 4, 1.4, 1.4, "pupil")
+        c.thick_line([(9, 9), (19, 9)], 1.2, "body")
+        c.thick_line([(5, 17), (8 + swing, 23), (14 + swing, 24), (20 + swing, 23), (23, 17)], 1.5, "body")
+        c.poly([(3, 16), (7, 15), (6, 19)], "body"); c.poly([(25, 16), (21, 15), (22, 19)], "body")
+        c.thick_line([(14, 4), (20, 1), (25, 3)], 0.6, "accent")
+        c.set(12, 13, "eye"); c.set(16, 13, "eye")
     elif shape == "sack":
         c.poly([(8, 9), (20, 9), (23, 24), (5, 24)], "body")
         c.rect(10, 6, 8, 4, "body")

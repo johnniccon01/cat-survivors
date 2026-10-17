@@ -17,13 +17,18 @@ const ITEM_KINDS: Array[String] = ["mouse", "book", "ball", "feather", "crumbs"]
 const BASEMENT_ITEMS: Array[String] = ["cobweb", "bolt", "rag", "crumbs", "jar"]
 const GARDEN_ITEMS: Array[String] = ["leaf", "leaf", "pebble", "flower", "acorn", "twig"]
 const ROOFTOP_ITEMS: Array[String] = ["leaf", "pebble", "feather", "bottle_cap", "bolt"]
-const THEME_ITEMS := {"basement": BASEMENT_ITEMS, "garden": GARDEN_ITEMS, "rooftop": ROOFTOP_ITEMS}
+const SUPERMARKET_ITEMS: Array[String] = ["receipt", "grape", "price_tag", "coin_small", "crumbs"]
+const HARBOR_ITEMS: Array[String] = ["shell", "starfish", "pebble", "rope_bit", "feather"]
+const THEME_ITEMS := {"basement": BASEMENT_ITEMS, "garden": GARDEN_ITEMS, "rooftop": ROOFTOP_ITEMS,
+	"supermarket": SUPERMARKET_ITEMS, "harbor": HARBOR_ITEMS}
 ## Zones per theme, from low noise to high noise.
 const THEME_ZONES := {
 	"apartment": ["kitchen", "living", "bedroom"],
 	"basement": ["laundry", "concrete", "storage"],
 	"garden": ["path", "lawn", "flowerbed"],
 	"rooftop": ["deck", "tar", "tiles"],
+	"supermarket": ["produce", "aisle", "freezer"],
+	"harbor": ["beach", "dock", "pier"],
 }
 const FURNITURE := {
 	"living": ["sofa", "armchair", "coffee_table", "bookshelf", "tv", "floor_lamp", "plant", "cat_tree"],
@@ -38,8 +43,14 @@ const FURNITURE := {
 	"tar": ["ac_unit", "vent_box", "antenna", "water_tank", "solar_panel", "roof_lamp"],
 	"tiles": ["chimney", "skylight", "chimney", "antenna", "roof_lamp"],
 	"deck": ["deck_chair", "potted_tree", "clothesline", "roof_lamp", "deck_chair", "potted_tree"],
+	"aisle": ["store_shelf", "store_shelf", "price_sign", "cart_row", "shop_lamp", "store_shelf"],
+	"produce": ["fruit_stand", "melon_bin", "fruit_stand", "price_sign", "shop_lamp"],
+	"freezer": ["freezer_chest", "freezer_chest", "ice_block", "shop_lamp", "price_sign"],
+	"beach": ["beach_umbrella", "towel", "sandcastle", "lifebuoy", "beach_umbrella"],
+	"dock": ["bollard", "barrels", "crates", "rope_coil", "harbor_lamp", "fish_crate"],
+	"pier": ["rope_coil", "lifebuoy", "fish_net", "bollard", "harbor_lamp", "fish_crate"],
 }
-const LAMPS := ["floor_lamp", "nightstand", "bulb", "garden_lamp", "roof_lamp"]
+const LAMPS := ["floor_lamp", "nightstand", "bulb", "garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp"]
 const LAMP_COLOR := Color(1.0, 0.82, 0.55)
 
 static var _light_texture: Texture2D
@@ -120,6 +131,14 @@ func _draw_ground() -> void:
 			_draw_deck(area)
 		"bedroom":
 			_draw_carpet(size)
+		"aisle", "produce", "freezer":
+			_draw_store_floor(size, desc["zone"])
+		"beach":
+			_draw_beach(size)
+		"dock":
+			_draw_dock(size)
+		"pier":
+			_draw_pier(area)
 		_:
 			_draw_planks(area)
 	var strip := Color("3e2a1c")
@@ -127,6 +146,10 @@ func _draw_ground() -> void:
 		strip = Color(0.2, 0.3, 0.12, 0.35)
 	elif desc["zone"] in ["tar", "tiles", "deck"]:
 		strip = Color("4a4a52")
+	elif desc["zone"] in ["aisle", "produce", "freezer"]:
+		strip = Color("8a9096")
+	elif desc["zone"] in ["beach", "dock", "pier"]:
+		strip = Color(0.25, 0.3, 0.35, 0.35)
 	if desc["edge_right"]:
 		draw_rect(Rect2(size - 3, 0, 3, size), strip)
 	if desc["edge_bottom"]:
@@ -315,6 +338,98 @@ func _draw_deck(area: Rect2) -> void:
 			draw_rect(Rect2(i * step + 5, y, 1, 1), Color("4a3a2a"))
 
 
+func _draw_store_floor(size: float, zone: String) -> void:
+	var a := Color("dcd8cc")
+	var b := Color("cac6ba")
+	var step := 40.0
+	if zone == "freezer":
+		a = Color("d4e6ee")
+		b = Color("bcd6e2")
+		step = 32.0
+	elif zone == "produce":
+		a = Color("b88a5a")
+		b = Color("a87c4e")
+		step = 32.0
+	var t0 := Vector2i(floori(position.x / step), floori(position.y / step))
+	var n := int(size / step)
+	for ix in n:
+		for iy in n:
+			var odd := (t0.x + ix + t0.y + iy) % 2 != 0
+			draw_rect(Rect2(ix * step, iy * step, step, step), b if odd else a)
+	for i in n + 1:
+		draw_line(Vector2(i * step, 0), Vector2(i * step, size), a.darkened(0.2), 1.0)
+		draw_line(Vector2(0, i * step), Vector2(size, i * step), a.darkened(0.2), 1.0)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = desc["seed"]
+	if zone == "aisle":
+		# Polished floor: long reflections of the ceiling lights.
+		for i in 3:
+			draw_rect(Rect2(rng.randf_range(0, size - 6), 0, 6, size), Color(1, 1, 1, 0.12))
+	elif zone == "freezer":
+		for i in 50:
+			var p := Vector2(rng.randf_range(0, size), rng.randf_range(0, size))
+			draw_rect(Rect2(p, Vector2(1, 1)), Color(1, 1, 1, 0.8))
+	else:
+		# Squashed leaves and juice stains.
+		for i in 6:
+			var p := Vector2(rng.randf_range(0, size), rng.randf_range(0, size))
+			draw_colored_polygon(Shapes.ellipse(p, rng.randf_range(4, 10), rng.randf_range(3, 6), 8), Color(0.35, 0.5, 0.2, 0.25))
+
+
+func _draw_beach(size: float) -> void:
+	var base := Color("e2cc94")
+	draw_rect(Rect2(0, 0, size, size), base)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = desc["seed"]
+	# Ripples left by the wind, in world space so they line up across chunks.
+	var y0 := fposmod(position.y, 22.0)
+	for y in range(0, int(size) + 22, 22):
+		var pts := PackedVector2Array()
+		for x in range(0, int(size) + 16, 16):
+			pts.append(Vector2(x, clampf(y - y0 + sin((x + position.x) * 0.05) * 3.0, 0.0, size)))
+		draw_polyline(pts, base.darkened(0.08), 1.0)
+	for i in 90:
+		var p := Vector2(rng.randf_range(0, size), rng.randf_range(0, size))
+		draw_rect(Rect2(p, Vector2(1, 1)), base.darkened(0.2) if i % 2 else base.lightened(0.2))
+	# Puddles left by the tide.
+	for i in 2:
+		var p := Vector2(rng.randf_range(40, size - 40), rng.randf_range(30, size - 30))
+		draw_colored_polygon(Shapes.ellipse(p, rng.randf_range(20, 36), rng.randf_range(10, 18), 14), Color(0.3, 0.55, 0.75, 0.25))
+
+
+func _draw_dock(size: float) -> void:
+	draw_rect(Rect2(0, 0, size, size), Color("4a4e54"))
+	var stone := Vector2(40, 20)
+	var row0 := floori(position.y / stone.y)
+	for r in int(size / stone.y):
+		var row := row0 + r
+		var shift := stone.x * 0.5 if row % 2 else 0.0
+		for i in int(size / stone.x) + 1:
+			var x := i * stone.x - shift
+			var h := hash(Vector2i(i, row))
+			var rect := Rect2(x + 1, r * stone.y + 1, stone.x - 2, stone.y - 2).intersection(Rect2(0, 0, size, size))
+			if rect.size.x > 0.0:
+				draw_rect(rect, Color("767a80").darkened((h % 6) * 0.04))
+	# Some chunks have the painted edge of the quay.
+	if hash(Vector2i(floori(position.x), floori(position.y))) % 3 == 0:
+		draw_rect(Rect2(0, size * 0.5 - 2, size, 4), Color("e0b84a"))
+
+
+func _draw_pier(area: Rect2) -> void:
+	# Boards across the pier with dark water showing through the gaps.
+	draw_rect(area, Color("1f4a6a"))
+	var step := 14.0
+	var y0 := floori(position.y / step)
+	for i in int(area.size.y / step) + 1:
+		var h := hash(Vector2i(9, y0 + i))
+		var board := Rect2(0, i * step, area.size.x, step - 3).intersection(area)
+		if board.size.y <= 0.0:
+			continue
+		draw_rect(board, Color("7a5a3a").darkened((h % 5) * 0.04))
+		for x in range(int(h % 50), int(area.size.x), 70):
+			draw_rect(Rect2(x, i * step + 4, 2, 2).intersection(area), Color("3a2a1a"))
+
+
 # --- Decor ------------------------------------------------------------------
 
 func _draw_rug(rug: Dictionary) -> void:
@@ -421,6 +536,30 @@ func _draw_item(item: Dictionary) -> void:
 			draw_circle(Vector2.ZERO, 4.0, OUTLINE)
 			draw_circle(Vector2.ZERO, 3.0, Color(0.7, 0.85, 0.7, 0.8))
 			draw_rect(Rect2(-2, -1, 1, 1), Color.WHITE)
+		"receipt":
+			draw_rect(Rect2(-3, -6, 6, 12), Color("f4f1ea"))
+			for k in 4:
+				draw_line(Vector2(-2, -4 + k * 3), Vector2(2, -4 + k * 3), Color("9aa0a6"), 1.0)
+		"grape":
+			for p: Vector2 in [Vector2(-2, -2), Vector2(2, -2), Vector2(0, 1), Vector2(-2, 3), Vector2(2, 3)]:
+				draw_circle(p, 1.8, Color("7a4a9a"))
+		"price_tag":
+			draw_colored_polygon(PackedVector2Array([Vector2(-5, -3), Vector2(3, -3), Vector2(6, 0), Vector2(3, 3), Vector2(-5, 3)]), Color("f2d14e"))
+			draw_circle(Vector2(3, 0), 0.8, OUTLINE)
+		"coin_small":
+			draw_circle(Vector2.ZERO, 2.5, Color("a07a2a"))
+			draw_circle(Vector2.ZERO, 1.8, Color("f2c14e"))
+		"shell":
+			draw_colored_polygon(PackedVector2Array([Vector2(0, 3), Vector2(-4, -1), Vector2(-2, -4), Vector2(2, -4), Vector2(4, -1)]), Color("f0d8c8"))
+			for k in 3:
+				draw_line(Vector2(0, 3), Vector2(-2 + k * 2, -4), Color("c9a08a"), 1.0)
+		"starfish":
+			var star := PackedVector2Array()
+			for k in 10:
+				star.append(Vector2.from_angle(TAU * k / 10.0 - PI * 0.5) * (5.0 if k % 2 == 0 else 2.0))
+			draw_colored_polygon(star, Color("f2a03a"))
+		"rope_bit":
+			draw_polyline(PackedVector2Array([Vector2(-6, 0), Vector2(-2, -2), Vector2(2, 1), Vector2(6, -1)]), Color("c9a26a"), 1.5)
 	draw_set_transform(Vector2.ZERO)
 
 
@@ -627,7 +766,7 @@ func _draw_furniture(f: Dictionary) -> void:
 			draw_circle(Vector2.ZERO, 16.0, Color("c9c4bc"))
 			draw_circle(Vector2.ZERO, 12.0, Color("6fb0e0"))
 			draw_rect(Rect2(-5, -6, 3, 2), Color(1, 1, 1, 0.7))
-		"garden_lamp", "roof_lamp":
+		"garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp":
 			draw_circle(Vector2.ZERO, 8.0, OUTLINE)
 			draw_circle(Vector2.ZERO, 7.0, Color("3a3a40"))
 			draw_circle(Vector2.ZERO, 4.0, Color("fff3c8"))
@@ -749,6 +888,94 @@ func _draw_furniture(f: Dictionary) -> void:
 				draw_rect(cloth, RUG_COLORS[(k + int(f["pos"].x)) % RUG_COLORS.size()].lightened(0.25))
 				draw_rect(cloth, OUTLINE, false, 1.0)
 				k += 1
+		"store_shelf":
+			_box(Rect2(-60, -14, 120, 28), Color("e8e4dc"))
+			for i in 10:
+				var c: Color = RUG_COLORS[(i + int(f["pos"].x)) % RUG_COLORS.size()].lightened(0.2)
+				draw_rect(Rect2(-57 + i * 11.5, -11, 9, 9), c)
+				draw_rect(Rect2(-57 + i * 11.5, 2, 9, 9), c.darkened(0.2))
+			draw_line(Vector2(-60, 0), Vector2(60, 0), Color("9aa0a6"), 1.0)
+		"cart_row":
+			for k in 4:
+				var o := Vector2(-30 + k * 10, 0)
+				draw_rect(Rect2(o + Vector2(-12, -10), Vector2(24, 20)), Color(0.75, 0.78, 0.8, 0.5))
+				draw_rect(Rect2(o + Vector2(-12, -10), Vector2(24, 20)), OUTLINE, false, 1.0)
+			draw_line(Vector2(-42, -10), Vector2(-42, 10), Color("d9534f"), 2.0)
+		"price_sign":
+			_box(Rect2(-16, -10, 32, 20), Color("f2d14e"))
+			draw_rect(Rect2(-12, -6, 14, 5), Color("d9534f"))
+			draw_rect(Rect2(-12, 2, 24, 2), OUTLINE)
+		"fruit_stand":
+			_box(Rect2(-36, -24, 72, 48), WOOD)
+			for i in 12:
+				var p := Vector2(-28 + (i % 6) * 11, -12 + (i / 6) * 22)
+				var c: Color = [Color("d9534f"), Color("f2a03a"), Color("8ac04a")][(i / 6 + absi(int(f["pos"].y))) % 3]
+				for k in 3:
+					draw_circle(p + Vector2(k % 2 * 4 - 2, k * 3 - 3), 4.0, c)
+		"melon_bin":
+			_box(Rect2(-24, -24, 48, 48), Color("6b4630"))
+			for p: Vector2 in [Vector2(-10, -10), Vector2(10, -9), Vector2(-9, 10), Vector2(10, 10), Vector2(0, 0)]:
+				draw_circle(p, 9.0, OUTLINE)
+				draw_circle(p, 8.0, Color("4f8f3e"))
+				draw_line(p + Vector2(-5, -3), p + Vector2(5, 3), Color("8ac04a"), 1.0)
+		"freezer_chest":
+			_box(Rect2(-50, -20, 100, 40), Color("f4f1ea"))
+			draw_rect(Rect2(-46, -16, 92, 32), Color(0.6, 0.85, 1.0, 0.6))
+			for k in 6:
+				draw_rect(Rect2(-40 + k * 14, -12, 10, 8), RUG_COLORS[k % RUG_COLORS.size()].lightened(0.3))
+			draw_line(Vector2(-46, 0), Vector2(46, 0), Color(1, 1, 1, 0.8), 1.0)
+		"ice_block":
+			_box(Rect2(-14, -14, 28, 28), Color("cfe8f4"))
+			draw_line(Vector2(-10, -8), Vector2(6, -10), Color(1, 1, 1, 0.9), 1.0)
+			draw_line(Vector2(-8, 6), Vector2(8, 2), Color(1, 1, 1, 0.6), 1.0)
+		"beach_umbrella":
+			for k in 8:
+				var a0 := TAU * k / 8.0
+				var tri := PackedVector2Array([Vector2.ZERO, Vector2.from_angle(a0) * 30.0, Vector2.from_angle(a0 + TAU / 8.0) * 30.0])
+				draw_colored_polygon(tri, color.lightened(0.2) if k % 2 == 0 else Color("f4f1ea"))
+			draw_polyline(Shapes.closed(Shapes.ellipse(Vector2.ZERO, 30, 30, 8)), OUTLINE, 1.0)
+			draw_circle(Vector2.ZERO, 2.5, OUTLINE)
+		"towel":
+			_box(Rect2(-14, -28, 28, 56), color.lightened(0.2))
+			for y in range(-24, 28, 10):
+				draw_rect(Rect2(-14, y, 28, 4), Color("f4f1ea"))
+		"sandcastle":
+			draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, 22, 22, 16), Color("c9b07a"))
+			for p: Vector2 in [Vector2(-12, -12), Vector2(12, -12), Vector2(-12, 12), Vector2(12, 12)]:
+				_box(Rect2(p - Vector2(6, 6), Vector2(12, 12)), Color("d8c08a"))
+			_box(Rect2(-7, -7, 14, 14), Color("e2cc94"))
+			draw_line(Vector2(0, -7), Vector2(0, -18), OUTLINE, 1.0)
+			draw_rect(Rect2(0, -18, 6, 4), Color("d9534f"))
+		"bollard":
+			draw_circle(Vector2.ZERO, 9.0, OUTLINE)
+			draw_circle(Vector2.ZERO, 8.0, Color("3a3a40"))
+			draw_circle(Vector2(-2, -2), 3.0, Color("5a5a62"))
+			draw_arc(Vector2.ZERO, 12.0, 0.4, 2.6, 10, Color("c9a26a"), 2.0)
+		"rope_coil":
+			for r: float in [12.0, 9.0, 6.0, 3.0]:
+				draw_arc(Vector2.ZERO, r, 0.0, TAU, 20, Color("c9a26a"), 2.0)
+			draw_line(Vector2(12, 0), Vector2(26, 6), Color("c9a26a"), 2.0)
+		"barrels":
+			for p: Vector2 in [Vector2(-12, -8), Vector2(12, -8), Vector2(0, 12)]:
+				draw_circle(p, 12.0, OUTLINE)
+				draw_circle(p, 11.0, Color("8a5a3b"))
+				draw_arc(p, 8.0, 0.0, TAU, 16, Color("4a3a2a"), 1.0)
+		"lifebuoy":
+			draw_arc(Vector2.ZERO, 11.0, 0.0, TAU, 24, OUTLINE, 9.0)
+			for k in 4:
+				draw_arc(Vector2.ZERO, 11.0, k * PI * 0.5, k * PI * 0.5 + PI * 0.5, 8, Color("d9534f") if k % 2 == 0 else Color("f4f1ea"), 7.0)
+		"fish_net":
+			for i in 7:
+				draw_line(Vector2(-30 + i * 10, -20), Vector2(-24 + i * 8, 20), Color(0.6, 0.55, 0.4, 0.7), 1.0)
+				draw_line(Vector2(-30, -20 + i * 6.6), Vector2(30, -18 + i * 6.4), Color(0.6, 0.55, 0.4, 0.7), 1.0)
+			for p: Vector2 in [Vector2(-30, -20), Vector2(30, 20), Vector2(28, -18)]:
+				draw_circle(p, 2.5, Color("f2a03a"))
+		"fish_crate":
+			_box(Rect2(-22, -16, 44, 32), Color("9a7048"))
+			for k in 5:
+				var p := Vector2(-14 + k * 7, -6 + (k % 2) * 10)
+				draw_colored_polygon(Shapes.ellipse(p, 6, 2.5, 10), Color("aab4c0"))
+				draw_colored_polygon(PackedVector2Array([p + Vector2(5, 0), p + Vector2(9, -3), p + Vector2(9, 3)]), Color("8a96a4"))
 		"cat_bed":
 			draw_circle(Vector2.ZERO, 18.0, OUTLINE)
 			draw_circle(Vector2.ZERO, 17.0, color)

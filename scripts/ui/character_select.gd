@@ -64,25 +64,32 @@ func _build() -> void:
 	box.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	box.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	box.grow_vertical = Control.GROW_DIRECTION_BOTH
-	box.add_theme_constant_override("separation", 22)
+	# More than eight cats go in two rows of smaller cards.
+	var two_rows := _ids.size() > 8
+	box.add_theme_constant_override("separation", 12 if two_rows else 22)
 	add_child(box)
 
 	var title := _label(46, GOLD)
 	title.text = "SELECT_TITLE"
 	box.add_child(title)
 
-	var row := HBoxContainer.new()
-	row.alignment = BoxContainer.ALIGNMENT_CENTER
-	row.add_theme_constant_override("separation", 10)
-	box.add_child(row)
+	var center := CenterContainer.new()
+	box.add_child(center)
+	var row := GridContainer.new()
+	row.columns = ceili(_ids.size() / 2.0) if two_rows else maxi(_ids.size(), 1)
+	row.add_theme_constant_override("h_separation", 10)
+	row.add_theme_constant_override("v_separation", 10)
+	center.add_child(row)
 	for i in _ids.size():
 		var card := PanelContainer.new()
-		card.custom_minimum_size = Vector2(138, 170)
+		card.custom_minimum_size = Vector2(124, 128) if two_rows else Vector2(138, 170)
 		card.mouse_filter = Control.MOUSE_FILTER_STOP
 		card.gui_input.connect(_on_card_input.bind(i))
 		var preview := CatPreview.new()
 		preview.cat_id = _ids[i]
 		preview.locked = not Profile.is_unlocked(_ids[i])
+		if two_rows:
+			preview.zoom = 2.5
 		preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		card.add_child(preview)
 		row.add_child(card)

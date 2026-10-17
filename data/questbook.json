@@ -39,6 +39,22 @@
           "reward": {
             "charm": "STAR_COLLAR"
           }
+        },
+        {
+          "type": "flag",
+          "flag": "ship_ticket",
+          "target": 1,
+          "reward": {
+            "gold": 450
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "bottle_message",
+          "target": 1,
+          "reward": {
+            "gold": 600
+          }
         }
       ]
     },
@@ -587,6 +603,92 @@
           "target": 5,
           "reward": {
             "gold": 1200
+          }
+        }
+      ]
+    },
+    "SUPERMARKET": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:SUPERMARKET"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:SUPERMARKET"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 600
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:SUPERMARKET",
+          "target": 1,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:SUPERMARKET"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 1500
+          }
+        }
+      ]
+    },
+    "HARBOR": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:HARBOR"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 350
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:HARBOR"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 700
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:HARBOR",
+          "target": 1,
+          "reward": {
+            "gold": 1200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:HARBOR"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 1800
           }
         }
       ]

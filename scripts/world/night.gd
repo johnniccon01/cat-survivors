@@ -40,7 +40,28 @@ const ROOFTOP_KEYS := [
 	[1.0, Color(1.0, 0.92, 0.82)],
 ]
 
-const THEME_KEYS := {"basement": BASEMENT_KEYS, "garden": GARDEN_KEYS, "rooftop": ROOFTOP_KEYS}
+## Supermarket: cold shop lights after closing time.
+const SUPERMARKET_KEYS := [
+	[0.0, Color(0.96, 0.97, 0.95)],
+	[0.2, Color(0.78, 0.82, 0.9)],
+	[0.4, Color(0.66, 0.72, 0.86)],
+	[0.85, Color(0.66, 0.72, 0.86)],
+	[0.95, Color(0.9, 0.82, 0.8)],
+	[1.0, Color(1.0, 0.95, 0.88)],
+]
+
+## Harbor: a warm sunset, then fog rolling in from the sea.
+const HARBOR_KEYS := [
+	[0.0, Color(0.98, 0.88, 0.8)],
+	[0.2, Color(0.74, 0.8, 0.88)],
+	[0.4, Color(0.58, 0.68, 0.82)],
+	[0.85, Color(0.58, 0.68, 0.82)],
+	[0.95, Color(0.94, 0.8, 0.74)],
+	[1.0, Color(1.0, 0.93, 0.84)],
+]
+
+const THEME_KEYS := {"basement": BASEMENT_KEYS, "garden": GARDEN_KEYS, "rooftop": ROOFTOP_KEYS,
+	"supermarket": SUPERMARKET_KEYS, "harbor": HARBOR_KEYS}
 
 var spawner: Spawner
 var _keys: Array = KEYS

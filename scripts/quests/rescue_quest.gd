@@ -142,6 +142,19 @@ func _draw() -> void:
 			draw_rect(Rect2(-12, -10, 24, 27), Color("2a2224") if trapped else Color("4a3a2a"))
 			if trapped:
 				CatArt.draw(self, look, 1, 0.0, false, false, "sad", Vector2(0, 6))
+		"cart":
+			# A shopping cart tipped against a shelf, the cat stuck inside.
+			draw_rect(Rect2(-30, -22, 60, 40), Color(0.7, 0.74, 0.78, 0.55))
+			for x in range(-26, 30, 7):
+				draw_line(Vector2(x, -21), Vector2(x, 17), Color("9aa0a6"), 1.0)
+			for y in range(-17, 18, 7):
+				draw_line(Vector2(-29, y), Vector2(29, y), Color("9aa0a6"), 1.0)
+			draw_rect(Rect2(-30, -22, 60, 40), OUTLINE, false, 1.5)
+			draw_line(Vector2(-30, -22), Vector2(-38, -30), Color("d9534f"), 3.0)
+			for p: Vector2 in [Vector2(-24, 20), Vector2(24, 20)]:
+				draw_circle(p, 4.0, OUTLINE)
+			if trapped:
+				CatArt.draw(self, look, 1, 0.0, false, false, "sad", Vector2(0, -2))
 		"rat_nest":
 			for i in 9:
 				var a := TAU * i / 9.0

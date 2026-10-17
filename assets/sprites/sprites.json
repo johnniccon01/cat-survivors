@@ -88,6 +88,28 @@
       ],
       "frames": 4
     },
+    "TUCKO": {
+      "cell": [
+        51,
+        42
+      ],
+      "anchor": [
+        22.7,
+        25.200000000000003
+      ],
+      "frames": 4
+    },
+    "KAPITAN": {
+      "cell": [
+        42,
+        35
+      ],
+      "anchor": [
+        18.7,
+        21.200000000000003
+      ],
+      "frames": 4
+    },
     "ANGEL": {
       "cell": [
         36,
@@ -552,6 +574,204 @@
       ],
       "frames": 2
     },
+    "TIN_CAN": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "BANANA": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "SHOPPING_CART": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "FROZEN_CHICKEN": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "SPRAY_BOTTLE": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "SECURITY_BOT": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "FORKLIFT": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "BANANA_BUNCH": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "CASH_REGISTER": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "GUARD_DOG": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "CRAB": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "JELLYFISH": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "EEL": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "PIRATE_RAT": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "GIANT_CRAB": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "OCTOPUS": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "ANCHOR": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "KRAKEN": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
     "BOX": {
       "cell": [
         28,
@@ -619,6 +839,28 @@
       "frames": 2
     },
     "BUCKET": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "CEREAL_BOX": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "BARREL": {
       "cell": [
         28,
         28

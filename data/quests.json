@@ -55,6 +55,22 @@
         620.0
       ],
       "escort_hp": 60.0
+    },
+    "TUCKO": {
+      "type": "rescue",
+      "poi": "cart",
+      "guards": "TIN_CAN",
+      "guard_count": 26,
+      "free_time": 4.0,
+      "escort_distance": [
+        480.0,
+        620.0
+      ],
+      "escort_hp": 60.0
+    },
+    "KAPITAN": {
+      "type": "duel",
+      "rival": "RIVAL_KAPITAN"
     }
   },
   "side_quests": {
@@ -120,6 +136,20 @@
       "ambush_count": 20,
       "text": "BRUNO_NOTE",
       "poi": "antenna"
+    },
+    "SHIP_TICKET": {
+      "flag": "ship_ticket",
+      "ambush": "TIN_CAN",
+      "ambush_count": 22,
+      "text": "SHIP_TICKET",
+      "poi": "bin"
+    },
+    "BOTTLE_MESSAGE": {
+      "flag": "bottle_message",
+      "ambush": "CRAB",
+      "ambush_count": 24,
+      "text": "BOTTLE_MESSAGE",
+      "poi": "bottle"
     }
   }
 }

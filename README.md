@@ -33,7 +33,7 @@ Godot_v4.6.2-stable_win64_console.exe --headless --path . -- --bot
 - `--test-evolution` – overí evolúciu Škrabanca a skončí
 - `--quest=ID` – hneď spustí quest (LUNA, SNOWBALL, PIP, TIGER, BARON, DEFEND_BOWL, RED_DOT, FRIDGE)
 - `--cat=ID` – hrá za danú mačku bez odomknutia
-- `--stage=ID` – hrá danú mapu bez odomknutia (LIVING_ROOM, BASEMENT, GARDEN, ROOFTOP)
+- `--stage=ID` – hrá danú mapu bez odomknutia (LIVING_ROOM, BASEMENT, GARDEN, ROOFTOP, SUPERMARKET, HARBOR)
 - `--levels=N` – začne s N náhodnými vylepšeniami (test neskorej hry)
 - `--test-numbers` – zobrazí ukážku čísel poškodenia; `--pause` – hneď otvorí pauzové menu
 - Hlavné menu: `--shop`, `--charms`, `--goals`, `--settings` otvoria daný panel
@@ -47,7 +47,7 @@ Testovacie behy (`--bot`) nikdy neukladajú profil.
 - `scripts/progression/upgrades.gd` – výber ponúk pri level-upe a ich aplikovanie.
 - `scripts/pickups/` – XP granule, srdiečka a sardinky (liečenie), magnet.
 - `data/cats.json` – mačky (vzhľad, štartová zbraň, bonus). Odomknuté mačky sa ukladajú do `user://profile.cfg`. Mačky s `"hidden": true` (anjel, diabol) sa nedajú vybrať. Ďatelinku zachrániš v záhrade, Bruno je finálny boss strechy a po jeho porazení sa odomkne.
-- `data/stages.json` – mapy (byt, pivnica, záhrada, strecha): vlny, bossovia, finálny boss, hudba, ktoré mačky a príbehový quest tam patria. Každá ďalšia mapa sa odomkne porazením finálneho bossa predchádzajúcej (Kráľ vysávačov → Potkaní kráľ → Kosačka → Bruno).
+- `data/stages.json` – mapy (byt, pivnica, záhrada, strecha, supermarket, prístav): vlny, bossovia, finálny boss, hudba, ktoré mačky a príbehový quest tam patria. Každá ďalšia mapa sa odomkne porazením finálneho bossa predchádzajúcej (Kráľ vysávačov → Potkaní kráľ → Kosačka → Bruno → pes Rex → Kraken).
 - Tajomstvo: kľúč `"angel"` v mape (zatiaľ len strecha) dáva malú šancu, že po `after_minute` ťa pri smrti oživí anjel mačka. Dve oživenia v jednej hre privolajú diabol mačku (`DEVIL_CAT` v `data/enemies.json`), ktorá zabíja na pár zásahov a zraniť sa dá až od `mortal_from_minute`. Na testovanie: `-- --angel-chance=1`, `-- --devil`, alebo tlačidlá v dev paneli (F1).
 - `data/quests.json` + `scripts/quests/` – questy: záchrany a súboje mačiek, vedľajšie úlohy, poradie počas noci.
 - `scripts/ui/character_select.gd` – výber mačky pred hrou.
@@ -55,12 +55,12 @@ Testovacie behy (`--bot`) nikdy neukladajú profil.
 - Výzva: HP nepriateľov rastie s levelom mačky a s Kliatbou; elitní nepriatelia od 4. minúty; udalosti `events` (kruh, roj) v `data/stages.json`.
 - Koniec hry: smrť (polovica zlata, prívesky prepadnú, séria padá), útek mačacími dvierkami (`scripts/world/extraction.gd`, otvárajú sa po bossovi alebo queste) alebo víťazstvo. Séria dáva bonus k zlatu.
 - `data/charms.json` – prívesky na obojok (C vo výbere mačky, max 3 nasadené). Padajú z elít, bossov a questov; domov sa prinesú len útekom alebo víťazstvom.
-- `data/traps.json` + `scripts/world/trap.gd` – pasce (pasca na myši, sporák, iskriaca mláka, parná rúrka, hrable, zavlažovač, vetrák, holý drôt) zraňujú nepriateľov aj mačku; ktoré pasce má mapa, je v `data/stages.json`.
+- `data/traps.json` + `scripts/world/trap.gd` – pasce (pasca na myši, sporák, iskriaca mláka, parná rúrka, hrable, zavlažovač, vetrák, holý drôt, mrazák, rozbitá žiarivka, rybársky háčik, prílivová mláka) zraňujú nepriateľov aj mačku; ktoré pasce má mapa, je v `data/stages.json`.
 - `data/goals.json` + `scripts/progression/goals.gd` – dlhodobé ciele (G vo výbere mačky) s odmenami; štatistiky sa ukladajú v profile.
 - `data/props.json` – rozbitné predmety (krabice, kvetináče) a čo z nich padá.
 - Evolúcie: v `data/weapons.json` má základná zbraň `"evolve": {"with": PASÍVKA, "into": EVOLÚCIA}`. Zbraň na max leveli + vlastnená pasívka + truhlica z bossa = evolúcia.
 - Bossovia sú v `data/enemies.json` (`"boss": true`), do vĺn sa pridávajú cez `"bosses"` v `data/stages.json`.
-- `scripts/world/floor.gd` + `floor_chunk.gd` – mapa po kúskoch 320×320: zóny podľa témy mapy (byt, pivnica, záhrada, strecha), nábytok, lampy; každá hra má inú mapu.
+- `scripts/world/floor.gd` + `floor_chunk.gd` – mapa po kúskoch 320×320: zóny podľa témy mapy (byt, pivnica, záhrada, strecha, supermarket, prístav), nábytok, lampy; každá hra má inú mapu.
 - `scripts/world/night.gd` – stmievanie počas hry a ranný úsvit.
 - `scripts/enemies/enemy_manager.gd` – pohyb, kolízie a vyhľadávanie všetkých nepriateľov cez priestorovú mriežku.
 - `scripts/weapons/weapon.gd` – základ zbraní (cooldown, dávky, levely zo `weapons.json`); konkrétne zbrane ho rozširujú.

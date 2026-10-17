@@ -154,6 +154,51 @@ func _draw() -> void:
 					var p1 := Vector2.from_angle(a) * r * 0.7
 					draw_line(p1, p1 + Vector2.from_angle(a + 1.4) * 7.0, Color("9ae0ff"), 1.5)
 				draw_circle(Vector2.ZERO, r, Color(0.6, 0.9, 1.0, 0.14))
+		"FREEZER":
+			var side := _dir.orthogonal()
+			draw_rect(Rect2(-9, -9, 18, 18), OUTLINE)
+			draw_rect(Rect2(-8, -8, 16, 16), Color("e8f0f4"))
+			for k in 3:
+				draw_line(Vector2(-6, -4 + k * 4), Vector2(6, -4 + k * 4), Color("8ab4d0"), 1.0)
+			if _active:
+				var length := float(data["length"])
+				for k in 7:
+					var d := fposmod(_t * 160.0 + k * length / 7.0, length)
+					var spread := d / length * float(data["width"])
+					draw_circle(_dir * d + side * sin(_t * 5.0 + k) * spread * 0.5, 2.5 + spread * 0.4, Color(0.8, 0.95, 1.0, 0.55 * (1.0 - d / length)))
+			elif _timer < 0.6:
+				draw_circle(_dir * 9.0, 2.0, Color(0.8, 0.95, 1.0, 0.6))
+		"BROKEN_LIGHT":
+			var r := float(data["radius"])
+			draw_line(Vector2(-r, -2), Vector2(r * 0.8, 3), OUTLINE, 5.0)
+			draw_line(Vector2(-r, -2), Vector2(r * 0.8, 3), Color("f4f1ea"), 3.0)
+			for k in 3:
+				draw_line(Vector2(r * 0.8 + k * 3, 3 + k), Vector2(r * 0.8 + k * 3 + 2, 1 + k), Color("c9d4dc"), 1.0)
+			if _active:
+				for k in 6:
+					var a := _t * 13.0 + k * 1.1
+					var p1 := Vector2(r * 0.8, 3) + Vector2.from_angle(a) * 5.0
+					draw_line(p1, p1 + Vector2.from_angle(a + 1.2) * 8.0, Color("fff3a0"), 1.5)
+				draw_circle(Vector2.ZERO, r, Color(1.0, 0.95, 0.6, 0.14))
+		"FISH_HOOK":
+			var hook := PackedVector2Array([Vector2(0, -12), Vector2(0, 2), Vector2(-3, 6), Vector2(-7, 4), Vector2(-7, 0)])
+			draw_line(Vector2(0, -12), Vector2(0, -26), Color(0.9, 0.9, 0.9, 0.5), 1.0)
+			draw_polyline(hook, OUTLINE, 3.0)
+			draw_polyline(hook, Color("c9ced2"), 1.5)
+			if _active:
+				draw_colored_polygon(Shapes.ellipse(Vector2(-6, -2), 3, 2, 8), Color("e07a7a"))
+			if _flash > 0.0:
+				draw_circle(Vector2.ZERO, 12.0, Color(1, 1, 1, _flash * 2.0))
+		"TIDE_POOL":
+			var r := float(data["radius"])
+			draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, r, r * 0.7, 20), Color(0.25, 0.5, 0.7, 0.45))
+			draw_polyline(Shapes.closed(Shapes.ellipse(Vector2.ZERO, r, r * 0.7, 20)), Color(0.15, 0.3, 0.45, 0.6), 1.0)
+			if _active:
+				for k in 3:
+					var f := fposmod(_t * 0.8 + k / 3.0, 1.0)
+					draw_polyline(Shapes.closed(Shapes.ellipse(Vector2.ZERO, r * f, r * 0.7 * f, 16)), Color(0.8, 0.6, 1.0, 0.7 * (1.0 - f)), 1.5)
+				for k in 4:
+					draw_circle(Vector2.from_angle(_t * 1.5 + k * TAU / 4.0) * r * 0.5, 3.0, Color(0.8, 0.5, 1.0, 0.6))
 		"MOUSETRAP":
 			draw_rect(Rect2(-8, -5, 16, 10), OUTLINE)
 			draw_rect(Rect2(-7, -4, 14, 8), Color("c9a26a"))

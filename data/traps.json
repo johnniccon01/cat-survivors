@@ -68,5 +68,40 @@
     "on": 1.0,
     "off": 2.2,
     "tick": 0.3
+  },
+  "FREEZER": {
+    "type": "jet",
+    "length": 110,
+    "width": 12,
+    "damage": 16,
+    "player_damage": 9,
+    "on": 1.5,
+    "off": 3.2,
+    "tick": 0.3
+  },
+  "BROKEN_LIGHT": {
+    "type": "pulse",
+    "radius": 24,
+    "damage": 15,
+    "player_damage": 9,
+    "on": 1.0,
+    "off": 2.4,
+    "tick": 0.3
+  },
+  "FISH_HOOK": {
+    "type": "snap",
+    "radius": 11,
+    "damage": 55,
+    "player_damage": 13,
+    "rearm": 4.0
+  },
+  "TIDE_POOL": {
+    "type": "pulse",
+    "radius": 30,
+    "damage": 12,
+    "player_damage": 7,
+    "on": 2.0,
+    "off": 3.0,
+    "tick": 0.4
   }
 }

@@ -96,6 +96,35 @@
     },
     "unlock": "BRUNO"
   },
+  "TUCKO": {
+    "fur": "#e89a4a",
+    "dark": "#a8602a",
+    "belly": "#f6dcb4",
+    "eyes": "#6ab04a",
+    "stripes": true,
+    "size": 1.4,
+    "weapon": "MOUSE_TOY",
+    "bonus": {
+      "max_hp": 50,
+      "magnet": 30
+    },
+    "unlock": "TUCKO"
+  },
+  "KAPITAN": {
+    "fur": "#e8e4dc",
+    "dark": "#3a3a44",
+    "belly": "#f8f6f0",
+    "eyes": "#4a8fe0",
+    "patches": true,
+    "hat": true,
+    "size": 1.15,
+    "weapon": "SPRINKLER",
+    "bonus": {
+      "area": 0.15,
+      "speed": 0.1
+    },
+    "unlock": "KAPITAN"
+  },
   "ANGEL": {
     "fur": "#fffaf0",
     "dark": "#e8dcc0",

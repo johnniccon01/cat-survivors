@@ -3,19 +3,19 @@
 Živý zoznam toho, čo je hotové, čo robíme teraz a čo príde. Po každom kroku
 ho aktualizujeme: hotové odškrtneme `[x]`, nové nápady pridáme do Zásobníka.
 
-Naposledy aktualizované: 16. 10. 2026 (fáza 2 rozbehnutá)
+Naposledy aktualizované: 17. 10. 2026 (nové mapy Supermarket a Prístav)
 
 ---
 
 ## Kde sme
 
-Hra je hrateľná od menu po koniec noci na 4 mapách:
+Hra je hrateľná od menu po koniec noci na 6 mapách:
 
-- **Mapy:** Byt → Pivnica → Záhrada → Strecha (každá sa odomkne porazením
+- **Mapy:** Byt → Pivnica → Záhrada → Strecha → Supermarket → Prístav (každá sa odomkne porazením
   finálneho bossa predchádzajúcej), každá s vlastnou podlahou, nábytkom,
   nepriateľmi, bossmi, pascami a hudbou.
-- **Mačky:** 8 hrateľných (Mica, Luna, Snehulka, Mrňa, Tiger, Barón,
-  Ďatelinka, Bruno) + 2 tajné (anjel, diabol).
+- **Mačky:** 10 hrateľných (Mica, Luna, Snehulka, Mrňa, Tiger, Barón,
+  Ďatelinka, Bruno, Tučko, Kapitán) + 2 tajné (anjel, diabol).
 - **Boj:** 9 zbraní s evolúciami, 10 pasív, kritické zásahy a šťastie,
   čísla poškodenia, otrasy.
 - **Priebeh noci:** rozpočet nepriateľov s krivkou intenzity, oddychy,
@@ -61,6 +61,11 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 - [x] Zlatá myš: občas pribehne, uteká, po chytení vysype zlato a truhlicu
 - [x] Nekonečná noc: po výhre klávesou E pokračuješ, nepriatelia silnejú každou minútou, boss každé 2,5 min, zlato navyše je celé tvoje; quest Nekonečná noc
 - [x] Výzvy (X pri výbere mačky): Turbo, Krehká mačka, Bez liečenia, Jediná zbraň, Prekliata noc – každá násobí zlato; quest Odvážlivec
+- [x] Mapa 5 – Supermarket (po Streche): uličky, zelenina, mrazáky; plechovky, banány, vozíky, mrazené kurčatá, rozprašovače; bossovia strážny robot, vysokozdvižný vozík, banánový trs, pokladňa (stredný), finálny pes Rex; pasce mrazák a rozbitá žiarivka; mačka Tučko (záchrana z vozíka); príbeh lístok v koši; hudba deň/noc/Rex
+- [x] Mapa 6 – Prístav (po Supermarkete): pláž, nábrežie, mólo; kraby, medúzy, úhory, pirátske potkany; bossovia obrovský krab, chobotnica, stará kotva (stredný), finálny Kraken; pasce háčik a prílivová mláka; mačka Kapitán (súboj, kapitánska čiapka); príbeh odkaz vo fľaši; hudba deň/noc/Kraken
+- [x] Výber mačky v dvoch riadkoch (12 mačiek), 4 nové ciele, 2 nové kroky questu Cesta nahor, 14 nových testov (`ONLY="harbor|final_kraken" bash tools/run_checks.sh` spustí len vybrané)
+- [ ] Questy pre každú mačku (vyhraj s ňou, level 40, 3 výhry)
+- [ ] Artefakty: trvalé predmety z questov, 2 sloty pred hrou
 
 ## Fáza 3 – Grafika a zvuk
 

@@ -3,7 +3,7 @@ extends Node2D
 ## A danger zone left by a boss. "steam" hurts the cat every half second
 ## while it stands inside, for `lifetime` seconds; "strike" is a warning
 ## circle for `lifetime` seconds and then hits once (style: "pitchfork" or
-## "lightning" picks the look).
+## "lightning" or "anchor" picks the look).
 
 const TICK := 0.5
 
@@ -67,6 +67,11 @@ func _draw() -> void:
 			pts.append(Vector2(randf_range(-8.0, 8.0), -160.0 + (i + 1) * 160.0 / 6.0))
 		draw_polyline(pts, Color(1.0, 0.95, 0.5, f), 3.0)
 		draw_polyline(pts, Color(1, 1, 1, f), 1.0)
+	elif style == "anchor":
+		var iron := Color(0.42, 0.44, 0.47, f)
+		draw_line(Vector2(0, -radius), Vector2(0, 4), iron, 3.0)
+		draw_arc(Vector2(0, -4), radius * 0.6, 0.3, PI - 0.3, 10, iron, 3.0)
+		draw_line(Vector2(-5, -radius + 4), Vector2(5, -radius + 4), iron, 2.0)
 	else:
 		for x: float in [-5.0, 0.0, 5.0]:
 			draw_line(Vector2(x, -radius), Vector2(x, 2), Color(0.75, 0.7, 0.6, f), 2.0)

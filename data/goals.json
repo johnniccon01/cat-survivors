@@ -25,5 +25,9 @@
   "FROG_PRINCE":   { "stats": ["kills:FROG"], "target": 200, "reward": { "gold": 400 } },
   "STORM_CHASER":  { "stats": ["kills:DIVE_GULL", "kills:BIG_GULL"], "target": 200, "reward": { "charm": "WIND_FEATHER" } },
   "NIGHT_OWL":     { "stats": ["best_minutes"], "target": 20, "reward": { "charm": "CRESCENT_MOON" } },
-  "BOSS_HUNTER":   { "stats": ["bosses"], "target": 50, "reward": { "charm": "GOLDEN_FANG" } }
+  "BOSS_HUNTER":   { "stats": ["bosses"], "target": 50, "reward": { "charm": "GOLDEN_FANG" } },
+  "GUARD_DOG":     { "stats": ["wins:SUPERMARKET"], "target": 1, "reward": { "gold": 2500 } },
+  "KRAKEN":        { "stats": ["wins:HARBOR"], "target": 1, "reward": { "gold": 3000 } },
+  "AISLE_FIVE":    { "stats": ["kills:TIN_CAN", "kills:BANANA", "kills:SHOPPING_CART", "kills:FROZEN_CHICKEN", "kills:SPRAY_BOTTLE"], "target": 1000, "reward": { "gold": 500 } },
+  "SEAFOOD":       { "stats": ["kills:CRAB", "kills:JELLYFISH", "kills:EEL", "kills:PIRATE_RAT"], "target": 1000, "reward": { "gold": 500 } }
 }

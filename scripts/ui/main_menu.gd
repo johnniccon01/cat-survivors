@@ -18,7 +18,7 @@ var _t := 0.0
 
 
 func _ready() -> void:
-	var args := OS.get_cmdline_user_args()
+	var args := GameData.args()
 	for arg: String in args:
 		if arg.begins_with("--") and arg not in PANEL_FLAGS:
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)

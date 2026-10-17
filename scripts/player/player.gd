@@ -102,7 +102,7 @@ func _ready() -> void:
 ## The cat's own weapon, or --start-weapon=ID[,ID...] (tests) for the played cat.
 func _start_weapons() -> PackedStringArray:
 	if controller == "input" or controller == "bot":
-		for arg: String in OS.get_cmdline_user_args():
+		for arg: String in GameData.args():
 			if arg.begins_with("--start-weapon="):
 				return arg.trim_prefix("--start-weapon=").split(",")
 	return PackedStringArray([GameData.cats[cat_id]["weapon"]])
@@ -395,7 +395,7 @@ func _bot_input(delta: float) -> Vector2:
 	# Only escape through a cat flap when the test asks for it (--extract);
 	# otherwise balance runs would end the moment a flap opens.
 	var flap: Node2D = get_parent().get("extraction")
-	if flap != null and "--extract" in OS.get_cmdline_user_args():
+	if flap != null and "--extract" in GameData.args():
 		var to_flap := flap.position - position
 		return to_flap.normalized() if to_flap.length() > 10.0 else Vector2.ZERO
 	var quest: Quest = get_parent().quests.active if get_parent().get("quests") else null

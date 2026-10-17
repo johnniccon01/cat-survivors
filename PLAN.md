@@ -72,7 +72,7 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 
 ## Fáza 4 – Pred vydaním
 
-- [ ] Odstrániť dev panel (F1) a ladiace prepínače z vydanej verzie
+- [x] Dev panel (F1), ladiaci riadok a všetky prepínače (`--...`) fungujú len v ladiacej verzii; vydaná verzia ich ignoruje
 - [ ] Export: samostatný Windows `.exe`, otestovať na inom počítači
 - [x] Gamepad: ľavá páčka, Start, šípky, A potvrdí, B späť – overené automatickým testom (opravené: A v menu predtým nefungovalo)
 - [x] Zmena kláves pohybu v Nastaveniach (šípky a ovládač fungujú vždy), návrat na WASD

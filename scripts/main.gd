@@ -91,7 +91,7 @@ var _flap_times: Array[float] = []
 var _goal_check := 2.0
 var chests_opened := 0
 
-var _args := OS.get_cmdline_user_args()
+var _args := GameData.args()
 var _bot := "--bot" in _args
 var _bot_time := float(_arg("--bot-time=", "300"))
 var _modals: Array[String] = []

@@ -28,7 +28,7 @@ var _gold: Label
 
 
 func _ready() -> void:
-	for arg: String in OS.get_cmdline_user_args():
+	for arg: String in GameData.args():
 		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--goals", "--journal", "--challenges", "--ui-test"]:
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
 			return
@@ -43,13 +43,13 @@ func _ready() -> void:
 	_build()
 	_refresh()
 	Audio.play_music("music_menu")
-	if "--shop" in OS.get_cmdline_user_args():
+	if "--shop" in GameData.args():
 		_shop.open()
-	if "--charms" in OS.get_cmdline_user_args():
+	if "--charms" in GameData.args():
 		_charms.open()
-	if "--goals" in OS.get_cmdline_user_args():
+	if "--goals" in GameData.args():
 		_journal.open("goals")
-	if "--journal" in OS.get_cmdline_user_args():
+	if "--journal" in GameData.args():
 		_journal.open("bestiary")
 
 

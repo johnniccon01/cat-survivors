@@ -304,7 +304,7 @@ func _spawn(id: String, pos: Vector2) -> Enemy:
 ## Share of regular spawns that come as champions: none in the first two
 ## minutes, then +0.4 % per minute up to 6 % (x curse).
 func champion_chance() -> float:
-	if "--champions" in OS.get_cmdline_user_args():
+	if "--champions" in GameData.args():
 		return 0.5
 	var minute := elapsed / 60.0
 	return clampf((minute - 2.0) * CHAMPION_PER_MINUTE, 0.0, CHAMPION_MAX) * _player.stat("curse")

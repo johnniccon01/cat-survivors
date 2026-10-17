@@ -47,9 +47,15 @@ func _ready() -> void:
 
 
 
+## Command-line flags (after --). Only in debug builds: a released game
+## ignores every testing and cheat flag.
+static func args() -> PackedStringArray:
+	return OS.get_cmdline_user_args() if OS.is_debug_build() else PackedStringArray()
+
+
 ## Test runs (--bot, --ui-test, --no-save) never write the profile or settings.
 static func no_save() -> bool:
-	var args := OS.get_cmdline_user_args()
+	var args := GameData.args()
 	return "--bot" in args or "--ui-test" in args or "--no-save" in args
 
 func _load_json(path: String) -> Dictionary:

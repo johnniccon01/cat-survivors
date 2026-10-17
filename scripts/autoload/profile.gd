@@ -39,7 +39,7 @@ func _ready() -> void:
 	var cfg := ConfigFile.new()
 	# Automated tests start from a fresh profile, so their results don't depend
 	# on how far the player has got.
-	var args := OS.get_cmdline_user_args()
+	var args := GameData.args()
 	var fresh := "--bot" in args or "--ui-test" in args
 	var loaded := false
 	if not fresh:
@@ -83,7 +83,7 @@ func _ready() -> void:
 		selected_stage = "LIVING_ROOM"
 	# Debug: `-- --cat=LUNA` / `-- --stage=BASEMENT` skip unlocking,
 	# `-- --challenges=HYPER,GLASS` sets challenges for this run.
-	for arg: String in OS.get_cmdline_user_args():
+	for arg: String in GameData.args():
 		if arg.begins_with("--challenges="):
 			challenges.clear()
 			for id in arg.trim_prefix("--challenges=").split(",", false):

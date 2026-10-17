@@ -31,6 +31,7 @@ extends Node2D
 ##   --drop-charm       drop a random charm next to the cat at the start
 ##   --catch-up         with --start-minute: level the cat like the dev panel's skip does
 ##   --traps            place one of every trap next to the cat
+##   --choice=N         the bot answers story choices with option N
 
 const HEART_DROP_CHANCE := 0.005
 const COIN_DROP_CHANCE := 0.015
@@ -124,6 +125,8 @@ const HOURGLASS_SECONDS := 3.0
 const THORN_RADIUS := 80.0
 const THORN_DAMAGE := 20.0
 var _freeze_t := 0.0
+## The story choice waiting in the modal queue.
+var _choice: Dictionary = {}
 var _magnet_t := 0.0
 var _page_item: Pickup
 var _has_page := false
@@ -239,6 +242,11 @@ func _ready() -> void:
 	hud.level_up.reroll_requested.connect(_on_reroll)
 	player.revived.connect(_on_revived)
 	hud.treasure.closed.connect(_next_modal)
+	hud.choice.chosen.connect(func(index: int) -> void:
+		var callback: Callable = _choice["callback"]
+		callback.call(index)
+		_next_modal())
+	MapFeature.place_all(self, spawner.stage_id, player.position)
 	hud.resume_pressed.connect(func() -> void:
 		get_tree().paused = false
 		hud.show_pause(false))
@@ -490,6 +498,12 @@ func spawn_escort(cat_id: String, at: Vector2, hp: float) -> Player:
 	return cat
 
 
+## A story choice (pauses like a level-up); `callback` gets the answer's index.
+func ask_choice(title: String, prompt: String, options: Array, callback: Callable) -> void:
+	_choice = {"title": title, "prompt": prompt, "options": options, "callback": callback}
+	_queue_modal("choice")
+
+
 func _queue_modal(kind: String) -> void:
 	_modals.append(kind)
 	if not _in_modal:
@@ -507,6 +521,14 @@ func _next_modal() -> void:
 	_in_modal = true
 	get_tree().paused = true
 	var kind: String = _modals.pop_front()
+	if kind == "choice":
+		if _bot:
+			var callback: Callable = _choice["callback"]
+			callback.call(int(_arg("--choice=", "0")))
+			_next_modal.call_deferred()
+		else:
+			hud.choice.open(_choice["title"], _choice["prompt"], _choice["options"])
+		return
 	if kind == "chest":
 		Audio.play("chest", -2.0, 0.0)
 		chests_opened += 1

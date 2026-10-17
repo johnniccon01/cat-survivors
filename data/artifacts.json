@@ -69,5 +69,11 @@
       "heal_power": 0.5
     },
     "color": "#e8a0b0"
+  },
+  "SILK_VEST": {
+    "stats": {
+      "armor": 2.0
+    },
+    "color": "#eef0f4"
   }
 }

@@ -12,6 +12,9 @@ const GUARD_WAKE := 320.0
 
 var _items: Array[Vector2] = []
 var _guards: Array = []
+## Whether each thing's guard has stepped out yet (a freed guard compares
+## equal to null, so _guards alone can't tell).
+var _woke: Array[bool] = []
 var _carried := 0
 var _delivered := 0
 var _dropped := 0
@@ -26,6 +29,7 @@ func _ready() -> void:
 		var a := TAU * i / float(data.get("count", 5)) + randf_range(-0.4, 0.4)
 		_items.append(position + Vector2.from_angle(a) * randf_range(float(spread[0]), float(spread[1])))
 		_guards.append(null)
+		_woke.append(false)
 
 
 func _on_start() -> void:
@@ -64,13 +68,14 @@ func target_position() -> Vector2:
 
 
 func _guarded(i: int) -> bool:
-	return data.get("source", "ground") == "guards" and (_guards[i] == null or (is_instance_valid(_guards[i]) and not _guards[i].dead))
+	return data.get("source", "ground") == "guards" and (not _woke[i] or (is_instance_valid(_guards[i]) and not _guards[i].dead))
 
 
 func _tick(_delta: float) -> void:
 	var cat := player().position
 	for i in range(_items.size() - 1, -1, -1):
-		if data.get("source", "ground") == "guards" and _guards[i] == null and cat.distance_to(_items[i]) < GUARD_WAKE:
+		if data.get("source", "ground") == "guards" and not _woke[i] and cat.distance_to(_items[i]) < GUARD_WAKE:
+			_woke[i] = true
 			var guard := spawn_wave_enemies(1, _items[i], 0.0, 4.0, data.get("enemy", ""))
 			_guards[i] = guard[0] if not guard.is_empty() else false
 			if not guard.is_empty():
@@ -79,6 +84,7 @@ func _tick(_delta: float) -> void:
 			continue
 		_items.remove_at(i)
 		_guards.remove_at(i)
+		_woke.remove_at(i)
 		_carried += 1
 		Audio.play("pop", -4.0, 0.0)
 	if not data.get("deliver", false):
@@ -102,6 +108,7 @@ func _on_killed(enemy_id: String, pos: Vector2, _xp: float) -> void:
 		_dropped += 1
 		_items.append(pos)
 		_guards.append(null)
+		_woke.append(true)
 
 
 func _exit_tree() -> void:

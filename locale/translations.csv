@@ -898,3 +898,43 @@ CHAIN_MOON_WINDOWS_1,Stay in the moonbeams,Vydrž v mesačných lúčoch,Vydrž 
 CHAIN_MOON_WINDOWS_1_START,Three beams of moonlight lie on the floor. Something is calling you...,Na zemi ležia tri mesačné lúče. Niečo ťa volá...,Na zemi leží tři měsíční paprsky. Něco tě volá...
 CHAIN_MOON_WINDOWS_1_DONE,In the last beam lies a white feather. Someone with wings was here...,V poslednom lúči leží biele pierko. Bol tu niekto s krídlami...,V posledním paprsku leží bílé pírko. Byl tu někdo s křídly...
 CHAIN_MOON_WINDOWS_REWARD,the angel comes twice as often,anjel príde dvakrát častejšie,anděl přijde dvakrát častěji
+CHOICE_HINT,← → choose · Enter confirm,← → výber · Enter potvrdiť,← → výběr · Enter potvrdit
+ARTIFACT_SILK_VEST_NAME,Silk Vest,Hodvábna vesta,Hedvábná vesta
+ARTIFACT_SILK_VEST_DESC,"Spider silk, light and strong: +2 armor.","Pavúčí hodváb, ľahký a pevný: +2 brnenie.","Pavoučí hedvábí, lehké a pevné: +2 brnění."
+ENEMY_RAT_MESSENGER_NAME,Rat Messenger,Potkaní posol,Krysí posel
+ENEMY_RAT_MESSENGER_DESC,Carries the rats' secrets. It runs – catch it!,Nosí tajomstvá potkanov. Uteká – chyť ho!,Nosí tajemství krys. Utíká – chyť ho!
+ENEMY_RAT_GENERAL_NAME,The Rat General,Potkaní generál,Krysí generál
+ENEMY_RAT_GENERAL_DESC,Leads the rats from the tunnels and charges at the head of his troops.,Velí potkanom z tunelov a útočí na čele svojho vojska.,Velí krysám z tunelů a útočí v čele svého vojska.
+CHAIN_RAT_FORTRESS_NAME,The Rat Fortress,Potkania pevnosť,Krysí pevnost
+CHAIN_RAT_FORTRESS_DESC,The rats are building something under the basement. Stop them.,Potkany pod pivnicou niečo stavajú. Zastav ich.,Krysy pod sklepem něco staví. Zastav je.
+CHAIN_RAT_FORTRESS_1,Plug the rat holes,Upchaj potkanie diery,Ucpi krysí díry
+CHAIN_RAT_FORTRESS_1_START,Three fresh holes in the wall. Stand in each one until it's blocked!,"V stene sú tri čerstvé diery. Postav sa do každej, kým ju neupcháš!","Ve zdi jsou tři čerstvé díry. Postav se do každé, dokud ji neucpeš!"
+CHAIN_RAT_FORTRESS_1_DONE,Blocked! But a rat with a letter just slipped past...,Upchaté! Ale okolo prekĺzol potkan s listom...,Ucpané! Ale kolem proklouzla krysa s dopisem...
+CHAIN_RAT_FORTRESS_2,Catch the rat messenger,Chyť potkanieho posla,Chyť krysího posla
+CHAIN_RAT_FORTRESS_2_START,There goes the messenger! Don't let it reach the others!,Tamto je posol! Nesmie sa dostať k ostatným!,Tamhle je posel! Nesmí se dostat k ostatním!
+CHAIN_RAT_FORTRESS_2_DONE,The letter is a map of the tunnels.,List je mapa tunelov.,Dopis je mapa tunelů.
+CHAIN_RAT_FORTRESS_3,Follow the paw prints through the tunnel,Sleduj stopy labiek tunelom,Sleduj stopy tlapek tunelem
+CHAIN_RAT_FORTRESS_3_START,The tunnel is full of mousetraps. Watch your paws!,Tunel je plný pascí na myši. Daj pozor na labky!,Tunel je plný pastí na myši. Dej pozor na tlapky!
+CHAIN_RAT_FORTRESS_3_DONE,The paw prints lead to a big hole. Someone is waiting inside.,Stopy vedú k veľkej diere. Niekto v nej čaká.,Stopy vedou k velké díře. Někdo v ní čeká.
+CHAIN_RAT_FORTRESS_4,Defeat the Rat General,Poraz potkanieho generála,Poraz krysího generála
+CHAIN_RAT_FORTRESS_4_START,"""So you're the cat who blocked my holes!""","„Takže ty si tá mačka, čo mi upchala diery!“","„Takže ty jsi ta kočka, co mi ucpala díry!“"
+CHAIN_RAT_FORTRESS_4_DONE,Without their general the rats scatter. The fortress will never be finished.,Bez generála sa potkany rozpŕchli. Pevnosť už nikdy nedostavajú.,Bez generála se krysy rozprchly. Pevnost už nikdy nedostaví.
+CHAIN_SPIDER_WEB_NAME,The Spider's Web,Pavúčia sieť,Pavoučí síť
+CHAIN_SPIDER_WEB_DESC,Moths are disappearing in the dark corners of the basement.,V tmavých kútoch pivnice miznú mole.,V tmavých koutech sklepa mizí moli.
+CHAIN_SPIDER_WEB_1,Free the moths caught in webs,Vysloboď mole chytené v pavučinách,Vysvoboď moly chycené v pavučinách
+CHAIN_SPIDER_WEB_1_START,Four cocoons hang in the corners. Something is moving inside...,V kútoch visia štyri zámotky. Niečo sa v nich hýbe...,V koutech visí čtyři zámotky. Něco se v nich hýbe...
+CHAIN_SPIDER_WEB_1_DONE,The moths are free. A huge web glitters in the dark.,Mole sú voľné. V tme sa leskne obrovská sieť.,Moli jsou volní. Ve tmě se leskne obrovská síť.
+CHAIN_SPIDER_WEB_2,Go to the Spider Queen's web,Choď k sieti pavúčej kráľovnej,Jdi k síti pavoučí královny
+CHAIN_SPIDER_WEB_2_START,The Spider Queen is waiting. She wants to talk.,Pavúčia kráľovná čaká. Chce sa rozprávať.,Pavoučí královna čeká. Chce si promluvit.
+CHAIN_SPIDER_WEB_2_ASK,"""Those were my moths, little cat. Fight me for them – or let me have them, and I will weave you something.""","„To boli moje mole, mačička. Bojuj so mnou o ne – alebo mi ich nechaj a niečo ti utkám.“","„To byli moji moli, kočičko. Bojuj se mnou o ně – nebo mi je nech a něco ti utkám.“"
+CHAIN_SPIDER_WEB_2_FIGHT,Fight for the moths,Bojovať o mole,Bojovat o moly
+CHAIN_SPIDER_WEB_2_GIFT,Leave her the moths (Silk Vest),Nechať jej mole (Hodvábna vesta),Nechat jí moly (Hedvábná vesta)
+CHAIN_SPIDER_WEB_3,Defeat the Spider Queen,Poraz pavúčiu kráľovnú,Poraz pavoučí královnu
+CHAIN_SPIDER_WEB_3_START,"""Then come closer...""",„Tak poď bližšie...“,„Tak pojď blíž...“
+CHAIN_SPIDER_WEB_3_DONE,The web is torn. The moths fly up into the light.,Sieť je roztrhaná. Mole vyleteli k svetlu.,Síť je roztrhaná. Moli vylétli ke světlu.
+CHAIN_BOILER_NAME,Fixing the Boiler,Oprava kotla,Oprava kotle
+CHAIN_BOILER_DESC,The old boiler is cold. Without it the basement freezes every night.,Starý kotol je studený. Bez neho pivnica každú noc mrzne.,Starý kotel je studený. Bez něj sklep každou noc mrzne.
+CHAIN_BOILER_1,Bring the three boiler parts,Prines tri súčiastky kotla,Přines tři součástky kotle
+CHAIN_BOILER_1_START,"A valve, a wrench and a fuse – the strongest of the basement guard them.","Ventil, kľúč a poistka – strážia ich najsilnejší z pivnice.","Ventil, klíč a pojistka – hlídají je nejsilnější ze sklepa."
+CHAIN_BOILER_1_DONE,The boiler rumbles and warms up. From now on you can warm up next to it.,Kotol zahučal a zohrial sa. Odteraz sa pri ňom môžeš zohriať.,Kotel zahučel a zahřál se. Odteď se u něj můžeš ohřát.
+CHAIN_BOILER_REWARD,the warm boiler heals in the Basement,teplý kotol lieči v Pivnici,teplý kotel léčí ve Sklepě

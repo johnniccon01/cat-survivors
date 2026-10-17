@@ -92,5 +92,118 @@
         "look": "moon"
       }
     ]
+  },
+  "RAT_FORTRESS": {
+    "stage": "BASEMENT",
+    "reward": {
+      "gold": 900
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 3,
+        "hold": 4,
+        "radius": 34,
+        "spread": [
+          180,
+          320
+        ],
+        "during": "converge",
+        "look": "hole"
+      },
+      {
+        "type": "chase",
+        "enemy": "RAT_MESSENGER"
+      },
+      {
+        "type": "trail",
+        "count": 6,
+        "spacing": [
+          110,
+          150
+        ],
+        "look": "pawprints",
+        "traps": {
+          "id": "MOUSETRAP",
+          "per_point": 2
+        }
+      },
+      {
+        "type": "boss",
+        "enemy": "RAT_GENERAL",
+        "hp_mult": 1.5,
+        "look": "hole",
+        "distance": 200
+      }
+    ]
+  },
+  "SPIDER_WEB": {
+    "stage": "BASEMENT",
+    "reward": {
+      "gold": 500
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "cocoon",
+        "count": 4,
+        "spread": [
+          180,
+          380
+        ]
+      },
+      {
+        "type": "choice",
+        "options": [
+          "FIGHT",
+          "GIFT"
+        ],
+        "look": "web",
+        "distance": 300,
+        "rewards": {
+          "GIFT": {
+            "artifact": "SILK_VEST"
+          }
+        }
+      },
+      {
+        "type": "boss",
+        "if": "choice:SPIDER_WEB:FIGHT",
+        "enemy": "SPIDER_QUEEN",
+        "hp_mult": 2.5,
+        "look": "web",
+        "distance": 200,
+        "reward": {
+          "gold": 800
+        }
+      }
+    ]
+  },
+  "BOILER": {
+    "stage": "BASEMENT",
+    "reward": {
+      "gold": 500,
+      "note": "CHAIN_BOILER_REWARD",
+      "feature": {
+        "stage": "BASEMENT",
+        "kind": "heal_spot"
+      }
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "gear",
+        "count": 3,
+        "source": "guards",
+        "guard_hp": 6.0,
+        "spread": [
+          200,
+          420
+        ],
+        "deliver": true,
+        "look_to": "boiler",
+        "distance": 300
+      }
+    ]
   }
 }

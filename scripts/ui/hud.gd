@@ -11,6 +11,7 @@ signal give_up_pressed
 var level_up: LevelUpPanel
 var settings: SettingsPanel
 var treasure: TreasurePanel
+var choice: ChoicePanel
 
 var _xp_fill: ColorRect
 var _level_label: Label
@@ -199,6 +200,8 @@ void fragment() {
 	add_child(level_up)
 	treasure = TreasurePanel.new()
 	add_child(treasure)
+	choice = ChoicePanel.new()
+	add_child(choice)
 
 
 var _hurt := 0.0

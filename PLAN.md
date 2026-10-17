@@ -76,7 +76,7 @@ zbieranie, státie v zónach, bossovia, voľby. Prekrádanie vynechané.
 
 Mechaniky:
 - [x] Systém reťazcov (`data/chains.json`): kroky, ukladanie postupu, plánovanie počas noci, zobrazenie v Denníku
-- [ ] Kroky – hotové: stopy, naháňačka, nosenie (čas, spomalenie, max. zásahov), zbieranie (kapacita, strážcovia, z nepriateľov), zóny (poradie, čas, blesky), obrana (viac miest), boss (bez liečenia, na čas); chýba: eskorta, voľba, pasce, tma. Pôvodne: stopy, naháňačka, nosenie (časový limit, spomalenie, max. zásahov), zbieranie (kapacita, veci zo strážcov alebo z nepriateľov), zóny (poradie, časový limit, blesky), obrana (miesto s HP, viac miest naraz), boss (bez liečenia, na čas), eskorta (viac mačiek, pomalá), voľba, zabitia pascami, tma s lampášom
+- [ ] Kroky – hotové: stopy, naháňačka, nosenie (čas, spomalenie, max. zásahov), zbieranie (kapacita, strážcovia, z nepriateľov), zóny (poradie, čas, blesky), obrana (viac miest), boss (bez liečenia, na čas); voľba (pozastaví hru, vetvenie krokov), pasce na trase, odmena za krok; chýba: eskorta, zabitia pascami, tma. Pôvodne: stopy, naháňačka, nosenie (časový limit, spomalenie, max. zásahov), zbieranie (kapacita, veci zo strážcov alebo z nepriateľov), zóny (poradie, časový limit, blesky), obrana (miesto s HP, viac miest naraz), boss (bez liečenia, na čas), eskorta (viac mačiek, pomalá), voľba, zabitia pascami, tma s lampášom
 - [ ] Postavy, ktoré hovoria (riadky pri začiatku a konci kroku)
 - [ ] Trvalé zmeny máp: teplý kotol (liečenie), strašiak (odháňa vrany), nabitá anténa (strieľa), maják (odháňa medúzy), Bruno a Rex ako spojenci
 
@@ -86,9 +86,9 @@ Byt:
 - [x] Mesačné okná (anjel potom chodí 2× častejšie): vydrž v 3 mesačných lúčoch → prvá stopa anjela
 
 Pivnica:
-- [ ] Potkania pevnosť: upchaj 3 diery → chyť posla → tunel s pascami → potkaní generál
-- [ ] Pavúčia sieť: vysloboď 4 mole → voľba: poraziť kráľovnú alebo jej dať mole
-- [ ] Oprava kotla: 3 súčiastky od elít → zanes ku kotlu → kotol odteraz lieči
+- [x] Potkania pevnosť: upchaj 3 diery → chyť posla → tunel s pascami → potkaní generál
+- [x] Pavúčia sieť (Hodvábna vesta alebo boj): vysloboď 4 mole → voľba: poraziť kráľovnú alebo jej dať mole
+- [x] Oprava kotla: 3 súčiastky od elít → zanes ku kotlu → kotol odteraz lieči
 
 Záhrada:
 - [ ] Trpasličia vojna: ubráň záhon → tunel krtkov → voľba krtkovia/trpaslíci

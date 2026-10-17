@@ -65,7 +65,7 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 ## Fáza 3 – Grafika a zvuk
 
 - [ ] Sprity aj pre nábytok, podlahy, zbrane a projektily (teraz sú kreslené vektorovo)
-- [ ] Animácie smrti nepriateľov a lepšie efekty zásahov
+- [x] Animácia smrti (nepriateľ sa sploští, vyskočí, otočí a zbledne) a hviezdička pri kritickom zásahu
 - [x] Obrázok v hlavnom menu (nočné mesto, mesiac, mačky)
 - [x] Ikona hry: Micina hlava v pixel-arte (tools/gen_icon.py); .ico pre .exe pri exporte
 - [x] Viac zvukov: rev bossov, mňauknutie pri level-upe, pišťanie zlatej myši, trblietanie šampióna, praskanie iskier, hrom, cinkanie mincí

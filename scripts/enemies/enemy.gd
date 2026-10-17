@@ -448,6 +448,10 @@ func hit(amount: float, direction: Vector2, knockback: float, can_crit: bool = t
 		if crit:
 			amount *= cat.stat("crit_mult")
 			Profile.add_stat("crits")
+			if CritSpark.alive < CritSpark.MAX_ALIVE:
+				var spark := CritSpark.new()
+				spark.position = position + Vector2(randf_range(-4, 4), -radius * 0.5)
+				manager.get_parent().add_child(spark)
 	if manager.numbers != null and not is_prop:
 		manager.numbers.add(position, amount, crit)
 	hp -= amount

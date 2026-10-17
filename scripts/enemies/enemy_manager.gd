@@ -196,6 +196,18 @@ func on_enemy_dead(enemy: Enemy) -> void:
 				get_parent().add_child(bomb)
 	poof.position = enemy.position
 	get_parent().add_child(poof)
+	# The enemy itself squashes and fades (capped, so crowds stay cheap).
+	if not enemy.is_prop and DeathFx.alive < DeathFx.MAX_ALIVE:
+		var info := Sprites.enemy(enemy.id)
+		if not info.is_empty():
+			var fx := DeathFx.new()
+			fx.sprite = info
+			fx.frame = enemy.get("_frame")
+			fx.facing = signf(enemy.scale.x) if enemy.scale.x != 0.0 else 1.0
+			fx.size = absf(enemy.scale.y)
+			fx.tint = enemy.modulate
+			fx.position = enemy.position
+			get_parent().add_child(fx)
 	enemy.queue_free()
 
 

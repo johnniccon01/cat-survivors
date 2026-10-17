@@ -75,6 +75,20 @@ func spawn_bullet(pos: Vector2, dir: Vector2, bullet_damage: float, style: Strin
 	get_parent().add_child(bullet)
 
 
+## A danger zone on the floor made by a boss: "steam" hurts while the cat
+## stands in it, "strike" is marked first and hits once.
+func spawn_hazard(pos: Vector2, mode: String, r: float, seconds: float, hazard_damage: float, style: String = "") -> void:
+	var h := EnemyHazard.new()
+	h.position = pos
+	h.mode = mode
+	h.radius = r
+	h.lifetime = seconds
+	h.damage = hazard_damage
+	h.style = style
+	h.player = player
+	get_parent().add_child(h)
+
+
 ## Silently removes one enemy (no XP, no effect), e.g. a swarm that ran off.
 func despawn(enemy: Enemy) -> void:
 	enemy.dead = true

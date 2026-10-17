@@ -141,7 +141,10 @@
           "SOCK_STRIPED",
           "BUBBLE"
         ],
-        "hp_mult": 3.0
+        "hp_mult": 3.0,
+        "bosses": [
+          "IRON"
+        ]
       },
       {
         "minute": 14,
@@ -401,7 +404,10 @@
           "MOTH",
           "SPITTER_SPIDER"
         ],
-        "hp_mult": 3.5
+        "hp_mult": 3.5,
+        "bosses": [
+          "BOILER"
+        ]
       },
       {
         "minute": 15,
@@ -708,7 +714,10 @@
           "SNAIL",
           "FROG"
         ],
-        "hp_mult": 4.0
+        "hp_mult": 4.0,
+        "bosses": [
+          "SCARECROW"
+        ]
       },
       {
         "minute": 15,
@@ -945,7 +954,10 @@
           "GULL",
           "DIVE_GULL"
         ],
-        "hp_mult": 5.0
+        "hp_mult": 5.0,
+        "bosses": [
+          "THUNDERCLOUD"
+        ]
       },
       {
         "minute": 15,

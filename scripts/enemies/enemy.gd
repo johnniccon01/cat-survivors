@@ -63,6 +63,10 @@ var _taken := 1.0
 var _regen := 0.0
 ## Flee behaviour (the golden mouse): seconds left before it gets away.
 var _flee_t := 0.0
+## Mid-boss attacks: steam trail, bullet spiral, marked strikes.
+var _trail_t := 0.0
+var _spiral := 0.0
+var _mortar_style := ""
 var burn_damage := 0.0
 var burn_t := 0.0
 var burn_tick := 0.0
@@ -111,6 +115,7 @@ func setup(p_id: String, data: Dictionary, p_manager: EnemyManager) -> void:
 	scale = Vector2(_base_scale, _base_scale)
 	persistent = data.get("persistent", false)
 	_flee_t = float(data.get("flee_time", 0.0))
+	_mortar_style = data.get("mortar_style", "")
 	_summon_id = data.get("summon", "")
 	_summon_count = int(data.get("summon_count", 0))
 	_summon_every = float(data.get("summon_every", 8.0))
@@ -208,6 +213,12 @@ func tick(delta: float, target: Vector2, push: Vector2) -> void:
 			move = _tick_dive(delta, target, dir)
 		"flee":
 			move = _tick_flee(delta, dir)
+		"trail":
+			move = _tick_trail(delta, dir)
+		"spiral":
+			move = _tick_spiral(delta, dir)
+		"mortar":
+			move = _tick_mortar(delta, target, dir)
 	if _summon_id != "":
 		_summon_timer -= delta
 		if _summon_timer <= 0.0:
@@ -302,6 +313,49 @@ func _tick_final(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 	if hp < max_hp * 0.5 and _state != "suck":
 		return _tick_dash(delta, dir)
 	return dir * speed
+
+
+## The Iron: lunges like a dashing boss and leaves scalding steam behind.
+func _tick_trail(delta: float, dir: Vector2) -> Vector2:
+	_trail_t -= delta
+	if _trail_t <= 0.0:
+		_trail_t = 0.18 if _state == "dash" else 0.6
+		manager.spawn_hazard(position, "steam", 15.0, 3.5, damage * 0.35)
+	return _tick_dash(delta, dir)
+
+
+## The Boiler: crawls closer, then stops and sprays a two-armed bullet spiral.
+func _tick_spiral(delta: float, dir: Vector2) -> Vector2:
+	_state_t -= delta
+	if _state_t <= 0.0:
+		_state = "rest" if _state == "fire" else "fire"
+		_state_t = 3.0 if _state == "fire" else 2.2
+	if _state != "fire":
+		return dir * speed
+	_spiral += delta * 2.4
+	_shoot_t -= delta
+	if _shoot_t <= 0.0:
+		_shoot_t = 0.2
+		for k in 2:
+			manager.spawn_bullet(position, Vector2.from_angle(_spiral + PI * k), damage * 0.35, "laser")
+	return dir * speed * 0.2
+
+
+## The Scarecrow and the Thundercloud: keep their distance and mark spots
+## around the cat that get struck a second later.
+func _tick_mortar(delta: float, target: Vector2, dir: Vector2) -> Vector2:
+	_shoot_t -= delta
+	if _shoot_t <= 0.0:
+		_shoot_t = 2.6 if hp > max_hp * 0.5 else 1.8
+		for i in 3:
+			var at := target if i == 0 else target + Vector2.from_angle(randf() * TAU) * randf_range(40.0, 90.0)
+			manager.spawn_hazard(at, "strike", 26.0, 1.0, damage * 0.9, _mortar_style)
+	var dist := position.distance_to(target)
+	if dist < 120.0:
+		return -dir * speed
+	if dist > 210.0:
+		return dir * speed
+	return dir.orthogonal() * speed * 0.5
 
 
 ## Runs away from the cat, zig-zagging, and slips off after a while.

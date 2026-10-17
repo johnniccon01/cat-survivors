@@ -57,6 +57,10 @@ scenarios=(
   "champions|--bot --start-minute=6 --catch-up --champions --bot-time=480"
   "golden_mouse|--bot --golden --levels=20 --bot-time=60"
   "endless|--bot --stage=GARDEN --start-minute=20 --catch-up --cat=TIGER --endless-now --bot-time=480"
+  "midboss_iron|--bot --stage=LIVING_ROOM --start-minute=11.9 --catch-up --cat=TIGER --bot-time=120"
+  "midboss_boiler|--bot --stage=BASEMENT --start-minute=12.9 --catch-up --cat=TIGER --bot-time=120"
+  "midboss_scarecrow|--bot --stage=GARDEN --start-minute=12.9 --catch-up --cat=TIGER --bot-time=120"
+  "midboss_cloud|--bot --stage=ROOFTOP --start-minute=12.9 --catch-up --cat=TIGER --bot-time=120"
   "diary_page|--bot --page --extract --levels=20 --bot-time=150"
 )
 

@@ -683,3 +683,11 @@ QB_ENDLESS_NAME,Endless Night,Nekonečná noc
 QB_ENDLESS_1,Last 3 minutes in an endless night.,Vydržať 3 minúty v nekonečnej noci.
 QB_ENDLESS_2,Last 10 minutes in an endless night.,Vydržať 10 minút v nekonečnej noci.
 QB_ENDLESS_3,Last 20 minutes in an endless night.,Vydržať 20 minút v nekonečnej noci.
+ENEMY_IRON_NAME,The Iron,Žehlička
+ENEMY_IRON_DESC,Charges across the flat and leaves scalding steam behind.,Rúti sa bytom a nechá za sebou horúcu paru.
+ENEMY_BOILER_NAME,The Boiler,Kotol
+ENEMY_BOILER_DESC,"Stops, rumbles, and sprays a spiral of hot rivets.","Zastaví sa, zahučí a vystrelí špirálu horúcich nitov."
+ENEMY_SCARECROW_NAME,The Scarecrow,Strašiak
+ENEMY_SCARECROW_DESC,Marks the ground and stabs it with a pitchfork. Calls its crows.,Označí zem a zabodne do nej vidly. Volá si vrany.
+ENEMY_THUNDERCLOUD_NAME,The Thundercloud,Búrkový mrak
+ENEMY_THUNDERCLOUD_DESC,Drifts overhead and calls lightning down where it points.,"Pláva nad strechami a zosiela blesky tam, kam ukáže."

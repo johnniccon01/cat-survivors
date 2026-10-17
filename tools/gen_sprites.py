@@ -525,6 +525,43 @@ def enemy_canvas(shape, frame, data):
         for x in range(10, 17):
             c.set(x, 15 - hop, "ink")
         c.ellipse(13, 13 - hop, 1.2, 0.8, "top", only=("body",))
+    elif shape == "iron":
+        c.poly([(4, 20), (22, 20), (25, 15), (8, 12)], "body")
+        c.rect(4, 20, 21, 3, "accent")
+        c.thick_line([(9, 12), (11, 6), (20, 6), (22, 12)], 1.2, "ink")
+        c.set(13, 16, "pupil"); c.set(18, 16, "pupil")
+        c.set(12, 15, "ink"); c.set(19, 15, "ink")
+        if frame:
+            c.ellipse(3, 13, 2, 2, "white"); c.ellipse(1, 9, 1.5, 1.5, "white")
+    elif shape == "boiler":
+        c.ellipse(14, 15, 9, 10, "body")
+        c.ellipse(14, 9, 6, 2.5, "top", only=("body",))
+        c.ellipse(14, 19, 4, 3, "accent" if frame else "ink")
+        c.ellipse(19, 11, 2.2, 2.2, "white")
+        c.set(19, 11, "pupil"); c.set(20, 10, "pupil")
+        c.set(10, 13, "pupil"); c.set(13, 13, "pupil")
+        c.rect(11, 2, 3, 5, "top")
+    elif shape == "scarecrow":
+        sway = frame
+        c.thick_line([(14, 10), (14, 26)], 1.0, "accent")
+        c.thick_line([(3, 13 + sway), (25, 13 - sway)], 1.0, "accent")
+        c.rect(9, 12, 10, 9, "top")
+        c.ellipse(14, 8, 4.5, 4.5, "belly")
+        c.poly([(7, 5), (21, 5), (14, -1)], "body")
+        c.rect(6, 5, 16, 2, "body")
+        c.set(12, 8, "ink"); c.set(16, 8, "ink")
+        for x in range(11, 18):
+            c.set(x, 10, "ink")
+        for x in (3, 25):
+            c.set(x, 14 + sway, "grass"); c.set(x, 12 - sway, "grass")
+    elif shape == "cloud":
+        bob = frame
+        for cx, cy, r in ((9, 14, 6), (15, 11, 7), (20, 15, 5.5), (14, 17, 7)):
+            c.ellipse(cx, cy + bob, r, r * 0.8, "body")
+        c.ellipse(15, 10 + bob, 4, 2.5, "top", only=("body",))
+        c.set(11, 14 + bob, "eye"); c.set(17, 14 + bob, "eye")
+        c.set(10, 13 + bob, "ink"); c.set(18, 13 + bob, "ink")
+        c.thick_line([(14, 22 + bob), (12, 25), (15, 25), (13, 28)], 0.6, "accent")
     elif shape == "sack":
         c.poly([(8, 9), (20, 9), (23, 24), (5, 24)], "body")
         c.rect(10, 6, 8, 4, "body")

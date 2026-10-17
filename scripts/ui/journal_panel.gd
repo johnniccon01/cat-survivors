@@ -92,6 +92,9 @@ func show_tab(which: String) -> void:
 # --- quests ---------------------------------------------------------------------
 
 func _build_quests() -> void:
+	_header(tr("QB_CHAPTER_CHAINS"))
+	for id: String in GameData.chains:
+		_list.add_child(_chain_row(id))
 	for chapter: String in GameData.questbook.get("chapters", []):
 		_header(tr("QB_CHAPTER_%s" % chapter.to_upper()))
 		for id: String in QuestBook.lines():
@@ -133,6 +136,41 @@ func _quest_row(id: String) -> Control:
 	count.text = "%d/%d" % [mini(QuestBook.progress(step), QuestBook.target(step)), QuestBook.target(step)]
 	reward.text = "  " + QuestBook.reward_text(step["reward"])
 	desc.text = "      %s  %s" % [tr("QB_STEP") % [steps + 1, n], QuestBook.step_text(id, steps + 1)]
+	return row
+
+
+## A quest chain: name, steps done, the map, reward and what to do next.
+func _chain_row(id: String) -> Control:
+	var row := VBoxContainer.new()
+	row.add_theme_constant_override("separation", 0)
+	var top := HBoxContainer.new()
+	row.add_child(top)
+	var done := ChainStep.is_done(id)
+	var n := ChainStep.steps(id).size()
+	var steps := ChainStep.progress_of(id)
+	var name_label := _label(18, DONE if done else Color.WHITE, HORIZONTAL_ALIGNMENT_LEFT)
+	name_label.custom_minimum_size.x = 640
+	name_label.text = "%s %s" % ["✓" if done else "·", tr("CHAIN_%s_NAME" % id)]
+	top.add_child(name_label)
+	var dots := _label(16, GOLD, HORIZONTAL_ALIGNMENT_LEFT)
+	dots.custom_minimum_size.x = 120
+	dots.text = "●".repeat(steps) + "○".repeat(n - steps)
+	top.add_child(dots)
+	var reward := _label(15, GOLD, HORIZONTAL_ALIGNMENT_LEFT)
+	reward.text = "  " + QuestBook.reward_text(ChainStep.chain(id).get("reward", {}))
+	top.add_child(reward)
+	var desc := _label(15, MUTED, HORIZONTAL_ALIGNMENT_LEFT)
+	desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	desc.custom_minimum_size.x = 1000
+	row.add_child(desc)
+	if done:
+		desc.text = "      " + tr("QB_DONE")
+		return row
+	var stage := ChainStep.stage_of(id, steps + 1)
+	var where := tr("CHAIN_ANY_MAP") if stage == "any" else tr("STAGE_%s_NAME" % stage)
+	if stage != "any" and not Profile.is_stage_unlocked(stage):
+		where = "???"
+	desc.text = "      %s\n      %s  %s  (%s)" % [tr("CHAIN_%s_DESC" % id), tr("QB_STEP") % [steps + 1, n], tr("CHAIN_%s_%d" % [id, steps + 1]), where]
 	return row
 
 

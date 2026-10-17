@@ -108,6 +108,8 @@ static func _pay(reward: Dictionary) -> void:
 static func reward_text(reward: Dictionary) -> String:
 	if reward.has("artifact"):
 		return _t("QB_REWARD_ARTIFACT") % _t("ARTIFACT_%s_NAME" % reward["artifact"])
+	if reward.has("note"):
+		return _t("GOAL_REWARD_GOLD") % int(reward.get("gold", 0)) + " · " + _t(reward["note"])
 	if reward.has("cat"):
 		return _t("QB_REWARD_CAT") % _t("CAT_%s_NAME" % reward["cat"])
 	if reward.has("charm"):
@@ -130,6 +132,9 @@ static func artifact_source(artifact: String) -> String:
 		for i in tiers.size():
 			if tiers[i]["reward"].get("artifact", "") == artifact:
 				return _t("ARTIFACT_SOURCE") % [line_name(id), i + 1, step_text(id, i + 1)]
+	for id: String in GameData.chains:
+		if GameData.chains[id].get("reward", {}).get("artifact", "") == artifact:
+			return _t("ARTIFACT_SOURCE_CHAIN") % _t("CHAIN_%s_NAME" % id)
 	return ""
 
 

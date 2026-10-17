@@ -357,6 +357,7 @@ func _process(delta: float) -> void:
 			far += int(it.position.distance_to(player.position) > 600.0)
 		print("BOT: xp per minute ", " ".join(per_minute), " | pickups by kind=", kinds, " attracted=", attracted, " far=", far, " xp_count=", pickups._xp_count)
 		print("BOT: quests_done=%d companions=%s" % [quests_done, companions.map(func(c: Player) -> String: return c.cat_id)])
+		print("BOT: chains=%s" % Profile.chains)
 		print("BOT: page carried=%s kept=%s questbook=%s" % [_has_page, Profile.has_flag("page:" + spawner.stage_id), Profile.questbook])
 		var q := quests.active
 		if q != null:
@@ -856,7 +857,9 @@ func _angel_saves() -> bool:
 	var angel: Dictionary = spawner.stage().get("angel", {})
 	if angel.is_empty() or spawner.elapsed < float(angel["after_minute"]) * 60.0:
 		return false
-	if randf() >= float(_arg("--angel-chance=", str(angel["chance"]))):
+	# The Moon Windows story makes the angel come twice as often.
+	var chance := float(_arg("--angel-chance=", str(angel["chance"]))) * (2.0 if Profile.has_flag("angel_hint") else 1.0)
+	if randf() >= chance:
 		return false
 	summon_angel()
 	return true

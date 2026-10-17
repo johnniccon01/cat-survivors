@@ -33,7 +33,7 @@ const BASE_STATS := {
 	# damage below 30 % health, and timers (seconds) for the hourglass freeze
 	# and the magnet pulse.
 	"boss_damage": 1.0, "thorns": 0.0, "level_heal": 0.0, "low_hp_guard": 0.0,
-	"freeze_every": 0.0, "pulse_magnet": 0.0,
+	"freeze_every": 0.0, "pulse_magnet": 0.0, "heal_power": 1.0,
 }
 
 const OUTLINE := Color("2b1d14")
@@ -45,6 +45,8 @@ const COMPANION_LEVEL_STEP := 4
 
 ## The cat a companion follows.
 var leader: Player
+## Slows the cat while it carries something for a quest.
+var speed_factor := 1.0
 ## Max health of an escorted cat.
 var escort_hp := 60.0
 ## Dev cheat: ignore all damage.
@@ -269,7 +271,7 @@ func _physics_process(delta: float) -> void:
 			input = _follow_input()
 		_:
 			input = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	velocity = input * BASE_SPEED * stat("speed")
+	velocity = input * BASE_SPEED * stat("speed") * speed_factor
 	position += (velocity + pull) * delta
 	pull = Vector2.ZERO
 	var manager: EnemyManager = get_tree().get_first_node_in_group("enemy_manager")

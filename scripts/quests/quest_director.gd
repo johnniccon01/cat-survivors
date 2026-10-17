@@ -22,6 +22,8 @@ var _timer := 0.0
 var _index := 0
 var _done_cats: Array[String] = []
 var _cat_given := false
+## Chains whose step failed tonight (they wait for the next night).
+var _chains_failed: Array[String] = []
 var _cfg: Dictionary
 
 
@@ -61,6 +63,8 @@ func _physics_process(delta: float) -> void:
 		_cat_given = quest_id != ""
 	elif kind == "story":
 		quest_id = _pick_story()
+	elif kind == "chain":
+		quest_id = _pick_chain()
 	if quest_id == "":
 		quest_id = (_cfg["side_quests"] as Dictionary).keys().pick_random()
 	var dist: Array = _cfg["distance"]
@@ -75,6 +79,20 @@ func _pick_story() -> String:
 	if Profile.has_flag(_cfg["story"][story_id]["flag"]):
 		return ""
 	return story_id
+
+
+## The first quest chain with a step to play on this map tonight.
+func _pick_chain() -> String:
+	for id: String in GameData.chains:
+		if ChainStep.is_done(id) or id in _chains_failed:
+			continue
+		var needs: Array = GameData.chains[id].get("requires", [])
+		if not needs.all(func(f: String) -> bool: return Profile.has_flag(f)):
+			continue
+		var stage := ChainStep.stage_of(id, ChainStep.progress_of(id) + 1)
+		if stage == "any" or stage == main.spawner.stage_id:
+			return id
+	return ""
 
 
 func _pick_cat() -> String:
@@ -97,7 +115,10 @@ func _pick_cat() -> String:
 func _start(quest_id: String, distance: float) -> void:
 	var quest: Quest
 	var cat_quests: Dictionary = _cfg["cat_quests"]
-	if (_cfg["story"] as Dictionary).has(quest_id):
+	if GameData.chains.has(quest_id):
+		quest = ChainStep.create(quest_id)
+		distance = float(quest.data.get("distance", distance))
+	elif (_cfg["story"] as Dictionary).has(quest_id):
 		quest = StoryCollarQuest.new()
 		quest.data = _cfg["story"][quest_id]
 	elif cat_quests.has(quest_id):
@@ -116,11 +137,14 @@ func _start(quest_id: String, distance: float) -> void:
 	quest.finished.connect(_on_finished)
 	main.add_child(quest)
 	active = quest
-	main.hud.show_banner(tr("QUEST_NEW") % quest.title(), 3.0)
+	var line: String = (quest as ChainStep).start_line() if quest is ChainStep else ""
+	main.hud.show_banner(tr("QUEST_NEW") % quest.title() + ("\n" + line if line != "" else ""), 5.0 if line != "" else 3.0)
 	Audio.play("quest", -4.0, 0.0)
 
 
 func _on_finished(success: bool) -> void:
+	if not success and active is ChainStep:
+		_chains_failed.append((active as ChainStep).chain_id)
 	active = null
 	finished_quest.emit(success)
 	_timer = float(_cfg["schedule"]["gap"])

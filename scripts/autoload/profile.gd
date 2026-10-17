@@ -37,6 +37,8 @@ var challenges: Array[String] = []
 const ARTIFACT_SLOTS := 2
 var artifacts: Array[String] = []
 var equipped_artifacts: Array[String] = []
+## Quest chains: chain id -> steps done.
+var chains: Dictionary = {}
 
 
 func _ready() -> void:
@@ -78,6 +80,7 @@ func _ready() -> void:
 		for id: String in cfg.get_value("challenge", "active", []):
 			if GameData.challenges.has(id):
 				challenges.append(id)
+		chains = cfg.get_value("chains", "steps", {})
 		for id: String in cfg.get_value("artifacts", "owned", []):
 			if GameData.artifacts.has(id):
 				artifacts.append(id)
@@ -98,6 +101,10 @@ func _ready() -> void:
 			challenges.clear()
 			for id in arg.trim_prefix("--challenges=").split(",", false):
 				challenges.append(id)
+		# `-- --chain-step=KIBBLE_THIEF:2` marks two steps of a chain done.
+		if arg.begins_with("--chain-step="):
+			var parts := arg.trim_prefix("--chain-step=").split(":")
+			chains[parts[0]] = int(parts[1])
 		# `-- --artifacts=HOURGLASS,THORN_COLLAR` owns and wears them.
 		if arg.begins_with("--artifacts="):
 			for id in arg.trim_prefix("--artifacts=").split(",", false):
@@ -371,6 +378,7 @@ func save() -> void:
 	cfg.set_value("questbook", "steps", questbook)
 	cfg.set_value("challenge", "active", challenges)
 	cfg.set_value("artifacts", "owned", artifacts)
+	cfg.set_value("chains", "steps", chains)
 	cfg.set_value("artifacts", "equipped", equipped_artifacts)
 	# Keep the last good save before writing the new one.
 	if FileAccess.file_exists(PATH):

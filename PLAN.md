@@ -67,6 +67,68 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 - [x] Questy pre každú mačku (kapitola Mačky v knihe questov): vyhraj s ňou, level 40, 25 bossov, 5 výhier
 - [x] Artefakty (V pri výbere mačky): 10 trvalých predmetov z knihy questov, 2 sa berú do noci – sklenené oko, presýpacie hodiny (zmrazí čas), magnetické jadro, šťastná minca, vrecúško šantu (liečenie pri leveli), zub bossa, anjelské pierko, tŕňový obojok, krvavý mesiac (riziko za odmenu), hodinový strojček; už splnené kroky ich vydajú dodatočne
 
+## Fáza 2b – Skutočné questy (reťazce)
+
+Dlhé questy s krokmi cez viac nocí, postup sa ukladá. Hrajú sa počas noci
+popri vlnách (nepriatelia chodia stále, zbrane strieľajú samé), takže kroky
+sú o pohybe po mape: stopy, naháňačka, nosenie vecí, obrana miesta,
+zbieranie, státie v zónach, bossovia, voľby. Prekrádanie vynechané.
+
+Mechaniky:
+- [x] Systém reťazcov (`data/chains.json`): kroky, ukladanie postupu, plánovanie počas noci, zobrazenie v Denníku
+- [ ] Kroky – hotové: stopy, naháňačka, nosenie (čas, spomalenie, max. zásahov), zbieranie (kapacita, strážcovia, z nepriateľov), zóny (poradie, čas, blesky), obrana (viac miest), boss (bez liečenia, na čas); chýba: eskorta, voľba, pasce, tma. Pôvodne: stopy, naháňačka, nosenie (časový limit, spomalenie, max. zásahov), zbieranie (kapacita, veci zo strážcov alebo z nepriateľov), zóny (poradie, časový limit, blesky), obrana (miesto s HP, viac miest naraz), boss (bez liečenia, na čas), eskorta (viac mačiek, pomalá), voľba, zabitia pascami, tma s lampášom
+- [ ] Postavy, ktoré hovoria (riadky pri začiatku a konci kroku)
+- [ ] Trvalé zmeny máp: teplý kotol (liečenie), strašiak (odháňa vrany), nabitá anténa (strieľa), maják (odháňa medúzy), Bruno a Rex ako spojenci
+
+Byt:
+- [x] Zlodej granúl (odmena artefakt Plná miska): 5 stôp → dobehni Roombu → kľúčik do kuchyne do 60 s → ubráň špajzu
+- [x] Ponožkový kráľ: 6 ponožiek do koša (nesieš max. 2) → Ponožkový kráľ
+- [x] Mesačné okná (anjel potom chodí 2× častejšie): vydrž v 3 mesačných lúčoch → prvá stopa anjela
+
+Pivnica:
+- [ ] Potkania pevnosť: upchaj 3 diery → chyť posla → tunel s pascami → potkaní generál
+- [ ] Pavúčia sieť: vysloboď 4 mole → voľba: poraziť kráľovnú alebo jej dať mole
+- [ ] Oprava kotla: 3 súčiastky od elít → zanes ku kotlu → kotol odteraz lieči
+
+Záhrada:
+- [ ] Trpasličia vojna: ubráň záhon → tunel krtkov → voľba krtkovia/trpaslíci
+- [ ] Med pre Ďatelinku: 3 kvety k úľu (max. 3 zásahy) → sršňa kráľovná
+- [ ] Strašiak ožíva: klobúk, šál, tekvica z vrán → postav strašiaka → odháňa vrany
+
+Strecha:
+- [ ] Brunova skúška: 5 komínov za 60 s → holubí cisár bez liečenia → súboj na úsvite → Bruno spojenec
+- [ ] Búrková anténa: nabi 3 antény počas bleskov → anténa strieľa
+- [ ] Ukradnutý obojok: prenasleduj mývala → prehľadaj 4 kontajnery
+
+Supermarket:
+- [ ] Tučkov nákupný zoznam: 5 vecí k pokladni pred zatvorením
+- [ ] Výpadok prúdu: tma → 3 ističe v správnom poradí, strážny robot bráni
+- [ ] Rexov rešpekt: 3 noci kosť Rexovi + ochrana pred vozíkmi → Rex sa po boji pridá
+
+Prístav:
+- [ ] Kapitánova loď: plachta, kormidlo, lano → oprava → ubráň loď 90 s
+- [ ] Maják: olej z 3 sudov (pomalšie s nákladom) → maják odháňa medúzy
+- [ ] Pirátsky poklad: 3 kúsky mapy od pirátov → vykopať → chobotnica
+
+Cez všetky mapy:
+- [ ] Cesta domov: Mica hľadá starú majiteľku; každá mapa kapitola, predmet otvorí ďalšiu, koniec loďou domov
+- [ ] Mačacia rodina: každá zachránená mačka má prosbu na inej mape → hostina, bonus pre všetky mačky
+- [ ] Kto za tým stojí?: súčiastka s logom z každého finálneho bossa → tajná 7. mapa
+
+Samostatné questy:
+- [ ] Nočný kuriér (list cez mapu za 90 s, max. 3 zásahy)
+- [ ] Stratené mačiatka (3 mačiatka k mame)
+- [ ] Majster pascí (30 zabití pascami)
+- [ ] Požiar (zhas šíriace sa ohniská, kým sa nerozšíria)
+- [ ] Zlatá horúčka (chyť zlatú myš 3×, zakaždým rýchlejšiu)
+- [ ] Tri misky (ubráň 3 misky naraz)
+- [ ] Lampáš (v tme dones lampáš k východu)
+- [ ] Súboj na čas (poraz súpera do časového limitu)
+- [ ] Túlavý obchodník (zlato alebo 3 rybičky – voľba)
+- [ ] Posledná prechádzka (stará mačka na obľúbené miesto)
+
+Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
+
 ## Fáza 3 – Grafika a zvuk
 
 - [ ] Sprity aj pre nábytok, podlahy, zbrane a projektily (teraz sú kreslené vektorovo)

@@ -1,0 +1,96 @@
+{
+  "KIBBLE_THIEF": {
+    "stage": "LIVING_ROOM",
+    "reward": {
+      "artifact": "FULL_BOWL"
+    },
+    "steps": [
+      {
+        "type": "trail",
+        "count": 5,
+        "spacing": [
+          140,
+          200
+        ],
+        "look": "crumbs"
+      },
+      {
+        "type": "chase",
+        "enemy": "ROOMBA_THIEF"
+      },
+      {
+        "type": "carry",
+        "item": "key",
+        "to_distance": [
+          450,
+          600
+        ],
+        "time": 60,
+        "look_to": "pantry",
+        "guards": {
+          "enemy": "DUST_BUNNY",
+          "count": 8
+        }
+      },
+      {
+        "type": "defend",
+        "time": 45,
+        "mode": "enemies",
+        "enemy": "DUST_BUNNY",
+        "spawn_every": 3.0,
+        "spawn_count": 5,
+        "look": "pantry",
+        "distance": 300
+      }
+    ]
+  },
+  "SOCK_KING": {
+    "stage": "LIVING_ROOM",
+    "reward": {
+      "gold": 800
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "sock",
+        "count": 6,
+        "capacity": 2,
+        "spread": [
+          180,
+          420
+        ],
+        "deliver": true,
+        "look_to": "basket"
+      },
+      {
+        "type": "boss",
+        "enemy": "SOCK_KING",
+        "hp_mult": 6.0,
+        "look": "basket",
+        "distance": 260
+      }
+    ]
+  },
+  "MOON_WINDOWS": {
+    "stage": "LIVING_ROOM",
+    "reward": {
+      "gold": 400,
+      "flag": "angel_hint",
+      "note": "CHAIN_MOON_WINDOWS_REWARD"
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 3,
+        "hold": 10,
+        "radius": 40,
+        "spread": [
+          200,
+          340
+        ],
+        "during": "converge",
+        "look": "moon"
+      }
+    ]
+  }
+}

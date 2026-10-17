@@ -13,6 +13,7 @@ var quests: Dictionary = {}
 var powerups: Dictionary = {}
 var charms: Dictionary = {}
 var artifacts: Dictionary = {}
+var chains: Dictionary = {}
 var traps: Dictionary = {}
 var goals: Dictionary = {}
 var questbook: Dictionary = {}
@@ -34,6 +35,7 @@ func _ready() -> void:
 	powerups = _load_json("res://data/powerups.json")
 	charms = _load_json("res://data/charms.json")
 	artifacts = _load_json("res://data/artifacts.json")
+	chains = _load_json("res://data/chains.json")
 	traps = _load_json("res://data/traps.json")
 	goals = _load_json("res://data/goals.json")
 	questbook = _load_json("res://data/questbook.json")

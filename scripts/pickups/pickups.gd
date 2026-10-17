@@ -132,7 +132,7 @@ func _collect(item: Pickup) -> void:
 			player.add_xp(item.value)
 		Pickup.Kind.HEART, Pickup.Kind.SARDINE:
 			Audio.play("heal", -4.0)
-			player.heal(item.value)
+			player.heal(item.value * player.stat("heal_power"))
 			heart_collected.emit()
 		Pickup.Kind.MAGNET:
 			pull_all_xp()

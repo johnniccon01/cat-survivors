@@ -63,5 +63,11 @@
       "speed": -0.08
     },
     "color": "#c9a24a"
+  },
+  "FULL_BOWL": {
+    "stats": {
+      "heal_power": 0.5
+    },
+    "color": "#e8a0b0"
   }
 }

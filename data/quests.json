@@ -96,11 +96,12 @@
     "side_expire": 150.0,
     "order": [
       "side",
+      "chain",
       "cat",
       "story",
+      "chain",
       "side",
-      "side",
-      "side",
+      "chain",
       "side"
     ]
   },

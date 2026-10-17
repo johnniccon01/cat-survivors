@@ -858,3 +858,43 @@ ARTIFACT_BLOOD_MOON_NAME,Blood Moon,Krvavý mesiac,Krvavý měsíc
 ARTIFACT_BLOOD_MOON_DESC,"Enemies are 30% tougher, but you get +25% experience and +25% gold.","Nepriatelia sú o 30 % odolnejší, ale dostaneš +25 % skúseností a +25 % zlata.","Nepřátelé jsou o 30 % odolnější, ale dostaneš +25 % zkušeností a +25 % zlata."
 ARTIFACT_CLOCKWORK_NAME,Clockwork,Hodinový strojček,Hodinový strojek
 ARTIFACT_CLOCKWORK_DESC,"Weapons attack 15% more often, but you move 8% slower.","Zbrane útočia o 15 % častejšie, ale pohybuješ sa o 8 % pomalšie.","Zbraně útočí o 15 % častěji, ale pohybuješ se o 8 % pomaleji."
+QB_CHAPTER_CHAINS,Stories,Príbehy,Příběhy
+CHAIN_TIME,%d s,%d s,%d s
+CHAIN_CARRYING,carrying %d,nesieš %d,neseš %d
+CHAIN_HITS,hits %d/%d,zásahy %d/%d,zásahy %d/%d
+CHAIN_FINISHED,Story complete: %s – %s,Príbeh dokončený: %s – %s,Příběh dokončen: %s – %s
+CHAIN_HEALED,A heart was picked up – the test is failed!,Zdvihnuté srdiečko – skúška neplatí!,Sebrané srdíčko – zkouška neplatí!
+CHAIN_ANY_MAP,any map,ľubovoľná mapa,libovolná mapa
+ARTIFACT_SOURCE_CHAIN,Story: %s,Príbeh: %s,Příběh: %s
+ARTIFACT_FULL_BOWL_NAME,Full Bowl,Plná miska,Plná miska
+ARTIFACT_FULL_BOWL_DESC,Hearts and sardines heal 50% more.,Srdiečka a sardinky liečia o 50 % viac.,Srdíčka a sardinky léčí o 50 % víc.
+ENEMY_ROOMBA_THIEF_NAME,The Kibble Thief,Zlodej granúl,Zloděj granulí
+ENEMY_ROOMBA_THIEF_DESC,A robot vacuum full of stolen kibble. It runs – catch it!,Robotický vysávač plný ukradnutých granúl. Uteká – chyť ho!,Robotický vysavač plný ukradených granulí. Utíká – chyť ho!
+CHAIN_KIBBLE_THIEF_NAME,The Kibble Thief,Zlodej granúl,Zloděj granulí
+CHAIN_KIBBLE_THIEF_DESC,Someone empties the bowl every night. Find out who.,Niekto každú noc vyprázdni misku. Zisti kto.,Někdo každou noc vyprázdní misku. Zjisti kdo.
+CHAIN_KIBBLE_THIEF_1,Follow the trail of spilled kibble,Sleduj stopu rozsypaných granúl,Sleduj stopu rozsypaných granulí
+CHAIN_KIBBLE_THIEF_1_START,The bowl is empty again... and a trail of kibble leads across the floor.,Miska je zase prázdna... a po zemi vedie stopa granúl.,Miska je zase prázdná... a po zemi vede stopa granulí.
+CHAIN_KIBBLE_THIEF_1_DONE,The trail ends by the sofa. Something is humming under it...,Stopa končí pri gauči. Pod ním niečo bzučí...,Stopa končí u gauče. Pod ním něco bzučí...
+CHAIN_KIBBLE_THIEF_2,Catch the robot vacuum before it gets away,"Chyť robotický vysávač, kým ti ujde","Chyť robotický vysavač, než ti uteče"
+CHAIN_KIBBLE_THIEF_2_START,The robot vacuum is full of kibble – and it's running away!,Robotický vysávač je plný granúl – a uteká!,Robotický vysavač je plný granulí – a utíká!
+CHAIN_KIBBLE_THIEF_2_DONE,A tiny key falls out of the vacuum – the pantry key!,Z vysávača vypadol malý kľúčik – od špajzy!,Z vysavače vypadl malý klíček – od spíže!
+CHAIN_KIBBLE_THIEF_3,Bring the key to the pantry,Dones kľúčik k špajze,Dones klíček ke spíži
+CHAIN_KIBBLE_THIEF_3_START,The dust bunnies want the key too. Grab it and hurry!,Kľúčik chcú aj prachové zajačiky. Zober ho a ponáhľaj sa!,Klíček chtějí i prachoví zajíčci. Vezmi ho a pospěš si!
+CHAIN_KIBBLE_THIEF_3_DONE,Click! The pantry is open.,Cvak! Špajza je otvorená.,Cvak! Spíž je otevřená.
+CHAIN_KIBBLE_THIEF_4,Defend the open pantry,Ubráň otvorenú špajzu,Ubraň otevřenou spíž
+CHAIN_KIBBLE_THIEF_4_START,The pantry is open – and the dust bunnies can smell the food!,Špajza je otvorená – a prachové zajačiky cítia jedlo!,Spíž je otevřená – a prachoví zajíčci cítí jídlo!
+CHAIN_KIBBLE_THIEF_4_DONE,The pantry is safe. Tonight the bowl will be full!,Špajza je v bezpečí. Dnes bude miska plná!,Spíž je v bezpečí. Dnes bude miska plná!
+CHAIN_SOCK_KING_NAME,The Sock King,Ponožkový kráľ,Ponožkový král
+CHAIN_SOCK_KING_DESC,Socks everywhere! Put them back in the basket – someone won't like that.,Všade ponožky! Vráť ich do koša – niekomu sa to nebude páčiť.,Všude ponožky! Vrať je do koše – někomu se to nebude líbit.
+CHAIN_SOCK_KING_1,Bring the socks to the laundry basket,Nos ponožky do koša na prádlo,Nos ponožky do koše na prádlo
+CHAIN_SOCK_KING_1_START,Six lost socks... You can carry two at a time.,Šesť stratených ponožiek... Uneseš dve naraz.,Šest ztracených ponožek... Uneseš dvě najednou.
+CHAIN_SOCK_KING_1_DONE,The basket shakes. Something big is climbing out!,Kôš sa zatriasol. Niečo veľké z neho lezie!,Koš se zatřásl. Něco velkého z něj leze!
+CHAIN_SOCK_KING_2,Defeat the Sock King,Poraz Ponožkového kráľa,Poraz Ponožkového krále
+CHAIN_SOCK_KING_2_START,"""Who dares to touch my socks?!""",„Kto sa opovažuje siahať na moje ponožky?!“,„Kdo se opovažuje sahat na moje ponožky?!“
+CHAIN_SOCK_KING_2_DONE,The Sock King falls apart into a pile of laundry.,Ponožkový kráľ sa rozpadol na kopu prádla.,Ponožkový král se rozpadl na hromadu prádla.
+CHAIN_MOON_WINDOWS_NAME,Moon Windows,Mesačné okná,Měsíční okna
+CHAIN_MOON_WINDOWS_DESC,On some nights the moon shines into the flat in a strange way.,Niektoré noci svieti mesiac do bytu zvláštne.,Některé noci svítí měsíc do bytu zvláštně.
+CHAIN_MOON_WINDOWS_1,Stay in the moonbeams,Vydrž v mesačných lúčoch,Vydrž v měsíčních paprscích
+CHAIN_MOON_WINDOWS_1_START,Three beams of moonlight lie on the floor. Something is calling you...,Na zemi ležia tri mesačné lúče. Niečo ťa volá...,Na zemi leží tři měsíční paprsky. Něco tě volá...
+CHAIN_MOON_WINDOWS_1_DONE,In the last beam lies a white feather. Someone with wings was here...,V poslednom lúči leží biele pierko. Bol tu niekto s krídlami...,V posledním paprsku leží bílé pírko. Byl tu někdo s křídly...
+CHAIN_MOON_WINDOWS_REWARD,the angel comes twice as often,anjel príde dvakrát častejšie,anděl přijde dvakrát častěji

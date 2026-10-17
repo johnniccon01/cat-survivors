@@ -772,6 +772,17 @@
       ],
       "frames": 2
     },
+    "ROOMBA_THIEF": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
     "BOX": {
       "cell": [
         28,

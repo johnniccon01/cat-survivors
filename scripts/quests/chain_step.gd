@@ -105,6 +105,19 @@ func complete() -> void:
 		main.hud.show_banner(line, 6.0)
 
 
+## Finishes every "final" step waiting for this map's final boss.
+static func final_defeated(p_main: Node, stage_id: String) -> void:
+	for id: String in GameData.chains:
+		if is_done(id):
+			continue
+		var n := progress_of(id) + 1
+		if steps(id)[n - 1]["type"] != "final" or stage_of(id, n) != stage_id:
+			continue
+		var step := create(id)
+		step.main = p_main
+		step.complete()
+
+
 func timer_text(seconds: float) -> String:
 	return tr("CHAIN_TIME") % ceili(maxf(seconds, 0.0))
 
@@ -280,6 +293,28 @@ func draw_look(at: Vector2, look: String, alpha: float = 1.0) -> void:
 		"x":
 			draw_line(at + Vector2(-10, -10), at + Vector2(10, 10), Color(0.85, 0.3, 0.3, a), 4.0)
 			draw_line(at + Vector2(10, -10), at + Vector2(-10, 10), Color(0.85, 0.3, 0.3, a), 4.0)
+		"photo":
+			draw_rect(Rect2(at + Vector2(-7, -6), Vector2(14, 12)), Color(0.96, 0.94, 0.88, a))
+			draw_rect(Rect2(at + Vector2(-5, -4), Vector2(10, 7)), Color(0.55, 0.65, 0.75, a))
+			draw_circle(at + Vector2(-1, -1), 2.0, Color(0.85, 0.55, 0.35, a))
+		"letter":
+			draw_rect(Rect2(at + Vector2(-8, -5), Vector2(16, 10)), Color(0.96, 0.94, 0.88, a))
+			draw_polyline(PackedVector2Array([at + Vector2(-8, -5), at + Vector2(0, 1), at + Vector2(8, -5)]), Color(0.6, 0.5, 0.4, a), 1.0)
+		"ribbon":
+			draw_line(at + Vector2(-6, -2), at + Vector2(6, 2), Color(0.85, 0.35, 0.55, a), 3.0)
+			draw_circle(at, 2.5, Color(0.85, 0.35, 0.55, a))
+		"bowl":
+			draw_colored_polygon(Shapes.ellipse(at, 16, 9), Color(OUTLINE, a))
+			draw_colored_polygon(Shapes.ellipse(at, 15, 8), Color(0.3, 0.55, 0.85, a))
+			draw_colored_polygon(Shapes.ellipse(at + Vector2(0, -1), 10, 5), Color(0.6, 0.42, 0.25, a))
+		"fire":
+			for k in 3:
+				var h := 10.0 + 4.0 * sin(_age * 9.0 + k * 2.0)
+				draw_colored_polygon(PackedVector2Array([at + Vector2(-9 + k * 9 - 5, 6), at + Vector2(-9 + k * 9 + 5, 6), at + Vector2(-9 + k * 9, 6 - h)]), Color(1.0, 0.5 + k * 0.15, 0.15, 0.9 * a))
+		"lantern":
+			draw_rect(Rect2(at + Vector2(-5, -7), Vector2(10, 12)), Color(OUTLINE, a))
+			draw_rect(Rect2(at + Vector2(-4, -6), Vector2(8, 10)), Color(1.0, 0.85, 0.4, a))
+			draw_arc(at + Vector2(0, -8), 4.0, PI, TAU, 8, Color(OUTLINE, a), 1.5)
 		"hint":
 			for i in 3:
 				draw_circle(at + Vector2(-8 + i * 8, 0), 2.5, Color(1, 1, 1, 0.5 * a))

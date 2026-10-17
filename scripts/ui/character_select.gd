@@ -36,6 +36,8 @@ func _ready() -> void:
 			return
 	for id: String in GameData.cats:
 		# Secret cats only show up once they are unlocked.
+		if GameData.cats[id].get("npc", false):
+			continue
 		if not GameData.cats[id].get("hidden", false) or Profile.is_unlocked(id):
 			_ids.append(id)
 	_index = maxi(_ids.find(Profile.selected_cat), 0)

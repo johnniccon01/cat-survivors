@@ -152,5 +152,28 @@
     "bonus": {
       "might": 0.5
     }
+  },
+  "KITTEN": {
+    "fur": "#e8c8a0",
+    "dark": "#b08a60",
+    "belly": "#f8ecdc",
+    "eyes": "#5a8fd0",
+    "size": 0.6,
+    "weapon": "SCRATCH",
+    "bonus": {},
+    "hidden": true,
+    "npc": true
+  },
+  "OLD_CAT": {
+    "fur": "#9a9aa0",
+    "dark": "#6a6a70",
+    "belly": "#d8d8dc",
+    "eyes": "#c9a24a",
+    "fluffy": true,
+    "size": 0.95,
+    "weapon": "SCRATCH",
+    "bonus": {},
+    "hidden": true,
+    "npc": true
   }
 }

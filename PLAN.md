@@ -76,7 +76,7 @@ zbieranie, státie v zónach, bossovia, voľby. Prekrádanie vynechané.
 
 Mechaniky:
 - [x] Systém reťazcov (`data/chains.json`): kroky, ukladanie postupu, plánovanie počas noci, zobrazenie v Denníku
-- [ ] Kroky – hotové: stopy, naháňačka, nosenie (čas, spomalenie, max. zásahov), zbieranie (kapacita, strážcovia, z nepriateľov), zóny (poradie, čas, blesky), obrana (viac miest), boss (bez liečenia, na čas); voľba (pozastaví hru, vetvenie krokov), pasce na trase, odmena za krok; chýba: eskorta, zabitia pascami, tma. Pôvodne: stopy, naháňačka, nosenie (časový limit, spomalenie, max. zásahov), zbieranie (kapacita, veci zo strážcov alebo z nepriateľov), zóny (poradie, časový limit, blesky), obrana (miesto s HP, viac miest naraz), boss (bez liečenia, na čas), eskorta (viac mačiek, pomalá), voľba, zabitia pascami, tma s lampášom
+- [x] Kroky – hotové: eskorta (viac mačiek, pomalá), zabitia pascami, tma, šíriaci sa oheň, opakovaná naháňačka, voľba s cenou, krok podmienený mačkou, porazenie finálneho bossa; stopy, naháňačka, nosenie (čas, spomalenie, max. zásahov), zbieranie (kapacita, strážcovia, z nepriateľov), zóny (poradie, čas, blesky), obrana (viac miest), boss (bez liečenia, na čas); voľba (pozastaví hru, vetvenie krokov), pasce na trase, odmena za krok; chýba: eskorta, zabitia pascami, tma. Pôvodne: stopy, naháňačka, nosenie (časový limit, spomalenie, max. zásahov), zbieranie (kapacita, veci zo strážcov alebo z nepriateľov), zóny (poradie, časový limit, blesky), obrana (miesto s HP, viac miest naraz), boss (bez liečenia, na čas), eskorta (viac mačiek, pomalá), voľba, zabitia pascami, tma s lampášom
 - [ ] Postavy, ktoré hovoria (riadky pri začiatku a konci kroku)
 - [x] Trvalé zmeny máp: teplý kotol (liečenie), strašiak (odháňa vrany), nabitá anténa (strieľa), maják (odháňa medúzy), Bruno a Rex ako spojenci
 
@@ -111,21 +111,21 @@ Prístav:
 - [x] Pirátsky poklad: 3 kúsky mapy od pirátov → vykopať → chobotnica
 
 Cez všetky mapy:
-- [ ] Cesta domov: Mica hľadá starú majiteľku; každá mapa kapitola, predmet otvorí ďalšiu, koniec loďou domov
-- [ ] Mačacia rodina: každá zachránená mačka má prosbu na inej mape → hostina, bonus pre všetky mačky
-- [ ] Kto za tým stojí?: súčiastka s logom z každého finálneho bossa → tajná 7. mapa
+- [x] Cesta domov: Mica hľadá starú majiteľku; každá mapa kapitola, predmet otvorí ďalšiu, koniec loďou domov
+- [x] Mačacia rodina: každá zachránená mačka má prosbu na inej mape → hostina, bonus pre všetky mačky
+- [x] Kto za tým stojí?: súčiastka s logom z každého finálneho bossa → Robo-vysávač 3000 (tajná 7. mapa neskôr)
 
 Samostatné questy:
-- [ ] Nočný kuriér (list cez mapu za 90 s, max. 3 zásahy)
-- [ ] Stratené mačiatka (3 mačiatka k mame)
-- [ ] Majster pascí (30 zabití pascami)
-- [ ] Požiar (zhas šíriace sa ohniská, kým sa nerozšíria)
-- [ ] Zlatá horúčka (chyť zlatú myš 3×, zakaždým rýchlejšiu)
-- [ ] Tri misky (ubráň 3 misky naraz)
-- [ ] Lampáš (v tme dones lampáš k východu)
-- [ ] Súboj na čas (poraz súpera do časového limitu)
-- [ ] Túlavý obchodník (zlato alebo 3 rybičky – voľba)
-- [ ] Posledná prechádzka (stará mačka na obľúbené miesto)
+- [x] Nočný kuriér (list cez mapu za 90 s, max. 3 zásahy)
+- [x] Stratené mačiatka (3 mačiatka k mame)
+- [x] Majster pascí (30 zabití pascami)
+- [x] Požiar (zhas šíriace sa ohniská, kým sa nerozšíria)
+- [x] Zlatá horúčka (chyť zlatú myš 3×, zakaždým rýchlejšiu)
+- [x] Tri misky (ubráň 3 misky naraz)
+- [x] Lampáš (v tme dones lampáš k východu)
+- [x] Súboj na čas (poraz súpera do časového limitu)
+- [x] Túlavý obchodník (zlato alebo 3 rybičky – voľba)
+- [x] Posledná prechádzka (stará mačka na obľúbené miesto)
 
 Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 

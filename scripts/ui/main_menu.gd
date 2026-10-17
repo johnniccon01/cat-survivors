@@ -56,7 +56,7 @@ func _build() -> void:
 	add_child(art)
 
 	# A little parade of the cats you have unlocked, walking along the bottom.
-	var ids: Array = GameData.cats.keys().filter(func(id: String) -> bool: return not GameData.cats[id].get("hidden", false) or Profile.is_unlocked(id))
+	var ids: Array = GameData.cats.keys().filter(func(id: String) -> bool: return not GameData.cats[id].get("npc", false) and (not GameData.cats[id].get("hidden", false) or Profile.is_unlocked(id)))
 	var gap := 1040.0 / maxf(ids.size() - 1, 1)
 	var i := 0
 	for id: String in ids:

@@ -624,5 +624,410 @@
         "after_minute": 5
       }
     ]
+  },
+  "WAY_HOME": {
+    "stage": "any",
+    "reward": {
+      "artifact": "HOME_KEY"
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "stage": "LIVING_ROOM",
+        "item": "photo",
+        "count": 3,
+        "spread": [
+          200,
+          400
+        ]
+      },
+      {
+        "type": "carry",
+        "stage": "BASEMENT",
+        "item": "letter",
+        "to_distance": [
+          450,
+          600
+        ],
+        "time": 70,
+        "look_to": "x"
+      },
+      {
+        "type": "trail",
+        "stage": "GARDEN",
+        "count": 5,
+        "spacing": [
+          140,
+          200
+        ],
+        "look": "ribbon"
+      },
+      {
+        "type": "zones",
+        "stage": "ROOFTOP",
+        "count": 1,
+        "hold": 6,
+        "radius": 40,
+        "look": "chimney"
+      },
+      {
+        "type": "collect",
+        "stage": "SUPERMARKET",
+        "items": [
+          "fish",
+          "ham",
+          "cheese"
+        ],
+        "count": 3,
+        "spread": [
+          200,
+          420
+        ],
+        "deliver": true,
+        "look_to": "basket"
+      },
+      {
+        "type": "defend",
+        "stage": "HARBOR",
+        "time": 30,
+        "mode": "enemies",
+        "enemy": "CRAB",
+        "spawn_every": 3.5,
+        "spawn_count": 4,
+        "look": "boat"
+      }
+    ]
+  },
+  "CAT_FAMILY": {
+    "stage": "any",
+    "reward": {
+      "artifact": "FAMILY_PHOTO"
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "stage": "BASEMENT",
+        "needs_cat": "LUNA",
+        "item": "key",
+        "count": 1,
+        "source": "guards",
+        "guard_hp": 6.0,
+        "spread": [
+          200,
+          320
+        ]
+      },
+      {
+        "type": "defend",
+        "stage": "GARDEN",
+        "needs_cat": "TIGER",
+        "time": 30,
+        "mode": "enemies",
+        "spawn_every": 4.0,
+        "spawn_count": 4,
+        "look": "veggies"
+      },
+      {
+        "type": "trail",
+        "stage": "LIVING_ROOM",
+        "needs_cat": "PIP",
+        "count": 4,
+        "spacing": [
+          140,
+          200
+        ],
+        "look": "flower"
+      },
+      {
+        "type": "escort",
+        "stage": "HARBOR",
+        "needs_cat": "SNOWBALL",
+        "cat": "SNOWBALL",
+        "deliver_to": [
+          450,
+          600
+        ],
+        "hp": 80,
+        "look_to": "boat"
+      },
+      {
+        "type": "carry",
+        "stage": "SUPERMARKET",
+        "needs_cat": "TUCKO",
+        "item": "cheese",
+        "to_distance": [
+          450,
+          600
+        ],
+        "time": 60,
+        "look_to": "basket"
+      },
+      {
+        "type": "zones",
+        "needs_cat": "KAPITAN",
+        "count": 3,
+        "hold": 3,
+        "radius": 34,
+        "spread": [
+          160,
+          300
+        ],
+        "look": "lantern"
+      },
+      {
+        "type": "zones",
+        "count": 1,
+        "hold": 5,
+        "radius": 44,
+        "look": "bowl"
+      }
+    ]
+  },
+  "WHO_IS_BEHIND": {
+    "stage": "any",
+    "reward": {
+      "artifact": "MASTER_REMOTE"
+    },
+    "steps": [
+      {
+        "type": "final",
+        "stage": "LIVING_ROOM"
+      },
+      {
+        "type": "final",
+        "stage": "BASEMENT"
+      },
+      {
+        "type": "final",
+        "stage": "GARDEN"
+      },
+      {
+        "type": "final",
+        "stage": "ROOFTOP"
+      },
+      {
+        "type": "final",
+        "stage": "SUPERMARKET"
+      },
+      {
+        "type": "final",
+        "stage": "HARBOR"
+      },
+      {
+        "type": "boss",
+        "enemy": "ROBO_VACUUM_3000",
+        "hp_mult": 1.0,
+        "look": "hint",
+        "after_minute": 10
+      }
+    ]
+  },
+  "NIGHT_COURIER": {
+    "stage": "any",
+    "reward": {
+      "artifact": "COURIER_BAG"
+    },
+    "steps": [
+      {
+        "type": "carry",
+        "item": "letter",
+        "to_distance": [
+          700,
+          900
+        ],
+        "time": 90,
+        "max_hits": 8,
+        "look_to": "x"
+      }
+    ]
+  },
+  "LOST_KITTENS": {
+    "stage": "any",
+    "reward": {
+      "gold": 600
+    },
+    "steps": [
+      {
+        "type": "escort",
+        "cat": "KITTEN",
+        "count": 3,
+        "spread": [
+          220,
+          400
+        ],
+        "deliver_to": "start",
+        "hp": 40,
+        "look_to": "basket"
+      }
+    ]
+  },
+  "TRAPPER": {
+    "stage": "any",
+    "reward": {
+      "gold": 500
+    },
+    "steps": [
+      {
+        "type": "trap_kills",
+        "count": 20,
+        "traps": {
+          "id": "MOUSETRAP",
+          "count": 7
+        },
+        "distance": 250
+      }
+    ]
+  },
+  "FIRE": {
+    "stage": "any",
+    "reward": {
+      "gold": 600
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 2,
+        "hold": 2.5,
+        "radius": 32,
+        "spread": [
+          120,
+          200
+        ],
+        "look": "fire",
+        "grow": {
+          "every": 7.0,
+          "max": 6
+        },
+        "decay": 0.0
+      }
+    ]
+  },
+  "GOLD_RUSH": {
+    "stage": "any",
+    "reward": {
+      "gold": 1000
+    },
+    "steps": [
+      {
+        "type": "chase",
+        "enemy": "GOLDEN_MOUSE",
+        "times": 3,
+        "hp_mult": 0.5
+      }
+    ]
+  },
+  "THREE_BOWLS": {
+    "stage": "any",
+    "reward": {
+      "gold": 600
+    },
+    "steps": [
+      {
+        "type": "defend",
+        "spots": 3,
+        "spread": [
+          200,
+          260
+        ],
+        "mode": "absence",
+        "time": 30,
+        "spawn_every": 5.0,
+        "spawn_count": 2,
+        "look": "bowl",
+        "radius": 60
+      }
+    ]
+  },
+  "LANTERN": {
+    "stage": "any",
+    "reward": {
+      "gold": 700
+    },
+    "steps": [
+      {
+        "type": "carry",
+        "item": "lantern",
+        "dark": true,
+        "to_distance": [
+          600,
+          800
+        ],
+        "time": 90,
+        "look_to": "x",
+        "after_minute": 2
+      }
+    ]
+  },
+  "TIMED_DUEL": {
+    "stage": "any",
+    "reward": {
+      "gold": 700
+    },
+    "steps": [
+      {
+        "type": "boss",
+        "enemy": "RIVAL_TIGER",
+        "hp_mult": 3.0,
+        "time_limit": 45,
+        "look": "hint",
+        "after_minute": 4
+      }
+    ]
+  },
+  "MERCHANT": {
+    "stage": "any",
+    "reward": {
+      "gold": 200
+    },
+    "steps": [
+      {
+        "type": "choice",
+        "options": [
+          "GOLD",
+          "FISH"
+        ],
+        "look": "hint",
+        "rewards": {
+          "GOLD": {
+            "cost": 150,
+            "artifact": "TRAVELERS_CLOAK"
+          }
+        }
+      },
+      {
+        "type": "collect",
+        "if": "choice:MERCHANT:FISH",
+        "item": "fish",
+        "count": 3,
+        "spread": [
+          200,
+          400
+        ],
+        "deliver": true,
+        "look_to": "hint",
+        "reward": {
+          "artifact": "FISHERMANS_HOOK"
+        }
+      }
+    ]
+  },
+  "LAST_WALK": {
+    "stage": "ROOFTOP",
+    "reward": {
+      "artifact": "OLD_CATS_BELL"
+    },
+    "steps": [
+      {
+        "type": "escort",
+        "cat": "OLD_CAT",
+        "deliver_to": [
+          600,
+          800
+        ],
+        "slow": 0.6,
+        "hp": 80,
+        "look_to": "chimney"
+      }
+    ]
   }
 }

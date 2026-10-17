@@ -131,6 +131,28 @@
         21.6
       ],
       "frames": 4
+    },
+    "KITTEN": {
+      "cell": [
+        22,
+        18
+      ],
+      "anchor": [
+        9.8,
+        10.8
+      ],
+      "frames": 4
+    },
+    "OLD_CAT": {
+      "cell": [
+        35,
+        29
+      ],
+      "anchor": [
+        15.6,
+        17.6
+      ],
+      "frames": 4
     }
   },
   "enemies": {
@@ -828,6 +850,17 @@
       "frames": 2
     },
     "RACCOON_THIEF": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "ROBO_VACUUM_3000": {
       "cell": [
         28,
         28

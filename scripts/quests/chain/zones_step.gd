@@ -5,7 +5,9 @@ extends ChainStep
 ## (0 = none), during "converge" (enemies gather while you stand) |
 ## "lightning" (bolts strike around you), decay, look, find_one (only one
 ## zone hides the thing: finding it ends the step, the others spring
-## `ambush` {enemy, count}), guard_boss (a boss waiting at the first zone).
+## `ambush` {enemy, count}), guard_boss (a boss waiting at the first zone),
+## grow {every, max} (a fire: a new zone flares up next to an unfinished one;
+## too many at once and the step fails).
 
 const SHOCK := 8.0
 
@@ -16,6 +18,7 @@ var _left := 0.0
 var _pulse := 0.0
 var _shock_t := 0.0
 var _right := 0
+var _grow_t := 0.0
 
 
 func _ready() -> void:
@@ -70,6 +73,19 @@ func _tick(delta: float) -> void:
 			fail()
 			return
 	_shock_t -= delta
+	var grow: Dictionary = data.get("grow", {})
+	if started and not grow.is_empty():
+		_grow_t += delta
+		if _grow_t >= float(grow.get("every", 8.0)):
+			_grow_t = 0.0
+			var open: Array = range(_zones.size()).filter(func(k: int) -> bool: return _fill[k] < 1.0)
+			if not open.is_empty():
+				var from: Vector2 = _zones[open.pick_random()]
+				_zones.append(from + Vector2.from_angle(randf() * TAU) * randf_range(80.0, 140.0))
+				_fill.append(0.0)
+				if open.size() + 1 > int(grow.get("max", 6)):
+					fail()
+					return
 	var cat := player().position
 	var ordered: bool = data.get("ordered", false)
 	var standing := false

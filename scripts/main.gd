@@ -422,6 +422,7 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 		var cat: String = GameData.enemies[id].get("cat", "")
 		if cat != "" and Profile.unlock(cat):
 			_run_unlocks.append(cat)
+		ChainStep.final_defeated(self, spawner.stage_id)
 		_on_stage_cleared()
 		return
 	if id == DEVIL_ID:

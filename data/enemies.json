@@ -981,5 +981,22 @@
     "cost": 0,
     "behavior": "flee",
     "flee_time": 40.0
+  },
+  "ROBO_VACUUM_3000": {
+    "shape": "vacuum",
+    "boss": true,
+    "scale": 3.6,
+    "color": "#a0a8b8",
+    "accent": "#e04646",
+    "hp": 9000,
+    "speed": 50,
+    "damage": 26,
+    "radius": 32,
+    "xp": 200,
+    "knockback_resist": 1.0,
+    "behavior": "shooter",
+    "summon": "ROOMBA",
+    "summon_count": 4,
+    "summon_every": 6.0
   }
 }

@@ -1064,3 +1064,116 @@ CHAIN_PIRATE_TREASURE_2,Dig where the X is,"Vyhrab to, kde je krížik","Vyhrabe
 CHAIN_PIRATE_TREASURE_2_DONE,A chest! But tentacles are wrapped around it...,Truhla! Ale okolo nej sú omotané chápadlá...,Truhla! Ale kolem ní jsou omotaná chapadla...
 CHAIN_PIRATE_TREASURE_3,Defeat the Octopus guarding the treasure,"Poraz chobotnicu, ktorá stráži poklad","Poraz chobotnici, která hlídá poklad"
 CHAIN_PIRATE_TREASURE_3_DONE,The chest is full of pirate gold!,Truhla je plná pirátskeho zlata!,Truhla je plná pirátského zlata!
+CHAIN_NO_GOLD,Not enough gold (%d needed),Nemáš dosť zlata (treba %d),Nemáš dost zlata (je potřeba %d)
+CHAIN_NEEDS_CAT,needs %s,treba mačku %s,je potřeba kočka %s
+CAT_KITTEN_NAME,Kitten,Mačiatko,Kotě
+CAT_KITTEN_DESC,A tiny lost kitten.,Malé stratené mačiatko.,Malé ztracené kotě.
+CAT_KITTEN_HINT,,,
+CAT_OLD_CAT_NAME,Old Whiskers,Starý Fúzač,Starý Fousek
+CAT_OLD_CAT_DESC,A very old cat who has seen every roof in town.,"Veľmi stará mačka, ktorá videla každú strechu v meste.","Velmi stará kočka, která viděla každou střechu ve městě."
+CAT_OLD_CAT_HINT,,,
+ENEMY_ROBO_VACUUM_3000_NAME,Robo-Vacuum 3000,Robo-vysávač 3000,Robo-vysavač 3000
+ENEMY_ROBO_VACUUM_3000_DESC,The machine behind every boss. It wants a house without a single hair.,Stroj za všetkými bossmi. Chce dom bez jediného chlpu.,Stroj za všemi bossy. Chce dům bez jediného chlupu.
+ARTIFACT_HOME_KEY_NAME,Key to Home,Kľúč od domova,Klíč od domova
+ARTIFACT_HOME_KEY_DESC,"Wherever you are, you know the way home: +10% experience, +10% luck.","Nech si kdekoľvek, poznáš cestu domov: +10 % skúseností, +10 % šťastie.","Ať jsi kdekoli, znáš cestu domů: +10 % zkušeností, +10 % štěstí."
+ARTIFACT_FAMILY_PHOTO_NAME,Family Photo,Rodinná fotka,Rodinná fotka
+ARTIFACT_FAMILY_PHOTO_DESC,"All the cats together: +5% damage, +10 health, +3% speed.","Všetky mačky spolu: +5 % poškodenie, +10 zdravia, +3 % rýchlosť.","Všechny kočky spolu: +5 % poškození, +10 zdraví, +3 % rychlost."
+ARTIFACT_MASTER_REMOTE_NAME,The Master Remote,Hlavný ovládač,Hlavní ovladač
+ARTIFACT_MASTER_REMOTE_DESC,"The remote of the Robo-Vacuum 3000: attacks 8% more often, +8% damage.","Ovládač Robo-vysávača 3000: útoky o 8 % častejšie, +8 % poškodenie.","Ovladač Robo-vysavače 3000: útoky o 8 % častěji, +8 % poškození."
+ARTIFACT_COURIER_BAG_NAME,Courier Bag,Kuriérska taška,Kurýrní taška
+ARTIFACT_COURIER_BAG_DESC,Bigger magnet and +5% speed.,Väčší magnet a +5 % rýchlosť.,Větší magnet a +5 % rychlost.
+ARTIFACT_TRAVELERS_CLOAK_NAME,Traveller's Cloak,Pútnický plášť,Poutnický plášť
+ARTIFACT_TRAVELERS_CLOAK_DESC,Light as the wind: +10% speed.,Ľahký ako vietor: +10 % rýchlosť.,Lehký jako vítr: +10 % rychlost.
+ARTIFACT_FISHERMANS_HOOK_NAME,Fisherman's Hook,Rybársky háčik,Rybářský háček
+ARTIFACT_FISHERMANS_HOOK_DESC,"+5% critical chance, faster projectiles.","+5 % šanca na kritický zásah, rýchlejšie strely.","+5 % šance na kritický zásah, rychlejší střely."
+ARTIFACT_OLD_CATS_BELL_NAME,Old Whiskers' Bell,Zvonček starého Fúzača,Zvoneček starého Fouska
+ARTIFACT_OLD_CATS_BELL_DESC,Rings once when you fall – and you get up again (+1 revival).,"Zazvoní raz, keď padneš – a vstaneš (+1 oživenie).","Zazvoní jednou, když padneš – a vstaneš (+1 oživení)."
+CHAIN_WAY_HOME_NAME,The Way Home,Cesta domov,Cesta domů
+CHAIN_WAY_HOME_DESC,Mica's girl moved away. Somewhere by the sea there is a new home.,Micino dievča sa odsťahovalo. Niekde pri mori je nový domov.,Micina holka se odstěhovala. Někde u moře je nový domov.
+CHAIN_WAY_HOME_1,Find the pieces of the old photo,Nájdi kúsky starej fotky,Najdi kousky staré fotky
+CHAIN_WAY_HOME_1_START,A torn photo... the girl who raised you?,"Roztrhaná fotka... dievča, ktoré ťa vychovalo?","Roztrhaná fotka... holka, která tě vychovala?"
+CHAIN_WAY_HOME_1_DONE,"On the back: ""Moving to the seaside. We'll miss you!""",Na zadnej strane: „Sťahujeme sa k moru. Budeš nám chýbať!“,Na zadní straně: „Stěhujeme se k moři. Budeš nám chybět!“
+CHAIN_WAY_HOME_2,Take the old letter to the cellar door,Zanes starý list k dverám pivnice,Zanes starý dopis ke dveřím sklepa
+CHAIN_WAY_HOME_2_DONE,"The new address is on the envelope – far, far away.","Na obálke je nová adresa – ďaleko, ďaleko.","Na obálce je nová adresa – daleko, daleko."
+CHAIN_WAY_HOME_3,Follow the girl's ribbons through the garden,Sleduj stužky dievčaťa záhradou,Sleduj stužky holky zahradou
+CHAIN_WAY_HOME_3_DONE,The ribbons lead to the gate – and the gate leads to the roofs.,Stužky vedú k bráne – a brána na strechy.,Stužky vedou k bráně – a brána na střechy.
+CHAIN_WAY_HOME_4,Look out from the highest roof,Rozhliadni sa z najvyššej strechy,Rozhlédni se z nejvyšší střechy
+CHAIN_WAY_HOME_4_DONE,Far away the harbour lights twinkle. That's where she is.,V diaľke blikajú svetlá prístavu. Tam je.,V dálce blikají světla přístavu. Tam je.
+CHAIN_WAY_HOME_5,Pack food for the journey,Zbaľ jedlo na cestu,Sbal jídlo na cestu
+CHAIN_WAY_HOME_5_DONE,Your bag is full. Next stop: the harbour.,Taška je plná. Ďalšia zastávka: prístav.,Taška je plná. Další zastávka: přístav.
+CHAIN_WAY_HOME_6,Guard the ferry until it leaves,"Stráž trajekt, kým neodplává","Hlídej trajekt, dokud neodpluje"
+CHAIN_WAY_HOME_6_DONE,The ferry sails at dawn. On the other shore a girl is calling your name...,Trajekt vypláva na úsvite. Na druhom brehu volá dievča tvoje meno...,Trajekt vypluje za úsvitu. Na druhém břehu volá holka tvoje jméno...
+CHAIN_CAT_FAMILY_NAME,The Cat Family,Mačacia rodina,Kočičí rodina
+CHAIN_CAT_FAMILY_DESC,Every cat you saved has one wish. Make them all come true.,Každá zachránená mačka má jedno prianie. Splň ich všetky.,Každá zachráněná kočka má jedno přání. Splň je všechna.
+CHAIN_CAT_FAMILY_1,Luna: get her bell back from the basement,Luna: získaj späť jej zvonček z pivnice,Luna: získej zpět její zvoneček ze sklepa
+CHAIN_CAT_FAMILY_1_DONE,Luna rings her bell happily.,Luna šťastne zazvonila zvončekom.,Luna šťastně zazvonila zvonečkem.
+CHAIN_CAT_FAMILY_2,Tiger: hold the yard with him,Tiger: ubráň s ním dvor,Tiger: ubraň s ním dvůr
+CHAIN_CAT_FAMILY_2_DONE,"""Not bad, kid."" – Tiger","„Nie zlé, mladý.“ – Tiger","„Není to špatné, mladej.“ – Tiger"
+CHAIN_CAT_FAMILY_3,Pip: find the lost feather toy,Mrňa: nájdi stratenú hračku s pierkom,Mrně: najdi ztracenou hračku s pírkem
+CHAIN_CAT_FAMILY_3_DONE,Pip pounces on the toy and won't let go.,Mrňa skočila na hračku a nepustí ju.,Mrně skočilo na hračku a nepustí ji.
+CHAIN_CAT_FAMILY_4,Snowball: lead her over the pier – she is afraid of water,Snehulka: preveď ju cez mólo – bojí sa vody,Sněhulka: převeď ji přes molo – bojí se vody
+CHAIN_CAT_FAMILY_4_DONE,Snowball made it across without a single drop!,Snehulka prešla bez jedinej kvapky!,Sněhulka přešla bez jediné kapky!
+CHAIN_CAT_FAMILY_5,Chonk: bring the cheese for the party,Tučko: dones syr na oslavu,Buclík: dones sýr na oslavu
+CHAIN_CAT_FAMILY_5_DONE,Chonk only ate half of it on the way.,Tučko z neho cestou zjedol len polovicu.,Buclík z něj cestou snědl jen půlku.
+CHAIN_CAT_FAMILY_6,Captain: light the lanterns for the feast,Kapitán: zapáľ lampióny na hostinu,Kapitán: zapal lampiony na hostinu
+CHAIN_CAT_FAMILY_6_DONE,The lanterns glow. Everything is ready.,Lampióny svietia. Všetko je pripravené.,Lampiony svítí. Všechno je připravené.
+CHAIN_CAT_FAMILY_7,Come to the feast,Príď na hostinu,Přijď na hostinu
+CHAIN_CAT_FAMILY_7_DONE,All the cats together at one bowl. Someone takes a photo.,Všetky mačky spolu pri jednej miske. Niekto ich odfotil.,Všechny kočky spolu u jedné misky. Někdo je vyfotil.
+CHAIN_WHO_IS_BEHIND_NAME,Who Is Behind It?,Kto za tým stojí?,Kdo za tím stojí?
+CHAIN_WHO_IS_BEHIND_DESC,Every final boss carries the same little logo: R-3000.,Každý finálny boss nosí to isté malé logo: R-3000.,Každý finální boss nosí stejné malé logo: R-3000.
+CHAIN_WHO_IS_BEHIND_1,Defeat the Vacuum King (Apartment),Poraz Kráľa vysávačov (Byt),Poraz Krále vysavačů (Byt)
+CHAIN_WHO_IS_BEHIND_2,Defeat the Rat King (Basement),Poraz Potkanieho kráľa (Pivnica),Poraz Krysího krále (Sklep)
+CHAIN_WHO_IS_BEHIND_3,Defeat the Lawnmower (Garden),Poraz Kosačku (Záhrada),Poraz Sekačku (Zahrada)
+CHAIN_WHO_IS_BEHIND_4,Defeat Bruno (Rooftop),Poraz Bruna (Strecha),Poraz Bruna (Střecha)
+CHAIN_WHO_IS_BEHIND_5,Defeat Rex (Supermarket),Poraz Rexa (Supermarket),Poraz Rexe (Supermarket)
+CHAIN_WHO_IS_BEHIND_6,Defeat the Kraken (Harbor),Poraz Krakena (Prístav),Poraz Krakena (Přístav)
+CHAIN_WHO_IS_BEHIND_1_DONE,A chip with the logo R-3000 falls out of the Vacuum King.,Z Kráľa vysávačov vypadol čip s logom R-3000.,Z Krále vysavačů vypadl čip s logem R-3000.
+CHAIN_WHO_IS_BEHIND_6_DONE,Six chips. Together they show a map – to the factory of the Robo-Vacuum 3000!,Šesť čipov. Spolu ukazujú mapu – k továrni Robo-vysávača 3000!,Šest čipů. Spolu ukazují mapu – k továrně Robo-vysavače 3000!
+CHAIN_WHO_IS_BEHIND_7,Defeat the Robo-Vacuum 3000,Poraz Robo-vysávač 3000,Poraz Robo-vysavač 3000
+CHAIN_WHO_IS_BEHIND_7_START,"""HAIR DETECTED. CLEANING.""",„ZISTENÝ CHLP. ČISTÍM.“,„ZJIŠTĚN CHLUP. ČISTÍM.“
+CHAIN_WHO_IS_BEHIND_7_DONE,The machine sparks and goes silent. Its remote is yours.,Stroj zaiskril a stíchol. Jeho ovládač je tvoj.,Stroj zajiskřil a ztichl. Jeho ovladač je tvůj.
+CHAIN_NIGHT_COURIER_NAME,Night Courier,Nočný kuriér,Noční kurýr
+CHAIN_NIGHT_COURIER_DESC,A letter has to get across the map tonight.,List sa musí dnes v noci dostať cez celú mapu.,Dopis se musí dnes v noci dostat přes celou mapu.
+CHAIN_NIGHT_COURIER_1,Deliver the letter,Doruč list,Doruč dopis
+CHAIN_NIGHT_COURIER_1_START,"90 seconds, and don't let them hit you more than 8 times!",90 sekúnd a nedaj sa zasiahnuť viac ako 8-krát!,90 sekund a nenech se zasáhnout víc než 8krát!
+CHAIN_LOST_KITTENS_NAME,Lost Kittens,Stratené mačiatka,Ztracená koťata
+CHAIN_LOST_KITTENS_DESC,Three kittens ran away from their mother.,Tri mačiatka utiekli mame.,Tři koťata utekla mámě.
+CHAIN_LOST_KITTENS_1,Bring the kittens back to their mother,Priveď mačiatka späť k mame,Přiveď koťata zpátky k mámě
+CHAIN_LOST_KITTENS_1_START,They follow you once you find them. Help any that fall!,"Keď ich nájdeš, pôjdu za tebou. Pomôž tým, ktoré padnú!","Až je najdeš, půjdou za tebou. Pomoz těm, která padnou!"
+CHAIN_LOST_KITTENS_1_DONE,Mother cat purrs and licks all three.,Mačacia mama priadie a olizuje všetky tri.,Kočičí máma přede a olizuje všechna tři.
+CHAIN_TRAPPER_NAME,Trap Master,Majster pascí,Mistr pastí
+CHAIN_TRAPPER_DESC,Let the traps do the work.,Nech prácu urobia pasce.,Ať práci udělají pasti.
+CHAIN_TRAPPER_1,Defeat enemies with the traps,Poraz nepriateľov pascami,Poraz nepřátele pastmi
+CHAIN_TRAPPER_1_START,Lure the enemies into the mousetraps!,Nalákaj nepriateľov do pascí na myši!,Nalákej nepřátele do pastí na myši!
+CHAIN_FIRE_NAME,Fire!,Požiar!,Požár!
+CHAIN_FIRE_DESC,Something caught fire – and it's spreading.,Niečo začalo horieť – a šíri sa to.,Něco začalo hořet – a šíří se to.
+CHAIN_FIRE_1,Put out the fires before they spread,"Uhas ohne, kým sa nerozšíria","Uhas ohně, než se rozšíří"
+CHAIN_FIRE_1_START,Stand by a fire to put it out. Hurry – new ones flare up!,"Postav sa k ohňu, aby zhasol. Rýchlo – vznikajú nové!","Postav se k ohni, aby zhasl. Rychle – vznikají nové!"
+CHAIN_FIRE_1_DONE,The last flame goes out. Phew.,Posledný plameň zhasol. Fíha.,Poslední plamen zhasl. Uf.
+CHAIN_GOLD_RUSH_NAME,Gold Rush,Zlatá horúčka,Zlatá horečka
+CHAIN_GOLD_RUSH_DESC,The golden mouse is back – and faster every time.,Zlatá myš je späť – a zakaždým rýchlejšia.,Zlatá myš je zpět – a pokaždé rychlejší.
+CHAIN_GOLD_RUSH_1,Catch the golden mouse three times,Chyť zlatú myš trikrát,Chyť zlatou myš třikrát
+CHAIN_THREE_BOWLS_NAME,Three Bowls,Tri misky,Tři misky
+CHAIN_THREE_BOWLS_DESC,"Three bowls, hungry thieves everywhere.",Tri misky a všade hladní zlodeji.,Tři misky a všude hladoví zloději.
+CHAIN_THREE_BOWLS_1,Keep all three bowls full,Udrž všetky tri misky plné,Udrž všechny tři misky plné
+CHAIN_THREE_BOWLS_1_START,A bowl empties when you're away. Run between them!,"Miska sa vyprázdňuje, keď nie si pri nej. Behaj medzi nimi!","Miska se vyprazdňuje, když nejsi u ní. Běhej mezi nimi!"
+CHAIN_LANTERN_NAME,The Lantern,Lampáš,Lucerna
+CHAIN_LANTERN_DESC,All the lights went out. Only the lantern shines.,Zhasli všetky svetlá. Svieti len lampáš.,Zhasla všechna světla. Svítí jen lucerna.
+CHAIN_LANTERN_1,Carry the lantern to the way out,Dones lampáš k východu,Dones lucernu k východu
+CHAIN_LANTERN_1_START,Darkness! Take the lantern and find the way out.,Tma! Zober lampáš a nájdi cestu von.,Tma! Vezmi lucernu a najdi cestu ven.
+CHAIN_TIMED_DUEL_NAME,Duel Against Time,Súboj s časom,Souboj s časem
+CHAIN_TIMED_DUEL_DESC,Tiger bets you can't beat him in 45 seconds.,"Tiger sa stavil, že ho neporazíš za 45 sekúnd.","Tiger se vsadil, že ho neporazíš za 45 sekund."
+CHAIN_TIMED_DUEL_1,Beat Tiger before time runs out,"Poraz Tigra, kým neuplynie čas","Poraz Tygra, než vyprší čas"
+CHAIN_MERCHANT_NAME,The Wandering Merchant,Túlavý obchodník,Toulavý obchodník
+CHAIN_MERCHANT_DESC,A stray cat with a bag full of strange things.,Túlavá mačka s taškou plnou zvláštnych vecí.,Toulavá kočka s taškou plnou zvláštních věcí.
+CHAIN_MERCHANT_1,Meet the merchant,Stretni obchodníka,Potkej obchodníka
+CHAIN_MERCHANT_1_ASK,"""A cloak light as the wind – for 150 gold. Or bring me three fish, and I'll give you my best hook.""",„Plášť ľahký ako vietor – za 150 zlatých. Alebo mi dones tri ryby a dám ti svoj najlepší háčik.“,„Plášť lehký jako vítr – za 150 zlatých. Nebo mi přines tři ryby a dám ti svůj nejlepší háček.“
+CHAIN_MERCHANT_1_GOLD,Pay 150 gold (Traveller's Cloak),Zaplatiť 150 zlatých (Pútnický plášť),Zaplatit 150 zlatých (Poutnický plášť)
+CHAIN_MERCHANT_1_FISH,Bring three fish (Fisherman's Hook),Doniesť tri ryby (Rybársky háčik),Přinést tři ryby (Rybářský háček)
+CHAIN_MERCHANT_2,Bring the merchant three fish,Dones obchodníkovi tri ryby,Dones obchodníkovi tři ryby
+CHAIN_MERCHANT_2_DONE,"""A deal is a deal.""",„Dohoda je dohoda.“,„Dohoda je dohoda.“
+CHAIN_LAST_WALK_NAME,The Last Walk,Posledná prechádzka,Poslední procházka
+CHAIN_LAST_WALK_DESC,Old Whiskers wants to see his favourite roof one more time.,Starý Fúzač chce ešte raz vidieť svoju obľúbenú strechu.,Starý Fousek chce ještě jednou vidět svou oblíbenou střechu.
+CHAIN_LAST_WALK_1,Walk Old Whiskers to his favourite chimney,Odprevaď starého Fúzača k jeho obľúbenému komínu,Doprovoď starého Fouska k jeho oblíbenému komínu
+CHAIN_LAST_WALK_1_START,He walks slowly. Stay with him.,Kráča pomaly. Zostaň pri ňom.,Jde pomalu. Zůstaň u něj.
+CHAIN_LAST_WALK_1_DONE,"He lies down by the warm chimney and watches the moon. ""Thank you, little one."" He gives you his bell.","Ľahol si k teplému komínu a pozerá na mesiac. „Ďakujem, maličký.“ Dal ti svoj zvonček.","Lehl si k teplému komínu a dívá se na měsíc. „Děkuju, maličký.“ Dal ti svůj zvoneček."

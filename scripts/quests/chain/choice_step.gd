@@ -22,6 +22,13 @@ func _on_chosen(index: int) -> void:
 	var option: String = data.get("options", ["A", "B"])[index]
 	Profile.set_flag("choice:%s:%s" % [chain_id, option])
 	var reward: Dictionary = data.get("rewards", {}).get(option, {})
+	var cost := int(reward.get("cost", 0))
+	if cost > 0:
+		if Profile.gold < cost:
+			main.hud.show_banner(tr("CHAIN_NO_GOLD") % cost, 3.0)
+			fail()
+			return
+		Profile.gold -= cost
 	if not reward.is_empty():
 		QuestBook._pay(reward)
 		main.hud.show_banner(QuestBook.reward_text(reward), 4.0)

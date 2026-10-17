@@ -93,6 +93,10 @@ func _pick_chain() -> String:
 		if not needs.all(func(f: String) -> bool: return Profile.has_flag(f)):
 			continue
 		var n := ChainStep.progress_of(id) + 1
+		var step: Dictionary = ChainStep.steps(id)[n - 1]
+		# "final" steps finish when the final boss falls; some steps need a cat.
+		if step["type"] == "final" or (step.has("needs_cat") and not Profile.is_unlocked(step["needs_cat"])):
+			continue
 		# Big fights wait until later in the night, when the cat has grown.
 		if main.spawner.elapsed < float(ChainStep.steps(id)[n - 1].get("after_minute", 0.0)) * 60.0:
 			continue

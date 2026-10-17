@@ -170,6 +170,9 @@ func _chain_row(id: String) -> Control:
 	var where := tr("CHAIN_ANY_MAP") if stage == "any" else tr("STAGE_%s_NAME" % stage)
 	if stage != "any" and not Profile.is_stage_unlocked(stage):
 		where = "???"
+	var need: String = ChainStep.steps(id)[steps].get("needs_cat", "")
+	if need != "" and not Profile.is_unlocked(need):
+		where += " · " + tr("CHAIN_NEEDS_CAT") % tr("CAT_%s_NAME" % need)
 	desc.text = "      %s\n      %s  %s  (%s)" % [tr("CHAIN_%s_DESC" % id), tr("QB_STEP") % [steps + 1, n], tr("CHAIN_%s_%d" % [id, steps + 1]), where]
 	return row
 
@@ -206,7 +209,7 @@ func _build_goals() -> void:
 
 func _build_bestiary() -> void:
 	# Cats.
-	var cats: Array = GameData.cats.keys()
+	var cats: Array = GameData.cats.keys().filter(func(c: String) -> bool: return not GameData.cats[c].get("npc", false))
 	_header("%s   %s" % [tr("BESTIARY_CATS"), tr("BESTIARY_FOUND") % [cats.filter(func(c: String) -> bool: return Profile.is_unlocked(c)).size(), cats.size()]])
 	var grid := _grid()
 	for id: String in cats:

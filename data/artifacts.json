@@ -128,5 +128,53 @@
       "greed": 0.4
     },
     "color": "#f2c14e"
+  },
+  "HOME_KEY": {
+    "stats": {
+      "growth": 0.1,
+      "luck": 0.1
+    },
+    "color": "#f2c14e"
+  },
+  "FAMILY_PHOTO": {
+    "stats": {
+      "might": 0.05,
+      "max_hp": 10.0,
+      "speed": 0.03
+    },
+    "color": "#e8a0b0"
+  },
+  "MASTER_REMOTE": {
+    "stats": {
+      "cooldown": -0.08,
+      "might": 0.08
+    },
+    "color": "#a0a8b8"
+  },
+  "COURIER_BAG": {
+    "stats": {
+      "magnet": 30.0,
+      "speed": 0.05
+    },
+    "color": "#8a6a42"
+  },
+  "TRAVELERS_CLOAK": {
+    "stats": {
+      "speed": 0.1
+    },
+    "color": "#5b4a8a"
+  },
+  "FISHERMANS_HOOK": {
+    "stats": {
+      "crit_chance": 0.05,
+      "proj_speed": 0.1
+    },
+    "color": "#9aa0a6"
+  },
+  "OLD_CATS_BELL": {
+    "stats": {
+      "revival": 1.0
+    },
+    "color": "#f2d14e"
   }
 }

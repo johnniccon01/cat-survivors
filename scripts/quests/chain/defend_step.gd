@@ -6,7 +6,7 @@ extends ChainStep
 
 const SPOT_HP := 100.0
 const DRAIN_PER_ENEMY := 6.0
-const ABSENCE_DRAIN := 5.0
+const ABSENCE_DRAIN := 3.0
 const REFILL := 12.0
 
 var _spots: Array[Vector2] = []

@@ -127,7 +127,7 @@ QUEST_FRIDGE_FIND,Find the fridge,Nájdi chladničku
 QUEST_FRIDGE_OPEN,Stay by the fridge to open it,Zostaň pri chladničke a otvor ju
 QUEST_FRIDGE_FIGHT,Defeat the leftovers: %d left,Poraz zvyšky: zostáva %d
 SELECT_TITLE,Choose your cat,Vyber si mačku
-SELECT_HINT,← → cat · ↑ ↓ map · Enter start · U upgrades · C charms · Q / G / J journal · Esc menu,← → mačka · ↑ ↓ mapa · Enter štart · U vylepšenia · C prívesky · Q / G / J denník · Esc menu
+SELECT_HINT,← → cat · ↑ ↓ map · Enter start · U upgrades · C charms · X challenges · Q / G / J journal · Esc menu,← → mačka · ↑ ↓ mapa · Enter štart · U vylepšenia · C prívesky · X výzvy · Q / G / J denník · Esc menu
 SELECT_LOCKED,???,???
 GAME_OVER_MENU,Esc – change cat,Esc – zmeniť mačku
 QUEST_RESCUE_ESCORT,Walk %s to the safe cat bed,Odprevaď: %s do bezpečného pelechu
@@ -691,3 +691,24 @@ ENEMY_SCARECROW_NAME,The Scarecrow,Strašiak
 ENEMY_SCARECROW_DESC,Marks the ground and stabs it with a pitchfork. Calls its crows.,Označí zem a zabodne do nej vidly. Volá si vrany.
 ENEMY_THUNDERCLOUD_NAME,The Thundercloud,Búrkový mrak
 ENEMY_THUNDERCLOUD_DESC,Drifts overhead and calls lightning down where it points.,"Pláva nad strechami a zosiela blesky tam, kam ukáže."
+CHALLENGES_TITLE,Challenges,Výzvy
+CHALLENGES_HINT,↑ ↓ choose · Enter on / off · X / Esc back,↑ ↓ výber · Enter zapnúť / vypnúť · X / Esc späť
+CHALLENGES_GOLD,Gold from the night: x%.2f,Zlato z noci: ×%.2f
+CHALLENGES_MULT,gold x%.1f,zlato ×%.1f
+CHALLENGES_ON,Challenges: %s (gold x%.2f),Výzvy: %s (zlato ×%.2f)
+SELECT_CHALLENGES,Challenges (X): %s · gold x%.2f,Výzvy (X): %s · zlato ×%.2f
+SUMMARY_CHALLENGE,Challenges x%.2f: +%d gold,Výzvy ×%.2f: +%d zlata
+CHALLENGE_HYPER_NAME,Turbo,Turbo
+CHALLENGE_HYPER_DESC,Everything runs 25% faster – you too.,Všetko beží o 25 % rýchlejšie – aj ty.
+CHALLENGE_GLASS_NAME,Glass Cat,Krehká mačka
+CHALLENGE_GLASS_DESC,"Half the health, but +50% damage.","Polovica zdravia, ale +50 % poškodenie."
+CHALLENGE_NO_HEAL_NAME,No Healing,Bez liečenia
+CHALLENGE_NO_HEAL_DESC,"Hearts, sardines and regeneration don't heal you.","Srdiečka, sardinky ani regenerácia ťa nevyliečia."
+CHALLENGE_ONE_WEAPON_NAME,One Weapon,Jediná zbraň
+CHALLENGE_ONE_WEAPON_DESC,You keep your starting weapon – no others.,Ostane ti len štartová zbraň – žiadne ďalšie.
+CHALLENGE_CURSED_NAME,Cursed Night,Prekliata noc
+CHALLENGE_CURSED_DESC,"More enemies, tougher and faster.","Viac nepriateľov, odolnejších a rýchlejších."
+QB_DARING_NAME,Daredevil,Odvážlivec
+QB_DARING_1,Win a night with a challenge on.,Vyhrať noc so zapnutou výzvou.
+QB_DARING_2,Win with each of the 5 challenges.,Vyhrať s každou z 5 výziev.
+QB_DARING_3,Win a night with 3 challenges at once.,Vyhrať noc s 3 výzvami naraz.

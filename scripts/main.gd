@@ -57,6 +57,7 @@ const DEVIL_ID := "DEVIL_CAT"
 ## The devil shows up this long after the second angel save.
 const DEVIL_DELAY := 4.0
 const GOLDEN_MOUSE := "GOLDEN_MOUSE"
+const HYPER_SPEED := 1.25
 ## Seconds between golden mouse visits (random in this range).
 const GOLDEN_EVERY := [150.0, 260.0]
 const GOLDEN_COINS := 10
@@ -120,11 +121,14 @@ var _has_page := false
 ## The map track playing now (day or night).
 var _music_track := ""
 var _golden_t: float = GOLDEN_EVERY[0]
+## Game speed (Turbo challenge, 4x for the bot), restored after hit-stops.
+var _base_time_scale := 1.0
 ## Endless night: whether it's on, and the gold already banked at the win.
 var _endless := false
 var _banked_gold := 0.0
 var _last_end := ""
 var _champion_seen := false
+var _challenge_shown := false
 
 @onready var player: Player = $Player
 @onready var enemies: EnemyManager = $Enemies
@@ -227,7 +231,8 @@ func _ready() -> void:
 	hud.update_inventory(player)
 	if _bot:
 		player.controller = "bot"
-		Engine.time_scale = 4.0
+	_base_time_scale = (4.0 if _bot else 1.0) * (HYPER_SPEED if Profile.has_challenge("HYPER") else 1.0)
+	Engine.time_scale = _base_time_scale
 	for i in int(_arg("--levels=", "0")):
 		Upgrades.apply(player, Upgrades.roll(player)[0])
 	if OS.is_debug_build() and not _bot:
@@ -633,6 +638,10 @@ func _end_run(kind: String) -> void:
 		lines.append(tr("SUMMARY_CHARMS_KEPT") % _charm_names())
 		if refund > 0:
 			lines.append(tr("SUMMARY_CHARMS_DUPES") % refund)
+	if not Profile.challenges.is_empty():
+		var bonus := floori(gold * (Profile.challenge_gold() - 1.0))
+		gold += bonus
+		lines.append(tr("SUMMARY_CHALLENGE") % [Profile.challenge_gold(), bonus])
 	Profile.add_gold(gold)
 	for id in Goals.check():
 		lines.append(tr("GOAL_DONE") % [tr("GOAL_%s_NAME" % id), Goals.reward_text(id)])
@@ -677,6 +686,9 @@ func _track_run(delta: float) -> void:
 			Profile.set_flag("brink")
 	else:
 		_brink_t = 0.0
+	if not Profile.challenges.is_empty() and spawner.elapsed < 1.0 and not _challenge_shown:
+		_challenge_shown = true
+		hud.show_banner(tr("CHALLENGES_ON") % [", ".join(Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))), Profile.challenge_gold()], 4.0)
 	if not _champion_seen and int(Engine.get_process_frames()) % 30 == 0:
 		for e in enemies.enemies:
 			if e.champion != "":
@@ -830,7 +842,7 @@ func _boss_impact() -> void:
 		return
 	Engine.time_scale = 0.08
 	await get_tree().create_timer(0.14, true, false, true).timeout
-	Engine.time_scale = 1.0
+	Engine.time_scale = _base_time_scale
 
 
 ## Expanding golden ring around the cat on level-up.
@@ -859,6 +871,10 @@ func _victory_flags() -> void:
 		Profile.set_flag("win_healthy:" + stage)
 	if _was_on_brink:
 		Profile.set_flag("brink_win")
+	for c in Profile.challenges:
+		Profile.set_flag("win_challenge:" + c)
+	if Profile.challenges.size() >= 3:
+		Profile.set_flag("win_three_challenges")
 
 
 func _on_final_boss(boss: Enemy) -> void:

@@ -725,6 +725,35 @@
           }
         }
       ]
+    },
+    "DARING": {
+      "chapter": "main",
+      "tiers": [
+        {
+          "type": "flags",
+          "prefix": "win_challenge:",
+          "target": 1,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "flags",
+          "prefix": "win_challenge:",
+          "target": 5,
+          "reward": {
+            "charm": "TWIN_KITTEN"
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_three_challenges",
+          "target": 1,
+          "reward": {
+            "gold": 2500
+          }
+        }
+      ]
     }
   }
 }

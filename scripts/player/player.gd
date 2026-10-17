@@ -114,6 +114,11 @@ func _mark_used(id: String) -> void:
 		Profile.set_flag("used:" + id)
 
 
+## Weapon slots: one with the "one weapon" challenge.
+func max_weapons() -> int:
+	return 1 if (controller == "input" or controller == "bot") and Profile.has_challenge("ONE_WEAPON") else MAX_WEAPONS
+
+
 func is_companion() -> bool:
 	return controller == "follow"
 
@@ -145,6 +150,9 @@ func add_xp(amount: float) -> void:
 
 
 func heal(amount: float) -> void:
+	# Challenge "no healing": nothing heals the played cat.
+	if (controller == "input" or controller == "bot") and Profile.has_challenge("NO_HEAL"):
+		return
 	hp = minf(hp + amount, max_hp)
 
 
@@ -228,6 +236,13 @@ func _recalc_stats() -> void:
 			var lv: Dictionary = levels[i]
 			for key: String in lv:
 				stats[key] += lv[key]
+	if controller == "input" or controller == "bot":
+		# Challenges: a fragile cat that hits harder, a cursed night.
+		if Profile.has_challenge("GLASS"):
+			stats["max_hp"] *= 0.5
+			stats["might"] *= 1.5
+		if Profile.has_challenge("CURSED"):
+			stats["curse"] += 0.5
 	var old_max := max_hp
 	max_hp = stats["max_hp"]
 	hp += maxf(max_hp - old_max, 0.0)

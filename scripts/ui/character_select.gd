@@ -21,13 +21,15 @@ var _stage_index := 0
 var _shop: ShopPanel
 var _charms: CharmPanel
 var _journal: JournalPanel
+var _challenges: ChallengePanel
+var _challenge_label: Label
 var _worn: Label
 var _gold: Label
 
 
 func _ready() -> void:
 	for arg: String in OS.get_cmdline_user_args():
-		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--goals", "--journal", "--ui-test"]:
+		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--goals", "--journal", "--challenges", "--ui-test"]:
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
 			return
 	for id: String in GameData.cats:
@@ -101,6 +103,8 @@ func _build() -> void:
 	box.add_child(_gold)
 	_worn = _label(18, Color("c77dff"))
 	box.add_child(_worn)
+	_challenge_label = _label(18, Color("e04646"))
+	box.add_child(_challenge_label)
 
 	var hint := _label(18, Color("8f7ea3"))
 	hint.text = "SELECT_HINT"
@@ -115,6 +119,9 @@ func _build() -> void:
 	_journal = JournalPanel.new()
 	add_child(_journal)
 	_journal.closed.connect(_refresh)
+	_challenges = ChallengePanel.new()
+	add_child(_challenges)
+	_challenges.closed.connect(_refresh)
 
 
 func _refresh() -> void:
@@ -136,6 +143,8 @@ func _refresh() -> void:
 		_desc.text = tr("CAT_%s_HINT" % id)
 	var worn: Array = Profile.equipped_charms.map(func(c: String) -> String: return tr("CHARM_%s_NAME" % c))
 	_worn.text = tr("SELECT_CHARMS") % ("—" if worn.is_empty() else ", ".join(worn))
+	var ch: Array = Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))
+	_challenge_label.text = tr("SELECT_CHALLENGES") % ["—" if ch.is_empty() else ", ".join(ch), Profile.challenge_gold()]
 	_gold.text = tr("SELECT_GOLD") % Profile.gold
 	if Profile.streak > 0 or Profile.best_streak > 0:
 		_gold.text += "   ·   " + tr("SELECT_STREAK") % [Profile.streak, Profile.best_streak, roundi((Profile.streak_multiplier() - 1.0) * 100.0)]
@@ -148,7 +157,11 @@ func _refresh() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _shop.visible or _charms.visible or _journal.visible:
+	if _shop.visible or _charms.visible or _journal.visible or _challenges.visible:
+		return
+	if event.is_action_pressed("challenges"):
+		Audio.play("click", -6.0, 0.0)
+		_challenges.open()
 		return
 	for entry: Array in [["questbook", "quests"], ["goals", "goals"], ["journal", "bestiary"]]:
 		if event.is_action_pressed(entry[0]):

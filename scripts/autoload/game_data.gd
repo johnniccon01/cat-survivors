@@ -19,6 +19,8 @@ var questbook: Dictionary = {}
 var branches: Dictionary = {}
 ## Champion affixes: id -> {hp, speed, damage, taken, scale, split, regen, bomb, color}
 var champions: Dictionary = {}
+## Challenges: id -> {gold}
+var challenges: Dictionary = {}
 ## Weighted drop table for broken props: [{kind, weight, value}]
 var loot: Array = []
 
@@ -35,6 +37,7 @@ func _ready() -> void:
 	questbook = _load_json("res://data/questbook.json")
 	branches = _load_json("res://data/branches.json")
 	champions = _load_json("res://data/champions.json")
+	challenges = _load_json("res://data/challenges.json")
 	var props_file := _load_json("res://data/props.json")
 	props = props_file.get("props", {})
 	loot = props_file.get("loot", [])
@@ -73,6 +76,7 @@ func _setup_input() -> void:
 	_add_keys("questbook", [KEY_Q])
 	_add_keys("journal", [KEY_J])
 	_add_keys("endless", [KEY_E])
+	_add_keys("challenges", [KEY_X])
 	_add_keys("toggle_numbers", [KEY_N])
 	_add_keys("toggle_shake", [KEY_K])
 	_add_axis("move_left", JOY_AXIS_LEFT_X, -1.0)

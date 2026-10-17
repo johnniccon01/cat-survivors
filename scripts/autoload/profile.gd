@@ -29,6 +29,8 @@ var spent := 0
 var powerups: Dictionary = {}
 ## Quest book: line id -> steps done
 var questbook: Dictionary = {}
+## Challenges switched on for the next nights.
+var challenges: Array[String] = []
 
 
 func _ready() -> void:
@@ -59,6 +61,9 @@ func _ready() -> void:
 		spent = cfg.get_value("shop", "spent", 0)
 		powerups = cfg.get_value("shop", "powerups", {})
 		questbook = cfg.get_value("questbook", "steps", {})
+		for id: String in cfg.get_value("challenge", "active", []):
+			if GameData.challenges.has(id):
+				challenges.append(id)
 	for id: String in GameData.cats:
 		if GameData.cats[id].get("unlocked", false) and id not in unlocked:
 			unlocked.append(id)
@@ -66,8 +71,13 @@ func _ready() -> void:
 		selected_cat = "MICA"
 	if not is_stage_unlocked(selected_stage):
 		selected_stage = "LIVING_ROOM"
-	# Debug: `-- --cat=LUNA` / `-- --stage=BASEMENT` skip unlocking.
+	# Debug: `-- --cat=LUNA` / `-- --stage=BASEMENT` skip unlocking,
+	# `-- --challenges=HYPER,GLASS` sets challenges for this run.
 	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--challenges="):
+			challenges.clear()
+			for id in arg.trim_prefix("--challenges=").split(",", false):
+				challenges.append(id)
 		if arg.begins_with("--cat="):
 			selected_cat = arg.trim_prefix("--cat=")
 		elif arg.begins_with("--stage="):
@@ -130,6 +140,26 @@ func get_stat(key: String) -> int:
 		"cats_unlocked":
 			return unlocked.size()
 	return int(stats.get(key, 0))
+
+
+func has_challenge(id: String) -> bool:
+	return id in challenges
+
+
+func toggle_challenge(id: String) -> void:
+	if id in challenges:
+		challenges.erase(id)
+	else:
+		challenges.append(id)
+	save()
+
+
+## Gold multiplier of all challenges switched on.
+func challenge_gold() -> float:
+	var mult := 1.0
+	for id in challenges:
+		mult *= float(GameData.challenges.get(id, {}).get("gold", 1.0))
+	return mult
 
 
 func has_charm(id: String) -> bool:
@@ -276,4 +306,5 @@ func save() -> void:
 	cfg.set_value("shop", "spent", spent)
 	cfg.set_value("shop", "powerups", powerups)
 	cfg.set_value("questbook", "steps", questbook)
+	cfg.set_value("challenge", "active", challenges)
 	cfg.save(PATH)

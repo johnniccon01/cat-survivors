@@ -35,7 +35,7 @@ static func roll(player: Player, count: int = 3, owned_only: bool = false) -> Ar
 		if owned != null:
 			if owned.level < owned.max_level():
 				pool.append({"kind": "weapon", "id": id, "level": owned.level + 1, "weight": data.get("rarity", 100)})
-		elif not owned_only and player.weapon_count() < Player.MAX_WEAPONS and not _has_evolution_of(player, id):
+		elif not owned_only and player.weapon_count() < player.max_weapons() and not _has_evolution_of(player, id):
 			pool.append({"kind": "weapon", "id": id, "level": 1, "weight": data.get("rarity", 100)})
 	_add_branch_offers(player, pool)
 	for id: String in GameData.passives:

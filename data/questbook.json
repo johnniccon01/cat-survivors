@@ -5,6 +5,43 @@
     "story"
   ],
   "lines": {
+    "STORY": {
+      "chapter": "story",
+      "tiers": [
+        {
+          "type": "flag",
+          "flag": "collar",
+          "target": 1,
+          "reward": {
+            "gold": 150
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "old_map",
+          "target": 1,
+          "reward": {
+            "gold": 250
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "roof_key",
+          "target": 1,
+          "reward": {
+            "gold": 350
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "bruno_note",
+          "target": 1,
+          "reward": {
+            "charm": "STAR_COLLAR"
+          }
+        }
+      ]
+    },
     "NIGHT_WATCH": {
       "chapter": "main",
       "tiers": [

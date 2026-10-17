@@ -508,7 +508,8 @@
       1.0
     ],
     "music": "music_basement",
-    "music_night": "music_basement_night"
+    "music_night": "music_basement_night",
+    "story": "OLD_MAP"
   },
   "GARDEN": {
     "theme": "garden",
@@ -749,7 +750,8 @@
         "hp_mult": 6.0
       }
     ],
-    "music_night": "music_garden_night"
+    "music_night": "music_garden_night",
+    "story": "ROOF_KEY"
   },
   "ROOFTOP": {
     "theme": "rooftop",
@@ -993,6 +995,7 @@
       "after_minute": 15,
       "chance": 0.0005
     },
-    "music_night": "music_rooftop_night"
+    "music_night": "music_rooftop_night",
+    "story": "BRUNO_NOTE"
   }
 }

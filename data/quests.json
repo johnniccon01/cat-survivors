@@ -97,7 +97,29 @@
     "COLLAR": {
       "flag": "collar",
       "ambush": "RAT",
-      "ambush_count": 14
+      "ambush_count": 14,
+      "text": "COLLAR"
+    },
+    "OLD_MAP": {
+      "flag": "old_map",
+      "ambush": "SPIDER",
+      "ambush_count": 16,
+      "text": "OLD_MAP",
+      "poi": "trunk"
+    },
+    "ROOF_KEY": {
+      "flag": "roof_key",
+      "ambush": "MOLE",
+      "ambush_count": 18,
+      "text": "ROOF_KEY",
+      "poi": "tree"
+    },
+    "BRUNO_NOTE": {
+      "flag": "bruno_note",
+      "ambush": "PIGEON",
+      "ambush_count": 20,
+      "text": "BRUNO_NOTE",
+      "poi": "antenna"
     }
   }
 }

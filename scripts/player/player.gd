@@ -401,7 +401,7 @@ func _bot_input(delta: float) -> Vector2:
 	var quest: Quest = get_parent().quests.active if get_parent().get("quests") else null
 	if quest != null:
 		var to_quest := quest.target_position() - position
-		if to_quest.length() > 20.0:
+		if to_quest.length() > 8.0:
 			return (to_quest.normalized() + wander * 0.15).normalized()
 		return Vector2.ZERO
 	var pickups: Pickups = get_parent().get_node("Pickups")

@@ -41,7 +41,7 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 - [ ] Začiatok neskorších máp: mačka bez vylepšení zomiera pri prvom bossovi (3. min) v Pivnici a Záhrade – zvážiť ľahší štart
 - [ ] Ceny vylepšení v obchode a sila charmov – nie je niečo príliš silné alebo zbytočné?
 - [ ] Výkon: skontrolovať FPS v skutočnej hre pri 300+ nepriateľoch, prípadne optimalizovať
-- [ ] Príbehové questy aj pre Pivnicu, Záhradu a Strechu (teraz má príbeh len Byt – obojok)
+- [x] Príbehové questy pre každú mapu: obojok (Byt) → stará mapa (Pivnica) → kľúč pod stromom (Záhrada) → Brunov odkaz (Strecha); quest Cesta nahor
 - [x] Hudba: dlhšie skladby máp (2–2,7 min), nočná skladba od polovice noci, vlastná hudba pre každého finálneho bossa a diabla
 - [ ] Hudba: tvoja spätná väzba na skladby (ja ich nepočujem)
 - [ ] Prejsť všetky texty v slovenčine (gramatika, rod mačiek)

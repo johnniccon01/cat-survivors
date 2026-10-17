@@ -720,3 +720,23 @@ TIP_QUEST,A quest! Follow the golden arrow at the edge of the screen.,Quest! Cho
 TIP_FLAP,A cat flap is open: stand in it to escape and keep your gold and charms.,Otvorili sa dvierka: postav sa do nich a utečieš so zlatom aj príveskami.
 TIP_PAUSE,Esc pauses the game. Survive until morning to win the night!,Esc pozastaví hru. Prežij do rána a vyhráš noc!
 TIP_CHAMPION,"Glowing enemies are champions: tougher, but worth much more.","Žiariaci nepriatelia sú šampióni: odolnejší, ale oplatí sa ich poraziť."
+QUEST_OLD_MAP_TITLE,The old trunk,Stará truhla
+QUEST_OLD_MAP_FIND,Look inside the old trunk,Pozri sa do starej truhly
+QUEST_OLD_MAP_AMBUSH,Spiders! Defeat them: %d left,Pavúky! Poraz ich: zostáva %d
+QUEST_OLD_MAP_PICK,Take the rolled-up paper,Zober zrolovaný papier
+QUEST_OLD_MAP_FOUND,An old map of the garden: an X under the big tree...,Stará mapa záhrady: krížik pod veľkým stromom...
+QUEST_ROOF_KEY_TITLE,The X under the tree,Krížik pod stromom
+QUEST_ROOF_KEY_FIND,Dig where the map's X is,"Vyhrab to, kde je na mape krížik"
+QUEST_ROOF_KEY_AMBUSH,Moles everywhere! Defeat them: %d left,Všade krtkovia! Poraz ich: zostáva %d
+QUEST_ROOF_KEY_PICK,Pick up what's in the hole,"Zober, čo je v jame"
+QUEST_ROOF_KEY_FOUND,A rusty key – it opens the hatch to the roof!,Hrdzavý kľúč – otvára poklop na strechu!
+QUEST_BRUNO_NOTE_TITLE,A note on the antenna,Odkaz na anténe
+QUEST_BRUNO_NOTE_FIND,Something is pinned to the antenna,Na anténe niečo visí
+QUEST_BRUNO_NOTE_AMBUSH,Pigeons guard it! Defeat them: %d left,Holuby ho strážia! Poraz ich: zostáva %d
+QUEST_BRUNO_NOTE_PICK,Take the note,Zober odkaz
+QUEST_BRUNO_NOTE_FOUND,"""Whoever made it this far: face me at dawn. – Bruno""",„Kto sa dostal až sem: postav sa mi na úsvite. – Bruno“
+QB_STORY_NAME,The Way Up,Cesta nahor
+QB_STORY_1,Find out what happened by the front door (Apartment).,"Zisti, čo sa stalo pri dverách (Byt)."
+QB_STORY_2,Search the old trunk in the Basement.,Prehľadaj starú truhlu v Pivnici.
+QB_STORY_3,Dig up what the map points to (Garden).,"Vyhrab, kam ukazuje mapa (Záhrada)."
+QB_STORY_4,Read the note on the Rooftop antenna.,Prečítaj odkaz na anténe na Streche.

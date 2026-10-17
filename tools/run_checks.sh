@@ -93,5 +93,11 @@ export GODOT
 
 printf '%s\n' "${scenarios[@]}" | xargs -P "$JOBS" -I{} bash -c 'run_one "$@"' _ {} | tee /tmp/catsurvivors_checks.txt
 fail=$(grep -c '^FAIL' /tmp/catsurvivors_checks.txt)
+# Translations: both languages present, placeholders matching, keys known.
+if ! python -I tools/check_strings.py | grep -v " 0 problems"; then :; fi
+if ! python -I tools/check_strings.py > /dev/null; then
+  echo "FAIL strings: see python tools/check_strings.py"
+  fail=$((fail + 1))
+fi
 echo "failing scenarios: $fail"
 exit "$fail"

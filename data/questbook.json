@@ -46,7 +46,7 @@
           "flag": "ship_ticket",
           "target": 1,
           "reward": {
-            "gold": 450
+            "artifact": "THORN_COLLAR"
           }
         },
         {
@@ -54,7 +54,7 @@
           "flag": "bottle_message",
           "target": 1,
           "reward": {
-            "gold": 600
+            "artifact": "ANGEL_FEATHER"
           }
         }
       ]
@@ -474,7 +474,7 @@
           ],
           "target": 5,
           "reward": {
-            "gold": 800
+            "artifact": "CATNIP_POUCH"
           }
         }
       ]
@@ -517,7 +517,7 @@
           ],
           "target": 5,
           "reward": {
-            "gold": 900
+            "artifact": "MAGNET_CORE"
           }
         }
       ]
@@ -560,7 +560,7 @@
           ],
           "target": 5,
           "reward": {
-            "gold": 1000
+            "artifact": "LUCKY_COIN"
           }
         }
       ]
@@ -603,7 +603,7 @@
           ],
           "target": 5,
           "reward": {
-            "gold": 1200
+            "artifact": "GLASS_EYE"
           }
         }
       ]
@@ -646,7 +646,7 @@
           ],
           "target": 5,
           "reward": {
-            "gold": 1500
+            "artifact": "CLOCKWORK"
           }
         }
       ]
@@ -689,7 +689,7 @@
           ],
           "target": 5,
           "reward": {
-            "gold": 1800
+            "artifact": "HOURGLASS"
           }
         }
       ]
@@ -937,7 +937,7 @@
           ],
           "target": 5,
           "reward": {
-            "gold": 800
+            "artifact": "BOSS_TOOTH"
           }
         }
       ]
@@ -984,7 +984,7 @@
           ],
           "target": 5,
           "reward": {
-            "gold": 800
+            "artifact": "BLOOD_MOON"
           }
         }
       ]

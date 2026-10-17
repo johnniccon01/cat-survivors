@@ -77,6 +77,7 @@ Testovacie behy (`--bot`) nikdy neukladajú profil.
 - **Nekonečná noc** – po výhre klávesom E pokračuješ, nepriatelia silnejú každou minútou.
 - **Výzvy** – `data/challenges.json`, klávesom X pri výbere mačky: sťaženia, ktoré násobia zlato.
 - **Denník** – questy (`data/questbook.json`), ciele (`data/goals.json`) a bestiár v jednom okne.
+- **Artefakty** – `data/artifacts.json` + `scripts/ui/artifact_panel.gd`: trvalé predmety z knihy questov (odmena `"artifact"` v `data/questbook.json`), do noci sa berú 2 (kláves V). Efekty sú štatistiky mačky (`stats`), niektoré s vlastnou logikou v `main.gd` (presýpacie hodiny, magnetické jadro, tŕňový obojok). Na testovanie: `-- --artifacts=HOURGLASS,THORN_COLLAR`.
 - **Príbeh** – na každej mape príbehový quest (`story` v `data/stages.json`, texty `QUEST_<TEXT>_*`) a stránka denníka, ktorá odomyká anjel mačku.
 - **Tipy pre nových hráčov** – počas úplne prvej noci.
 - **Ovládanie** – klávesnica (pohyb sa dá premapovať v Nastaveniach) aj gamepad (páčka/šípky, A potvrdí, B späť, Start pauza).

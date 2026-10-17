@@ -1,0 +1,67 @@
+{
+  "GLASS_EYE": {
+    "stats": {
+      "crit_chance": 0.08,
+      "crit_mult": 0.5
+    },
+    "color": "#8fd3ff"
+  },
+  "HOURGLASS": {
+    "stats": {
+      "freeze_every": 45.0
+    },
+    "color": "#e8c070"
+  },
+  "MAGNET_CORE": {
+    "stats": {
+      "pulse_magnet": 40.0
+    },
+    "color": "#d94848"
+  },
+  "LUCKY_COIN": {
+    "stats": {
+      "luck": 0.15,
+      "greed": 0.25
+    },
+    "color": "#f2c14e"
+  },
+  "CATNIP_POUCH": {
+    "stats": {
+      "level_heal": 0.08
+    },
+    "color": "#6cc46c"
+  },
+  "BOSS_TOOTH": {
+    "stats": {
+      "boss_damage": 0.35
+    },
+    "color": "#f4f1ea"
+  },
+  "ANGEL_FEATHER": {
+    "stats": {
+      "low_hp_guard": 0.35
+    },
+    "color": "#fff3c8"
+  },
+  "THORN_COLLAR": {
+    "stats": {
+      "thorns": 1.0
+    },
+    "color": "#5e9e4a"
+  },
+  "BLOOD_MOON": {
+    "stats": {
+      "curse": 0.3,
+      "growth": 0.25,
+      "greed": 0.25
+    },
+    "color": "#c92a2a"
+  },
+  "CLOCKWORK": {
+    "stats": {
+      "cooldown": -0.15,
+      "speed": -0.08
+    },
+    "color": "#c9a24a"
+  }
+}

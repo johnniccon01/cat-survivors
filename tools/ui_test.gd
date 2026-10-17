@@ -103,7 +103,7 @@ func _character_select() -> void:
 	await _press(KEY_UP)
 	_expect(sel.get("_stage_index") == stage, "Down/Up move the stage and back")
 	# Panels opened from here: keys go to the panel, Esc closes only the panel.
-	for entry: Array in [[KEY_C, "_charms"], [KEY_U, "_shop"], [KEY_G, "_journal"], [KEY_Q, "_journal"], [KEY_J, "_journal"], [KEY_X, "_challenges"]]:
+	for entry: Array in [[KEY_C, "_charms"], [KEY_U, "_shop"], [KEY_G, "_journal"], [KEY_Q, "_journal"], [KEY_J, "_journal"], [KEY_X, "_challenges"], [KEY_V, "_artifacts"]]:
 		var panel: Control = sel.get(entry[1])
 		await _press(entry[0])
 		_expect(panel.visible, "select: %s opens" % entry[1])

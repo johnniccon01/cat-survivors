@@ -29,6 +29,11 @@ const BASE_STATS := {
 	"proj_speed": 1.0, "armor": 0.0,
 	"growth": 1.0, "greed": 1.0, "curse": 1.0, "revival": 0.0, "reroll": 0.0,
 	"crit_chance": 0.05, "crit_mult": 2.0, "luck": 1.0,
+	# Artifacts: damage to bosses, thorns when hurt, healing per level, less
+	# damage below 30 % health, and timers (seconds) for the hourglass freeze
+	# and the magnet pulse.
+	"boss_damage": 1.0, "thorns": 0.0, "level_heal": 0.0, "low_hp_guard": 0.0,
+	"freeze_every": 0.0, "pulse_magnet": 0.0,
 }
 
 const OUTLINE := Color("2b1d14")
@@ -145,6 +150,8 @@ func add_xp(amount: float) -> void:
 	while xp >= xp_to_next():
 		xp -= xp_to_next()
 		level += 1
+		if stats["level_heal"] > 0.0:
+			heal(max_hp * stats["level_heal"])
 		leveled_up.emit()
 	xp_changed.emit()
 
@@ -230,6 +237,9 @@ func _recalc_stats() -> void:
 		var worn := Profile.charm_bonus()
 		for key: String in worn:
 			stats[key] += worn[key]
+		var artifacts := Profile.artifact_bonus()
+		for key: String in artifacts:
+			stats[key] += artifacts[key]
 	for id: String in passives:
 		var levels: Array = GameData.passives[id]["levels"]
 		for i in passives[id]:
@@ -283,6 +293,8 @@ func take_damage(amount: float, fatal: bool = false) -> void:
 		return
 	if fatal:
 		amount = hp + stats["armor"] + 1.0
+	elif stats["low_hp_guard"] > 0.0 and hp < max_hp * 0.3:
+		amount *= 1.0 - stats["low_hp_guard"]
 	var dealt := maxf(amount - stats["armor"], 1.0)
 	hp -= dealt
 	damage_taken += dealt

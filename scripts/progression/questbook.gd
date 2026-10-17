@@ -70,6 +70,13 @@ static func is_hidden(id: String) -> bool:
 ## possible). Returns [line id, step number (1-based)] pairs.
 static func check() -> Array[Array]:
 	var finished: Array[Array] = []
+	# Steps finished before they paid out artifacts still hand them out.
+	for id: String in lines():
+		var tiers: Array = lines()[id]["tiers"]
+		for i in mini(steps_done(id), tiers.size()):
+			var artifact: String = tiers[i]["reward"].get("artifact", "")
+			if artifact != "" and not Profile.has_artifact(artifact):
+				Profile.give_artifact(artifact)
 	for id: String in lines():
 		while not is_complete(id):
 			var step := current(id)
@@ -94,9 +101,13 @@ static func _pay(reward: Dictionary) -> void:
 			Profile.charms.append(charm)
 	if reward.has("cat"):
 		Profile.unlock(reward["cat"])
+	if reward.has("artifact"):
+		Profile.give_artifact(reward["artifact"])
 
 
 static func reward_text(reward: Dictionary) -> String:
+	if reward.has("artifact"):
+		return _t("QB_REWARD_ARTIFACT") % _t("ARTIFACT_%s_NAME" % reward["artifact"])
 	if reward.has("cat"):
 		return _t("QB_REWARD_CAT") % _t("CAT_%s_NAME" % reward["cat"])
 	if reward.has("charm"):
@@ -110,6 +121,16 @@ static func completed_text(entry: Array) -> String:
 	var n: int = entry[1]
 	var reward: Dictionary = lines()[id]["tiers"][n - 1]["reward"]
 	return _t("QB_COMPLETED") % [line_name(id), n, reward_text(reward)]
+
+
+## "Quest book: The Rooftop, step 4" – where an artifact is earned.
+static func artifact_source(artifact: String) -> String:
+	for id: String in lines():
+		var tiers: Array = lines()[id]["tiers"]
+		for i in tiers.size():
+			if tiers[i]["reward"].get("artifact", "") == artifact:
+				return _t("ARTIFACT_SOURCE") % [line_name(id), i + 1, step_text(id, i + 1)]
+	return ""
 
 
 static func _t(key: String) -> String:

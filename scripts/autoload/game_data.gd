@@ -12,6 +12,7 @@ var cats: Dictionary = {}
 var quests: Dictionary = {}
 var powerups: Dictionary = {}
 var charms: Dictionary = {}
+var artifacts: Dictionary = {}
 var traps: Dictionary = {}
 var goals: Dictionary = {}
 var questbook: Dictionary = {}
@@ -32,6 +33,7 @@ func _ready() -> void:
 	quests = _load_json("res://data/quests.json")
 	powerups = _load_json("res://data/powerups.json")
 	charms = _load_json("res://data/charms.json")
+	artifacts = _load_json("res://data/artifacts.json")
 	traps = _load_json("res://data/traps.json")
 	goals = _load_json("res://data/goals.json")
 	questbook = _load_json("res://data/questbook.json")
@@ -78,6 +80,7 @@ func _setup_input() -> void:
 	_add_keys("shop", [KEY_U])
 	_add_keys("reroll", [KEY_R])
 	_add_keys("charms", [KEY_C])
+	_add_keys("artifacts", [KEY_V])
 	_add_keys("goals", [KEY_G])
 	_add_keys("questbook", [KEY_Q])
 	_add_keys("journal", [KEY_J])

@@ -20,6 +20,8 @@ var _stage_ids: Array[String] = []
 var _stage_index := 0
 var _shop: ShopPanel
 var _charms: CharmPanel
+var _artifacts: ArtifactPanel
+var _artifact_label: Label
 var _journal: JournalPanel
 var _challenges: ChallengePanel
 var _challenge_label: Label
@@ -29,7 +31,7 @@ var _gold: Label
 
 func _ready() -> void:
 	for arg: String in GameData.args():
-		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--goals", "--journal", "--challenges", "--ui-test"]:
+		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--artifacts", "--goals", "--journal", "--challenges", "--ui-test"]:
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
 			return
 	for id: String in GameData.cats:
@@ -47,6 +49,8 @@ func _ready() -> void:
 		_shop.open()
 	if "--charms" in GameData.args():
 		_charms.open()
+	if "--artifacts" in GameData.args():
+		_artifacts.open()
 	if "--goals" in GameData.args():
 		_journal.open("goals")
 	if "--journal" in GameData.args():
@@ -110,6 +114,8 @@ func _build() -> void:
 	box.add_child(_gold)
 	_worn = _label(18, Color("c77dff"))
 	box.add_child(_worn)
+	_artifact_label = _label(18, Color("8fd3ff"))
+	box.add_child(_artifact_label)
 	_challenge_label = _label(18, Color("e04646"))
 	box.add_child(_challenge_label)
 
@@ -123,6 +129,9 @@ func _build() -> void:
 	_charms = CharmPanel.new()
 	add_child(_charms)
 	_charms.closed.connect(_refresh)
+	_artifacts = ArtifactPanel.new()
+	add_child(_artifacts)
+	_artifacts.closed.connect(_refresh)
 	_journal = JournalPanel.new()
 	add_child(_journal)
 	_journal.closed.connect(_refresh)
@@ -150,6 +159,8 @@ func _refresh() -> void:
 		_desc.text = tr("CAT_%s_HINT" % id)
 	var worn: Array = Profile.equipped_charms.map(func(c: String) -> String: return tr("CHARM_%s_NAME" % c))
 	_worn.text = tr("SELECT_CHARMS") % ("—" if worn.is_empty() else ", ".join(worn))
+	var arts: Array = Profile.equipped_artifacts.map(func(a: String) -> String: return tr("ARTIFACT_%s_NAME" % a))
+	_artifact_label.text = tr("SELECT_ARTIFACTS") % ("—" if arts.is_empty() else ", ".join(arts))
 	var ch: Array = Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))
 	_challenge_label.text = tr("SELECT_CHALLENGES") % ["—" if ch.is_empty() else ", ".join(ch), Profile.challenge_gold()]
 	_gold.text = tr("SELECT_GOLD") % Profile.gold
@@ -164,7 +175,7 @@ func _refresh() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _shop.visible or _charms.visible or _journal.visible or _challenges.visible:
+	if _shop.visible or _charms.visible or _journal.visible or _challenges.visible or _artifacts.visible:
 		return
 	if event.is_action_pressed("challenges"):
 		Audio.play("click", -6.0, 0.0)
@@ -181,6 +192,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("charms"):
 		Audio.play("click", -6.0, 0.0)
 		_charms.open()
+	elif event.is_action_pressed("artifacts"):
+		Audio.play("click", -6.0, 0.0)
+		_artifacts.open()
 	elif event.is_action_pressed("move_left") or event.is_action_pressed("ui_left"):
 		_index = (_index - 1 + _ids.size()) % _ids.size()
 		Audio.play("click", -6.0, 0.0)

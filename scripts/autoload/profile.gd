@@ -33,6 +33,10 @@ var powerups: Dictionary = {}
 var questbook: Dictionary = {}
 ## Challenges switched on for the next nights.
 var challenges: Array[String] = []
+## Artifacts earned from the quest book, and the ones taken into the night.
+const ARTIFACT_SLOTS := 2
+var artifacts: Array[String] = []
+var equipped_artifacts: Array[String] = []
 
 
 func _ready() -> void:
@@ -74,6 +78,12 @@ func _ready() -> void:
 		for id: String in cfg.get_value("challenge", "active", []):
 			if GameData.challenges.has(id):
 				challenges.append(id)
+		for id: String in cfg.get_value("artifacts", "owned", []):
+			if GameData.artifacts.has(id):
+				artifacts.append(id)
+		for id: String in cfg.get_value("artifacts", "equipped", []):
+			if id in artifacts:
+				equipped_artifacts.append(id)
 	for id: String in GameData.cats:
 		if GameData.cats[id].get("unlocked", false) and id not in unlocked:
 			unlocked.append(id)
@@ -88,6 +98,11 @@ func _ready() -> void:
 			challenges.clear()
 			for id in arg.trim_prefix("--challenges=").split(",", false):
 				challenges.append(id)
+		# `-- --artifacts=HOURGLASS,THORN_COLLAR` owns and wears them.
+		if arg.begins_with("--artifacts="):
+			for id in arg.trim_prefix("--artifacts=").split(",", false):
+				artifacts.append(id)
+				equipped_artifacts.append(id)
 		if arg.begins_with("--cat="):
 			selected_cat = arg.trim_prefix("--cat=")
 		elif arg.begins_with("--stage="):
@@ -204,6 +219,44 @@ func toggle_charm(id: String) -> bool:
 	return true
 
 
+func has_artifact(id: String) -> bool:
+	return id in artifacts
+
+
+## Returns true if the artifact is new.
+func give_artifact(id: String) -> bool:
+	if id in artifacts:
+		return false
+	artifacts.append(id)
+	save()
+	return true
+
+
+## Takes an artifact along or leaves it home. Returns false when both slots
+## are full.
+func toggle_artifact(id: String) -> bool:
+	if not has_artifact(id):
+		return false
+	if id in equipped_artifacts:
+		equipped_artifacts.erase(id)
+	elif equipped_artifacts.size() >= ARTIFACT_SLOTS:
+		return false
+	else:
+		equipped_artifacts.append(id)
+	save()
+	return true
+
+
+## Sum of the equipped artifacts per stat.
+func artifact_bonus() -> Dictionary:
+	var total := {}
+	for id in equipped_artifacts:
+		var bonus: Dictionary = GameData.artifacts.get(id, {}).get("stats", {})
+		for key: String in bonus:
+			total[key] = float(total.get(key, 0.0)) + float(bonus[key])
+	return total
+
+
 ## Sum of the worn charms per stat.
 func charm_bonus() -> Dictionary:
 	var bonus := {}
@@ -317,6 +370,8 @@ func save() -> void:
 	cfg.set_value("shop", "powerups", powerups)
 	cfg.set_value("questbook", "steps", questbook)
 	cfg.set_value("challenge", "active", challenges)
+	cfg.set_value("artifacts", "owned", artifacts)
+	cfg.set_value("artifacts", "equipped", equipped_artifacts)
 	# Keep the last good save before writing the new one.
 	if FileAccess.file_exists(PATH):
 		var previous := ConfigFile.new()

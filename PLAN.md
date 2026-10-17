@@ -22,7 +22,7 @@ Hra je hrateľná od menu po koniec noci na 6 mapách:
   udalosti (kruhy, roje), elity, bossovia, finálny boss, mačacie dvierka na
   útek, série výhier.
 - **Questy:** záchrany a súboje mačiek, vedľajšie úlohy, príbehový quest v byte.
-- **Meta:** zlato, obchod s vylepšeniami, charmy, dlhodobé ciele.
+- **Meta:** zlato, obchod s vylepšeniami, charmy, artefakty, dlhodobé ciele, kniha questov.
 - **Tajomstvo:** anjel ťa na streche po 15. minúte s malou šancou zachráni;
   po dvoch záchranách príde diabol, ktorý zabije isto.
 - **Technika:** menu, nastavenia, pauza, SK/EN, pixel-art sprity, 36
@@ -64,8 +64,8 @@ Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 - [x] Mapa 5 – Supermarket (po Streche): uličky, zelenina, mrazáky; plechovky, banány, vozíky, mrazené kurčatá, rozprašovače; bossovia strážny robot, vysokozdvižný vozík, banánový trs, pokladňa (stredný), finálny pes Rex; pasce mrazák a rozbitá žiarivka; mačka Tučko (záchrana z vozíka); príbeh lístok v koši; hudba deň/noc/Rex
 - [x] Mapa 6 – Prístav (po Supermarkete): pláž, nábrežie, mólo; kraby, medúzy, úhory, pirátske potkany; bossovia obrovský krab, chobotnica, stará kotva (stredný), finálny Kraken; pasce háčik a prílivová mláka; mačka Kapitán (súboj, kapitánska čiapka); príbeh odkaz vo fľaši; hudba deň/noc/Kraken
 - [x] Výber mačky v dvoch riadkoch (12 mačiek), 4 nové ciele, 2 nové kroky questu Cesta nahor, 14 nových testov (`ONLY="harbor|final_kraken" bash tools/run_checks.sh` spustí len vybrané)
-- [ ] Questy pre každú mačku (vyhraj s ňou, level 40, 3 výhry)
-- [ ] Artefakty: trvalé predmety z questov, 2 sloty pred hrou
+- [x] Questy pre každú mačku (kapitola Mačky v knihe questov): vyhraj s ňou, level 40, 25 bossov, 5 výhier
+- [x] Artefakty (V pri výbere mačky): 10 trvalých predmetov z knihy questov, 2 sa berú do noci – sklenené oko, presýpacie hodiny (zmrazí čas), magnetické jadro, šťastná minca, vrecúško šantu (liečenie pri leveli), zub bossa, anjelské pierko, tŕňový obojok, krvavý mesiac (riziko za odmenu), hodinový strojček; už splnené kroky ich vydajú dodatočne
 
 ## Fáza 3 – Grafika a zvuk
 

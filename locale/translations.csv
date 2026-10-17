@@ -127,7 +127,7 @@ QUEST_FRIDGE_FIND,Find the fridge,Nájdi chladničku,Najdi lednici
 QUEST_FRIDGE_OPEN,Stay by the fridge to open it,Zostaň pri chladničke a otvor ju,Zůstaň u lednice a otevři ji
 QUEST_FRIDGE_FIGHT,Defeat the leftovers: %d left,Poraz zvyšky: zostáva %d,Poraz zbytky: zbývá %d
 SELECT_TITLE,Choose your cat,Vyber si mačku,Vyber si kočku
-SELECT_HINT,← → cat · ↑ ↓ map · Enter start · U upgrades · C charms · X challenges · Q / G / J journal · Esc menu,← → mačka · ↑ ↓ mapa · Enter štart · U vylepšenia · C prívesky · X výzvy · Q / G / J denník · Esc menu,← → kočka · ↑ ↓ mapa · Enter start · U vylepšení · C přívěsky · X výzvy · Q / G / J deník · Esc menu
+SELECT_HINT,← → cat · ↑ ↓ map · Enter start · U upgrades · C charms · V artifacts · X challenges · Q / G / J journal · Esc menu,← → mačka · ↑ ↓ mapa · Enter štart · U vylepšenia · C prívesky · V artefakty · X výzvy · Q / G / J denník · Esc menu,← → kočka · ↑ ↓ mapa · Enter start · U vylepšení · C přívěsky · V artefakty · X výzvy · Q / G / J deník · Esc menu
 SELECT_LOCKED,???,???,???
 GAME_OVER_MENU,Esc – change cat,Esc – zmeniť mačku,Esc – změnit kočku
 QUEST_RESCUE_ESCORT,Walk %s to the safe cat bed,Odprevaď: %s do bezpečného pelechu,Doprovoď: %s do bezpečného pelechu
@@ -831,3 +831,30 @@ QB_CATLINE_1,Win a night with this cat.,Vyhrať noc s touto mačkou.,Vyhrát noc
 QB_CATLINE_2,Reach level 40 with this cat.,Dosiahnuť level 40 s touto mačkou.,Dosáhnout levelu 40 s touto kočkou.
 QB_CATLINE_3,Defeat 25 bosses with this cat.,Poraziť 25 bossov s touto mačkou.,Porazit 25 bossů s touto kočkou.
 QB_CATLINE_4,Win 5 nights with this cat.,Vyhrať 5 nocí s touto mačkou.,Vyhrát 5 nocí s touto kočkou.
+ARTIFACTS_TITLE,Artifacts,Artefakty,Artefakty
+ARTIFACTS_EQUIPPED,Taken along: %d / %d,Berieš so sebou: %d / %d,Bereš s sebou: %d / %d
+ARTIFACTS_HINT,Arrows choose · Enter take / leave · V / Esc back,Šípky výber · Enter vziať / nechať · V / Esc späť,Šipky výběr · Enter vzít / nechat · V / Esc zpět
+ARTIFACTS_UNKNOWN,Not earned yet. Artifacts are rewards from the quest book (Q).,Ešte ho nemáš. Artefakty sú odmeny z knihy questov (Q).,Ještě ho nemáš. Artefakty jsou odměny z knihy questů (Q).
+ARTIFACT_SOURCE,"Quest: %s, step %d – %s","Quest: %s, krok %d – %s","Quest: %s, krok %d – %s"
+SELECT_ARTIFACTS,Artifacts (V): %s,Artefakty (V): %s,Artefakty (V): %s
+QB_REWARD_ARTIFACT,Artifact: %s,Artefakt: %s,Artefakt: %s
+ARTIFACT_GLASS_EYE_NAME,Glass Eye,Sklenené oko,Skleněné oko
+ARTIFACT_GLASS_EYE_DESC,"Sees every weak spot: +8% critical chance, critical hits deal +50% more.","Vidí každé slabé miesto: +8 % šanca na kritický zásah, kritické zásahy o 50 % silnejšie.","Vidí každé slabé místo: +8 % šance na kritický zásah, kritické zásahy o 50 % silnější."
+ARTIFACT_HOURGLASS_NAME,Hourglass,Presýpacie hodiny,Přesýpací hodiny
+ARTIFACT_HOURGLASS_DESC,Every 45 s time stops: enemies around you freeze for 3 s (not bosses).,Každých 45 s sa zastaví čas: nepriatelia okolo teba zamrznú na 3 s (bossovia nie).,Každých 45 s se zastaví čas: nepřátelé kolem tebe zamrznou na 3 s (bossové ne).
+ARTIFACT_MAGNET_CORE_NAME,Magnet Core,Magnetické jadro,Magnetické jádro
+ARTIFACT_MAGNET_CORE_DESC,Every 40 s pulls all kibble on the map to you.,Každých 40 s pritiahne k tebe všetky granulky na mape.,Každých 40 s přitáhne k tobě všechny granulky na mapě.
+ARTIFACT_LUCKY_COIN_NAME,Lucky Coin,Šťastná minca,Šťastná mince
+ARTIFACT_LUCKY_COIN_DESC,+15% luck and +25% gold.,+15 % šťastie a +25 % zlata.,+15 % štěstí a +25 % zlata.
+ARTIFACT_CATNIP_POUCH_NAME,Catnip Pouch,Vrecúško šantu,Pytlík šanty
+ARTIFACT_CATNIP_POUCH_DESC,Every level up heals 8% of your health.,Každý nový level ťa vylieči o 8 % zdravia.,Každý nový level tě vyléčí o 8 % zdraví.
+ARTIFACT_BOSS_TOOTH_NAME,Boss Tooth,Zub bossa,Zub bosse
+ARTIFACT_BOSS_TOOTH_DESC,Your attacks deal +35% damage to bosses.,Tvoje útoky dávajú bossom o 35 % väčšie poškodenie.,Tvoje útoky dávají bossům o 35 % větší poškození.
+ARTIFACT_ANGEL_FEATHER_NAME,Angel Feather,Anjelské pierko,Andělské pírko
+ARTIFACT_ANGEL_FEATHER_DESC,Below 30% health you take 35% less damage.,Pod 30 % zdravia dostávaš o 35 % menšie poškodenie.,Pod 30 % zdraví dostáváš o 35 % menší poškození.
+ARTIFACT_THORN_COLLAR_NAME,Thorn Collar,Tŕňový obojok,Trnový obojek
+ARTIFACT_THORN_COLLAR_DESC,"Whenever you get hurt, thorns prick every enemy close to you.","Keď ťa niečo zraní, tŕne pichnú všetkých nepriateľov blízko teba.","Když tě něco zraní, trny píchnou všechny nepřátele blízko tebe."
+ARTIFACT_BLOOD_MOON_NAME,Blood Moon,Krvavý mesiac,Krvavý měsíc
+ARTIFACT_BLOOD_MOON_DESC,"Enemies are 30% tougher, but you get +25% experience and +25% gold.","Nepriatelia sú o 30 % odolnejší, ale dostaneš +25 % skúseností a +25 % zlata.","Nepřátelé jsou o 30 % odolnější, ale dostaneš +25 % zkušeností a +25 % zlata."
+ARTIFACT_CLOCKWORK_NAME,Clockwork,Hodinový strojček,Hodinový strojek
+ARTIFACT_CLOCKWORK_DESC,"Weapons attack 15% more often, but you move 8% slower.","Zbrane útočia o 15 % častejšie, ale pohybuješ sa o 8 % pomalšie.","Zbraně útočí o 15 % častěji, ale pohybuješ se o 8 % pomaleji."

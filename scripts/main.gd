@@ -118,6 +118,13 @@ var _final_started := 0.0
 ## The map's diary page: when it appears, the item on the floor, and whether
 ## the cat is carrying it.
 var _page_time := INF
+## Artifact timers (hourglass, magnet core) and their strength.
+const HOURGLASS_RADIUS := 360.0
+const HOURGLASS_SECONDS := 3.0
+const THORN_RADIUS := 80.0
+const THORN_DAMAGE := 20.0
+var _freeze_t := 0.0
+var _magnet_t := 0.0
 var _page_item: Pickup
 var _has_page := false
 ## The map track playing now (day or night).
@@ -149,6 +156,7 @@ func _ready() -> void:
 	enemies.numbers = DamageNumbers.new()
 	add_child(enemies.numbers)
 	player.hurt.connect(hud.flash_hurt)
+	player.hurt.connect(_on_player_hurt)
 	spawner.setup(player, enemies)
 	$Floor.theme = spawner.stage().get("theme", "apartment")
 	if spawner.stage_id == "BASEMENT" and not Profile.is_unlocked("LUNA"):
@@ -688,6 +696,38 @@ func _map_music() -> String:
 
 
 ## Distance, time on the brink and the diary page, for the quest book.
+## Artifacts with a timer: the hourglass freezes the enemies around the cat,
+## the magnet core pulls in every kibble.
+func _tick_artifacts(delta: float) -> void:
+	var every := player.stat("freeze_every")
+	if every > 0.0:
+		_freeze_t += delta
+		if _freeze_t >= every:
+			_freeze_t = 0.0
+			for e: Enemy in enemies.query_radius(player.position, HOURGLASS_RADIUS):
+				if not e.is_boss:
+					e.slow_down(0.0, HOURGLASS_SECONDS)
+					e.chill(HOURGLASS_SECONDS)
+			Audio.play("sparkle", -4.0, 0.0)
+	every = player.stat("pulse_magnet")
+	if every > 0.0:
+		_magnet_t += delta
+		if _magnet_t >= every:
+			_magnet_t = 0.0
+			pickups.pull_all_xp()
+
+
+## Thorn collar: getting hurt pricks every enemy close to the cat.
+func _on_player_hurt() -> void:
+	var thorns := player.stat("thorns")
+	if thorns <= 0.0:
+		return
+	var dmg := THORN_DAMAGE * thorns * player.stat("might") * (1.0 + player.level * 0.05)
+	for e: Enemy in enemies.query_radius(player.position, THORN_RADIUS):
+		e.hit(dmg, e.position - player.position, 1.0, false)
+	Audio.play("scratch", -8.0, 0.1)
+
+
 func _track_run(delta: float) -> void:
 	hud.update_page(_page_item.position if is_instance_valid(_page_item) else null)
 	if _run_over or get_tree().paused or player.is_dead:
@@ -696,6 +736,7 @@ func _track_run(delta: float) -> void:
 	if step < 40.0:
 		_distance += step
 	_last_pos = player.position
+	_tick_artifacts(delta)
 	if player.hp < player.max_hp * 0.1:
 		_brink_t += delta
 		if _brink_t >= 30.0 and not _was_on_brink:

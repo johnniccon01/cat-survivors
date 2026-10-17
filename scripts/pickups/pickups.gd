@@ -114,6 +114,15 @@ func _physics_process(delta: float) -> void:
 			items.remove_at(i)
 
 
+## Pulls every kibble on the map towards the cat (magnet pickup, magnet core).
+func pull_all_xp() -> void:
+	Audio.play("magnet", -4.0, 0.0)
+	for other in items:
+		if other.kind == Pickup.Kind.XP and not other.attracted:
+			other.attracted = true
+			other.speed = 0.0
+
+
 func _collect(item: Pickup) -> void:
 	match item.kind:
 		Pickup.Kind.XP:
@@ -126,12 +135,7 @@ func _collect(item: Pickup) -> void:
 			player.heal(item.value)
 			heart_collected.emit()
 		Pickup.Kind.MAGNET:
-			Audio.play("magnet", -4.0, 0.0)
-			# Pull every kibble on the map towards the cat.
-			for other in items:
-				if other.kind == Pickup.Kind.XP and not other.attracted:
-					other.attracted = true
-					other.speed = 0.0
+			pull_all_xp()
 		Pickup.Kind.CHEST:
 			chest_collected.emit()
 		Pickup.Kind.COIN:

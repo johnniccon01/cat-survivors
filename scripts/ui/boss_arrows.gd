@@ -27,7 +27,11 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	if _enemies == null:
 		return
-	var rect := get_viewport_rect().grow(-MARGIN)
+	var camera := get_viewport().get_camera_2d()
+	if camera == null:
+		return
+	var view := get_viewport_rect()
+	var rect := view.grow(-MARGIN)
 	var center := rect.get_center()
 	var half := rect.size * 0.5
 	var shown := 0
@@ -36,18 +40,18 @@ func _draw() -> void:
 			break
 		if e.dead or not GameData.enemies[e.id].get("boss", false):
 			continue
-		var screen: Vector2 = get_viewport().get_canvas_transform() * e.position
+		var screen: Vector2 = (e.position - camera.get_screen_center_position()) * camera.zoom + view.size * 0.5
 		if rect.has_point(screen):
 			continue
 		var dir := (screen - center).normalized()
 		var k := minf(half.x / maxf(absf(dir.x), 0.001), half.y / maxf(absf(dir.y), 0.001))
 		var tip := center + dir * k
-		var size := 13.0 + sin(_t * 5.0) * 1.5
+		var size := 18.0 + sin(_t * 5.0) * 2.0
 		var side := dir.orthogonal() * size * 0.6
 		var base := tip - dir * size
 		var pts := PackedVector2Array([tip, base + side, base - side])
 		draw_colored_polygon(pts, COLOR)
 		draw_polyline(PackedVector2Array([tip, base + side, base - side, tip]), OUTLINE, 2.0)
-		draw_circle(base - dir * 7.0, 4.0, OUTLINE)
-		draw_circle(base - dir * 7.0, 3.0, Color("f2c14e"))
+		draw_circle(base - dir * 8.0, 5.5, OUTLINE)
+		draw_circle(base - dir * 8.0, 4.0, Color("f2c14e"))
 		shown += 1

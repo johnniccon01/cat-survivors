@@ -21,6 +21,7 @@ var _kills_label: Label
 var _gold_label: Label
 var _debug_label: Label
 var _pause_overlay: Control
+var _pause_stories: Label
 var _pause_language: Label
 var _pause_sound: Label
 var _pause_numbers: Label
@@ -102,6 +103,7 @@ func _ready() -> void:
 	give_up.pressed.connect(func() -> void: give_up_pressed.emit())
 	for i in 3:
 		var b: Button = [resume, open_settings, give_up][i]
+		b.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		pause_box.add_child(b)
 		pause_box.move_child(b, 1 + i)
 	_pause_language = _pause_overlay.get_node("Box").get_child(5)
@@ -111,6 +113,11 @@ func _ready() -> void:
 	for line: Label in [_pause_language, _pause_sound, _pause_numbers, _pause_shake]:
 		line.label_settings.font_size = 16
 		line.label_settings.font_color = UiStyle.MUTED
+	_pause_stories = _label(17, HORIZONTAL_ALIGNMENT_CENTER)
+	_pause_stories.label_settings.font_color = UiStyle.GOLD
+	_pause_stories.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_pause_stories.custom_minimum_size = Vector2(900, 0)
+	pause_box.add_child(_pause_stories)
 
 	settings = SettingsPanel.new()
 	add_child(settings)
@@ -332,9 +339,26 @@ func show_pause(on: bool) -> void:
 	_pause_sound.text = tr("PAUSE_SOUND") % tr("SOUND_OFF" if Settings.muted else "SOUND_ON")
 	_pause_numbers.text = tr("PAUSE_NUMBERS") % tr("SOUND_ON" if Settings.damage_numbers else "SOUND_OFF")
 	_pause_shake.text = tr("PAUSE_SHAKE") % tr("SOUND_ON" if Settings.screen_shake else "SOUND_OFF")
+	_pause_stories.text = _stories_text()
 	_pause_overlay.visible = on
 	if on:
 		(_pause_overlay.get_node("Box").get_child(1) as Button).grab_focus.call_deferred()
+
+
+## "This map's stories: The Kibble Thief 1/4 · ..." for the pause screen.
+func _stories_text() -> String:
+	var spawner: Variant = get_parent().get("spawner")
+	if spawner == null:
+		return ""
+	var stage: String = spawner.stage_id
+	var parts: Array[String] = []
+	for id: String in GameData.chains:
+		if GameData.chains[id].get("stage", "any") != stage:
+			continue
+		var n := ChainStep.steps(id).size()
+		var done := ChainStep.progress_of(id)
+		parts.append("%s %s" % [tr("CHAIN_%s_NAME" % id), "✓" if done >= n else "%d/%d" % [done, n]])
+	return "" if parts.is_empty() else tr("PAUSE_STORIES") % "  ·  ".join(parts)
 
 
 ## `title` is already translated (the cat's name, or the devil's line).

@@ -221,14 +221,25 @@ void fragment() {
 var _hurt := 0.0
 
 
+## Below this share of health the screen edge keeps pulsing red.
+const LOW_HP := 0.3
+var _low_t := 0.0
+
+
 func flash_hurt() -> void:
 	_hurt = 0.7
 
 
 func _process(delta: float) -> void:
-	if _hurt > 0.0 or (_hurt_flash.material as ShaderMaterial).get_shader_parameter("strength") != 0.0:
+	_low_t += delta
+	# Low health: the red edge pulses until the cat is out of danger.
+	var low := 0.0
+	var cat: Variant = get_parent().get("player")
+	if cat != null and is_instance_valid(cat) and not cat.is_dead and cat.hp < cat.max_hp * LOW_HP:
+		low = 0.25 + 0.15 * sin(_low_t * 6.0)
+	if _hurt > 0.0 or low > 0.0 or (_hurt_flash.material as ShaderMaterial).get_shader_parameter("strength") != 0.0:
 		_hurt = maxf(_hurt - delta * 2.5, 0.0)
-		(_hurt_flash.material as ShaderMaterial).set_shader_parameter("strength", _hurt)
+		(_hurt_flash.material as ShaderMaterial).set_shader_parameter("strength", maxf(_hurt, low))
 	if _banner_time > 0.0:
 		_banner_time -= delta
 		_banner.modulate.a = clampf(_banner_time, 0.0, 1.0)

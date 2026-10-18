@@ -27,12 +27,12 @@ signal event_started(kind: String)
 const SPAWN_MARGIN := 40.0
 ## Enemy health +3.5 % per cat level above this one.
 const LEVEL_SCALING_FROM := 10
-const LEVEL_SCALING := 0.035
+const LEVEL_SCALING := 0.022
 ## Enemies hit harder as the night goes on, slowly at first and then faster
 ## (damage x(1 + 0.006 * minute²): x1.15 at 5, x1.6 at 10, x2.35 at 15, x3.4
 ## at 20) and get a little faster (+1.5 % per minute, at most +30 %), so a
 ## strong late-game cat still has to watch out.
-const DAMAGE_PER_MINUTE_SQ := 0.006
+const DAMAGE_PER_MINUTE_SQ := 0.0045
 const CHAMPION_PER_MINUTE := 0.004
 ## Endless night tuning.
 const ENDLESS_HP_PER_MINUTE := 0.6
@@ -41,8 +41,8 @@ const ENDLESS_SPEED_PER_MINUTE := 0.03
 const ENDLESS_SPEED_MAX := 0.4
 const ENDLESS_BOSS_EVERY := 150.0
 const CHAMPION_MAX := 0.06
-const SPEED_PER_MINUTE := 0.015
-const SPEED_MAX_BONUS := 0.3
+const SPEED_PER_MINUTE := 0.0075
+const SPEED_MAX_BONUS := 0.15
 const ELITE_FROM := 240.0
 const ELITE_HP := 8.0
 const RING_RADIUS := 240.0

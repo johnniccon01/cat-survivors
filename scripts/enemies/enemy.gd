@@ -21,6 +21,9 @@ var knockback_resist := 0.0
 var dead := false
 var is_prop := false
 var is_boss := false
+## Seconds left of fading in (enemies that appear inside the screen).
+const SPAWN_IN := 0.6
+var spawn_in := 0.0
 var is_elite := false
 ## Set when a swarm enemy has run its course; the manager removes it.
 var wants_despawn := false
@@ -191,6 +194,12 @@ func make_elite(hp_factor: float) -> void:
 
 
 func tick(delta: float, target: Vector2, push: Vector2) -> void:
+	# Appearing on screen: a shadow first, harmless and still, then the enemy.
+	if spawn_in > 0.0:
+		spawn_in -= delta
+		self_modulate.a = clampf(1.0 - spawn_in / SPAWN_IN, 0.15, 1.0)
+		queue_redraw()
+		return
 	var dir := (target - position).normalized()
 	var move := dir * speed
 	if _charge_t > 0.0:
@@ -469,6 +478,9 @@ func hit(amount: float, direction: Vector2, knockback: float, can_crit: bool = t
 
 func _draw() -> void:
 	var r := radius / _base_scale
+	if spawn_in > 0.0:
+		var k := 1.0 - spawn_in / SPAWN_IN
+		draw_arc(Vector2(0, r * 0.5), r + 6.0 * (1.0 - k), 0.0, TAU, 20, Color(1.0, 0.35, 0.3, 0.8), 1.5)
 	if champion != "":
 		draw_colored_polygon(Shapes.ellipse(Vector2(0, r + 1), r + 4, 4.5), Color(_champion_color, 0.35))
 		draw_arc(Vector2(0, -1), r + 3.0, 0.0, TAU, 20, Color(_champion_color, 0.8), 1.0)

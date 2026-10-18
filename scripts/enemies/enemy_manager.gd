@@ -38,6 +38,10 @@ var arena: Dictionary = {}
 ## Enemies further than this from the player get moved back in front of them.
 var relocate_distance := 600.0
 var spawn_radius := 400.0
+## Half the visible area around the cat (1280x720 at zoom 2, plus a margin).
+const ON_SCREEN := Vector2(340.0, 200.0)
+## Plain chasers top out at this share of the cat's base speed.
+const CHASER_MAX_SPEED := 0.85
 
 var _grid: Dictionary = {}
 
@@ -57,7 +61,14 @@ func spawn(id: String, pos: Vector2, hp_mult: float = 1.0) -> Enemy:
 	if not enemy.persistent:
 		enemy.damage *= damage_mult
 		enemy.speed *= speed_mult
+	if not enemy.is_boss and GameData.enemies[id].get("behavior", "chase") == "chase":
+		enemy.speed = minf(enemy.speed, Player.BASE_SPEED * CHASER_MAX_SPEED)
 	enemy.position = pos
+	# Something appearing where you can see it gets a moment to be seen first.
+	if player != null and not enemy.is_prop and not GameData.enemies[id].get("final", false):
+		var off := pos - player.position
+		if absf(off.x) < ON_SCREEN.x and absf(off.y) < ON_SCREEN.y:
+			enemy.spawn_in = Enemy.SPAWN_IN
 	add_child(enemy)
 	enemies.append(enemy)
 	budget_used += enemy.cost
@@ -235,7 +246,7 @@ func _physics_process(delta: float) -> void:
 			_apply_arena(enemy)
 		for c in cats:
 			var reach := enemy.radius + Player.RADIUS
-			if not c.is_dead and enemy.position.distance_squared_to(c.position) < reach * reach:
+			if enemy.spawn_in <= 0.0 and not c.is_dead and enemy.position.distance_squared_to(c.position) < reach * reach:
 				c.take_damage(enemy.damage, enemy.fatal)
 	_tick_burning(delta)
 	for i in range(enemies.size() - 1, -1, -1):

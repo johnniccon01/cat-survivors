@@ -20,7 +20,7 @@ const RADIUS := 7.0
 const HIT_INVULN := 0.4
 const MAX_WEAPONS := 6
 const MAX_PASSIVES := 6
-const BASE_SPEED := 100.0
+const BASE_SPEED := 115.0
 
 ## Base values of all character stats; passives add to these.
 const BASE_STATS := {
@@ -392,9 +392,9 @@ func _bot_input(delta: float) -> Vector2:
 	_bot_t += delta
 	var wander := Vector2(cos(_bot_t * 0.3), sin(_bot_t * 0.5))
 	var manager: EnemyManager = get_tree().get_first_node_in_group("enemy_manager")
-	# Standing in a quest zone matters more than dodging.
+	# Standing in a quest zone matters more than dodging (while healthy).
 	var quest_here: Quest = get_parent().quests.active if get_parent().get("quests") else null
-	if quest_here != null and quest_here.started and quest_here.target_position().distance_to(position) < 40.0:
+	if quest_here != null and quest_here.started and hp > max_hp * 0.5 and quest_here.target_position().distance_to(position) < 40.0:
 		var stay := quest_here.target_position() - position
 		return stay.normalized() if stay.length() > 6.0 else Vector2.ZERO
 	var away := Vector2.ZERO

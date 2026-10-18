@@ -72,6 +72,14 @@ scenarios=(
   "challenges|--bot --challenges=HYPER,GLASS,NO_HEAL,ONE_WEAPON,CURSED --levels=10 --bot-time=180"
   "tutorial|--bot --tutorial --bot-time=120"
   "diary_page|--bot --page --extract --levels=20 --bot-time=150"
+  # Whole nights on every map: quests and stories come on their own.
+  "night_living_room|--bot --stage=LIVING_ROOM --god --bot-time=1300"
+  "night_basement|--bot --stage=BASEMENT --god --bot-time=1300"
+  "night_garden|--bot --stage=GARDEN --god --bot-time=1300"
+  "night_rooftop|--bot --stage=ROOFTOP --god --bot-time=1300"
+  "night_supermarket|--bot --stage=SUPERMARKET --god --bot-time=1300"
+  "night_harbor|--bot --stage=HARBOR --god --bot-time=1300"
+  "night_factory|--bot --stage=FACTORY --god --bot-time=1300"
   "supermarket|--bot --stage=SUPERMARKET --cat=TIGER --bot-time=300"
   "factory|--bot --stage=FACTORY --cat=TIGER --bot-time=300"
   "late_factory|--bot --stage=FACTORY --start-minute=12 --catch-up --bot-time=240"
@@ -161,7 +169,10 @@ run_one() {
     args="${args%%|*}"
   fi
   # Own log file, so test runs never push the player's logs out of the rotation.
-  out=$(timeout 280 "$GODOT" --headless --log-file "${TMPDIR:-/tmp}/catsurvivors_$name.log" --path . $engine -- $args 2>&1)
+  # Whole nights (night_*) need longer than the rest.
+  local limit=280
+  [[ "$name" == night_* ]] && limit=600
+  out=$(timeout "$limit" "$GODOT" --headless --log-file "${TMPDIR:-/tmp}/catsurvivors_$name.log" --path . $engine -- $args 2>&1)
   errors=$(echo "$out" | grep -E "SCRIPT ERROR|Parse Error|ERROR: |UI: FAIL" | grep -vE "resources still in use|ObjectDB instances leaked" | sort | uniq -c | head -5)
   summary=$(echo "$out" | grep -E "^(BOT|TEST): (time|weapons after|quests_done|active quest)|^UI: done" | tr '\n' ' ' | cut -c1-200)
   if [ -n "$errors" ]; then

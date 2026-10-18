@@ -494,7 +494,8 @@ func spawn_escort(cat_id: String, at: Vector2, hp: float) -> Player:
 	cat.controller = "escort"
 	cat.cat_id = cat_id
 	cat.leader = player
-	cat.escort_hp = hp
+	# Enemies grow through the night, and so does the cat being walked home.
+	cat.escort_hp = hp * (1.0 + spawner.elapsed / 60.0 * 0.2)
 	cat.process_mode = Node.PROCESS_MODE_PAUSABLE
 	cat.position = at
 	add_child(cat)

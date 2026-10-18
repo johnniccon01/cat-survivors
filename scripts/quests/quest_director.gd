@@ -156,12 +156,16 @@ func _start(quest_id: String, distance: float) -> void:
 	quest.finished.connect(_on_finished)
 	main.add_child(quest)
 	active = quest
+	if main.player.controller == "bot":
+		print("BOT: quest %s started at %.0f s" % [quest_id, main.spawner.elapsed])
 	var line: String = (quest as ChainStep).start_line() if quest is ChainStep else ""
 	main.hud.show_banner(tr("QUEST_NEW") % quest.title() + ("\n" + line if line != "" else ""), 5.0 if line != "" else 3.0)
 	Audio.play("quest", -4.0, 0.0)
 
 
 func _on_finished(success: bool) -> void:
+	if main.player.controller == "bot" and active != null:
+		print("BOT: quest %s %s at %.0f s (%s)" % [active.quest_id, "done" if success else "failed", main.spawner.elapsed, active.objective()])
 	if active is ChainStep:
 		var id := (active as ChainStep).chain_id
 		# Failed steps wait for the next night, and so do "one_per_night" chains.

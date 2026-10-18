@@ -41,6 +41,9 @@ func objective() -> String:
 
 func target_position() -> Vector2:
 	if _stage == "escort":
+		# A cat that went down needs you first.
+		if is_instance_valid(_escort) and _escort.is_dead:
+			return _escort.position
 		return _home
 	return position
 

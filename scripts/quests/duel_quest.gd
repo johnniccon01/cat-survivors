@@ -21,6 +21,11 @@ func objective() -> String:
 	return tr("QUEST_DUEL_FIND") % tr("CAT_%s_NAME" % cat_id)
 
 
+## During the fight the arrow points at the rival.
+func target_position() -> Vector2:
+	return _rival.position if started and is_instance_valid(_rival) else position
+
+
 func start_radius() -> float:
 	return 150.0
 

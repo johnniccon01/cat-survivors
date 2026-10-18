@@ -16,6 +16,10 @@ var data: Dictionary
 var expire_after := 0.0
 ## True once the cat has reached the point of interest.
 var started := false
+## A started quest that drags on this long gives up, so it can't block the
+## rest of the night.
+const GIVE_UP_AFTER := 300.0
+var _started_at := 0.0
 
 var _age := 0.0
 var _done := false
@@ -83,7 +87,11 @@ func _physics_process(delta: float) -> void:
 			return
 		if player_dist() < start_radius():
 			started = true
+			_started_at = _age
 			_on_start()
+	elif _age - _started_at > GIVE_UP_AFTER:
+		fail()
+		return
 	_tick(delta)
 	queue_redraw()
 

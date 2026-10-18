@@ -127,6 +127,8 @@ const THORN_RADIUS := 80.0
 const THORN_DAMAGE := 20.0
 var _freeze_t := 0.0
 var _rex_calm := false
+## Endless minutes already announced.
+var _endless_shown := 0
 ## The story choice waiting in the modal queue.
 var _choice: Dictionary = {}
 var _magnet_t := 0.0
@@ -780,6 +782,11 @@ func _track_run(delta: float) -> void:
 		_distance += step
 	_last_pos = player.position
 	_tick_artifacts(delta)
+	# Endless night: every minute survived is announced with the record.
+	if _endless and floori(spawner.endless_minutes()) > _endless_shown:
+		_endless_shown = floori(spawner.endless_minutes())
+		var best := maxi(Profile.get_stat("best_endless_minutes"), _endless_shown)
+		hud.show_banner(tr("ENDLESS_MINUTE") % [_endless_shown, best, floori(run_gold - _banked_gold)], 3.0)
 	# Rex, once you have won his respect, gives up half way through the fight.
 	if final_boss != null and final_boss.id == "GUARD_DOG" and not _rex_calm and ChainStep.is_done("REX_RESPECT") and final_boss.hp < final_boss.max_hp * 0.5:
 		_rex_calm = true
@@ -1057,7 +1064,8 @@ func _start_endless() -> void:
 	spawner.start_endless()
 	get_tree().paused = false
 	Profile.add_stat("endless_runs")
-	hud.show_banner(tr("ENDLESS_START"), 4.0)
+	hud.show_banner(tr("ENDLESS_START") % Profile.get_stat("best_endless_minutes"), 7.0)
+	_endless_shown = 0
 	Audio.play("warning", -2.0, 0.0)
 	_music_track = ""
 

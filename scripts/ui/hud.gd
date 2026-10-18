@@ -145,6 +145,10 @@ void fragment() {
 	_over_stats = _over_overlay.get_node("Box").get_child(1)
 
 	_win_overlay = _overlay(["VICTORY_TITLE", "", "ENDLESS_HINT", "VICTORY_HINT", "GAME_OVER_MENU"])
+	var endless_hint := _win_overlay.get_node("Box").get_child(2) as Label
+	endless_hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	endless_hint.custom_minimum_size = Vector2(900, 0)
+	endless_hint.label_settings.font_size = 20
 	_extract_overlay = _overlay(["EXTRACT_TITLE", "", "VICTORY_HINT", "GAME_OVER_MENU"])
 	_win_stats = _win_overlay.get_node("Box").get_child(1)
 

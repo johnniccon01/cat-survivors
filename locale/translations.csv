@@ -676,8 +676,8 @@ QB_GOLD_DIGGER_NAME,Gold Digger,Zlatokop,Zlatokop
 QB_GOLD_DIGGER_1,Catch a golden mouse.,Chytiť zlatú myš.,Chytit zlatou myš.
 QB_GOLD_DIGGER_2,Catch 10 golden mice.,Chytiť 10 zlatých myší.,Chytit 10 zlatých myší.
 QB_GOLD_DIGGER_3,Catch 30 golden mice.,Chytiť 30 zlatých myší.,Chytit 30 zlatých myší.
-ENDLESS_HINT,E – keep going: endless night,E – pokračovať: nekonečná noc,E – pokračovat: nekonečná noc
-ENDLESS_START,Endless night! It only gets harder from here...,Nekonečná noc! Odteraz už len ťažšie...,Nekonečná noc! Odteď už jen tíž...
+ENDLESS_HINT,"E – endless night: how long can you last? Enemies get tougher every minute, a boss every 2.5 min – all gold you find is yours, even if you fall.","E – nekonečná noc: ako dlho vydržíš? Nepriatelia silnejú každú minútu, boss každé 2,5 min – všetko nájdené zlato je tvoje, aj keď padneš.","E – nekonečná noc: jak dlouho vydržíš? Nepřátelé sílí každou minutu, boss každé 2,5 min – všechno nalezené zlato je tvoje, i když padneš."
+ENDLESS_START,Endless night! Survive as long as you can – your record: %d min.,Nekonečná noc! Vydrž čo najdlhšie – tvoj rekord: %d min.,Nekonečná noc! Vydrž co nejdéle – tvůj rekord: %d min.
 ENDLESS_SUMMARY,"Endless night: %d extra minutes, +%d gold (kept in full)","Nekonečná noc: %d minút navyše, +%d zlata (celé tvoje)","Nekonečná noc: %d minut navíc, +%d zlata (celé tvoje)"
 QB_ENDLESS_NAME,Endless Night,Nekonečná noc,Nekonečná noc
 QB_ENDLESS_1,Last 3 minutes in an endless night.,Vydržať 3 minúty v nekonečnej noci.,Vydržet 3 minuty v nekonečné noci.
@@ -1378,3 +1378,4 @@ ACH_DAILY_7_NAME,Regular,Štamgast,Štamgast
 ACH_DAILY_7_DESC,Win 7 daily nights,Vyhraj 7 denných nocí,Vyhraj 7 denních nocí
 PAUSE_STORIES,This map's stories: %s,Príbehy tejto mapy: %s,Příběhy této mapy: %s
 SELECT_BTN_DAILY,Daily night,Denná noc,Denní noc
+ENDLESS_MINUTE,Endless night: +%d min (record %d min) · +%d gold so far,Nekonečná noc: +%d min (rekord %d min) · zatiaľ +%d zlata,Nekonečná noc: +%d min (rekord %d min) · zatím +%d zlata

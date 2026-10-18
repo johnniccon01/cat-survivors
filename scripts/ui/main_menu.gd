@@ -74,7 +74,7 @@ func _build() -> void:
 	var box := VBoxContainer.new()
 	box.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
 	box.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	box.offset_top = 50
+	box.offset_top = 28
 	box.alignment = BoxContainer.ALIGNMENT_CENTER
 	box.add_theme_constant_override("separation", 10)
 	add_child(box)
@@ -167,6 +167,8 @@ func _refresh() -> void:
 	var line := tr("SELECT_GOLD") % Profile.gold
 	if Profile.best_streak > 0:
 		line += "   ·   " + tr("SELECT_STREAK") % [Profile.streak, Profile.best_streak, roundi((Profile.streak_multiplier() - 1.0) * 100.0)]
+	var stories: int = GameData.chains.keys().filter(func(c: String) -> bool: return ChainStep.is_done(c)).size()
+	line += "\n" + tr("MENU_PROGRESS") % [stories, GameData.chains.size(), Profile.achievements.size(), GameData.achievements.size()]
 	_status.text = line
 
 

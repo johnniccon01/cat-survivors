@@ -1352,3 +1352,4 @@ BRANCH_OVERHEAT_NAME,Overheat,Prehriatie,Přehřátí
 BRANCH_OVERHEAT_DESC,Beams set enemies on fire.,Lúče podpália nepriateľov.,Paprsky zapálí nepřátele.
 BRANCH_TARGETING_NAME,Targeting,Zameriavač,Zaměřovač
 BRANCH_TARGETING_DESC,Finishes off weakened enemies.,Dorazí oslabených nepriateľov.,Dorazí oslabené nepřátele.
+MENU_PROGRESS,Stories %d / %d   ·   Achievements %d / %d,Príbehy %d / %d   ·   Úspechy %d / %d,Příběhy %d / %d   ·   Úspěchy %d / %d

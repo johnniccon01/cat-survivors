@@ -38,7 +38,9 @@ const BASE_STATS := {
 
 const OUTLINE := Color("2b1d14")
 ## Companion weapon gains a level every this many leader levels.
-const COMPANION_LEVEL_STEP := 4
+const COMPANION_LEVEL_STEP := 2
+const COMPANION_EVOLVE_AT := 25
+const COMPANION_SECOND_AT := 12
 
 @export var cat_id := "MICA"
 @export var controller := "input"
@@ -353,15 +355,33 @@ func revive(fraction: float, invuln: float = 1.0) -> void:
 	queue_redraw()
 
 
+## A companion grows with the cat it follows: its weapon gains a level every
+## COMPANION_LEVEL_STEP levels of the leader, evolves once the leader reaches
+## COMPANION_EVOLVE_AT, and from COMPANION_SECOND_AT it also borrows one of
+## the leader's other weapons (kept at the same level).
 func _sync_companion_weapon() -> void:
-	if weapons.get_child_count() == 0:
+	if weapons.get_child_count() == 0 or not is_instance_valid(leader):
 		return
-	var weapon := weapons.get_child(0) as Weapon
-	if weapon == null:
-		return
-	var target := mini(1 + floori(leader.level / float(COMPANION_LEVEL_STEP)), weapon.max_level())
-	while weapon.level < target:
-		weapon.level_up()
+	var target := 1 + floori(leader.level / float(COMPANION_LEVEL_STEP))
+	for child in weapons.get_children():
+		var weapon := child as Weapon
+		if weapon == null or weapon.is_queued_for_deletion():
+			continue
+		while weapon.level < mini(target, weapon.max_level()):
+			weapon.level_up()
+		var evo: Dictionary = weapon.data.get("evolve", {})
+		if leader.level >= COMPANION_EVOLVE_AT and not evo.is_empty() and weapon.level >= weapon.max_level():
+			evolve_weapon(weapon.id, evo["into"])
+			return
+	if leader.level >= COMPANION_SECOND_AT and weapons.get_child_count() < 2:
+		var own := Icons.base_weapon((weapons.get_child(0) as Weapon).id)
+		var options: Array[String] = []
+		for child in leader.weapons.get_children():
+			var w := child as Weapon
+			if w != null and Icons.base_weapon(w.id) != own:
+				options.append(Icons.base_weapon(w.id))
+		if not options.is_empty():
+			add_weapon(options.pick_random())
 
 
 ## Shakes the camera (main cat only); a stronger shake overrides a weaker one.

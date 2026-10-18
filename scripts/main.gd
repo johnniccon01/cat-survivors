@@ -371,6 +371,8 @@ func _process(delta: float) -> void:
 		print("BOT: xp per minute ", " ".join(per_minute), " | pickups by kind=", kinds, " attracted=", attracted, " far=", far, " xp_count=", pickups._xp_count)
 		print("BOT: quests_done=%d companions=%s" % [quests_done, companions.map(func(c: Player) -> String: return c.cat_id)])
 		print("BOT: chains=%s" % Profile.chains)
+		for c: Player in companions:
+			print("BOT: companion %s weapons=%s" % [c.cat_id, c.weapons.get_children().map(func(w: Node) -> String: return "%s:%d" % [w.get("id"), w.get("level")])])
 		print("BOT: page carried=%s kept=%s questbook=%s" % [_has_page, Profile.has_flag("page:" + spawner.stage_id), Profile.questbook])
 		var q := quests.active
 		if q != null:

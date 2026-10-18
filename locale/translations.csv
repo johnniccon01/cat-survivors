@@ -1369,3 +1369,10 @@ NEWS_TEXT,"• 34 stories: long quests over several nights – 3 on every map, 3
 • Nový výběr kočky a mapy, výraznější efekty zbraní, lehčí začátek pozdějších map"
 NEWS_HINT,Press any key,Stlač ľubovoľný kláves,Stiskni libovolnou klávesu
 CHAIN_GROUP_ANY,Across the maps and anywhere,Cez všetky mapy a kdekoľvek,Přes všechny mapy a kdekoli
+SELECT_DAILY,T daily night: %s · %s,T denná noc: %s · %s,T denní noc: %s · %s
+DAILY_ON,Daily night! Today's challenges: %s,Denná noc! Dnešné výzvy: %s,Denní noc! Dnešní výzvy: %s
+SUMMARY_DAILY,+%d gold for today's daily night,+%d zlata za dnešnú dennú noc,+%d zlata za dnešní denní noc
+ACH_DAILY_NAME,Every Day,Každý deň,Každý den
+ACH_DAILY_DESC,Win a daily night,Vyhraj dennú noc,Vyhraj denní noc
+ACH_DAILY_7_NAME,Regular,Štamgast,Štamgast
+ACH_DAILY_7_DESC,Win 7 daily nights,Vyhraj 7 denných nocí,Vyhraj 7 denních nocí

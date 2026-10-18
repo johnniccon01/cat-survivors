@@ -170,7 +170,7 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 
 Sem píšeme nápady, ktoré zatiaľ nemajú miesto vo fázach.
 
-- Denný/týždenný beh s pevným seedom
+- ~~Denný beh s pevným seedom~~ hotové: Denná noc (T pri výbere mačky) – mapa, 2 výzvy a seed podľa dátumu, +500 zlata za prvú výhru dňa; týždenný beh zatiaľ nie
 - Kozmetika pre mačky (obojky, klobúky) za zlato
 - Achievementy
 

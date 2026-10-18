@@ -37,6 +37,11 @@ var challenges: Array[String] = []
 const ARTIFACT_SLOTS := 2
 var artifacts: Array[String] = []
 var equipped_artifacts: Array[String] = []
+## The daily night: while it runs, `challenges` holds today's challenges and
+## the player's own choice waits in _daily_backup (and is what gets saved).
+const DAILY_GOLD := 500
+var daily := false
+var _daily_backup: Array[String] = []
 ## Quest chains: chain id -> steps done.
 var chains: Dictionary = {}
 ## Earned achievement ids.
@@ -105,6 +110,8 @@ func _ready() -> void:
 			challenges.clear()
 			for id in arg.trim_prefix("--challenges=").split(",", false):
 				challenges.append(id)
+		if arg == "--daily":
+			start_daily()
 		# `-- --chain-step=KIBBLE_THIEF:2` marks two steps of a chain done.
 		if arg.begins_with("--chain-step="):
 			var parts := arg.trim_prefix("--chain-step=").split(":")
@@ -176,6 +183,43 @@ func get_stat(key: String) -> int:
 		"cats_unlocked":
 			return unlocked.size()
 	return int(stats.get(key, 0))
+
+
+## Today's date, e.g. "2026-10-18" (the daily night's seed).
+static func today() -> String:
+	return Time.get_date_string_from_system()
+
+
+## Today's map (an open one) and two challenges, the same all day.
+func daily_plan() -> Dictionary:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = hash("daily" + today())
+	var maps: Array = GameData.stages.keys().filter(func(s: String) -> bool: return is_stage_unlocked(s))
+	var pool: Array = GameData.challenges.keys()
+	var picked: Array[String] = []
+	while picked.size() < mini(2, pool.size()):
+		var c: String = pool[rng.randi() % pool.size()]
+		if c not in picked:
+			picked.append(c)
+	return {"stage": maps[rng.randi() % maps.size()], "challenges": picked, "seed": hash("night" + today())}
+
+
+func start_daily() -> void:
+	var plan := daily_plan()
+	daily = true
+	_daily_backup = challenges.duplicate()
+	challenges.clear()
+	for c: String in plan["challenges"]:
+		challenges.append(c)
+	selected_stage = plan["stage"]
+
+
+func end_daily() -> void:
+	if not daily:
+		return
+	daily = false
+	challenges = _daily_backup.duplicate()
+	_daily_backup.clear()
 
 
 func has_challenge(id: String) -> bool:
@@ -380,7 +424,7 @@ func save() -> void:
 	cfg.set_value("shop", "spent", spent)
 	cfg.set_value("shop", "powerups", powerups)
 	cfg.set_value("questbook", "steps", questbook)
-	cfg.set_value("challenge", "active", challenges)
+	cfg.set_value("challenge", "active", _daily_backup if daily else challenges)
 	cfg.set_value("artifacts", "owned", artifacts)
 	cfg.set_value("chains", "steps", chains)
 	cfg.set_value("achievements", "earned", achievements)

@@ -32,6 +32,7 @@ extends Node2D
 ##   --catch-up         with --start-minute: level the cat like the dev panel's skip does
 ##   --traps            place one of every trap next to the cat
 ##   --choice=N         the bot answers story choices with option N
+##   --daily            play today's daily night (map and challenges by date)
 
 const HEART_DROP_CHANCE := 0.005
 const COIN_DROP_CHANCE := 0.015
@@ -378,6 +379,9 @@ func _process(delta: float) -> void:
 
 
 func _exit_tree() -> void:
+	# The daily night ends with its scene (restart, menu): your own challenges
+	# come back.
+	Profile.end_daily()
 	# Never leave the game slowed down by a hit-stop when the scene changes.
 	if not _bot:
 		Engine.time_scale = 1.0
@@ -696,8 +700,15 @@ func _end_run(kind: String) -> void:
 		var bonus := floori(gold * (Profile.challenge_gold() - 1.0))
 		gold += bonus
 		lines.append(tr("SUMMARY_CHALLENGE") % [Profile.challenge_gold(), bonus])
+	if Profile.daily and kind == "victory" and not Profile.has_flag("daily_win:" + Profile.today()):
+		Profile.set_flag("daily_win:" + Profile.today())
+		Profile.add_stat("daily_wins")
+		gold += Profile.DAILY_GOLD
+		lines.append(tr("SUMMARY_DAILY") % Profile.DAILY_GOLD)
 	Profile.add_gold(gold)
 	Achievements.check()
+	if _bot:
+		print("BOT: summary %s" % " | ".join(lines))
 	for id in Goals.check():
 		lines.append(tr("GOAL_DONE") % [tr("GOAL_%s_NAME" % id), Goals.reward_text(id)])
 	for entry in QuestBook.check():
@@ -779,6 +790,9 @@ func _track_run(delta: float) -> void:
 			Profile.set_flag("brink")
 	else:
 		_brink_t = 0.0
+	if Profile.daily and spawner.elapsed < 1.0 and not _challenge_shown:
+		_challenge_shown = true
+		hud.show_banner(tr("DAILY_ON") % ", ".join(Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))), 4.0)
 	if not Profile.challenges.is_empty() and spawner.elapsed < 1.0 and not _challenge_shown:
 		_challenge_shown = true
 		hud.show_banner(tr("CHALLENGES_ON") % [", ".join(Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))), Profile.challenge_gold()], 4.0)

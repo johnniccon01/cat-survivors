@@ -73,6 +73,7 @@ scenarios=(
   "midboss_scarecrow|--bot --stage=GARDEN --start-minute=12.9 --catch-up --cat=TIGER --bot-time=120"
   "midboss_cloud|--bot --stage=ROOFTOP --start-minute=12.9 --catch-up --cat=TIGER --bot-time=120"
   "challenges|--bot --challenges=HYPER,GLASS,NO_HEAL,ONE_WEAPON,CURSED --levels=10 --bot-time=180"
+  "daily|--bot --daily --challenges= --start-minute=19.9 --catch-up --god --levels=40 --bot-time=250"
   "tutorial|--bot --tutorial --bot-time=120"
   "diary_page|--bot --page --extract --levels=20 --bot-time=150"
   # Whole nights on every map: quests and stories come on their own.

@@ -229,6 +229,9 @@ func _refresh() -> void:
 	_artifact_label.text = tr("SELECT_ARTIFACTS") % ("—" if arts.is_empty() else ", ".join(arts))
 	var ch: Array = Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))
 	_challenge_label.text = tr("SELECT_CHALLENGES") % ["—" if ch.is_empty() else ", ".join(ch), Profile.challenge_gold()]
+	var plan := Profile.daily_plan()
+	var done := Profile.has_flag("daily_win:" + Profile.today())
+	_challenge_label.text += "      " + tr("SELECT_DAILY") % [tr("STAGE_%s_NAME" % plan["stage"]), ", ".join((plan["challenges"] as Array).map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c)))] + (" ✓" if done else "")
 	_gold.text = tr("SELECT_GOLD") % Profile.gold
 	if Profile.streak > 0 or Profile.best_streak > 0:
 		_gold.text += "   ·   " + tr("SELECT_STREAK") % [Profile.streak, Profile.best_streak, roundi((Profile.streak_multiplier() - 1.0) * 100.0)]
@@ -269,6 +272,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("artifacts"):
 		Audio.play("click", -6.0, 0.0)
 		_artifacts.open()
+	elif event.is_action_pressed("daily"):
+		_start_daily()
 	elif event.is_action_pressed("move_left") or event.is_action_pressed("ui_left"):
 		_index = (_index - 1 + _ids.size()) % _ids.size()
 		Audio.play("click", -6.0, 0.0)
@@ -304,6 +309,20 @@ func _on_card_input(event: InputEvent, i: int) -> void:
 		else:
 			_index = i
 			_refresh()
+
+
+## The daily night with the chosen cat: today's map, challenges and seed.
+func _start_daily() -> void:
+	var id := _ids[_index]
+	if not Profile.is_unlocked(id):
+		Audio.play("hurt", -10.0, 0.0)
+		return
+	Profile.select(id)
+	Profile.start_daily()
+	# The same floor and the same luck for everyone today.
+	seed(int(Profile.daily_plan()["seed"]))
+	Audio.play("select", -4.0, 0.0)
+	get_tree().change_scene_to_file(MAIN_SCENE)
 
 
 func _start() -> void:

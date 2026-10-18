@@ -90,6 +90,7 @@ func _setup_input() -> void:
 	_add_keys("journal", [KEY_J])
 	_add_keys("endless", [KEY_E])
 	_add_keys("challenges", [KEY_X])
+	_add_keys("daily", [KEY_T])
 	_add_keys("toggle_numbers", [KEY_N])
 	_add_keys("toggle_shake", [KEY_K])
 	_add_axis("move_left", JOY_AXIS_LEFT_X, -1.0)

@@ -200,5 +200,17 @@
       "endless_runs"
     ],
     "target": 1
+  },
+  "DAILY": {
+    "stats": [
+      "daily_wins"
+    ],
+    "target": 1
+  },
+  "DAILY_7": {
+    "stats": [
+      "daily_wins"
+    ],
+    "target": 7
   }
 }

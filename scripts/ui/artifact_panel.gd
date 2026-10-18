@@ -9,6 +9,7 @@ signal closed
 
 const GOLD := Color("f2c14e")
 const OUTLINE := Color("2b1d14")
+const COLUMNS := 3
 
 var _ids: Array[String] = []
 var _index := 0
@@ -38,21 +39,21 @@ func _ready() -> void:
 	box.add_child(_header)
 
 	var grid := GridContainer.new()
-	grid.columns = 2
+	grid.columns = COLUMNS
 	grid.add_theme_constant_override("h_separation", 10)
-	grid.add_theme_constant_override("v_separation", 6)
+	grid.add_theme_constant_override("v_separation", 4)
 	box.add_child(grid)
 	for id in _ids:
 		var row := PanelContainer.new()
-		row.custom_minimum_size = Vector2(430, 38)
-		var label := _label(19, Color.WHITE)
+		row.custom_minimum_size = Vector2(300, 30)
+		var label := _label(16, Color.WHITE)
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		row.add_child(label)
 		grid.add_child(row)
 		_rows.append(row)
 
 	_desc = _label(18, Color("d9cce6"))
-	_desc.custom_minimum_size = Vector2(860, 76)
+	_desc.custom_minimum_size = Vector2(920, 60)
 	_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	box.add_child(_desc)
 	var hint := _label(16, Color("8f7ea3"))
@@ -100,9 +101,9 @@ func _input(event: InputEvent) -> void:
 	if not event.is_pressed() or event.is_echo():
 		return
 	if event.is_action_pressed("move_up") or event.is_action_pressed("ui_up"):
-		_index = (_index - 2 + _ids.size()) % _ids.size()
+		_index = (_index - COLUMNS + _ids.size()) % _ids.size()
 	elif event.is_action_pressed("move_down") or event.is_action_pressed("ui_down"):
-		_index = (_index + 2) % _ids.size()
+		_index = (_index + COLUMNS) % _ids.size()
 	elif event.is_action_pressed("move_left") or event.is_action_pressed("ui_left"):
 		_index = (_index - 1 + _ids.size()) % _ids.size()
 	elif event.is_action_pressed("move_right") or event.is_action_pressed("ui_right"):

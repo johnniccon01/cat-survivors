@@ -1353,3 +1353,18 @@ BRANCH_OVERHEAT_DESC,Beams set enemies on fire.,Lúče podpália nepriateľov.,P
 BRANCH_TARGETING_NAME,Targeting,Zameriavač,Zaměřovač
 BRANCH_TARGETING_DESC,Finishes off weakened enemies.,Dorazí oslabených nepriateľov.,Dorazí oslabené nepřátele.
 MENU_PROGRESS,Stories %d / %d   ·   Achievements %d / %d,Príbehy %d / %d   ·   Úspechy %d / %d,Příběhy %d / %d   ·   Úspěchy %d / %d
+NEWS_TITLE,What's new,Čo je nové,Co je nového
+NEWS_TEXT,"• 34 stories: long quests over several nights – 3 on every map, 3 across all maps, 10 on their own (Journal → Quests)
+• Choices, darkness, escorts, fires; finished stories change the maps for good
+• 40 achievements (Journal → Achievements) and 10 new artifacts from stories
+• Map 7: the Factory, the cat Bolt, three new weapons: Tin Can, Wave, Drone Buddy
+• A new cat and map selection, stronger weapon effects, a gentler start on later maps","• 34 príbehov: dlhé questy cez viac nocí – 3 na každej mape, 3 cez všetky mapy, 10 samostatných (Denník → Questy)
+• Voľby, tma, eskorty, požiare; dokončené príbehy natrvalo menia mapy
+• 40 úspechov (Denník → Úspechy) a 10 nových artefaktov z príbehov
+• Mapa 7: Továreň, mačka Šrubka, tri nové zbrane: Konzerva, Vlna, Dronček
+• Nový výber mačky a mapy, výraznejšie efekty zbraní, ľahší začiatok neskorších máp","• 34 příběhů: dlouhé questy přes více nocí – 3 na každé mapě, 3 přes všechny mapy, 10 samostatných (Deník → Questy)
+• Volby, tma, doprovody, požáry; dokončené příběhy natrvalo mění mapy
+• 40 úspěchů (Deník → Úspěchy) a 10 nových artefaktů z příběhů
+• Mapa 7: Továrna, kočka Šroubek, tři nové zbraně: Konzerva, Vlna, Dronek
+• Nový výběr kočky a mapy, výraznější efekty zbraní, lehčí začátek pozdějších map"
+NEWS_HINT,Press any key,Stlač ľubovoľný kláves,Stiskni libovolnou klávesu

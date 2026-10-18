@@ -105,6 +105,12 @@ func _build() -> void:
 	_refresh()
 	_wrap_focus()
 	(_buttons.get_child(0) as Button).grab_focus.call_deferred()
+	# After an update: what's new, once.
+	if NewsPanel.should_show():
+		var news := NewsPanel.new()
+		add_child(news)
+		news.closed.connect(_on_panel_closed)
+		_open.call_deferred(news)
 
 
 ## Up from the first button goes to the last and down from the last to the

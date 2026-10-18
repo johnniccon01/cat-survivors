@@ -18,6 +18,10 @@ const STAT_TEXT := {
 	"interval": "STAT_INTERVAL",
 }
 const PERCENT_STATS := ["area", "speed", "duration"]
+## Upgrades of what you already have come up more often than new things, so
+## weapons keep growing (Vampire Survivors-like pace).
+const OWNED_WEAPON_WEIGHT := 2.5
+const OWNED_PASSIVE_WEIGHT := 1.5
 
 
 ## Picks `count` random offers. With `owned_only`, only items the cat
@@ -34,7 +38,7 @@ static func roll(player: Player, count: int = 3, owned_only: bool = false) -> Ar
 		var owned := player.get_weapon(id)
 		if owned != null:
 			if owned.level < owned.max_level():
-				pool.append({"kind": "weapon", "id": id, "level": owned.level + 1, "weight": data.get("rarity", 100)})
+				pool.append({"kind": "weapon", "id": id, "level": owned.level + 1, "weight": data.get("rarity", 100) * OWNED_WEAPON_WEIGHT, "owned": true})
 		elif not owned_only and player.weapon_count() < player.max_weapons() and not _has_evolution_of(player, id):
 			pool.append({"kind": "weapon", "id": id, "level": 1, "weight": data.get("rarity", 100)})
 	_add_branch_offers(player, pool)
@@ -44,13 +48,18 @@ static func roll(player: Player, count: int = 3, owned_only: bool = false) -> Ar
 		if lvl == 0 and (owned_only or player.passives.size() >= Player.MAX_PASSIVES):
 			continue
 		if lvl < data["levels"].size():
-			pool.append({"kind": "passive", "id": id, "level": lvl + 1, "weight": data.get("rarity", 100)})
+			pool.append({"kind": "passive", "id": id, "level": lvl + 1, "weight": data.get("rarity", 100) * (OWNED_PASSIVE_WEIGHT if lvl > 0 else 1.0)})
 
 	var offers: Array[Dictionary] = []
 	while offers.size() < count and not pool.is_empty():
 		var pick := _weighted_pick(pool)
 		offers.append(pool[pick])
 		pool.remove_at(pick)
+	# Every level-up offers at least one upgrade of a weapon you already have.
+	if not offers.is_empty() and not offers.any(func(o: Dictionary) -> bool: return o.get("owned", false)):
+		var owned_left := pool.filter(func(o: Dictionary) -> bool: return o.get("owned", false))
+		if not owned_left.is_empty():
+			offers[offers.size() - 1] = owned_left.pick_random()
 	if offers.is_empty():
 		offers.append({"kind": "heal", "id": "HEAL", "level": 0})
 	return offers

@@ -422,9 +422,12 @@ func _bot_input(delta: float) -> Vector2:
 		var stay := quest_here.target_position() - position
 		return stay.normalized() if stay.length() > 6.0 else Vector2.ZERO
 	var away := Vector2.ZERO
-	for enemy in manager.query_radius(position, 36.0):
+	# Keep clear of each enemy by its own size (big bosses from further away).
+	for enemy in manager.query_radius(position, 90.0):
 		var d := position - enemy.position
-		away += d / maxf(d.length_squared(), 1.0)
+		if d.length() > enemy.radius + 30.0:
+			continue
+		away += d / maxf(d.length_squared(), 1.0) * (1.0 + enemy.radius / 10.0)
 	if away != Vector2.ZERO:
 		return (away.normalized() + wander * 0.3).normalized()
 	# Chase a golden mouse if one is around.

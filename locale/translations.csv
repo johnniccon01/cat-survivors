@@ -1354,19 +1354,22 @@ BRANCH_TARGETING_NAME,Targeting,Zameriavač,Zaměřovač
 BRANCH_TARGETING_DESC,Finishes off weakened enemies.,Dorazí oslabených nepriateľov.,Dorazí oslabené nepřátele.
 MENU_PROGRESS,Stories %d / %d   ·   Achievements %d / %d,Príbehy %d / %d   ·   Úspechy %d / %d,Příběhy %d / %d   ·   Úspěchy %d / %d
 NEWS_TITLE,What's new,Čo je nové,Co je nového
-NEWS_TEXT,"• 34 stories: long quests over several nights – 3 on every map, 3 across all maps, 10 on their own (Journal → Quests)
-• Choices, darkness, escorts, fires; finished stories change the maps for good
-• 40 achievements (Journal → Achievements) and 10 new artifacts from stories
-• Map 7: the Factory, the cat Bolt, three new weapons: Tin Can, Wave, Drone Buddy
-• A new cat and map selection, stronger weapon effects, a gentler start on later maps","• 34 príbehov: dlhé questy cez viac nocí – 3 na každej mape, 3 cez všetky mapy, 10 samostatných (Denník → Questy)
-• Voľby, tma, eskorty, požiare; dokončené príbehy natrvalo menia mapy
-• 40 úspechov (Denník → Úspechy) a 10 nových artefaktov z príbehov
-• Mapa 7: Továreň, mačka Šrubka, tri nové zbrane: Konzerva, Vlna, Dronček
-• Nový výber mačky a mapy, výraznejšie efekty zbraní, ľahší začiatok neskorších máp","• 34 příběhů: dlouhé questy přes více nocí – 3 na každé mapě, 3 přes všechny mapy, 10 samostatných (Deník → Questy)
-• Volby, tma, doprovody, požáry; dokončené příběhy natrvalo mění mapy
-• 40 úspěchů (Deník → Úspěchy) a 10 nových artefaktů z příběhů
-• Mapa 7: Továrna, kočka Šroubek, tři nové zbraně: Konzerva, Vlna, Dronek
-• Nový výběr kočky a mapy, výraznější efekty zbraní, lehčí začátek pozdějších map"
+NEWS_TEXT,"• Enemies are easier to see; ones that appear on screen fade in first and can't hurt you yet
+• The cat is faster, plain enemies never outrun it, enemies and final bosses are a little softer
+• Level-ups offer upgrades of your weapons much more often
+• Rescued cats grow with you: better weapon, a second one, evolutions
+• Mouse-friendly cat selection, the endless night explains itself, a Weapon Slot upgrade in the shop
+• Earlier: 34 stories, 40 achievements, the Factory, three new weapons, the daily night (T)","• Nepriatelia sú lepšie vidieť; tí, čo sa objavia na obrazovke, sa najprv zhmotnia a ešte nezrania
+• Mačka je rýchlejšia, bežní nepriatelia ju nepredbehnú, nepriatelia aj finálni bossovia sú trochu slabší
+• Pri leveli sa oveľa častejšie ponúkajú vylepšenia tvojich zbraní
+• Zachránené mačky rastú s tebou: lepšia zbraň, druhá zbraň, evolúcie
+• Výber mačky na myš, nekonečná noc s vysvetlením, v obchode Slot na zbraň
+• Predtým: 34 príbehov, 40 úspechov, Továreň, tri nové zbrane, denná noc (T)","• Nepřátelé jsou lépe vidět; ti, co se objeví na obrazovce, se nejdřív zhmotní a ještě nezraní
+• Kočka je rychlejší, běžní nepřátelé ji nepředběhnou, nepřátelé i finální bossové jsou o něco slabší
+• Při levelu se mnohem častěji nabízejí vylepšení tvých zbraní
+• Zachráněné kočky rostou s tebou: lepší zbraň, druhá zbraň, evoluce
+• Výběr kočky myší, nekonečná noc s vysvětlením, v obchodě Slot na zbraň
+• Dříve: 34 příběhů, 40 úspěchů, Továrna, tři nové zbraně, denní noc (T)"
 NEWS_HINT,Press any key,Stlač ľubovoľný kláves,Stiskni libovolnou klávesu
 CHAIN_GROUP_ANY,Across the maps and anywhere,Cez všetky mapy a kdekoľvek,Přes všechny mapy a kdekoli
 SELECT_DAILY,T daily night: %s · %s,T denná noc: %s · %s,T denní noc: %s · %s

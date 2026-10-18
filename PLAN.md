@@ -16,19 +16,21 @@ Hra je hrateľná od menu po koniec noci na 7 mapách:
   nepriateľmi, bossmi, pascami a hudbou.
 - **Mačky:** 11 hrateľných (Mica, Luna, Snehulka, Mrňa, Tiger, Barón,
   Ďatelinka, Bruno, Tučko, Kapitán, Šrubka) + 2 tajné (anjel, diabol).
-- **Boj:** 9 zbraní s evolúciami, 10 pasív, kritické zásahy a šťastie,
-  čísla poškodenia, otrasy.
+- **Boj:** 16 zbraní s evolúciami a vetvami, 12 pasív, kritické zásahy a šťastie,
+  čísla poškodenia, zásahové efekty, otrasy.
 - **Priebeh noci:** rozpočet nepriateľov s krivkou intenzity, oddychy,
   udalosti (kruhy, roje), elity, bossovia, finálny boss, mačacie dvierka na
   útek, série výhier.
-- **Questy:** záchrany a súboje mačiek, vedľajšie úlohy, príbehový quest v byte.
-- **Meta:** zlato, obchod s vylepšeniami, charmy, artefakty, dlhodobé ciele, kniha questov.
+- **Questy:** 34 príbehov (3 na každú mapu, 3 cez všetky mapy, 10 samostatných) s voľbami a trvalými zmenami máp, záchrany a súboje mačiek, príbehový quest na každej mape, vedľajšie úlohy.
+- **Meta:** zlato, obchod s vylepšeniami, charmy, 30 artefaktov, 40 úspechov, dlhodobé ciele, kniha questov, výzvy, nekonečná noc.
 - **Tajomstvo:** anjel ťa na streche po 15. minúte s malou šancou zachráni;
   po dvoch záchranách príde diabol, ktorý zabije isto.
-- **Technika:** menu, nastavenia, pauza, SK/EN, pixel-art sprity, 36
-  automatických testov (`tools/run_checks.sh`), spúšťače v `Spustit\`.
+- **Technika:** menu, nastavenia, pauza, SK/EN/CS, gamepad, pixel-art sprity, 147
+  automatických testov vrátane celých nocí na každej mape (`tools/run_checks.sh`), spúšťače v `Spustit\`.
 
 ## Teraz
+
+- [ ] Zahrať nové príbehy, Továreň a nové zbrane a dať spätnú väzbu (obtiažnosť questov, sila artefaktov)
 
 - [ ] Vyskúšať novú obtiažnosť, anjela a diabla (`Spustit\4 Test anjel a diabol.bat`) a dať spätnú väzbu
 - [x] Pushnúť posledné commity na GitHub – odteraz sa pushuje po každom otestovanom kroku

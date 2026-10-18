@@ -127,7 +127,7 @@ QUEST_FRIDGE_FIND,Find the fridge,Nájdi chladničku,Najdi lednici
 QUEST_FRIDGE_OPEN,Stay by the fridge to open it,Zostaň pri chladničke a otvor ju,Zůstaň u lednice a otevři ji
 QUEST_FRIDGE_FIGHT,Defeat the leftovers: %d left,Poraz zvyšky: zostáva %d,Poraz zbytky: zbývá %d
 SELECT_TITLE,Choose your cat,Vyber si mačku,Vyber si kočku
-SELECT_HINT,← → cat · ↑ ↓ map · Enter start · U upgrades · C charms · V artifacts · X challenges · Q / G / J journal · Esc menu,← → mačka · ↑ ↓ mapa · Enter štart · U vylepšenia · C prívesky · V artefakty · X výzvy · Q / G / J denník · Esc menu,← → kočka · ↑ ↓ mapa · Enter start · U vylepšení · C přívěsky · V artefakty · X výzvy · Q / G / J deník · Esc menu
+SELECT_HINT,"← → cat · ↑ ↓ map · click a cat, a map or a button","← → mačka · ↑ ↓ mapa · klikni na mačku, mapu alebo tlačidlo","← → kočka · ↑ ↓ mapa · klikni na kočku, mapu nebo tlačítko"
 SELECT_LOCKED,???,???,???
 GAME_OVER_MENU,Esc – change cat,Esc – zmeniť mačku,Esc – změnit kočku
 QUEST_RESCUE_ESCORT,Walk %s to the safe cat bed,Odprevaď: %s do bezpečného pelechu,Doprovoď: %s do bezpečného pelechu
@@ -1377,3 +1377,4 @@ ACH_DAILY_DESC,Win a daily night,Vyhraj dennú noc,Vyhraj denní noc
 ACH_DAILY_7_NAME,Regular,Štamgast,Štamgast
 ACH_DAILY_7_DESC,Win 7 daily nights,Vyhraj 7 denných nocí,Vyhraj 7 denních nocí
 PAUSE_STORIES,This map's stories: %s,Príbehy tejto mapy: %s,Příběhy této mapy: %s
+SELECT_BTN_DAILY,Daily night,Denná noc,Denní noc

@@ -46,6 +46,25 @@ static func button(text: String, width: float = 320.0, size: int = 22) -> Button
 	return b
 
 
+## A button for the mouse only: it never takes keyboard focus, so the arrow
+## keys keep driving the screen it sits on.
+static func click_button(text: String, width: float = 160.0, size: int = 17) -> Button:
+	var b := Button.new()
+	b.text = text
+	b.custom_minimum_size = Vector2(width, 36)
+	b.focus_mode = Control.FOCUS_NONE
+	b.add_theme_font_size_override("font_size", size)
+	b.add_theme_color_override("font_color", TEXT)
+	b.add_theme_color_override("font_hover_color", GOLD)
+	b.add_theme_constant_override("outline_size", 4)
+	b.add_theme_color_override("font_outline_color", OUTLINE)
+	b.add_theme_stylebox_override("normal", box(PANEL, BORDER))
+	b.add_theme_stylebox_override("hover", box(PANEL_HOVER, GOLD))
+	b.add_theme_stylebox_override("pressed", box(PANEL_HOVER, GOLD))
+	b.pressed.connect(func() -> void: Audio.play("click", -8.0, 0.0))
+	return b
+
+
 static func box(fill: Color, border: Color) -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = fill

@@ -180,7 +180,26 @@ func _build() -> void:
 	_challenge_label = _label(17, Color("e04646"))
 	root.add_child(_challenge_label)
 
-	var hint := _label(16, Color("8f7ea3"))
+	# Everything you can do here, as buttons for the mouse (the keys still work).
+	var buttons := HBoxContainer.new()
+	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
+	buttons.add_theme_constant_override("separation", 8)
+	root.add_child(buttons)
+	var play := UiStyle.click_button("%s (Enter)" % tr("MENU_PLAY"), 150, 18)
+	play.add_theme_color_override("font_color", GOLD)
+	play.pressed.connect(_start)
+	buttons.add_child(play)
+	for entry: Array in [["MENU_UPGRADES", "U", func() -> void: _shop.open()],
+			["MENU_CHARMS", "C", func() -> void: _charms.open()],
+			["ARTIFACTS_TITLE", "V", func() -> void: _artifacts.open()],
+			["CHALLENGES_TITLE", "X", func() -> void: _challenges.open()],
+			["SELECT_BTN_DAILY", "T", _start_daily],
+			["MENU_JOURNAL", "J", func() -> void: _journal.open("quests")],
+			["SET_BACK", "Esc", func() -> void: get_tree().change_scene_to_file("res://scenes/main_menu.tscn")]]:
+		var b := UiStyle.click_button("%s (%s)" % [tr(entry[0]), entry[1]], 0)
+		b.pressed.connect(entry[2])
+		buttons.add_child(b)
+	var hint := _label(15, Color("8f7ea3"))
 	hint.text = "SELECT_HINT"
 	root.add_child(hint)
 

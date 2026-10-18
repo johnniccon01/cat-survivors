@@ -41,6 +41,8 @@ func _ready() -> void:
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		row.add_child(label)
 		box.add_child(row)
+		row.mouse_filter = Control.MOUSE_FILTER_STOP
+		row.gui_input.connect(_on_row_input.bind(_rows.size()))
 		_rows.append(row)
 	_desc = _label(18, Color("d9cce6"))
 	_desc.custom_minimum_size = Vector2(760, 50)
@@ -49,6 +51,10 @@ func _ready() -> void:
 	var hint := _label(16, Color("8f7ea3"))
 	hint.text = "CHALLENGES_HINT"
 	box.add_child(hint)
+	var back := UiStyle.click_button("SET_BACK", 200)
+	back.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	back.pressed.connect(_close)
+	box.add_child(back)
 
 
 func open() -> void:
@@ -86,8 +92,7 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("move_down") or event.is_action_pressed("ui_down"):
 		_index = (_index + 1) % _ids.size()
 	elif event.is_action_pressed("restart") or event.is_action_pressed("ui_accept"):
-		Profile.toggle_challenge(_ids[_index])
-		Audio.play("select", -6.0, 0.0)
+		_activate()
 	elif event.is_action_pressed("challenges") or event.is_action_pressed("pause"):
 		visible = false
 		closed.emit()
@@ -96,6 +101,28 @@ func _input(event: InputEvent) -> void:
 		return
 	Audio.play("click", -10.0, 0.0)
 	_refresh()
+
+
+## What Enter (or a click) does on the selected row.
+func _activate() -> void:
+	Profile.toggle_challenge(_ids[_index])
+	Audio.play("select", -6.0, 0.0)
+
+
+## Mouse: hovering a row selects it, clicking it does what Enter does.
+func _on_row_input(event: InputEvent, i: int) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		_index = i
+		_activate()
+		_refresh()
+	elif event is InputEventMouseMotion and _index != i:
+		_index = i
+		_refresh()
+
+
+func _close() -> void:
+	visible = false
+	closed.emit()
 
 
 func _label(size: int, font_color: Color) -> Label:

@@ -34,6 +34,8 @@ const BASE_STATS := {
 	# and the magnet pulse.
 	"boss_damage": 1.0, "thorns": 0.0, "level_heal": 0.0, "low_hp_guard": 0.0,
 	"freeze_every": 0.0, "pulse_magnet": 0.0, "heal_power": 1.0,
+	# Shop: extra weapon slots on top of MAX_WEAPONS.
+	"weapon_slots": 0.0,
 }
 
 const OUTLINE := Color("2b1d14")
@@ -125,7 +127,9 @@ func _mark_used(id: String) -> void:
 
 ## Weapon slots: one with the "one weapon" challenge.
 func max_weapons() -> int:
-	return 1 if (controller == "input" or controller == "bot") and Profile.has_challenge("ONE_WEAPON") else MAX_WEAPONS
+	if (controller == "input" or controller == "bot") and Profile.has_challenge("ONE_WEAPON"):
+		return 1
+	return MAX_WEAPONS + int(stat("weapon_slots"))
 
 
 func is_companion() -> bool:

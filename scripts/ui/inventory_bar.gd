@@ -18,7 +18,7 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_font = ThemeDB.fallback_font
 	position = Vector2(10, 22)
-	size = Vector2((SLOT + GAP) * Player.MAX_WEAPONS, (SLOT + GAP) * 2)
+	size = Vector2((SLOT + GAP) * (Player.MAX_WEAPONS + 2), (SLOT + GAP) * 2)
 
 
 func refresh() -> void:
@@ -29,7 +29,7 @@ func _draw() -> void:
 	if player == null:
 		return
 	var weapons := player.weapons.get_children()
-	for i in Player.MAX_WEAPONS:
+	for i in maxi(player.max_weapons(), weapons.size()):
 		var rect := Rect2(Vector2(i * (SLOT + GAP), 0), Vector2(SLOT, SLOT))
 		if i < weapons.size():
 			var w: Weapon = weapons[i]

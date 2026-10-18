@@ -92,19 +92,20 @@ func _build() -> void:
 	top.add_theme_constant_override("separation", 18)
 	root.add_child(top)
 	var grid := GridContainer.new()
-	grid.columns = 7 if _ids.size() > 12 else 6
+	var wide := _ids.size() > 12
+	grid.columns = 7 if wide else 6
 	grid.add_theme_constant_override("h_separation", 8)
 	grid.add_theme_constant_override("v_separation", 8)
 	top.add_child(grid)
 	for i in _ids.size():
 		var card := PanelContainer.new()
-		card.custom_minimum_size = Vector2(98, 112)
+		card.custom_minimum_size = Vector2(88, 104) if wide else Vector2(98, 112)
 		card.mouse_filter = Control.MOUSE_FILTER_STOP
 		card.gui_input.connect(_on_card_input.bind(i))
 		var preview := CatPreview.new()
 		preview.cat_id = _ids[i]
 		preview.locked = not Profile.is_unlocked(_ids[i])
-		preview.zoom = 2.2
+		preview.zoom = 2.0 if wide else 2.2
 		preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		card.add_child(preview)
 		grid.add_child(card)
@@ -119,7 +120,7 @@ func _build() -> void:
 	drow.add_theme_constant_override("separation", 10)
 	detail.add_child(drow)
 	_big = CatPreview.new()
-	_big.custom_minimum_size = Vector2(190, 210)
+	_big.custom_minimum_size = Vector2(170 if wide else 190, 210)
 	_big.zoom = 5.0
 	_big.walking = true
 	_big.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -135,7 +136,7 @@ func _build() -> void:
 	_desc = _label(17, Color("d9cce6"))
 	_desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_desc.custom_minimum_size = Vector2(300, 0)
+	_desc.custom_minimum_size = Vector2(240 if wide else 300, 0)
 	info.add_child(_desc)
 	var weapon_row := HBoxContainer.new()
 	weapon_row.add_theme_constant_override("separation", 8)

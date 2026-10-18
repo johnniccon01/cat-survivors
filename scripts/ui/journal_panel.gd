@@ -95,8 +95,20 @@ func show_tab(which: String) -> void:
 
 func _build_quests() -> void:
 	_header(tr("QB_CHAPTER_CHAINS"))
-	for id: String in GameData.chains:
-		_list.add_child(_chain_row(id))
+	# Grouped by map, then the stories that go across maps or happen anywhere.
+	var groups: Array = GameData.stages.keys()
+	groups.append("any")
+	for group: String in groups:
+		var ids: Array = GameData.chains.keys().filter(func(c: String) -> bool: return GameData.chains[c].get("stage", "any") == group)
+		if ids.is_empty():
+			continue
+		var title := tr("CHAIN_GROUP_ANY") if group == "any" else (tr("STAGE_%s_NAME" % group) if Profile.is_stage_unlocked(group) else "???")
+		var done := ids.filter(func(c: String) -> bool: return ChainStep.is_done(c)).size()
+		var sub := _label(17, GOLD, HORIZONTAL_ALIGNMENT_LEFT)
+		sub.text = "   %s  (%d/%d)" % [title, done, ids.size()]
+		_list.add_child(sub)
+		for id: String in ids:
+			_list.add_child(_chain_row(id))
 	for chapter: String in GameData.questbook.get("chapters", []):
 		_header(tr("QB_CHAPTER_%s" % chapter.to_upper()))
 		for id: String in QuestBook.lines():

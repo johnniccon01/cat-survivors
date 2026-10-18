@@ -47,6 +47,7 @@ func _ready() -> void:
 	_button(box, "Final boss now", _final_boss)
 	_button(box, "Cat quest now", func() -> void: _quest("cat"))
 	_button(box, "Side quest now", func() -> void: _quest("side"))
+	_button(box, "Story step now", func() -> void: _quest("chain"))
 	_button(box, "Angel cat now", func() -> void: main.summon_angel())
 	_button(box, "Devil cat now", func() -> void: main.summon_devil())
 
@@ -137,6 +138,11 @@ func _quest(kind: String) -> void:
 		director.active.fail()
 	if kind == "cat":
 		var id := director._pick_cat()
+		if id != "":
+			director.force(id)
+	elif kind == "chain":
+		# The next story step on this map (later-in-the-night steps wait).
+		var id := director._pick_chain()
 		if id != "":
 			director.force(id)
 	else:

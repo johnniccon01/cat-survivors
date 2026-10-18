@@ -112,6 +112,21 @@ static func _weapon(ci: CanvasItem, id: String) -> void:
 			ci.draw_line(Vector2(2, 5), Vector2(8, 5), Color("c9ced2"), 1.0)
 			ci.draw_line(Vector2(3, 8), Vector2(7, 8), Color("c9ced2"), 1.0)
 			ci.draw_polyline(PackedVector2Array([Vector2(9, 3), Vector2(12, 7), Vector2(10, 8), Vector2(14, 13)]), Color("ffe066"), 1.5)
+		"TIN_CAN_TOSS":
+			ci.draw_rect(Rect2(5, 5, 7, 9), OUTLINE)
+			ci.draw_rect(Rect2(6, 6, 5, 7), Color("c9ced2"))
+			ci.draw_rect(Rect2(6, 8, 5, 3), Color("d9534f"))
+			ci.draw_arc(Vector2(10, 4), 3.0, PI, TAU, 6, Color("ffe066"), 1.0)
+		"WAVE":
+			ci.draw_polyline(PackedVector2Array([Vector2(2, 11), Vector2(5, 7), Vector2(8, 6), Vector2(11, 8), Vector2(9, 10)]), Color("e8f4ff"), 1.5)
+			ci.draw_line(Vector2(2, 13), Vector2(14, 13), Color("5a9ae6"), 2.0)
+			ci.draw_circle(Vector2(12, 6), 1.0, Color.WHITE)
+		"DRONE_BUDDY":
+			ci.draw_circle(Vector2(8, 9), 2.5, Color("3a3e44"))
+			ci.draw_circle(Vector2(8, 9), 1.0, Color("5ad1e6"))
+			for d: Vector2 in [Vector2(4, 5), Vector2(12, 5), Vector2(4, 13), Vector2(12, 13)]:
+				ci.draw_line(Vector2(8, 9), d, Color("9aa0a6"), 1.0)
+				ci.draw_line(d + Vector2(-2, 0), d + Vector2(2, 0), Color("e8f4ff"), 1.0)
 		_:
 			ci.draw_circle(Vector2(8, 8), 4.0, Color.WHITE)
 

@@ -1322,3 +1322,33 @@ CHAIN_ROGUE_DRONES_NAME,Rogue Drones,Zblúdilé drony,Zbloudilé drony
 CHAIN_ROGUE_DRONES_DESC,Three drones broke loose – with the factory's best chip inside.,Utrhli sa tri drony – a v nich najlepší čip továrne.,Utrhly se tři drony – a v nich nejlepší čip továrny.
 CHAIN_ROGUE_DRONES_1,Catch the rogue drones,Chyť zblúdilé drony,Chyť zbloudilé drony
 CHAIN_ROGUE_DRONES_1_DONE,The last drone drops its overclock chip.,Posledný dron pustil pretaktovaný čip.,Poslední dron upustil přetaktovaný čip.
+WEAPON_TIN_CAN_TOSS_NAME,Tin Can,Konzerva,Konzerva
+WEAPON_TIN_CAN_TOSS_DESC,Lobs a tin can that bursts where it lands.,"Hodí konzervu, ktorá vybuchne tam, kde dopadne.","Hodí konzervu, která vybuchne tam, kde dopadne."
+WEAPON_CLUSTER_CAN_NAME,Cluster Can,Kazetová konzerva,Kazetová konzerva
+WEAPON_CLUSTER_CAN_DESC,Evolved Tin Can: every burst throws four little cans.,Evolúcia Konzervy: každý výbuch rozhodí štyri malé konzervy.,Evoluce Konzervy: každý výbuch rozhodí čtyři malé konzervy.
+WEAPON_WAVE_NAME,Wave,Vlna,Vlna
+WEAPON_WAVE_DESC,A wall of water that shoves enemies away.,"Stena vody, ktorá odhodí nepriateľov.","Stěna vody, která odhodí nepřátele."
+WEAPON_TSUNAMI_NAME,Tsunami,Cunami,Tsunami
+WEAPON_TSUNAMI_DESC,Evolved Wave: huge waves both ways at once.,Evolúcia Vlny: obrovské vlny na obe strany naraz.,Evoluce Vlny: obrovské vlny na obě strany najednou.
+WEAPON_DRONE_BUDDY_NAME,Drone Buddy,Dronček,Dronek
+WEAPON_DRONE_BUDDY_DESC,Little drones circle you and zap enemies.,Malé drony krúžia okolo teba a strieľajú na nepriateľov.,Malé drony krouží kolem tebe a střílí na nepřátele.
+WEAPON_DRONE_SWARM_NAME,Drone Swarm,Roj dronov,Roj dronů
+WEAPON_DRONE_SWARM_DESC,Evolved Drone Buddy: four drones whose beams jump to a second enemy.,"Evolúcia Drončeka: štyri drony, ktorých lúče preskočia na druhého nepriateľa.","Evoluce Dronka: čtyři drony, jejichž paprsky přeskočí na dalšího nepřítele."
+BRANCH_BIG_BOOM_NAME,Big Boom,Veľký tresk,Velký třesk
+BRANCH_BIG_BOOM_DESC,Much bigger bursts.,Oveľa väčšie výbuchy.,Mnohem větší výbuchy.
+BRANCH_SOUP_SPLASH_NAME,Cold Soup,Studená polievka,Studená polévka
+BRANCH_SOUP_SPLASH_DESC,Hit enemies are slowed.,Zasiahnutí nepriatelia sa spomalia.,Zasažení nepřátelé se zpomalí.
+BRANCH_HOT_CAN_NAME,Hot Beans,Horúce fazule,Horké fazole
+BRANCH_HOT_CAN_DESC,Bursts set enemies on fire.,Výbuchy podpália nepriateľov.,Výbuchy zapálí nepřátele.
+BRANCH_UNDERTOW_NAME,Undertow,Spodný prúd,Spodní proud
+BRANCH_UNDERTOW_DESC,Soaked enemies are slowed.,Premočení nepriatelia sa spomalia.,Promočení nepřátelé se zpomalí.
+BRANCH_RIPTIDE_NAME,Riptide,Ťah mora,Tah moře
+BRANCH_RIPTIDE_DESC,Much stronger waves.,Oveľa silnejšie vlny.,Mnohem silnější vlny.
+BRANCH_BIG_WAVE_NAME,Big Wave,Veľká vlna,Velká vlna
+BRANCH_BIG_WAVE_DESC,Taller waves that roll further.,"Vyššie vlny, ktoré dojdú ďalej.","Vyšší vlny, které dojdou dál."
+BRANCH_MORE_DRONES_NAME,More Drones,Viac dronov,Víc dronů
+BRANCH_MORE_DRONES_DESC,Extra drones join the flight.,K letke sa pridajú ďalšie drony.,K letce se přidají další drony.
+BRANCH_OVERHEAT_NAME,Overheat,Prehriatie,Přehřátí
+BRANCH_OVERHEAT_DESC,Beams set enemies on fire.,Lúče podpália nepriateľov.,Paprsky zapálí nepřátele.
+BRANCH_TARGETING_NAME,Targeting,Zameriavač,Zaměřovač
+BRANCH_TARGETING_DESC,Finishes off weakened enemies.,Dorazí oslabených nepriateľov.,Dorazí oslabené nepřátele.

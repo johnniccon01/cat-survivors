@@ -736,5 +736,169 @@
         "knockback": 0.3
       }
     ]
+  },
+  "TIN_CAN_TOSS": {
+    "script": "res://scripts/weapons/can_toss.gd",
+    "rarity": 80,
+    "requires_stage": "SUPERMARKET",
+    "levels": [
+      {
+        "damage": 18,
+        "interval": 1.6,
+        "repeat_interval": 0.2,
+        "amount": 1,
+        "area": 1.0,
+        "speed": 1.0
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 8
+      },
+      {
+        "area": 0.2
+      },
+      {
+        "amount": 1
+      },
+      {
+        "interval": -0.3
+      },
+      {
+        "damage": 10
+      },
+      {
+        "area": 0.25
+      }
+    ],
+    "evolve": {
+      "with": "MIGHT",
+      "into": "CLUSTER_CAN"
+    }
+  },
+  "CLUSTER_CAN": {
+    "script": "res://scripts/weapons/can_toss.gd",
+    "evolved": true,
+    "cluster": true,
+    "levels": [
+      {
+        "damage": 36,
+        "interval": 1.1,
+        "repeat_interval": 0.15,
+        "amount": 3,
+        "area": 1.4,
+        "speed": 1.2
+      }
+    ]
+  },
+  "WAVE": {
+    "script": "res://scripts/weapons/wave.gd",
+    "rarity": 80,
+    "requires_stage": "HARBOR",
+    "levels": [
+      {
+        "damage": 12,
+        "interval": 2.4,
+        "repeat_interval": 0.25,
+        "amount": 1,
+        "area": 1.0,
+        "speed": 1.0,
+        "knockback": 2.0
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 6
+      },
+      {
+        "area": 0.2
+      },
+      {
+        "knockback": 0.5,
+        "damage": 6
+      },
+      {
+        "amount": 1
+      },
+      {
+        "interval": -0.4
+      },
+      {
+        "damage": 10
+      }
+    ],
+    "evolve": {
+      "with": "DURATION",
+      "into": "TSUNAMI"
+    }
+  },
+  "TSUNAMI": {
+    "script": "res://scripts/weapons/wave.gd",
+    "evolved": true,
+    "tsunami": true,
+    "levels": [
+      {
+        "damage": 28,
+        "interval": 1.8,
+        "repeat_interval": 0.2,
+        "amount": 2,
+        "area": 1.5,
+        "speed": 1.3,
+        "knockback": 3.0
+      }
+    ]
+  },
+  "DRONE_BUDDY": {
+    "script": "res://scripts/weapons/drone_buddy.gd",
+    "rarity": 80,
+    "requires_stage": "FACTORY",
+    "levels": [
+      {
+        "damage": 8,
+        "interval": 0.9,
+        "amount": 1,
+        "area": 1.0
+      },
+      {
+        "damage": 3
+      },
+      {
+        "amount": 1
+      },
+      {
+        "interval": -0.15
+      },
+      {
+        "damage": 5
+      },
+      {
+        "amount": 1
+      },
+      {
+        "interval": -0.15
+      },
+      {
+        "damage": 6
+      }
+    ],
+    "evolve": {
+      "with": "COOLDOWN",
+      "into": "DRONE_SWARM"
+    }
+  },
+  "DRONE_SWARM": {
+    "script": "res://scripts/weapons/drone_buddy.gd",
+    "evolved": true,
+    "swarm": true,
+    "levels": [
+      {
+        "damage": 16,
+        "interval": 0.6,
+        "amount": 4,
+        "area": 1.3
+      }
+    ]
   }
 }

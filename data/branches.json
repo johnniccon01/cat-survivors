@@ -616,5 +616,141 @@
         }
       ]
     }
+  },
+  "TIN_CAN_TOSS": {
+    "BIG_BOOM": {
+      "ranks": [
+        {
+          "mods": {
+            "area": 0.25
+          }
+        },
+        {
+          "mods": {
+            "area": 0.5
+          }
+        }
+      ]
+    },
+    "SOUP_SPLASH": {
+      "ranks": [
+        {
+          "chill": [
+            0.6,
+            1.5
+          ]
+        },
+        {
+          "chill": [
+            0.45,
+            2.2
+          ]
+        }
+      ]
+    },
+    "HOT_CAN": {
+      "ranks": [
+        {
+          "burn": [
+            0.2,
+            3.0
+          ]
+        },
+        {
+          "burn": [
+            0.3,
+            4.0
+          ]
+        }
+      ]
+    }
+  },
+  "WAVE": {
+    "UNDERTOW": {
+      "ranks": [
+        {
+          "chill": [
+            0.6,
+            1.5
+          ]
+        },
+        {
+          "chill": [
+            0.4,
+            2.2
+          ]
+        }
+      ]
+    },
+    "RIPTIDE": {
+      "ranks": [
+        {
+          "mods": {
+            "damage": 0.4
+          }
+        },
+        {
+          "mods": {
+            "damage": 0.8
+          }
+        }
+      ]
+    },
+    "BIG_WAVE": {
+      "ranks": [
+        {
+          "mods": {
+            "area": 0.3
+          }
+        },
+        {
+          "mods": {
+            "area": 0.6
+          }
+        }
+      ]
+    }
+  },
+  "DRONE_BUDDY": {
+    "MORE_DRONES": {
+      "ranks": [
+        {
+          "mods": {
+            "amount": 1
+          }
+        },
+        {
+          "mods": {
+            "amount": 2
+          }
+        }
+      ]
+    },
+    "OVERHEAT": {
+      "ranks": [
+        {
+          "burn": [
+            0.2,
+            3.0
+          ]
+        },
+        {
+          "burn": [
+            0.3,
+            4.0
+          ]
+        }
+      ]
+    },
+    "TARGETING": {
+      "ranks": [
+        {
+          "execute": 0.1
+        },
+        {
+          "execute": 0.18
+        }
+      ]
+    }
   }
 }

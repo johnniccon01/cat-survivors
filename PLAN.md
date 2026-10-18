@@ -22,7 +22,7 @@ Hra je hrateľná od menu po koniec noci na 7 mapách:
   udalosti (kruhy, roje), elity, bossovia, finálny boss, mačacie dvierka na
   útek, série výhier.
 - **Questy:** 34 príbehov (3 na každú mapu, 3 cez všetky mapy, 10 samostatných) s voľbami a trvalými zmenami máp, záchrany a súboje mačiek, príbehový quest na každej mape, vedľajšie úlohy.
-- **Meta:** zlato, obchod s vylepšeniami, charmy, 30 artefaktov, 40 úspechov, dlhodobé ciele, kniha questov, výzvy, nekonečná noc.
+- **Meta:** zlato, obchod s vylepšeniami, charmy, 29 artefaktov, 40 úspechov, dlhodobé ciele, kniha questov, výzvy, nekonečná noc.
 - **Tajomstvo:** anjel ťa na streche po 15. minúte s malou šancou zachráni;
   po dvoch záchranách príde diabol, ktorý zabije isto.
 - **Technika:** menu, nastavenia, pauza, SK/EN/CS, gamepad, pixel-art sprity, 147

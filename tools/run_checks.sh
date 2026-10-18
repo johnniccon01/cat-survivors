@@ -2,6 +2,9 @@
 # Runs every automated scenario headless (12 at a time) and reports script
 # errors.
 #   bash tools/run_checks.sh [path-to-godot-console-exe]
+#   ONLY="harbor|final_kraken" bash tools/run_checks.sh   (just those)
+#   QUICK=1 bash tools/run_checks.sh   (a quick round between steps: a set of
+#   scenarios covering every map and system, each at most 90 s of game time)
 # Exit code is the number of failing scenarios.
 GODOT="${1:-/c/Users/john.niccon/Downloads/Godot_v4.6.2-stable_win64.exe/Godot_v4.6.2-stable_win64_console.exe}"
 JOBS="${JOBS:-12}"
@@ -169,6 +172,10 @@ run_one() {
     args="${args%%|*}"
   fi
   # Own log file, so test runs never push the player's logs out of the rotation.
+  if [ -n "$QUICK" ]; then
+    # Quick round: no scenario runs longer than 90 s of game time.
+    args=$(echo "$args" | sed -E 's/--bot-time=([0-9]+)/--bot-time=\1@/; s/--bot-time=([0-9]{3,}|9[1-9])@/--bot-time=90/; s/@//')
+  fi
   # Whole nights (night_*) need longer than the rest.
   local limit=280
   [[ "$name" == night_* ]] && limit=600
@@ -182,8 +189,11 @@ run_one() {
   fi
 }
 export -f run_one
-export GODOT
+export GODOT QUICK
 
+if [ -n "$QUICK" ] && [ -z "$ONLY" ]; then
+  ONLY="menus|apartment|basement|garden|rooftop|supermarket|harbor|factory|final_vacuum|final_kraken|final_r3000|all_weapons|new_weapons_2|evolution_mica|evolution_drone|branches_fx|quest_luna|quest_baron|story_note|chain_trail|chain_carry|chain_zones|chain_gift|chain_kittens|chain_fire|artifacts_hurt|challenges|traps|endless|champions"
+fi
 # ONLY="name1|name2" runs just those scenarios.
 printf '%s\n' "${scenarios[@]}" | grep -E "^(${ONLY:-[^|]+})\|" | xargs -P "$JOBS" -I{} bash -c 'run_one "$@"' _ {} | tee /tmp/catsurvivors_checks.txt
 fail=$(grep -c '^FAIL' /tmp/catsurvivors_checks.txt)

@@ -168,10 +168,23 @@ func skip_to(seconds: float) -> void:
 	_roll_cap()
 
 
+const EARLY_EASE := 0.7
+const EASE_UNTIL := 6.0
+
+
 ## Health multiplier for enemies spawned right now.
 func hp_multiplier() -> float:
 	var level_bonus := maxf(_player.level - LEVEL_SCALING_FROM, 0) * LEVEL_SCALING
-	return float(current_wave().get("hp_mult", 1.0)) * (1.0 + level_bonus) * _player.stat("curse") * endless_factor()
+	return float(current_wave().get("hp_mult", 1.0)) * (1.0 + level_bonus) * _player.stat("curse") * endless_factor() * early_ease()
+
+
+## Later maps start gentler: enemies there have 30 % less health and hit
+## 30 % softer at the start of the night, back to full by minute EASE_UNTIL, so a fresh cat
+## can survive the first boss.
+func early_ease() -> float:
+	if stage_id == "LIVING_ROOM" or elapsed >= EASE_UNTIL * 60.0:
+		return 1.0
+	return lerpf(EARLY_EASE, 1.0, elapsed / (EASE_UNTIL * 60.0))
 
 
 ## Endless night: +60 % enemy health for every minute past the final boss.
@@ -207,7 +220,7 @@ func _physics_process(delta: float) -> void:
 	if _player == null or _player.is_dead:
 		return
 	elapsed += delta
-	_enemies.damage_mult = 1.0 + DAMAGE_PER_MINUTE_SQ * pow(elapsed / 60.0, 2.0)
+	_enemies.damage_mult = (1.0 + DAMAGE_PER_MINUTE_SQ * pow(elapsed / 60.0, 2.0)) * early_ease()
 	_enemies.speed_mult = 1.0 + minf(SPEED_PER_MINUTE * elapsed / 60.0, SPEED_MAX_BONUS) + minf(ENDLESS_SPEED_PER_MINUTE * endless_minutes(), ENDLESS_SPEED_MAX)
 	if _cleared:
 		return

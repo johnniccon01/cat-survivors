@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 
 
 func _draw() -> void:
-	var alpha := 0.12 + _pulse * 0.15
+	var alpha := 0.07 + _pulse * 0.12
 	draw_circle(Vector2.ZERO, radius, Color(0.45, 0.85, 0.4, alpha))
 	draw_arc(Vector2.ZERO, radius, 0.0, TAU, 48, Color(0.55, 0.95, 0.5, 0.35 + _pulse * 0.4), 1.0)
 	for i in 6:

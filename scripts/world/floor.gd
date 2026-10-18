@@ -14,6 +14,7 @@ const KEEP_MARGIN := 2
 ## "apartment", "basement", "garden" or "rooftop"; picks rooms, floors and
 ## furniture.
 var theme := "apartment"
+const FLOOR_DIM := Color(0.8, 0.8, 0.84)
 
 var _noise := FastNoiseLite.new()
 var _seed := randi()
@@ -63,6 +64,9 @@ func _create(c: Vector2i) -> void:
 	for layer in [FloorChunk.Layer.GROUND, FloorChunk.Layer.DECOR, FloorChunk.Layer.OVERLAY]:
 		var node := FloorChunk.new()
 		node.layer = layer
+		# The floor stays a little dim so enemies stand out against it.
+		if layer != FloorChunk.Layer.OVERLAY:
+			node.modulate = FLOOR_DIM
 		node.desc = desc
 		node.position = Vector2(c) * CHUNK
 		node.z_index = layer

@@ -47,12 +47,13 @@ func _draw() -> void:
 		var k: float = n[3] / LIFETIME
 		var crit: bool = n[2]
 		var text := str(roundi(n[1])) + ("!" if crit else "")
-		var size := 13 if crit else 10
+		var size := 13 if crit else 9
 		# Pop in, float up, fade out.
 		var pop := 1.0 + maxf(0.0, 0.25 - k) * (3.0 if crit else 1.5)
 		var pos: Vector2 = n[0] + Vector2(n[4] * k, -18.0 * k)
 		var color := CRIT if crit else NORMAL
-		color.a = clampf((1.0 - k) * 2.0, 0.0, 1.0)
+		# Plain hits stay a bit see-through so they don't hide the enemies.
+		color.a = clampf((1.0 - k) * 2.0, 0.0, 1.0 if crit else 0.7)
 		var font_size := roundi(size * pop)
 		var w := _font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
 		var at := pos - Vector2(w * 0.5, 0)

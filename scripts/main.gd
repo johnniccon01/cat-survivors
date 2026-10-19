@@ -28,6 +28,8 @@ extends Node2D
 ##   --endless          the bot carries on into the endless night after a win
 ##   --endless-now      start straight in the endless night (tests)
 ##   --god              the cat can't be hurt (performance checks)
+##   --perf             print frame timings every 2 s
+##   --bot-speed=N      game speed while the bot plays (default 4)
 ##   --drop-charm       drop a random charm next to the cat at the start
 ##   --catch-up         with --start-minute: level the cat like the dev panel's skip does
 ##   --traps            place one of every trap next to the cat
@@ -95,6 +97,16 @@ var chests_opened := 0
 
 var _args := GameData.args()
 var _bot := "--bot" in _args
+## --perf: prints frame timings every 2 s (real time).
+var _perf := "--perf" in _args
+var _perf_t := 2.0
+## Effect saver: seconds the frame rate has been low (or fine again).
+var _slow_t := 0.0
+var _fast_t := 0.0
+const SLOW_FPS := 40
+const SLOW_FOR := 4.0
+const FAST_FPS := 56
+const FAST_FOR := 30.0
 var _bot_time := float(_arg("--bot-time=", "300"))
 var _modals: Array[String] = []
 var _in_modal := false
@@ -261,7 +273,7 @@ func _ready() -> void:
 	hud.update_inventory(player)
 	if _bot:
 		player.controller = "bot"
-	_base_time_scale = (4.0 if _bot else 1.0) * (HYPER_SPEED if Profile.has_challenge("HYPER") else 1.0)
+	_base_time_scale = (float(_arg("--bot-speed=", "4")) if _bot else 1.0) * (HYPER_SPEED if Profile.has_challenge("HYPER") else 1.0)
 	Engine.time_scale = _base_time_scale
 	for i in int(_arg("--levels=", "0")):
 		Upgrades.apply(player, Upgrades.roll(player)[0])
@@ -302,7 +314,36 @@ func _ready() -> void:
 				player.add_weapon(id)
 
 
+## Turns the effect saver on while the game runs slowly for a few seconds
+## (big late-game crowds on a laptop) and off again once it's smooth.
+func _watch_frame_rate(real_delta: float) -> void:
+	if get_tree().paused:
+		return
+	var fps := Engine.get_frames_per_second()
+	_slow_t = _slow_t + real_delta if fps < SLOW_FPS else 0.0
+	_fast_t = _fast_t + real_delta if fps >= FAST_FPS else 0.0
+	if not Settings.auto_low and _slow_t > SLOW_FOR:
+		Settings.auto_low = true
+		if _perf:
+			print("PERF: effect saver on")
+	elif Settings.auto_low and _fast_t > FAST_FOR:
+		Settings.auto_low = false
+
+
 func _process(delta: float) -> void:
+	_watch_frame_rate(delta / maxf(Engine.time_scale, 0.01))
+	if _perf:
+		_perf_t -= delta / Engine.time_scale
+		if _perf_t <= 0.0:
+			_perf_t = 2.0
+			print("PERF: fps=%d process=%.1fms physics=%.1fms draw_calls=%d objects=%d nodes=%d enemies=%d" % [
+				Engine.get_frames_per_second(),
+				Performance.get_monitor(Performance.TIME_PROCESS) * 1000.0,
+				Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS) * 1000.0,
+				Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),
+				Performance.get_monitor(Performance.RENDER_TOTAL_OBJECTS_IN_FRAME),
+				Performance.get_monitor(Performance.OBJECT_NODE_COUNT),
+				enemies.enemies.size()])
 	if _kill_every > 0.0 and angel_saves < 2 and not _rescuing and not player.is_dead:
 		if _next_kill == INF:
 			_next_kill = spawner.elapsed + _kill_every

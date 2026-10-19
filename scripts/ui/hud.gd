@@ -231,6 +231,7 @@ func flash_hurt() -> void:
 
 
 func _process(delta: float) -> void:
+	_scroll_summary(delta)
 	_low_t += delta
 	# Low health: the red edge pulses until the cat is out of danger.
 	var low := 0.0
@@ -306,19 +307,55 @@ func update_gold(amount: int, charms: int = 0) -> void:
 		_gold_label.text += "  ·  " + tr("HUD_CHARMS") % charms
 
 
-## Gold and streak lines on whichever end screen is showing.
+## Gold and streak lines on whichever end screen is showing. A long list
+## (many goals and stories done in one night) goes into a scrolling box so
+## the rest of the screen stays readable; the last line (total gold) stays
+## outside it.
 func show_summary(lines: Array[String]) -> void:
 	for overlay: Control in [_over_overlay, _win_overlay, _extract_overlay]:
 		if not overlay.visible:
 			continue
 		var box := overlay.get_node("Box")
-		for i in lines.size():
-			var line := _label(22, HORIZONTAL_ALIGNMENT_CENTER)
+		var scroll := ScrollContainer.new()
+		scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		scroll.set_meta("summary", true)
+		var list := VBoxContainer.new()
+		list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		list.add_theme_constant_override("separation", 4)
+		scroll.add_child(list)
+		var width := minf(get_viewport().get_visible_rect().size.x - 80.0, 1000.0)
+		var height := 0.0
+		for i in lines.size() - 1:
+			var line := _label(20, HORIZONTAL_ALIGNMENT_CENTER)
 			line.text = lines[i]
 			line.label_settings.font_color = Color("f2c14e")
-			line.set_meta("summary", true)
-			box.add_child(line)
-			box.move_child(line, 2 + i)
+			line.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			line.custom_minimum_size = Vector2(width, 0)
+			list.add_child(line)
+			height += 30.0 * (1 + floori(lines[i].length() * 11.0 / width))
+		scroll.custom_minimum_size = Vector2(width + 16.0, minf(height, get_viewport().get_visible_rect().size.y * 0.38))
+		box.add_child(scroll)
+		box.move_child(scroll, 2)
+		_summary_scroll = scroll
+		if not lines.is_empty():
+			var total := _label(24, HORIZONTAL_ALIGNMENT_CENTER)
+			total.text = lines[-1]
+			total.label_settings.font_color = Color("f2c14e")
+			total.set_meta("summary", true)
+			box.add_child(total)
+			box.move_child(total, 3)
+
+
+## The end screen's summary box, scrolled with up/down or the wheel.
+var _summary_scroll: ScrollContainer
+
+
+func _scroll_summary(delta: float) -> void:
+	if not is_instance_valid(_summary_scroll) or not _summary_scroll.is_visible_in_tree():
+		return
+	var axis := Input.get_axis("ui_up", "ui_down")
+	if axis != 0.0:
+		_summary_scroll.scroll_vertical += roundi(axis * 500.0 * delta)
 
 
 func show_extracted(elapsed: float, kills: int) -> void:

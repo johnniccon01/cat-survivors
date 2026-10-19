@@ -196,7 +196,7 @@
       {
         "type": "collect",
         "item": "gear",
-        "count": 3,
+        "count": 4,
         "source": "guards",
         "guard_hp": 6.0,
         "spread": [
@@ -205,6 +205,17 @@
         ],
         "deliver": true,
         "look_to": "boiler",
+        "build": {
+          "seconds": 10,
+          "radius": 80,
+          "spawn": {
+            "every": 2.0,
+            "count": 4
+          },
+          "feature": "heal_spot",
+          "finale": "kill",
+          "finale_radius": 360
+        },
         "distance": 300
       }
     ]
@@ -316,18 +327,38 @@
         "items": [
           "hat",
           "scarf",
-          "pumpkin"
+          "pumpkin",
+          "straw",
+          "button"
         ],
-        "count": 3,
+        "count": 10,
         "source": "kills",
         "enemy": "CROW",
-        "chance": 0.25,
+        "chance": 0.3,
         "deliver": true,
-        "look_to": "pole",
+        "look_to": "scarecrow",
         "spawn": {
           "enemy": "CROW",
-          "every": 5.0,
+          "every": 4.0,
           "count": 4
+        },
+        "build": {
+          "seconds": 10,
+          "radius": 90,
+          "spawn": {
+            "enemy": "CROW",
+            "every": 1.5,
+            "count": 4
+          },
+          "feature": "scarecrow",
+          "finale": "flee",
+          "finale_targets": [
+            "CROW",
+            "PIGEON",
+            "GULL",
+            "DIVE_GULL"
+          ],
+          "finale_radius": 900
         },
         "distance": 300
       }
@@ -575,7 +606,7 @@
       {
         "type": "collect",
         "item": "barrel",
-        "count": 3,
+        "count": 4,
         "capacity": 1,
         "slow_each": 0.35,
         "spread": [
@@ -584,6 +615,21 @@
         ],
         "deliver": true,
         "look_to": "lighthouse",
+        "build": {
+          "seconds": 10,
+          "radius": 90,
+          "spawn": {
+            "enemy": "JELLYFISH",
+            "every": 2.0,
+            "count": 4
+          },
+          "feature": "lighthouse",
+          "finale": "kill",
+          "finale_targets": [
+            "JELLYFISH"
+          ],
+          "finale_radius": 900
+        },
         "distance": 300
       }
     ]

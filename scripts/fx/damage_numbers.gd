@@ -27,7 +27,7 @@ func _ready() -> void:
 func add(pos: Vector2, value: float, crit: bool) -> void:
 	if not Settings.damage_numbers or value < 0.5:
 		return
-	if _numbers.size() >= MAX_NUMBERS:
+	while _numbers.size() >= MAX_NUMBERS * Settings.effects_scale():
 		_numbers.pop_front()
 	_numbers.append([pos + Vector2(randf_range(-4, 4), -8), value, crit, 0.0, randf_range(-12, 12)])
 
@@ -54,8 +54,11 @@ func _draw() -> void:
 		var color := CRIT if crit else NORMAL
 		# Plain hits stay a bit see-through so they don't hide the enemies.
 		color.a = clampf((1.0 - k) * 2.0, 0.0, 1.0 if crit else 0.7)
-		var font_size := roundi(size * pop)
-		var w := _font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
-		var at := pos - Vector2(w * 0.5, 0)
-		draw_string_outline(_font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, 3, Color(OUTLINE, color.a))
-		draw_string(_font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
+		# Two fixed font sizes, popped by scaling: a new size every frame
+		# would make the font render its glyphs again and again (slow).
+		var w := _font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x
+		draw_set_transform(pos, 0.0, Vector2(pop, pop))
+		var at := Vector2(-w * 0.5, 0)
+		draw_string_outline(_font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, size, 3, Color(OUTLINE, color.a))
+		draw_string(_font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, size, color)
+	draw_set_transform(Vector2.ZERO)

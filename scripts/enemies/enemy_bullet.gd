@@ -16,7 +16,8 @@ var _t := 0.0
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
-	z_index = 4
+	# Above enemies, pickups and effects: a shot coming at you is never hidden.
+	z_index = 8
 
 
 func _physics_process(delta: float) -> void:
@@ -34,6 +35,14 @@ func _physics_process(delta: float) -> void:
 
 
 func _draw() -> void:
+	# Every shot gets a bright rim and a short tail along its flight, so it
+	# stands out from a crowd of enemies and you can see where it's going.
+	var rim := Color(1, 1, 1, 0.95 if Settings.high_contrast else 0.75)
+	if velocity != Vector2.ZERO:
+		var back := -velocity.normalized()
+		for k in 3:
+			draw_circle(back * (5.0 + k * 4.0), 3.5 - k, Color(1.0, 0.9, 0.8, 0.35 - k * 0.1))
+	draw_arc(Vector2.ZERO, 7.5, 0.0, TAU, 16, rim, 1.5)
 	if style == "spit":
 		draw_circle(Vector2.ZERO, 5.5, Color("2b1d14"))
 		draw_circle(Vector2.ZERO, 4.2, Color("8fd04a"))

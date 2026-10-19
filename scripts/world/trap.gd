@@ -107,7 +107,41 @@ func _hurt(e: Enemy) -> void:
 		Profile.add_stat("trap_kills")
 
 
+## Where the trap hurts, always visible: a dashed warning ring (or lane for
+## jets) that glows when the trap is live or about to switch on, and a small
+## warning sign, so the cat never stands in a trap it can't see.
+func _draw_danger() -> void:
+	var warn := _active or (_type != "snap" and _timer < 0.8)
+	var k := 0.5 + 0.5 * sin(_t * (8.0 if warn else 3.0))
+	var color := Color(1.0, 0.3, 0.2) if warn else Color(1.0, 0.75, 0.25)
+	var alpha := (0.55 + 0.35 * k) if warn else (0.3 + 0.15 * k)
+	if Settings.high_contrast:
+		alpha = minf(alpha * 1.5, 1.0)
+	if _type == "jet":
+		var length := float(data["length"])
+		var w := float(data["width"])
+		var side := _dir.orthogonal() * w
+		var lane := PackedVector2Array([side, _dir * length + side, _dir * length - side, -side])
+		draw_colored_polygon(lane, Color(color, 0.08 if warn else 0.04))
+		draw_polyline(PackedVector2Array([lane[0], lane[1], lane[2], lane[3], lane[0]]), Color(color, alpha), 1.5)
+	else:
+		var r := float(data["radius"]) + (2.0 if _type == "snap" else 0.0)
+		draw_circle(Vector2.ZERO, r, Color(color, 0.10 if warn else 0.05))
+		var dashes := 16
+		for i in dashes:
+			var a := TAU * i / dashes + _t * 0.4
+			draw_arc(Vector2.ZERO, r, a, a + TAU / dashes * 0.55, 4, Color(color, alpha), 2.0)
+	# Warning sign above the trap.
+	var top := Vector2(0, -float(data.get("radius", 10.0)) - 12.0) if _type != "jet" else Vector2(0, -18)
+	var tri := PackedVector2Array([top + Vector2(0, -7), top + Vector2(7, 5), top + Vector2(-7, 5)])
+	draw_colored_polygon(tri, Color(color, minf(alpha + 0.2, 1.0)))
+	draw_polyline(PackedVector2Array([tri[0], tri[1], tri[2], tri[0]]), Color(OUTLINE, 0.8), 1.0)
+	draw_line(top + Vector2(0, -3), top + Vector2(0, 1), OUTLINE, 1.5)
+	draw_circle(top + Vector2(0, 3), 0.8, OUTLINE)
+
+
 func _draw() -> void:
+	_draw_danger()
 	match id:
 		"RAKE":
 			# Tines down, handle up: steps on it and the handle swings.

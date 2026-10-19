@@ -7,6 +7,12 @@ extends ChainStep
 ## turn, instead of one item), max_hits (-1 = any), spawn {enemy, every,
 ## count} (keeps sending the enemies the things drop from), time_limit
 ## (0 = none).
+## build {seconds, radius, spawn {enemy, every, count}, feature, finale
+## "kill" | "flee", finale_targets (enemy ids, empty = every regular enemy),
+## finale_radius}: the spot is shown broken; once everything is delivered
+## the cat has to stay next to it for `seconds` while more enemies come.
+## When it stands, the finale clears the targets and the map feature starts
+## working right away.
 
 const PICK_RADIUS := 20.0
 const DROP_RADIUS := 36.0
@@ -25,6 +31,10 @@ var _looks: Array[String] = []
 var _hits := 0
 var _spawn_t := 0.0
 var _left := 0.0
+## Build phase (data "build"): running once everything is delivered.
+var _building := false
+var _build := 0.0
+var _build_spawn_t := 0.0
 
 
 func _ready() -> void:
@@ -60,6 +70,8 @@ func _on_hurt() -> void:
 
 
 func objective() -> String:
+	if _building:
+		return tr("CHAIN_BUILDING") % roundi(_build * 100.0)
 	var n := int(data.get("count", 5))
 	var text := "%s %d/%d" % [step_text(), _delivered if data.get("deliver", false) else _delivered + _carried, n]
 	if int(data.get("max_hits", -1)) >= 0 and started:
@@ -77,6 +89,8 @@ func _full() -> bool:
 
 
 func target_position() -> Vector2:
+	if _building:
+		return position
 	var deliver: bool = data.get("deliver", false)
 	if deliver and _carried > 0 and (_full() or _items.is_empty()):
 		return position
@@ -99,6 +113,9 @@ func _guarded(i: int) -> bool:
 
 func _tick(delta: float) -> void:
 	var cat := player().position
+	if _building:
+		_tick_build(delta, cat)
+		return
 	if started and float(data.get("time_limit", 0.0)) > 0.0:
 		_left -= delta
 		if _left <= 0.0:
@@ -136,7 +153,49 @@ func _tick(delta: float) -> void:
 		player().speed_factor = 1.0
 		Audio.play("chest", -6.0, 0.0)
 		if _delivered >= int(data.get("count", 5)):
-			complete()
+			if data.has("build"):
+				_building = true
+				main.hud.show_banner(tr("CHAIN_BUILD_START"), 3.0)
+			else:
+				complete()
+
+
+func _tick_build(delta: float, cat: Vector2) -> void:
+	var build: Dictionary = data["build"]
+	if cat.distance_to(position) < float(build.get("radius", 80.0)):
+		_build += delta / float(build.get("seconds", 10.0))
+	else:
+		_build = maxf(_build - delta * 0.05, 0.0)
+	var spawn: Dictionary = build.get("spawn", {})
+	_build_spawn_t -= delta
+	if not spawn.is_empty() and _build_spawn_t <= 0.0:
+		_build_spawn_t = float(spawn.get("every", 2.0))
+		spawn_wave_enemies(int(spawn.get("count", 3)), position, 240.0, 300.0, spawn.get("enemy", ""))
+	if _build >= 1.0:
+		_finish_build(build)
+
+
+## The thing stands: clear its enemies with a bang and let it work at once.
+func _finish_build(build: Dictionary) -> void:
+	var targets: Array = build.get("finale_targets", [])
+	var flee: bool = build.get("finale", "kill") == "flee"
+	for e: Enemy in main.enemies.query_radius(position, float(build.get("finale_radius", 400.0))):
+		if e.dead or e.is_prop or e.persistent or e.id == "GOLDEN_MOUSE":
+			continue
+		if targets.is_empty() and e.is_boss:
+			continue
+		if not targets.is_empty() and e.id not in targets:
+			continue
+		var away := (e.position - position).normalized()
+		if flee:
+			e.charge(away, 2.5)
+		else:
+			e.hit(e.hp + 1.0, away, 2.0, false)
+	Audio.play("sparkle", -2.0, 0.0)
+	var kind: String = build.get("feature", "")
+	if kind != "":
+		MapFeature.place_one(main, kind, position, true)
+	complete()
 
 
 func _on_killed(enemy_id: String, pos: Vector2, _xp: float) -> void:
@@ -161,7 +220,18 @@ func _draw() -> void:
 			draw_look(_items[i] - position, _looks[i])
 			draw_beacon(_items[i] - position, 12.0, Color("f2c14e"))
 	if data.get("deliver", false):
-		draw_look(Vector2.ZERO, data.get("look_to", "basket"))
+		var look_to: String = data.get("look_to", "basket")
+		if data.has("build"):
+			# Broken until built; while building it rises out of the wreck.
+			draw_broken(Vector2.ZERO, look_to, 1.0 - _build)
+			if _building:
+				draw_look(Vector2.ZERO, look_to, _build)
+				var radius := float(data["build"].get("radius", 80.0))
+				var inside := player_dist() < radius
+				draw_circle(Vector2.ZERO, radius, Color(0.42, 0.77, 0.42, 0.10 if inside else 0.05))
+				draw_progress_ring(radius, _build, Color("6cc46c") if inside else Color("f2c14e"))
+		else:
+			draw_look(Vector2.ZERO, look_to)
 		if _carried > 0:
 			draw_beacon(Vector2.ZERO, DROP_RADIUS, Color("6cc46c"))
 	for k in _carried:

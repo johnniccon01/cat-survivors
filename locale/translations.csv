@@ -861,6 +861,8 @@ ARTIFACT_CLOCKWORK_DESC,"Weapons attack 15% more often, but you move 8% slower."
 QB_CHAPTER_CHAINS,Stories,Príbehy,Příběhy
 CHAIN_TIME,%d s,%d s,%d s
 CHAIN_CARRYING,carrying %d,nesieš %d,neseš %d
+CHAIN_BUILD_START,Everything is here – now build it! Stay close.,Všetko je tu – teraz to postav! Zostaň pri tom.,Všechno je tu – teď to postav! Zůstaň u toho.
+CHAIN_BUILDING,Building – stay close: %d %%,Staviaš – zostaň pri tom: %d %%,Stavíš – zůstaň u toho: %d %%
 CHAIN_HITS,hits %d/%d,zásahy %d/%d,zásahy %d/%d
 CHAIN_FINISHED,Story complete: %s – %s,Príbeh dokončený: %s – %s,Příběh dokončen: %s – %s
 CHAIN_HEALED,A heart was picked up – the test is failed!,Zdvihnuté srdiečko – skúška neplatí!,Sebrané srdíčko – zkouška neplatí!
@@ -934,8 +936,8 @@ CHAIN_SPIDER_WEB_3_START,"""Then come closer...""",„Tak poď bližšie...“,�
 CHAIN_SPIDER_WEB_3_DONE,The web is torn. The moths fly up into the light.,Sieť je roztrhaná. Mole vyleteli k svetlu.,Síť je roztrhaná. Moli vylétli ke světlu.
 CHAIN_BOILER_NAME,Fixing the Boiler,Oprava kotla,Oprava kotle
 CHAIN_BOILER_DESC,The old boiler is cold. Without it the basement freezes every night.,Starý kotol je studený. Bez neho pivnica každú noc mrzne.,Starý kotel je studený. Bez něj sklep každou noc mrzne.
-CHAIN_BOILER_1,Bring the three boiler parts,Prines tri súčiastky kotla,Přines tři součástky kotle
-CHAIN_BOILER_1_START,"A valve, a wrench and a fuse – the strongest of the basement guard them.","Ventil, kľúč a poistka – strážia ich najsilnejší z pivnice.","Ventil, klíč a pojistka – hlídají je nejsilnější ze sklepa."
+CHAIN_BOILER_1,Bring the four boiler parts,Prines štyri súčiastky kotla,Přines čtyři součástky kotle
+CHAIN_BOILER_1_START,"Four parts – the strongest of the basement guard them. Bring them to the broken boiler, then fix it.","Štyri súčiastky – strážia ich najsilnejší z pivnice. Dones ich k rozbitému kotlu a oprav ho.","Čtyři součástky – hlídají je nejsilnější ze sklepa. Dones je k rozbitému kotli a oprav ho."
 CHAIN_BOILER_1_DONE,The boiler rumbles and warms up. From now on you can warm up next to it.,Kotol zahučal a zohrial sa. Odteraz sa pri ňom môžeš zohriať.,Kotel zahučel a zahřál se. Odteď se u něj můžeš ohřát.
 CHAIN_BOILER_REWARD,the warm boiler heals in the Basement,teplý kotol lieči v Pivnici,teplý kotel léčí ve Sklepě
 ARTIFACT_GNOME_HAT_NAME,Gnome Hat,Trpasličia čiapka,Trpasličí čepice
@@ -975,9 +977,9 @@ CHAIN_HONEY_2_START,She wants the honey for herself!,Med chce len pre seba!,Med 
 CHAIN_HONEY_2_DONE,The bees fill a whole pot of honey. Clover purrs.,Včely naplnili celý hrniec medu. Ďatelinka priadie.,Včely naplnily celý hrnec medu. Jetelinka přede.
 CHAIN_SCARECROW_NAME,The Scarecrow Comes Alive,Strašiak ožíva,Strašák ožívá
 CHAIN_SCARECROW_DESC,The crows tore the old scarecrow apart and took its clothes.,Vrany roztrhali starého strašiaka a odniesli mu šaty.,Vrány roztrhaly starého strašáka a odnesly mu šaty.
-CHAIN_SCARECROW_1,"Get the hat, scarf and pumpkin back from the crows","Získaj od vrán klobúk, šál a tekvicu","Získej od vran klobouk, šálu a dýni"
-CHAIN_SCARECROW_1_START,Defeat crows – they drop what they stole. Bring it to the pole.,"Poraz vrany – pustia, čo ukradli. Dones to k tyči.","Poraz vrány – pustí, co ukradly. Dones to k tyči."
-CHAIN_SCARECROW_1_DONE,The scarecrow stands again. Its button eyes are watching the sky...,Strašiak opäť stojí. Jeho gombíkové oči sledujú oblohu...,Strašák zase stojí. Jeho knoflíkové oči sledují oblohu...
+CHAIN_SCARECROW_1,Get the scarecrow's things back from the crows,Získaj od vrán veci strašiaka,Získej od vran věci strašáka
+CHAIN_SCARECROW_1_START,"Defeat crows – they drop what they stole. Bring all ten pieces to the broken scarecrow, then build it.","Poraz vrany – pustia, čo ukradli. Dones všetkých desať kúskov k rozbitému strašiakovi a postav ho.","Poraz vrány – pustí, co ukradly. Dones všech deset kousků k rozbitému strašákovi a postav ho."
+CHAIN_SCARECROW_1_DONE,The scarecrow stands again – the crows scatter! From now on it guards you against birds.,Strašiak opäť stojí – vrany sa rozpŕchli! Odteraz ťa chráni pred vtákmi.,Strašák zase stojí – vrány se rozprchly! Odteď tě chrání před ptáky.
 CHAIN_SCARECROW_REWARD,the scarecrow hits birds in the Garden,strašiak bije vtáky v Záhrade,strašák bije ptáky v Zahradě
 CHAIN_EMPTY,Nothing here – but someone is!,Nič tu nie je – ale niekto áno!,Nic tu není – ale někdo ano!
 ARTIFACT_RACCOON_MASK_NAME,Raccoon Mask,Mývalia maska,Mývalí maska
@@ -1053,7 +1055,7 @@ CHAIN_CAPTAINS_SHIP_2_DONE,The boat sails out. The Captain throws you his compas
 CHAIN_LIGHTHOUSE_NAME,The Lighthouse,Maják,Maják
 CHAIN_LIGHTHOUSE_DESC,The lighthouse went dark – and the jellyfish came.,Maják zhasol – a prišli medúzy.,Maják zhasl – a přišly medúzy.
 CHAIN_LIGHTHOUSE_1,Roll the oil barrels to the lighthouse,Dokotúľaj sudy s olejom k majáku,Dokutálej sudy s olejem k majáku
-CHAIN_LIGHTHOUSE_1_START,"Three barrels, one at a time. They are heavy – you'll be slower.","Tri sudy, po jednom. Sú ťažké – spomalia ťa.","Tři sudy, po jednom. Jsou těžké – zpomalí tě."
+CHAIN_LIGHTHOUSE_1_START,"Four barrels, one at a time. They are heavy – you'll be slower. Then light the lamp again.","Štyri sudy, po jednom. Sú ťažké – spomalia ťa. Potom znova zapáľ svetlo.","Čtyři sudy, po jednom. Jsou těžké – zpomalí tě. Pak znovu zapal světlo."
 CHAIN_LIGHTHOUSE_1_DONE,The light is back! Its beam sweeps over the sea.,Svetlo je späť! Jeho lúč prechádza nad morom.,Světlo je zpátky! Jeho paprsek přejíždí nad mořem.
 CHAIN_LIGHTHOUSE_REWARD,the lighthouse burns jellyfish at the Harbor,maják páli medúzy v Prístave,maják pálí medúzy v Přístavu
 CHAIN_PIRATE_TREASURE_NAME,Pirate Treasure,Pirátsky poklad,Pirátský poklad
@@ -1385,3 +1387,4 @@ ENDLESS_MINUTE,Endless night: +%d min (record %d min) · +%d gold so far,Nekone�
 POWERUP_WEAPON_SLOT_NAME,Weapon Slot,Slot na zbraň,Slot na zbraň
 POWERUP_WEAPON_SLOT_DESC,One more weapon you can carry (up to 8).,"O jednu zbraň viac, ktorú môžeš mať (až 8).","O jednu zbraň víc, kterou můžeš mít (až 8)."
 SET_CONTRAST,"High contrast (darker floor, brighter enemies)","Vysoký kontrast (tmavšia podlaha, výraznejší nepriatelia)","Vysoký kontrast (tmavší podlaha, výraznější nepřátelé)"
+SET_LOW_FX,"Effect saver (fewer effects, smoother on laptops)","Úsporný režim (menej efektov, plynulejšie na notebooku)","Úsporný režim (méně efektů, plynulejší na notebooku)"

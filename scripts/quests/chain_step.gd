@@ -98,6 +98,12 @@ func complete() -> void:
 		QuestBook._pay(reward)
 		if reward.has("flag"):
 			Profile.set_flag(reward["flag"])
+		# What the story leaves on the map starts working tonight already
+		# (a "build" step places it itself, where it was built).
+		var feature: Dictionary = reward.get("feature", {})
+		if not feature.is_empty() and feature["kind"] != "ally" and not data.has("build") \
+				and feature.get("stage", "") == main.spawner.stage_id:
+			MapFeature.place_one(main, feature["kind"], position, true)
 		line = ("%s\n" % line if line != "" else "") + tr("CHAIN_FINISHED") % [title(), QuestBook.reward_text(reward)]
 	Profile.save()
 	super.complete()
@@ -220,6 +226,24 @@ func draw_look(at: Vector2, look: String, alpha: float = 1.0) -> void:
 		"pole":
 			draw_line(at + Vector2(0, 14), at + Vector2(0, -18), Color(0.42, 0.3, 0.2, a), 3.0)
 			draw_line(at + Vector2(-12, -8), at + Vector2(12, -8), Color(0.42, 0.3, 0.2, a), 3.0)
+		"scarecrow":
+			var sway := sin(_age * 1.5) * 2.0
+			draw_line(at + Vector2(0, 20), at + Vector2(0, -20), Color(0.42, 0.28, 0.19, a), 3.0)
+			draw_line(at + Vector2(-16, -8 + sway), at + Vector2(16, -8 - sway), Color(0.42, 0.28, 0.19, a), 3.0)
+			draw_rect(Rect2(at + Vector2(-7, -10), Vector2(14, 18)), Color(0.79, 0.64, 0.29, a))
+			draw_line(at + Vector2(-8, -9), at + Vector2(8, -9), Color(0.85, 0.33, 0.31, a), 3.0)
+			draw_circle(at + Vector2(0, -20), 7.0, Color(0.91, 0.56, 0.16, a))
+			draw_rect(Rect2(at + Vector2(-9, -30), Vector2(18, 3)), Color(0.35, 0.26, 0.2, a))
+			draw_rect(Rect2(at + Vector2(-5, -36), Vector2(10, 6)), Color(0.35, 0.26, 0.2, a))
+		"straw":
+			for k in 4:
+				draw_line(at + Vector2(-6 + k * 3, 6), at + Vector2(-4 + k * 2, -7), Color(0.85, 0.7, 0.32, a), 2.0)
+			draw_line(at + Vector2(-7, 0), at + Vector2(7, 0), Color(0.6, 0.4, 0.2, a), 2.0)
+		"button":
+			draw_circle(at, 6.0, Color(OUTLINE, a))
+			draw_circle(at, 5.0, Color(0.3, 0.3, 0.35, a))
+			for p: Vector2 in [Vector2(-2, -2), Vector2(2, -2), Vector2(-2, 2), Vector2(2, 2)]:
+				draw_circle(at + p, 1.0, Color(0.85, 0.85, 0.85, a))
 		"chimney":
 			draw_rect(Rect2(at + Vector2(-12, -12), Vector2(24, 24)), Color(OUTLINE, a))
 			draw_rect(Rect2(at + Vector2(-11, -11), Vector2(22, 22)), Color(0.66, 0.31, 0.23, a))
@@ -321,6 +345,32 @@ func draw_look(at: Vector2, look: String, alpha: float = 1.0) -> void:
 		_:
 			draw_circle(at, 8.0, Color(OUTLINE, a))
 			draw_circle(at, 7.0, Color(0.95, 0.76, 0.3, a))
+
+
+## The broken version of a quest thing that has to be built again.
+func draw_broken(at: Vector2, look: String, alpha: float = 1.0) -> void:
+	if alpha <= 0.0:
+		return
+	var a := alpha
+	if look == "scarecrow":
+		# A snapped, leaning pole with straw scattered around it.
+		draw_line(at + Vector2(0, 20), at + Vector2(4, 4), Color(0.42, 0.28, 0.19, a), 3.0)
+		draw_line(at + Vector2(6, 2), at + Vector2(20, -6), Color(0.42, 0.28, 0.19, a), 3.0)
+		draw_line(at + Vector2(-18, 14), at + Vector2(-4, 18), Color(0.42, 0.28, 0.19, a), 3.0)
+		for p: Vector2 in [Vector2(-12, 20), Vector2(10, 22), Vector2(-4, 24), Vector2(16, 16), Vector2(-20, 18)]:
+			draw_line(at + p, at + p + Vector2(5, -2), Color(0.79, 0.64, 0.29, a), 2.0)
+		return
+	# Anything else: dark, tipped over and cracked.
+	draw_set_transform(at + Vector2(0, 6), 0.35, Vector2.ONE)
+	draw_look(Vector2.ZERO, look, 0.55 * a)
+	draw_set_transform(Vector2.ZERO)
+	var crack := Color(0.1, 0.07, 0.06, 0.8 * a)
+	draw_polyline(PackedVector2Array([at + Vector2(-8, -14), at + Vector2(-2, -4), at + Vector2(-6, 4), at + Vector2(2, 14)]), crack, 2.0)
+	draw_polyline(PackedVector2Array([at + Vector2(10, -10), at + Vector2(4, 0), at + Vector2(9, 8)]), crack, 2.0)
+	# A wisp of smoke: it's not working.
+	for k in 3:
+		var s := fmod(_age * 0.6 + k / 3.0, 1.0)
+		draw_circle(at + Vector2(6 + sin(_age * 2.0 + k) * 4.0, -20 - s * 24.0), 3.0 + s * 4.0, Color(0.45, 0.45, 0.45, (1.0 - s) * 0.35 * a))
 
 
 ## A soft pulsing ring that says "come here".

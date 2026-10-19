@@ -208,7 +208,7 @@ func on_enemy_dead(enemy: Enemy) -> void:
 	poof.position = enemy.position
 	get_parent().add_child(poof)
 	# The enemy itself squashes and fades (capped, so crowds stay cheap).
-	if not enemy.is_prop and DeathFx.alive < DeathFx.MAX_ALIVE:
+	if not enemy.is_prop and DeathFx.alive < DeathFx.MAX_ALIVE * Settings.effects_scale():
 		var info := Sprites.enemy(enemy.id)
 		if not info.is_empty():
 			var fx := DeathFx.new()

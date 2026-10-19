@@ -1,11 +1,14 @@
 class_name BossArrows
 extends Control
 ## Red arrows at the screen edge pointing at bosses that are off screen, so
-## you know where the big ones will come from.
+## you know where the big ones will come from; a golden one for the golden
+## mouse.
 
 const MARGIN := 34.0
 const MAX_ARROWS := 6
 const COLOR := Color("e04646")
+## The golden mouse gets a golden arrow (and a marker while on screen).
+const GOLD := Color("f2c14e")
 const OUTLINE := Color("2b1d14")
 
 var _enemies: EnemyManager
@@ -38,20 +41,27 @@ func _draw() -> void:
 	for e in _enemies.enemies:
 		if shown >= MAX_ARROWS:
 			break
-		if e.dead or not GameData.enemies[e.id].get("boss", false):
+		var golden := e.id == "GOLDEN_MOUSE"
+		if e.dead or not (golden or GameData.enemies[e.id].get("boss", false)):
 			continue
 		var screen: Vector2 = (e.position - camera.get_screen_center_position()) * camera.zoom + view.size * 0.5
 		if rect.has_point(screen):
+			# The golden mouse hides in crowds: a bouncing marker above it.
+			if golden:
+				var top := screen - Vector2(0, 26.0 + 22.0 * camera.zoom.y + absf(sin(_t * 6.0)) * 8.0)
+				var mark := PackedVector2Array([top + Vector2(0, 14), top + Vector2(-10, 0), top + Vector2(10, 0)])
+				draw_colored_polygon(mark, GOLD)
+				draw_polyline(PackedVector2Array([mark[0], mark[1], mark[2], mark[0]]), OUTLINE, 2.0)
 			continue
 		var dir := (screen - center).normalized()
 		var k := minf(half.x / maxf(absf(dir.x), 0.001), half.y / maxf(absf(dir.y), 0.001))
 		var tip := center + dir * k
-		var size := 18.0 + sin(_t * 5.0) * 2.0
+		var size := (22.0 if golden else 18.0) + sin(_t * 5.0) * 2.0
 		var side := dir.orthogonal() * size * 0.6
 		var base := tip - dir * size
 		var pts := PackedVector2Array([tip, base + side, base - side])
-		draw_colored_polygon(pts, COLOR)
+		draw_colored_polygon(pts, GOLD if golden else COLOR)
 		draw_polyline(PackedVector2Array([tip, base + side, base - side, tip]), OUTLINE, 2.0)
 		draw_circle(base - dir * 8.0, 5.5, OUTLINE)
-		draw_circle(base - dir * 8.0, 4.0, Color("f2c14e"))
+		draw_circle(base - dir * 8.0, 4.0, Color("fff3c8") if golden else Color("f2c14e"))
 		shown += 1

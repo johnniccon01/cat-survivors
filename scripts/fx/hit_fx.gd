@@ -22,7 +22,7 @@ var _angle := randf() * TAU
 
 
 static func spawn(parent: Node, at: Vector2, weapon_id: String) -> void:
-	if alive >= MAX_ALIVE or parent == null:
+	if alive >= MAX_ALIVE * Settings.effects_scale() or parent == null:
 		return
 	var fx := HitFx.new()
 	fx.position = at + Vector2(randf_range(-3, 3), randf_range(-3, 3))

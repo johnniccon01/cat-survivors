@@ -25,6 +25,8 @@ var _scare_t := 0.0
 var _zap_t := 0.0
 var _zap_at := Vector2.INF
 var _zap_show := 0.0
+## 1 → 0 after being built: an expanding ring shows where it now protects.
+var _burst := 0.0
 
 
 ## Places every feature that finished stories left on this map.
@@ -40,13 +42,20 @@ static func place_all(p_main: Node, stage_id: String, origin: Vector2) -> void:
 			if p_main.player.cat_id != feature["cat"]:
 				p_main.cat_joined.call_deferred(feature["cat"])
 			continue
-		var node := MapFeature.new()
-		node.kind = feature["kind"]
-		node.main = p_main
-		node.position = origin + Vector2.from_angle(-0.6 + i * 1.3) * 240.0
-		node.z_index = -4
-		p_main.add_child(node)
+		place_one(p_main, feature["kind"], origin + Vector2.from_angle(-0.6 + i * 1.3) * 240.0)
 		i += 1
+
+
+## Puts one feature on the map; `fresh` shows a burst (just built in a quest).
+static func place_one(p_main: Node, p_kind: String, at: Vector2, fresh: bool = false) -> MapFeature:
+	var node := MapFeature.new()
+	node.kind = p_kind
+	node.main = p_main
+	node.position = at
+	node.z_index = -4
+	node._burst = 1.0 if fresh else 0.0
+	p_main.add_child(node)
+	return node
 
 
 func _init() -> void:
@@ -55,6 +64,7 @@ func _init() -> void:
 
 func _physics_process(delta: float) -> void:
 	_t += delta
+	_burst = maxf(_burst - delta / 1.2, 0.0)
 	var cat: Player = main.player
 	if kind == "heal_spot" and not cat.is_dead and cat.position.distance_to(position) < HEAL_RADIUS:
 		cat.heal(HEAL_PER_SECOND * delta)
@@ -79,7 +89,27 @@ func _physics_process(delta: float) -> void:
 	queue_redraw()
 
 
+## Radius the feature works in (shown faintly so you know where it helps).
+func reach() -> float:
+	match kind:
+		"heal_spot":
+			return HEAL_RADIUS
+		"scarecrow":
+			return SCARE_RADIUS
+		"lighthouse":
+			return SCARE_RADIUS * 1.5
+		"turret":
+			return ZAP_RANGE
+	return 0.0
+
+
 func _draw() -> void:
+	if _burst > 0.0:
+		var r := reach() * (1.0 - _burst * _burst)
+		draw_arc(Vector2.ZERO, r, 0.0, TAU, 48, Color(1.0, 0.85, 0.35, 0.9 * _burst), 6.0)
+		draw_circle(Vector2.ZERO, r, Color(1.0, 0.85, 0.35, 0.12 * _burst))
+	if kind != "heal_spot" and reach() > 0.0:
+		draw_arc(Vector2.ZERO, reach(), 0.0, TAU, 48, Color(1.0, 0.95, 0.7, 0.07), 2.0)
 	match kind:
 		"heal_spot":
 			draw_circle(Vector2.ZERO, HEAL_RADIUS, Color(1.0, 0.6, 0.3, 0.08 + 0.04 * sin(_t * 2.0)))

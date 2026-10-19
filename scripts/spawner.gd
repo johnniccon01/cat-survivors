@@ -169,13 +169,24 @@ func skip_to(seconds: float) -> void:
 
 
 const EARLY_EASE := 0.7
+const CHALLENGE_FROM := 6.0
+const CHALLENGE_FULL := 20.0
 const EASE_UNTIL := 6.0
 
 
 ## Health multiplier for enemies spawned right now.
 func hp_multiplier() -> float:
 	var level_bonus := maxf(_player.level - LEVEL_SCALING_FROM, 0) * LEVEL_SCALING
-	return float(current_wave().get("hp_mult", 1.0)) * (1.0 + level_bonus) * _player.stat("curse") * endless_factor() * early_ease()
+	return float(current_wave().get("hp_mult", 1.0)) * (1.0 + level_bonus) * _player.stat("curse") * endless_factor() * early_ease() * challenge()
+
+
+## The map's challenge ("challenge" in stages.json): later maps grow tougher
+## from minute CHALLENGE_FROM to CHALLENGE_FULL, so only a well built cat
+## wins there.
+func challenge() -> float:
+	var full := float(stage().get("challenge", 1.0))
+	var k := clampf((elapsed / 60.0 - CHALLENGE_FROM) / (CHALLENGE_FULL - CHALLENGE_FROM), 0.0, 1.0)
+	return lerpf(1.0, full, k)
 
 
 ## Later maps start gentler: enemies there have 30 % less health and hit
@@ -220,7 +231,7 @@ func _physics_process(delta: float) -> void:
 	if _player == null or _player.is_dead:
 		return
 	elapsed += delta
-	_enemies.damage_mult = (1.0 + DAMAGE_PER_MINUTE_SQ * pow(elapsed / 60.0, 2.0)) * early_ease()
+	_enemies.damage_mult = (1.0 + DAMAGE_PER_MINUTE_SQ * pow(elapsed / 60.0, 2.0)) * early_ease() * sqrt(challenge())
 	_enemies.speed_mult = 1.0 + minf(SPEED_PER_MINUTE * elapsed / 60.0, SPEED_MAX_BONUS) + minf(ENDLESS_SPEED_PER_MINUTE * endless_minutes(), ENDLESS_SPEED_MAX)
 	if _cleared:
 		return
@@ -240,7 +251,8 @@ func _physics_process(delta: float) -> void:
 			stage_cleared.emit()
 		else:
 			_enemies.clear_all()
-			var boss := _enemies.spawn(final_id, _player.position + Vector2(0, -_spawn_radius() * 0.8), _player.stat("curse"))
+			# The final boss carries the map's challenge too (a bit less than the rest).
+			var boss := _enemies.spawn(final_id, _player.position + Vector2(0, -_spawn_radius() * 0.8), _player.stat("curse") * pow(challenge(), 0.8))
 			final_boss_spawned.emit(boss)
 		return
 	if paused:

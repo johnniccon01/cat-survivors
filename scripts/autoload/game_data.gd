@@ -59,6 +59,14 @@ static func args() -> PackedStringArray:
 	return OS.get_cmdline_user_args() if OS.is_debug_build() else PackedStringArray()
 
 
+## The value of a `--name=value` flag, or `default`.
+static func arg(prefix: String, default: String) -> String:
+	for a: String in args():
+		if a.begins_with(prefix):
+			return a.trim_prefix(prefix)
+	return default
+
+
 ## Test runs (--bot, --ui-test, --no-save) never write the profile or settings.
 static func no_save() -> bool:
 	var args := GameData.args()

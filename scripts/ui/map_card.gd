@@ -11,11 +11,17 @@ const GROUNDS := {
 	"rooftop": [Color("a8503a"), Color("3e3e46")],
 	"supermarket": [Color("dcd8cc"), Color("b8c4cc")],
 	"harbor": [Color("e2cc94"), Color("1f4a6a")],
+	"factory": [Color("5a5650"), Color("8a6a2a")],
 }
 
 var stage_id := ""
 var selected := false
 var _t := 0.0
+
+
+## Difficulty 1-5 from the map's challenge factor (1.0 to 2.2).
+static func difficulty(id: String) -> int:
+	return clampi(roundi((float(GameData.stages[id].get("challenge", 1.0)) - 1.0) / 0.3) + 1, 1, 5)
 
 
 func _init(p_stage: String = "") -> void:
@@ -52,12 +58,28 @@ func _draw() -> void:
 		draw_rect(Rect2(c + Vector2(-2, 1), Vector2(4, 6)), UiStyle.PANEL)
 	elif stage_id in Profile.cleared_stages:
 		draw_string(ThemeDB.fallback_font, pic.position + Vector2(pic.size.x - 26, 26), "✓", HORIZONTAL_ALIGNMENT_LEFT, -1, 26, Color("6cd48a"))
+	if open:
+		# Difficulty: stars filled up to the rating.
+		var n := difficulty(stage_id)
+		for i in 5:
+			_draw_star(pic.position + Vector2(10 + i * 13, 10), 5.5, Color("ff9a2a") if i < n else Color(0.2, 0.15, 0.25, 0.8))
 	var font := ThemeDB.fallback_font
 	var title := tr("STAGE_%s_NAME" % stage_id) if open else "???"
 	draw_string(font, Vector2(8, 100), title, HORIZONTAL_ALIGNMENT_CENTER, size.x - 16, 18, UiStyle.GOLD if selected else UiStyle.TEXT)
 	var sub := tr("SELECT_MAP_BEST") % Profile.get_stat("best_minutes:" + stage_id) if open else tr("STAGE_%s_HINT" % stage_id)
 	draw_string(font, Vector2(8, 120), sub, HORIZONTAL_ALIGNMENT_CENTER, size.x - 16, 13, UiStyle.MUTED)
 	draw_rect(r, UiStyle.GOLD if selected else UiStyle.BORDER, false, 3.0 if selected else 2.0)
+
+
+func _draw_star(c: Vector2, r: float, color: Color) -> void:
+	var pts := PackedVector2Array()
+	for i in 10:
+		pts.append(c + Vector2.from_angle(-PI * 0.5 + i * PI / 5.0) * (r if i % 2 == 0 else r * 0.45))
+	draw_colored_polygon(pts, UiStyle.OUTLINE)
+	var inner := PackedVector2Array()
+	for p in pts:
+		inner.append(c + (p - c) * 0.7)
+	draw_colored_polygon(inner, color)
 
 
 func _draw_boss(id: String, at: Vector2, known: bool) -> void:

@@ -22,6 +22,10 @@ const PERCENT_STATS := ["area", "speed", "duration"]
 ## weapons keep growing (Vampire Survivors-like pace).
 const OWNED_WEAPON_WEIGHT := 2.5
 const OWNED_PASSIVE_WEIGHT := 1.5
+## Rarity of a level-up card (Death Must Die-like): a rare, epic or
+## legendary card gives 1, 2 or 3 extra levels at once. Chances x luck.
+const GRADE_CHANCE := [0.0, 0.12, 0.04, 0.012]
+const GRADE_COLORS := [Color("6b5480"), Color("4aa3ff"), Color("b06aff"), Color("ff9a2a")]
 
 
 ## Picks `count` random offers. With `owned_only`, only items the cat
@@ -36,6 +40,8 @@ static func roll(player: Player, count: int = 3, owned_only: bool = false) -> Ar
 		if data.has("requires_stage") and data["requires_stage"] not in Profile.cleared_stages and player.get_weapon(id) == null:
 			continue
 		var owned := player.get_weapon(id)
+		if "weapon:" + id in player.banished:
+			continue
 		if owned != null:
 			if owned.level < owned.max_level():
 				pool.append({"kind": "weapon", "id": id, "level": owned.level + 1, "weight": data.get("rarity", 100) * OWNED_WEAPON_WEIGHT, "owned": true})
@@ -47,6 +53,8 @@ static func roll(player: Player, count: int = 3, owned_only: bool = false) -> Ar
 	for id: String in GameData.passives if not weaponless else []:
 		var data: Dictionary = GameData.passives[id]
 		var lvl: int = player.passives.get(id, 0)
+		if "passive:" + id in player.banished:
+			continue
 		if lvl == 0 and (owned_only or player.passives.size() >= Player.MAX_PASSIVES):
 			continue
 		if lvl < data["levels"].size():
@@ -64,7 +72,38 @@ static func roll(player: Player, count: int = 3, owned_only: bool = false) -> Ar
 			offers[offers.size() - 1] = owned_left.pick_random()
 	if offers.is_empty():
 		offers.append({"kind": "heal", "id": "HEAL", "level": 0})
+	for offer in offers:
+		_roll_grade(player, offer)
 	return offers
+
+
+## Rolls the card's rarity, capped by the levels the item has left.
+static func _roll_grade(player: Player, offer: Dictionary) -> void:
+	var room := 0
+	match offer["kind"]:
+		"weapon":
+			room = GameData.weapons[offer["id"]]["levels"].size() - int(offer["level"])
+		"passive":
+			room = GameData.passives[offer["id"]]["levels"].size() - int(offer["level"])
+	var forced := int(GameData.arg("--grade=", "-1"))
+	var grade := 0
+	if forced >= 0:
+		grade = forced
+	else:
+		var r := randf()
+		var luck := player.stat("luck")
+		for g in [3, 2, 1]:
+			if r < GRADE_CHANCE[g] * luck:
+				grade = g
+				break
+	offer["grade"] = mini(grade, room)
+
+
+## "weapon:ID" / "passive:ID" for banishing, "" if the card can't be.
+static func banish_key(offer: Dictionary) -> String:
+	if offer["kind"] in ["weapon", "passive"]:
+		return "%s:%s" % [offer["kind"], offer["id"]]
+	return ""
 
 
 ## Branches: from weapon level 3 one of three branches can be picked (the
@@ -92,8 +131,11 @@ static func apply(player: Player, offer: Dictionary) -> void:
 				player.add_weapon(offer["id"])
 			else:
 				player.level_up_weapon(offer["id"])
+			for i in int(offer.get("grade", 0)):
+				player.level_up_weapon(offer["id"])
 		"passive":
-			player.add_passive(offer["id"])
+			for i in 1 + int(offer.get("grade", 0)):
+				player.add_passive(offer["id"])
 		"heal":
 			player.heal(HEAL_AMOUNT)
 
@@ -149,6 +191,9 @@ static func tag(offer: Dictionary) -> String:
 		return ""
 	if offer["kind"] == "branch":
 		return "%s · %s" % [_t("TAG_BRANCH_2" if offer["level"] == 2 else "TAG_BRANCH"), item_name("weapon", offer["id"])]
+	var grade := int(offer.get("grade", 0))
+	if grade > 0:
+		return _t("GRADE_%d" % grade) % (int(offer["level"]) + grade)
 	if offer["level"] == 1:
 		return _t("TAG_NEW")
 	return _t("TAG_LEVEL") % offer["level"]

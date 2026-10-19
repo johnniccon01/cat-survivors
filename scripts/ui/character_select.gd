@@ -34,6 +34,24 @@ var _weapon_icon: IconView
 var _weapon_label: Label
 var _cat_stats: Label
 var _map_cards: Array[MapCard] = []
+var _chips: HFlowContainer
+var _play: Button
+var _hover := -1
+var _t := 0.0
+## Cat bonus stat -> [translation key, multiplier for the shown number, colour].
+const BONUS_TEXT := {
+	"might": ["BONUS_MIGHT", 100.0, Color("ff7a6a")],
+	"cooldown": ["BONUS_COOLDOWN", -100.0, Color("ffd36a")],
+	"area": ["BONUS_AREA", 100.0, Color("8ee07a")],
+	"speed": ["BONUS_SPEED", 100.0, Color("6cc8ff")],
+	"magnet": ["BONUS_MAGNET", 1.0, Color("c7a0ff")],
+	"max_hp": ["BONUS_MAX_HP", 1.0, Color("ff8aa8")],
+	"luck": ["BONUS_LUCK", 100.0, Color("f2c14e")],
+	"regen": ["BONUS_REGEN", 1.0, Color("8ee07a")],
+	"proj_speed": ["BONUS_PROJ_SPEED", 100.0, Color("9ae0ff")],
+	"growth": ["BONUS_GROWTH", 100.0, Color("b9e86a")],
+	"weapon_slots": ["BONUS_WEAPON_SLOTS", 1.0, Color("ffb35a")],
+}
 
 
 func _ready() -> void:
@@ -72,6 +90,22 @@ func _build() -> void:
 	bg.color = BG
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(bg)
+	# The night city from the title screen, dimmed, with twinkling stars.
+	var art := TextureRect.new()
+	art.texture = load("res://assets/title.png")
+	art.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	art.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	art.modulate = Color(0.55, 0.5, 0.65)
+	art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(art)
+	add_child(MenuSky.new())
+	var shade := ColorRect.new()
+	shade.color = Color(BG, 0.55)
+	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(shade)
 
 	var root := VBoxContainer.new()
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -102,6 +136,8 @@ func _build() -> void:
 		card.custom_minimum_size = Vector2(88, 104) if wide else Vector2(98, 112)
 		card.mouse_filter = Control.MOUSE_FILTER_STOP
 		card.gui_input.connect(_on_card_input.bind(i))
+		card.mouse_entered.connect(_on_card_hover.bind(i, true))
+		card.mouse_exited.connect(_on_card_hover.bind(i, false))
 		var preview := CatPreview.new()
 		preview.cat_id = _ids[i]
 		preview.locked = not Profile.is_unlocked(_ids[i])
@@ -114,7 +150,11 @@ func _build() -> void:
 
 	var detail := PanelContainer.new()
 	detail.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	detail.add_theme_stylebox_override("panel", UiStyle.box(CARD, BORDER))
+	var detail_style := UiStyle.box(Color(CARD, 0.92), BORDER)
+	detail_style.set_corner_radius_all(12)
+	detail_style.shadow_color = Color(0, 0, 0, 0.4)
+	detail_style.shadow_size = 8
+	detail.add_theme_stylebox_override("panel", detail_style)
 	top.add_child(detail)
 	var drow := HBoxContainer.new()
 	drow.add_theme_constant_override("separation", 10)
@@ -138,6 +178,11 @@ func _build() -> void:
 	_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_desc.custom_minimum_size = Vector2(240 if wide else 300, 0)
 	info.add_child(_desc)
+	# What makes this cat special, as coloured chips.
+	_chips = HFlowContainer.new()
+	_chips.add_theme_constant_override("h_separation", 6)
+	_chips.add_theme_constant_override("v_separation", 4)
+	info.add_child(_chips)
 	var weapon_row := HBoxContainer.new()
 	weapon_row.add_theme_constant_override("separation", 8)
 	info.add_child(weapon_row)
@@ -167,28 +212,46 @@ func _build() -> void:
 		_map_cards.append(card)
 
 	# Bottom: what you take along, and the keys.
+	var loadout := PanelContainer.new()
+	var loadout_style := UiStyle.box(Color(0.08, 0.05, 0.12, 0.6), Color(BORDER, 0.6))
+	loadout_style.set_corner_radius_all(10)
+	loadout.add_theme_stylebox_override("panel", loadout_style)
+	loadout.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	root.add_child(loadout)
+	var loadout_rows := VBoxContainer.new()
+	loadout_rows.add_theme_constant_override("separation", 2)
+	loadout.add_child(loadout_rows)
 	var bottom := HBoxContainer.new()
 	bottom.alignment = BoxContainer.ALIGNMENT_CENTER
 	bottom.add_theme_constant_override("separation", 28)
-	root.add_child(bottom)
+	loadout_rows.add_child(bottom)
 	_gold = _label(17, GOLD)
 	bottom.add_child(_gold)
 	_worn = _label(17, Color("c77dff"))
 	bottom.add_child(_worn)
 	_artifact_label = _label(17, Color("8fd3ff"))
 	bottom.add_child(_artifact_label)
-	_challenge_label = _label(17, Color("e04646"))
-	root.add_child(_challenge_label)
+	_challenge_label = _label(16, Color("ff7a6a"))
+	loadout_rows.add_child(_challenge_label)
 
 	# Everything you can do here, as buttons for the mouse (the keys still work).
 	var buttons := HBoxContainer.new()
 	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
 	buttons.add_theme_constant_override("separation", 8)
 	root.add_child(buttons)
-	var play := UiStyle.click_button("%s (Enter)" % tr("MENU_PLAY"), 150, 18)
+	var play := UiStyle.click_button("%s (Enter)" % tr("MENU_PLAY"), 200, 21)
+	play.custom_minimum_size.y = 44
 	play.add_theme_color_override("font_color", GOLD)
+	var play_style := UiStyle.box(Color("5b3a20"), GOLD)
+	play_style.set_border_width_all(3)
+	play.add_theme_stylebox_override("normal", play_style)
+	var play_hover := UiStyle.box(Color("7a4e28"), Color("ffe08a"))
+	play_hover.set_border_width_all(3)
+	play.add_theme_stylebox_override("hover", play_hover)
+	play.add_theme_stylebox_override("pressed", play_hover)
 	play.pressed.connect(_start)
 	buttons.add_child(play)
+	_play = play
 	for entry: Array in [["MENU_UPGRADES", "U", func() -> void: _shop.open()],
 			["MENU_CHARMS", "C", func() -> void: _charms.open()],
 			["ARTIFACTS_TITLE", "V", func() -> void: _artifacts.open()],
@@ -220,11 +283,75 @@ func _build() -> void:
 	_challenges.closed.connect(_refresh)
 
 
+func _process(delta: float) -> void:
+	_t += delta
+	if _play != null:
+		_play.modulate = Color(1, 1, 1).lerp(Color(1.25, 1.15, 0.9), 0.5 + 0.5 * sin(_t * 3.0))
+
+
+func _on_card_hover(i: int, inside: bool) -> void:
+	if inside:
+		_hover = i
+	elif _hover == i:
+		_hover = -1
+	_style_cards()
+
+
+## The cat cards: the chosen one glows gold, the one under the mouse lights up.
+func _style_cards() -> void:
+	for i in _cards.size():
+		var chosen := i == _index
+		var fill := Color("5b4470") if chosen else (Color("4a3860") if i == _hover else Color(CARD, 0.9))
+		var edge := GOLD if chosen else (Color("b9a8c9") if i == _hover else BORDER)
+		var sb := UiStyle.box(fill, edge)
+		sb.set_corner_radius_all(10)
+		if chosen:
+			sb.set_border_width_all(3)
+			sb.shadow_color = Color(GOLD, 0.35)
+			sb.shadow_size = 8
+		_cards[i].add_theme_stylebox_override("panel", sb)
+
+
+func _fill_chips(id: String, unlocked: bool) -> void:
+	for c in _chips.get_children():
+		c.queue_free()
+	if not unlocked:
+		return
+	var bonus: Dictionary = GameData.cats[id].get("bonus", {})
+	if bonus.is_empty():
+		_chips.add_child(_chip(tr("BONUS_NONE"), Color("b9a8c9")))
+	for key: String in bonus:
+		if not BONUS_TEXT.has(key):
+			continue
+		var spec: Array = BONUS_TEXT[key]
+		var value := float(bonus[key]) * float(spec[1])
+		var shown := str(roundi(value))
+		if absf(value - roundf(value)) > 0.01:
+			shown = ("%.1f" % value).replace(".", tr("DECIMAL_SEP"))
+		_chips.add_child(_chip(tr(spec[0]) % shown, spec[2]))
+
+
+func _chip(text: String, color: Color) -> PanelContainer:
+	var chip := PanelContainer.new()
+	var sb := UiStyle.box(Color(color, 0.16), Color(color, 0.8))
+	sb.set_corner_radius_all(9)
+	sb.content_margin_left = 8
+	sb.content_margin_right = 8
+	sb.content_margin_top = 1
+	sb.content_margin_bottom = 1
+	chip.add_theme_stylebox_override("panel", sb)
+	var l := _label(14, color.lightened(0.3))
+	l.text = text
+	chip.add_child(l)
+	return chip
+
+
 func _refresh() -> void:
 	var id := _ids[_index]
 	var unlocked := Profile.is_unlocked(id)
+	_style_cards()
+	_fill_chips(id, unlocked)
 	for i in _cards.size():
-		_cards[i].add_theme_stylebox_override("panel", UiStyle.box(Color("5b4470") if i == _index else CARD, GOLD if i == _index else BORDER))
 		_previews[i].walking = i == _index and unlocked
 	_big.cat_id = id
 	_big.locked = not unlocked
@@ -259,7 +386,9 @@ func _refresh() -> void:
 		_map_cards[i].selected = i == _stage_index
 	var stage_id := _stage_ids[_stage_index]
 	if Profile.is_stage_unlocked(stage_id):
-		_stage_label.text = "%s  %s" % [tr("SELECT_STAGE"), tr("STAGE_%s_NAME" % stage_id)]
+		var stage: Dictionary = GameData.stages[stage_id]
+		var info := tr("SELECT_STAGE_INFO") % [int(stage.get("duration_minutes", 30)), MapCard.difficulty(stage_id)]
+		_stage_label.text = "%s  %s   ·   %s" % [tr("SELECT_STAGE"), tr("STAGE_%s_NAME" % stage_id), info]
 	else:
 		_stage_label.text = "%s  ??? – %s" % [tr("SELECT_STAGE"), tr("STAGE_%s_HINT" % stage_id)]
 

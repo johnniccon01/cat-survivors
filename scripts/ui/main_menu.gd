@@ -14,7 +14,11 @@ var _settings: SettingsPanel
 var _buttons: VBoxContainer
 var _status: Label
 var _cats: Array[CatPreview] = []
+var _cat_speed: Array[float] = []
+var _title: Label
+var _glow: Label
 var _t := 0.0
+const TIPS := 10
 
 
 func _ready() -> void:
@@ -54,21 +58,24 @@ func _build() -> void:
 	art.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	art.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(art)
+	add_child(MenuSky.new())
 
-	# A little parade of the cats you have unlocked, walking along the bottom.
+	# A parade along the bottom: the cats you have unlocked stroll across
+	# the rooftops (the rest follow as shadows).
 	var ids: Array = GameData.cats.keys().filter(func(id: String) -> bool: return not GameData.cats[id].get("npc", false) and (not GameData.cats[id].get("hidden", false) or Profile.is_unlocked(id)))
-	var gap := 1040.0 / maxf(ids.size() - 1, 1)
+	var gap := 1400.0 / maxf(ids.size(), 1)
 	var i := 0
 	for id: String in ids:
 		var cat := CatPreview.new()
 		cat.cat_id = id
 		cat.locked = not Profile.is_unlocked(id)
-		cat.walking = not cat.locked
+		cat.walking = true
 		cat.size = Vector2(120, 120)
-		cat.position = Vector2(60 + i * gap, 560)
+		cat.position = Vector2(-120 + i * gap, 560)
 		cat.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(cat)
 		_cats.append(cat)
+		_cat_speed.append(38.0 + float(i % 3) * 6.0)
 		i += 1
 
 	var box := VBoxContainer.new()
@@ -78,15 +85,47 @@ func _build() -> void:
 	box.alignment = BoxContainer.ALIGNMENT_CENTER
 	box.add_theme_constant_override("separation", 10)
 	add_child(box)
-	box.add_child(UiStyle.label("Cat Survivors", 64, UiStyle.GOLD))
-	box.add_child(UiStyle.label("MENU_TAGLINE", 20, UiStyle.MUTED))
-	_status = UiStyle.label("", 18, UiStyle.GOLD)
+	# The title glows softly and bobs a little.
+	var title_box := Control.new()
+	title_box.custom_minimum_size = Vector2(700, 92)
+	box.add_child(title_box)
+	_glow = UiStyle.label("Cat Survivors", 74, Color(1.0, 0.75, 0.3, 0.35))
+	_glow.label_settings.outline_size = 22
+	_glow.label_settings.outline_color = Color(1.0, 0.7, 0.25, 0.18)
+	_title = UiStyle.label("Cat Survivors", 74, UiStyle.GOLD)
+	_title.label_settings.shadow_size = 0
+	_title.label_settings.shadow_color = Color(0, 0, 0, 0.6)
+	_title.label_settings.shadow_offset = Vector2(4, 5)
+	for l: Label in [_glow, _title]:
+		l.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		title_box.add_child(l)
+	box.add_child(UiStyle.label("MENU_TAGLINE", 20, Color("c9b8dc")))
+	_status = UiStyle.label("", 17, UiStyle.GOLD)
 	box.add_child(_status)
 
+	# The buttons sit on a dark, see-through card so they read well over the art.
+	var card := PanelContainer.new()
+	var card_style := UiStyle.box(Color(0.08, 0.05, 0.12, 0.72), Color(UiStyle.BORDER, 0.8))
+	card_style.set_corner_radius_all(14)
+	card_style.set_content_margin_all(14)
+	card_style.shadow_color = Color(0, 0, 0, 0.45)
+	card_style.shadow_size = 10
+	card.add_theme_stylebox_override("panel", card_style)
+	card.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	box.add_child(card)
 	_buttons = VBoxContainer.new()
-	_buttons.add_theme_constant_override("separation", 8)
+	_buttons.add_theme_constant_override("separation", 7)
 	_buttons.alignment = BoxContainer.ALIGNMENT_CENTER
-	box.add_child(_buttons)
+	card.add_child(_buttons)
+	var tip := UiStyle.label(tr("MENU_TIP") % tr("MENU_TIP_%d" % randi_range(1, TIPS)), 15, Color("b9a8c9"))
+	tip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	tip.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
+	tip.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	tip.offset_top = -30
+	tip.offset_bottom = -8
+	tip.custom_minimum_size.x = 900
+	add_child(tip)
 	_add_button("MENU_PLAY", func() -> void:
 		Audio.play("select", -4.0, 0.0)
 		get_tree().change_scene_to_file(SELECT_SCENE))
@@ -142,6 +181,13 @@ func _add_button(text: String, action: Callable) -> void:
 	var b := UiStyle.button(text, 340)
 	b.pressed.connect(action)
 	_buttons.add_child(b)
+	# The focused / hovered button grows a little.
+	var grow := func(big: bool) -> void:
+		b.pivot_offset = b.size * 0.5
+		var tw := b.create_tween()
+		tw.tween_property(b, "scale", Vector2(1.06, 1.06) if big else Vector2.ONE, 0.08)
+	b.focus_entered.connect(grow.bind(true))
+	b.focus_exited.connect(grow.bind(false))
 
 
 func _open(panel: Control, tab: String = "") -> void:
@@ -180,6 +226,14 @@ func _refresh() -> void:
 
 func _process(delta: float) -> void:
 	_t += delta
-	# Gentle bob so the parade feels alive.
+	if _title != null:
+		_title.position.y = sin(_t * 1.6) * 4.0
+		_glow.position.y = _title.position.y
+		_glow.modulate.a = 0.6 + 0.4 * sin(_t * 2.2)
+	# The parade strolls to the right and comes round again.
 	for i in _cats.size():
-		_cats[i].position.y = 560 + sin(_t * 2.0 + i) * 4.0
+		var cat := _cats[i]
+		cat.position.x += _cat_speed[i] * delta
+		if cat.position.x > size.x + 20.0:
+			cat.position.x -= size.x + 160.0
+		cat.position.y = 560 + sin(_t * 2.0 + i) * 2.0

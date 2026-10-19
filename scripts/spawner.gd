@@ -317,6 +317,14 @@ func _physics_process(delta: float) -> void:
 		_spawn(id, _player.position + Vector2.from_angle(randf() * TAU) * radius)
 
 
+## A tough guard from the current wave (cursed shrines).
+func spawn_guard(pos: Vector2) -> Enemy:
+	var enemy := _spawn((current_wave()["enemies"] as Array).pick_random(), pos)
+	if enemy != null:
+		enemy.make_elite(ELITE_HP * 0.6)
+	return enemy
+
+
 func _spawn(id: String, pos: Vector2) -> Enemy:
 	var enemy := _enemies.spawn(id, pos, hp_multiplier())
 	if enemy != null:

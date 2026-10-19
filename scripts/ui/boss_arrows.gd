@@ -65,3 +65,21 @@ func _draw() -> void:
 		draw_circle(base - dir * 8.0, 5.5, OUTLINE)
 		draw_circle(base - dir * 8.0, 4.0, Color("fff3c8") if golden else Color("f2c14e"))
 		shown += 1
+	# Shrines waiting to be woken get an arrow in their colour.
+	for node in get_tree().get_nodes_in_group("shrine"):
+		var s := node as Shrine
+		if s.used:
+			continue
+		var screen: Vector2 = (s.position - camera.get_screen_center_position()) * camera.zoom + view.size * 0.5
+		if rect.has_point(screen):
+			continue
+		var dir := (screen - center).normalized()
+		var k := minf(half.x / maxf(absf(dir.x), 0.001), half.y / maxf(absf(dir.y), 0.001))
+		var tip := center + dir * k
+		var size := 16.0 + sin(_t * 4.0) * 2.0
+		var side := dir.orthogonal() * size * 0.6
+		var base := tip - dir * size
+		draw_colored_polygon(PackedVector2Array([tip, base + side, base - side]), s.color())
+		draw_polyline(PackedVector2Array([tip, base + side, base - side, tip]), OUTLINE, 2.0)
+		draw_circle(base - dir * 8.0, 5.0, OUTLINE)
+		draw_circle(base - dir * 8.0, 3.5, s.color().lightened(0.4))

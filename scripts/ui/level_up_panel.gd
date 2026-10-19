@@ -1,10 +1,12 @@
 class_name LevelUpPanel
 extends ColorRect
 ## Level-up screen: shows the offers as cards. Pick with mouse, arrows +
-## Enter/Space, or number keys 1-4.
+## Enter/Space, or number keys 1-4. Shift + number (or the small button
+## under a card) banishes that card for the rest of the run.
 
 signal chosen(offer: Dictionary)
 signal reroll_requested
+signal banish_requested(index: int)
 
 ## Ignore input for a moment so a held key doesn't pick a card by accident.
 const INPUT_DELAY := 0.35
@@ -19,6 +21,7 @@ var _reroll: Label
 var _cards: HBoxContainer
 var _offers: Array[Dictionary] = []
 var _ready_for_input := false
+var _banish_left := 0
 
 
 func _ready() -> void:
@@ -46,8 +49,9 @@ func _ready() -> void:
 
 
 ## `title` replaces the "Level N!" heading (e.g. a boss chest's pick).
-func open(level: int, offers: Array[Dictionary], rerolls: int = 0, title: String = "") -> void:
+func open(level: int, offers: Array[Dictionary], rerolls: int = 0, title: String = "", banishes: int = 0) -> void:
 	_offers = offers
+	_banish_left = banishes
 	_reroll.text = tr("LEVELUP_REROLL") % rerolls if rerolls > 0 else ""
 	_title.text = title if title != "" else tr("LEVEL_UP_TITLE") % level
 	for child in _cards.get_children():
@@ -59,7 +63,7 @@ func open(level: int, offers: Array[Dictionary], rerolls: int = 0, title: String
 	await get_tree().create_timer(INPUT_DELAY, true).timeout
 	_ready_for_input = true
 	if visible and _cards.get_child_count() > 0:
-		(_cards.get_child(0) as Button).grab_focus()
+		(_cards.get_child(0).get_child(0) as Button).grab_focus()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -73,7 +77,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		var index: int = event.physical_keycode - KEY_1
 		if index >= 0 and index < _offers.size():
-			_pick(index)
+			if event.shift_pressed:
+				_banish(index)
+			else:
+				_pick(index)
 			get_viewport().set_input_as_handled()
 
 
@@ -85,14 +92,26 @@ func _pick(index: int) -> void:
 	chosen.emit(_offers[index])
 
 
-func _make_card(index: int, offer: Dictionary) -> Button:
+func _banish(index: int) -> void:
+	if not _ready_for_input or _banish_left <= 0 or Upgrades.banish_key(_offers[index]) == "":
+		return
+	_ready_for_input = false
+	banish_requested.emit(index)
+
+
+func _make_card(index: int, offer: Dictionary) -> VBoxContainer:
+	var column := VBoxContainer.new()
+	column.add_theme_constant_override("separation", 6)
 	var card := Button.new()
-	card.custom_minimum_size = Vector2(260, 240)
+	column.add_child(card)
+	card.custom_minimum_size = Vector2(260, 280)
 	card.focus_mode = Control.FOCUS_ALL
-	card.add_theme_stylebox_override("normal", _style(CARD_BORDER))
-	card.add_theme_stylebox_override("hover", _style(CARD_FOCUS))
-	card.add_theme_stylebox_override("focus", _style(CARD_FOCUS))
-	card.add_theme_stylebox_override("pressed", _style(CARD_FOCUS))
+	var grade := int(offer.get("grade", 0))
+	var border: Color = Upgrades.GRADE_COLORS[grade] if grade > 0 else CARD_BORDER
+	card.add_theme_stylebox_override("normal", _style(border, grade))
+	card.add_theme_stylebox_override("hover", _style(CARD_FOCUS, grade))
+	card.add_theme_stylebox_override("focus", _style(CARD_FOCUS, grade))
+	card.add_theme_stylebox_override("pressed", _style(CARD_FOCUS, grade))
 	card.pressed.connect(_pick.bind(index))
 	card.mouse_entered.connect(card.grab_focus)
 
@@ -106,7 +125,7 @@ func _make_card(index: int, offer: Dictionary) -> Button:
 	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card.add_child(content)
 
-	var tag := _label(16, CARD_FOCUS if offer["level"] == 1 else Color("b9a8c9"))
+	var tag := _label(16, Upgrades.GRADE_COLORS[grade].lightened(0.25) if grade > 0 else (CARD_FOCUS if offer["level"] == 1 else Color("b9a8c9")))
 	tag.text = "%d · %s" % [index + 1, Upgrades.tag(offer)] if Upgrades.tag(offer) != "" else str(index + 1)
 	content.add_child(tag)
 
@@ -128,14 +147,38 @@ func _make_card(index: int, offer: Dictionary) -> Button:
 	desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	desc.custom_minimum_size.x = 232
 	content.add_child(desc)
-	return card
+	if _banish_left > 0 and Upgrades.banish_key(offer) != "":
+		var banish := Button.new()
+		banish.text = tr("BANISH_BUTTON") % [index + 1, _banish_left]
+		banish.focus_mode = Control.FOCUS_NONE
+		banish.add_theme_font_size_override("font_size", 14)
+		banish.add_theme_color_override("font_color", Color("b9a8c9"))
+		banish.add_theme_color_override("font_hover_color", Color("ff8a8a"))
+		banish.add_theme_stylebox_override("normal", _flat(Color(0, 0, 0, 0.35)))
+		banish.add_theme_stylebox_override("hover", _flat(Color(0.5, 0.1, 0.1, 0.5)))
+		banish.add_theme_stylebox_override("pressed", _flat(Color(0.5, 0.1, 0.1, 0.7)))
+		banish.pressed.connect(_banish.bind(index))
+		column.add_child(banish)
+	return column
 
 
-func _style(border: Color) -> StyleBoxFlat:
+func _flat(bg: Color) -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()
-	sb.bg_color = CARD_BG
+	sb.bg_color = bg
+	sb.set_corner_radius_all(6)
+	sb.content_margin_top = 3
+	sb.content_margin_bottom = 3
+	return sb
+
+
+func _style(border: Color, grade: int = 0) -> StyleBoxFlat:
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = CARD_BG.lerp(border, 0.05 * grade)
 	sb.border_color = border
-	sb.set_border_width_all(3)
+	sb.set_border_width_all(3 + grade)
+	if grade > 0:
+		sb.shadow_color = Color(border, 0.45)
+		sb.shadow_size = 4 + grade * 3
 	sb.set_corner_radius_all(10)
 	return sb
 

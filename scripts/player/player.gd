@@ -27,7 +27,7 @@ const BASE_STATS := {
 	"might": 1.0, "area": 1.0, "cooldown": 1.0, "amount": 0.0, "speed": 1.0,
 	"max_hp": 100.0, "regen": 0.0, "magnet": 40.0, "duration": 1.0,
 	"proj_speed": 1.0, "armor": 0.0,
-	"growth": 1.0, "greed": 1.0, "curse": 1.0, "revival": 0.0, "reroll": 0.0,
+	"growth": 1.0, "greed": 1.0, "curse": 1.0, "revival": 0.0, "reroll": 0.0, "banish": 2.0,
 	"crit_chance": 0.05, "crit_mult": 2.0, "luck": 1.0,
 	# Artifacts: damage to bosses, thorns when hurt, healing per level, less
 	# damage below 30 % health, and timers (seconds) for the hourglass freeze
@@ -63,6 +63,12 @@ var damage_taken := 0.0
 ## power-up and no angel.
 var killed_by_fatal := false
 var rerolls_left := 0
+## Level-up cards that can still be banished, and the banished items
+## ("weapon:ID" / "passive:ID"), never offered again this run.
+var banish_left := 0
+var banished: Array[String] = []
+## Shrine blessings: [{stats: {...}, t: seconds left}].
+var blessings: Array[Dictionary] = []
 ## External pull (e.g. the final boss sucking the cat in); reset every frame.
 var pull := Vector2.ZERO
 
@@ -105,6 +111,7 @@ func _ready() -> void:
 	hp = max_hp
 	revivals_left = int(stats["revival"])
 	rerolls_left = int(stats["reroll"])
+	banish_left = int(stats["banish"])
 	if controller != "escort":
 		for id in _start_weapons():
 			add_weapon(id)
@@ -235,6 +242,26 @@ func add_passive(id: String) -> void:
 	inventory_changed.emit()
 
 
+## A temporary bonus (shrines): `bonus` stats for `seconds`.
+func bless(bonus: Dictionary, seconds: float) -> void:
+	blessings.append({"stats": bonus, "t": seconds})
+	_recalc_stats()
+
+
+func _tick_blessings(delta: float) -> void:
+	if blessings.is_empty():
+		return
+	var expired := false
+	for b in blessings:
+		b["t"] = float(b["t"]) - delta
+		expired = expired or float(b["t"]) <= 0.0
+	if expired:
+		for i in range(blessings.size() - 1, -1, -1):
+			if float(blessings[i]["t"]) <= 0.0:
+				blessings.remove_at(i)
+		_recalc_stats()
+
+
 func _recalc_stats() -> void:
 	stats = BASE_STATS.duplicate()
 	var bonus: Dictionary = GameData.cats[cat_id].get("bonus", {})
@@ -250,6 +277,10 @@ func _recalc_stats() -> void:
 		var artifacts := Profile.artifact_bonus()
 		for key: String in artifacts:
 			stats[key] += artifacts[key]
+	for b in blessings:
+		var bonus_stats: Dictionary = b["stats"]
+		for key: String in bonus_stats:
+			stats[key] += bonus_stats[key]
 	for id: String in passives:
 		var levels: Array = GameData.passives[id]["levels"]
 		for i in passives[id]:
@@ -271,6 +302,7 @@ func _recalc_stats() -> void:
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
+	_tick_blessings(delta)
 	var input: Vector2
 	match controller:
 		"bot":
@@ -446,6 +478,11 @@ func _bot_input(delta: float) -> Vector2:
 	for e in manager.enemies:
 		if e.id == "GOLDEN_MOUSE" and e.position.distance_to(position) < 500.0:
 			return (e.position - position).normalized()
+	# A shrine nearby is worth a detour too.
+	var shrine: Variant = get_parent().get("shrine")
+	if is_instance_valid(shrine) and not (shrine as Shrine).used and (shrine as Shrine).position.distance_to(position) < 700.0:
+		var to_shrine := (shrine as Shrine).position - position
+		return to_shrine.normalized() if to_shrine.length() > 12.0 else Vector2.ZERO
 	# A diary page on the map is worth a detour.
 	var page: Variant = get_parent().get("_page_item")
 	if is_instance_valid(page):

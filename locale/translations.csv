@@ -1395,3 +1395,43 @@ CAT_STRAY_DESC,"A street cat with nothing but its wits. Starts with no weapon �
 CAT_STRAY_HINT,,,
 SELECT_NO_WEAPON,No weapon – use the traps!,Bez zbrane – využi pasce!,Bez zbraně – využij pasti!
 STRAY_TIP,No weapon! Lure enemies into the traps to reach your first level.,Bez zbrane! Nalákaj nepriateľov do pascí a získaj prvý level.,Bez zbraně! Nalákej nepřátele do pastí a získej první level.
+GRADE_1,Rare · level %d,Vzácne · úroveň %d,Vzácné · úroveň %d
+GRADE_2,Epic · level %d,Epické · úroveň %d,Epické · úroveň %d
+GRADE_3,Legendary · level %d,Legendárne · úroveň %d,Legendární · úroveň %d
+BANISH_BUTTON,× Banish (Shift+%d) · %d left,× Vyhodiť (Shift+%d) · zostáva %d,× Vyhodit (Shift+%d) · zbývá %d
+SHRINE_APPEARED,A shrine nearby: %s – stand next to it,Svätyňa nablízku: %s – postoj pri nej,Svatyně nablízku: %s – postav se k ní
+SHRINE_MIGHT_NAME,Shrine of Might,Svätyňa sily,Svatyně síly
+SHRINE_HASTE_NAME,Shrine of Wind,Svätyňa vetra,Svatyně větru
+SHRINE_MILK_NAME,Shrine of Milk,Svätyňa mlieka,Svatyně mléka
+SHRINE_FORTUNE_NAME,Shrine of Fortune,Svätyňa šťastia,Svatyně štěstí
+SHRINE_CURSED_NAME,Cursed Shrine,Prekliata svätyňa,Prokletá svatyně
+SHRINE_MIGHT_DONE,Shrine of Might: +30 % damage for 45 s,Svätyňa sily: +30 % poškodenia na 45 s,Svatyně síly: +30 % poškození na 45 s
+SHRINE_HASTE_DONE,Shrine of Wind: faster paws and weapons for 45 s,Svätyňa vetra: rýchlejšie labky aj zbrane na 45 s,Svatyně větru: rychlejší tlapky i zbraně na 45 s
+SHRINE_MILK_DONE,"Shrine of Milk: healed, and healing for 45 s",Svätyňa mlieka: vyliečená a liečiš sa ešte 45 s,Svatyně mléka: vyléčena a léčíš se ještě 45 s
+SHRINE_FORTUNE_DONE,"Shrine of Fortune: a shower of gold, all kibble flies to you!",Svätyňa šťastia: dážď zlata a všetky granulky letia k tebe!,Svatyně štěstí: déšť zlata a všechny granule letí k tobě!
+SHRINE_CURSED_DONE,Cursed Shrine: guards! Beat them all for a treasure chest,Prekliata svätyňa: strážcovia! Poraz všetkých a získaš truhlicu,Prokletá svatyně: strážci! Poraž všechny a získáš truhlu
+SHRINE_CURSED_WON,The curse is broken: a treasure chest!,Kliatba zlomená: truhlica!,Kletba zlomena: truhla!
+BONUS_MIGHT,+%s %% damage,+%s %% poškodenie,+%s %% poškození
+BONUS_COOLDOWN,%s %% faster attacks,o %s %% rýchlejšie útoky,o %s %% rychlejší útoky
+BONUS_AREA,+%s %% area,+%s %% plocha,+%s %% plocha
+BONUS_SPEED,+%s %% speed,+%s %% rýchlosť,+%s %% rychlost
+BONUS_MAGNET,+%s magnet,+%s magnet,+%s magnet
+BONUS_MAX_HP,+%s health,+%s zdravie,+%s zdraví
+BONUS_LUCK,+%s %% luck,+%s %% šťastie,+%s %% štěstí
+BONUS_REGEN,+%s health/s,+%s zdravia/s,+%s zdraví/s
+BONUS_PROJ_SPEED,+%s %% projectile speed,+%s %% rýchlosť striel,+%s %% rychlost střel
+BONUS_GROWTH,+%s %% experience,+%s %% skúsenosti,+%s %% zkušenosti
+BONUS_WEAPON_SLOTS,+%s weapon slot,+%s slot na zbraň,+%s slot na zbraň
+BONUS_NONE,No bonuses – a steady all-rounder,Bez bonusov – spoľahlivá všestranná mačka,Bez bonusů – spolehlivá všestranná kočka
+SELECT_STAGE_INFO,%d min night · difficulty %d/5,noc %d min · obtiažnosť %d/5,noc %d min · obtížnost %d/5
+MENU_TIP,Tip: %s,Tip: %s,Tip: %s
+MENU_TIP_1,Lure enemies over traps – traps hurt them too.,Lákaj nepriateľov do pascí – zrania aj ich.,Lákej nepřátele do pastí – zraní i je.
+MENU_TIP_2,A boss chest lets you pick 1 of 3 upgrades.,Truhlica po bossovi ti dá vybrať 1 z 3 vylepšení.,Truhla po bossovi ti dá vybrat 1 ze 3 vylepšení.
+MENU_TIP_3,Shrines on the map give blessings – stand next to one for 2 seconds.,Svätyne na mape dávajú požehnania – postoj pri nej 2 sekundy.,Svatyně na mapě dávají požehnání – postav se k ní na 2 sekundy.
+MENU_TIP_4,"Rare, epic and legendary cards give several levels at once; luck makes them more common.","Vzácne, epické a legendárne karty dávajú viac úrovní naraz; šťastie ich privoláva častejšie.","Vzácné, epické a legendární karty dávají víc úrovní najednou; štěstí je přivolává častěji."
+MENU_TIP_5,Banish a card you never want (Shift + its number) – it won't come back this night.,"Kartu, ktorú nechceš, vyhoď (Shift + jej číslo) – túto noc sa už nevráti.","Kartu, kterou nechceš, vyhoď (Shift + její číslo) – tuto noc se už nevrátí."
+MENU_TIP_6,A weapon at its last level plus its partner upgrade evolves in a chest.,Zbraň na poslednej úrovni spolu s partnerským vylepšením sa v truhlici vyvinie.,Zbraň na poslední úrovni spolu s partnerským vylepšením se v truhle vyvine.
+MENU_TIP_7,Glowing champions drop gold and sometimes a charm.,Žiariaci šampióni nechajú zlato a občas talizman.,Zářící šampioni nechají zlato a občas talisman.
+MENU_TIP_8,The golden mouse runs away – catch it for gold and a chest!,Zlatá myš uteká – chyť ju a dostaneš zlato aj truhlicu!,Zlatá myš utíká – chyť ji a dostaneš zlato i truhlu!
+MENU_TIP_9,Later maps get much tougher after minute 6 – bring a strong build.,Neskoršie mapy sú po 6. minúte oveľa ťažšie – príď so silnou výbavou.,Pozdější mapy jsou po 6. minutě mnohem těžší – přijď se silnou výbavou.
+MENU_TIP_10,The daily night (T) gives +500 gold for the first win of the day.,Denná noc (T) dá +500 zlata za prvú výhru dňa.,Denní noc (T) dá +500 zlata za první výhru dne.

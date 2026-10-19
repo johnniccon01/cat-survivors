@@ -135,6 +135,9 @@ var _page_time := INF
 ## Artifact timers (hourglass, magnet core) and their strength.
 ## Traps laid around the start for a cat with no weapon.
 const STRAY_TRAPS := 6
+## A shrine turns up after SHRINE_FIRST seconds, then every SHRINE_EVERY.
+const SHRINE_FIRST := 70.0
+const SHRINE_EVERY := [100.0, 140.0]
 ## Chance (times luck) that a boss chest gives all three upgrades.
 const BOSS_CHEST_JACKPOT := 0.05
 const HOURGLASS_RADIUS := 360.0
@@ -154,7 +157,12 @@ var _has_page := false
 var _music_track := ""
 ## The day track picked for this run (see _map_music).
 var _day_music := ""
+## The level-up cards on screen (rerolls and banishes replace them).
+var _shown_offers: Array[Dictionary] = []
 var _golden_t: float = GOLDEN_EVERY[0]
+## Shrines: the one on the map now, and when the next one turns up.
+var shrine: Shrine
+var _shrine_t: float = SHRINE_FIRST
 ## Game speed (Turbo challenge, 4x for the bot), restored after hit-stops.
 var _base_time_scale := 1.0
 ## Endless night: whether it's on, and the gold already banked at the win.
@@ -209,6 +217,8 @@ func _ready() -> void:
 	_tutorial = Profile.get_stat("runs") == 0 and not Profile.has_flag("tutorial_done") and (not _bot or "--tutorial" in _args)
 	if "--golden" in _args:
 		_golden_t = 2.0
+	if _arg("--shrine=", "") != "":
+		_shrine_t = 1.0
 	if "--god" in _args:
 		player.god = true
 	if "--endless-now" in _args:
@@ -262,6 +272,7 @@ func _ready() -> void:
 	player.inventory_changed.connect(func() -> void: hud.update_inventory(player))
 	hud.level_up.chosen.connect(_on_offer_chosen)
 	hud.level_up.reroll_requested.connect(_on_reroll)
+	hud.level_up.banish_requested.connect(_on_banish)
 	player.revived.connect(_on_revived)
 	hud.treasure.closed.connect(_next_modal)
 	hud.choice.chosen.connect(func(index: int) -> void:
@@ -633,10 +644,19 @@ func _next_modal() -> void:
 	# Luck above 1.0 is the chance of a fourth card.
 	var offers := Upgrades.roll(player, 4 if randf() < player.stat("luck") - 1.0 else 3)
 	if _bot and not "--show-levelup" in _args:
+		# --banish: the bot banishes its first card while it can (tests).
+		if "--banish" in _args and player.banish_left > 0 and Upgrades.banish_key(offers[0]) != "":
+			player.banish_left -= 1
+			player.banished.append(Upgrades.banish_key(offers[0]))
+			print("BOT: banished %s" % player.banished[-1])
+			offers = Upgrades.roll(player, 3)
+		if int(offers[0].get("grade", 0)) > 0:
+			print("BOT: grade %d %s:%s" % [offers[0]["grade"], offers[0]["kind"], offers[0]["id"]])
 		_on_offer_chosen(offers[0])
 		return
 	_shown_level = player.level - _modals.count("level")
-	hud.level_up.open(_shown_level, offers, player.rerolls_left)
+	_shown_offers = offers
+	hud.level_up.open(_shown_level, offers, player.rerolls_left, "", player.banish_left)
 
 
 func _on_reroll() -> void:
@@ -644,7 +664,30 @@ func _on_reroll() -> void:
 		return
 	player.rerolls_left -= 1
 	Audio.play("magnet", -6.0, 0.0)
-	hud.level_up.open(_shown_level, Upgrades.roll(player, 4 if randf() < player.stat("luck") - 1.0 else 3), player.rerolls_left)
+	_shown_offers = Upgrades.roll(player, 4 if randf() < player.stat("luck") - 1.0 else 3)
+	hud.level_up.open(_shown_level, _shown_offers, player.rerolls_left, "", player.banish_left)
+
+
+## Banishes a level-up card: that item never shows up again this run, and
+## the card is replaced by another one.
+func _on_banish(index: int) -> void:
+	var key := Upgrades.banish_key(_shown_offers[index])
+	if player.banish_left <= 0 or key == "":
+		return
+	player.banish_left -= 1
+	player.banished.append(key)
+	Audio.play("break", -6.0, 0.1)
+	var shown: Array[String] = []
+	for o in _shown_offers:
+		shown.append(Upgrades.banish_key(o))
+	var fresh := Upgrades.roll(player, 6).filter(func(o: Dictionary) -> bool: return Upgrades.banish_key(o) == "" or Upgrades.banish_key(o) not in shown)
+	if fresh.is_empty():
+		_shown_offers.remove_at(index)
+		if _shown_offers.is_empty():
+			_shown_offers.append({"kind": "heal", "id": "HEAL", "level": 0})
+	else:
+		_shown_offers[index] = fresh[0]
+	hud.level_up.open(_shown_level, _shown_offers, player.rerolls_left, "", player.banish_left)
 
 
 ## Revival power-up: back on your feet, and everything nearby is blown away.
@@ -802,6 +845,23 @@ func _catch_up(seconds: float) -> void:
 	dev.free()
 
 
+## Now and then a cat shrine turns up somewhere near (see Shrine).
+func _tick_shrines(delta: float) -> void:
+	if is_instance_valid(shrine) or final_boss != null or _run_over:
+		return
+	_shrine_t -= delta
+	if _shrine_t > 0.0:
+		return
+	_shrine_t = randf_range(SHRINE_EVERY[0], SHRINE_EVERY[1])
+	shrine = Shrine.new()
+	shrine.main = self
+	var forced := _arg("--shrine=", "")
+	shrine.kind = forced if forced != "" else Shrine.random_kind()
+	shrine.position = player.position + (Vector2(70, 0) if forced != "" else Vector2.from_angle(randf() * TAU) * randf_range(330.0, 430.0))
+	add_child(shrine)
+	hud.show_banner(tr("SHRINE_APPEARED") % tr("SHRINE_%s_NAME" % shrine.kind), 3.5)
+
+
 ## The map's track: its night version from half way through the night.
 func _map_music() -> String:
 	var stage := spawner.stage()
@@ -899,6 +959,7 @@ func _track_run(delta: float) -> void:
 			enemies.spawn(GOLDEN_MOUSE, player.position + Vector2.from_angle(randf() * TAU) * 230.0)
 			hud.show_banner(tr("GOLDEN_MOUSE_APPEARED"), 3.5)
 			Audio.play("squeak", -2.0, 0.1)
+	_tick_shrines(delta)
 	# Night falls: switch to the map's night track (not over a boss theme).
 	if final_boss == null and not is_instance_valid(devil) and not _rescuing:
 		var track := _map_music()

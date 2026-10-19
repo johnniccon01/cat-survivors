@@ -243,8 +243,8 @@ func add_passive(id: String) -> void:
 
 
 ## A temporary bonus (shrines): `bonus` stats for `seconds`.
-func bless(bonus: Dictionary, seconds: float) -> void:
-	blessings.append({"stats": bonus, "t": seconds})
+func bless(bonus: Dictionary, seconds: float, label_key: String = "", color: Color = Color.WHITE) -> void:
+	blessings.append({"stats": bonus, "t": seconds, "label": label_key, "color": color})
 	_recalc_stats()
 
 

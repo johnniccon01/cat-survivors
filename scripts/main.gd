@@ -403,6 +403,7 @@ func _process(delta: float) -> void:
 		hud.debug_extra = " · budget %d/%d (x%.2f)" % [roundi(enemies.budget_used), spawner.alive_cap(), spawner.intensity()]
 	hud.update_stats(spawner.elapsed, kills, enemies.enemies.size())
 	hud.update_gold(floori(run_gold), run_charms.size())
+	hud.update_blessings(player)
 	if _bot:
 		var minute := floori(spawner.elapsed / 60.0)
 		_xp_log[minute] = _xp_log.get(minute, 0.0) + pickups.total_xp - _xp_seen

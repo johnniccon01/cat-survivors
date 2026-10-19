@@ -83,12 +83,12 @@ func _activate(cat: Player) -> void:
 	Audio.play("bell", -2.0, 0.0)
 	match kind:
 		"MIGHT":
-			cat.bless({"might": 0.3}, BLESS_SECONDS)
+			cat.bless({"might": 0.3}, BLESS_SECONDS, "SHRINE_MIGHT_NAME", color())
 		"HASTE":
-			cat.bless({"speed": 0.2, "cooldown": -0.15}, BLESS_SECONDS)
+			cat.bless({"speed": 0.2, "cooldown": -0.15}, BLESS_SECONDS, "SHRINE_HASTE_NAME", color())
 		"MILK":
 			cat.heal(cat.max_hp * 0.4)
-			cat.bless({"regen": 1.5}, BLESS_SECONDS)
+			cat.bless({"regen": 1.5}, BLESS_SECONDS, "SHRINE_MILK_NAME", color())
 		"FORTUNE":
 			for i in 12:
 				main.pickups.spawn_named("coin", position + Vector2.from_angle(TAU * i / 12.0) * 26.0, 5.0)

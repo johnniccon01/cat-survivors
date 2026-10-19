@@ -19,6 +19,7 @@ var _inventory: InventoryBar
 var _time_label: Label
 var _kills_label: Label
 var _gold_label: Label
+var _bless_label: Label
 var _debug_label: Label
 var _pause_overlay: Control
 var _pause_stories: Label
@@ -80,6 +81,12 @@ func _ready() -> void:
 	_gold_label.offset_right = -20
 	_gold_label.label_settings.font_color = Color("f2c14e")
 	add_child(_gold_label)
+	# Shrine blessings still running, with the seconds left.
+	_bless_label = _label(16, HORIZONTAL_ALIGNMENT_RIGHT)
+	_bless_label.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	_bless_label.offset_top = 136
+	_bless_label.offset_right = -20
+	add_child(_bless_label)
 
 	_inventory = InventoryBar.new()
 	add_child(_inventory)
@@ -299,6 +306,18 @@ func update_xp(player: Player) -> void:
 func update_inventory(player: Player) -> void:
 	_inventory.player = player
 	_inventory.refresh()
+
+
+func update_blessings(player: Player) -> void:
+	var parts: Array[String] = []
+	var color := Color.WHITE
+	for b in player.blessings:
+		if String(b.get("label", "")) == "":
+			continue
+		parts.append("%s %d s" % [tr(b["label"]), ceili(float(b["t"]))])
+		color = b["color"]
+	_bless_label.text = "  ·  ".join(parts)
+	_bless_label.label_settings.font_color = color.lightened(0.3)
 
 
 func update_gold(amount: int, charms: int = 0) -> void:

@@ -50,6 +50,14 @@ func _enter_tree() -> void:
 	add_to_group("enemy_manager")
 
 
+func _ready() -> void:
+	var ground := EnemyGround.new()
+	ground.manager = self
+	add_child(ground)
+	# First child, so it is drawn under every enemy.
+	move_child(ground, 0)
+
+
 func spawn(id: String, pos: Vector2, hp_mult: float = 1.0) -> Enemy:
 	if enemies.size() >= MAX_ENEMIES and not GameData.enemies[id].get("boss", false):
 		return null

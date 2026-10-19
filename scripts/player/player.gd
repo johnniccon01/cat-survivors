@@ -418,8 +418,9 @@ func _bot_input(delta: float) -> Vector2:
 	_bot_t += delta
 	var wander := Vector2(cos(_bot_t * 0.3), sin(_bot_t * 0.5))
 	var manager: EnemyManager = get_tree().get_first_node_in_group("enemy_manager")
-	# No weapon yet (the Stray): circle the nearest trap so enemies run into it.
-	if weapon_count() == 0:
+	# No weapon yet (the Stray): circle the nearest trap so enemies run into
+	# it, dodging (below) whenever one gets close.
+	if weapon_count() == 0 and manager.query_radius(position, 45.0).is_empty():
 		var best: Node2D = null
 		for node in get_parent().get_children():
 			if node is Trap and (best == null or position.distance_to(node.position) < position.distance_to(best.position)):

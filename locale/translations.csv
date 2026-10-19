@@ -1356,22 +1356,22 @@ BRANCH_TARGETING_NAME,Targeting,Zameriavač,Zaměřovač
 BRANCH_TARGETING_DESC,Finishes off weakened enemies.,Dorazí oslabených nepriateľov.,Dorazí oslabené nepřátele.
 MENU_PROGRESS,Stories %d / %d   ·   Achievements %d / %d,Príbehy %d / %d   ·   Úspechy %d / %d,Příběhy %d / %d   ·   Úspěchy %d / %d
 NEWS_TITLE,What's new,Čo je nové,Co je nového
-NEWS_TEXT,"• Enemies are easier to see; ones that appear on screen fade in first and can't hurt you yet
-• The cat is faster, plain enemies never outrun it, enemies and final bosses are a little softer
-• Level-ups offer upgrades of your weapons much more often
-• Rescued cats grow with you: better weapon, a second one, evolutions
-• Mouse-friendly cat selection, the endless night explains itself, a Weapon Slot upgrade in the shop
-• Earlier: 34 stories, 40 achievements, the Factory, three new weapons, the daily night (T)","• Nepriatelia sú lepšie vidieť; tí, čo sa objavia na obrazovke, sa najprv zhmotnia a ešte nezrania
-• Mačka je rýchlejšia, bežní nepriatelia ju nepredbehnú, nepriatelia aj finálni bossovia sú trochu slabší
-• Pri leveli sa oveľa častejšie ponúkajú vylepšenia tvojich zbraní
-• Zachránené mačky rastú s tebou: lepšia zbraň, druhá zbraň, evolúcie
-• Výber mačky na myš, nekonečná noc s vysvetlením, v obchode Slot na zbraň
-• Predtým: 34 príbehov, 40 úspechov, Továreň, tri nové zbrane, denná noc (T)","• Nepřátelé jsou lépe vidět; ti, co se objeví na obrazovce, se nejdřív zhmotní a ještě nezraní
-• Kočka je rychlejší, běžní nepřátelé ji nepředběhnou, nepřátelé i finální bossové jsou o něco slabší
-• Při levelu se mnohem častěji nabízejí vylepšení tvých zbraní
-• Zachráněné kočky rostou s tebou: lepší zbraň, druhá zbraň, evoluce
-• Výběr kočky myší, nekonečná noc s vysvětlením, v obchodě Slot na zbraň
-• Dříve: 34 příběhů, 40 úspěchů, Továrna, tři nové zbraně, denní noc (T)"
+NEWS_TEXT,"• New cat: the Stray starts with no weapon, but has an extra weapon slot and is faster - lure enemies into its traps for the first level
+• Chests give one upgrade; a boss chest lets you pick 1 of 3 (small chance of all three)
+• Later maps are a real challenge: from minute 6 enemies get much tougher there
+• Every map has a second, completely different song (waltz, swing, synthwave, reggae)
+• Smoother play in big crowds
+• Earlier: easier-to-see enemies, faster cat, growing companions, 34 stories, the daily night (T)","• Nová mačka Túlavec: začína bez zbrane, ale má slot navyše a je rýchlejšia – prvý level získaš, keď nalákaš nepriateľov do pascí
+• Truhlice dávajú jedno vylepšenie; truhlica po bossovi ponúkne výber 1 z 3 (malá šanca na všetky tri)
+• Neskoršie mapy sú poriadna výzva: od 6. minúty sú tam nepriatelia oveľa silnejší
+• Každá mapa má druhú, úplne inú pesničku (valčík, swing, synthwave, reggae)
+• Plynulejšia hra pri veľkých davoch
+• Predtým: lepšie viditeľní nepriatelia, rýchlejšia mačka, rastúci spoločníci, 34 príbehov, denná noc (T)","• Nová kočka Tulák: začíná bez zbraně, ale má slot navíc a je rychlejší – první level získáš, když nalákáš nepřátele do pastí
+• Truhly dávají jedno vylepšení; truhla po bossovi nabídne výběr 1 ze 3 (malá šance na všechny tři)
+• Pozdější mapy jsou pořádná výzva: od 6. minuty jsou tam nepřátelé mnohem silnější
+• Každá mapa má druhou, úplně jinou písničku (valčík, swing, synthwave, reggae)
+• Plynulejší hra při velkých davech
+• Dříve: lépe viditelní nepřátelé, rychlejší kočka, rostoucí společníci, 34 příběhů, denní noc (T)"
 NEWS_HINT,Press any key,Stlač ľubovoľný kláves,Stiskni libovolnou klávesu
 CHAIN_GROUP_ANY,Across the maps and anywhere,Cez všetky mapy a kdekoľvek,Přes všechny mapy a kdekoli
 SELECT_DAILY,T daily night: %s · %s,T denná noc: %s · %s,T denní noc: %s · %s

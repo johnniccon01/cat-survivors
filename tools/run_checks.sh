@@ -27,6 +27,7 @@ scenarios=(
   "traps_rooftop|--bot --stage=ROOFTOP --traps --bot-time=60"
   "all_weapons|--bot --all-weapons --levels=30 --bot-time=200"
   "stray|--bot --cat=STRAY --bot-time=200"
+  "music_alt|--bot --stage=GARDEN --music=alt --bot-time=40"
   "evolution_mica|--test-evolution --cat=MICA"
   "evolution_luna|--test-evolution --cat=LUNA"
   "evolution_snow|--test-evolution --cat=SNOWBALL"

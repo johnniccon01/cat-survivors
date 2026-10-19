@@ -159,6 +159,16 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Navyše: finálni bossovia -25 % HP a -20 % poškodenie, červené šípky na okraji ukazujú bossov mimo obrazovky, pri zdraví pod 30 % pulzuje okraj obrazovky načerveno, okno „Čo je nové“ s dnešnými zmenami
 - [x] Nekonečná noc vysvetlená: cieľ je vydržať čo najdlhšie, rekord, oznámenie každej minúty so zlatom
 
+## Spätná väzba 19. 10. 2026 (večer)
+
+- [x] Stiahnutá verzia z druhého PC (questy so stavbou, zlatá šípka, šetrič efektov)
+- [x] Nová mačka Túlavec: bez zbrane, +1 slot, rýchlejší, väčší magnet a rast; na začiatku 6 priateľských pascí, prvé levely sú len zbrane
+- [x] Truhlice: každá dáva 1 vylepšenie; truhlica po bossovi = výber 1 z 3, 5 % šanca (× šťastie) na všetky tri
+- [x] Výzva: každá mapa má faktor obtiažnosti (Obývačka 1,0 … Továreň 2,2), ktorý od 6. do 20. minúty násobí HP nepriateľov a (odmocninou) ich poškodenie aj finálneho bossa
+- [x] Hudba: každá mapa má druhú dennú skladbu v inom štýle (valčík, synthwave, reggae, swing, lounge jazz, námornícky valčík, industriálny synth) – `tools/gen_music_alt.py`; každý beh náhodne jednu z dvoch (`--music=alt/main`)
+- [x] Výkon: tiene a žiary všetkých nepriateľov kreslí jeden uzol (menej práce na nepriateľa)
+- [ ] Výkon na notebooku: zmerať priamo na ňom (`--perf`); ak treba, ďalej znížiť počet draw callov
+
 ## Fáza 3 – Grafika a zvuk
 
 - [ ] Sprity aj pre nábytok, podlahy, zbrane a projektily (teraz sú kreslené vektorovo)

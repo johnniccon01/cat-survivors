@@ -488,12 +488,12 @@ func _draw() -> void:
 	if id == "GOLDEN_MOUSE":
 		for k in 3:
 			draw_circle(Vector2(0, -1), r + 2.0 + k * 3.0, Color(1.0, 0.85, 0.3, 0.12))
-	# A faint light halo keeps dark enemies visible on dark floors.
-	if not is_prop:
-		draw_circle(Vector2(0, -1), r + 3.0, Color(1, 1, 1, HALO * (2.2 if Settings.high_contrast else 1.0)))
+	# The halo and shadow are drawn for all enemies at once by EnemyGround
+	# (props draw their own shadow).
 	var sprite := Sprites.enemy(id) if _shape != "cat" else {}
 	if not sprite.is_empty():
-		draw_colored_polygon(Shapes.ellipse(Vector2(1, r + 2), r + 1.5, 3), Color(0, 0, 0, 0.45))
+		if is_prop:
+			draw_colored_polygon(Shapes.ellipse(Vector2(1, r + 2), r + 1.5, 3), Color(0, 0, 0, 0.45))
 		# Regular enemies flash white; bosses (hit constantly) just brighten.
 		var row := 1 if _flash > 0.0 and not is_boss else 0
 		var tint := Color(1.5, 1.5, 1.5) if _flash > 0.0 and is_boss else Color.WHITE
@@ -508,7 +508,8 @@ func _draw() -> void:
 	if _flash > 0.0:
 		# Bosses get hit constantly; a lighter tint keeps them recognisable.
 		body = _color.lightened(0.4) if is_boss else Color.WHITE
-	draw_colored_polygon(Shapes.ellipse(Vector2(1, r + 2), r + 1.5, 3), Color(0, 0, 0, 0.45))
+	if is_prop:
+		draw_colored_polygon(Shapes.ellipse(Vector2(1, r + 2), r + 1.5, 3), Color(0, 0, 0, 0.45))
 	match _shape:
 		"dust":
 			_draw_dust(body)

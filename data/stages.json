@@ -267,6 +267,7 @@
       1.0
     ],
     "music": "music_apartment",
+    "music_alt": "music_apartment_alt",
     "music_night": "music_apartment_night",
     "challenge": 1.0
   },
@@ -509,6 +510,7 @@
       1.0
     ],
     "music": "music_basement",
+    "music_alt": "music_basement_alt",
     "music_night": "music_basement_night",
     "story": "OLD_MAP",
     "challenge": 1.15
@@ -516,6 +518,7 @@
   "GARDEN": {
     "theme": "garden",
     "music": "music_garden",
+    "music_alt": "music_garden_alt",
     "requires": "BASEMENT",
     "cat_quests": [
       "CLOVER",
@@ -759,6 +762,7 @@
   "ROOFTOP": {
     "theme": "rooftop",
     "music": "music_rooftop",
+    "music_alt": "music_rooftop_alt",
     "requires": "GARDEN",
     "cat_quests": [
       "BARON",
@@ -1005,6 +1009,7 @@
   "SUPERMARKET": {
     "theme": "supermarket",
     "music": "music_supermarket",
+    "music_alt": "music_supermarket_alt",
     "music_night": "music_supermarket_night",
     "requires": "ROOFTOP",
     "cat_quests": [
@@ -1247,6 +1252,7 @@
   "HARBOR": {
     "theme": "harbor",
     "music": "music_harbor",
+    "music_alt": "music_harbor_alt",
     "music_night": "music_harbor_night",
     "requires": "SUPERMARKET",
     "cat_quests": [
@@ -1489,6 +1495,7 @@
   "FACTORY": {
     "theme": "factory",
     "music": "music_factory",
+    "music_alt": "music_factory_alt",
     "music_night": "music_factory_night",
     "requires": "HARBOR",
     "cat_quests": [

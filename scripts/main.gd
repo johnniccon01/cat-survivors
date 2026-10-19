@@ -152,6 +152,8 @@ var _page_item: Pickup
 var _has_page := false
 ## The map track playing now (day or night).
 var _music_track := ""
+## The day track picked for this run (see _map_music).
+var _day_music := ""
 var _golden_t: float = GOLDEN_EVERY[0]
 ## Game speed (Turbo challenge, 4x for the bot), restored after hit-stops.
 var _base_time_scale := 1.0
@@ -803,7 +805,14 @@ func _catch_up(seconds: float) -> void:
 ## The map's track: its night version from half way through the night.
 func _map_music() -> String:
 	var stage := spawner.stage()
-	var day: String = stage.get("music", "music_apartment")
+	if _day_music == "":
+		# Each map has two day tracks in different styles; one per run
+		# (--music=alt / --music=main picks it).
+		var pick := _arg("--music=", "alt" if randf() < 0.5 else "main")
+		_day_music = stage.get("music_alt", "") if pick == "alt" else ""
+		if _day_music == "":
+			_day_music = stage.get("music", "music_apartment")
+	var day := _day_music
 	if spawner.elapsed >= spawner.duration_minutes() * 60.0 * NIGHT_MUSIC_AT:
 		return stage.get("music_night", day)
 	return day

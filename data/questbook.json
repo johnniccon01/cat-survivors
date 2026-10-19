@@ -1558,6 +1558,53 @@
           }
         }
       ]
+    },
+    "CATS_STRAY": {
+      "chapter": "cats",
+      "cat": "STRAY",
+      "text": "CATLINE",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:STRAY"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level_cat:STRAY"
+          ],
+          "target": 40,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "bosses_cat:STRAY"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 500
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:STRAY"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 1000
+          }
+        }
+      ]
     }
   }
 }

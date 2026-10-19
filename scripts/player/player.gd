@@ -116,7 +116,9 @@ func _start_weapons() -> PackedStringArray:
 		for arg: String in GameData.args():
 			if arg.begins_with("--start-weapon="):
 				return arg.trim_prefix("--start-weapon=").split(",")
-	return PackedStringArray([GameData.cats[cat_id]["weapon"]])
+	var weapon: String = GameData.cats[cat_id]["weapon"]
+	# The Stray starts with nothing: its first level comes from traps.
+	return PackedStringArray([weapon]) if weapon != "" else PackedStringArray()
 
 
 ## The bestiary shows weapons and passives once the played cat has had them.
@@ -416,6 +418,15 @@ func _bot_input(delta: float) -> Vector2:
 	_bot_t += delta
 	var wander := Vector2(cos(_bot_t * 0.3), sin(_bot_t * 0.5))
 	var manager: EnemyManager = get_tree().get_first_node_in_group("enemy_manager")
+	# No weapon yet (the Stray): circle the nearest trap so enemies run into it.
+	if weapon_count() == 0:
+		var best: Node2D = null
+		for node in get_parent().get_children():
+			if node is Trap and (best == null or position.distance_to(node.position) < position.distance_to(best.position)):
+				best = node
+		if best != null:
+			var goal := best.position + Vector2.from_angle(_bot_t * 1.5) * 45.0
+			return (goal - position).normalized()
 	# Standing in a quest zone matters more than dodging (while healthy).
 	var quest_here: Quest = get_parent().quests.active if get_parent().get("quests") else null
 	if quest_here != null and quest_here.started and hp > max_hp * 0.5 and quest_here.target_position().distance_to(position) < 40.0:

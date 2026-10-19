@@ -133,6 +133,8 @@ var _final_started := 0.0
 ## the cat is carrying it.
 var _page_time := INF
 ## Artifact timers (hourglass, magnet core) and their strength.
+## Traps laid around the start for a cat with no weapon.
+const STRAY_TRAPS := 6
 ## Chance (times luck) that a boss chest gives all three upgrades.
 const BOSS_CHEST_JACKPOT := 0.05
 const HOURGLASS_RADIUS := 360.0
@@ -283,6 +285,17 @@ func _ready() -> void:
 		var dev := DevPanel.new()
 		dev.main = self
 		add_child(dev)
+	# A cat with no weapon (the Stray) gets traps around the start to earn its
+	# first level with.
+	if player.weapon_count() == 0:
+		var trap_ids: Array = spawner.stage().get("traps", ["MOUSETRAP"])
+		for i in STRAY_TRAPS:
+			var trap := Trap.new()
+			trap.position = player.position + Vector2.from_angle(TAU * i / STRAY_TRAPS + 0.3) * randf_range(90.0, 170.0)
+			trap.setup(trap_ids[i % trap_ids.size()], self)
+			trap.friendly = true
+			add_child(trap)
+		hud.show_banner.call_deferred(tr("STRAY_TIP"), 6.0)
 	if "--traps" in _args:
 		var i := 0
 		for trap_id: String in GameData.traps:

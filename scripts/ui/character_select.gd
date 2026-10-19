@@ -231,12 +231,12 @@ func _refresh() -> void:
 	_big.walking = unlocked
 	var weapon: String = GameData.cats[id]["weapon"]
 	_weapon_icon.id = weapon
-	_weapon_icon.visible = unlocked
+	_weapon_icon.visible = unlocked and weapon != ""
 	_weapon_icon.queue_redraw()
 	if unlocked:
 		_name.text = tr("CAT_%s_NAME" % id)
 		_desc.text = tr("CAT_%s_DESC" % id)
-		_weapon_label.text = tr("SELECT_START_WEAPON") % tr("WEAPON_%s_NAME" % weapon)
+		_weapon_label.text = tr("SELECT_START_WEAPON") % tr("WEAPON_%s_NAME" % weapon) if weapon != "" else tr("SELECT_NO_WEAPON")
 		_cat_stats.text = tr("SELECT_CAT_STATS") % [Profile.get_stat("wins_cat:" + id), Profile.get_stat("best_level_cat:" + id), Profile.get_stat("bosses_cat:" + id)]
 	else:
 		_name.text = tr("SELECT_LOCKED")

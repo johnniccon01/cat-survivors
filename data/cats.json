@@ -138,6 +138,23 @@
     },
     "unlock": "BOLT"
   },
+  "STRAY": {
+    "fur": "#8a7a6a",
+    "dark": "#4a4038",
+    "belly": "#c8b8a0",
+    "eyes": "#9ad04a",
+    "patches": true,
+    "size": 0.95,
+    "weapon": "",
+    "bonus": {
+      "weapon_slots": 1.0,
+      "speed": 0.2,
+      "magnet": 40.0,
+      "growth": 0.25,
+      "luck": 0.1
+    },
+    "unlocked": true
+  },
   "ANGEL": {
     "fur": "#fffaf0",
     "dark": "#e8dcc0",

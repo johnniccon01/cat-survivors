@@ -42,7 +42,9 @@ static func roll(player: Player, count: int = 3, owned_only: bool = false) -> Ar
 		elif not owned_only and player.weapon_count() < player.max_weapons() and not _has_evolution_of(player, id):
 			pool.append({"kind": "weapon", "id": id, "level": 1, "weight": data.get("rarity", 100)})
 	_add_branch_offers(player, pool)
-	for id: String in GameData.passives:
+	# Without any weapon (the Stray), the first level-up offers weapons only.
+	var weaponless := player.weapon_count() == 0 and not owned_only
+	for id: String in GameData.passives if not weaponless else []:
 		var data: Dictionary = GameData.passives[id]
 		var lvl: int = player.passives.get(id, 0)
 		if lvl == 0 and (owned_only or player.passives.size() >= Player.MAX_PASSIVES):

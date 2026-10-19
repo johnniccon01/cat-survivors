@@ -1390,3 +1390,8 @@ SET_CONTRAST,"High contrast (darker floor, brighter enemies)","Vysoký kontrast 
 SET_LOW_FX,"Effect saver (fewer effects, smoother on laptops)","Úsporný režim (menej efektov, plynulejšie na notebooku)","Úsporný režim (méně efektů, plynulejší na notebooku)"
 BOSS_CHEST_TITLE,Boss chest – pick one!,Truhlica bossa – vyber si!,Truhla bosse – vyber si!
 BOSS_CHEST_JACKPOT,Jackpot! You get all three!,Jackpot! Dostávaš všetky tri!,Jackpot! Dostáváš všechny tři!
+CAT_STRAY_NAME,Stray,Túlavec,Tulák
+CAT_STRAY_DESC,"A street cat with nothing but its wits. Starts with no weapon – lure enemies into traps for the first level. Fast, lucky, learns quickly and carries one weapon more.","Pouličná mačka, ktorá má len svoj rozum. Začína bez zbrane – prvý level získaš nalákaním nepriateľov do pascí. Rýchla, šťastná, rýchlo sa učí a unesie o zbraň viac.","Pouliční kočka, která má jen svůj rozum. Začíná bez zbraně – první level získáš nalákáním nepřátel do pastí. Rychlá, šťastná, rychle se učí a unese o zbraň víc."
+CAT_STRAY_HINT,,,
+SELECT_NO_WEAPON,No weapon – use the traps!,Bez zbrane – využi pasce!,Bez zbraně – využij pasti!
+STRAY_TIP,No weapon! Lure enemies into the traps to reach your first level.,Bez zbrane! Nalákaj nepriateľov do pascí a získaj prvý level.,Bez zbraně! Nalákej nepřátele do pastí a získej první level.

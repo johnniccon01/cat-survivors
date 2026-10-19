@@ -13,6 +13,8 @@ const OUTLINE := Color("2b1d14")
 var id := ""
 var data: Dictionary
 var main: Node
+## The cat's own trap (the Stray's start): it only ever hurts enemies.
+var friendly := false
 
 var _type := "snap"
 var _active := true
@@ -58,7 +60,7 @@ func _tick_snap(delta: float) -> void:
 		return
 	var r := float(data["radius"])
 	var victims: Array[Enemy] = main.enemies.query_radius(position, r)
-	var cat_in: bool = position.distance_to(main.player.position) < r + Player.RADIUS
+	var cat_in: bool = not friendly and position.distance_to(main.player.position) < r + Player.RADIUS
 	if victims.is_empty() and not cat_in:
 		return
 	_active = false
@@ -97,7 +99,7 @@ func _tick_cycle(delta: float) -> void:
 		cat_hit = position.distance_to(main.player.position) < r + Player.RADIUS
 	for e in victims:
 		_hurt(e)
-	if cat_hit:
+	if cat_hit and not friendly:
 		main.player.take_damage(float(data["player_damage"]))
 
 
@@ -141,7 +143,11 @@ func _draw_danger() -> void:
 
 
 func _draw() -> void:
-	_draw_danger()
+	if friendly:
+		# Green: safe for the cat.
+		draw_arc(Vector2.ZERO, float(data.get("radius", 20.0)) + 6.0, 0.0, TAU, 28, Color(0.4, 0.9, 0.45, 0.7), 2.0)
+	else:
+		_draw_danger()
 	match id:
 		"RAKE":
 			# Tines down, handle up: steps on it and the handle swings.

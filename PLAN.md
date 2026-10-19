@@ -178,6 +178,7 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] 4 nové úspechy: Pútnik, Do temnoty, Priepasť, Legendárne
 - [x] Menu: hviezdy a padajúce hviezdy, žiariaci nadpis, mačky prechádzajú po streche, tip na spodku
 - [x] Výber mačky: pozadie s mestom, bonusy mačky ako farebné štítky, zvýraznenie pod myšou, hviezdičky obtiažnosti a dĺžka noci, výraznejšie tlačidlo Hrať
+- [x] Kvalita talizmanov ★☆☆☆ až ★★★★ (každá hviezda +35 % účinku); lepší kúsok toho istého talizmanu vylepší tvoj namiesto zlata; šťastie zvyšuje šancu na lepšiu kvalitu
 - [ ] Predmety s náhodnými vlastnosťami (výbava ako v Death Must Die) – veľký systém, zatiaľ nie
 
 ## Fáza 3 – Grafika a zvuk

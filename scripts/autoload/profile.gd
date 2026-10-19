@@ -20,6 +20,11 @@ const CHARM_SLOTS := 3
 ## Gold given instead when you bring home a charm you already own.
 const DUPLICATE_CHARM_GOLD := 50
 var charms: Array[String] = []
+## Charm quality 1-4 (Death Must Die-like item quality): each step above 1
+## makes the charm 35 % stronger. Finding a better copy upgrades yours.
+const MAX_CHARM_QUALITY := 4
+const CHARM_QUALITY_STEP := 0.35
+var charm_quality: Dictionary = {}
 ## Lifetime counters for long-term goals ("kills", "kills:SOCK", "escapes"...)
 var stats: Dictionary = {}
 var goals_done: Array[String] = []
@@ -83,6 +88,7 @@ func _ready() -> void:
 		streak = cfg.get_value("streak", "current", 0)
 		for id: String in cfg.get_value("charms", "owned", []):
 			charms.append(id)
+		charm_quality = cfg.get_value("charms", "quality", {})
 		stats = cfg.get_value("stats", "counters", {})
 		for id: String in cfg.get_value("stats", "goals_done", []):
 			goals_done.append(id)
@@ -287,15 +293,32 @@ func has_charm(id: String) -> bool:
 	return id in charms
 
 
-## Brings charms home after an escape or a win. Returns the gold paid for
-## duplicates.
-func bank_charms(found: Array[String]) -> int:
+func quality_of(id: String) -> int:
+	return int(charm_quality.get(id, 1))
+
+
+## How much stronger a charm of this quality is than a plain one.
+static func quality_mult(quality: int) -> float:
+	return 1.0 + CHARM_QUALITY_STEP * (quality - 1)
+
+
+## Brings charms home after an escape or a win (`quality` matches `found`).
+## A better copy of a charm you own upgrades it; any other copy pays gold.
+## Returns the gold paid for duplicates; `upgraded` gets the improved ids.
+func bank_charms(found: Array[String], quality: Array[int] = [], upgraded: Array[String] = []) -> int:
 	var gold_back := 0
-	for id in found:
+	for i in found.size():
+		var id := found[i]
+		var q: int = quality[i] if i < quality.size() else 1
 		if id in charms:
-			gold_back += DUPLICATE_CHARM_GOLD
+			if q > quality_of(id):
+				charm_quality[id] = q
+				upgraded.append(id)
+			else:
+				gold_back += DUPLICATE_CHARM_GOLD
 		else:
 			charms.append(id)
+			charm_quality[id] = q
 	gold += gold_back
 	save()
 	return gold_back
@@ -359,7 +382,7 @@ func charm_bonus() -> Dictionary:
 	for id in equipped_charms:
 		var data: Dictionary = GameData.charms.get(id, {})
 		if not data.is_empty():
-			bonus[data["stat"]] = bonus.get(data["stat"], 0.0) + float(data["value"])
+			bonus[data["stat"]] = bonus.get(data["stat"], 0.0) + float(data["value"]) * quality_mult(quality_of(id))
 	return bonus
 
 
@@ -460,6 +483,7 @@ func save() -> void:
 	cfg.set_value("shop", "gold", gold)
 	cfg.set_value("streak", "current", streak)
 	cfg.set_value("charms", "owned", charms)
+	cfg.set_value("charms", "quality", charm_quality)
 	cfg.set_value("stats", "counters", stats)
 	cfg.set_value("stats", "goals_done", goals_done)
 	cfg.set_value("charms", "equipped", equipped_charms)

@@ -90,6 +90,10 @@ var bosses_killed := 0
 var extraction: Extraction
 ## Charms picked up this run: only kept by escaping or winning.
 var run_charms: Array[String] = []
+## Quality (1-4) of each charm in run_charms.
+var run_charm_quality: Array[int] = []
+## Chance of each charm quality when one is picked up (better with luck).
+const CHARM_QUALITY := [[1, 60.0], [2, 27.0], [3, 10.0], [4, 3.0]]
 var _flap_index := 0
 var _flap_times: Array[float] = []
 var _goal_check := 2.0
@@ -716,8 +720,15 @@ func _maybe_drop_charm(pos: Vector2, chance: float) -> void:
 
 
 func _on_charm_collected(charm_id: String) -> void:
+	# Luck shifts the odds towards the better qualities.
+	var weights := []
+	for entry: Array in CHARM_QUALITY:
+		weights.append([entry[0], float(entry[1]) * (pow(player.stat("luck"), entry[0] - 1))])
+	var forced := _arg("--charm-quality=", "")
+	var quality: int = int(forced) if forced != "" else int(_weighted(weights))
 	run_charms.append(charm_id)
-	hud.show_banner(tr("CHARM_FOUND") % tr("CHARM_%s_NAME" % charm_id), 3.5)
+	run_charm_quality.append(quality)
+	hud.show_banner(tr("CHARM_FOUND_QUALITY") % [tr("CHARM_%s_NAME" % charm_id), CharmPanel.stars(quality)], 3.5)
 
 
 ## Opens a cat flap somewhere nearby, if none is open and it's not too
@@ -813,8 +824,11 @@ func _end_run(kind: String) -> void:
 		else:
 			lines.append(tr("SUMMARY_PAGE_LOST"))
 	if kind != "death" and not run_charms.is_empty():
-		var refund := Profile.bank_charms(run_charms)
+		var upgraded: Array[String] = []
+		var refund := Profile.bank_charms(run_charms, run_charm_quality, upgraded)
 		lines.append(tr("SUMMARY_CHARMS_KEPT") % _charm_names())
+		for id in upgraded:
+			lines.append(tr("SUMMARY_CHARM_UPGRADED") % [tr("CHARM_%s_NAME" % id), CharmPanel.stars(Profile.quality_of(id))])
 		if refund > 0:
 			lines.append(tr("SUMMARY_CHARMS_DUPES") % refund)
 	if spawner.darkness > 0:

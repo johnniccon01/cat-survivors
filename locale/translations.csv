@@ -1360,16 +1360,19 @@ NEWS_TEXT,"• Level-up cards can be Rare, Epic or Legendary – several levels 
 • Banish a card you never want: Shift + its number (2 per night)
 • Cat shrines on the map: might, wind, milk, fortune – or a cursed one with guards and a chest
 • Darkness 1–5 on every map you have won: tougher enemies, more gold (- / + on the map screen)
+• Charms have a quality (★ to ★★★★); a better copy upgrades yours
 • A livelier menu and cat selection: bonuses at a glance, map difficulty stars
 • Earlier: the Stray, boss chests with a pick, a second song per map","• Karty pri leveli môžu byť Vzácne, Epické alebo Legendárne – viac úrovní naraz
 • Kartu, ktorú nechceš, vyhoď: Shift + jej číslo (2 za noc)
 • Mačacie svätyne na mape: sila, vietor, mlieko, šťastie – alebo prekliata so strážcami a truhlicou
 • Temnota 1–5 na každej vyhratej mape: silnejší nepriatelia, viac zlata (- / + pri výbere mapy)
+• Talizmany majú kvalitu (★ až ★★★★); lepší kúsok vylepší ten tvoj
 • Živšie menu a výber mačky: bonusy na prvý pohľad, hviezdičky obtiažnosti máp
 • Predtým: Túlavec, výber z truhlice po bossovi, druhá pesnička na každej mape","• Karty při levelu můžou být Vzácné, Epické nebo Legendární – víc úrovní najednou
 • Kartu, kterou nechceš, vyhoď: Shift + její číslo (2 za noc)
 • Kočičí svatyně na mapě: síla, vítr, mléko, štěstí – nebo prokletá se strážci a truhlou
 • Temnota 1–5 na každé vyhrané mapě: silnější nepřátelé, víc zlata (- / + při výběru mapy)
+• Talismany mají kvalitu (★ až ★★★★); lepší kousek vylepší ten tvůj
 • Živější menu a výběr kočky: bonusy na první pohled, hvězdičky obtížnosti map
 • Dříve: Tulák, výběr z truhly po bossovi, druhá písnička na každé mapě"
 NEWS_HINT,Press any key,Stlač ľubovoľný kláves,Stiskni libovolnou klávesu
@@ -1451,3 +1454,6 @@ ACH_ABYSS_NAME,The Abyss,Priepasť,Propast
 ACH_ABYSS_DESC,Win at Darkness 5,Vyhraj v Temnote 5,Vyhraj v Temnotě 5
 ACH_LEGENDARY_NAME,Legendary,Legendárne,Legendární
 ACH_LEGENDARY_DESC,Pick a legendary level-up card,Vyber si legendárnu kartu pri leveli,Vyber si legendární kartu při levelu
+CHARM_FOUND_QUALITY,Charm found: %s %s,Nájdený talizman: %s %s,Nalezený talisman: %s %s
+SUMMARY_CHARM_UPGRADED,Better copy: %s is now %s,Lepší kúsok: %s má teraz %s,Lepší kousek: %s má teď %s
+CHARM_QUALITY,Quality %s: effect +%d %%,Kvalita %s: účinok +%d %%,Kvalita %s: účinek +%d %%

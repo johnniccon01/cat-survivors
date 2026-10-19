@@ -32,6 +32,7 @@ scenarios=(
   "shrine_might|--bot --shrine=MIGHT --bot-time=70"
   "banish_grade|--bot --banish --grade=2 --bot-time=60"
   "darkness|--bot --darkness=3 --bot-time=90"
+  "charm_quality|--bot --drop-charm --extract --charm-quality=3 --bot-time=60"
   "evolution_mica|--test-evolution --cat=MICA"
   "evolution_luna|--test-evolution --cat=LUNA"
   "evolution_snow|--test-evolution --cat=SNOWBALL"

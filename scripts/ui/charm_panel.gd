@@ -78,7 +78,7 @@ func _refresh() -> void:
 		var owned := Profile.has_charm(id)
 		var worn := id in Profile.equipped_charms
 		var label := _rows[i].get_child(0) as Label
-		label.text = "  %s %s" % ["◆" if worn else "◇", tr("CHARM_%s_NAME" % id) if owned else "???"]
+		label.text = "  %s %s" % ["◆" if worn else "◇", "%s %s" % [tr("CHARM_%s_NAME" % id), stars(Profile.quality_of(id))] if owned else "???"]
 		label.label_settings.font_color = RARITY_COLORS[GameData.charms[id]["rarity"]] if owned else Color("6a5a7a")
 		var sb := StyleBoxFlat.new()
 		sb.bg_color = Color("5b4470") if i == _index else Color("3b2a4a")
@@ -90,10 +90,20 @@ func _refresh() -> void:
 	_desc.text = CharmPanel.describe(sel) if Profile.has_charm(sel) else tr("CHARMS_UNKNOWN")
 
 
-## "Rare – +6 % faster attacks" style description of a charm.
+## "Rare – +6 % faster attacks" style description of a charm, with its
+## quality.
 static func describe(id: String) -> String:
 	var data: Dictionary = GameData.charms[id]
-	return "%s – %s" % [TranslationServer.translate("RARITY_" + String(data["rarity"]).to_upper()), TranslationServer.translate("CHARM_%s_DESC" % id)]
+	var text := "%s – %s" % [TranslationServer.translate("RARITY_" + String(data["rarity"]).to_upper()), TranslationServer.translate("CHARM_%s_DESC" % id)]
+	var q := Profile.quality_of(id)
+	if q > 1:
+		text += "\n" + TranslationServer.translate("CHARM_QUALITY") % [stars(q), roundi((Profile.quality_mult(q) - 1.0) * 100.0)]
+	return text
+
+
+## Quality as stars: ★★☆☆.
+static func stars(quality: int) -> String:
+	return "★".repeat(quality) + "☆".repeat(Profile.MAX_CHARM_QUALITY - quality)
 
 
 ## _input, not _unhandled_input: the panel must see keys before the GUI

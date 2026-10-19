@@ -4,7 +4,15 @@ Survivors-like hra v Godot 4.6: mačka Mica bráni byt pred hordami ponožiek.
 
 ## Spustenie
 
-Otvor `project.godot` v Godot 4.6 a stlač **F5**. Hra začína hlavným menu (Hrať, Vylepšenia, Prívesky, Ciele, Nastavenia, Koniec).
+**Najjednoduchšie (aj na inom PC):** dvojklik na `hrat.bat` v priečinku hry. Nájde Godot 4.6 (premenná `GODOT`, priečinok `godot\` vedľa hry, Stiahnuté súbory, Plocha alebo Program Files) a pri prvom spustení na novom PC naimportuje obrázky a zvuky (pár sekúnd). Na novom PC treba len:
+
+1. `git clone https://github.com/johnniccon01/cat-survivors.git`
+2. stiahnuť Godot 4.6.2 (Windows, 64-bit) z https://godotengine.org/download/archive/ a rozbaliť do Stiahnutých súborov,
+3. spustiť `hrat.bat` (`hrat.bat check` len vypíše, ktorý Godot našiel).
+
+Herný profil (zlato, odomknuté veci) je uložený na každom PC zvlášť v `%APPDATA%\Godotpp_userdata\Cat Survivors\profile.cfg` – ak chceš pokračovať s rovnakým postupom, skopíruj tento súbor.
+
+Alebo otvor `project.godot` v Godot 4.6 a stlač **F5**. Hra začína hlavným menu (Hrať, Vylepšenia, Prívesky, Denník, Nastavenia, Koniec).
 
 Ovládanie: **WASD / šípky / ľavá páčka**, **Esc** pauza, v pauze **L** jazyk a **M** zvuk, **R / Enter** reštart po smrti.
 
@@ -12,7 +20,7 @@ V pauze: **N** čísla poškodenia, **K** otrasy obrazovky.
 
 **Vývojársky panel (F1)** – len vo vývojovej verzii (vo vydanej hre sa nezobrazí): posun o minútu, nesmrteľnosť, +5 levelov, finálny boss hneď, quest hneď. Pred vydaním ho zmažeme (`scripts/ui/dev_panel.gd`).
 
-Celá sada testov (24 scenárov, hlási chyby v skriptoch):
+Celá sada testov (asi 150 scenárov vrátane celých nocí na každej mape, ~9 min; `QUICK=1` = 30 scenárov za ~1 min):
 
 ```
 bash tools/run_checks.sh

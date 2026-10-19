@@ -45,10 +45,11 @@ func _ready() -> void:
 	box.add_child(_reroll)
 
 
-func open(level: int, offers: Array[Dictionary], rerolls: int = 0) -> void:
+## `title` replaces the "Level N!" heading (e.g. a boss chest's pick).
+func open(level: int, offers: Array[Dictionary], rerolls: int = 0, title: String = "") -> void:
 	_offers = offers
 	_reroll.text = tr("LEVELUP_REROLL") % rerolls if rerolls > 0 else ""
-	_title.text = tr("LEVEL_UP_TITLE") % level
+	_title.text = title if title != "" else tr("LEVEL_UP_TITLE") % level
 	for child in _cards.get_children():
 		child.queue_free()
 	for i in offers.size():

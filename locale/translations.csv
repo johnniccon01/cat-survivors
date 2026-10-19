@@ -937,7 +937,7 @@ CHAIN_SPIDER_WEB_3_DONE,The web is torn. The moths fly up into the light.,Sieť 
 CHAIN_BOILER_NAME,Fixing the Boiler,Oprava kotla,Oprava kotle
 CHAIN_BOILER_DESC,The old boiler is cold. Without it the basement freezes every night.,Starý kotol je studený. Bez neho pivnica každú noc mrzne.,Starý kotel je studený. Bez něj sklep každou noc mrzne.
 CHAIN_BOILER_1,Bring the four boiler parts,Prines štyri súčiastky kotla,Přines čtyři součástky kotle
-CHAIN_BOILER_1_START,"Four parts – the strongest of the basement guard them. Bring them to the broken boiler, then fix it.","Štyri súčiastky – strážia ich najsilnejší z pivnice. Dones ich k rozbitému kotlu a oprav ho.","Čtyři součástky – hlídají je nejsilnější ze sklepa. Dones je k rozbitému kotli a oprav ho."
+CHAIN_BOILER_1_START,"Four parts – the strongest of the basement guard them. Bring them to the broken boiler, then fix it.",Štyri súčiastky – strážia ich najsilnejší z pivnice. Dones ich k rozbitému kotlu a oprav ho.,Čtyři součástky – hlídají je nejsilnější ze sklepa. Dones je k rozbitému kotli a oprav ho.
 CHAIN_BOILER_1_DONE,The boiler rumbles and warms up. From now on you can warm up next to it.,Kotol zahučal a zohrial sa. Odteraz sa pri ňom môžeš zohriať.,Kotel zahučel a zahřál se. Odteď se u něj můžeš ohřát.
 CHAIN_BOILER_REWARD,the warm boiler heals in the Basement,teplý kotol lieči v Pivnici,teplý kotel léčí ve Sklepě
 ARTIFACT_GNOME_HAT_NAME,Gnome Hat,Trpasličia čiapka,Trpasličí čepice
@@ -1388,3 +1388,5 @@ POWERUP_WEAPON_SLOT_NAME,Weapon Slot,Slot na zbraň,Slot na zbraň
 POWERUP_WEAPON_SLOT_DESC,One more weapon you can carry (up to 8).,"O jednu zbraň viac, ktorú môžeš mať (až 8).","O jednu zbraň víc, kterou můžeš mít (až 8)."
 SET_CONTRAST,"High contrast (darker floor, brighter enemies)","Vysoký kontrast (tmavšia podlaha, výraznejší nepriatelia)","Vysoký kontrast (tmavší podlaha, výraznější nepřátelé)"
 SET_LOW_FX,"Effect saver (fewer effects, smoother on laptops)","Úsporný režim (menej efektov, plynulejšie na notebooku)","Úsporný režim (méně efektů, plynulejší na notebooku)"
+BOSS_CHEST_TITLE,Boss chest – pick one!,Truhlica bossa – vyber si!,Truhla bosse – vyber si!
+BOSS_CHEST_JACKPOT,Jackpot! You get all three!,Jackpot! Dostávaš všetky tri!,Jackpot! Dostáváš všechny tři!

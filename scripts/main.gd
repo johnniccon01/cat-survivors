@@ -133,6 +133,8 @@ var _final_started := 0.0
 ## the cat is carrying it.
 var _page_time := INF
 ## Artifact timers (hourglass, magnet core) and their strength.
+## Chance (times luck) that a boss chest gives all three upgrades.
+const BOSS_CHEST_JACKPOT := 0.05
 const HOURGLASS_RADIUS := 360.0
 const HOURGLASS_SECONDS := 3.0
 const THORN_RADIUS := 80.0
@@ -238,7 +240,7 @@ func _ready() -> void:
 	if not Profile.has_flag("page:" + spawner.stage_id):
 		_page_time = 5.0 if "--page" in _args else randf_range(360.0, 660.0)
 	pickups.gold_collected.connect(func(amount: float) -> void: run_gold += amount * player.stat("greed") * player.stat("curse"))
-	pickups.chest_collected.connect(_queue_modal.bind("chest"))
+	pickups.chest_collected.connect(func(value: float) -> void: _queue_modal("boss_chest" if value >= 1.0 else "chest"))
 	spawner.boss_spawned.connect(func(_id: String) -> void:
 		Audio.play("roar", -2.0, 0.1)
 		player.shake(5.0, 0.5)
@@ -494,7 +496,7 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 		bosses_killed += 1
 		Profile.add_stat("bosses")
 		Profile.add_stat("bosses_cat:" + player.cat_id)
-		pickups.spawn_named("chest", pos, 0.0)
+		pickups.spawn_named("chest", pos, 1.0)
 		pickups.spawn_named("coin", pos + Vector2(14, 6), 25.0)
 		_maybe_drop_charm(pos + Vector2(-14, 6), CHARM_CHANCE_BOSS)
 		_open_extraction()
@@ -584,14 +586,27 @@ func _next_modal() -> void:
 		else:
 			hud.choice.open(_choice["title"], _choice["prompt"], _choice["options"])
 		return
-	if kind == "chest":
+	if kind == "boss_chest" and Upgrades.find_evolution(player).is_empty() and randf() >= BOSS_CHEST_JACKPOT * player.stat("luck"):
+		# A boss chest: pick one of three upgrades of what you already have.
 		Audio.play("chest", -2.0, 0.0)
 		chests_opened += 1
 		Profile.add_stat("chests")
-		# Luck makes the bigger treasures more likely.
-		var luck := player.stat("luck")
-		var rolls := [[1, 70.0], [3, 25.0 * luck], [5, 5.0 * luck * luck]]
-		var results := Upgrades.open_chest(player, _weighted(rolls))
+		var picks := Upgrades.roll(player, 3, true)
+		if _bot:
+			_on_offer_chosen(picks[0])
+			return
+		hud.level_up.open(player.level, picks, 0, tr("BOSS_CHEST_TITLE"))
+		return
+	if kind == "chest" or kind == "boss_chest":
+		Audio.play("chest", -2.0, 0.0)
+		chests_opened += 1
+		Profile.add_stat("chests")
+		# One upgrade (an evolution first, if one is ready); a boss chest that
+		# hits the jackpot gives all three.
+		var count := 3 if kind == "boss_chest" and Upgrades.find_evolution(player).is_empty() else 1
+		var results := Upgrades.open_chest(player, count)
+		if count == 3:
+			hud.show_banner(tr("BOSS_CHEST_JACKPOT"), 3.0)
 		if _bot:
 			_next_modal.call_deferred()
 		else:

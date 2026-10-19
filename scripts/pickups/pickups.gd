@@ -4,7 +4,8 @@ extends Node2D
 ## hop back a little, then fly into the cat with growing speed.
 ## Must stay at the world origin.
 
-signal chest_collected
+## value >= 1: a boss chest (pick one of three).
+signal chest_collected(value: float)
 signal gold_collected(amount: float)
 signal charm_collected(charm_id: String)
 signal heart_collected
@@ -137,7 +138,7 @@ func _collect(item: Pickup) -> void:
 		Pickup.Kind.MAGNET:
 			pull_all_xp()
 		Pickup.Kind.CHEST:
-			chest_collected.emit()
+			chest_collected.emit(item.value)
 		Pickup.Kind.COIN:
 			Audio.play("coin", -9.0, 0.08)
 			gold_collected.emit(item.value)

@@ -490,7 +490,7 @@ func _draw() -> void:
 			draw_circle(Vector2(0, -1), r + 2.0 + k * 3.0, Color(1.0, 0.85, 0.3, 0.12))
 	# A faint light halo keeps dark enemies visible on dark floors.
 	if not is_prop:
-		draw_circle(Vector2(0, -1), r + 3.0, Color(1, 1, 1, HALO))
+		draw_circle(Vector2(0, -1), r + 3.0, Color(1, 1, 1, HALO * (2.2 if Settings.high_contrast else 1.0)))
 	var sprite := Sprites.enemy(id) if _shape != "cat" else {}
 	if not sprite.is_empty():
 		draw_colored_polygon(Shapes.ellipse(Vector2(1, r + 2), r + 1.5, 3), Color(0, 0, 0, 0.45))

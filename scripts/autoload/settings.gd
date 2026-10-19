@@ -12,6 +12,8 @@ var language := "en"
 var muted := false
 var damage_numbers := true
 var screen_shake := true
+## Darker floor and a brighter halo around enemies.
+var high_contrast := false
 var master_volume := 0.8
 var music_volume := 0.7
 var sfx_volume := 0.8
@@ -30,6 +32,7 @@ func _ready() -> void:
 		muted = cfg.get_value("general", "muted", muted)
 		damage_numbers = cfg.get_value("general", "damage_numbers", damage_numbers)
 		screen_shake = cfg.get_value("general", "screen_shake", screen_shake)
+		high_contrast = cfg.get_value("general", "high_contrast", high_contrast)
 		master_volume = cfg.get_value("audio", "master", master_volume)
 		music_volume = cfg.get_value("audio", "music", music_volume)
 		sfx_volume = cfg.get_value("audio", "sfx", sfx_volume)
@@ -58,6 +61,11 @@ func toggle_mute() -> void:
 
 func toggle_damage_numbers() -> void:
 	damage_numbers = not damage_numbers
+	_save()
+
+
+func set_high_contrast(on: bool) -> void:
+	high_contrast = on
 	_save()
 
 
@@ -126,6 +134,7 @@ func _save() -> void:
 	cfg.set_value("general", "muted", muted)
 	cfg.set_value("general", "damage_numbers", damage_numbers)
 	cfg.set_value("general", "screen_shake", screen_shake)
+	cfg.set_value("general", "high_contrast", high_contrast)
 	cfg.set_value("audio", "master", master_volume)
 	cfg.set_value("audio", "music", music_volume)
 	cfg.set_value("audio", "sfx", sfx_volume)

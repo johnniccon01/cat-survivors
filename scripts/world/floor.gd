@@ -15,6 +15,7 @@ const KEEP_MARGIN := 2
 ## furniture.
 var theme := "apartment"
 const FLOOR_DIM := Color(0.8, 0.8, 0.84)
+const FLOOR_DIM_STRONG := Color(0.6, 0.6, 0.65)
 
 var _noise := FastNoiseLite.new()
 var _seed := randi()
@@ -66,7 +67,7 @@ func _create(c: Vector2i) -> void:
 		node.layer = layer
 		# The floor stays a little dim so enemies stand out against it.
 		if layer != FloorChunk.Layer.OVERLAY:
-			node.modulate = FLOOR_DIM
+			node.modulate = FLOOR_DIM_STRONG if Settings.high_contrast else FLOOR_DIM
 		node.desc = desc
 		node.position = Vector2(c) * CHUNK
 		node.z_index = layer

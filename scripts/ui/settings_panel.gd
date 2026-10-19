@@ -13,6 +13,7 @@ var _sound: CheckButton
 var _vsync: CheckButton
 var _numbers: CheckButton
 var _shake: CheckButton
+var _contrast: CheckButton
 var _first: Control
 ## Movement key buttons, and the action waiting for a new key (or "").
 var _key_buttons: Dictionary = {}
@@ -45,6 +46,7 @@ func _ready() -> void:
 	_shake = _toggle("SET_SHAKE", Settings.screen_shake, func(on: bool) -> void:
 		if on != Settings.screen_shake:
 			Settings.toggle_screen_shake())
+	_contrast = _toggle("SET_CONTRAST", Settings.high_contrast, func(on: bool) -> void: Settings.set_high_contrast(on))
 	_language = UiStyle.button("", 520, 20)
 	_language.pressed.connect(func() -> void:
 		Settings.cycle_language()
@@ -87,6 +89,7 @@ func open() -> void:
 	_fullscreen.button_pressed = Settings.fullscreen
 	_numbers.button_pressed = Settings.damage_numbers
 	_shake.button_pressed = Settings.screen_shake
+	_contrast.button_pressed = Settings.high_contrast
 	_first.grab_focus.call_deferred()
 
 

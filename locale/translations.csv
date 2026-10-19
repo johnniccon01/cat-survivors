@@ -1384,3 +1384,4 @@ SELECT_BTN_DAILY,Daily night,Denná noc,Denní noc
 ENDLESS_MINUTE,Endless night: +%d min (record %d min) · +%d gold so far,Nekonečná noc: +%d min (rekord %d min) · zatiaľ +%d zlata,Nekonečná noc: +%d min (rekord %d min) · zatím +%d zlata
 POWERUP_WEAPON_SLOT_NAME,Weapon Slot,Slot na zbraň,Slot na zbraň
 POWERUP_WEAPON_SLOT_DESC,One more weapon you can carry (up to 8).,"O jednu zbraň viac, ktorú môžeš mať (až 8).","O jednu zbraň víc, kterou můžeš mít (až 8)."
+SET_CONTRAST,"High contrast (darker floor, brighter enemies)","Vysoký kontrast (tmavšia podlaha, výraznejší nepriatelia)","Vysoký kontrast (tmavší podlaha, výraznější nepřátelé)"

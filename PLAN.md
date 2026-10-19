@@ -169,6 +169,17 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Výkon: tiene a žiary všetkých nepriateľov kreslí jeden uzol (menej práce na nepriateľa)
 - [ ] Výkon na notebooku: zmerať priamo na ňom (`--perf`); ak treba, ďalej znížiť počet draw callov
 
+## Nápady z Death Must Die (20. 10. 2026)
+
+- [x] Vzácnosť kariet pri leveli: Vzácna / Epická / Legendárna = +1 / +2 / +3 úrovne naraz (12 % / 4 % / 1,2 % × šťastie), farebný žiariaci rám
+- [x] Vyhodenie karty (banish): 2 za noc, Shift + číslo alebo tlačidlo pod kartou; vec sa v tej noci už neponúkne
+- [x] Mačacie svätyne: od 70 s, potom každé 1,5–2,5 min; postoj pri nej 2 s. Sila (+30 % poškodenia na 45 s), Vietor (rýchlosť a útoky), Mlieko (liečenie), Šťastie (zlato + všetky granulky), Prekliata (5 strážcov → truhlica). Šípka na okraji obrazovky
+- [x] Temnota 1–5 na každej vyhratej mape: na úroveň +18 % HP, +10 % poškodenia, +6 % nepriateľov, +25 % zlata; výhra odomkne ďalšiu úroveň (- / + pri výbere mapy)
+- [x] 4 nové úspechy: Pútnik, Do temnoty, Priepasť, Legendárne
+- [x] Menu: hviezdy a padajúce hviezdy, žiariaci nadpis, mačky prechádzajú po streche, tip na spodku
+- [x] Výber mačky: pozadie s mestom, bonusy mačky ako farebné štítky, zvýraznenie pod myšou, hviezdičky obtiažnosti a dĺžka noci, výraznejšie tlačidlo Hrať
+- [ ] Predmety s náhodnými vlastnosťami (výbava ako v Death Must Die) – veľký systém, zatiaľ nie
+
 ## Fáza 3 – Grafika a zvuk
 
 - [ ] Sprity aj pre nábytok, podlahy, zbrane a projektily (teraz sú kreslené vektorovo)

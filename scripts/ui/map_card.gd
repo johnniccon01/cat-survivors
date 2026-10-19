@@ -67,6 +67,9 @@ func _draw() -> void:
 	var title := tr("STAGE_%s_NAME" % stage_id) if open else "???"
 	draw_string(font, Vector2(8, 100), title, HORIZONTAL_ALIGNMENT_CENTER, size.x - 16, 18, UiStyle.GOLD if selected else UiStyle.TEXT)
 	var sub := tr("SELECT_MAP_BEST") % Profile.get_stat("best_minutes:" + stage_id) if open else tr("STAGE_%s_HINT" % stage_id)
+	var best_dark := int(Profile.darkness_best.get(stage_id, 0))
+	if open and best_dark > 0:
+		sub = tr("SELECT_MAP_DARKNESS") % best_dark
 	draw_string(font, Vector2(8, 120), sub, HORIZONTAL_ALIGNMENT_CENTER, size.x - 16, 13, UiStyle.MUTED)
 	draw_rect(r, UiStyle.GOLD if selected else UiStyle.BORDER, false, 3.0 if selected else 2.0)
 

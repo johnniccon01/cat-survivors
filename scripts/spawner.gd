@@ -95,6 +95,7 @@ func setup(player: Player, enemies: EnemyManager) -> void:
 	_enemies = enemies
 	stage_id = Profile.selected_stage
 	_stage = GameData.stages[stage_id]
+	darkness = Profile.darkness_for(stage_id)
 	_lull_timer = randf_range(LULL_EVERY[0], LULL_EVERY[1])
 	# Every run shifts the timed events a little.
 	for ev: Dictionary in _stage.get("events", []):
@@ -128,7 +129,7 @@ func calm_for(seconds: float) -> void:
 
 ## Spawn budget right now: rolled range x minute intensity x curse x mercy.
 func alive_cap() -> int:
-	var b := _cap * intensity() * _player.stat("curse") * minf(1.0 + 0.04 * endless_minutes(), 1.6)
+	var b := _cap * intensity() * _player.stat("curse") * minf(1.0 + 0.04 * endless_minutes(), 1.6) * (1.0 + DARKNESS_CROWD * darkness)
 	if _player.hp < _player.max_hp * MERCY_HP:
 		b *= MERCY
 	return roundi(b)
@@ -168,6 +169,12 @@ func skip_to(seconds: float) -> void:
 	_roll_cap()
 
 
+## Per darkness level: enemy health, damage and numbers, and gold.
+const DARKNESS_HP := 0.18
+const DARKNESS_DAMAGE := 0.1
+const DARKNESS_CROWD := 0.06
+const DARKNESS_GOLD := 0.25
+var darkness := 0
 const EARLY_EASE := 0.7
 const CHALLENGE_FROM := 6.0
 const CHALLENGE_FULL := 20.0
@@ -177,7 +184,7 @@ const EASE_UNTIL := 6.0
 ## Health multiplier for enemies spawned right now.
 func hp_multiplier() -> float:
 	var level_bonus := maxf(_player.level - LEVEL_SCALING_FROM, 0) * LEVEL_SCALING
-	return float(current_wave().get("hp_mult", 1.0)) * (1.0 + level_bonus) * _player.stat("curse") * endless_factor() * early_ease() * challenge()
+	return float(current_wave().get("hp_mult", 1.0)) * (1.0 + level_bonus) * _player.stat("curse") * endless_factor() * early_ease() * challenge() * (1.0 + DARKNESS_HP * darkness)
 
 
 ## The map's challenge ("challenge" in stages.json): later maps grow tougher
@@ -231,7 +238,7 @@ func _physics_process(delta: float) -> void:
 	if _player == null or _player.is_dead:
 		return
 	elapsed += delta
-	_enemies.damage_mult = (1.0 + DAMAGE_PER_MINUTE_SQ * pow(elapsed / 60.0, 2.0)) * early_ease() * sqrt(challenge())
+	_enemies.damage_mult = (1.0 + DAMAGE_PER_MINUTE_SQ * pow(elapsed / 60.0, 2.0)) * early_ease() * sqrt(challenge()) * (1.0 + DARKNESS_DAMAGE * darkness)
 	_enemies.speed_mult = 1.0 + minf(SPEED_PER_MINUTE * elapsed / 60.0, SPEED_MAX_BONUS) + minf(ENDLESS_SPEED_PER_MINUTE * endless_minutes(), ENDLESS_SPEED_MAX)
 	if _cleared:
 		return

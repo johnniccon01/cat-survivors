@@ -46,6 +46,12 @@ var _daily_backup: Array[String] = []
 var chains: Dictionary = {}
 ## Earned achievement ids.
 var achievements: Array[String] = []
+## Darkness (Death Must Die-like): per map, the level picked for the next
+## night and the highest level won there. Each level makes enemies tougher
+## and pays more gold; winning one opens the next.
+const MAX_DARKNESS := 5
+var darkness: Dictionary = {}
+var darkness_best: Dictionary = {}
 
 
 func _ready() -> void:
@@ -69,6 +75,8 @@ func _ready() -> void:
 		selected_stage = cfg.get_value("stages", "selected", selected_stage)
 		for id: String in cfg.get_value("stages", "cleared", []):
 			cleared_stages.append(id)
+		darkness = cfg.get_value("darkness", "selected", {})
+		darkness_best = cfg.get_value("darkness", "best", {})
 		for flag: String in cfg.get_value("story", "flags", []):
 			flags.append(flag)
 		gold = cfg.get_value("shop", "gold", 0)
@@ -148,6 +156,39 @@ func select(cat_id: String) -> void:
 func select_stage(stage_id: String) -> void:
 	selected_stage = stage_id
 	save()
+
+
+## The highest darkness that can be picked on a map: one above the best
+## won there, once the map has been cleared at all.
+func max_darkness(stage_id: String) -> int:
+	if stage_id not in cleared_stages:
+		return 0
+	return mini(int(darkness_best.get(stage_id, 0)) + 1, MAX_DARKNESS)
+
+
+## The darkness of the next night on `stage_id` (--darkness=N in tests;
+## the daily night is always plain).
+func darkness_for(stage_id: String) -> int:
+	var forced := GameData.arg("--darkness=", "")
+	if forced != "":
+		return int(forced)
+	if daily:
+		return 0
+	return clampi(int(darkness.get(stage_id, 0)), 0, max_darkness(stage_id))
+
+
+func set_darkness(stage_id: String, level: int) -> void:
+	darkness[stage_id] = clampi(level, 0, max_darkness(stage_id))
+	save()
+
+
+## Records a won darkness; true if it was a new best.
+func win_darkness(stage_id: String, level: int) -> bool:
+	if level <= int(darkness_best.get(stage_id, 0)):
+		return false
+	darkness_best[stage_id] = level
+	save()
+	return true
 
 
 ## A stage is open when the stage it requires has been cleared.
@@ -413,6 +454,8 @@ func save() -> void:
 	cfg.set_value("cats", "selected", selected_cat)
 	cfg.set_value("stages", "selected", selected_stage)
 	cfg.set_value("stages", "cleared", cleared_stages)
+	cfg.set_value("darkness", "selected", darkness)
+	cfg.set_value("darkness", "best", darkness_best)
 	cfg.set_value("story", "flags", flags)
 	cfg.set_value("shop", "gold", gold)
 	cfg.set_value("streak", "current", streak)

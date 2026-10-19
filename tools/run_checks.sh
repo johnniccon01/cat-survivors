@@ -31,6 +31,7 @@ scenarios=(
   "shrine_cursed|--bot --shrine=CURSED --start-minute=8 --catch-up --bot-time=120"
   "shrine_might|--bot --shrine=MIGHT --bot-time=70"
   "banish_grade|--bot --banish --grade=2 --bot-time=60"
+  "darkness|--bot --darkness=3 --bot-time=90"
   "evolution_mica|--test-evolution --cat=MICA"
   "evolution_luna|--test-evolution --cat=LUNA"
   "evolution_snow|--test-evolution --cat=SNOWBALL"

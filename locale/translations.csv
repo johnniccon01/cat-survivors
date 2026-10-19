@@ -1356,22 +1356,22 @@ BRANCH_TARGETING_NAME,Targeting,Zameriavač,Zaměřovač
 BRANCH_TARGETING_DESC,Finishes off weakened enemies.,Dorazí oslabených nepriateľov.,Dorazí oslabené nepřátele.
 MENU_PROGRESS,Stories %d / %d   ·   Achievements %d / %d,Príbehy %d / %d   ·   Úspechy %d / %d,Příběhy %d / %d   ·   Úspěchy %d / %d
 NEWS_TITLE,What's new,Čo je nové,Co je nového
-NEWS_TEXT,"• New cat: the Stray starts with no weapon, but has an extra weapon slot and is faster - lure enemies into its traps for the first level
-• Chests give one upgrade; a boss chest lets you pick 1 of 3 (small chance of all three)
-• Later maps are a real challenge: from minute 6 enemies get much tougher there
-• Every map has a second, completely different song (waltz, swing, synthwave, reggae)
-• Smoother play in big crowds
-• Earlier: easier-to-see enemies, faster cat, growing companions, 34 stories, the daily night (T)","• Nová mačka Túlavec: začína bez zbrane, ale má slot navyše a je rýchlejšia – prvý level získaš, keď nalákaš nepriateľov do pascí
-• Truhlice dávajú jedno vylepšenie; truhlica po bossovi ponúkne výber 1 z 3 (malá šanca na všetky tri)
-• Neskoršie mapy sú poriadna výzva: od 6. minúty sú tam nepriatelia oveľa silnejší
-• Každá mapa má druhú, úplne inú pesničku (valčík, swing, synthwave, reggae)
-• Plynulejšia hra pri veľkých davoch
-• Predtým: lepšie viditeľní nepriatelia, rýchlejšia mačka, rastúci spoločníci, 34 príbehov, denná noc (T)","• Nová kočka Tulák: začíná bez zbraně, ale má slot navíc a je rychlejší – první level získáš, když nalákáš nepřátele do pastí
-• Truhly dávají jedno vylepšení; truhla po bossovi nabídne výběr 1 ze 3 (malá šance na všechny tři)
-• Pozdější mapy jsou pořádná výzva: od 6. minuty jsou tam nepřátelé mnohem silnější
-• Každá mapa má druhou, úplně jinou písničku (valčík, swing, synthwave, reggae)
-• Plynulejší hra při velkých davech
-• Dříve: lépe viditelní nepřátelé, rychlejší kočka, rostoucí společníci, 34 příběhů, denní noc (T)"
+NEWS_TEXT,"• Level-up cards can be Rare, Epic or Legendary – several levels at once
+• Banish a card you never want: Shift + its number (2 per night)
+• Cat shrines on the map: might, wind, milk, fortune – or a cursed one with guards and a chest
+• Darkness 1–5 on every map you have won: tougher enemies, more gold (- / + on the map screen)
+• A livelier menu and cat selection: bonuses at a glance, map difficulty stars
+• Earlier: the Stray, boss chests with a pick, a second song per map","• Karty pri leveli môžu byť Vzácne, Epické alebo Legendárne – viac úrovní naraz
+• Kartu, ktorú nechceš, vyhoď: Shift + jej číslo (2 za noc)
+• Mačacie svätyne na mape: sila, vietor, mlieko, šťastie – alebo prekliata so strážcami a truhlicou
+• Temnota 1–5 na každej vyhratej mape: silnejší nepriatelia, viac zlata (- / + pri výbere mapy)
+• Živšie menu a výber mačky: bonusy na prvý pohľad, hviezdičky obtiažnosti máp
+• Predtým: Túlavec, výber z truhlice po bossovi, druhá pesnička na každej mape","• Karty při levelu můžou být Vzácné, Epické nebo Legendární – víc úrovní najednou
+• Kartu, kterou nechceš, vyhoď: Shift + její číslo (2 za noc)
+• Kočičí svatyně na mapě: síla, vítr, mléko, štěstí – nebo prokletá se strážci a truhlou
+• Temnota 1–5 na každé vyhrané mapě: silnější nepřátelé, víc zlata (- / + při výběru mapy)
+• Živější menu a výběr kočky: bonusy na první pohled, hvězdičky obtížnosti map
+• Dříve: Tulák, výběr z truhly po bossovi, druhá písnička na každé mapě"
 NEWS_HINT,Press any key,Stlač ľubovoľný kláves,Stiskni libovolnou klávesu
 CHAIN_GROUP_ANY,Across the maps and anywhere,Cez všetky mapy a kdekoľvek,Přes všechny mapy a kdekoli
 SELECT_DAILY,T daily night: %s · %s,T denná noc: %s · %s,T denní noc: %s · %s
@@ -1435,3 +1435,19 @@ MENU_TIP_7,Glowing champions drop gold and sometimes a charm.,Žiariaci šampió
 MENU_TIP_8,The golden mouse runs away – catch it for gold and a chest!,Zlatá myš uteká – chyť ju a dostaneš zlato aj truhlicu!,Zlatá myš utíká – chyť ji a dostaneš zlato i truhlu!
 MENU_TIP_9,Later maps get much tougher after minute 6 – bring a strong build.,Neskoršie mapy sú po 6. minúte oveľa ťažšie – príď so silnou výbavou.,Pozdější mapy jsou po 6. minutě mnohem těžší – přijď se silnou výbavou.
 MENU_TIP_10,The daily night (T) gives +500 gold for the first win of the day.,Denná noc (T) dá +500 zlata za prvú výhru dňa.,Denní noc (T) dá +500 zlata za první výhru dne.
+SELECT_DARKNESS,"Darkness %d: enemies +%d %% health, +%d %% gold  (- / +)","Temnota %d: nepriatelia +%d %% zdravia, +%d %% zlata  (- / +)","Temnota %d: nepřátelé +%d %% zdraví, +%d %% zlata  (- / +)"
+SELECT_DARKNESS_OFF,Darkness off – up to %d open  (- / +),Temnota vypnutá – odomknutá do %d  (- / +),Temnota vypnutá – odemčená do %d  (- / +)
+SELECT_DARKNESS_LOCKED,Win this map to open the Darkness,Vyhraj túto mapu a odomkneš Temnotu,Vyhraj tuto mapu a odemkneš Temnotu
+SELECT_MAP_DARKNESS,Darkness %d won,Temnota %d prekonaná,Temnota %d překonána
+DARKNESS_ON,"Darkness %d: enemies +%d %% health, +%d %% gold","Temnota %d: nepriatelia +%d %% zdravia, +%d %% zlata","Temnota %d: nepřátelé +%d %% zdraví, +%d %% zlata"
+SUMMARY_DARKNESS,Darkness %d: +%d gold,Temnota %d: +%d zlata,Temnota %d: +%d zlata
+SUMMARY_DARKNESS_WON,Darkness %d beaten – the next level is open!,Temnota %d prekonaná – ďalšia úroveň je odomknutá!,Temnota %d překonána – další úroveň je odemčená!
+SUMMARY_DARKNESS_OPEN,The Darkness is open on this map (- / + on the map screen),Na tejto mape sa odomkla Temnota (- / + pri výbere mapy),Na této mapě se odemkla Temnota (- / + při výběru mapy)
+ACH_PILGRIM_NAME,Pilgrim,Pútnik,Poutník
+ACH_PILGRIM_DESC,Wake 10 shrines,Prebuď 10 svätýň,Probuď 10 svatyní
+ACH_INTO_THE_DARK_NAME,Into the Dark,Do temnoty,Do temnoty
+ACH_INTO_THE_DARK_DESC,Win a night in the Darkness,Vyhraj noc v Temnote,Vyhraj noc v Temnotě
+ACH_ABYSS_NAME,The Abyss,Priepasť,Propast
+ACH_ABYSS_DESC,Win at Darkness 5,Vyhraj v Temnote 5,Vyhraj v Temnotě 5
+ACH_LEGENDARY_NAME,Legendary,Legendárne,Legendární
+ACH_LEGENDARY_DESC,Pick a legendary level-up card,Vyber si legendárnu kartu pri leveli,Vyber si legendární kartu při levelu

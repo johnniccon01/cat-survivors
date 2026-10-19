@@ -212,5 +212,29 @@
       "daily_wins"
     ],
     "target": 7
+  },
+  "PILGRIM": {
+    "stats": [
+      "shrines"
+    ],
+    "target": 10
+  },
+  "INTO_THE_DARK": {
+    "stats": [
+      "darkness_wins"
+    ],
+    "target": 1
+  },
+  "ABYSS": {
+    "stats": [
+      "best_darkness"
+    ],
+    "target": 5
+  },
+  "LEGENDARY": {
+    "stats": [
+      "legendary_cards"
+    ],
+    "target": 1
   }
 }

@@ -157,6 +157,7 @@ var _has_page := false
 var _music_track := ""
 ## The day track picked for this run (see _map_music).
 var _day_music := ""
+var _darkness_shown := false
 ## The level-up cards on screen (rerolls and banishes replace them).
 var _shown_offers: Array[Dictionary] = []
 var _golden_t: float = GOLDEN_EVERY[0]
@@ -700,6 +701,8 @@ func _on_revived() -> void:
 
 func _on_offer_chosen(offer: Dictionary) -> void:
 	Audio.play("select", -6.0, 0.0)
+	if int(offer.get("grade", 0)) >= 3:
+		Profile.add_stat("legendary_cards")
 	Upgrades.apply(player, offer)
 	_next_modal()
 
@@ -814,6 +817,17 @@ func _end_run(kind: String) -> void:
 		lines.append(tr("SUMMARY_CHARMS_KEPT") % _charm_names())
 		if refund > 0:
 			lines.append(tr("SUMMARY_CHARMS_DUPES") % refund)
+	if spawner.darkness > 0:
+		var dark_bonus := floori(gold * Spawner.DARKNESS_GOLD * spawner.darkness)
+		gold += dark_bonus
+		lines.append(tr("SUMMARY_DARKNESS") % [spawner.darkness, dark_bonus])
+		if kind == "victory":
+			Profile.add_stat("darkness_wins")
+			Profile.set_stat_max("best_darkness", spawner.darkness)
+			if Profile.win_darkness(spawner.stage_id, spawner.darkness):
+				lines.append(tr("SUMMARY_DARKNESS_WON") % spawner.darkness)
+	elif kind == "victory" and Profile.max_darkness(spawner.stage_id) > 0 and int(Profile.darkness_best.get(spawner.stage_id, 0)) == 0:
+		lines.append(tr("SUMMARY_DARKNESS_OPEN"))
 	if not Profile.challenges.is_empty():
 		var bonus := floori(gold * (Profile.challenge_gold() - 1.0))
 		gold += bonus
@@ -940,6 +954,9 @@ func _track_run(delta: float) -> void:
 	if Profile.daily and spawner.elapsed < 1.0 and not _challenge_shown:
 		_challenge_shown = true
 		hud.show_banner(tr("DAILY_ON") % ", ".join(Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))), 4.0)
+	if spawner.darkness > 0 and spawner.elapsed < 1.0 and not _darkness_shown:
+		_darkness_shown = true
+		hud.show_banner(tr("DARKNESS_ON") % [spawner.darkness, roundi(Spawner.DARKNESS_HP * spawner.darkness * 100.0), roundi(Spawner.DARKNESS_GOLD * spawner.darkness * 100.0)], 4.5)
 	if not Profile.challenges.is_empty() and spawner.elapsed < 1.0 and not _challenge_shown:
 		_challenge_shown = true
 		hud.show_banner(tr("CHALLENGES_ON") % [", ".join(Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))), Profile.challenge_gold()], 4.0)

@@ -37,6 +37,9 @@ var _map_cards: Array[MapCard] = []
 var _chips: HFlowContainer
 var _play: Button
 var _hover := -1
+var _dark_label: Label
+var _dark_minus: Button
+var _dark_plus: Button
 var _t := 0.0
 ## Cat bonus stat -> [translation key, multiplier for the shown number, colour].
 const BONUS_TEXT := {
@@ -199,6 +202,19 @@ func _build() -> void:
 	# Middle: the maps.
 	_stage_label = _label(20, GOLD)
 	root.add_child(_stage_label)
+	# Darkness of the chosen map: - and + (or the keys).
+	var dark_row := HBoxContainer.new()
+	dark_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	dark_row.add_theme_constant_override("separation", 8)
+	root.add_child(dark_row)
+	_dark_minus = UiStyle.click_button("-", 36, 20)
+	_dark_minus.pressed.connect(_change_darkness.bind(-1))
+	dark_row.add_child(_dark_minus)
+	_dark_label = _label(17, Color("c79bff"))
+	dark_row.add_child(_dark_label)
+	_dark_plus = UiStyle.click_button("+", 36, 20)
+	_dark_plus.pressed.connect(_change_darkness.bind(1))
+	dark_row.add_child(_dark_plus)
 	var maps := HBoxContainer.new()
 	maps.alignment = BoxContainer.ALIGNMENT_CENTER
 	maps.add_theme_constant_override("separation", 8)
@@ -385,12 +401,37 @@ func _refresh() -> void:
 	for i in _map_cards.size():
 		_map_cards[i].selected = i == _stage_index
 	var stage_id := _stage_ids[_stage_index]
+	_refresh_darkness(stage_id)
 	if Profile.is_stage_unlocked(stage_id):
 		var stage: Dictionary = GameData.stages[stage_id]
 		var info := tr("SELECT_STAGE_INFO") % [int(stage.get("duration_minutes", 30)), MapCard.difficulty(stage_id)]
 		_stage_label.text = "%s  %s   ·   %s" % [tr("SELECT_STAGE"), tr("STAGE_%s_NAME" % stage_id), info]
 	else:
 		_stage_label.text = "%s  ??? – %s" % [tr("SELECT_STAGE"), tr("STAGE_%s_HINT" % stage_id)]
+
+
+func _change_darkness(step: int) -> void:
+	var stage_id := _stage_ids[_stage_index]
+	var top := Profile.max_darkness(stage_id)
+	if top == 0:
+		Audio.play("hurt", -12.0, 0.0)
+		return
+	Profile.set_darkness(stage_id, Profile.darkness_for(stage_id) + step)
+	Audio.play("click", -6.0, 0.0)
+	_refresh()
+
+
+func _refresh_darkness(stage_id: String) -> void:
+	var top := Profile.max_darkness(stage_id)
+	var level := Profile.darkness_for(stage_id)
+	_dark_minus.visible = top > 0
+	_dark_plus.visible = top > 0
+	if top == 0:
+		_dark_label.text = tr("SELECT_DARKNESS_LOCKED")
+	elif level == 0:
+		_dark_label.text = tr("SELECT_DARKNESS_OFF") % top
+	else:
+		_dark_label.text = tr("SELECT_DARKNESS") % [level, roundi(Spawner.DARKNESS_HP * level * 100.0), roundi(Spawner.DARKNESS_GOLD * level * 100.0)]
 
 
 func _on_map_input(event: InputEvent, i: int) -> void:
@@ -423,6 +464,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		_artifacts.open()
 	elif event.is_action_pressed("daily"):
 		_start_daily()
+	elif event.is_action_pressed("darkness_down"):
+		_change_darkness(-1)
+	elif event.is_action_pressed("darkness_up"):
+		_change_darkness(1)
 	elif event.is_action_pressed("move_left") or event.is_action_pressed("ui_left"):
 		_index = (_index - 1 + _ids.size()) % _ids.size()
 		Audio.play("click", -6.0, 0.0)

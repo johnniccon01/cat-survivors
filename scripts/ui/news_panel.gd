@@ -5,7 +5,7 @@ extends ColorRect
 
 signal closed
 
-const VERSION := 6
+const VERSION := 7
 
 var _ready_for_input := false
 

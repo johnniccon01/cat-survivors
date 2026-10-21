@@ -106,6 +106,11 @@ var _perf := "--perf" in _args
 var _perf_t := 2.0
 ## Effect saver: seconds the frame rate has been low (or fine again).
 var _slow_t := 0.0
+## Run log for slowdowns: every 10 s (real time) one line with fps, the crowd
+## and which kinds of nodes fill the world, e.g. a pile of toy mice. Written
+## to user://perf.log, overwritten each run.
+var _perf_log: FileAccess
+var _perf_log_t := 10.0
 var _fast_t := 0.0
 const SLOW_FPS := 40
 const SLOW_FOR := 4.0
@@ -137,8 +142,6 @@ var _final_started := 0.0
 ## the cat is carrying it.
 var _page_time := INF
 ## Artifact timers (hourglass, magnet core) and their strength.
-## Traps laid around the start for a cat with no weapon.
-const STRAY_TRAPS := 6
 ## A shrine turns up after SHRINE_FIRST seconds, then every SHRINE_EVERY.
 const SHRINE_FIRST := 70.0
 const SHRINE_EVERY := [100.0, 140.0]
@@ -303,17 +306,6 @@ func _ready() -> void:
 		var dev := DevPanel.new()
 		dev.main = self
 		add_child(dev)
-	# A cat with no weapon (the Stray) gets traps around the start to earn its
-	# first level with.
-	if player.weapon_count() == 0:
-		var trap_ids: Array = spawner.stage().get("traps", ["MOUSETRAP"])
-		for i in STRAY_TRAPS:
-			var trap := Trap.new()
-			trap.position = player.position + Vector2.from_angle(TAU * i / STRAY_TRAPS + 0.3) * randf_range(90.0, 170.0)
-			trap.setup(trap_ids[i % trap_ids.size()], self)
-			trap.friendly = true
-			add_child(trap)
-		hud.show_banner.call_deferred(tr("STRAY_TIP"), 6.0)
 	if "--traps" in _args:
 		var i := 0
 		for trap_id: String in GameData.traps:
@@ -363,8 +355,43 @@ func _watch_frame_rate(real_delta: float) -> void:
 		Settings.auto_low = false
 
 
+func _write_perf_log(real_delta: float) -> void:
+	_perf_log_t -= real_delta
+	if _perf_log_t > 0.0 or get_tree().paused:
+		return
+	_perf_log_t = 10.0
+	if _perf_log == null:
+		_perf_log = FileAccess.open("user://perf.log", FileAccess.WRITE)
+		if _perf_log == null:
+			return
+		_perf_log.store_line("stage=%s cat=%s" % [Profile.selected_stage, player.cat_id])
+	var kinds: Dictionary = {}
+	for node in player.get_parent().get_children():
+		var s: Script = node.get_script()
+		var kind: String = s.resource_path.get_file().get_basename() if s != null else node.get_class()
+		kinds[kind] = kinds.get(kind, 0) + 1
+	var top: Array = kinds.keys()
+	top.sort_custom(func(a: String, b: String) -> bool: return kinds[a] > kinds[b])
+	var parts: PackedStringArray = []
+	for k: String in top.slice(0, 6):
+		parts.append("%s=%d" % [k, kinds[k]])
+	var arms: PackedStringArray = []
+	for w: Node in player.weapons.get_children():
+		if w is Weapon:
+			arms.append("%s%d" % [w.id, w.level])
+	_perf_log.store_line("t=%d fps=%d proc=%.1fms draws=%d nodes=%d enemies=%d calm=%s saver=%s | %s | %s" % [
+		int(spawner.elapsed), Engine.get_frames_per_second(),
+		Performance.get_monitor(Performance.TIME_PROCESS) * 1000.0,
+		Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),
+		Performance.get_monitor(Performance.OBJECT_NODE_COUNT), enemies.enemies.size(),
+		Enemy.calm, Settings.effects_scale() < 1.0, " ".join(arms), " ".join(parts)])
+	_perf_log.flush()
+
+
+
 func _process(delta: float) -> void:
 	_watch_frame_rate(delta / maxf(Engine.time_scale, 0.01))
+	_write_perf_log(delta / maxf(Engine.time_scale, 0.01))
 	if _perf:
 		_perf_t -= delta / Engine.time_scale
 		if _perf_t <= 0.0:

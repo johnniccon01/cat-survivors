@@ -12,6 +12,9 @@ var language := "en"
 var muted := false
 var damage_numbers := true
 var screen_shake := true
+## Fired when high contrast is switched, so the floor can redraw at once.
+signal contrast_changed
+
 ## Darker floor and a brighter halo around enemies.
 var high_contrast := false
 ## Fewer hit sparks, death puffs and damage numbers (weaker laptops).
@@ -50,6 +53,7 @@ func _ready() -> void:
 		language = LANGUAGES[0]
 	TranslationServer.set_locale(language)
 	_apply_display()
+	_apply_render.call_deferred()
 
 
 func cycle_language() -> void:
@@ -71,11 +75,13 @@ func toggle_damage_numbers() -> void:
 
 func set_high_contrast(on: bool) -> void:
 	high_contrast = on
+	contrast_changed.emit()
 	_save()
 
 
 func set_low_effects(on: bool) -> void:
 	low_effects = on
+	_apply_render()
 	_save()
 
 
@@ -137,6 +143,13 @@ func _apply_display() -> void:
 		return
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if fullscreen else DisplayServer.WINDOW_MODE_WINDOWED)
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if vsync else DisplayServer.VSYNC_DISABLED)
+
+
+
+## The saver also draws the game at its base size (1280x720) and scales it
+## up: on big laptop screens that takes most of the load off the GPU.
+func _apply_render() -> void:
+	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT if low_effects else Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
 
 
 func _save() -> void:

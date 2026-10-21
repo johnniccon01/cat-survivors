@@ -2,7 +2,7 @@ extends Weapon
 ## Šanta: a permanent aura around the cat that hurts everything inside it
 ## every `interval` seconds (like Garlic).
 
-const BASE_RADIUS := 32.0
+const BASE_RADIUS := 46.0
 
 var _aura: CatnipAura
 

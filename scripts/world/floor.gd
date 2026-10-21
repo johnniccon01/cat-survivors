@@ -15,7 +15,7 @@ const KEEP_MARGIN := 2
 ## furniture.
 var theme := "apartment"
 const FLOOR_DIM := Color(0.8, 0.8, 0.84)
-const FLOOR_DIM_STRONG := Color(0.6, 0.6, 0.65)
+const FLOOR_DIM_STRONG := Color(0.45, 0.45, 0.5)
 
 var _noise := FastNoiseLite.new()
 var _seed := randi()
@@ -27,6 +27,14 @@ func _ready() -> void:
 	_noise.seed = _seed
 	_noise.frequency = 0.22
 	_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
+	Settings.contrast_changed.connect(_apply_contrast)
+
+
+func _apply_contrast() -> void:
+	for nodes: Array in _chunks.values():
+		for node: FloorChunk in nodes:
+			if node.layer != FloorChunk.Layer.OVERLAY:
+				node.modulate = FLOOR_DIM_STRONG if Settings.high_contrast else FLOOR_DIM
 
 
 func zone_at(c: Vector2i) -> String:

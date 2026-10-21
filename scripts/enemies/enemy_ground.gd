@@ -18,12 +18,13 @@ func _process(_delta: float) -> void:
 func _draw() -> void:
 	if manager == null:
 		return
-	var halo := Color(1, 1, 1, Enemy.HALO * (2.2 if Settings.high_contrast else 1.0))
+	var halo := Color(1, 1, 1, Enemy.HALO * (4.0 if Settings.high_contrast else 1.0))
+	var halo_grow := 5.0 if Settings.high_contrast else 3.0
 	var shadow := Color(0, 0, 0, 0.45)
 	for e in manager.enemies:
 		if e.dead or e.is_prop:
 			continue
 		var s := absf(e.scale.y)
 		var alpha := e.self_modulate.a
-		draw_circle(e.position + Vector2(0, -s), e.radius + 3.0 * s, Color(halo, halo.a * alpha))
+		draw_circle(e.position + Vector2(0, -s), e.radius + halo_grow * s, Color(halo, halo.a * alpha))
 		draw_colored_polygon(Shapes.ellipse(e.position + Vector2(s, e.radius + 2.0 * s), e.radius + 1.5 * s, 3.0 * s, 10), Color(shadow, shadow.a * alpha))

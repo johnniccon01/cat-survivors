@@ -14,6 +14,8 @@ signal escaped(enemy_id: String, pos: Vector2)
 
 const CELL := 24.0
 const MAX_ENEMIES := 500
+## Above this many enemies they stop their walk animation (see Enemy.calm).
+const CALM_CROWD := 220
 const MAX_RADIUS := 16.0
 const SEPARATION := 6.0
 
@@ -234,6 +236,7 @@ func _physics_process(delta: float) -> void:
 	if player == null:
 		return
 	_rebuild_grid()
+	Enemy.calm = enemies.size() > CALM_CROWD or Settings.effects_scale() < 1.0
 	var target := player.position
 	escorts = escorts.filter(func(c: Player) -> bool: return is_instance_valid(c))
 	var cats: Array[Player] = [player]

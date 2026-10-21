@@ -24,6 +24,9 @@ var is_boss := false
 ## Seconds left of fading in (enemies that appear inside the screen).
 const SPAWN_IN := 0.6
 const HALO := 0.09
+## Set by the manager in big crowds (or with the effect saver): enemies stop
+## their walk animation then, which saves thousands of redraws a second.
+static var calm := false
 var spawn_in := 0.0
 var is_elite := false
 ## Set when a swarm enemy has run its course; the manager removes it.
@@ -247,7 +250,7 @@ func tick(delta: float, target: Vector2, push: Vector2) -> void:
 	_knock = _knock.move_toward(Vector2.ZERO, KNOCK_DECAY * delta)
 	if absf(dir.x) > 0.2:
 		scale.x = signf(dir.x) * _base_scale
-	if _shape == "cat":
+	if _shape == "cat" and not calm:
 		_wobble += delta * (12.0 if move.length_squared() > 1.0 else 3.0)
 		rotation = sin(_wobble * 6.0) * 0.15 if _state == "windup" else 0.0
 		queue_redraw()
@@ -258,7 +261,8 @@ func tick(delta: float, target: Vector2, push: Vector2) -> void:
 		_flash -= delta
 		if _flash <= 0.0:
 			queue_redraw()
-	_anim += delta * (4.0 + speed * 0.03)
+	if not calm:
+		_anim += delta * (4.0 + speed * 0.03)
 	var f := int(_anim) % 2
 	if f != _frame:
 		_frame = f

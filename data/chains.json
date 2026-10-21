@@ -912,10 +912,14 @@
     "steps": [
       {
         "type": "trap_kills",
-        "count": 20,
+        "count": 60,
+        "radius": 110,
+        "spawn_every": 2.5,
+        "spawn_count": 6,
+        "hp_mult": 1.6,
         "traps": {
           "id": "MOUSETRAP",
-          "count": 7
+          "count": 6
         },
         "distance": 250
       }

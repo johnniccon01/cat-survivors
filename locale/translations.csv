@@ -1144,9 +1144,10 @@ CHAIN_LOST_KITTENS_1,Bring the kittens back to their mother,Priveď mačiatka sp
 CHAIN_LOST_KITTENS_1_START,They follow you once you find them. Help any that fall!,"Keď ich nájdeš, pôjdu za tebou. Pomôž tým, ktoré padnú!","Až je najdeš, půjdou za tebou. Pomoz těm, která padnou!"
 CHAIN_LOST_KITTENS_1_DONE,Mother cat purrs and licks all three.,Mačacia mama priadie a olizuje všetky tri.,Kočičí máma přede a olizuje všechna tři.
 CHAIN_TRAPPER_NAME,Trap Master,Majster pascí,Mistr pastí
-CHAIN_TRAPPER_DESC,Let the traps do the work.,Nech prácu urobia pasce.,Ať práci udělají pasti.
-CHAIN_TRAPPER_1,Defeat enemies with the traps,Poraz nepriateľov pascami,Poraz nepřátele pastmi
-CHAIN_TRAPPER_1_START,Lure the enemies into the mousetraps!,Nalákaj nepriateľov do pascí na myši!,Nalákej nepřátele do pastí na myši!
+CHAIN_TRAPPER_DESC,Hold the trap ring against the lured pack.,Ubráň kruh pascí pred nalákanou svorkou.,Ubraň kruh pastí před nalákanou smečkou.
+CHAIN_TRAPPER_1,Stay in the trap ring and defeat the lured enemies,Stoj v kruhu pascí a poraz nalákaných nepriateľov,Stůj v kruhu pastí a poraz nalákané nepřátele
+CHAIN_TRAPPER_1_START,The bait is out – stay in the ring!,Návnada je vonku – drž sa v kruhu!,Návnada je venku – drž se v kruhu!
+TRAP_RING_BACK,back to the ring!,späť do kruhu!,zpět do kruhu!
 CHAIN_FIRE_NAME,Fire!,Požiar!,Požár!
 CHAIN_FIRE_DESC,Something caught fire – and it's spreading.,Niečo začalo horieť – a šíri sa to.,Něco začalo hořet – a šíří se to.
 CHAIN_FIRE_1,Put out the fires before they spread,"Uhas ohne, kým sa nerozšíria","Uhas ohně, než se rozšíří"
@@ -1394,10 +1395,9 @@ SET_LOW_FX,"Effect saver (fewer effects, smoother on laptops)","Úsporný režim
 BOSS_CHEST_TITLE,Boss chest – pick one!,Truhlica bossa – vyber si!,Truhla bosse – vyber si!
 BOSS_CHEST_JACKPOT,Jackpot! You get all three!,Jackpot! Dostávaš všetky tri!,Jackpot! Dostáváš všechny tři!
 CAT_STRAY_NAME,Stray,Túlavec,Tulák
-CAT_STRAY_DESC,"A street cat with nothing but its wits. Starts with no weapon – lure enemies into traps for the first level. Fast, lucky, learns quickly and carries one weapon more.","Pouličná mačka, ktorá má len svoj rozum. Začína bez zbrane – prvý level získaš nalákaním nepriateľov do pascí. Rýchla, šťastná, rýchlo sa učí a unesie o zbraň viac.","Pouliční kočka, která má jen svůj rozum. Začíná bez zbraně – první level získáš nalákáním nepřátel do pastí. Rychlá, šťastná, rychle se učí a unese o zbraň víc."
+CAT_STRAY_DESC,"A street cat with nothing but its wits. Starts with no weapon – the first one comes at level 3. Fast, lucky, learns quickly and carries one weapon more.","Pouličná mačka, ktorá má len svoj rozum. Začína bez zbrane – prvú dostane až na 3. leveli. Rýchla, šťastná, rýchlo sa učí a unesie o zbraň viac.","Pouliční kočka, která má jen svůj rozum. Začíná bez zbraně – první dostane až na 3. levelu. Rychlá, šťastná, rychle se učí a unese o zbraň víc."
 CAT_STRAY_HINT,,,
 SELECT_NO_WEAPON,No weapon – use the traps!,Bez zbrane – využi pasce!,Bez zbraně – využij pasti!
-STRAY_TIP,No weapon! Lure enemies into the traps to reach your first level.,Bez zbrane! Nalákaj nepriateľov do pascí a získaj prvý level.,Bez zbraně! Nalákej nepřátele do pastí a získej první level.
 GRADE_1,Rare · level %d,Vzácne · úroveň %d,Vzácné · úroveň %d
 GRADE_2,Epic · level %d,Epické · úroveň %d,Epické · úroveň %d
 GRADE_3,Legendary · level %d,Legendárne · úroveň %d,Legendární · úroveň %d

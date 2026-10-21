@@ -65,7 +65,8 @@ var desc: Dictionary
 
 
 func _ready() -> void:
-	if layer != Layer.DECOR:
+	# Real lights cost a lot on weak laptops: the effect saver leaves them out.
+	if layer != Layer.DECOR or Settings.low_effects:
 		return
 	for f: Dictionary in desc["furniture"]:
 		if f["kind"] in LAMPS:

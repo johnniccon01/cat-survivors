@@ -129,24 +129,24 @@
     "rarity": 80,
     "levels": [
       {
-        "damage": 5,
-        "interval": 1.0,
+        "damage": 8,
+        "interval": 0.9,
         "area": 1.0,
-        "knockback": 0.3
+        "knockback": 0.4
       },
       {
         "area": 0.2,
-        "damage": 2
+        "damage": 3
       },
       {
-        "damage": 3
+        "damage": 4
       },
       {
         "interval": -0.1,
-        "area": 0.1
+        "area": 0.15
       },
       {
-        "damage": 3
+        "damage": 4
       },
       {
         "area": 0.2
@@ -155,7 +155,7 @@
         "interval": -0.1
       },
       {
-        "damage": 5
+        "damage": 6
       }
     ],
     "evolve": {
@@ -391,7 +391,7 @@
         "amount": 1
       },
       {
-        "damage": 10
+        "damage": 6
       },
       {
         "interval": -0.4
@@ -400,7 +400,7 @@
         "area": 0.2
       },
       {
-        "damage": 10
+        "damage": 6
       }
     ]
   },

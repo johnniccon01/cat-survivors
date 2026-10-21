@@ -32,6 +32,9 @@ const GRADE_COLORS := [Color("6b5480"), Color("4aa3ff"), Color("b06aff"), Color(
 ## already has can show up (used by treasure chests).
 static func roll(player: Player, count: int = 3, owned_only: bool = false) -> Array[Dictionary]:
 	var pool: Array[Dictionary] = []
+	# The Stray (no weapon) gets passives at level 2 and only weapons from level 3.
+	var weaponless := player.weapon_count() == 0 and not owned_only
+	var no_weapons_yet := weaponless and player.level < 3
 	for id: String in GameData.weapons:
 		var data: Dictionary = GameData.weapons[id]
 		if data.get("evolved", false):
@@ -45,12 +48,10 @@ static func roll(player: Player, count: int = 3, owned_only: bool = false) -> Ar
 		if owned != null:
 			if owned.level < owned.max_level():
 				pool.append({"kind": "weapon", "id": id, "level": owned.level + 1, "weight": data.get("rarity", 100) * OWNED_WEAPON_WEIGHT, "owned": true})
-		elif not owned_only and player.weapon_count() < player.max_weapons() and not _has_evolution_of(player, id):
+		elif not owned_only and not no_weapons_yet and player.weapon_count() < player.max_weapons() and not _has_evolution_of(player, id):
 			pool.append({"kind": "weapon", "id": id, "level": 1, "weight": data.get("rarity", 100)})
 	_add_branch_offers(player, pool)
-	# Without any weapon (the Stray), the first level-up offers weapons only.
-	var weaponless := player.weapon_count() == 0 and not owned_only
-	for id: String in GameData.passives if not weaponless else []:
+	for id: String in GameData.passives if not weaponless or no_weapons_yet else []:
 		var data: Dictionary = GameData.passives[id]
 		var lvl: int = player.passives.get(id, 0)
 		if "passive:" + id in player.banished:

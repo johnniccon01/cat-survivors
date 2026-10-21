@@ -2,7 +2,7 @@ extends Weapon
 ## Zvonček: rings a bell that sends a shockwave outwards from the cat,
 ## hitting every enemy once and knocking it back hard.
 
-const BASE_RADIUS := 90.0
+const BASE_RADIUS := 80.0
 const EXPAND_TIME := 0.45
 
 

@@ -142,7 +142,9 @@ func _apply_display() -> void:
 	if DisplayServer.get_name() == "headless":
 		return
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if fullscreen else DisplayServer.WINDOW_MODE_WINDOWED)
-	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if vsync else DisplayServer.VSYNC_DISABLED)
+	# --no-vsync: frame rate uncapped (performance checks).
+	var sync := vsync and not "--no-vsync" in GameData.args()
+	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if sync else DisplayServer.VSYNC_DISABLED)
 
 
 

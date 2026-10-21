@@ -38,8 +38,8 @@ func _draw() -> void:
 	var c := Color(1.0, 0.9, 0.35, 1.0 - k)
 	for i in 4:
 		var d := Vector2.from_angle(_angle + i * PI * 0.5)
-		draw_line(d * r * 0.3, d * r, c, 2.0)
+		Blit.line(self, d * r * 0.3, d * r, c, 2.0)
 	for i in 4:
 		var d := Vector2.from_angle(_angle + PI * 0.25 + i * PI * 0.5)
-		draw_line(d * r * 0.2, d * r * 0.6, c, 1.0)
-	draw_circle(Vector2.ZERO, 2.5 * (1.0 - k), Color(1, 1, 1, 1.0 - k))
+		Blit.line(self, d * r * 0.2, d * r * 0.6, c, 1.0)
+	Blit.disc(self, Vector2.ZERO, 2.5 * (1.0 - k), Color(1, 1, 1, 1.0 - k))

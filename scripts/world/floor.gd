@@ -10,6 +10,8 @@ extends Node2D
 
 const CHUNK := 320.0
 const KEEP_MARGIN := 2
+## Texels per world unit of the baked ground (1 = the pixel size of the sprites).
+const BAKE_SCALE := 2.0
 
 ## "apartment", "basement", "garden" or "rooftop"; picks rooms, floors and
 ## furniture.
@@ -19,7 +21,7 @@ const FLOOR_DIM_STRONG := Color(0.45, 0.45, 0.5)
 
 var _noise := FastNoiseLite.new()
 var _seed := randi()
-## chunk coords -> Array[FloorChunk]
+## chunk coords -> the nodes of that chunk (layers, baked ground and its viewport)
 var _chunks: Dictionary = {}
 
 
@@ -32,8 +34,8 @@ func _ready() -> void:
 
 func _apply_contrast() -> void:
 	for nodes: Array in _chunks.values():
-		for node: FloorChunk in nodes:
-			if node.layer != FloorChunk.Layer.OVERLAY:
+		for node: Node in nodes:
+			if node is Node2D and node.z_index != FloorChunk.Layer.OVERLAY:
 				node.modulate = FLOOR_DIM_STRONG if Settings.high_contrast else FLOOR_DIM
 
 
@@ -69,19 +71,50 @@ func _process(_delta: float) -> void:
 
 func _create(c: Vector2i) -> void:
 	var desc := _generate(c)
-	var nodes: Array[FloorChunk] = []
+	var nodes: Array[Node] = []
 	for layer in [FloorChunk.Layer.GROUND, FloorChunk.Layer.DECOR, FloorChunk.Layer.OVERLAY]:
 		var node := FloorChunk.new()
 		node.layer = layer
-		# The floor stays a little dim so enemies stand out against it.
-		if layer != FloorChunk.Layer.OVERLAY:
-			node.modulate = FLOOR_DIM_STRONG if Settings.high_contrast else FLOOR_DIM
 		node.desc = desc
 		node.position = Vector2(c) * CHUNK
-		node.z_index = layer
-		add_child(node)
-		nodes.append(node)
+		var shown: Node2D = node
+		if layer == FloorChunk.Layer.GROUND:
+			shown = _bake(node)
+			nodes.append(node.get_parent().get_parent())
+		else:
+			add_child(node)
+		# The floor stays a little dim so enemies stand out against it.
+		if layer != FloorChunk.Layer.OVERLAY:
+			shown.modulate = FLOOR_DIM_STRONG if Settings.high_contrast else FLOOR_DIM
+		shown.z_index = layer
+		nodes.append(shown)
 	_chunks[c] = nodes
+
+
+## Draws the ground of a chunk once into a texture and returns the sprite
+## that shows it. Drawn live, its hundreds of seams and tiles cost a draw call
+## each, every frame; baked, the whole chunk is a single one.
+func _bake(node: FloorChunk) -> Sprite2D:
+	var vp := SubViewport.new()
+	vp.size = Vector2i(int(CHUNK * BAKE_SCALE), int(CHUNK * BAKE_SCALE))
+	vp.disable_3d = true
+	vp.transparent_bg = true
+	vp.render_target_update_mode = SubViewport.UPDATE_ONCE
+	# The chunk keeps its world position (planks line up across chunks);
+	# its parent moves it back into the texture.
+	var shift := Node2D.new()
+	shift.scale = Vector2(BAKE_SCALE, BAKE_SCALE)
+	shift.position = -node.position * BAKE_SCALE
+	shift.add_child(node)
+	vp.add_child(shift)
+	add_child(vp)
+	var sprite := Sprite2D.new()
+	sprite.texture = vp.get_texture()
+	sprite.centered = false
+	sprite.position = node.position
+	sprite.scale = Vector2.ONE / BAKE_SCALE
+	add_child(sprite)
+	return sprite
 
 
 func _pick(rng: RandomNumberGenerator, list: Array) -> Variant:

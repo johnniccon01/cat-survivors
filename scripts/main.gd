@@ -35,6 +35,9 @@ extends Node2D
 ##   --traps            place one of every trap next to the cat
 ##   --choice=N         the bot answers story choices with option N
 ##   --daily            play today's daily night (map and challenges by date)
+##   --seed=N           fixed random seed (same map layout; performance checks)
+##   --no-vsync         frame rate not capped by the monitor (performance checks)
+##   --shot=SECONDS     save a screenshot to user://shot_N.png every SECONDS
 
 const HEART_DROP_CHANCE := 0.005
 const COIN_DROP_CHANCE := 0.015
@@ -388,10 +391,27 @@ func _write_perf_log(real_delta: float) -> void:
 	_perf_log.flush()
 
 
+## --shot=SECONDS: saves a screenshot to user://shot_<n>.png every SECONDS
+## (real time), for checking how things look.
+var _shot_every := float(_arg("--shot=", "0"))
+var _shot_t := 0.0
+var _shot_n := 0
+
+
+func _take_shots(real_delta: float) -> void:
+	if _shot_every <= 0.0:
+		return
+	_shot_t += real_delta
+	if _shot_t >= _shot_every:
+		_shot_t = 0.0
+		_shot_n += 1
+		get_viewport().get_texture().get_image().save_png("user://shot_%d.png" % _shot_n)
+
 
 func _process(delta: float) -> void:
 	_watch_frame_rate(delta / maxf(Engine.time_scale, 0.01))
 	_write_perf_log(delta / maxf(Engine.time_scale, 0.01))
+	_take_shots(delta / maxf(Engine.time_scale, 0.01))
 	if _perf:
 		_perf_t -= delta / Engine.time_scale
 		if _perf_t <= 0.0:

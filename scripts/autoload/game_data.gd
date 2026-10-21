@@ -29,6 +29,9 @@ var loot: Array = []
 
 
 func _ready() -> void:
+	# --seed=N: the same map layout and rolls every time (performance checks).
+	if arg("--seed=", "") != "":
+		seed(int(arg("--seed=", "0")))
 	weapons = _load_json("res://data/weapons.json")
 	passives = _load_json("res://data/passives.json")
 	cats = _load_json("res://data/cats.json")

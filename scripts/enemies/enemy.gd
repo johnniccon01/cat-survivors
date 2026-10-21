@@ -485,19 +485,19 @@ func _draw() -> void:
 	var r := radius / _base_scale
 	if spawn_in > 0.0:
 		var k := 1.0 - spawn_in / SPAWN_IN
-		draw_arc(Vector2(0, r * 0.5), r + 6.0 * (1.0 - k), 0.0, TAU, 20, Color(1.0, 0.35, 0.3, 0.8), 1.5)
+		Blit.ring(self, Vector2(0, r * 0.5), r + 6.75 - 6.0 * k, 1.5, Color(1.0, 0.35, 0.3, 0.8))
 	if champion != "":
-		draw_colored_polygon(Shapes.ellipse(Vector2(0, r + 1), r + 4, 4.5), Color(_champion_color, 0.35))
-		draw_arc(Vector2(0, -1), r + 3.0, 0.0, TAU, 20, Color(_champion_color, 0.8), 1.0)
+		Blit.ellipse(self, Vector2(0, r + 1), r + 4, 4.5, Color(_champion_color, 0.35))
+		Blit.ring(self, Vector2(0, -1), r + 3.5, 1.0, Color(_champion_color, 0.8))
 	if id == "GOLDEN_MOUSE":
 		for k in 3:
-			draw_circle(Vector2(0, -1), r + 2.0 + k * 3.0, Color(1.0, 0.85, 0.3, 0.12))
+			Blit.disc(self, Vector2(0, -1), r + 2.0 + k * 3.0, Color(1.0, 0.85, 0.3, 0.12))
 	# The halo and shadow are drawn for all enemies at once by EnemyGround
 	# (props draw their own shadow).
 	var sprite := Sprites.enemy(id) if _shape != "cat" else {}
 	if not sprite.is_empty():
 		if is_prop:
-			draw_colored_polygon(Shapes.ellipse(Vector2(1, r + 2), r + 1.5, 3), Color(0, 0, 0, 0.45))
+			Blit.ellipse(self, Vector2(1, r + 2), r + 1.5, 3, Color(0, 0, 0, 0.45))
 		# Regular enemies flash white; bosses (hit constantly) just brighten.
 		var row := 1 if _flash > 0.0 and not is_boss else 0
 		var tint := Color(1.5, 1.5, 1.5) if _flash > 0.0 and is_boss else Color.WHITE
@@ -513,7 +513,7 @@ func _draw() -> void:
 		# Bosses get hit constantly; a lighter tint keeps them recognisable.
 		body = _color.lightened(0.4) if is_boss else Color.WHITE
 	if is_prop:
-		draw_colored_polygon(Shapes.ellipse(Vector2(1, r + 2), r + 1.5, 3), Color(0, 0, 0, 0.45))
+		Blit.ellipse(self, Vector2(1, r + 2), r + 1.5, 3, Color(0, 0, 0, 0.45))
 	match _shape:
 		"dust":
 			_draw_dust(body)

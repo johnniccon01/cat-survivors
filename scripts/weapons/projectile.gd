@@ -73,19 +73,19 @@ func _draw() -> void:
 	var tc: Color = TRAIL_COLORS.get(style, Color("e0628f"))
 	for i in range(1, _trail.size()):
 		var k := float(i) / _trail.size()
-		draw_line(to_local(_trail[i - 1]), to_local(_trail[i]), Color(tc, 0.35 * k), radius * 1.4 * k)
+		Blit.line(self, to_local(_trail[i - 1]), to_local(_trail[i]), Color(tc, 0.35 * k), radius * 1.4 * k)
 	var s := radius / 4.0
 	match style:
 		"feather", "phoenix":
 			var main := Color("ff8a3d") if style == "phoenix" else Color("6fc2ff")
 			var tip := Color("ffe066") if style == "phoenix" else Color("f28ac0")
-			draw_line(Vector2(-radius * 1.2, 0), Vector2(radius * 1.2, 0), Color("e8e0d0"), 1.0)
+			Blit.line(self, Vector2(-radius * 1.2, 0), Vector2(radius * 1.2, 0), Color("e8e0d0"), 1.0)
 			var vane := PackedVector2Array([Vector2(-radius, 0), Vector2(-radius * 0.2, -radius * 0.7), Vector2(radius, 0), Vector2(-radius * 0.2, radius * 0.7)])
 			draw_colored_polygon(vane, main)
 			draw_polyline(Shapes.closed(vane), OUTLINE, 1.0)
-			draw_circle(Vector2(radius * 0.6, 0), radius * 0.3, tip)
+			Blit.disc(self, Vector2(radius * 0.6, 0), radius * 0.3, tip)
 			if style == "phoenix":
-				draw_circle(Vector2.ZERO, radius * 1.4, Color(1.0, 0.5, 0.1, 0.25))
+				Blit.disc(self, Vector2.ZERO, radius * 1.4, Color(1.0, 0.5, 0.1, 0.25))
 		"hairball":
 			var pts := PackedVector2Array()
 			for i in 12:
@@ -93,11 +93,11 @@ func _draw() -> void:
 				pts.append(Vector2.from_angle(TAU * i / 12.0) * r)
 			draw_colored_polygon(pts, Color("7a5235"))
 			draw_polyline(Shapes.closed(pts), OUTLINE, 1.0)
-			draw_line(Vector2(-2, -1) * s, Vector2(2, 1) * s, Color("a8774f"), 1.0)
+			Blit.line(self, Vector2(-2, -1) * s, Vector2(2, 1) * s, Color("a8774f"), 1.0)
 		_:
-			draw_circle(Vector2.ZERO, radius + 1.0, OUTLINE)
-			draw_circle(Vector2.ZERO, radius, Color("e0628f"))
-			draw_line(Vector2(-radius, -1), Vector2(radius, 1), Color("f7a8c4"), 1.0)
-			draw_line(Vector2(-1, -radius), Vector2(1, radius), Color("f7a8c4"), 1.0)
+			Blit.disc(self, Vector2.ZERO, radius + 1.0, OUTLINE)
+			Blit.disc(self, Vector2.ZERO, radius, Color("e0628f"))
+			Blit.line(self, Vector2(-radius, -1), Vector2(radius, 1), Color("f7a8c4"), 1.0)
+			Blit.line(self, Vector2(-1, -radius), Vector2(1, radius), Color("f7a8c4"), 1.0)
 			# Trailing thread
-			draw_line(Vector2.ZERO, -velocity.normalized().rotated(-rotation) * radius * 2.5, Color("e0628f"), 1.0)
+			Blit.line(self, Vector2.ZERO, -velocity.normalized().rotated(-rotation) * radius * 2.5, Color("e0628f"), 1.0)

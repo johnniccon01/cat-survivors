@@ -95,10 +95,14 @@ func _draw_kibble() -> void:
 	elif value >= 3.0:
 		color = Color("6cc46c")
 		size = 3.5
-	var pts := PackedVector2Array([Vector2(0, -size), Vector2(size, 0), Vector2(0, size), Vector2(-size, 0)])
-	draw_colored_polygon(pts, color)
-	draw_polyline(Shapes.closed(pts), OUTLINE, 1.0)
-	draw_rect(Rect2(-1, -size + 1, 1, 1), Color(1, 1, 1, 0.8))
+	# A diamond: a turned square, drawn so that hundreds of kibbles merge
+	# into a single draw call.
+	var side := size * sqrt(2.0)
+	draw_set_transform(Vector2.ZERO, PI * 0.25)
+	Blit.rect(self, Rect2(-side * 0.5 - 0.5, -side * 0.5 - 0.5, side + 1.0, side + 1.0), OUTLINE)
+	Blit.rect(self, Rect2(-side * 0.5 + 0.5, -side * 0.5 + 0.5, side - 1.0, side - 1.0), color)
+	draw_set_transform(Vector2.ZERO)
+	Blit.rect(self, Rect2(-1, -size + 1, 1, 1), Color(1, 1, 1, 0.8))
 
 
 func _shadow_and_lift() -> void:

@@ -49,13 +49,13 @@ func _draw() -> void:
 	var s := radius / 6.0
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2(s, s))
 	# Spine, ribs, head and tail of a cartoon fish skeleton.
-	draw_line(Vector2(-6, 0), Vector2(5, 0), OUTLINE, 3.0)
-	draw_line(Vector2(-6, 0), Vector2(5, 0), BONE, 1.0)
+	Blit.rect(self, Rect2(-6, -1.5, 11, 3), OUTLINE)
+	Blit.rect(self, Rect2(-6, -0.5, 11, 1), BONE)
 	for x: float in [-3.0, 0.0, 3.0]:
-		draw_line(Vector2(x, -3), Vector2(x, 3), OUTLINE, 3.0)
-		draw_line(Vector2(x, -3), Vector2(x, 3), BONE, 1.0)
-	draw_circle(Vector2(6, 0), 3.0, OUTLINE)
-	draw_circle(Vector2(6, 0), 2.0, BONE)
+		Blit.rect(self, Rect2(x - 1.5, -3, 3, 6), OUTLINE)
+		Blit.rect(self, Rect2(x - 0.5, -3, 1, 6), BONE)
+	Blit.disc(self, Vector2(6, 0), 3.0, OUTLINE)
+	Blit.disc(self, Vector2(6, 0), 2.0, BONE)
 	var tail := PackedVector2Array([Vector2(-6, 0), Vector2(-9, -3), Vector2(-9, 3)])
 	draw_colored_polygon(tail, BONE)
 	draw_polyline(Shapes.closed(tail), OUTLINE, 1.0)

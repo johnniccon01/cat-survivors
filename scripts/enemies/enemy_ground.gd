@@ -26,5 +26,5 @@ func _draw() -> void:
 			continue
 		var s := absf(e.scale.y)
 		var alpha := e.self_modulate.a
-		draw_circle(e.position + Vector2(0, -s), e.radius + halo_grow * s, Color(halo, halo.a * alpha))
-		draw_colored_polygon(Shapes.ellipse(e.position + Vector2(s, e.radius + 2.0 * s), e.radius + 1.5 * s, 3.0 * s, 10), Color(shadow, shadow.a * alpha))
+		Blit.disc(self, e.position + Vector2(0, -s), e.radius + halo_grow * s, Color(halo, halo.a * alpha))
+		Blit.ellipse(self, e.position + Vector2(s, e.radius + 2.0 * s), e.radius + 1.5 * s, 3.0 * s, Color(shadow, shadow.a * alpha))

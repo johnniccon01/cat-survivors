@@ -196,6 +196,7 @@ var _tips_shown: Dictionary = {}
 
 
 func _ready() -> void:
+	Sprites.warm()
 	enemies.player = player
 	pickups.player = player
 	enemies.numbers = DamageNumbers.new()

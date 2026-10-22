@@ -53,6 +53,13 @@ static func _entry(group: String, prefix: String, id: String) -> Dictionary:
 	return _entries[key]
 
 
+## Packs both atlases now (while a night loads) instead of when the first
+## enemy is drawn, which made the game hitch for a moment.
+static func warm() -> void:
+	cat("")
+	enemy("")
+
+
 ## Packs every sheet of the group into one texture, row by row.
 static func _pack(group: String, prefix: String) -> void:
 	var images: Dictionary = {}

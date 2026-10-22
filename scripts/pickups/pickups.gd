@@ -12,6 +12,8 @@ signal heart_collected
 signal page_collected
 
 const MAX_XP := 300
+## How many kibbles are looked at to find a far one to merge (see spawn_xp).
+const FAR_SAMPLES := 32
 ## Chests are not pulled by the magnet; the cat has to walk over them.
 const CHEST_DIST := 12.0
 const COLLECT_DIST := 8.0
@@ -27,12 +29,15 @@ var _xp_count := 0
 
 
 func spawn_xp(pos: Vector2, value: float) -> void:
-	# Too many kibbles on the floor: remove the one furthest from the cat and
+	# Too many kibbles on the floor: remove one far from the cat and
 	# carry its XP over into the new kibble, so XP is never stranded far away.
 	if _xp_count >= MAX_XP and player != null:
 		var far_i := -1
 		var far_d2 := -1.0
-		for i in items.size():
+		# The furthest of a random handful: scanning all of them for every
+		# kill made big multi-kills slow on a full floor.
+		for k in mini(items.size(), FAR_SAMPLES):
+			var i := randi() % items.size()
 			var other := items[i]
 			if other.kind != Pickup.Kind.XP or other.attracted:
 				continue

@@ -1,7 +1,7 @@
 extends Node2D
 ## Endless apartment floor. The world is split into CHUNK-sized squares; each
-## visible chunk gets three FloorChunk nodes (ground, furniture, light
-## overlay) that draw once and are freed when the camera moves away, so
+## visible chunk draws its three FloorChunk layers (ground, furniture, light
+## overlay) once into a texture and is freed when the camera moves away, so
 ## nothing is redrawn per frame.
 ##
 ## Rooms come from low-frequency noise (kitchen tiles, living-room planks,
@@ -9,7 +9,7 @@ extends Node2D
 ## different while the same spot stays the same during a run.
 
 const CHUNK := 320.0
-const KEEP_MARGIN := 2
+const KEEP_MARGIN := 1
 ## Texels per world unit of the baked ground (1 = the pixel size of the sprites).
 const BAKE_SCALE := 2.0
 
@@ -34,9 +34,7 @@ func _ready() -> void:
 
 func _apply_contrast() -> void:
 	for nodes: Array in _chunks.values():
-		for node: Node in nodes:
-			if node is Node2D and node.z_index != FloorChunk.Layer.OVERLAY:
-				node.modulate = FLOOR_DIM_STRONG if Settings.high_contrast else FLOOR_DIM
+		_dim(nodes[0])
 
 
 func zone_at(c: Vector2i) -> String:
@@ -71,30 +69,31 @@ func _process(_delta: float) -> void:
 
 func _create(c: Vector2i) -> void:
 	var desc := _generate(c)
-	var nodes: Array[Node] = []
+	var origin := Vector2(c) * CHUNK
+	# Lamp lights live in the world (a light baked into the texture would
+	# be darkened by the night like everything else).
+	var lamps := Node2D.new()
+	lamps.position = origin
+	add_child(lamps)
+	var layers: Array[FloorChunk] = []
 	for layer in [FloorChunk.Layer.GROUND, FloorChunk.Layer.DECOR, FloorChunk.Layer.OVERLAY]:
 		var node := FloorChunk.new()
 		node.layer = layer
 		node.desc = desc
-		node.position = Vector2(c) * CHUNK
-		var shown: Node2D = node
-		if layer == FloorChunk.Layer.GROUND:
-			shown = _bake(node)
-			nodes.append(node.get_parent().get_parent())
-		else:
-			add_child(node)
-		# The floor stays a little dim so enemies stand out against it.
-		if layer != FloorChunk.Layer.OVERLAY:
-			shown.modulate = FLOOR_DIM_STRONG if Settings.high_contrast else FLOOR_DIM
-		shown.z_index = layer
-		nodes.append(shown)
-	_chunks[c] = nodes
+		node.position = origin
+		node.light_parent = lamps
+		node.z_index = layer
+		layers.append(node)
+	var vp := _bake(layers)
+	_dim(vp)
+	_chunks[c] = [vp, vp.get_meta("sprite"), lamps]
 
 
-## Draws the ground of a chunk once into a texture and returns the sprite
-## that shows it. Drawn live, its hundreds of seams and tiles cost a draw call
-## each, every frame; baked, the whole chunk is a single one.
-func _bake(node: FloorChunk) -> Sprite2D:
+## Draws all layers of a chunk once into a texture and shows it with one
+## sprite. Drawn live, the seams, tiles and furniture cost a draw call each,
+## every frame; baked, the whole chunk is a single one. Everything a chunk
+## draws stays inside its square (the biggest furniture is placed so).
+func _bake(layers: Array[FloorChunk]) -> SubViewport:
 	var vp := SubViewport.new()
 	vp.size = Vector2i(int(CHUNK * BAKE_SCALE), int(CHUNK * BAKE_SCALE))
 	vp.disable_3d = true
@@ -104,17 +103,29 @@ func _bake(node: FloorChunk) -> Sprite2D:
 	# its parent moves it back into the texture.
 	var shift := Node2D.new()
 	shift.scale = Vector2(BAKE_SCALE, BAKE_SCALE)
-	shift.position = -node.position * BAKE_SCALE
-	shift.add_child(node)
+	shift.position = -layers[0].position * BAKE_SCALE
+	for node in layers:
+		shift.add_child(node)
 	vp.add_child(shift)
 	add_child(vp)
 	var sprite := Sprite2D.new()
 	sprite.texture = vp.get_texture()
 	sprite.centered = false
-	sprite.position = node.position
+	sprite.position = layers[0].position
 	sprite.scale = Vector2.ONE / BAKE_SCALE
 	add_child(sprite)
-	return sprite
+	vp.set_meta("sprite", sprite)
+	vp.set_meta("layers", layers)
+	return vp
+
+
+## The floor stays a little dim so enemies stand out against it (the light
+## overlay is not dimmed). Bakes the chunk again when it changes.
+func _dim(vp: SubViewport) -> void:
+	for node: FloorChunk in vp.get_meta("layers"):
+		if node.layer != FloorChunk.Layer.OVERLAY:
+			node.modulate = FLOOR_DIM_STRONG if Settings.high_contrast else FLOOR_DIM
+	vp.render_target_update_mode = SubViewport.UPDATE_ONCE
 
 
 func _pick(rng: RandomNumberGenerator, list: Array) -> Variant:

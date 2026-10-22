@@ -62,6 +62,8 @@ static var _light_texture: Texture2D
 
 var layer := Layer.GROUND
 var desc: Dictionary
+## Where the lamp lights go (the chunk itself is baked into a texture).
+var light_parent: Node2D
 
 
 func _ready() -> void:
@@ -76,7 +78,7 @@ func _ready() -> void:
 			light.energy = 0.9
 			light.color = LAMP_COLOR
 			light.position = f["pos"]
-			add_child(light)
+			(light_parent if light_parent != null else self).add_child(light)
 
 
 static func _get_light_texture() -> Texture2D:

@@ -191,6 +191,14 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [ ] Zahrať a povedať, či sú dary svätýň vyvážené
 - [ ] Výkon na notebooku: zahrať jednu noc a poslať `perf.log` (`%APPDATA%\Godot\app_userdata\Cat Survivors\perf.log`)
 
+
+## Spätná väzba z hrania (22. 10. 2026)
+
+- [x] Posledná prechádzka ťažšia: cieľ 1100–1400 px namiesto 600–800, Fúzač pomalší (0,45) a krehkejší (40 HP)
+- [x] Bannery ostávajú dlhšie podľa dĺžky textu a zalamujú sa; pauza má vľavo „Tvoje zbrane“ (level, popis, vetva, pasívky) a vpravo „Úloha a správy“ (aktuálna úloha + posledných 15 správ)
+- [x] Pravý stĺpec HUD (úloha, zlato, požehnania) sa skladá pod seba – dlhý text úlohy už neprekryje požehnanie svätyne
+- [x] Ponuka vetvy zbrane menuje vetvy, ktoré sa zavrú
+- [x] Robomyška: väčší výbuch (52 px × plocha), oranžový kruh; výbuchy už nekreslia zvonček (len zbraň Zvonček)
 ## Fáza 3 – Grafika a zvuk
 
 - [ ] Sprity aj pre nábytok, podlahy, zbrane a projektily (teraz sú kreslené vektorovo)

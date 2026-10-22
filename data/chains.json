@@ -1068,11 +1068,11 @@
         "type": "escort",
         "cat": "OLD_CAT",
         "deliver_to": [
-          600,
-          800
+          1100,
+          1400
         ],
-        "slow": 0.6,
-        "hp": 80,
+        "slow": 0.45,
+        "hp": 40,
         "look_to": "chimney"
       }
     ]

@@ -118,7 +118,7 @@ static func _add_branch_offers(player: Player, pool: Array[Dictionary]) -> void:
 		if weapon.branch == "":
 			if weapon.level >= BRANCH_FROM or evolved:
 				for b: String in branches:
-					pool.append({"kind": "branch", "id": weapon.id, "branch": b, "level": 1, "weight": 45})
+					pool.append({"kind": "branch", "id": weapon.id, "base": weapon.base_id(), "branch": b, "level": 1, "weight": 45})
 		elif weapon.branch_rank == 1 and (weapon.level >= BRANCH_RANK2_FROM or evolved):
 			pool.append({"kind": "branch", "id": weapon.id, "branch": weapon.branch, "level": 2, "weight": 60})
 
@@ -231,7 +231,14 @@ static func _base_description(offer: Dictionary) -> String:
 	var kind: String = offer["kind"]
 	if kind == "branch":
 		var desc := _t("BRANCH_%s_DESC" % offer["branch"])
-		return _t("BRANCH_RANK2") % desc if offer["level"] == 2 else "%s\n%s" % [desc, _t("BRANCH_CHOOSE")]
+		if offer["level"] == 2:
+			return _t("BRANCH_RANK2") % desc
+		# Name the branches that close, so the pick is clear.
+		var others: Array[String] = []
+		for b: String in GameData.branches.get(offer.get("base", offer["id"]), {}):
+			if b != offer["branch"]:
+				others.append(_t("BRANCH_%s_NAME" % b))
+		return "%s\n%s" % [desc, _t("BRANCH_CHOOSE") % ", ".join(others)]
 	if kind == "heal":
 		return _t("HEAL_DESC") % HEAL_AMOUNT
 	if kind == "passive" or offer["level"] == 1:

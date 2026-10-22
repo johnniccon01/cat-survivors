@@ -70,6 +70,7 @@ func _explode() -> void:
 	ring.expand_time = 0.2
 	ring.damage = 0.0
 	ring.knockback = 0.0
+	ring.color = Color("ff8a3d")
 	get_parent().add_child(ring)
 	Audio.play("pop", -10.0)
 

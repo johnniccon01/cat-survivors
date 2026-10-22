@@ -27,6 +27,11 @@ var _pause_language: Label
 var _pause_sound: Label
 var _pause_numbers: Label
 var _pause_shake: Label
+var _pause_weapons: RichTextLabel
+var _pause_log: RichTextLabel
+## Recent banner texts (quest lines, shrines...), newest first.
+var _log: Array[String] = []
+const LOG_SIZE := 15
 var _hurt_flash: ColorRect
 var _over_overlay: Control
 var _over_stats: Label
@@ -75,18 +80,29 @@ func _ready() -> void:
 	_kills_label.offset_right = -20
 	add_child(_kills_label)
 
+	# Right column under the kills: quest, gold, blessings stacked so long
+	# quest texts push the rest down instead of covering it.
+	var column := VBoxContainer.new()
+	column.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
+	column.offset_top = 58
+	column.offset_right = -20
+	column.offset_left = -400
+	column.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+	column.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	column.add_theme_constant_override("separation", 2)
+	add_child(column)
+	_quest_title = _label(20, HORIZONTAL_ALIGNMENT_RIGHT)
+	_quest_title.label_settings.font_color = Color("f2c14e")
+	_quest_text = _label(16, HORIZONTAL_ALIGNMENT_RIGHT)
 	_gold_label = _label(18, HORIZONTAL_ALIGNMENT_RIGHT)
-	_gold_label.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
-	_gold_label.offset_top = 112
-	_gold_label.offset_right = -20
 	_gold_label.label_settings.font_color = Color("f2c14e")
-	add_child(_gold_label)
 	# Shrine blessings still running, with the seconds left.
 	_bless_label = _label(16, HORIZONTAL_ALIGNMENT_RIGHT)
-	_bless_label.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
-	_bless_label.offset_top = 136
-	_bless_label.offset_right = -20
-	add_child(_bless_label)
+	for line: Label in [_quest_title, _quest_text, _gold_label, _bless_label]:
+		line.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		line.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		line.visible = false
+		column.add_child(line)
 
 	_inventory = InventoryBar.new()
 	add_child(_inventory)
@@ -123,8 +139,10 @@ func _ready() -> void:
 	_pause_stories = _label(17, HORIZONTAL_ALIGNMENT_CENTER)
 	_pause_stories.label_settings.font_color = UiStyle.GOLD
 	_pause_stories.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_pause_stories.custom_minimum_size = Vector2(900, 0)
+	_pause_stories.custom_minimum_size = Vector2(600, 0)
 	pause_box.add_child(_pause_stories)
+	_pause_weapons = _pause_side("PAUSE_WEAPONS", true)
+	_pause_log = _pause_side("PAUSE_LOG", false)
 
 	settings = SettingsPanel.new()
 	add_child(settings)
@@ -162,21 +180,13 @@ void fragment() {
 	_banner = _label(30, HORIZONTAL_ALIGNMENT_CENTER)
 	_banner.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
 	_banner.offset_top = 90
+	_banner.offset_left = 320
+	_banner.offset_right = -320
+	_banner.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_banner.label_settings.font_color = Color("ff7a6b")
 	_banner.visible = false
 	add_child(_banner)
 
-	_quest_title = _label(20, HORIZONTAL_ALIGNMENT_RIGHT)
-	_quest_title.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
-	_quest_title.offset_top = 58
-	_quest_title.offset_right = -20
-	_quest_title.label_settings.font_color = Color("f2c14e")
-	add_child(_quest_title)
-	_quest_text = _label(16, HORIZONTAL_ALIGNMENT_RIGHT)
-	_quest_text.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
-	_quest_text.offset_top = 84
-	_quest_text.offset_right = -20
-	add_child(_quest_text)
 	_quest_arrow = QuestArrow.new()
 	add_child(_quest_arrow)
 	move_child(_quest_arrow, 0)
@@ -257,12 +267,14 @@ func _process(delta: float) -> void:
 ## Shows the active quest (or hides the tracker when `quest` is null).
 func update_quest(quest: Quest) -> void:
 	if quest == null:
-		_quest_title.text = ""
-		_quest_text.text = ""
+		_quest_title.visible = false
+		_quest_text.visible = false
 		_quest_arrow.target = null
 		return
 	_quest_title.text = quest.title()
 	_quest_text.text = quest.objective()
+	_quest_title.visible = _quest_title.text != ""
+	_quest_text.visible = _quest_text.text != ""
 	_quest_arrow.target = quest.target_position()
 
 
@@ -276,10 +288,15 @@ func update_boss(boss: Enemy) -> void:
 
 
 ## Big warning text below the clock that fades out after `seconds`.
+## Long texts stay up longer, and every text goes to the pause log.
 func show_banner(text: String, seconds: float = 3.0) -> void:
 	_banner.text = text
-	_banner_time = seconds
+	_banner_time = maxf(seconds, 2.0 + text.length() * 0.06)
 	_banner.visible = true
+	if text != "" and (_log.is_empty() or _log[0] != text):
+		_log.push_front(text)
+		if _log.size() > LOG_SIZE:
+			_log.pop_back()
 
 
 ## Hides the end screens (and their summary lines) when the night goes on.
@@ -321,10 +338,12 @@ func update_blessings(player: Player) -> void:
 			parts.append("%s %d s" % [tr(b["label"]), ceili(float(b["t"]))])
 		color = b["color"]
 	_bless_label.text = "  ·  ".join(parts)
+	_bless_label.visible = not parts.is_empty()
 	_bless_label.label_settings.font_color = color.lightened(0.3)
 
 
 func update_gold(amount: int, charms: int = 0) -> void:
+	_gold_label.visible = true
 	_gold_label.text = tr("HUD_GOLD") % amount
 	if charms > 0:
 		_gold_label.text += "  ·  " + tr("HUD_CHARMS") % charms
@@ -418,9 +437,66 @@ func show_pause(on: bool) -> void:
 	_pause_numbers.text = tr("PAUSE_NUMBERS") % tr("SOUND_ON" if Settings.damage_numbers else "SOUND_OFF")
 	_pause_shake.text = tr("PAUSE_SHAKE") % tr("SOUND_ON" if Settings.screen_shake else "SOUND_OFF")
 	_pause_stories.text = _stories_text()
+	if on:
+		_pause_weapons.text = _weapons_text()
+		var log_text := "\n\n".join(_log) if not _log.is_empty() else tr("PAUSE_LOG_EMPTY")
+		if _quest_title.visible:
+			# The quest running now on top, then what was said lately.
+			log_text = "[color=#%s]%s[/color]\n%s\n\n%s" % [UiStyle.GOLD.to_html(false), _quest_title.text, _quest_text.text, log_text]
+		_pause_log.text = log_text
 	_pause_overlay.visible = on
 	if on:
 		(_pause_overlay.get_node("Box").get_child(1) as Button).grab_focus.call_deferred()
+
+
+## The cat's weapons (level, branch, what they do) and passives, as BBCode.
+func _weapons_text() -> String:
+	var cat: Variant = get_parent().get("player")
+	if cat == null or not is_instance_valid(cat):
+		return ""
+	var gold := UiStyle.GOLD.to_html(false)
+	var muted := UiStyle.MUTED.to_html(false)
+	var parts: Array[String] = []
+	for w in (cat as Player).weapons.get_children():
+		if not w is Weapon:
+			continue
+		var line := "[color=#%s]%s[/color]  Lv %d" % [gold, Upgrades.item_name("weapon", w.id), w.level]
+		line += "\n" + tr("WEAPON_%s_DESC" % w.id)
+		if w.branch != "":
+			line += "\n[color=#%s]%s %d: %s[/color]" % [muted, tr("BRANCH_%s_NAME" % w.branch), w.branch_rank, tr("BRANCH_%s_DESC" % w.branch)]
+		parts.append(line)
+	var passives: Array[String] = []
+	for id: String in (cat as Player).passives:
+		passives.append("%s %d" % [Upgrades.item_name("passive", id), (cat as Player).passives[id]])
+	if not passives.is_empty():
+		parts.append("[color=#%s]%s[/color]" % [muted, ", ".join(passives)])
+	return "\n\n".join(parts)
+
+
+## A framed, scrollable text box at one side of the pause screen.
+func _pause_side(title_key: String, left: bool) -> RichTextLabel:
+	var panel := PanelContainer.new()
+	panel.add_theme_stylebox_override("panel", UiStyle.box(Color(UiStyle.BG, 0.9), UiStyle.BORDER))
+	panel.set_anchors_and_offsets_preset(Control.PRESET_LEFT_WIDE if left else Control.PRESET_RIGHT_WIDE)
+	panel.offset_top = 40
+	panel.offset_bottom = -40
+	if left:
+		panel.offset_left = 16
+		panel.offset_right = 316
+	else:
+		panel.offset_left = -316
+		panel.offset_right = -16
+	var box := VBoxContainer.new()
+	box.add_child(UiStyle.label(tr(title_key), 20, UiStyle.GOLD))
+	var text := RichTextLabel.new()
+	text.bbcode_enabled = true
+	text.scroll_active = true
+	text.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	text.add_theme_font_size_override("normal_font_size", 15)
+	box.add_child(text)
+	panel.add_child(box)
+	_pause_overlay.add_child(panel)
+	return text
 
 
 ## "This map's stories: The Kibble Thief 1/4 · ..." for the pause screen.

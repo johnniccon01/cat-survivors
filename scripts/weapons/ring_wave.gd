@@ -10,6 +10,8 @@ var expand_time := 0.45
 var damage := 15.0
 var knockback := 2.0
 var color := Color("f2c14e")
+## Draws the bell above the cat (only the bell weapon wants it).
+var bell := false
 
 var _age := 0.0
 var _radius := 0.0
@@ -45,7 +47,7 @@ func _draw() -> void:
 	Blit.ring(self, Vector2.ZERO, _radius + 6.0 * 0.5, 6.0, Color(color, 0.25 * a))
 	Blit.ring(self, Vector2.ZERO, _radius + 2.0 * 0.5, 2.0, Color(color, 0.9 * a))
 	Blit.ring(self, Vector2.ZERO, _radius * 0.8 + 1.0 * 0.5, 1.0, Color(1, 1, 1, 0.35 * a))
-	if _age < 0.2:
+	if bell and _age < 0.2:
 		# The bell itself, briefly, above the cat.
 		var b := Vector2(0, -20)
 		var bell := PackedVector2Array([b + Vector2(-4, 3), b + Vector2(-3, -3), b + Vector2(0, -5), b + Vector2(3, -3), b + Vector2(4, 3)])

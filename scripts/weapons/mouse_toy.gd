@@ -23,5 +23,5 @@ func shoot(_index: int) -> void:
 	mouse.lifetime = duration()
 	mouse.scale_k = area()
 	mouse.robo = data.get("robo", false)
-	mouse.blast_radius = 34.0 * area()
+	mouse.blast_radius = 52.0 * area()
 	world.add_child(mouse)

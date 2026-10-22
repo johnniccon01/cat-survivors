@@ -16,6 +16,7 @@ func shoot(_index: int) -> void:
 	wave.expand_time = EXPAND_TIME
 	wave.damage = damage()
 	wave.knockback = stat("knockback", 2.0)
+	wave.bell = true
 	if data.get("thunder", false):
 		wave.color = Color("8fd3ff")
 	world.add_child(wave)

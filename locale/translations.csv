@@ -567,7 +567,7 @@ BESTIARY_FOUND,Found %d / %d,Objavené %d / %d,Objeveno %d / %d
 TAG_BRANCH,BRANCH,VETVA,VĚTEV
 TAG_BRANCH_2,BRANCH II,VETVA II,VĚTEV II
 BRANCH_TITLE,%s: %s,%s: %s,%s: %s
-BRANCH_CHOOSE,Pick one: the other branches of this weapon close.,Vyber si jednu – ostatné vetvy tejto zbrane sa zavrú.,Vyber si jednu – ostatní větve této zbraně se zavřou.
+BRANCH_CHOOSE,"Pick one – these close for this weapon: %s","Vyber si jednu – pre túto zbraň sa zavrú: %s","Vyber si jednu – pro tuto zbraň se zavřou: %s"
 BRANCH_RANK2,Stronger: %s,Silnejšie: %s,Silnější: %s
 BESTIARY_BRANCHES,Branches: %s,Vetvy: %s,Větve: %s
 BRANCH_FLAME_CLAWS_NAME,Flame Claws,Ohnivé pazúry,Ohnivé drápy
@@ -1377,6 +1377,9 @@ ACH_DAILY_DESC,Win a daily night,Vyhraj dennú noc,Vyhraj denní noc
 ACH_DAILY_7_NAME,Regular,Štamgast,Štamgast
 ACH_DAILY_7_DESC,Win 7 daily nights,Vyhraj 7 denných nocí,Vyhraj 7 denních nocí
 PAUSE_STORIES,This map's stories: %s,Príbehy tejto mapy: %s,Příběhy této mapy: %s
+PAUSE_WEAPONS,Your weapons,Tvoje zbrane,Tvoje zbraně
+PAUSE_LOG,Quest and messages,Úloha a správy,Úkol a zprávy
+PAUSE_LOG_EMPTY,Nothing yet.,Zatiaľ nič.,Zatím nic.
 SELECT_BTN_DAILY,Daily night,Denná noc,Denní noc
 ENDLESS_MINUTE,Endless night: +%d min (record %d min) · +%d gold so far,Nekonečná noc: +%d min (rekord %d min) · zatiaľ +%d zlata,Nekonečná noc: +%d min (rekord %d min) · zatím +%d zlata
 POWERUP_WEAPON_SLOT_NAME,Weapon Slot,Slot na zbraň,Slot na zbraň

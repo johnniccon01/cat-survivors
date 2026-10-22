@@ -1408,11 +1408,22 @@ SHRINE_HASTE_NAME,Shrine of Wind,Svätyňa vetra,Svatyně větru
 SHRINE_MILK_NAME,Shrine of Milk,Svätyňa mlieka,Svatyně mléka
 SHRINE_FORTUNE_NAME,Shrine of Fortune,Svätyňa šťastia,Svatyně štěstí
 SHRINE_CURSED_NAME,Cursed Shrine,Prekliata svätyňa,Prokletá svatyně
-SHRINE_MIGHT_DONE,Shrine of Might: +30 % damage for 45 s,Svätyňa sily: +30 % poškodenia na 45 s,Svatyně síly: +30 % poškození na 45 s
-SHRINE_HASTE_DONE,Shrine of Wind: faster paws and weapons for 45 s,Svätyňa vetra: rýchlejšie labky aj zbrane na 45 s,Svatyně větru: rychlejší tlapky i zbraně na 45 s
-SHRINE_MILK_DONE,"Shrine of Milk: healed, and healing for 45 s",Svätyňa mlieka: vyliečená a liečiš sa ešte 45 s,Svatyně mléka: vyléčena a léčíš se ještě 45 s
-SHRINE_FORTUNE_DONE,"Shrine of Fortune: a shower of gold, all kibble flies to you!",Svätyňa šťastia: dážď zlata a všetky granulky letia k tebe!,Svatyně štěstí: déšť zlata a všechny granule letí k tobě!
-SHRINE_CURSED_DONE,Cursed Shrine: guards! Beat them all for a treasure chest,Prekliata svätyňa: strážcovia! Poraz všetkých a získaš truhlicu,Prokletá svatyně: strážci! Poraž všechny a získáš truhlu
+SHRINE_PROMPT,The statue wakes. What do you ask of it?,Soška sa prebúdza. O čo ju požiadaš?,Soška se probouzí. O co ji požádáš?
+SHRINE_HEAVY,Heavy paws,Ťažké labky,Těžké tlapky
+SHRINE_MIGHT_OPT0,Blessing: +25 % damage for 45 s,Požehnanie: +25 % poškodenia na 45 s,Požehnání: +25 % poškození na 45 s
+SHRINE_MIGHT_OPT1,"Blood oath: +60 % damage for 60 s, but lose 25 % of your health","Krvavá prísaha: +60 % poškodenia na 60 s, ale stratíš 25 % zdravia","Krvavá přísaha: +60 % poškození na 60 s, ale ztratíš 25 % zdraví"
+SHRINE_MIGHT_OPT2,"Lasting strength: +12 % damage all night, but enemies get 10 % tougher","Trvalá sila: +12 % poškodenia celú noc, ale nepriatelia sú o 10 % silnejší","Trvalá síla: +12 % poškození celou noc, ale nepřátelé jsou o 10 % silnější"
+SHRINE_HASTE_OPT0,Breeze: +15 % speed and 10 % faster weapons for 45 s,Vánok: +15 % rýchlosti a o 10 % rýchlejšie zbrane na 45 s,Vánek: +15 % rychlosti a o 10 % rychlejší zbraně na 45 s
+SHRINE_HASTE_OPT1,"Storm: +35 % speed and 30 % faster weapons for 45 s, but 30 % less max health meanwhile","Búrka: +35 % rýchlosti a o 30 % rýchlejšie zbrane na 45 s, ale medzitým o 30 % menej max. zdravia","Bouře: +35 % rychlosti a o 30 % rychlejší zbraně na 45 s, ale mezitím o 30 % méně max. zdraví"
+SHRINE_HASTE_OPT2,"Restless paws: weapons 8 % faster all night, but every hit hurts 2 more","Nepokojné labky: zbrane o 8 % rýchlejšie celú noc, ale každý zásah bolí o 2 viac","Neklidné tlapky: zbraně o 8 % rychlejší celou noc, ale každý zásah bolí o 2 víc"
+SHRINE_MILK_OPT0,"A sip: heal 40 %, then keep healing for 45 s","Dúšok: vylieči 40 %, potom liečenie ešte 45 s","Doušek: vyléčí 40 %, pak léčení ještě 45 s"
+SHRINE_MILK_OPT1,"Cream: +25 max health all night, but 25 % slower for 30 s","Smotana: +25 max. zdravia celú noc, ale na 30 s o 25 % pomalšia labka","Smetana: +25 max. zdraví celou noc, ale na 30 s o 25 % pomalejší tlapka"
+SHRINE_FORTUNE_OPT0,A shower of gold and all kibble flies to you,Dážď zlata a všetky granulky letia k tebe,Déšť zlata a všechny granule letí k tobě
+SHRINE_FORTUNE_OPT1,"Sweet fruit: gain 2 levels, but lose 40 % of your health","Sladké ovocie: 2 levely navyše, ale stratíš 40 % zdravia","Sladké ovoce: 2 úrovně navíc, ale ztratíš 40 % zdraví"
+SHRINE_FORTUNE_OPT2,"Greed: +35 % gold all night, but enemies get 12 % tougher","Chamtivosť: +35 % zlata celú noc, ale nepriatelia sú o 12 % silnejší","Chamtivost: +35 % zlata celou noc, ale nepřátelé jsou o 12 % silnější"
+SHRINE_CURSED_OPT0,Refuse the curse: +8 % luck all night,Odmietni kliatbu: +8 % šťastia celú noc,Odmítni kletbu: +8 % štěstí celou noc
+SHRINE_CURSED_OPT1,Accept the curse: 5 guards appear – beat them for a treasure chest,Prijmi kliatbu: príde 5 strážcov – poraz ich a získaš truhlicu,Přijmi kletbu: přijde 5 strážců – poraž je a získáš truhlu
+SHRINE_CURSED_OPT2,Great curse: 8 champion guards – beat them for a boss chest and more gold,Veľká kliatba: 8 strážcov-šampiónov – poraz ich a získaš truhlicu bossa a viac zlata,Velká kletba: 8 strážců-šampionů – poraž je a získáš truhlu bosse a víc zlata
 SHRINE_CURSED_WON,The curse is broken: a treasure chest!,Kliatba zlomená: truhlica!,Kletba zlomena: truhla!
 BONUS_MIGHT,+%s %% damage,+%s %% poškodenie,+%s %% poškození
 BONUS_COOLDOWN,%s %% faster attacks,o %s %% rýchlejšie útoky,o %s %% rychlejší útoky

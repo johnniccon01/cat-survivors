@@ -1,18 +1,29 @@
 class_name Shrine
 extends Node2D
 ## A cat shrine that turns up on the map now and then (Death Must Die-like).
-## Stand next to it for a moment to wake it:
-##   MIGHT   – stronger attacks for a while
-##   HASTE   – faster paws and weapons for a while
-##   MILK    – heals and keeps healing for a while
-##   FORTUNE – a shower of gold and every kibble on the map flies to you
-##   CURSED  – guards appear; beat them all for a treasure chest
+## Stand next to it for a moment to wake it, then pick what it gives you: the
+## first offer is always safe, the others give more but cost something.
+##   MIGHT   – stronger attacks; or much stronger for a quarter of your health;
+##             or a little stronger all night while enemies get tougher
+##   HASTE   – faster paws and weapons; or much faster but frailer for a
+##             while; or faster weapons all night but you take more damage
+##   MILK    – heals and keeps healing; or more max health for the night but
+##             heavy paws for a while
+##   FORTUNE – a shower of gold and all kibble; or two levels for 40 % of your
+##             health; or more gold all night while enemies get tougher
+##   CURSED  – a little luck; or guards that guard a chest; or champion
+##             guards that guard a boss chest
 
 const OUTLINE := Color("2b1d14")
 const RADIUS := 48.0
 const WAKE_TIME := 2.0
 const BLESS_SECONDS := 45.0
 const CURSED_GUARDS := 5
+const CURSED_GUARDS_BIG := 8
+## Bonuses that last the rest of the night (the HUD shows no seconds for them).
+const FOR_THE_NIGHT := 99999.0
+## How many offers each shrine makes (texts SHRINE_<KIND>_OPT<n>).
+const OFFERS := {"MIGHT": 3, "HASTE": 3, "MILK": 2, "FORTUNE": 3, "CURSED": 3}
 const CURSED_LIMIT := 75.0
 ## Forgotten shrines crumble after a while.
 const LIFETIME := 100.0
@@ -30,6 +41,8 @@ var _t := 0.0
 var _gone := 0.0
 var _guards: Array[Enemy] = []
 var _guard_t := 0.0
+## The big curse: champion guards, and a boss chest for beating them.
+var _big_curse := false
 
 
 static func random_kind() -> String:
@@ -77,29 +90,79 @@ func _physics_process(delta: float) -> void:
 		_wake = maxf(_wake - delta * 0.5, 0.0)
 
 
+## Waking a shrine asks what you want from it, as in Death Must Die: the
+## first offer is always safe, the others give more but cost something.
 func _activate(cat: Player) -> void:
 	used = true
 	Profile.add_stat("shrines")
 	Audio.play("bell", -2.0, 0.0)
-	match kind:
-		"MIGHT":
-			cat.bless({"might": 0.3}, BLESS_SECONDS, "SHRINE_MIGHT_NAME", color())
-		"HASTE":
-			cat.bless({"speed": 0.2, "cooldown": -0.15}, BLESS_SECONDS, "SHRINE_HASTE_NAME", color())
-		"MILK":
+	var options: Array = []
+	for i in OFFERS[kind]:
+		options.append(tr("SHRINE_%s_OPT%d" % [kind, i]))
+	main.ask_choice(tr("SHRINE_%s_NAME" % kind), tr("SHRINE_PROMPT"), options, func(index: int) -> void:
+		_grant(cat, index)
+		main.hud.show_banner("%s: %s" % [tr("SHRINE_%s_NAME" % kind), options[index]], 4.0)
+		print("SHRINE: %s activated, offer %d" % [kind, index]))
+
+
+func _grant(cat: Player, offer: int) -> void:
+	var c := color()
+	var name_key := "SHRINE_%s_NAME" % kind
+	match [kind, offer]:
+		["MIGHT", 0]:
+			cat.bless({"might": 0.25}, BLESS_SECONDS, name_key, c)
+		["MIGHT", 1]:
+			# Blood oath: a quarter of your health for a huge, longer boost.
+			_bleed(cat, 0.25)
+			cat.bless({"might": 0.6}, 60.0, name_key, c)
+		["MIGHT", 2]:
+			cat.bless({"might": 0.12, "curse": 0.1}, FOR_THE_NIGHT, name_key, c)
+		["HASTE", 0]:
+			cat.bless({"speed": 0.15, "cooldown": -0.1}, BLESS_SECONDS, name_key, c)
+		["HASTE", 1]:
+			cat.bless({"speed": 0.35, "cooldown": -0.3, "max_hp": -cat.max_hp * 0.3}, BLESS_SECONDS, name_key, c)
+			cat.hp = minf(cat.hp, cat.max_hp)
+		["HASTE", 2]:
+			cat.bless({"cooldown": -0.08, "armor": -2.0}, FOR_THE_NIGHT, name_key, c)
+		["MILK", 0]:
 			cat.heal(cat.max_hp * 0.4)
-			cat.bless({"regen": 1.5}, BLESS_SECONDS, "SHRINE_MILK_NAME", color())
-		"FORTUNE":
+			cat.bless({"regen": 1.5}, BLESS_SECONDS, name_key, c)
+		["MILK", 1]:
+			# Cream: more health for good, but heavy paws for a while.
+			cat.bless({"max_hp": 25.0}, FOR_THE_NIGHT, name_key, c)
+			cat.bless({"speed": -0.25}, 30.0, "SHRINE_HEAVY", Color("9a8a7a"))
+		["FORTUNE", 0]:
 			for i in 12:
 				main.pickups.spawn_named("coin", position + Vector2.from_angle(TAU * i / 12.0) * 26.0, 5.0)
 			main.pickups.pull_all_xp()
-		"CURSED":
-			for i in CURSED_GUARDS:
-				var guard: Enemy = main.spawner.spawn_guard(position + Vector2.from_angle(TAU * i / CURSED_GUARDS + randf()) * 230.0)
-				if guard != null:
-					_guards.append(guard)
-	main.hud.show_banner(tr("SHRINE_%s_DONE" % kind), 4.0)
-	print("SHRINE: %s activated" % kind)
+		["FORTUNE", 1]:
+			# Like Death Must Die's fruit tree: health for two levels.
+			_bleed(cat, 0.4)
+			for i in 2:
+				cat.add_xp((cat.xp_to_next() - cat.xp) / cat.stat("growth") + 0.01)
+		["FORTUNE", 2]:
+			cat.bless({"greed": 0.35, "curse": 0.12}, FOR_THE_NIGHT, name_key, c)
+		["CURSED", 0]:
+			cat.bless({"luck": 0.08}, FOR_THE_NIGHT, name_key, c)
+		["CURSED", 1]:
+			_summon_guards(CURSED_GUARDS)
+		["CURSED", 2]:
+			_big_curse = true
+			_summon_guards(CURSED_GUARDS_BIG)
+
+
+## Takes `share` of the cat's health, but never the last bit of it.
+func _bleed(cat: Player, share: float) -> void:
+	cat.hp = maxf(1.0, cat.hp - cat.max_hp * share)
+
+
+func _summon_guards(count: int) -> void:
+	for i in count:
+		var guard: Enemy = main.spawner.spawn_guard(position + Vector2.from_angle(TAU * i / count + randf()) * 230.0)
+		if guard != null:
+			if _big_curse:
+				guard.make_champion(GameData.champions.keys().pick_random())
+			_guards.append(guard)
 
 
 func _tick_guards(delta: float) -> void:
@@ -110,9 +173,9 @@ func _tick_guards(delta: float) -> void:
 	if not _guards.is_empty() and _guard_t < CURSED_LIMIT:
 		return
 	if _guard_t < CURSED_LIMIT:
-		main.pickups.spawn_named("chest", position, 0.0)
-		for i in 8:
-			main.pickups.spawn_named("coin", position + Vector2.from_angle(TAU * i / 8.0) * 22.0, 5.0)
+		main.pickups.spawn_named("chest", position, 1.0 if _big_curse else 0.0)
+		for i in 16 if _big_curse else 8:
+			main.pickups.spawn_named("coin", position + Vector2.from_angle(TAU * i / 8.0) * (22.0 if i < 8 else 34.0), 5.0)
 		main.hud.show_banner(tr("SHRINE_CURSED_WON"), 3.5)
 		print("SHRINE: CURSED cleared")
 	_guards.clear()

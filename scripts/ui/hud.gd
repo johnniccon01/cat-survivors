@@ -314,7 +314,11 @@ func update_blessings(player: Player) -> void:
 	for b in player.blessings:
 		if String(b.get("label", "")) == "":
 			continue
-		parts.append("%s %d s" % [tr(b["label"]), ceili(float(b["t"]))])
+		# Bonuses for the rest of the night show no countdown.
+		if float(b["t"]) > 3600.0:
+			parts.append(tr(b["label"]))
+		else:
+			parts.append("%s %d s" % [tr(b["label"]), ceili(float(b["t"]))])
 		color = b["color"]
 	_bless_label.text = "  ·  ".join(parts)
 	_bless_label.label_settings.font_color = color.lightened(0.3)

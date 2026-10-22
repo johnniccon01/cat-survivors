@@ -1389,7 +1389,7 @@ SET_LOW_FX,"Effect saver (fewer effects, smoother on laptops)","Úsporný režim
 BOSS_CHEST_TITLE,Boss chest – pick one!,Truhlica bossa – vyber si!,Truhla bosse – vyber si!
 BOSS_CHEST_JACKPOT,Jackpot! You get all three!,Jackpot! Dostávaš všetky tri!,Jackpot! Dostáváš všechny tři!
 CAT_STRAY_NAME,Stray,Túlavec,Tulák
-CAT_STRAY_DESC,"A street cat with nothing but its wits. Starts with no weapon – the first one comes at level 5. Fast, lucky, learns quickly and carries one weapon more.","Pouličná mačka, ktorá má len svoj rozum. Začína bez zbrane – prvú dostane až na 5. leveli. Rýchla, šťastná, rýchlo sa učí a unesie o zbraň viac.","Pouliční kočka, která má jen svůj rozum. Začíná bez zbraně – první dostane až na 5. levelu. Rychlá, šťastná, rychle se učí a unese o zbraň víc."
+CAT_STRAY_DESC,"A street cat with nothing but its wits. Starts with no weapon and only 1 HP – the first weapon and full health come at level 5. Fast, lucky, learns quickly and carries one weapon more.","Pouličná mačka, ktorá má len svoj rozum. Začína bez zbrane a s 1 životom – prvú zbraň a plné zdravie dostane až na 5. leveli. Rýchla, šťastná, rýchlo sa učí a unesie o zbraň viac.","Pouliční kočka, která má jen svůj rozum. Začíná bez zbraně a s 1 životem – první zbraň a plné zdraví dostane až na 5. levelu. Rychlá, šťastná, rychle se učí a unese o zbraň víc."
 CAT_STRAY_HINT,,,
 SELECT_NO_WEAPON,No weapon – use the traps!,Bez zbrane – využi pasce!,Bez zbraně – využij pasti!
 GRADE_1,Rare · level %d,Vzácne · úroveň %d,Vzácné · úroveň %d

@@ -202,7 +202,7 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 
 ## Tajomstvá a ľahšie Strechy (22. 10. 2026)
 
-- [x] Túlavec dostane prvú zbraň až na 5. leveli (predtým 3.)
+- [x] Túlavec dostane prvú zbraň až na 5. leveli (predtým 3.) a dovtedy má len 1 život; na 5. leveli plné zdravie ako ostatné mačky (`fragile_until` v cats.json)
 - [x] Magnet ťahá z celej mapy aj mince (granuly už ťahal)
 - [x] Health bar mačky vo vlastnej vrstve nad nepriateľmi a efektmi, širší s bielym okrajom
 - [x] Strechy: nepriatelia dávajú 0,85× damage (`damage_mult` v stages.json); obchod Max zdravie 5 stupňov namiesto 3

@@ -27,6 +27,7 @@ scenarios=(
   "traps_rooftop|--bot --stage=ROOFTOP --traps --bot-time=60"
   "all_weapons|--bot --all-weapons --levels=30 --bot-time=200"
   "stray|--bot --cat=STRAY --bot-time=200"
+  "stray_grows|--bot --cat=STRAY --god --bot-time=400"
   "music_alt|--bot --stage=GARDEN --music=alt --bot-time=40"
   "shrine_cursed|--bot --shrine=CURSED --choice=2 --start-minute=8 --catch-up --bot-time=120"
   "shrine_cursed_small|--bot --shrine=CURSED --choice=1 --start-minute=4 --catch-up --bot-time=100"

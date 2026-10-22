@@ -146,6 +146,7 @@
     "patches": true,
     "size": 0.95,
     "weapon": "",
+    "fragile_until": 5,
     "bonus": {
       "weapon_slots": 1.0,
       "speed": 0.2,

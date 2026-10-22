@@ -174,6 +174,10 @@ func add_xp(amount: float) -> void:
 	while xp >= xp_to_next():
 		xp -= xp_to_next()
 		level += 1
+		if level == int(GameData.cats[cat_id].get("fragile_until", 0)):
+			# Survived the fragile start: full health like the other cats.
+			_recalc_stats()
+			hp = max_hp
 		if stats["level_heal"] > 0.0:
 			heal(max_hp * stats["level_heal"])
 		leveled_up.emit()
@@ -301,6 +305,9 @@ func _recalc_stats() -> void:
 			stats["might"] *= 1.5
 		if Profile.has_challenge("CURSED"):
 			stats["curse"] += 0.5
+	# The played Stray lives on 1 HP until its "fragile_until" level.
+	if (controller == "input" or controller == "bot") and level < int(GameData.cats[cat_id].get("fragile_until", 0)):
+		stats["max_hp"] = 1.0
 	var old_max := max_hp
 	max_hp = stats["max_hp"]
 	hp += maxf(max_hp - old_max, 0.0)

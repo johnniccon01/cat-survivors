@@ -11,6 +11,9 @@ extends Quest
 ## CHAIN_<ID>_<n>_START (said when the step begins) and CHAIN_<ID>_<n>_DONE.
 ## Subclasses implement one kind of step each (trail, chase, carry...).
 
+## Step scripts by type, loaded once (see warm).
+static var _scripts: Dictionary = {}
+
 var chain_id := ""
 ## 1-based number of this step in its chain.
 var step_no := 1
@@ -40,12 +43,26 @@ static func stage_of(id: String, n: int) -> String:
 	return step.get("stage", chain(id).get("stage", "any"))
 
 
+## Loads every step script up front (at the start of a night): loading one
+## the moment its step begins made the game stutter for a frame or two.
+static func warm() -> void:
+	for id: String in GameData.chains:
+		for step: Dictionary in steps(id):
+			_script(step["type"])
+
+
+static func _script(type: String) -> GDScript:
+	if not _scripts.has(type):
+		_scripts[type] = load("res://scripts/quests/chain/%s_step.gd" % type)
+	return _scripts[type]
+
+
 ## Makes the node for the next step of a chain.
 static func create(id: String) -> ChainStep:
 	var n := progress_of(id) + 1
 	var data: Dictionary = steps(id)[n - 1]
-	# Loaded here, not preloaded: the step scripts extend this class.
-	var script: GDScript = load("res://scripts/quests/chain/%s_step.gd" % data["type"])
+	# Loaded at run time, not preloaded: the step scripts extend this class.
+	var script := _script(data["type"])
 	var step: ChainStep = script.new()
 	step.chain_id = id
 	step.step_no = n

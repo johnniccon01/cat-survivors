@@ -35,6 +35,7 @@ func setup(p_main: Node) -> void:
 	main = p_main
 	_cfg = GameData.quests
 	_timer = float(_cfg["schedule"]["first_delay"])
+	ChainStep.warm()
 
 
 ## Starts a specific quest right away, next to the cat (debug).

@@ -29,8 +29,8 @@ func _process(delta: float) -> void:
 
 func _draw() -> void:
 	var alpha := 0.07 + _pulse * 0.12
-	draw_circle(Vector2.ZERO, radius, Color(0.45, 0.85, 0.4, alpha))
-	draw_arc(Vector2.ZERO, radius, 0.0, TAU, 48, Color(0.55, 0.95, 0.5, 0.35 + _pulse * 0.4), 1.0)
+	Blit.disc(self, Vector2.ZERO, radius, Color(0.45, 0.85, 0.4, alpha))
+	Blit.ring(self, Vector2.ZERO, radius + 1.0 * 0.5, 1.0, Color(0.55, 0.95, 0.5, 0.35 + _pulse * 0.4))
 	for i in 6:
 		var a := _t * 0.6 + TAU * i / 6.0
 		var p := Vector2.from_angle(a) * radius * (0.55 + 0.3 * sin(_t * 1.3 + i))

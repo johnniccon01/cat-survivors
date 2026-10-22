@@ -47,14 +47,14 @@ func _draw() -> void:
 	var thread := Color(0.95, 0.95, 1.0, 0.55 * fade)
 	if silk:
 		thread = Color(1.0, 0.92, 0.7, 0.75 * fade)
-		draw_circle(Vector2.ZERO, r, Color(1.0, 0.9, 0.6, 0.08 * fade))
+		Blit.disc(self, Vector2.ZERO, r, Color(1.0, 0.9, 0.6, 0.08 * fade))
 	# Spokes, then rings made of straight pieces between them, like a real web.
 	var spokes := 8
 	for i in spokes:
-		draw_line(Vector2.ZERO, Vector2.from_angle(_spin + TAU * i / spokes) * r, thread, 1.0)
+		Blit.line(self, Vector2.ZERO, Vector2.from_angle(_spin + TAU * i / spokes) * r, thread, 1.0)
 	for ring in 4:
 		var rr := r * (0.3 + ring * 0.23)
 		for i in spokes:
 			var a := Vector2.from_angle(_spin + TAU * i / spokes) * rr
 			var b := Vector2.from_angle(_spin + TAU * (i + 1) / spokes) * rr * 0.96
-			draw_line(a, b, thread, 1.0)
+			Blit.line(self, a, b, thread, 1.0)

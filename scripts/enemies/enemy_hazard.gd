@@ -51,14 +51,14 @@ func _draw() -> void:
 		var a := clampf(lifetime - _t, 0.0, 1.0) * minf(_t * 4.0, 1.0)
 		for k in 3:
 			var r := radius * (0.6 + 0.2 * k) + sin(_t * 5.0 + k) * 1.5
-			draw_circle(Vector2(0, -k * 2), r, Color(1.0, 0.9, 0.85, 0.16 * a))
-		draw_arc(Vector2.ZERO, radius, 0.0, TAU, 20, Color(1.0, 0.55, 0.35, 0.5 * a), 1.0)
+			Blit.disc(self, Vector2(0, -k * 2), r, Color(1.0, 0.9, 0.85, 0.16 * a))
+		Blit.ring(self, Vector2.ZERO, radius + 1.0 * 0.5, 1.0, Color(1.0, 0.55, 0.35, 0.5 * a))
 		return
 	if _struck < 0.0:
 		var k := _t / lifetime
-		draw_circle(Vector2.ZERO, radius, Color(0.9, 0.2, 0.1, 0.10 + 0.15 * k))
-		draw_circle(Vector2.ZERO, radius * k, Color(0.9, 0.2, 0.1, 0.18))
-		draw_arc(Vector2.ZERO, radius, 0.0, TAU, 24, Color(1.0, 0.35, 0.2, 0.9), 1.5)
+		Blit.disc(self, Vector2.ZERO, radius, Color(0.9, 0.2, 0.1, 0.10 + 0.15 * k))
+		Blit.disc(self, Vector2.ZERO, radius * k, Color(0.9, 0.2, 0.1, 0.18))
+		Blit.ring(self, Vector2.ZERO, radius + 1.5 * 0.5, 1.5, Color(1.0, 0.35, 0.2, 0.9))
 		return
 	var f := 1.0 - (_t - _struck) / 0.25
 	if style == "lightning":
@@ -69,11 +69,11 @@ func _draw() -> void:
 		draw_polyline(pts, Color(1, 1, 1, f), 1.0)
 	elif style == "anchor":
 		var iron := Color(0.42, 0.44, 0.47, f)
-		draw_line(Vector2(0, -radius), Vector2(0, 4), iron, 3.0)
+		Blit.line(self, Vector2(0, -radius), Vector2(0, 4), iron, 3.0)
 		draw_arc(Vector2(0, -4), radius * 0.6, 0.3, PI - 0.3, 10, iron, 3.0)
-		draw_line(Vector2(-5, -radius + 4), Vector2(5, -radius + 4), iron, 2.0)
+		Blit.line(self, Vector2(-5, -radius + 4), Vector2(5, -radius + 4), iron, 2.0)
 	else:
 		for x: float in [-5.0, 0.0, 5.0]:
 			draw_line(Vector2(x, -radius), Vector2(x, 2), Color(0.75, 0.7, 0.6, f), 2.0)
 		draw_line(Vector2(-6, -radius), Vector2(6, -radius), Color(0.6, 0.45, 0.3, f), 2.0)
-	draw_circle(Vector2.ZERO, radius, Color(1.0, 0.9, 0.6, 0.35 * f))
+	Blit.disc(self, Vector2.ZERO, radius, Color(1.0, 0.9, 0.6, 0.35 * f))

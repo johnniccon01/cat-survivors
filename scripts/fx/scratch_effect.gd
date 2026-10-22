@@ -49,4 +49,4 @@ func _draw() -> void:
 		draw_polyline(pts, Color(color, alpha * 0.5), 7.0)
 		draw_polyline(pts, Color(1, 1, 1, alpha), 3.0)
 		if reveal >= 1.0:
-			draw_circle(pts[pts.size() - 1], 3.0 * alpha, Color(1, 1, 1, alpha))
+			Blit.disc(self, pts[pts.size() - 1], 3.0 * alpha, Color(1, 1, 1, alpha))

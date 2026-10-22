@@ -31,9 +31,9 @@ func _draw() -> void:
 	draw_line(from, to, Color(color, 0.35 * a), width * 2.5)
 	draw_line(from, to, Color(color, a), width)
 	draw_line(from, to, Color(1, 1, 1, a), maxf(width * 0.35, 1.0))
-	draw_circle(to, width * 1.3, Color(color, a))
-	draw_circle(to, width * 0.6, Color(1, 1, 1, a))
-	draw_circle(to, width * (2.0 + 3.0 * (1.0 - a)), Color(color, 0.25 * a))
+	Blit.disc(self, to, width * 1.3, Color(color, a))
+	Blit.disc(self, to, width * 0.6, Color(1, 1, 1, a))
+	Blit.disc(self, to, width * (2.0 + 3.0 * (1.0 - a)), Color(color, 0.25 * a))
 	# Sparks flying off the burning spot.
 	for i in 4:
 		var d := Vector2.from_angle(i * 1.7 + _t * 20.0)

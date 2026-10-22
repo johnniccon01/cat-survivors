@@ -39,6 +39,6 @@ func _physics_process(delta: float) -> void:
 
 func _draw() -> void:
 	var k := _t / FUSE
-	draw_circle(Vector2.ZERO, RADIUS, Color(0.9, 0.15, 0.1, 0.10 + 0.15 * k))
-	draw_arc(Vector2.ZERO, RADIUS, 0.0, TAU, 32, Color(1.0, 0.3, 0.2, 0.9), 1.5)
-	draw_arc(Vector2.ZERO, RADIUS * (1.0 - k), 0.0, TAU, 24, Color(1.0, 0.8, 0.3, 0.9), 2.0)
+	Blit.disc(self, Vector2.ZERO, RADIUS, Color(0.9, 0.15, 0.1, 0.10 + 0.15 * k))
+	Blit.ring(self, Vector2.ZERO, RADIUS + 1.5 * 0.5, 1.5, Color(1.0, 0.3, 0.2, 0.9))
+	Blit.ring(self, Vector2.ZERO, RADIUS * (1.0 - k) + 2.0 * 0.5, 2.0, Color(1.0, 0.8, 0.3, 0.9))

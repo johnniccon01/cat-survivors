@@ -44,7 +44,7 @@ func _physics_process(delta: float) -> void:
 
 func _draw() -> void:
 	var fade := clampf(lifetime * 3.0, 0.0, 1.0) * clampf(_age * 5.0, 0.0, 1.0)
-	draw_circle(Vector2.ZERO, 4.0, Color(0.3, 0.55, 0.3, fade))
+	Blit.disc(self, Vector2.ZERO, 4.0, Color(0.3, 0.55, 0.3, fade))
 	for i in arms:
 		var dir := Vector2.from_angle(_angle + TAU * i / arms)
 		var side := dir.orthogonal()
@@ -53,5 +53,5 @@ func _draw() -> void:
 			var t := (k + 1) / 9.0
 			var wob := sin(_age * 20.0 + k * 1.7) * 2.0 * t
 			var p := dir.rotated(-0.25 * t) * length * t + side * wob
-			draw_circle(p, 1.2 + t * 2.0, Color(0.6, 0.85, 1.0, 0.75 * fade * (1.0 - t * 0.4)))
-		draw_line(Vector2.ZERO, dir * length * 0.35, Color(0.8, 0.95, 1.0, 0.8 * fade), 2.0)
+			Blit.disc(self, p, 1.2 + t * 2.0, Color(0.6, 0.85, 1.0, 0.75 * fade * (1.0 - t * 0.4)))
+		Blit.line(self, Vector2.ZERO, dir * length * 0.35, Color(0.8, 0.95, 1.0, 0.8 * fade), 2.0)

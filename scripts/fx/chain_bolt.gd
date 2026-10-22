@@ -41,4 +41,4 @@ func _draw() -> void:
 	draw_polyline(_jagged, Color(color, a), 2.0)
 	draw_polyline(_jagged, Color(1, 1, 1, a), 1.0)
 	for p in points:
-		draw_circle(p, 3.0, Color(1, 1, 1, 0.8 * a))
+		Blit.disc(self, p, 3.0, Color(1, 1, 1, 0.8 * a))

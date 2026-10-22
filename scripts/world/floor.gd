@@ -12,6 +12,9 @@ const CHUNK := 320.0
 const KEEP_MARGIN := 1
 ## Texels per world unit of the baked ground (1 = the pixel size of the sprites).
 const BAKE_SCALE := 2.0
+## Bake viewports made up front: about as many as there are ever chunks at
+## once (the ones in view plus a ring around them).
+const SPARE_AT_START := 40
 
 ## "apartment", "basement", "garden" or "rooftop"; picks rooms, floors and
 ## furniture.
@@ -21,8 +24,10 @@ const FLOOR_DIM_STRONG := Color(0.45, 0.45, 0.5)
 
 var _noise := FastNoiseLite.new()
 var _seed := randi()
-## chunk coords -> the nodes of that chunk (layers, baked ground and its viewport)
+## chunk coords -> [bake viewport, the sprite showing it, lamp lights]
 var _chunks: Dictionary = {}
+## Bake viewports of chunks gone out of view, ready for new ones.
+var _spare: Array[SubViewport] = []
 
 
 func _ready() -> void:
@@ -30,6 +35,10 @@ func _ready() -> void:
 	_noise.frequency = 0.22
 	_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
 	Settings.contrast_changed.connect(_apply_contrast)
+	# A stock of bake viewports made while the night loads, so walking into
+	# new areas never has to make one.
+	for i in SPARE_AT_START:
+		_spare.append(_new_viewport())
 
 
 func _apply_contrast() -> void:
@@ -62,9 +71,7 @@ func _process(_delta: float) -> void:
 				_create(c)
 	for c: Vector2i in _chunks.keys():
 		if c.x < c0.x - KEEP_MARGIN or c.x > c1.x + KEEP_MARGIN or c.y < c0.y - KEEP_MARGIN or c.y > c1.y + KEEP_MARGIN:
-			for node: Node in _chunks[c]:
-				node.queue_free()
-			_chunks.erase(c)
+			_release(c)
 
 
 func _create(c: Vector2i) -> void:
@@ -94,29 +101,52 @@ func _create(c: Vector2i) -> void:
 ## every frame; baked, the whole chunk is a single one. Everything a chunk
 ## draws stays inside its square (the biggest furniture is placed so).
 func _bake(layers: Array[FloorChunk]) -> SubViewport:
+	var vp: SubViewport = _spare.pop_back() if not _spare.is_empty() else _new_viewport()
+	vp.render_target_update_mode = SubViewport.UPDATE_ONCE
+	# The chunk keeps its world position (planks line up across chunks);
+	# its parent moves it back into the texture.
+	var shift: Node2D = vp.get_child(0)
+	shift.position = -layers[0].position * BAKE_SCALE
+	for node in layers:
+		shift.add_child(node)
+	var sprite: Sprite2D = vp.get_meta("sprite")
+	sprite.position = layers[0].position
+	sprite.visible = true
+	vp.set_meta("layers", layers)
+	return vp
+
+
+## A viewport (with the sprite that shows it) for baking chunks. Making one
+## costs a few milliseconds, so they are kept and reused (see _release).
+func _new_viewport() -> SubViewport:
 	var vp := SubViewport.new()
 	vp.size = Vector2i(int(CHUNK * BAKE_SCALE), int(CHUNK * BAKE_SCALE))
 	vp.disable_3d = true
 	vp.transparent_bg = true
-	vp.render_target_update_mode = SubViewport.UPDATE_ONCE
-	# The chunk keeps its world position (planks line up across chunks);
-	# its parent moves it back into the texture.
 	var shift := Node2D.new()
 	shift.scale = Vector2(BAKE_SCALE, BAKE_SCALE)
-	shift.position = -layers[0].position * BAKE_SCALE
-	for node in layers:
-		shift.add_child(node)
 	vp.add_child(shift)
 	add_child(vp)
 	var sprite := Sprite2D.new()
 	sprite.texture = vp.get_texture()
 	sprite.centered = false
-	sprite.position = layers[0].position
 	sprite.scale = Vector2.ONE / BAKE_SCALE
+	sprite.visible = false
 	add_child(sprite)
 	vp.set_meta("sprite", sprite)
-	vp.set_meta("layers", layers)
 	return vp
+
+
+## Frees a chunk that went out of view; its viewport waits for the next one.
+func _release(c: Vector2i) -> void:
+	var vp: SubViewport = _chunks[c][0]
+	for node: FloorChunk in vp.get_meta("layers"):
+		node.get_parent().remove_child(node)
+		node.queue_free()
+	(vp.get_meta("sprite") as Sprite2D).visible = false
+	_spare.append(vp)
+	(_chunks[c][2] as Node).queue_free()
+	_chunks.erase(c)
 
 
 ## The floor stays a little dim so enemies stand out against it (the light

@@ -452,7 +452,8 @@ func _draw_factory(size: float, zone: String) -> void:
 			var p := Vector2(ix * step, iy * step)
 			draw_rect(Rect2(p + Vector2(1, 1), Vector2(step - 2, step - 2)), base.lightened(0.05) if (ix + iy) % 2 == 0 else base)
 			for corner: Vector2 in [Vector2(4, 4), Vector2(step - 4, 4), Vector2(4, step - 4), Vector2(step - 4, step - 4)]:
-				draw_circle(p + corner, 1.2, base.darkened(0.3))
+				# Rivets: little squares (hundreds of circles made the chunk slow to draw).
+				draw_rect(Rect2(p + corner - Vector2(1.2, 1.2), Vector2(2.4, 2.4)), base.darkened(0.3))
 	if zone == "conveyor":
 		# Two belts across the chunk, arrows showing the way they run.
 		for y: float in [size * 0.3, size * 0.7]:

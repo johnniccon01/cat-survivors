@@ -65,7 +65,7 @@ var _slow_t := 0.0
 ## Branch effects: burning (handled by the manager) and the chill tint.
 ## Champion affix (data/champions.json) or "".
 var champion := ""
-var _champion_color := Color.WHITE
+var champion_color := Color.WHITE
 var _taken := 1.0
 var _regen := 0.0
 ## Flee behaviour (the golden mouse): seconds left before it gets away.
@@ -145,7 +145,7 @@ func slow_down(factor: float, seconds: float) -> void:
 func make_champion(affix: String) -> void:
 	var c: Dictionary = GameData.champions[affix]
 	champion = affix
-	_champion_color = Color(c.get("color", "#ffffff"))
+	champion_color = Color(c.get("color", "#ffffff"))
 	max_hp *= float(c.get("hp", 2.0))
 	hp = max_hp
 	speed *= float(c.get("speed", 1.0))
@@ -483,17 +483,8 @@ func hit(amount: float, direction: Vector2, knockback: float, can_crit: bool = t
 
 func _draw() -> void:
 	var r := radius / _base_scale
-	if spawn_in > 0.0:
-		var k := 1.0 - spawn_in / SPAWN_IN
-		Blit.ring(self, Vector2(0, r * 0.5), r + 6.75 - 6.0 * k, 1.5, Color(1.0, 0.35, 0.3, 0.8))
-	if champion != "":
-		Blit.ellipse(self, Vector2(0, r + 1), r + 4, 4.5, Color(_champion_color, 0.35))
-		Blit.ring(self, Vector2(0, -1), r + 3.5, 1.0, Color(_champion_color, 0.8))
-	if id == "GOLDEN_MOUSE":
-		for k in 3:
-			Blit.disc(self, Vector2(0, -1), r + 2.0 + k * 3.0, Color(1.0, 0.85, 0.3, 0.12))
-	# The halo and shadow are drawn for all enemies at once by EnemyGround
-	# (props draw their own shadow).
+	# The halo, shadow, champion aura and spawn ring are drawn for all enemies
+	# at once by EnemyGround (props draw their own shadow).
 	var sprite := Sprites.enemy(id) if _shape != "cat" else {}
 	if not sprite.is_empty():
 		if is_prop:

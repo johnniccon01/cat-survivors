@@ -120,11 +120,11 @@ func _physics_process(delta: float) -> void:
 			items.remove_at(i)
 
 
-## Pulls every kibble on the map towards the cat (magnet pickup, magnet core).
+## Pulls every kibble and coin on the map towards the cat (magnet pickup, magnet core).
 func pull_all_xp() -> void:
 	Audio.play("magnet", -4.0, 0.0)
 	for other in items:
-		if other.kind == Pickup.Kind.XP and not other.attracted:
+		if (other.kind == Pickup.Kind.XP or other.kind == Pickup.Kind.COIN) and not other.attracted:
 			other.attracted = true
 			other.speed = 0.0
 

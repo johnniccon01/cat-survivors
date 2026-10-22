@@ -1389,7 +1389,7 @@ SET_LOW_FX,"Effect saver (fewer effects, smoother on laptops)","Úsporný režim
 BOSS_CHEST_TITLE,Boss chest – pick one!,Truhlica bossa – vyber si!,Truhla bosse – vyber si!
 BOSS_CHEST_JACKPOT,Jackpot! You get all three!,Jackpot! Dostávaš všetky tri!,Jackpot! Dostáváš všechny tři!
 CAT_STRAY_NAME,Stray,Túlavec,Tulák
-CAT_STRAY_DESC,"A street cat with nothing but its wits. Starts with no weapon – the first one comes at level 3. Fast, lucky, learns quickly and carries one weapon more.","Pouličná mačka, ktorá má len svoj rozum. Začína bez zbrane – prvú dostane až na 3. leveli. Rýchla, šťastná, rýchlo sa učí a unesie o zbraň viac.","Pouliční kočka, která má jen svůj rozum. Začíná bez zbraně – první dostane až na 3. levelu. Rychlá, šťastná, rychle se učí a unese o zbraň víc."
+CAT_STRAY_DESC,"A street cat with nothing but its wits. Starts with no weapon – the first one comes at level 5. Fast, lucky, learns quickly and carries one weapon more.","Pouličná mačka, ktorá má len svoj rozum. Začína bez zbrane – prvú dostane až na 5. leveli. Rýchla, šťastná, rýchlo sa učí a unesie o zbraň viac.","Pouliční kočka, která má jen svůj rozum. Začíná bez zbraně – první dostane až na 5. levelu. Rychlá, šťastná, rychle se učí a unese o zbraň víc."
 CAT_STRAY_HINT,,,
 SELECT_NO_WEAPON,No weapon – use the traps!,Bez zbrane – využi pasce!,Bez zbraně – využij pasti!
 GRADE_1,Rare · level %d,Vzácne · úroveň %d,Vzácné · úroveň %d
@@ -1462,3 +1462,22 @@ ACH_LEGENDARY_DESC,Pick a legendary level-up card,Vyber si legendárnu kartu pri
 CHARM_FOUND_QUALITY,Charm found: %s %s,Nájdený talizman: %s %s,Nalezený talisman: %s %s
 SUMMARY_CHARM_UPGRADED,Better copy: %s is now %s,Lepší kúsok: %s má teraz %s,Lepší kousek: %s má teď %s
 CHARM_QUALITY,Quality %s: effect +%d %%,Kvalita %s: účinok +%d %%,Kvalita %s: účinek +%d %%
+ENEMY_SHADOW_HOUND_NAME,The Shadow Hound,Tieňový pes,Stínový pes
+ENEMY_SHADOW_HOUND_DESC,"A huge black dog that lives deep in the dark, far beyond the cellar. Only red eyes give it away.","Obrovský čierny pes, ktorý žije hlboko v tme, ďaleko za pivnicou. Prezradia ho len červené oči.","Obrovský černý pes, který žije hluboko ve tmě, daleko za sklepem. Prozradí ho jen rudé oči."
+CHAIN_FAR_WANDERER_NAME,The End of the Garden,Koniec záhrady,Konec zahrady
+CHAIN_FAR_WANDERER_DESC,They say the garden never ends. Has anyone ever walked far enough to find out?,"Vraj záhrada nikdy nekončí. Prešiel ju už niekto tak ďaleko, aby to zistil?","Prý zahrada nikdy nekončí. Došel někdo tak daleko, aby to zjistil?"
+CHAIN_FAR_WANDERER_1,Follow the giant paw prints,Choď po obrovských stopách,Jdi po obrovských stopách
+CHAIN_FAR_WANDERER_1_START,"So far from home... and here are paw prints, bigger than any cat's.","Tak ďaleko od domova... a tu sú stopy, väčšie než od hocijakej mačky.","Tak daleko od domova... a tady jsou stopy, větší než od jakékoli kočky."
+CHAIN_FAR_WANDERER_2,Defeat the King at the end of the garden,Poraz kráľa na konci záhrady,Poraz krále na konci zahrady
+CHAIN_FAR_WANDERER_2_DONE,The real end of the garden. Nobody has ever come this far.,Skutočný koniec záhrady. Tak ďaleko ešte nikto nedošiel.,Skutečný konec zahrady. Tak daleko ještě nikdo nedošel.
+CHAIN_SHADOW_HOUND_NAME,The Shadow Hound,Tieňový pes,Stínový pes
+CHAIN_SHADOW_HOUND_DESC,"The deeper you go into the cellar, the darker it gets. And something there growls.","Čím hlbšie ideš do pivnice, tým je väčšia tma. A niečo tam vrčí.","Čím hlouběji jdeš do sklepa, tím je větší tma. A něco tam vrčí."
+CHAIN_SHADOW_HOUND_1,Defeat the Shadow Hound,Poraz Tieňového psa,Poraz Stínového psa
+CHAIN_SHADOW_HOUND_1_START,Two red eyes in total darkness. You came too far...,Dve červené oči v úplnej tme. Zašiel si priďaleko...,Dvě rudé oči v úplné tmě. Zašel jsi příliš daleko...
+CHAIN_SHADOW_HOUND_1_DONE,The Shadow Hound is gone. The darkness feels a little lighter.,Tieňový pes je preč. Tma je zrazu o kúsok svetlejšia.,Stínový pes je pryč. Tma je najednou o kousek světlejší.
+CHAIN_BLOOD_TRAIL_NAME,The Red Trail,Červená stopa,Rudá stopa
+CHAIN_BLOOD_TRAIL_DESC,Somewhere in the harbour there are red drops on the ground. Where do they lead?,Niekde v prístave sú na zemi červené kvapky. Kam vedú?,Někde v přístavu jsou na zemi rudé kapky. Kam vedou?
+CHAIN_BLOOD_TRAIL_1,Protect the wounded sailor cat,Chráň zraneného námorníckeho kocúra,Chraň zraněného námořnického kocoura
+CHAIN_BLOOD_TRAIL_1_START,At the end of the trail lies a wounded sailor cat. The pirate rats are coming for him!,Na konci stopy leží zranený námornícky kocúr. Idú poňho pirátske potkany!,Na konci stopy leží zraněný námořnický kocour. Jdou si pro něj pirátské krysy!
+CHAIN_BLOOD_TRAIL_2,Defeat the one who hurt him,"Poraz toho, kto ho zranil","Poraz toho, kdo ho zranil"
+CHAIN_BLOOD_TRAIL_2_DONE,The sailor cat will live. He thanks you with his old treasure.,Kocúr prežije. Ďakuje ti svojím starým pokladom.,Kocour přežije. Děkuje ti svým starým pokladem.

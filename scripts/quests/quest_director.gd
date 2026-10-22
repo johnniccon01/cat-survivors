@@ -26,6 +26,17 @@ var _cat_given := false
 var _chains_failed: Array[String] = []
 var _cfg: Dictionary
 
+## Secret chains ("secret" in chains.json) are never on the schedule. "far":
+## found once the cat wanders that far from where the night began (any
+## direction; "dark_from" makes the map darker on the way). "trail": found
+## at the end of a long blood trail (BloodTrail).
+var _secrets: Array[String] = []
+var _secret_found: Array[String] = []
+## Chain id -> its BloodTrail.
+var _trails: Dictionary = {}
+## Where the night began; "far" secrets measure from here.
+var _origin := Vector2.ZERO
+
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -36,6 +47,27 @@ func setup(p_main: Node) -> void:
 	_cfg = GameData.quests
 	_timer = float(_cfg["schedule"]["first_delay"])
 	ChainStep.warm()
+	_origin = main.player.position
+	for id: String in GameData.chains:
+		var chain: Dictionary = GameData.chains[id]
+		if not chain.has("secret") or chain.get("stage", "any") != main.spawner.stage_id:
+			continue
+		if not chain.get("requires", []).all(func(f: String) -> bool: return Profile.has_flag(f)):
+			continue
+		# A far secret darkens its map even once it's done.
+		_secrets.append(id)
+		if chain["secret"]["type"] == "trail" and not ChainStep.is_done(id):
+			var trail := BloodTrail.new()
+			trail.setup(_origin, chain["secret"])
+			main.add_child(trail)
+			_trails[id] = trail
+
+
+## End of a secret trail on this map (Vector2.INF if none; tests).
+func trail_end() -> Vector2:
+	for trail: BloodTrail in _trails.values():
+		return trail.end
+	return Vector2.INF
 
 
 ## Starts a specific quest right away, next to the cat (debug).
@@ -45,7 +77,11 @@ func force(quest_id: String) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if active != null or main == null or main.player.is_dead or main.final_boss != null:
+	if main == null or main.player.is_dead:
+		return
+	if not _secrets.is_empty():
+		_update_secrets()
+	if active != null or main.final_boss != null:
 		return
 	_timer -= delta
 	if _timer > 0.0:
@@ -72,6 +108,35 @@ func _physics_process(delta: float) -> void:
 	_start(quest_id, randf_range(dist[0], dist[1]))
 
 
+## Finds secrets and starts a found one as soon as no other quest runs.
+func _update_secrets() -> void:
+	var far: float = main.player.position.distance_to(_origin)
+	var dark := 0.0
+	for id: String in _secrets:
+		var secret: Dictionary = GameData.chains[id]["secret"]
+		if secret.has("dark_from"):
+			var from := float(secret["dark_from"])
+			dark = maxf(dark, clampf((far - from) / (float(secret["distance"]) - from), 0.0, 1.0))
+		# (Not while one of its steps runs: the next step is found afterwards.)
+		if id in _secret_found or id in _chains_failed or ChainStep.is_done(id) \
+				or (active is ChainStep and (active as ChainStep).chain_id == id):
+			continue
+		var found := false
+		match secret["type"]:
+			"far":
+				found = far >= float(secret["distance"])
+			"trail":
+				found = _trails.has(id) and (_trails[id] as BloodTrail).reached(main.player.position)
+		if found:
+			_secret_found.append(id)
+	main.night.far_dark = dark
+	if active != null or main.final_boss != null or _secret_found.is_empty():
+		return
+	var id: String = _secret_found.pop_front()
+	var at := (_trails[id] as BloodTrail).end if _trails.has(id) else Vector2.INF
+	_start(id, 180.0, at)
+
+
 ## The stage's story quest, unless its flag is already set.
 func _pick_story() -> String:
 	var story_id: String = main.spawner.stage().get("story", "")
@@ -88,7 +153,7 @@ func _pick_chain() -> String:
 	var ids: Array = GameData.chains.keys()
 	ids.sort_custom(func(x: String, y: String) -> bool: return _chain_rank(x) < _chain_rank(y))
 	for id: String in ids:
-		if ChainStep.is_done(id) or id in _chains_failed:
+		if ChainStep.is_done(id) or id in _chains_failed or GameData.chains[id].has("secret"):
 			continue
 		var needs: Array = GameData.chains[id].get("requires", [])
 		if not needs.all(func(f: String) -> bool: return Profile.has_flag(f)):
@@ -132,7 +197,8 @@ func _pick_cat() -> String:
 	return ""
 
 
-func _start(quest_id: String, distance: float) -> void:
+## `at`: where the quest waits (Vector2.INF: `distance` away from the cat).
+func _start(quest_id: String, distance: float, at: Vector2 = Vector2.INF) -> void:
 	var quest: Quest
 	var cat_quests: Dictionary = _cfg["cat_quests"]
 	if GameData.chains.has(quest_id):
@@ -153,7 +219,7 @@ func _start(quest_id: String, distance: float) -> void:
 		quest.expire_after = float(_cfg["schedule"]["side_expire"])
 	quest.quest_id = quest_id
 	quest.main = main
-	quest.position = main.player.position + Vector2.from_angle(randf() * TAU) * distance
+	quest.position = at if at != Vector2.INF else main.player.position + Vector2.from_angle(randf() * TAU) * distance
 	quest.finished.connect(_on_finished)
 	main.add_child(quest)
 	active = quest

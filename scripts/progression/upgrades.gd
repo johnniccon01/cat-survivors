@@ -32,9 +32,9 @@ const GRADE_COLORS := [Color("6b5480"), Color("4aa3ff"), Color("b06aff"), Color(
 ## already has can show up (used by treasure chests).
 static func roll(player: Player, count: int = 3, owned_only: bool = false) -> Array[Dictionary]:
 	var pool: Array[Dictionary] = []
-	# The Stray (no weapon) gets passives at level 2 and only weapons from level 3.
+	# The Stray (no weapon) gets passives at levels 2-4 and only weapons from level 5.
 	var weaponless := player.weapon_count() == 0 and not owned_only
-	var no_weapons_yet := weaponless and player.level < 3
+	var no_weapons_yet := weaponless and player.level < 5
 	for id: String in GameData.weapons:
 		var data: Dictionary = GameData.weapons[id]
 		if data.get("evolved", false):

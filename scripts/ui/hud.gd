@@ -507,7 +507,7 @@ func _stories_text() -> String:
 	var stage: String = spawner.stage_id
 	var parts: Array[String] = []
 	for id: String in GameData.chains:
-		if GameData.chains[id].get("stage", "any") != stage:
+		if GameData.chains[id].get("stage", "any") != stage or (GameData.chains[id].has("secret") and ChainStep.progress_of(id) == 0):
 			continue
 		var n := ChainStep.steps(id).size()
 		var done := ChainStep.progress_of(id)

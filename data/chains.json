@@ -1135,5 +1135,92 @@
         "times": 3
       }
     ]
+  },
+  "FAR_WANDERER": {
+    "stage": "GARDEN",
+    "secret": {
+      "type": "far",
+      "distance": 7000
+    },
+    "reward": {
+      "gold": 1500,
+      "charm": "TWIN_KITTEN"
+    },
+    "steps": [
+      {
+        "type": "trail",
+        "count": 5,
+        "spacing": [
+          160,
+          220
+        ],
+        "look": "pawprints"
+      },
+      {
+        "type": "boss",
+        "enemy": "GNOME_KING",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240
+      }
+    ]
+  },
+  "SHADOW_HOUND": {
+    "stage": "BASEMENT",
+    "secret": {
+      "type": "far",
+      "distance": 9000,
+      "dark_from": 1500
+    },
+    "reward": {
+      "gold": 2500,
+      "charm": "GOLDEN_FANG"
+    },
+    "steps": [
+      {
+        "type": "boss",
+        "enemy": "SHADOW_HOUND",
+        "look": "bone",
+        "dark": true,
+        "distance": 260
+      }
+    ]
+  },
+  "BLOOD_TRAIL": {
+    "stage": "HARBOR",
+    "secret": {
+      "type": "trail",
+      "legs": 12,
+      "leg": [
+        380,
+        560
+      ],
+      "start": [
+        300,
+        450
+      ]
+    },
+    "reward": {
+      "gold": 2000,
+      "charm": "NINTH_LIFE"
+    },
+    "steps": [
+      {
+        "type": "defend",
+        "time": 40,
+        "mode": "enemies",
+        "enemy": "PIRATE_RAT",
+        "spawn_every": 3.0,
+        "spawn_count": 4,
+        "look": "boat"
+      },
+      {
+        "type": "boss",
+        "enemy": "OCTOPUS",
+        "hp_mult": 3.0,
+        "look": "barrel",
+        "distance": 220
+      }
+    ]
   }
 }

@@ -164,7 +164,9 @@ func _chain_row(id: String) -> Control:
 	var steps := ChainStep.progress_of(id)
 	var name_label := _label(18, DONE if done else Color.WHITE, HORIZONTAL_ALIGNMENT_LEFT)
 	name_label.custom_minimum_size.x = 640
-	name_label.text = "%s %s" % ["✓" if done else "·", tr("CHAIN_%s_NAME" % id)]
+	# A secret keeps its name hidden until it is found (its hint still shows).
+	var hidden: bool = ChainStep.chain(id).has("secret") and steps == 0
+	name_label.text = "%s %s" % ["✓" if done else "·", "???" if hidden else tr("CHAIN_%s_NAME" % id)]
 	top.add_child(name_label)
 	var dots := _label(16, GOLD, HORIZONTAL_ALIGNMENT_LEFT)
 	dots.custom_minimum_size.x = 120

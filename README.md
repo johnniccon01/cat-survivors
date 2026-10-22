@@ -40,6 +40,7 @@ Godot_v4.6.2-stable_win64_console.exe --headless --path . -- --bot
 - `--show-levelup` – bot nechá level-up okno otvorené
 - `--test-evolution` – overí evolúciu Škrabanca a skončí
 - `--quest=ID` – hneď spustí quest (LUNA, SNOWBALL, PIP, TIGER, BARON, DEFEND_BOWL, RED_DOT, FRIDGE)
+- `--teleport=X,Y` – presunie mačku na začiatku (`trail` = na koniec tajnej krvavej stopy)
 - `--cat=ID` – hrá za danú mačku bez odomknutia
 - `--stage=ID` – hrá danú mapu bez odomknutia (LIVING_ROOM, BASEMENT, GARDEN, ROOFTOP, SUPERMARKET, HARBOR, FACTORY)
 - `--levels=N` – začne s N náhodnými vylepšeniami (test neskorej hry)

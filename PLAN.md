@@ -199,6 +199,18 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Pravý stĺpec HUD (úloha, zlato, požehnania) sa skladá pod seba – dlhý text úlohy už neprekryje požehnanie svätyne
 - [x] Ponuka vetvy zbrane menuje vetvy, ktoré sa zavrú
 - [x] Robomyška: väčší výbuch (52 px × plocha), oranžový kruh; výbuchy už nekreslia zvonček (len zbraň Zvonček)
+
+## Tajomstvá a ľahšie Strechy (22. 10. 2026)
+
+- [x] Túlavec dostane prvú zbraň až na 5. leveli (predtým 3.)
+- [x] Magnet ťahá z celej mapy aj mince (granuly už ťahal)
+- [x] Health bar mačky vo vlastnej vrstve nad nepriateľmi a efektmi, širší s bielym okrajom
+- [x] Strechy: nepriatelia dávajú 0,85× damage (`damage_mult` v stages.json); obchod Max zdravie 5 stupňov namiesto 3
+- [x] Tajné reťazce (`"secret"` v chains.json, mimo plánovača, v denníku „???“ kým sa nenájdu):
+  - Koniec záhrady (Záhrada): odíď 7000 px od štartu hocikam → stopy + Kráľ trpaslíkov
+  - Tieňový pes (Pivnica): čím ďalej, tým tmavšie (od 1500 px), pri 9000 px boss pes v tme
+  - Červená stopa (Prístav): dlhá krvavá stopa krížom-krážom (12 úsekov, ~5 500 px) → ochráň kocúra + boss Chobotnica
+- [ ] Overiť v hre: vzdialenosti (7000 / 9000 px), sila bossov, či Túlavec do 5. levelu nie je priťažký
 ## Fáza 3 – Grafika a zvuk
 
 - [ ] Sprity aj pre nábytok, podlahy, zbrane a projektily (teraz sú kreslené vektorovo)

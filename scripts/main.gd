@@ -17,6 +17,8 @@ extends Node2D
 ##   --show-choice      the bot leaves story and shrine choices open
 ##   --test-evolution   maxes the starting weapon + its partner passive, opens a chest, prints, quits
 ##   --quest=ID         starts quest ID next to the cat (LUNA, TIGER, RED_DOT...)
+##   --teleport=X,Y     moves the cat there at the start ("trail": to the end of
+##                      the map's secret blood trail; tests for secrets)
 ##   --cat=ID           play as cat ID (see data/cats.json)
 ##   --start-weapon=ID  start with weapon ID instead of the cat's own
 ##   --branch=W:B:R     give weapon W branch B at rank R (comma-separated list)
@@ -243,6 +245,10 @@ func _ready() -> void:
 	var forced := _arg("--quest=", "")
 	if forced != "":
 		quests.force.call_deferred(forced)
+	var teleport := _arg("--teleport=", "")
+	if teleport != "":
+		var to: Vector2 = quests.trail_end() if teleport == "trail" else Vector2(teleport.get_slice(",", 0).to_float(), teleport.get_slice(",", 1).to_float())
+		player.position = to
 	enemies.enemy_killed.connect(_on_enemy_killed)
 	enemies.prop_broken.connect(_on_prop_broken)
 	enemies.champion_killed.connect(_on_champion_killed)

@@ -238,7 +238,7 @@ func _physics_process(delta: float) -> void:
 	if _player == null or _player.is_dead:
 		return
 	elapsed += delta
-	_enemies.damage_mult = (1.0 + DAMAGE_PER_MINUTE_SQ * pow(elapsed / 60.0, 2.0)) * early_ease() * sqrt(challenge()) * (1.0 + DARKNESS_DAMAGE * darkness)
+	_enemies.damage_mult = (1.0 + DAMAGE_PER_MINUTE_SQ * pow(elapsed / 60.0, 2.0)) * early_ease() * sqrt(challenge()) * (1.0 + DARKNESS_DAMAGE * darkness) * float(_stage.get("damage_mult", 1.0))
 	_enemies.speed_mult = 1.0 + minf(SPEED_PER_MINUTE * elapsed / 60.0, SPEED_MAX_BONUS) + minf(ENDLESS_SPEED_PER_MINUTE * endless_minutes(), ENDLESS_SPEED_MAX)
 	if _cleared:
 		return

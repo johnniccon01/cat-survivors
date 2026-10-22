@@ -761,6 +761,7 @@
   },
   "ROOFTOP": {
     "theme": "rooftop",
+    "damage_mult": 0.85,
     "music": "music_rooftop",
     "music_alt": "music_rooftop_alt",
     "requires": "GARDEN",

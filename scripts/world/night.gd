@@ -77,6 +77,9 @@ var spawner: Spawner
 var _keys: Array = KEYS
 ## Above 0 while a quest has turned the lights off.
 var dark := 0
+## 0..1: how deep the cat has wandered into a map that darkens with
+## distance (a "far" secret with "dark_from", see QuestDirector).
+var far_dark := 0.0
 var _cat_light: PointLight2D
 
 
@@ -103,12 +106,14 @@ func _process(_delta: float) -> void:
 		if t <= b[0]:
 			tint = (a[1] as Color).lerp(b[1], (t - a[0]) / (b[0] - a[0]))
 			break
-	if dark > 0:
-		tint = tint.darkened(0.82)
+	# 0..1: lights out (quest) is full, the far dark grows on the way.
+	var gloom := 1.0 if dark > 0 else far_dark
+	if gloom > 0.0:
+		tint = tint.darkened(0.82 * gloom)
 	color = tint
 	if _cat_light != null:
-		_cat_light.energy = 1.4 if dark > 0 else 0.35
+		_cat_light.energy = lerpf(0.35, 1.4, gloom)
 		# In daylight the glow shows little; switched off it also lets Godot
 		# draw more of the crowd in one go (a light splits batches).
-		_cat_light.visible = dark > 0 or tint.get_luminance() < 0.8
-		_cat_light.texture_scale = 3.2 if dark > 0 else 2.4
+		_cat_light.visible = gloom > 0.0 or tint.get_luminance() < 0.8
+		_cat_light.texture_scale = lerpf(2.4, 3.2, gloom)

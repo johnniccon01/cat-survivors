@@ -751,6 +751,23 @@
     "minion": "TIN_CAN",
     "music": "music_boss_rex"
   },
+  "SHADOW_HOUND": {
+    "shape": "dog",
+    "boss": true,
+    "behavior": "dash",
+    "scale": 3.8,
+    "color": "#2a2630",
+    "accent": "#e04646",
+    "hp": 9000,
+    "speed": 58,
+    "damage": 26,
+    "radius": 30,
+    "xp": 300,
+    "knockback_resist": 1.0,
+    "summon": "BAT",
+    "summon_count": 6,
+    "summon_every": 6.0
+  },
   "CRAB": {
     "shape": "crab",
     "color": "#d9534f",

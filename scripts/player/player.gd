@@ -83,6 +83,9 @@ var is_dead := false
 var passives: Dictionary = {}
 var stats: Dictionary = BASE_STATS.duplicate()
 var _look: Dictionary
+## Own HP bar layer above enemies and weapon effects, so it stays readable
+## in a big late-game crowd.
+var _hp_bar: Node2D
 var _follow_offset := Vector2.ZERO
 var _shake := 0.0
 var _shake_time := 0.0
@@ -109,6 +112,10 @@ func _ready() -> void:
 		max_hp = escort_hp
 		stats["speed"] = 0.8
 	hp = max_hp
+	_hp_bar = Node2D.new()
+	_hp_bar.z_index = 19
+	_hp_bar.draw.connect(_draw_hp_bar)
+	add_child(_hp_bar)
 	revivals_left = int(stats["revival"])
 	rerolls_left = int(stats["reroll"])
 	banish_left = int(stats["banish"])
@@ -517,14 +524,20 @@ func _bot_input(delta: float) -> Vector2:
 
 func _draw() -> void:
 	CatArt.draw(self, _look, facing, _walk_t, _hurt_flash > 0.0, is_dead, "normal", Vector2.ZERO, 1.0, velocity.length_squared() > 1.0)
+	if _hp_bar != null:
+		_hp_bar.queue_redraw()
+
+
+func _draw_hp_bar() -> void:
 	if is_dead or is_companion():
 		return
 	if controller == "escort":
-		draw_rect(Rect2(-10, -24, 20, 4), OUTLINE)
-		draw_rect(Rect2(-9, -23, 18 * hp / max_hp, 2), Color("6cc46c"))
+		_hp_bar.draw_rect(Rect2(-10, -24, 20, 4), OUTLINE)
+		_hp_bar.draw_rect(Rect2(-9, -23, 18 * hp / max_hp, 2), Color("6cc46c"))
 		return
-	# HP bar
-	var w := 18.0
+	# Wider bar with a light rim: it has to stand out in a crowd.
+	var w := 22.0
 	var y := 11.0 * float(_look["size"])
-	draw_rect(Rect2(-w * 0.5 - 1, y, w + 2, 4), OUTLINE)
-	draw_rect(Rect2(-w * 0.5, y + 1, w * hp / max_hp, 2), Color("e04646"))
+	_hp_bar.draw_rect(Rect2(-w * 0.5 - 2, y - 1, w + 4, 6), Color(1, 1, 1, 0.85))
+	_hp_bar.draw_rect(Rect2(-w * 0.5 - 1, y, w + 2, 4), OUTLINE)
+	_hp_bar.draw_rect(Rect2(-w * 0.5, y + 1, w * hp / max_hp, 2), Color("ff3b3b"))

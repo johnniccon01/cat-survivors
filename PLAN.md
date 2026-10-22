@@ -3,7 +3,7 @@
 Živý zoznam toho, čo je hotové, čo robíme teraz a čo príde. Po každom kroku
 ho aktualizujeme: hotové odškrtneme `[x]`, nové nápady pridáme do Zásobníka.
 
-Naposledy aktualizované: 18. 10. 2026 (príbehy, achievementy, Továreň)
+Naposledy aktualizované: 22. 10. 2026 (výkon, svätyne s voľbou)
 
 ---
 
@@ -167,7 +167,7 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Výzva: každá mapa má faktor obtiažnosti (Obývačka 1,0 … Továreň 2,2), ktorý od 6. do 20. minúty násobí HP nepriateľov a (odmocninou) ich poškodenie aj finálneho bossa
 - [x] Hudba: každá mapa má druhú dennú skladbu v inom štýle (valčík, synthwave, reggae, swing, lounge jazz, námornícky valčík, industriálny synth) – `tools/gen_music_alt.py`; každý beh náhodne jednu z dvoch (`--music=alt/main`)
 - [x] Výkon: tiene a žiary všetkých nepriateľov kreslí jeden uzol (menej práce na nepriateľa)
-- [ ] Výkon na notebooku: zmerať priamo na ňom (`--perf`); ak treba, ďalej znížiť počet draw callov
+- [x] Výkon na notebooku: draw cally výrazne znížené (pozri Výkon a svätyne 22. 10.)
 
 ## Nápady z Death Must Die (20. 10. 2026)
 
@@ -180,6 +180,15 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Výber mačky: pozadie s mestom, bonusy mačky ako farebné štítky, zvýraznenie pod myšou, hviezdičky obtiažnosti a dĺžka noci, výraznejšie tlačidlo Hrať
 - [x] Kvalita talizmanov ★☆☆☆ až ★★★★ (každá hviezda +35 % účinku); lepší kúsok toho istého talizmanu vylepší tvoj namiesto zlata; šťastie zvyšuje šancu na lepšiu kvalitu
 - [ ] Predmety s náhodnými vlastnosťami (výbava ako v Death Must Die) – veľký systém, zatiaľ nie
+
+## Výkon a svätyne (22. 10. 2026)
+
+- [x] Výkon (ako Vampire Survivors / Halls of Torment – všetko v dávkach): podlaha každého chunku (zem, nábytok, svetlo) sa nakreslí raz do textúry; sprity všetkých nepriateľov a mačiek v jednom atlase; tiene, zásahy, strely, granulky, mince, pasce a efekty zbraní cez spoločnú textúru (`Blit`); čísla poškodenia najprv všetky obrysy, potom výplne; granulky bez `_process`; svetlo mačky len v noci; skripty krokov questov sa načítajú na začiatku noci
+- [x] Výsledok (RTX 4070 Ti, 17. minúta Strechy, všetkých 16 zbraní): ~60 → ~340 FPS, draw cally ~3300 → ~430; bežná hra v 17. minúte ~380 FPS
+- [x] Nové testovacie prepínače: `--seed=N`, `--no-vsync`, `--shot=SEKUNDY` (screenshoty), `--show-choice`
+- [x] Svätyne ako v Death Must Die: po prebudení výber z 2–3 darov – prvý vždy bezpečný, ostatné silnejšie s cenou (krvavá prísaha, búrka, smotana, sladké ovocie = 2 levely za 40 % zdravia, chamtivosť, veľká kliatba so šampiónmi a truhlicou bossa); trvalé bonusy do konca noci; voľby aj myšou
+- [ ] Zahrať a povedať, či sú dary svätýň vyvážené
+- [ ] Výkon na notebooku: zahrať jednu noc a poslať `perf.log` (`%APPDATA%\Godot\app_userdata\Cat Survivors\perf.log`)
 
 ## Fáza 3 – Grafika a zvuk
 

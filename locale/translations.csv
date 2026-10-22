@@ -1357,25 +1357,16 @@ BRANCH_TARGETING_NAME,Targeting,Zameriavač,Zaměřovač
 BRANCH_TARGETING_DESC,Finishes off weakened enemies.,Dorazí oslabených nepriateľov.,Dorazí oslabené nepřátele.
 MENU_PROGRESS,Stories %d / %d   ·   Achievements %d / %d,Príbehy %d / %d   ·   Úspechy %d / %d,Příběhy %d / %d   ·   Úspěchy %d / %d
 NEWS_TITLE,What's new,Čo je nové,Co je nového
-NEWS_TEXT,"• Level-up cards can be Rare, Epic or Legendary – several levels at once
-• Banish a card you never want: Shift + its number (2 per night)
-• Cat shrines on the map: might, wind, milk, fortune – or a cursed one with guards and a chest
-• Darkness 1–5 on every map you have won: tougher enemies, more gold (- / + on the map screen)
-• Charms have a quality (★ to ★★★★); a better copy upgrades yours
-• A livelier menu and cat selection: bonuses at a glance, map difficulty stars
-• Earlier: the Stray, boss chests with a pick, a second song per map","• Karty pri leveli môžu byť Vzácne, Epické alebo Legendárne – viac úrovní naraz
-• Kartu, ktorú nechceš, vyhoď: Shift + jej číslo (2 za noc)
-• Mačacie svätyne na mape: sila, vietor, mlieko, šťastie – alebo prekliata so strážcami a truhlicou
-• Temnota 1–5 na každej vyhratej mape: silnejší nepriatelia, viac zlata (- / + pri výbere mapy)
-• Talizmany majú kvalitu (★ až ★★★★); lepší kúsok vylepší ten tvoj
-• Živšie menu a výber mačky: bonusy na prvý pohľad, hviezdičky obtiažnosti máp
-• Predtým: Túlavec, výber z truhlice po bossovi, druhá pesnička na každej mape","• Karty při levelu můžou být Vzácné, Epické nebo Legendární – víc úrovní najednou
-• Kartu, kterou nechceš, vyhoď: Shift + její číslo (2 za noc)
-• Kočičí svatyně na mapě: síla, vítr, mléko, štěstí – nebo prokletá se strážci a truhlou
-• Temnota 1–5 na každé vyhrané mapě: silnější nepřátelé, víc zlata (- / + při výběru mapy)
-• Talismany mají kvalitu (★ až ★★★★); lepší kousek vylepší ten tvůj
-• Živější menu a výběr kočky: bonusy na první pohled, hvězdičky obtížnosti map
-• Dříve: Tulák, výběr z truhly po bossovi, druhá písnička na každé mapě"
+NEWS_TEXT,"• Much faster: the floor is drawn once into a picture, and enemies, effects and kibble are drawn in big batches (a busy late night runs several times smoother)
+• Shrines now ask what you want: a safe gift, or a bigger one with a price – blood oath, storm, sweet fruit, greed, great curse
+• Choices can be picked with the mouse too
+• Earlier: rare level-up cards, banish, darkness 1–5, charm quality, a livelier menu","• Oveľa rýchlejšie: podlaha sa nakreslí raz do obrázka a nepriatelia, efekty aj granulky sa kreslia vo veľkých dávkach (rušná neskorá noc beží niekoľkonásobne plynulejšie)
+• Svätyne sa teraz pýtajú, čo chceš: bezpečný dar, alebo väčší za cenu – krvavá prísaha, búrka, sladké ovocie, chamtivosť, veľká kliatba
+• Voľby sa dajú vybrať aj myšou
+• Predtým: vzácne karty pri leveli, vyhodenie karty, temnota 1–5, kvalita talizmanov, živšie menu","• Mnohem rychlejší: podlaha se nakreslí jednou do obrázku a nepřátelé, efekty i granule se kreslí ve velkých dávkách (rušná pozdní noc běží několikanásobně plynuleji)
+• Svatyně se teď ptají, co chceš: bezpečný dar, nebo větší za cenu – krvavá přísaha, bouře, sladké ovoce, chamtivost, velká kletba
+• Volby jdou vybrat i myší
+• Dříve: vzácné karty při levelu, vyhození karty, temnota 1–5, kvalita talismanů, živější menu"
 NEWS_HINT,Press any key,Stlač ľubovoľný kláves,Stiskni libovolnou klávesu
 CHAIN_GROUP_ANY,Across the maps and anywhere,Cez všetky mapy a kdekoľvek,Přes všechny mapy a kdekoli
 SELECT_DAILY,T daily night: %s · %s,T denná noc: %s · %s,T denní noc: %s · %s

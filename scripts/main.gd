@@ -115,6 +115,8 @@ var _slow_t := 0.0
 ## to user://perf.log, overwritten each run.
 var _perf_log: FileAccess
 var _perf_log_t := 10.0
+## Longest frame (ms) since the last perf.log line: shows hitches.
+var _worst_frame := 0.0
 var _fast_t := 0.0
 const SLOW_FPS := 40
 const SLOW_FOR := 4.0
@@ -362,6 +364,8 @@ func _watch_frame_rate(real_delta: float) -> void:
 
 func _write_perf_log(real_delta: float) -> void:
 	_perf_log_t -= real_delta
+	if not get_tree().paused:
+		_worst_frame = maxf(_worst_frame, real_delta * 1000.0)
 	if _perf_log_t > 0.0 or get_tree().paused:
 		return
 	_perf_log_t = 10.0
@@ -384,8 +388,10 @@ func _write_perf_log(real_delta: float) -> void:
 	for w: Node in player.weapons.get_children():
 		if w is Weapon:
 			arms.append("%s%d" % [w.id, w.level])
-	_perf_log.store_line("t=%d fps=%d proc=%.1fms draws=%d nodes=%d enemies=%d calm=%s saver=%s | %s | %s" % [
-		int(spawner.elapsed), Engine.get_frames_per_second(),
+	var worst := _worst_frame
+	_worst_frame = 0.0
+	_perf_log.store_line("t=%d fps=%d worst=%.0fms proc=%.1fms draws=%d nodes=%d enemies=%d calm=%s saver=%s | %s | %s" % [
+		int(spawner.elapsed), Engine.get_frames_per_second(), worst,
 		Performance.get_monitor(Performance.TIME_PROCESS) * 1000.0,
 		Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),
 		Performance.get_monitor(Performance.OBJECT_NODE_COUNT), enemies.enemies.size(),

@@ -184,7 +184,8 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 ## Výkon a svätyne (22. 10. 2026)
 
 - [x] Výkon (ako Vampire Survivors / Halls of Torment – všetko v dávkach): podlaha každého chunku (zem, nábytok, svetlo) sa nakreslí raz do textúry; sprity všetkých nepriateľov a mačiek v jednom atlase; tiene, zásahy, strely, granulky, mince, pasce a efekty zbraní cez spoločnú textúru (`Blit`); čísla poškodenia najprv všetky obrysy, potom výplne; granulky bez `_process`; svetlo mačky len v noci; skripty krokov questov sa načítajú na začiatku noci
-- [x] Výsledok (RTX 4070 Ti, 17. minúta Strechy, všetkých 16 zbraní): ~60 → ~340 FPS, draw cally ~3300 → ~430; bežná hra v 17. minúte ~380 FPS
+- [x] Výsledok (RTX 4070 Ti, 17. minúta Strechy, všetkých 16 zbraní): ~60 → ~360 FPS, draw cally ~3300 → ~380; bežná hra v 17. minúte ~380–460 FPS
+- [x] Bez zásekov: viewporty podlahy sa recyklujú (nový chunk 0,1 ms namiesto 2–8 ms), atlas spritov a skripty questov sa pripravia pri načítaní; `perf.log` zapisuje aj najdlhšiu snímku (`worst=`) za každých 10 s
 - [x] Nové testovacie prepínače: `--seed=N`, `--no-vsync`, `--shot=SEKUNDY` (screenshoty), `--show-choice`
 - [x] Svätyne ako v Death Must Die: po prebudení výber z 2–3 darov – prvý vždy bezpečný, ostatné silnejšie s cenou (krvavá prísaha, búrka, smotana, sladké ovocie = 2 levely za 40 % zdravia, chamtivosť, veľká kliatba so šampiónmi a truhlicou bossa); trvalé bonusy do konca noci; voľby aj myšou
 - [ ] Zahrať a povedať, či sú dary svätýň vyvážené

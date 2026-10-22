@@ -46,5 +46,4 @@ func _draw() -> void:
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2(grow, grow))
 	draw_colored_polygon(_shape, Color(0.97, 0.96, 0.92, 0.75 * fade))
 	draw_polyline(Shapes.closed(_shape), Color(0.85, 0.83, 0.78, 0.9 * fade), 1.0)
-	var shine := Shapes.ellipse(Vector2(-radius * 0.3, -radius * 0.2), radius * 0.25, radius * 0.1, 10)
-	draw_colored_polygon(shine, Color(1, 1, 1, 0.8 * fade))
+	Blit.ellipse(self, Vector2(-radius * 0.3, -radius * 0.2), radius * 0.25, radius * 0.1, Color(1, 1, 1, 0.8 * fade))

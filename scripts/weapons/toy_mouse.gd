@@ -76,18 +76,19 @@ func _explode() -> void:
 
 func _draw() -> void:
 	var facing := -1.0 if velocity.x < 0.0 else 1.0
-	draw_set_transform(Vector2.ZERO, 0.0, Vector2(facing, 1) * scale_k)
+	var base := Transform2D(0.0, Vector2(facing, 1) * scale_k, 0.0, Vector2.ZERO)
+	draw_set_transform_matrix(base)
 	var body := Color("b8bcc4") if robo else Color("9a9aa2")
 	# Tail, body, ear, eye, nose and the wind-up key on its back.
-	draw_line(Vector2(-5, 1), Vector2(-9, -1 + sin(_t * 20.0)), Color("d9a0a8"), 1.0)
-	draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, 5.5, 3.5), OUTLINE)
-	draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, 4.5, 2.6), body)
-	draw_circle(Vector2(2, -3), 1.6, Color("d9a0a8"))
-	draw_rect(Rect2(3, -1, 1, 1), Color("e04646") if robo else OUTLINE)
-	draw_rect(Rect2(5, 0, 1, 1), Color("f08aa0"))
+	Blit.line(self, Vector2(-5, 1), Vector2(-9, -1 + sin(_t * 20.0)), Color("d9a0a8"), 1.0, base)
+	Blit.ellipse(self, Vector2.ZERO, 5.5, 3.5, OUTLINE)
+	Blit.ellipse(self, Vector2.ZERO, 4.5, 2.6, body)
+	Blit.disc(self, Vector2(2, -3), 1.6, Color("d9a0a8"))
+	Blit.rect(self, Rect2(3, -1, 1, 1), Color("e04646") if robo else OUTLINE)
+	Blit.rect(self, Rect2(5, 0, 1, 1), Color("f08aa0"))
 	var turn := sin(_t * 10.0) * 2.0
-	draw_line(Vector2(-1, -2.5), Vector2(-1, -5), Color("c9a24a"), 1.0)
-	draw_line(Vector2(-1 - turn, -5), Vector2(-1 + turn, -5), Color("f2c14e"), 1.5)
+	Blit.line(self, Vector2(-1, -2.5), Vector2(-1, -5), Color("c9a24a"), 1.0, base)
+	Blit.line(self, Vector2(-1 - turn, -5), Vector2(-1 + turn, -5), Color("f2c14e"), 1.5, base)
 	if robo:
-		draw_circle(Vector2.ZERO, 7.0, Color(1.0, 0.3, 0.2, 0.15))
+		Blit.disc(self, Vector2.ZERO, 7.0, Color(1.0, 0.3, 0.2, 0.15))
 	draw_set_transform(Vector2.ZERO)

@@ -5,8 +5,8 @@ class_name Blit
 ## draw discs, rings, ellipses, bars and lines as rectangles cut from one small
 ## texture, so a whole crowd of them costs about one draw call.
 ##
-## line() uses draw_set_transform: call it only from a _draw without a
-## transform of its own.
+## line() uses draw_set_transform: from a _draw that sets its own transform,
+## pass that transform as `base` (it is restored afterwards).
 
 const CELL := 64
 ## Ring cells: how thick the ring is, as a share of its radius.
@@ -64,12 +64,12 @@ static func rect(ci: CanvasItem, r: Rect2, color: Color) -> void:
 	ci.draw_texture_rect_region(texture(), r, _solid, color)
 
 
-## A straight line `width` thick.
-static func line(ci: CanvasItem, a: Vector2, b: Vector2, color: Color, width: float = 1.0) -> void:
+## A straight line `width` thick; `base` is the transform the _draw uses.
+static func line(ci: CanvasItem, a: Vector2, b: Vector2, color: Color, width: float = 1.0, base := Transform2D.IDENTITY) -> void:
 	var d := b - a
 	var length := d.length()
 	if length < 0.001:
 		return
-	ci.draw_set_transform(a, d.angle())
+	ci.draw_set_transform_matrix(base * Transform2D(d.angle(), a))
 	ci.draw_texture_rect_region(texture(), Rect2(0.0, -width * 0.5, length, width), _solid, color)
-	ci.draw_set_transform(Vector2.ZERO)
+	ci.draw_set_transform_matrix(base)

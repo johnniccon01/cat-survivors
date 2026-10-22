@@ -108,4 +108,7 @@ func _process(_delta: float) -> void:
 	color = tint
 	if _cat_light != null:
 		_cat_light.energy = 1.4 if dark > 0 else 0.35
+		# In daylight the glow shows little; switched off it also lets Godot
+		# draw more of the crowd in one go (a light splits batches).
+		_cat_light.visible = dark > 0 or tint.get_luminance() < 0.8
 		_cat_light.texture_scale = 3.2 if dark > 0 else 2.4

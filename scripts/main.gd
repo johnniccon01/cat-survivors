@@ -14,6 +14,7 @@ extends Node2D
 ##   --start-minute=N   start the run at minute N
 ##   --all-weapons      start with every base weapon
 ##   --show-levelup     the bot leaves the level-up screen open
+##   --show-choice      the bot leaves story and shrine choices open
 ##   --test-evolution   maxes the starting weapon + its partner passive, opens a chest, prints, quits
 ##   --quest=ID         starts quest ID next to the cat (LUNA, TIGER, RED_DOT...)
 ##   --cat=ID           play as cat ID (see data/cats.json)
@@ -658,7 +659,7 @@ func _next_modal() -> void:
 	get_tree().paused = true
 	var kind: String = _modals.pop_front()
 	if kind == "choice":
-		if _bot:
+		if _bot and not "--show-choice" in _args:
 			var callback: Callable = _choice["callback"]
 			callback.call(int(_arg("--choice=", "0")))
 			_next_modal.call_deferred()

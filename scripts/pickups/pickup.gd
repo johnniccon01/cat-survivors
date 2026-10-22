@@ -21,6 +21,12 @@ func _init() -> void:
 	z_index = -1
 
 
+func _ready() -> void:
+	# Kibble lies still; only the special pickups bob (saves hundreds of
+	# _process calls a frame on a full floor).
+	set_process(kind != Kind.XP)
+
+
 ## Re-tint after merged XP made the kibble more valuable.
 func refresh() -> void:
 	queue_redraw()
@@ -57,7 +63,7 @@ func _draw() -> void:
 func _draw_page() -> void:
 	_shadow_and_lift()
 	for i in 3:
-		draw_circle(Vector2(0, -2), 10.0 + i * 5.0, Color(1.0, 0.95, 0.7, 0.07))
+		Blit.disc(self, Vector2(0, -2), 10.0 + i * 5.0, Color(1.0, 0.95, 0.7, 0.07))
 	var page := PackedVector2Array([Vector2(-5, -8), Vector2(5, -7), Vector2(6, 5), Vector2(1, 4), Vector2(-4, 6)])
 	draw_colored_polygon(page, Color("efe2c0"))
 	draw_polyline(Shapes.closed(page), OUTLINE, 1.0)
@@ -80,10 +86,10 @@ func _draw_charm() -> void:
 
 func _draw_coin() -> void:
 	var r := 3.5 if value < 10.0 else 5.0
-	draw_circle(Vector2.ZERO, r + 1.0, OUTLINE)
-	draw_circle(Vector2.ZERO, r, Color("f2c14e"))
-	draw_circle(Vector2.ZERO, r * 0.55, Color("d9a23a"))
-	draw_rect(Rect2(-r * 0.5, -r * 0.6, 1, 1), Color(1, 1, 1, 0.9))
+	Blit.disc(self, Vector2.ZERO, r + 1.0, OUTLINE)
+	Blit.disc(self, Vector2.ZERO, r, Color("f2c14e"))
+	Blit.disc(self, Vector2.ZERO, r * 0.55, Color("d9a23a"))
+	Blit.rect(self, Rect2(-r * 0.5, -r * 0.6, 1, 1), Color(1, 1, 1, 0.9))
 
 
 func _draw_kibble() -> void:
@@ -106,7 +112,7 @@ func _draw_kibble() -> void:
 
 
 func _shadow_and_lift() -> void:
-	draw_colored_polygon(Shapes.ellipse(Vector2(0, 6), 5, 1.5), Color(0, 0, 0, 0.25))
+	Blit.ellipse(self, Vector2(0, 6), 5, 1.5, Color(0, 0, 0, 0.25))
 	draw_set_transform(Vector2(0, sin(_bob) * 1.5))
 
 
@@ -144,7 +150,7 @@ func _draw_magnet() -> void:
 
 
 func _draw_chest() -> void:
-	draw_colored_polygon(Shapes.ellipse(Vector2(0, 7), 9, 2), Color(0, 0, 0, 0.3))
+	Blit.ellipse(self, Vector2(0, 7), 9, 2, Color(0, 0, 0, 0.3))
 	draw_set_transform(Vector2(0, sin(_bob) * 1.0))
 	draw_rect(Rect2(-8, -4, 16, 10), Color("8a5a2b"))
 	draw_rect(Rect2(-8, -8, 16, 5), Color("a8703a"))

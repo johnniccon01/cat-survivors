@@ -53,7 +53,7 @@ Testovacie behy (`--bot`) nikdy neukladajú profil.
 ## Prenosný .exe (na skúšku pre iných)
 
 Jeden súbor `builds/CatSurvivors.exe` (~135 MB), netreba inštalovať ani Godot – stačí poslať a spustiť.
-Profil sa ukladá do `%APPDATA%\Godot\app_userdata\Cat Survivors` na danom PC. Prepínače a dev panel v ňom nefungujú.
+Exe má vlastný profil v `%APPDATA%\Cat Survivors` (začína čisto), oddelený od profilu z editora (`%APPDATA%\Godot\app_userdata\Cat Survivors`). Prepínače a dev panel v ňom nefungujú.
 
 1. Raz na PC: exportné šablóny Godot 4.6.2 (`windows_*_x86_64*.exe` + `version.txt`) do `%APPDATA%\Godot\export_templates\4.6.2.stable\`
 2. `"$G" --headless --path . --export-release "Windows" builds/CatSurvivors.exe`

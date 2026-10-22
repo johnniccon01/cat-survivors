@@ -15,6 +15,8 @@ config/description="Mačka bráni byt pred hordami ponožiek."
 run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://assets/icon.png"
+config/use_custom_user_dir.template=true
+config/custom_user_dir_name.template="Cat Survivors"
 
 [autoload]
 

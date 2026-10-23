@@ -220,6 +220,19 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Svätyňa: posledná voľba „Nežiadaj nič a odíď“ (panel volieb až 4 karty)
 - [ ] Overiť v hre: či je Supermarket teraz zvládnuteľný; bot v teste Holubieho cisára zbiera srdcia, takže úlohu nesplní (aj pred zmenou)
 
+## Obchodník, truhlice, Bruno, bossovia, strelci (23. 10. 2026)
+
+- [x] Voľby v questoch (Túlavý obchodník) ukazujú aj popis artefaktu, ktorý dostaneš
+- [x] Zlatá šípka na okraji obrazovky ku každej truhlici mimo obrazovky
+- [x] Silní bossovia (základné HP ≥ 2500) hodia veľkú fialovú truhlicu: vždy všetky 3 vylepšenia + 60 zlata
+- [x] Brunova skúška: 3. krok je súboj s Brunom o 20. minúte (žiadny extra Bruno o 14. minúte); Bruno má +~20 % HP (58 000)
+- [x] Bruno ako spojenec len pre mačku, ktorá ho porazila, a len na želanie: na začiatku noci otázka; s ním majú nepriatelia +25 % života (staré uloženia: ponuka pre každú mačku)
+- [x] Bossovia majú vlastné špeciálne útoky (`specials` v enemies.json): skok, štekot (vejár), sériové výpady, dážď úderov, horiace mláky, stena striel s medzerou, vlny, sanie; pod 30 % HP sa nahnevajú (rýchlejší, častejšie útočia)
+- [x] Strážny pes: rýchlosť 80 (bolo 52), útoky skok + štekot + výpady
+- [x] Bežní strelci majú spoločný limit: ~1,6 strely/s a najviac 10 ich striel naraz
+- [x] Oprava chyby pri uvoľnenom bossovi vo vlnách (filter v spawner.gd)
+- [ ] Overiť v hre: či sú špeciálne útoky férové/čitateľné a či veľká truhlica nie je príliš silná
+
 ## Fáza 3 – Grafika a zvuk
 
 - [ ] Sprity aj pre nábytok, podlahy, zbrane a projektily (teraz sú kreslené vektorovo)

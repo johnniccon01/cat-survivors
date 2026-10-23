@@ -46,6 +46,13 @@ const ON_SCREEN := Vector2(340.0, 200.0)
 const CHASER_MAX_SPEED := 0.85
 
 var _grid: Dictionary = {}
+## Regular ranged enemies share this many shots a second (up to a small
+## burst), and only so many of their shots fly at once.
+const SHOTS_PER_SECOND := 1.6
+const SHOT_BURST := 3.0
+const MAX_REGULAR_BULLETS := 10
+var _shot_budget := SHOT_BURST
+var _spits: Array = []
 
 
 func _enter_tree() -> void:
@@ -86,14 +93,28 @@ func spawn(id: String, pos: Vector2, hp_mult: float = 1.0) -> Enemy:
 
 
 ## A projectile fired by an enemy that hurts the player on contact.
-func spawn_bullet(pos: Vector2, dir: Vector2, bullet_damage: float, style: String = "laser") -> void:
+func spawn_bullet(pos: Vector2, dir: Vector2, bullet_damage: float, style: String = "laser", bullet_speed: float = 90.0) -> EnemyBullet:
 	var bullet := EnemyBullet.new()
 	bullet.style = style
 	bullet.position = pos
-	bullet.velocity = dir * 90.0
+	bullet.velocity = dir * bullet_speed
 	bullet.damage = bullet_damage
 	bullet.player = player
 	get_parent().add_child(bullet)
+	return bullet
+
+
+## A shot from a regular ranged enemy, if the shared budget allows it: a
+## crowd of spitters never fills the screen with blobs nobody can dodge.
+func try_spit(pos: Vector2, dir: Vector2, bullet_damage: float) -> bool:
+	for i in range(_spits.size() - 1, -1, -1):
+		if not is_instance_valid(_spits[i]):
+			_spits.remove_at(i)
+	if _shot_budget < 1.0 or _spits.size() >= MAX_REGULAR_BULLETS:
+		return false
+	_shot_budget -= 1.0
+	_spits.append(spawn_bullet(pos, dir, bullet_damage, "spit"))
+	return true
 
 
 ## A danger zone on the floor made by a boss: "steam" hurts while the cat
@@ -235,6 +256,7 @@ func on_enemy_dead(enemy: Enemy) -> void:
 func _physics_process(delta: float) -> void:
 	if player == null:
 		return
+	_shot_budget = minf(_shot_budget + SHOTS_PER_SECOND * delta, SHOT_BURST)
 	_rebuild_grid()
 	Enemy.calm = enemies.size() > CALM_CROWD or Settings.effects_scale() < 1.0
 	var target := player.position

@@ -151,9 +151,11 @@ func _draw_magnet() -> void:
 
 func _draw_chest() -> void:
 	Blit.ellipse(self, Vector2(0, 7), 9, 2, Color(0, 0, 0, 0.3))
-	draw_set_transform(Vector2(0, sin(_bob) * 1.0))
-	draw_rect(Rect2(-8, -4, 16, 10), Color("8a5a2b"))
-	draw_rect(Rect2(-8, -8, 16, 5), Color("a8703a"))
+	# A great chest (strong bosses) is bigger and purple.
+	var great := value >= 2.0
+	draw_set_transform(Vector2(0, sin(_bob) * 1.0), 0.0, Vector2.ONE * (1.4 if great else 1.0))
+	draw_rect(Rect2(-8, -4, 16, 10), Color("5b3a8a") if great else Color("8a5a2b"))
+	draw_rect(Rect2(-8, -8, 16, 5), Color("7d52b8") if great else Color("a8703a"))
 	draw_rect(Rect2(-8, -8, 16, 14), OUTLINE, false, 1.0)
 	draw_line(Vector2(-8, -3), Vector2(8, -3), OUTLINE, 1.0)
 	draw_rect(Rect2(-8, -8, 2, 14), Color("f2c14e"))

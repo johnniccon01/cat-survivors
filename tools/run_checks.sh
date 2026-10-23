@@ -131,7 +131,7 @@ scenarios=(
   "scarecrow_hits|--bot --stage=GARDEN --cat=TIGER --chain-step=SCARECROW:1 --start-minute=5 --catch-up --bot-time=60"
   "chain_chimneys|--bot --stage=ROOFTOP --cat=TIGER --god --levels=20 --quest=BRUNO_TRIAL --bot-time=120"
   "chain_emperor|--bot --god --stage=ROOFTOP --cat=TIGER --start-minute=8 --catch-up --chain-step=BRUNO_TRIAL:1 --quest=BRUNO_TRIAL --bot-time=200"
-  "chain_bruno|--bot --god --stage=ROOFTOP --cat=TIGER --start-minute=14 --catch-up --chain-step=BRUNO_TRIAL:2 --quest=BRUNO_TRIAL --bot-time=150"
+  "chain_bruno|--bot --god --stage=ROOFTOP --cat=TIGER --start-minute=19.9 --catch-up --chain-step=BRUNO_TRIAL:2 --quest=BRUNO_TRIAL --bot-time=150"
   "bruno_ally|--bot --chain-step=BRUNO_TRIAL:3 --bot-time=30"
   "chain_antenna|--bot --stage=ROOFTOP --cat=TIGER --levels=20 --quest=STORM_ANTENNA --bot-time=150"
   "antenna_zaps|--bot --stage=ROOFTOP --cat=TIGER --chain-step=STORM_ANTENNA:1 --start-minute=5 --catch-up --bot-time=60"

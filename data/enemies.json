@@ -76,6 +76,7 @@
     "shape": "sock",
     "stripes": true,
     "boss": true,
+    "specials": ["nova", "puddles"],
     "scale": 2.5,
     "color": "#f2ead8",
     "accent": "#7b5cc4",
@@ -92,6 +93,7 @@
   "MEGA_ROOMBA": {
     "shape": "roomba",
     "boss": true,
+    "specials": ["rampage", "wall"],
     "scale": 2.5,
     "color": "#2e2e38",
     "accent": "#e05a5a",
@@ -108,6 +110,7 @@
   "VACUUM": {
     "shape": "vacuum",
     "boss": true,
+    "specials": ["pull", "puddles"],
     "scale": 2.2,
     "color": "#c94f4f",
     "accent": "#d8d8e0",
@@ -122,6 +125,7 @@
     "shape": "cat",
     "cat": "TIGER",
     "boss": true,
+    "specials": ["rampage", "pounce"],
     "behavior": "dash",
     "hp": 800,
     "speed": 62,
@@ -134,6 +138,7 @@
     "shape": "cat",
     "cat": "BARON",
     "boss": true,
+    "specials": ["wall", "bark"],
     "behavior": "shooter",
     "hp": 600,
     "speed": 70,
@@ -145,6 +150,7 @@
   "VACUUM_KING": {
     "shape": "vacuum",
     "boss": true,
+    "specials": ["nova", "pull"],
     "final": true,
     "behavior": "final",
     "scale": 4.0,
@@ -199,6 +205,7 @@
   "GIANT_RAT": {
     "shape": "rat",
     "boss": true,
+    "specials": ["rampage", "bark"],
     "behavior": "dash",
     "scale": 2.6,
     "color": "#6e6a76",
@@ -213,6 +220,7 @@
   "SPIDER_QUEEN": {
     "shape": "spider",
     "boss": true,
+    "specials": ["wall", "puddles"],
     "behavior": "shooter",
     "scale": 2.6,
     "color": "#3a2050",
@@ -230,6 +238,7 @@
   "RAT_KING": {
     "shape": "rat",
     "boss": true,
+    "specials": ["rain", "rampage"],
     "final": true,
     "behavior": "final",
     "final_mode": "roar",
@@ -308,6 +317,7 @@
   "GIANT_SNAIL": {
     "shape": "snail",
     "boss": true,
+    "specials": ["puddles", "nova"],
     "scale": 2.6,
     "color": "#b88a5a",
     "accent": "#5aa96a",
@@ -321,6 +331,7 @@
   "HORNET_QUEEN": {
     "shape": "bee",
     "boss": true,
+    "specials": ["bark", "rampage"],
     "scale": 2.6,
     "color": "#e0902a",
     "accent": "#2a2018",
@@ -338,6 +349,7 @@
   "LAWNMOWER": {
     "shape": "mower",
     "boss": true,
+    "specials": ["rampage", "rain"],
     "scale": 3.6,
     "color": "#d9534f",
     "accent": "#3f8f3e",
@@ -404,6 +416,7 @@
   "BIG_GULL": {
     "shape": "gull",
     "boss": true,
+    "specials": ["rain", "pounce"],
     "scale": 2.6,
     "color": "#e8eaee",
     "accent": "#f2a03a",
@@ -418,6 +431,7 @@
   "TRASH_BANDIT": {
     "shape": "raccoon",
     "boss": true,
+    "specials": ["puddles", "wall"],
     "scale": 2.4,
     "color": "#6a6a74",
     "accent": "#2a2a30",
@@ -435,6 +449,7 @@
   "PIGEON_EMPEROR": {
     "shape": "pigeon",
     "boss": true,
+    "specials": ["rain", "nova"],
     "scale": 3.2,
     "color": "#7a6aa0",
     "accent": "#f2c14e",
@@ -453,11 +468,12 @@
     "shape": "cat",
     "cat": "BRUNO",
     "boss": true,
+    "specials": ["pounce", "nova", "rampage"],
     "final": true,
     "behavior": "final",
     "final_mode": "roar",
     "scale": 2.6,
-    "hp": 48800,
+    "hp": 58000,
     "speed": 50,
     "damage": 27,
     "radius": 24,
@@ -553,6 +569,7 @@
   },
   "IRON": {
     "boss": true,
+    "specials": ["pounce", "rain"],
     "knockback_resist": 0.95,
     "shape": "iron",
     "behavior": "trail",
@@ -567,6 +584,7 @@
   },
   "BOILER": {
     "boss": true,
+    "specials": ["puddles", "wall"],
     "knockback_resist": 0.95,
     "shape": "boiler",
     "behavior": "spiral",
@@ -581,6 +599,7 @@
   },
   "SCARECROW": {
     "boss": true,
+    "specials": ["bark", "puddles"],
     "knockback_resist": 0.95,
     "shape": "scarecrow",
     "behavior": "mortar",
@@ -599,6 +618,7 @@
   },
   "THUNDERCLOUD": {
     "boss": true,
+    "specials": ["puddles", "nova"],
     "knockback_resist": 0.95,
     "shape": "cloud",
     "behavior": "mortar",
@@ -677,6 +697,7 @@
   "SECURITY_BOT": {
     "shape": "roomba",
     "boss": true,
+    "specials": ["wall", "rampage"],
     "scale": 2.6,
     "color": "#2a3a6a",
     "accent": "#e04646",
@@ -691,6 +712,7 @@
   "FORKLIFT": {
     "shape": "mower",
     "boss": true,
+    "specials": ["rampage", "wall"],
     "scale": 2.8,
     "color": "#f2c14e",
     "accent": "#3a3a44",
@@ -705,6 +727,7 @@
   "BANANA_BUNCH": {
     "shape": "banana",
     "boss": true,
+    "specials": ["nova", "bark"],
     "scale": 3.2,
     "color": "#f2c14e",
     "accent": "#5e9e4a",
@@ -722,6 +745,7 @@
   "CASH_REGISTER": {
     "shape": "register",
     "boss": true,
+    "specials": ["bark", "nova"],
     "scale": 2.4,
     "color": "#5a6a7a",
     "accent": "#5ad16a",
@@ -736,6 +760,7 @@
   "GUARD_DOG": {
     "shape": "dog",
     "boss": true,
+    "specials": ["pounce", "bark", "rampage"],
     "final": true,
     "behavior": "final",
     "final_mode": "roar",
@@ -743,7 +768,7 @@
     "color": "#8a6a4a",
     "accent": "#2a2018",
     "hp": 60000,
-    "speed": 52,
+    "speed": 80,
     "damage": 29,
     "radius": 28,
     "xp": 0,
@@ -754,6 +779,7 @@
   "SHADOW_HOUND": {
     "shape": "dog",
     "boss": true,
+    "specials": ["pounce", "bark"],
     "behavior": "dash",
     "scale": 3.8,
     "color": "#2a2630",
@@ -820,6 +846,7 @@
   "GIANT_CRAB": {
     "shape": "crab",
     "boss": true,
+    "specials": ["wall", "rampage"],
     "scale": 3.0,
     "color": "#c9432f",
     "accent": "#f2a03a",
@@ -834,6 +861,7 @@
   "OCTOPUS": {
     "shape": "octopus",
     "boss": true,
+    "specials": ["puddles", "wall"],
     "scale": 3.0,
     "color": "#a04a7a",
     "accent": "#f2a0c0",
@@ -851,6 +879,7 @@
   "ANCHOR": {
     "shape": "anchor",
     "boss": true,
+    "specials": ["wall", "pull"],
     "scale": 2.6,
     "color": "#6a6e72",
     "accent": "#a0703a",
@@ -866,6 +895,7 @@
   "KRAKEN": {
     "shape": "octopus",
     "boss": true,
+    "specials": ["nova", "puddles"],
     "final": true,
     "behavior": "final",
     "final_mode": "suck",
@@ -885,6 +915,7 @@
     "shape": "cat",
     "cat": "KAPITAN",
     "boss": true,
+    "specials": ["wall", "rain"],
     "behavior": "dash",
     "hp": 900,
     "speed": 62,
@@ -924,6 +955,7 @@
   "RAT_GENERAL": {
     "shape": "rat",
     "boss": true,
+    "specials": ["bark", "rain"],
     "behavior": "dash",
     "scale": 3.0,
     "color": "#4a4048",
@@ -941,6 +973,7 @@
   "GNOME_KING": {
     "shape": "gnome",
     "boss": true,
+    "specials": ["rain", "bark"],
     "scale": 2.8,
     "color": "#3a5aa0",
     "accent": "#f2c14e",
@@ -958,6 +991,7 @@
   "MOLE_KING": {
     "shape": "mole",
     "boss": true,
+    "specials": ["pounce", "rain"],
     "scale": 3.2,
     "color": "#3a2e38",
     "accent": "#f2c14e",
@@ -971,19 +1005,6 @@
     "summon": "MOLE",
     "summon_count": 6,
     "summon_every": 6.0
-  },
-  "RIVAL_BRUNO_TRIAL": {
-    "shape": "cat",
-    "cat": "BRUNO",
-    "boss": true,
-    "behavior": "dash",
-    "scale": 1.4,
-    "hp": 2200,
-    "speed": 60,
-    "damage": 20,
-    "radius": 14,
-    "xp": 80,
-    "knockback_resist": 0.95
   },
   "RACCOON_THIEF": {
     "shape": "raccoon",
@@ -1095,6 +1116,7 @@
   "ASSEMBLY_ARM": {
     "shape": "arm",
     "boss": true,
+    "specials": ["rain", "pounce"],
     "scale": 2.6,
     "color": "#f2c14e",
     "accent": "#3a3e44",
@@ -1109,6 +1131,7 @@
   "FORGE_GOLEM": {
     "shape": "crusher",
     "boss": true,
+    "specials": ["pounce", "puddles"],
     "scale": 2.8,
     "color": "#8a4a3a",
     "accent": "#ff8a3d",
@@ -1123,6 +1146,7 @@
   "PRESS": {
     "shape": "press",
     "boss": true,
+    "specials": ["nova", "pounce"],
     "scale": 2.6,
     "color": "#6a6e72",
     "accent": "#f2c14e",
@@ -1138,6 +1162,7 @@
   "DRONE_QUEEN": {
     "shape": "drone",
     "boss": true,
+    "specials": ["bark", "wall"],
     "scale": 3.2,
     "color": "#2a2c30",
     "accent": "#e04646",

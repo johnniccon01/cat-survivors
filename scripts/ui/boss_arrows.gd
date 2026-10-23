@@ -11,7 +11,10 @@ const COLOR := Color("e04646")
 const GOLD := Color("f2c14e")
 const OUTLINE := Color("2b1d14")
 
+const CHEST := Color("ffd76a")
+
 var _enemies: EnemyManager
+var _pickups: Pickups
 var _t := 0.0
 
 
@@ -65,6 +68,29 @@ func _draw() -> void:
 		draw_circle(base - dir * 8.0, 5.5, OUTLINE)
 		draw_circle(base - dir * 8.0, 4.0, Color("fff3c8") if golden else Color("f2c14e"))
 		shown += 1
+	# Chests lying off screen get a golden arrow, so none is forgotten.
+	if _pickups == null:
+		_pickups = get_tree().get_first_node_in_group("pickups") as Pickups
+	if _pickups != null:
+		for item in _pickups.items:
+			if item.kind != Pickup.Kind.CHEST:
+				continue
+			var screen: Vector2 = (item.position - camera.get_screen_center_position()) * camera.zoom + view.size * 0.5
+			if rect.has_point(screen):
+				continue
+			var dir := (screen - center).normalized()
+			var k := minf(half.x / maxf(absf(dir.x), 0.001), half.y / maxf(absf(dir.y), 0.001))
+			var tip := center + dir * k
+			var size := (20.0 if item.value >= 2.0 else 16.0) + sin(_t * 6.0) * 2.5
+			var side := dir.orthogonal() * size * 0.6
+			var base := tip - dir * size
+			draw_colored_polygon(PackedVector2Array([tip, base + side, base - side]), CHEST)
+			draw_polyline(PackedVector2Array([tip, base + side, base - side, tip]), OUTLINE, 2.0)
+			# A little chest behind the arrow.
+			var c := base - dir * 11.0
+			draw_rect(Rect2(c - Vector2(7, 5), Vector2(14, 10)), OUTLINE)
+			draw_rect(Rect2(c - Vector2(6, 4), Vector2(12, 8)), Color("7d52b8") if item.value >= 2.0 else Color("a8703a"))
+			draw_rect(Rect2(c - Vector2(1, 2), Vector2(2, 3)), GOLD)
 	# Shrines waiting to be woken get an arrow in their colour.
 	for node in get_tree().get_nodes_in_group("shrine"):
 		var s := node as Shrine

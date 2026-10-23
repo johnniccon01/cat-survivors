@@ -155,6 +155,10 @@ const SHRINE_FIRST := 70.0
 const SHRINE_EVERY := [100.0, 140.0]
 ## Chance (times luck) that a boss chest gives all three upgrades.
 const BOSS_CHEST_JACKPOT := 0.05
+## Enemy health while a story ally walks with you.
+const ALLY_HP_MULT := 1.25
+## Bosses with at least this much base health drop a great chest.
+const STRONG_BOSS_HP := 2500.0
 const HOURGLASS_RADIUS := 360.0
 const HOURGLASS_SECONDS := 3.0
 const THORN_RADIUS := 80.0
@@ -275,7 +279,7 @@ func _ready() -> void:
 	if not Profile.has_flag("page:" + spawner.stage_id):
 		_page_time = 5.0 if "--page" in _args else randf_range(360.0, 660.0)
 	pickups.gold_collected.connect(func(amount: float) -> void: run_gold += amount * player.stat("greed") * player.stat("curse"))
-	pickups.chest_collected.connect(func(value: float) -> void: _queue_modal("boss_chest" if value >= 1.0 else "chest"))
+	pickups.chest_collected.connect(func(value: float) -> void: _queue_modal("great_chest" if value >= 2.0 else "boss_chest" if value >= 1.0 else "chest"))
 	spawner.boss_spawned.connect(func(_id: String) -> void:
 		Audio.play("roar", -2.0, 0.1)
 		player.shake(5.0, 0.5)
@@ -589,8 +593,10 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 		bosses_killed += 1
 		Profile.add_stat("bosses")
 		Profile.add_stat("bosses_cat:" + player.cat_id)
-		pickups.spawn_named("chest", pos, 1.0)
-		pickups.spawn_named("coin", pos + Vector2(14, 6), 25.0)
+		# Strong bosses drop a great chest: all three upgrades, more gold.
+		var great := float(GameData.enemies[id].get("hp", 0)) >= STRONG_BOSS_HP
+		pickups.spawn_named("chest", pos, 2.0 if great else 1.0)
+		pickups.spawn_named("coin", pos + Vector2(14, 6), 60.0 if great else 25.0)
 		_maybe_drop_charm(pos + Vector2(-14, 6), CHARM_CHANCE_BOSS)
 		_open_extraction()
 		spawner.calm_for(BOSS_BREATHER)
@@ -630,6 +636,17 @@ func cat_joined(cat_id: String, at: Vector2 = Vector2.INF) -> void:
 	add_child(cat)
 	move_child(cat, player.get_index())
 	companions.append(cat)
+
+
+## A cat won over in a story asks to come along; with him the enemies are tougher.
+func offer_ally(cat_id: String) -> void:
+	var cat_name := tr("CAT_%s_NAME" % cat_id)
+	ask_choice(tr("ALLY_OFFER_TITLE") % cat_name, tr("ALLY_OFFER_ASK"),
+			[tr("ALLY_OFFER_YES") % cat_name, tr("ALLY_OFFER_NO")],
+			func(index: int) -> void:
+				if index == 0:
+					spawner.ally_hp_mult = ALLY_HP_MULT
+					cat_joined(cat_id))
 
 
 ## Spawns a rescued cat that has to be walked to safety.
@@ -690,15 +707,17 @@ func _next_modal() -> void:
 			return
 		hud.level_up.open(player.level, picks, 0, tr("BOSS_CHEST_TITLE"))
 		return
-	if kind == "chest" or kind == "boss_chest":
+	if kind == "chest" or kind == "boss_chest" or kind == "great_chest":
 		Audio.play("chest", -2.0, 0.0)
 		chests_opened += 1
 		Profile.add_stat("chests")
 		# One upgrade (an evolution first, if one is ready); a boss chest that
 		# hits the jackpot gives all three.
-		var count := 3 if kind == "boss_chest" and Upgrades.find_evolution(player).is_empty() else 1
+		var count := 3 if kind == "great_chest" or (kind == "boss_chest" and Upgrades.find_evolution(player).is_empty()) else 1
 		var results := Upgrades.open_chest(player, count)
-		if count == 3:
+		if kind == "great_chest":
+			hud.show_banner(tr("GREAT_CHEST"), 3.0)
+		elif count == 3:
 			hud.show_banner(tr("BOSS_CHEST_JACKPOT"), 3.0)
 		if _bot:
 			_next_modal.call_deferred()

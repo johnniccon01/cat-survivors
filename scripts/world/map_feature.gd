@@ -39,11 +39,19 @@ static func place_all(p_main: Node, stage_id: String, origin: Vector2) -> void:
 		if feature.get("stage", "") != stage_id and feature.get("stage", "") != "any":
 			continue
 		if feature["kind"] == "ally":
-			if p_main.player.cat_id != feature["cat"]:
-				p_main.cat_joined.call_deferred(feature["cat"])
+			if p_main.player.cat_id != feature["cat"] and _ally_for(feature["cat"], p_main.player.cat_id):
+				p_main.offer_ally.call_deferred(feature["cat"])
 			continue
 		place_one(p_main, feature["kind"], origin + Vector2.from_angle(-0.6 + i * 1.3) * 240.0)
 		i += 1
+
+
+## Whether the ally offers to join this cat: only the cat that beat him (old
+## saves from before this was kept: any cat).
+static func _ally_for(ally: String, cat_id: String) -> bool:
+	if Profile.has_flag("ally:%s:%s" % [ally, cat_id]):
+		return true
+	return not Profile.flags.any(func(f: String) -> bool: return f.begins_with("ally:%s:" % ally))
 
 
 ## Puts one feature on the map; `fresh` shows a burst (just built in a quest).

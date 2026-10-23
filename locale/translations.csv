@@ -995,11 +995,15 @@ CHAIN_BRUNO_TRIAL_1_START,"""Five chimneys, one after another, in one minute. Go
 CHAIN_BRUNO_TRIAL_1_DONE,"""Not bad. Now let's see if you can fight.""","„Nie zlé. Teraz uvidíme, či vieš bojovať.“","„Není to špatné. Teď uvidíme, jestli umíš bojovat.“"
 CHAIN_BRUNO_TRIAL_2,Defeat the Pigeon Emperor without healing,Poraz holubieho cisára bez liečenia,Poraz holubího císaře bez léčení
 CHAIN_BRUNO_TRIAL_2_START,"""Beat the Pigeon Emperor – and don't touch a single heart!""",„Poraz holubieho cisára – a nedotkni sa ani jedného srdiečka!“,„Poraz holubího císaře – a nedotkni se ani jednoho srdíčka!“
-CHAIN_BRUNO_TRIAL_2_DONE,"""Good. One last thing: me. At dawn.""",„Dobre. Posledná vec: ja. Na úsvite.“,„Dobře. Poslední věc: já. Za úsvitu.“
-CHAIN_BRUNO_TRIAL_3,Beat Bruno in a duel,Poraz Bruna v súboji,Poraz Bruna v souboji
+CHAIN_BRUNO_TRIAL_2_DONE,"""Good. One last thing: me. At dawn, at the end of the night.""",„Dobre. Posledná vec: ja. Na úsvite, na konci noci.“,„Dobře. Poslední věc: já. Za úsvitu, na konci noci.“
+CHAIN_BRUNO_TRIAL_3,Beat Bruno at dawn (minute 20),Poraz Bruna na úsvite (20. minúta),Poraz Bruna za úsvitu (20. minuta)
 CHAIN_BRUNO_TRIAL_3_START,"""Show me what you've got!""","„Ukáž, čo v tebe je!“","„Ukaž, co v tobě je!“"
-CHAIN_BRUNO_TRIAL_3_DONE,"Bruno laughs and shakes the dust off. ""From now on, I've got your back.""",Bruno sa zasmeje a otrasie prach. „Odteraz ti kryjem chrbát.“,Bruno se zasměje a otřese prach. „Odteď ti kryju záda.“
-CHAIN_BRUNO_TRIAL_REWARD,Bruno joins you every night,Bruno chodí s tebou každú noc,Bruno chodí s tebou každou noc
+CHAIN_BRUNO_TRIAL_3_DONE,"Bruno laughs and shakes the dust off. ""You beat me fair. If you want, I will walk with you.""","Bruno sa zasmeje a otrasie prach. „Porazil si ma férovo. Ak chceš, budem chodiť s tebou.“","Bruno se zasměje a otřese prach. „Porazil jsi mě férově. Jestli chceš, budu chodit s tebou.“"
+CHAIN_BRUNO_TRIAL_REWARD,"Bruno may join the cat that beat him (if you want him, the night is harder)","Bruno sa môže pridať k mačke, ktorá ho porazila (ak ho chceš, noc bude ťažšia)","Bruno se může přidat ke kočce, která ho porazila (jestli ho chceš, noc bude těžší)"
+ALLY_OFFER_TITLE,%s wants to come along,%s chce ísť s tebou,%s chce jít s tebou
+ALLY_OFFER_ASK,"""Want me at your side tonight? With me along, the enemies will be tougher.""","„Chceš ma dnes pri sebe? So mnou budú nepriatelia tuhší.“","„Chceš mě dnes po svém boku? Se mnou budou nepřátelé tužší.“"
+ALLY_OFFER_YES,Take %s along (enemies +25%% health),Vziať %s so sebou (nepriatelia +25 %% života),Vzít %s s sebou (nepřátelé +25 %% života)
+ALLY_OFFER_NO,Go alone,Ísť sám,Jít sám
 CHAIN_STORM_ANTENNA_NAME,The Storm Antenna,Búrková anténa,Bouřková anténa
 CHAIN_STORM_ANTENNA_DESC,A storm is coming. Maybe its power can be caught.,Blíži sa búrka. Možno sa jej sila dá zachytiť.,Blíží se bouřka. Možná se její síla dá zachytit.
 CHAIN_STORM_ANTENNA_1,Charge the antennas in the storm,Nabi antény v búrke,Nabij antény v bouřce
@@ -1388,6 +1392,7 @@ SET_CONTRAST,"High contrast (darker floor, brighter enemies)","Vysoký kontrast 
 SET_LOW_FX,"Effect saver (fewer effects, smoother on laptops)","Úsporný režim (menej efektov, plynulejšie na notebooku)","Úsporný režim (méně efektů, plynulejší na notebooku)"
 BOSS_CHEST_TITLE,Boss chest – pick one!,Truhlica bossa – vyber si!,Truhla bosse – vyber si!
 BOSS_CHEST_JACKPOT,Jackpot! You get all three!,Jackpot! Dostávaš všetky tri!,Jackpot! Dostáváš všechny tři!
+GREAT_CHEST,Great chest! All three upgrades are yours!,Veľká truhlica! Všetky tri vylepšenia sú tvoje!,Velká truhla! Všechna tři vylepšení jsou tvoje!
 CAT_STRAY_NAME,Stray,Túlavec,Tulák
 CAT_STRAY_DESC,"A street cat with nothing but its wits. Starts with no weapon and only 1 HP – the first weapon and full health come at level 5. Fast, lucky, learns quickly and carries one weapon more.","Pouličná mačka, ktorá má len svoj rozum. Začína bez zbrane a s 1 životom – prvú zbraň a plné zdravie dostane až na 5. leveli. Rýchla, šťastná, rýchlo sa učí a unesie o zbraň viac.","Pouliční kočka, která má jen svůj rozum. Začíná bez zbraně a s 1 životem – první zbraň a plné zdraví dostane až na 5. levelu. Rychlá, šťastná, rychle se učí a unese o zbraň víc."
 CAT_STRAY_HINT,,,

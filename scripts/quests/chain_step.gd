@@ -118,6 +118,9 @@ func complete() -> void:
 		# What the story leaves on the map starts working tonight already
 		# (a "build" step places it itself, where it was built).
 		var feature: Dictionary = reward.get("feature", {})
+		# An ally only offers to join the cat that finished his story.
+		if feature.get("kind", "") == "ally":
+			Profile.set_flag("ally:%s:%s" % [feature["cat"], main.player.cat_id])
 		if not feature.is_empty() and feature["kind"] != "ally" and not data.has("build") \
 				and feature.get("stage", "") == main.spawner.stage_id:
 			MapFeature.place_one(main, feature["kind"], position, true)

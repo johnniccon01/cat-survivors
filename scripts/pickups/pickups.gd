@@ -28,6 +28,10 @@ var total_xp := 0.0
 var _xp_count := 0
 
 
+func _ready() -> void:
+	add_to_group("pickups")
+
+
 func spawn_xp(pos: Vector2, value: float) -> void:
 	# Too many kibbles on the floor: remove one far from the cat and
 	# carry its XP over into the new kibble, so XP is never stranded far away.

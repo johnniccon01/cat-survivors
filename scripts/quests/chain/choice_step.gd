@@ -14,8 +14,24 @@ func _tick(_delta: float) -> void:
 		return
 	_asked = true
 	var options: Array = data.get("options", ["A", "B"])
-	var texts: Array = options.map(func(o: String) -> String: return tr("CHAIN_%s_%d_%s" % [chain_id, step_no, o]))
+	var texts: Array = options.map(func(o: String) -> String: return _option_text(o))
 	main.ask_choice(title(), tr("CHAIN_%s_%d_ASK" % [chain_id, step_no]), texts, _on_chosen)
+
+
+## The option's text, plus what its artifact does – from this step's reward or
+## from a later step only that option leads to.
+func _option_text(option: String) -> String:
+	var text := tr("CHAIN_%s_%d_%s" % [chain_id, step_no, option])
+	var artifact := str(data.get("rewards", {}).get(option, {}).get("artifact", ""))
+	if artifact == "":
+		for step: Dictionary in steps(chain_id):
+			if step.get("if", "") == "choice:%s:%s" % [chain_id, option]:
+				artifact = str(step.get("reward", {}).get("artifact", ""))
+				if artifact != "":
+					break
+	if artifact != "":
+		text += "\n" + tr("ARTIFACT_%s_DESC" % artifact)
+	return text
 
 
 func _on_chosen(index: int) -> void:

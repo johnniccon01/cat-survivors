@@ -185,9 +185,13 @@ const EASE_UNTIL := 6.0
 
 
 ## Health multiplier for enemies spawned right now.
+## Enemies are tougher while a story ally (Bruno) walks with you.
+var ally_hp_mult := 1.0
+
+
 func hp_multiplier() -> float:
 	var level_bonus := maxf(_player.level - LEVEL_SCALING_FROM, 0) * LEVEL_SCALING
-	return float(current_wave().get("hp_mult", 1.0)) * (1.0 + level_bonus) * _player.stat("curse") * endless_factor() * early_ease() * challenge() * (1.0 + DARKNESS_HP * darkness)
+	return float(current_wave().get("hp_mult", 1.0)) * (1.0 + level_bonus) * _player.stat("curse") * endless_factor() * early_ease() * challenge() * (1.0 + DARKNESS_HP * darkness) * ally_hp_mult
 
 
 ## The map's challenge ("challenge" in stages.json): later maps grow tougher
@@ -287,7 +291,9 @@ func _physics_process(delta: float) -> void:
 		# Bosses arrive a little after their wave starts, not on the dot.
 		_pending_bosses.append_array(wave.get("bosses", []))
 		_boss_timer = randf_range(BOSS_DELAY[0], BOSS_DELAY[1])
-	_wave_bosses = _wave_bosses.filter(func(b: Enemy) -> bool: return is_instance_valid(b) and not b.dead)
+	for i in range(_wave_bosses.size() - 1, -1, -1):
+		if not is_instance_valid(_wave_bosses[i]) or _wave_bosses[i].dead:
+			_wave_bosses.remove_at(i)
 	# Wave bosses come one at a time: the next waits until the last one falls.
 	if not _pending_bosses.is_empty() and _wave_bosses.is_empty():
 		_boss_timer -= delta

@@ -399,11 +399,7 @@
         "after_minute": 8
       },
       {
-        "type": "boss",
-        "enemy": "RIVAL_BRUNO_TRIAL",
-        "look": "hint",
-        "distance": 260,
-        "after_minute": 14
+        "type": "final"
       }
     ]
   },

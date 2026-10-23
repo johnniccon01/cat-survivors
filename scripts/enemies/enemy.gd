@@ -24,6 +24,12 @@ var is_boss := false
 ## Seconds left of fading in (enemies that appear inside the screen).
 const SPAWN_IN := 0.6
 const HALO := 0.09
+## Boss specials: below this share of health a boss is angry (faster, attacks
+## more often); it only starts a special this close to the cat.
+const ENRAGE_AT := 0.3
+const ENRAGE_SPEED := 1.3
+const SPECIAL_RANGE := 420.0
+const SPECIAL_EVERY := Vector2(4.5, 6.5)
 ## Set by the manager in big crowds (or with the effect saver): enemies stop
 ## their walk animation then, which saves thousands of redraws a second.
 static var calm := false
@@ -86,6 +92,15 @@ var _summon_count := 0
 var _summon_every := 0.0
 var _summon_timer := 0.0
 ## Soft glow under cats like the devil.
+## Boss specials (data "specials"): a named attack every few seconds, on top
+## of the usual behaviour, so every boss fights its own way.
+var _specials: Array = []
+var _special := ""
+var _special_t := 4.0
+var _special_step := 0
+var _special_state_t := 0.0
+var _special_at := Vector2.ZERO
+var _special_dir := Vector2.ZERO
 var _aura := Color(0, 0, 0, 0)
 var _stripes := false
 var _color := Color.WHITE
@@ -127,6 +142,8 @@ func setup(p_id: String, data: Dictionary, p_manager: EnemyManager) -> void:
 	_summon_count = int(data.get("summon_count", 0))
 	_summon_every = float(data.get("summon_every", 8.0))
 	_summon_timer = _summon_every * 0.6
+	_specials = data.get("specials", [])
+	_special_t = randf_range(3.0, 5.0)
 	fatal = data.get("fatal", false)
 	if data.has("aura"):
 		_aura = Color(data["aura"])
@@ -232,6 +249,14 @@ func tick(delta: float, target: Vector2, push: Vector2) -> void:
 			move = _tick_spiral(delta, dir)
 		"mortar":
 			move = _tick_mortar(delta, target, dir)
+	if is_boss and _charge_t <= 0.0:
+		if not _specials.is_empty():
+			var special_move := _tick_special(delta, target, dir)
+			if special_move != Vector2.INF:
+				move = special_move
+		# Badly hurt bosses get angry: faster.
+		if not is_elite and hp < max_hp * ENRAGE_AT and _special != "pounce" and _special != "rampage":
+			move *= ENRAGE_SPEED
 	if _summon_id != "":
 		_summon_timer -= delta
 		if _summon_timer <= 0.0:
@@ -329,6 +354,115 @@ func _tick_final(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 	return dir * speed
 
 
+## Boss specials. Every few seconds one of the boss's "specials" runs:
+## "pounce" (marks the cat's spot, leaps on it, shockwave), "bark" (two fast
+## fans of shots), "rampage" (three quick lunges), "rain" (a line of marked
+## strikes rolling towards the cat), "puddles" (pools that burn), "wall" (a
+## row of shots with one gap), "nova" (three rings in a row), "pull" (drags
+## the cat in, then a ring). Returns the move, or Vector2.INF to keep the
+## usual one.
+func _tick_special(delta: float, target: Vector2, dir: Vector2) -> Vector2:
+	var angry := hp < max_hp * ENRAGE_AT
+	if _special == "":
+		_special_t -= delta * (1.5 if angry else 1.0)
+		if _special_t > 0.0 or position.distance_to(target) > SPECIAL_RANGE:
+			return Vector2.INF
+		_special = _specials[randi() % _specials.size()]
+		_special_step = 0
+		_special_state_t = 0.0
+		_special_at = target
+		_special_dir = dir
+	_special_state_t += delta
+	var t := _special_state_t
+	var shot := damage * 0.4
+	match _special:
+		"pounce":
+			if _special_step == 0:
+				_special_step = 1
+				manager.spawn_hazard(_special_at, "strike", 34.0, 0.9, damage * 0.8)
+				Audio.play("roar", -8.0, 0.2)
+			if t < 0.6:
+				_flash = 0.05 if int(t * 10.0) % 2 == 0 else 0.0
+				return Vector2.ZERO
+			if t < 0.9:
+				return (_special_at - position) / maxf(0.9 - t, delta)
+			for i in 10:
+				manager.spawn_bullet(position, Vector2.from_angle(TAU * i / 10.0), shot, "hair")
+			return _end_special()
+		"bark":
+			if _special_step < 2 and t >= 0.45 + _special_step * 0.5:
+				_special_step += 1
+				_flash = 0.1
+				var aim := (target - position).normalized()
+				for i in 7:
+					manager.spawn_bullet(position, aim.rotated((i - 3) * 0.17), shot, "hair", 150.0)
+				Audio.play("hit", -8.0, 0.2)
+			if _special_step >= 2 and t > 1.6:
+				return _end_special()
+			return Vector2.ZERO
+		"rampage":
+			var leg := int(t / 0.6)
+			if leg >= 3:
+				return _end_special()
+			var in_leg := fmod(t, 0.6)
+			if in_leg < 0.25:
+				_special_dir = (target - position).normalized()
+				_flash = 0.05
+				return Vector2.ZERO
+			return _special_dir * speed * 5.5
+		"rain":
+			if _special_step == 0:
+				_special_step = 1
+				var aim := (target - position).normalized()
+				for i in 8:
+					var at := position + aim * (60.0 + i * 38.0) + aim.orthogonal() * randf_range(-12.0, 12.0)
+					manager.spawn_hazard(at, "strike", 24.0, 0.8 + i * 0.12, damage * 0.8)
+			if t > 0.8:
+				return _end_special()
+			return Vector2.ZERO
+		"puddles":
+			if _special_step == 0:
+				_special_step = 1
+				manager.spawn_hazard(target, "steam", 26.0, 5.0, damage * 0.3)
+				for i in 5:
+					manager.spawn_hazard(target + Vector2.from_angle(TAU * i / 5.0 + randf()) * randf_range(55.0, 95.0), "steam", 22.0, 5.0, damage * 0.3)
+			return _end_special()
+		"wall":
+			if _special_step == 0:
+				_special_step = 1
+				var aim := (target - position).normalized()
+				var gap := randi_range(3, 8)
+				for i in 13:
+					if i == gap or i == gap + 1:
+						continue
+					manager.spawn_bullet(position + aim.orthogonal() * (i - 6) * 15.0, aim, shot, "laser", 80.0)
+			if t > 0.5:
+				return _end_special()
+			return Vector2.ZERO
+		"nova":
+			if _special_step < 3 and t >= _special_step * 0.35:
+				for i in 14:
+					manager.spawn_bullet(position, Vector2.from_angle(TAU * (i + 0.5 * _special_step) / 14.0), shot, "hair")
+				_special_step += 1
+			if _special_step >= 3:
+				return _end_special()
+			return dir * speed * 0.3
+		"pull":
+			if t < 1.8:
+				manager.player.pull = (position - target).normalized() * 60.0
+				return Vector2.ZERO
+			for i in 12:
+				manager.spawn_bullet(position, Vector2.from_angle(TAU * i / 12.0), shot, "hair")
+			return _end_special()
+	return _end_special()
+
+
+func _end_special() -> Vector2:
+	_special = ""
+	_special_t = randf_range(SPECIAL_EVERY.x, SPECIAL_EVERY.y)
+	return Vector2.INF
+
+
 ## The Iron: lunges like a dashing boss and leaves scalding steam behind.
 func _tick_trail(delta: float, dir: Vector2) -> Vector2:
 	_trail_t -= delta
@@ -386,9 +520,11 @@ func _tick_spit(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 	var dist := position.distance_to(target)
 	_shoot_t -= delta
 	if _shoot_t <= 0.0 and dist < 220.0:
-		_shoot_t = randf_range(2.2, 3.0)
-		manager.spawn_bullet(position, dir, damage * 0.7, "spit")
-		_flash = 0.06
+		if manager.try_spit(position, dir, damage * 0.7):
+			_shoot_t = randf_range(2.2, 3.0)
+			_flash = 0.06
+		else:
+			_shoot_t = randf_range(0.4, 0.9)
 	if dist < 110.0:
 		return -dir * speed * 0.7
 	if dist > 150.0:

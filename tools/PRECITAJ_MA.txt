@@ -1,0 +1,36 @@
+CAT SURVIVORS – testovacia verzia
+=================================
+
+Ďakujem, že to skúsiš!
+
+SPUSTENIE
+- Rozbaľ zip a spusti CatSurvivors.exe (nič sa neinštaluje).
+- Windows môže hlásiť „Windows ochránil váš počítač“ – klikni
+  „Ďalšie informácie“ → „Spustiť aj tak“ (hra nie je podpísaná).
+- Uložená hra je v %APPDATA%\Cat Survivors
+
+OVLÁDANIE
+- Pohyb: WASD / šípky / ľavá páčka gamepadu
+- Esc: pauza (v pauze L = jazyk, M = zvuk)
+- Útočí sa samo, ty len uhýbaš a zbieraš.
+
+PROSÍM: hraj sám, bez návodu. Ak niečo nepochopíš, presne to ma zaujíma.
+Hraj koľko ťa baví – aj keď to vypneš po 10 minútach, je to užitočná info.
+
+---------------------------------------------------------------
+DOTAZNÍK (stačí stručne, pošli mi odpovede správou)
+---------------------------------------------------------------
+1. Koľko si to hral a na ktorú mapu si sa dostal?
+2. Kde si prvýkrát zomrel? Vedel si prečo?
+3. Kedy a prečo si hru vypol?
+4. Čo ti nebolo jasné bez vysvetlenia? (questy, obchod, artefakty, charmy...)
+5. Čo bolo príliš silné / príliš ľahké?
+6. Čo bolo príliš slabé / zbytočné / otravné?
+7. Bolo niekedy na obrazovke tak veľa vecí, že si nevidel, čo sa deje?
+8. Ako sa ti páčila hudba a zvuky? Bolo niečo nepríjemné?
+9. Sekala sa hra niekedy? (aký máš počítač?)
+10. Čo ťa bavilo najviac?
+11. Čokoľvek iné – chyby, nápady, pocity.
+
+Ak hra spadne alebo urobí niečo divné, pošli mi aj priečinok
+%APPDATA%\Cat Survivors\logs

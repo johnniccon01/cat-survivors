@@ -58,6 +58,8 @@ Exe má vlastný profil v `%APPDATA%\Cat Survivors` (začína čisto), oddelený
 1. Raz na PC: exportné šablóny Godot 4.6.2 (`windows_*_x86_64*.exe` + `version.txt`) do `%APPDATA%\Godot\export_templates\4.6.2.stable\`
 2. `"$G" --headless --path . --export-release "Windows" builds/CatSurvivors.exe`
 
+Balík pre kamarátov (exe + návod a dotazník `tools/PRECITAJ_MA.txt`): `bash tools/build_friends.sh "$G"` → `builds/CatSurvivors-test-<dátum>.zip`
+
 ## Štruktúra
 
 - `data/` – obsah hry v JSON-e (zbrane, pasívky, nepriatelia, vlny podľa minút). Balans sa ladí tu, bez zásahu do kódu.

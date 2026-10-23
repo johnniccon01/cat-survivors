@@ -1009,6 +1009,7 @@
   },
   "SUPERMARKET": {
     "theme": "supermarket",
+    "damage_mult": 0.9,
     "music": "music_supermarket",
     "music_alt": "music_supermarket_alt",
     "music_night": "music_supermarket_night",
@@ -1168,7 +1169,7 @@
           "SHOPPING_CART",
           "SPRAY_BOTTLE"
         ],
-        "hp_mult": 3.5,
+        "hp_mult": 3.2,
         "bosses": [
           "FORKLIFT"
         ]
@@ -1184,7 +1185,7 @@
           "TIN_CAN",
           "SPRAY_BOTTLE"
         ],
-        "hp_mult": 4.2
+        "hp_mult": 3.8
       },
       {
         "minute": 11,
@@ -1197,7 +1198,7 @@
           "BANANA",
           "SPRAY_BOTTLE"
         ],
-        "hp_mult": 5.0,
+        "hp_mult": 4.5,
         "bosses": [
           "BANANA_BUNCH"
         ]
@@ -1213,7 +1214,7 @@
           "SHOPPING_CART",
           "SPRAY_BOTTLE"
         ],
-        "hp_mult": 6.0,
+        "hp_mult": 5.5,
         "bosses": [
           "CASH_REGISTER"
         ]
@@ -1229,7 +1230,7 @@
           "BANANA",
           "SPRAY_BOTTLE"
         ],
-        "hp_mult": 7.2,
+        "hp_mult": 6.5,
         "bosses": [
           "FORKLIFT"
         ]
@@ -1245,10 +1246,10 @@
           "TIN_CAN",
           "SPRAY_BOTTLE"
         ],
-        "hp_mult": 8.5
+        "hp_mult": 7.6
       }
     ],
-    "challenge": 1.7
+    "challenge": 1.6
   },
   "HARBOR": {
     "theme": "harbor",

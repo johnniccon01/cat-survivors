@@ -53,6 +53,8 @@ const CAP_REROLL := [30.0, 60.0]
 const LULL_EVERY := [120.0, 180.0]
 const LULL_TIME := [8.0, 14.0]
 const BOSS_DELAY := [0.0, 20.0]
+## Breather after a wave boss falls before a held-back one comes.
+const BOSS_GAP := [6.0, 12.0]
 const EVENT_JITTER := 0.5
 const ELITE_EVERY_RANGE := [30.0, 50.0]
 ## Budget multiplier while the cat is below this share of health.
@@ -81,6 +83,7 @@ var _cap_timer := 0.0
 var _events: Array = []
 var _pending_bosses: Array = []
 var _boss_timer := 0.0
+var _wave_bosses: Array = []
 var _traps: Array[Trap] = []
 var _trap_timer := 2.0
 var _cleared := false
@@ -284,13 +287,17 @@ func _physics_process(delta: float) -> void:
 		# Bosses arrive a little after their wave starts, not on the dot.
 		_pending_bosses.append_array(wave.get("bosses", []))
 		_boss_timer = randf_range(BOSS_DELAY[0], BOSS_DELAY[1])
-	if not _pending_bosses.is_empty():
+	_wave_bosses = _wave_bosses.filter(func(b: Enemy) -> bool: return is_instance_valid(b) and not b.dead)
+	# Wave bosses come one at a time: the next waits until the last one falls.
+	if not _pending_bosses.is_empty() and _wave_bosses.is_empty():
 		_boss_timer -= delta
 		if _boss_timer <= 0.0:
-			for boss_id: String in _pending_bosses:
-				_spawn(boss_id, _player.position + Vector2.from_angle(randf() * TAU) * radius)
-				boss_spawned.emit(boss_id)
-			_pending_bosses.clear()
+			var boss_id: String = _pending_bosses.pop_front()
+			var boss := _spawn(boss_id, _player.position + Vector2.from_angle(randf() * TAU) * radius)
+			if boss != null:
+				_wave_bosses.append(boss)
+			boss_spawned.emit(boss_id)
+			_boss_timer = randf_range(BOSS_GAP[0], BOSS_GAP[1])
 	if elapsed >= ELITE_FROM:
 		_elite_timer -= delta
 		if _elite_timer <= 0.0:

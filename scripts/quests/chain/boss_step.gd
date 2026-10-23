@@ -1,10 +1,12 @@
 extends ChainStep
 ## A named boss waits at the spot. data: enemy, hp_mult, look (what the spot
 ## looks like before), rule "no_heal" (picking up a heart fails the step),
-## time_limit (0 = none).
+## solo (the other enemies vanish and stay away until the fight ends;
+## always on with "no_heal"), time_limit (0 = none).
 
 var _boss: Enemy
 var _left := 0.0
+var _solo := false
 
 
 func objective() -> String:
@@ -19,6 +21,10 @@ func target_position() -> Vector2:
 
 func _on_start() -> void:
 	var id: String = data["enemy"]
+	_solo = bool(data.get("solo", false)) or data.get("rule", "") == "no_heal"
+	if _solo:
+		main.enemies.clear_all()
+		main.spawner.paused = true
 	_boss = main.enemies.spawn(id, position, main.spawner.hp_multiplier() * float(data.get("hp_mult", 1.0)))
 	_left = float(data.get("time_limit", 0.0))
 	main.enemies.enemy_killed.connect(_on_killed)
@@ -53,3 +59,8 @@ func _draw() -> void:
 	if not started:
 		draw_look(Vector2.ZERO, data.get("look", "hint"))
 		draw_beacon(Vector2.ZERO, 26.0, Color("e04646"))
+
+
+func _exit_tree() -> void:
+	if _solo:
+		main.spawner.paused = false

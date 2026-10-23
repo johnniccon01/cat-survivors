@@ -1,6 +1,6 @@
 class_name ChoicePanel
 extends ColorRect
-## A story or shrine choice: a question and two or three answers. Left/right
+## A story or shrine choice: a question and two to four answers. Left/right
 ## or the mouse pick, Enter, A or a click confirms. The game is paused while
 ## it is open (main.gd queues it like a level-up).
 
@@ -8,7 +8,7 @@ signal chosen(index: int)
 
 const GOLD := Color("f2c14e")
 const OUTLINE := Color("2b1d14")
-const MAX_OPTIONS := 3
+const MAX_OPTIONS := 4
 
 var _title: Label
 var _prompt: Label
@@ -67,7 +67,7 @@ func open(title: String, prompt: String, options: Array) -> void:
 	_count = clampi(options.size(), 1, MAX_OPTIONS)
 	for i in MAX_OPTIONS:
 		_cards[i].visible = i < _count
-		_cards[i].custom_minimum_size = Vector2(400 if _count < 3 else 300, 120)
+		_cards[i].custom_minimum_size = Vector2([400, 400, 400, 300, 270][_count], 120)
 		if i < _count:
 			_labels[i].text = options[i]
 	_index = 0

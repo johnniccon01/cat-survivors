@@ -94,12 +94,17 @@ func _physics_process(delta: float) -> void:
 ## first offer is always safe, the others give more but cost something.
 func _activate(cat: Player) -> void:
 	used = true
-	Profile.add_stat("shrines")
 	Audio.play("bell", -2.0, 0.0)
 	var options: Array = []
 	for i in OFFERS[kind]:
 		options.append(tr("SHRINE_%s_OPT%d" % [kind, i]))
+	# The last choice turns every offer down; the shrine just goes quiet.
+	options.append(tr("SHRINE_REFUSE"))
 	main.ask_choice(tr("SHRINE_%s_NAME" % kind), tr("SHRINE_PROMPT"), options, func(index: int) -> void:
+		if index >= OFFERS[kind]:
+			print("SHRINE: %s refused" % kind)
+			return
+		Profile.add_stat("shrines")
 		_grant(cat, index)
 		main.hud.show_banner("%s: %s" % [tr("SHRINE_%s_NAME" % kind), options[index]], 4.0)
 		print("SHRINE: %s activated, offer %d" % [kind, index]))

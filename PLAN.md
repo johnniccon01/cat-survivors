@@ -211,6 +211,15 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
   - Tieňový pes (Pivnica): čím ďalej, tým tmavšie (od 1500 px), pri 9000 px boss pes v tme
   - Červená stopa (Prístav): dlhá krvavá stopa krížom-krážom (12 úsekov, ~5 500 px) → ochráň kocúra + boss Chobotnica
 - [ ] Overiť v hre: vzdialenosti (7000 / 9000 px), sila bossov, či Túlavec do 5. levelu nie je priťažký
+
+## Ľahší Supermarket, sólo bossovia, odmietnutie svätyne (23. 10. 2026)
+
+- [x] Boss z reťazca „bez liečenia“ (Holubí cisár): ostatné mobky zmiznú a nespawnujú sa, kým súboj neskončí (`"solo": true` v chains.json to zapne aj inému bossovi)
+- [x] Bossovia z vĺn chodia po jednom: ďalší počká, kým predošlý nepadne (+6–12 s pauza)
+- [x] Supermarket: `damage_mult` 0,9, `challenge` 1,6 (bolo 1,7), zdravie vĺn od 7. minúty ~10 % nižšie (na konci 7,6 namiesto 8,5)
+- [x] Svätyňa: posledná voľba „Nežiadaj nič a odíď“ (panel volieb až 4 karty)
+- [ ] Overiť v hre: či je Supermarket teraz zvládnuteľný; bot v teste Holubieho cisára zbiera srdcia, takže úlohu nesplní (aj pred zmenou)
+
 ## Fáza 3 – Grafika a zvuk
 
 - [ ] Sprity aj pre nábytok, podlahy, zbrane a projektily (teraz sú kreslené vektorovo)

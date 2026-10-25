@@ -328,6 +328,7 @@ func _physics_process(delta: float) -> void:
 	velocity = input * BASE_SPEED * stat("speed") * speed_factor
 	position += (velocity + pull) * delta
 	pull = Vector2.ZERO
+	position = Terrain.fix(position, RADIUS)
 	var manager: EnemyManager = get_tree().get_first_node_in_group("enemy_manager")
 	if manager != null and not manager.arena.is_empty():
 		var center: Vector2 = manager.arena["center"]

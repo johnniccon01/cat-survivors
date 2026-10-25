@@ -1497,3 +1497,7 @@ CHAIN_BLOOD_TRAIL_1,Protect the wounded sailor cat,Chráň zraneného námorníc
 CHAIN_BLOOD_TRAIL_1_START,At the end of the trail lies a wounded sailor cat. The pirate rats are coming for him!,Na konci stopy leží zranený námornícky kocúr. Idú poňho pirátske potkany!,Na konci stopy leží zraněný námořnický kocour. Jdou si pro něj pirátské krysy!
 CHAIN_BLOOD_TRAIL_2,Defeat the one who hurt him,"Poraz toho, kto ho zranil","Poraz toho, kdo ho zranil"
 CHAIN_BLOOD_TRAIL_2_DONE,The sailor cat will live. He thanks you with his old treasure.,Kocúr prežije. Ďakuje ti svojím starým pokladom.,Kocour přežije. Děkuje ti svým starým pokladem.
+TERRAIN_TREES,Trees in the way,Stromy v ceste,Stromy v cestě
+TERRAIN_AISLES,Narrow aisle,Úzka ulička,Úzká ulička
+TERRAIN_TIDE,The tide comes in,Prichádza príliv,Přichází příliv
+TIDE_WARNING,The tide is coming! Stay on the dry strip.,Prichádza príliv! Zostaň na suchom páse.,Přichází příliv! Zůstaň na suchém pásu.

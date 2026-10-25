@@ -167,7 +167,8 @@ var _freeze_t := 0.0
 var _rex_calm := false
 ## Endless minutes already announced.
 var _endless_shown := 0
-## The story choice waiting in the modal queue.
+## The story choices waiting in the modal queue (the first one is on screen).
+var _choices: Array[Dictionary] = []
 var _choice: Dictionary = {}
 var _magnet_t := 0.0
 var _page_item: Pickup
@@ -213,6 +214,12 @@ func _ready() -> void:
 	player.hurt.connect(_on_player_hurt)
 	spawner.setup(player, enemies)
 	$Floor.theme = spawner.stage().get("theme", "apartment")
+	var terrain_kind: String = _arg("--terrain=", spawner.stage().get("terrain", ""))
+	if terrain_kind != "":
+		var terrain := Terrain.new()
+		terrain.setup(terrain_kind, self)
+		add_child(terrain)
+		move_child(terrain, $Floor.get_index() + 1)
 	if spawner.stage_id == "BASEMENT" and not Profile.is_unlocked("LUNA"):
 		var intro := "STORY_BASEMENT_COLLAR" if Profile.has_flag("collar") else "STORY_BASEMENT_INTRO"
 		hud.show_banner.call_deferred(tr(intro), 6.0)
@@ -667,13 +674,17 @@ func spawn_escort(cat_id: String, at: Vector2, hp: float) -> Player:
 
 ## A story choice (pauses like a level-up); `callback` gets the answer's index.
 func ask_choice(title: String, prompt: String, options: Array, callback: Callable) -> void:
-	_choice = {"title": title, "prompt": prompt, "options": options, "callback": callback}
+	_choices.append({"title": title, "prompt": prompt, "options": options, "callback": callback})
 	_queue_modal("choice")
 
 
 func _queue_modal(kind: String) -> void:
 	_modals.append(kind)
 	if not _in_modal:
+		# Claimed right away, so a shrine and a level-up in the same frame
+		# open one after the other, not both at once.
+		_in_modal = true
+		get_tree().paused = true
 		_next_modal.call_deferred()
 
 
@@ -689,6 +700,7 @@ func _next_modal() -> void:
 	get_tree().paused = true
 	var kind: String = _modals.pop_front()
 	if kind == "choice":
+		_choice = _choices.pop_front()
 		if _bot and not "--show-choice" in _args:
 			var callback: Callable = _choice["callback"]
 			callback.call(int(_arg("--choice=", "0")))
@@ -822,6 +834,7 @@ func _open_extraction(force: bool = false) -> void:
 	extraction = Extraction.new()
 	extraction.main = self
 	extraction.position = player.position + Vector2.from_angle(randf() * TAU) * randf_range(350.0, 500.0)
+	extraction.position = Terrain.fix(extraction.position, 40.0)
 	extraction.escaped.connect(_end_run.bind("extract"))
 	extraction.closed.connect(func() -> void:
 		extraction = null
@@ -967,6 +980,7 @@ func _tick_shrines(delta: float) -> void:
 	var forced := _arg("--shrine=", "")
 	shrine.kind = forced if forced != "" else Shrine.random_kind()
 	shrine.position = player.position + (Vector2(70, 0) if forced != "" else Vector2.from_angle(randf() * TAU) * randf_range(330.0, 430.0))
+	shrine.position = Terrain.fix(shrine.position, 34.0)
 	add_child(shrine)
 	hud.show_banner(tr("SHRINE_APPEARED") % tr("SHRINE_%s_NAME" % shrine.kind), 3.5)
 

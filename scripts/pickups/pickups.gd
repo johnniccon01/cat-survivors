@@ -93,7 +93,7 @@ func _spawn(kind: Pickup.Kind, pos: Vector2, value: float) -> void:
 	var item := Pickup.new()
 	item.kind = kind
 	item.value = value
-	item.position = pos
+	item.position = Terrain.fix(pos, 8.0)
 	add_child(item)
 	items.append(item)
 

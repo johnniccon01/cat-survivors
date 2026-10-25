@@ -405,7 +405,7 @@ func _tick_traps(delta: float) -> void:
 	if kinds.is_empty() or _traps.size() >= int(_stage.get("max_traps", 5)):
 		return
 	var trap := Trap.new()
-	trap.position = _player.position + Vector2.from_angle(randf() * TAU) * _spawn_radius() * randf_range(0.9, 1.4)
+	trap.position = Terrain.fix(_player.position + Vector2.from_angle(randf() * TAU) * _spawn_radius() * randf_range(0.9, 1.4), 30.0)
 	trap.setup(kinds.pick_random(), get_parent())
 	get_parent().add_child(trap)
 	_traps.append(trap)

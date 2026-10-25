@@ -220,6 +220,7 @@ func _start(quest_id: String, distance: float, at: Vector2 = Vector2.INF) -> voi
 	quest.quest_id = quest_id
 	quest.main = main
 	quest.position = at if at != Vector2.INF else main.player.position + Vector2.from_angle(randf() * TAU) * distance
+	quest.position = Terrain.fix(quest.position, 40.0)
 	quest.finished.connect(_on_finished)
 	main.add_child(quest)
 	active = quest

@@ -80,7 +80,8 @@ func spawn(id: String, pos: Vector2, hp_mult: float = 1.0) -> Enemy:
 		enemy.speed *= speed_mult
 	if not enemy.is_boss and GameData.enemies[id].get("behavior", "chase") == "chase":
 		enemy.speed = minf(enemy.speed, Player.BASE_SPEED * CHASER_MAX_SPEED)
-	enemy.position = pos
+	enemy.position = Terrain.fix_spawn(pos, player.position, enemy.radius) if player != null else pos
+	pos = enemy.position
 	# Something appearing where you can see it gets a moment to be seen first.
 	if player != null and not enemy.is_prop and not GameData.enemies[id].get("final", false):
 		var off := pos - player.position
@@ -275,6 +276,8 @@ func _physics_process(delta: float) -> void:
 				if c.position.distance_squared_to(enemy.position) < chase.distance_squared_to(enemy.position):
 					chase = c.position
 		enemy.tick(delta, chase, _separation(enemy) * SEPARATION)
+		if Terrain.current != null:
+			enemy.position = Terrain.current.resolve(enemy.position, enemy.radius)
 		if not arena.is_empty():
 			_apply_arena(enemy)
 		for c in cats:

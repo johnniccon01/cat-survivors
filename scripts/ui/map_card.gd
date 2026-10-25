@@ -63,6 +63,10 @@ func _draw() -> void:
 		var n := difficulty(stage_id)
 		for i in 5:
 			_draw_star(pic.position + Vector2(10 + i * 13, 10), 5.5, Color("ff9a2a") if i < n else Color(0.2, 0.15, 0.25, 0.8))
+		# Maps with obstacles say so.
+		var terrain: String = GameData.stages[stage_id].get("terrain", "")
+		if terrain != "":
+			draw_string(ThemeDB.fallback_font, pic.position + Vector2(6, pic.size.y - 6), tr("TERRAIN_%s" % terrain.to_upper()), HORIZONTAL_ALIGNMENT_LEFT, pic.size.x - 12, 12, Color("9fe3ff"))
 	var font := ThemeDB.fallback_font
 	var title := tr("STAGE_%s_NAME" % stage_id) if open else "???"
 	draw_string(font, Vector2(8, 100), title, HORIZONTAL_ALIGNMENT_CENTER, size.x - 16, 18, UiStyle.GOLD if selected else UiStyle.TEXT)

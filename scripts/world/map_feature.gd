@@ -59,7 +59,7 @@ static func place_one(p_main: Node, p_kind: String, at: Vector2, fresh: bool = f
 	var node := MapFeature.new()
 	node.kind = p_kind
 	node.main = p_main
-	node.position = at
+	node.position = Terrain.fix(at, 36.0)
 	node.z_index = -4
 	node._burst = 1.0 if fresh else 0.0
 	p_main.add_child(node)

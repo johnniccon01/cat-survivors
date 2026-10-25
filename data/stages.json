@@ -517,6 +517,7 @@
   },
   "GARDEN": {
     "theme": "garden",
+    "terrain": "trees",
     "music": "music_garden",
     "music_alt": "music_garden_alt",
     "requires": "BASEMENT",
@@ -1009,6 +1010,7 @@
   },
   "SUPERMARKET": {
     "theme": "supermarket",
+    "terrain": "aisles",
     "damage_mult": 0.9,
     "music": "music_supermarket",
     "music_alt": "music_supermarket_alt",
@@ -1253,6 +1255,7 @@
   },
   "HARBOR": {
     "theme": "harbor",
+    "terrain": "tide",
     "music": "music_harbor",
     "music_alt": "music_harbor_alt",
     "music_night": "music_harbor_night",

@@ -35,7 +35,8 @@ var props: Array[Enemy] = []
 ## Cats being escorted: enemies go for whichever cat is closest.
 var escorts: Array[Player] = []
 ## Duel arena {center, radius, rival}: the rival is kept inside it and every
-## other enemy is kept outside. Empty when there is no duel.
+## other enemy is kept outside; a boss arena ({center, radius, inside, owner},
+## see BossArena) keeps everyone inside. Empty when there is neither.
 var arena: Dictionary = {}
 ## Enemies further than this from the player get moved back in front of them.
 var relocate_distance := 600.0
@@ -292,7 +293,7 @@ func _physics_process(delta: float) -> void:
 			_apply_arena(enemy)
 		for c in cats:
 			var reach := enemy.radius + Player.RADIUS
-			if enemy.spawn_in <= 0.0 and not c.is_dead and enemy.position.distance_squared_to(c.position) < reach * reach:
+			if enemy.spawn_in <= 0.0 and not enemy.vanished and not c.is_dead and enemy.position.distance_squared_to(c.position) < reach * reach:
 				c.take_damage(enemy.damage, enemy.fatal)
 	_tick_burning(delta)
 	for i in range(enemies.size() - 1, -1, -1):
@@ -308,7 +309,8 @@ func _apply_arena(enemy: Enemy) -> void:
 	var center: Vector2 = arena["center"]
 	var r: float = arena["radius"]
 	var off := enemy.position - center
-	if enemy == arena.get("rival"):
+	# A boss arena keeps everyone inside with the cat.
+	if arena.get("inside", false) or enemy == arena.get("rival"):
 		if off.length() > r - enemy.radius:
 			enemy.position = center + off.normalized() * (r - enemy.radius)
 	elif off.length() < r + enemy.radius:

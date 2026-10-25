@@ -502,6 +502,7 @@ func _fight(id: String) -> void:
 	main.player.heal(9999.0)
 	_test_boss = main.enemies.spawn(id, main.player.position + Vector2(0, -230), main.player.stat("curse") * spawner.hp_multiplier())
 	_test_id = id
+	spawner.start_arena(_test_boss)
 	if _test_boss == null:
 		return
 	_testing = true

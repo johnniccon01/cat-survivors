@@ -44,6 +44,7 @@ extends Node2D
 ##   --strong           dev panel: every weapon that fits and 40 level-ups
 ##   --dev-boss=ID      dev panel: clear the field and fight boss ID (progress not saved)
 ##   --dev-panel        open the dev panel (F1) right away
+##   --no-arena         no thorn ring around boss fights
 ##   --boss-rush        dev panel: every boss one after another
 ##   --dev-quest=ID     dev panel: start quest ID, or CHAIN#N for step N of a story chain
 ##   --dev-quest-all    dev panel: start every quest and story step in turn, 5 s each (tests)

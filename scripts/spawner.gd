@@ -267,6 +267,7 @@ func _physics_process(delta: float) -> void:
 			_enemies.clear_all()
 			# The final boss carries the map's challenge too (a bit less than the rest).
 			var boss := _enemies.spawn(final_id, _player.position + Vector2(0, -_spawn_radius() * 0.8), _player.stat("curse") * pow(challenge(), 0.8))
+			start_arena(boss)
 			final_boss_spawned.emit(boss)
 		return
 	if paused:
@@ -301,6 +302,7 @@ func _physics_process(delta: float) -> void:
 			var boss_id: String = _pending_bosses.pop_front()
 			var boss := _spawn(boss_id, _player.position + Vector2.from_angle(randf() * TAU) * radius)
 			if boss != null:
+				start_arena(boss)
 				_wave_bosses.append(boss)
 			boss_spawned.emit(boss_id)
 			_boss_timer = randf_range(BOSS_GAP[0], BOSS_GAP[1])
@@ -352,6 +354,32 @@ func _spawn(id: String, pos: Vector2) -> Enemy:
 		if not enemy.is_boss and randf() < champion_chance():
 			enemy.make_champion(GameData.champions.keys().pick_random())
 	return enemy
+
+
+## Thorns close in around the cat while `boss` is fought (see BossArena);
+## not during a duel, which has its own arena (--no-arena: never).
+func start_arena(boss: Enemy) -> void:
+	# A new boss takes over the arena of one still standing.
+	var old: Variant = _enemies.arena.get("owner")
+	if old is BossArena:
+		(old as BossArena)._open()
+	if boss == null or not _enemies.arena.is_empty() or "--no-arena" in GameData.args():
+		return
+	var arena := BossArena.new()
+	arena.spawner = self
+	arena.manager = _enemies
+	arena.boss = boss
+	arena.position = _player.position
+	get_parent().add_child(arena)
+
+
+## A ring of the current wave's enemies all round `center`, walking in.
+func spawn_ring(center: Vector2, r: float, count: int) -> void:
+	var kinds: Array = current_wave()["enemies"]
+	var kind: String = kinds.pick_random()
+	var start := randf() * TAU
+	for i in count:
+		_spawn(kind, Terrain.fix(center + Vector2.from_angle(start + TAU * i / count) * r, 12.0))
 
 
 ## Share of regular spawns that come as champions: none in the first two

@@ -104,7 +104,7 @@ Balík pre kamarátov (exe + návod a dotazník `tools/PRECITAJ_MA.txt`): `bash 
 - **Ovládanie** – klávesnica (pohyb sa dá premapovať v Nastaveniach) aj gamepad (páčka/šípky, A potvrdí, B späť, Start pauza).
 - **Profil** – `user://profile.cfg`, pred každým uložením záloha `profile.bak.cfg`.
 
-Ladiace prepínače (za `--`): `--stage=`, `--cat=`, `--start-minute=N --catch-up`, `--levels=N`, `--start-weapon=A,B`, `--branch=W:B:R`, `--champions`, `--golden`, `--page`, `--endless-now`, `--challenges=A,B`, `--devil`, `--angel-chance=1`, `--death-chance=1`, `--dev-panel`, `--kill-cat-every=N`, `--god`, `--no-save`, `--seed=N`, `--no-vsync`, `--perf`, `--shot=S`, `--show-choice`, `--shrine=KIND --choice=N`. Úplný zoznam je na začiatku `scripts/main.gd`.
+Ladiace prepínače (za `--`): `--stage=`, `--cat=`, `--start-minute=N --catch-up`, `--levels=N`, `--start-weapon=A,B`, `--branch=W:B:R`, `--champions`, `--golden`, `--page`, `--endless-now`, `--challenges=A,B`, `--devil`, `--angel-chance=1`, `--death-chance=1`, `--dev-panel`, `--no-arena`, `--kill-cat-every=N`, `--god`, `--no-save`, `--seed=N`, `--no-vsync`, `--perf`, `--shot=S`, `--show-choice`, `--shrine=KIND --choice=N`. Úplný zoznam je na začiatku `scripts/main.gd`.
 
 ## Zvuk
 

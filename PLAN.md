@@ -346,6 +346,7 @@ Sem píšeme nápady, ktoré zatiaľ nemajú miesto vo fázach.
 - Supermarket: široká ulička, ktorá zatáča hore aj dole ako cesta; rozbitné veci a nepriatelia sa objavujú len na priechodnej ploche (všetky terény).
 - Anjel a Smrť: šanca rastie so spotrebovanými životmi, Smrť po anjelovi v 50 %.
 - Bossovia: 7 podpisových útokov (cross, blink, sweep, meteor, chase, cage, whirl), každý finálny boss má vlastný a otvára ním boj.
+- Bossovia podľa Nekromanta z Death Must Die: pri príchode bossa sa okolo mačky na 1 minútu uzatvára tŕňová aréna (`scripts/world/boss_arena.gd`, `--no-arena` ju vypne), každých 15 s príde kruh mobov, hlavný útok (prvý v `specials`) chodí každé 2,4–3,4 s a každý 4. je zriedkavý iný, a každý boss sa občas (alebo keď zaostane) presunie cez portál – čierno-fialový vír pri mačke.
 
 ## Ako pracujeme
 

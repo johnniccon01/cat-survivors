@@ -30,6 +30,14 @@ const ENRAGE_AT := 0.3
 const ENRAGE_SPEED := 1.3
 const SPECIAL_RANGE := 420.0
 const SPECIAL_EVERY := Vector2(4.5, 6.5)
+## A boss's main attack (the first of its "specials") comes back this often;
+## every RARE_EVERY-th special is one of the others instead.
+const MAIN_EVERY := Vector2(2.4, 3.4)
+const RARE_EVERY := 4
+## Every so often (and whenever it falls far behind) a boss steps through a
+## portal: a dark swirl opens near the cat and it comes out of it.
+const PORTAL_EVERY := Vector2(13.0, 18.0)
+const PORTAL_OPEN := 1.0
 ## Set by the manager in big crowds (or with the effect saver): enemies stop
 ## their walk animation then, which saves thousands of redraws a second.
 static var calm := false
@@ -97,6 +105,9 @@ var _summon_timer := 0.0
 var _specials: Array = []
 var _special := ""
 var _specials_used := 0
+var _portal_t := randf_range(PORTAL_EVERY.x, PORTAL_EVERY.y)
+## True while a boss is gone between two portals: it can't touch the cat.
+var vanished := false
 var _special_t := 4.0
 var _special_step := 0
 var _special_state_t := 0.0
@@ -369,12 +380,21 @@ func _tick_special(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 	var angry := hp < max_hp * ENRAGE_AT
 	if _special == "":
 		_special_t -= delta * (1.5 if angry else 1.0)
-		if _special_t > 0.0 or position.distance_to(target) > SPECIAL_RANGE:
+		_portal_t -= delta
+		var far := position.distance_to(target) > SPECIAL_RANGE
+		if _portal_t <= 0.0 or (far and _portal_t < PORTAL_EVERY.x - 4.0):
+			_special = "portal"
+		elif _special_t > 0.0 or far:
 			return Vector2.INF
-		# The first special in the list is the boss's own: it opens the
-		# fight and comes up more often than the others.
-		_special = _specials[0] if _specials_used == 0 or randf() < 0.45 else _specials[randi() % _specials.size()]
-		_specials_used += 1
+		elif _specials.size() > 1 and _specials_used % RARE_EVERY == RARE_EVERY - 1:
+			# Now and then one of its other attacks.
+			_special = _specials[1 + randi() % (_specials.size() - 1)]
+		else:
+			# The first special in the list is the boss's main attack: it
+			# opens the fight and keeps coming back.
+			_special = _specials[0]
+		if _special != "portal":
+			_specials_used += 1
 		_special_step = 0
 		_special_state_t = 0.0
 		_special_at = target
@@ -475,10 +495,29 @@ func _tick_special(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 ## like a clock hand), "meteor" (a ring closing in on the cat, then a big
 ## one on it), "chase" (strikes that follow the cat's steps), "cage" (a ring
 ## around the cat with one way out before the middle blows), "whirl" (two
-## arms of shots spinning out).
+## arms of shots spinning out). "portal" is every boss's way to get close:
+## a dark swirl opens near the cat and the boss steps out of it.
 func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 	var hurt := damage * 0.8
 	match _special:
+		"portal":
+			if _special_step == 0:
+				_special_step = 1
+				_special_at = Terrain.fix(target + Vector2.from_angle(randf() * TAU) * 170.0, radius)
+				manager.spawn_hazard(_special_at, "strike", radius + 26.0, PORTAL_OPEN, 0.0, "portal")
+			if t < PORTAL_OPEN:
+				# It sinks into the ground where it stands, then is gone.
+				self_modulate.a = clampf(1.0 - t * 3.0, 0.0, 1.0)
+				vanished = t > 0.3
+				return Vector2.ZERO
+			position = _special_at
+			for i in 8:
+				manager.spawn_bullet(position, Vector2.from_angle(TAU * i / 8.0), shot, "hair")
+			_portal_t = randf_range(PORTAL_EVERY.x, PORTAL_EVERY.y)
+			_end_special()
+			# Out of the portal straight into its main attack.
+			_special_t = 0.5
+			return Vector2.INF
 		"cross":
 			if _special_step < 2 and t >= _special_step * 1.1:
 				var turn := PI * 0.25 * _special_step + (PI * 0.25 if randf() < 0.5 and _special_step == 0 else 0.0)
@@ -500,13 +539,14 @@ func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 			if _special_step == jump * 2:
 				_special_step += 1
 				_special_at = Terrain.fix(target, radius)
-				manager.spawn_hazard(_special_at, "strike", radius + 30.0, 0.75, hurt)
+				manager.spawn_hazard(_special_at, "strike", radius + 30.0, 0.75, hurt, "portal")
 			if _special_step == jump * 2 + 1 and in_jump >= 0.75:
 				_special_step += 1
 				position = _special_at
 				for i in 10:
 					manager.spawn_bullet(position, Vector2.from_angle(TAU * (i + 0.5 * jump) / 10.0), shot, "hair")
-			self_modulate.a = 0.25 if in_jump < 0.75 else 1.0
+			vanished = in_jump < 0.75 and in_jump > 0.25
+			self_modulate.a = clampf(1.0 - in_jump * 4.0, 0.0, 1.0) if in_jump < 0.75 else 1.0
 			return Vector2.ZERO
 		"sweep":
 			# Twelve steps of 30 degrees; the warning runs ahead of the hit.
@@ -566,8 +606,11 @@ func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 
 func _end_special() -> Vector2:
 	self_modulate.a = 1.0
+	vanished = false
+	# After the main attack the next comes soon; after a rare one a breather.
+	var gap := MAIN_EVERY if not _specials.is_empty() and _special == _specials[0] else SPECIAL_EVERY
 	_special = ""
-	_special_t = randf_range(SPECIAL_EVERY.x, SPECIAL_EVERY.y)
+	_special_t = randf_range(gap.x, gap.y)
 	return Vector2.INF
 
 

@@ -277,7 +277,15 @@ func _physics_process(delta: float) -> void:
 					chase = c.position
 		enemy.tick(delta, chase, _separation(enemy) * SEPARATION)
 		if Terrain.current != null:
-			enemy.position = Terrain.current.resolve(enemy.position, enemy.radius)
+			var fixed := Terrain.current.resolve(enemy.position, enemy.radius)
+			if fixed != enemy.position:
+				# Pushed back by a wall or tree: slide along it towards the cat
+				# instead of standing stuck against it.
+				var along := (fixed - enemy.position).orthogonal().normalized()
+				if along.dot(chase - fixed) < 0.0:
+					along = -along
+				fixed = Terrain.current.resolve(fixed + along * enemy.speed * delta, enemy.radius)
+			enemy.position = fixed
 		if not arena.is_empty():
 			_apply_arena(enemy)
 		for c in cats:

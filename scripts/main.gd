@@ -41,6 +41,11 @@ extends Node2D
 ##   --seed=N           fixed random seed (same map layout; performance checks)
 ##   --no-vsync         frame rate not capped by the monitor (performance checks)
 ##   --shot=SECONDS     save a screenshot to user://shot_N.png every SECONDS
+##   --strong           dev panel: every weapon that fits and 40 level-ups
+##   --dev-boss=ID      dev panel: clear the field and fight boss ID (progress not saved)
+##   --boss-rush        dev panel: every boss one after another
+##   --dev-quest=ID     dev panel: start quest ID, or CHAIN#N for step N of a story chain
+##   --dev-quest-all    dev panel: start every quest and story step in turn, 5 s each (tests)
 
 const HEART_DROP_CHANCE := 0.005
 const COIN_DROP_CHANCE := 0.015
@@ -84,6 +89,8 @@ var companions: Array[Player] = []
 var quests: QuestDirector
 var quests_done := 0
 var final_boss: Enemy
+## A boss test from the dev panel: a final boss falling doesn't end the night.
+var dev_test := false
 ## Gold picked up this run; added to the profile when the run ends.
 var run_gold := 0.0
 var _shown_level := 1
@@ -326,10 +333,12 @@ func _ready() -> void:
 	Engine.time_scale = _base_time_scale
 	for i in int(_arg("--levels=", "0")):
 		Upgrades.apply(player, Upgrades.roll(player)[0])
-	if OS.is_debug_build() and not _bot:
+	var dev_flags := ["--strong", "--boss-rush", "--dev-quest-all"].any(func(f: String) -> bool: return f in _args) or _arg("--dev-boss=", "") != "" or _arg("--dev-quest=", "") != ""
+	if OS.is_debug_build() and (not _bot or dev_flags):
 		var dev := DevPanel.new()
 		dev.main = self
 		add_child(dev)
+		_dev_start.call_deferred(dev)
 	if "--traps" in _args:
 		var i := 0
 		for trap_id: String in GameData.traps:
@@ -575,7 +584,7 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 	Profile.add_stat("kills")
 	Profile.add_stat("kills:" + id)
 	pickups.spawn_xp(pos, xp)
-	if GameData.enemies[id].get("final", false):
+	if GameData.enemies[id].get("final", false) and not dev_test:
 		bosses_killed += 1
 		var cat: String = GameData.enemies[id].get("cat", "")
 		if cat != "" and Profile.unlock(cat):
@@ -1407,3 +1416,17 @@ func _test_evolution() -> void:
 	print("TEST: weapons after: ", ids)
 	print("TEST: offers: ", Upgrades.roll(player, 20).map(func(o: Dictionary) -> String: return o["id"]))
 	get_tree().quit()
+
+
+## The dev panel's tests straight from the command line (see the list above).
+func _dev_start(dev: DevPanel) -> void:
+	if "--strong" in _args:
+		dev._strong_build()
+	if _arg("--dev-boss=", "") != "":
+		dev.fight(_arg("--dev-boss=", ""))
+	elif "--boss-rush" in _args:
+		dev.start_boss_rush()
+	if _arg("--dev-quest=", "") != "":
+		dev._test_quest(_arg("--dev-quest=", ""))
+	if "--dev-quest-all" in _args:
+		dev.cycle_quests()

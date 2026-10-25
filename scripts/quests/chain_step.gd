@@ -58,8 +58,8 @@ static func _script(type: String) -> GDScript:
 
 
 ## Makes the node for the next step of a chain.
-static func create(id: String) -> ChainStep:
-	var n := progress_of(id) + 1
+static func create(id: String, at_step: int = 0) -> ChainStep:
+	var n := at_step if at_step > 0 else progress_of(id) + 1
 	var data: Dictionary = steps(id)[n - 1]
 	# Loaded at run time, not preloaded: the step scripts extend this class.
 	var script := _script(data["type"])

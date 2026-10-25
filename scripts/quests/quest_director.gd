@@ -17,6 +17,8 @@ const CAT_QUEST_FROM := 180.0
 
 var main: Node
 var active: Quest
+## Dev test: the chain step force_step() asked for (0 = the saved progress).
+var _dev_step := 0
 
 var _timer := 0.0
 var _index := 0
@@ -74,6 +76,13 @@ func trail_end() -> Vector2:
 func force(quest_id: String) -> void:
 	_cat_given = _cat_given or (_cfg["cat_quests"] as Dictionary).has(quest_id)
 	_start(quest_id, 160.0)
+
+
+## Dev test: starts step `step` (1-based) of a story chain, whatever the save says.
+func force_step(chain_id: String, step: int) -> void:
+	_dev_step = step
+	_start(chain_id, 160.0)
+	_dev_step = 0
 
 
 func _physics_process(delta: float) -> void:
@@ -202,7 +211,7 @@ func _start(quest_id: String, distance: float, at: Vector2 = Vector2.INF) -> voi
 	var quest: Quest
 	var cat_quests: Dictionary = _cfg["cat_quests"]
 	if GameData.chains.has(quest_id):
-		quest = ChainStep.create(quest_id)
+		quest = ChainStep.create(quest_id, _dev_step)
 		distance = float(quest.data.get("distance", distance))
 	elif (_cfg["story"] as Dictionary).has(quest_id):
 		quest = StoryCollarQuest.new()

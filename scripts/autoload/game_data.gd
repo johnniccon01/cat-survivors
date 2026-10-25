@@ -71,9 +71,13 @@ static func arg(prefix: String, default: String) -> String:
 
 
 ## Test runs (--bot, --ui-test, --no-save) never write the profile or settings.
+## Set by the dev panel once a boss or quest test starts: from then on
+## nothing is saved until the game restarts, so tests never touch the save.
+static var dev_sandbox := false
+
 static func no_save() -> bool:
 	var args := GameData.args()
-	return "--bot" in args or "--ui-test" in args or "--no-save" in args
+	return dev_sandbox or "--bot" in args or "--ui-test" in args or "--no-save" in args
 
 func _load_json(path: String) -> Dictionary:
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))

@@ -1222,5 +1222,40 @@
         "distance": 220
       }
     ]
+  },
+  "UNDER_THE_SOFA": {
+    "stage": "LIVING_ROOM",
+    "secret": {"type": "far", "distance": 6500, "dark_from": 1500},
+    "reward": {"gold": 1500, "charm": "STEEL_CLAW"},
+    "steps": [
+      {"type": "trail", "count": 5, "spacing": [160, 220], "look": "crumbs"},
+      {"type": "boss", "enemy": "MEGA_ROOMBA", "hp_mult": 3.0, "look": "hole", "dark": true, "distance": 240}
+    ]
+  },
+  "LAST_ROOFTOP": {
+    "stage": "ROOFTOP",
+    "secret": {"type": "trail", "legs": 10, "leg": [380, 540], "start": [300, 450]},
+    "reward": {"gold": 2000, "charm": "COMET_TAIL"},
+    "steps": [
+      {"type": "defend", "time": 35, "mode": "enemies", "enemy": "PIGEON", "spawn_every": 3.0, "spawn_count": 4, "look": "chimney"},
+      {"type": "boss", "enemy": "PIGEON_EMPEROR", "hp_mult": 3.0, "look": "antenna", "distance": 220}
+    ]
+  },
+  "BACK_OF_THE_STORE": {
+    "stage": "SUPERMARKET",
+    "secret": {"type": "far", "distance": 8000, "dark_from": 2000},
+    "reward": {"gold": 2500, "charm": "SHADOW_COAT"},
+    "steps": [
+      {"type": "boss", "enemy": "CASH_REGISTER", "hp_mult": 3.0, "look": "bin", "dark": true, "distance": 260}
+    ]
+  },
+  "ABANDONED_LINE": {
+    "stage": "FACTORY",
+    "secret": {"type": "trail", "legs": 12, "leg": [380, 560], "start": [300, 450]},
+    "reward": {"gold": 3000, "charm": "MOON_PEARL"},
+    "steps": [
+      {"type": "defend", "time": 40, "mode": "enemies", "enemy": "BOLT_BUG", "spawn_every": 3.0, "spawn_count": 5, "look": "fuse"},
+      {"type": "boss", "enemy": "FORGE_GOLEM", "hp_mult": 3.0, "look": "x", "distance": 240}
+    ]
   }
 }

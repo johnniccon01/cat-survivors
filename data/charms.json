@@ -16,5 +16,9 @@
   "SPIDER_SILK":  { "stat": "duration", "value": 0.12, "rarity": "common", "color": "#eef0f4" },
   "WIND_FEATHER": { "stat": "proj_speed", "value": 0.15, "rarity": "common", "color": "#8fd3ff" },
   "CRESCENT_MOON": { "stat": "crit_chance", "value": 0.05, "rarity": "rare", "color": "#f2e6a0" },
-  "GOLDEN_FANG":  { "stat": "crit_mult", "value": 0.3,  "rarity": "epic",   "color": "#f2a03a" }
+  "GOLDEN_FANG":  { "stat": "crit_mult", "value": 0.3,  "rarity": "epic",   "color": "#f2a03a" },
+  "STEEL_CLAW":   { "stat": "might",    "value": 0.25, "rarity": "epic",   "color": "#c9d1d9" },
+  "COMET_TAIL":   { "stat": "speed",    "value": 0.18, "rarity": "epic",   "color": "#7fd6ff" },
+  "SHADOW_COAT":  { "stat": "armor",    "value": 3.0,  "rarity": "epic",   "color": "#4b3a66" },
+  "MOON_PEARL":   { "stat": "growth",   "value": 0.2,  "rarity": "epic",   "color": "#f4efe1" }
 }

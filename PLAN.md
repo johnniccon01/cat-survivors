@@ -3,7 +3,7 @@
 Živý zoznam toho, čo je hotové, čo robíme teraz a čo príde. Po každom kroku
 ho aktualizujeme: hotové odškrtneme `[x]`, nové nápady pridáme do Zásobníka.
 
-Naposledy aktualizované: 22. 10. 2026 (výkon, svätyne s voľbou)
+Naposledy aktualizované: 25. 10. 2026 (mapy s prekážkami, dev testy, plán inventára)
 
 ---
 
@@ -21,7 +21,7 @@ Hra je hrateľná od menu po koniec noci na 7 mapách:
 - **Priebeh noci:** rozpočet nepriateľov s krivkou intenzity, oddychy,
   udalosti (kruhy, roje), elity, bossovia, finálny boss, mačacie dvierka na
   útek, série výhier.
-- **Questy:** 34 príbehov (3 na každú mapu, 3 cez všetky mapy, 10 samostatných) s voľbami a trvalými zmenami máp, záchrany a súboje mačiek, príbehový quest na každej mape, vedľajšie úlohy.
+- **Questy:** 38 príbehov (3 na každú mapu, 3 cez všetky mapy, 10 samostatných, tajomstvo na každej mape) s voľbami a trvalými zmenami máp, záchrany a súboje mačiek, príbehový quest na každej mape, vedľajšie úlohy.
 - **Meta:** zlato, obchod s vylepšeniami, charmy, 29 artefaktov, 40 úspechov, dlhodobé ciele, kniha questov, výzvy, nekonečná noc.
 - **Tajomstvo:** anjel ťa na streche po 15. minúte s malou šancou zachráni;
   po dvoch záchranách príde diabol, ktorý zabije isto.
@@ -244,7 +244,60 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Škrabanec: ďalšie rady striedavo nad aj pod mačkou
 - [x] Túlavec dostane zbrane a plné zdravie už na 3. leveli
 - [x] Tma v queste na každej mape: pribudla na Obývačke (Mesačné okná), Záhrade (Strašiak), Streche (Búrková anténa), Prístave (Maják); Pivnica, Supermarket a Továreň ju už mali
-- [ ] Tajný quest „ďaleko od štartu“ / krvavá stopa je zatiaľ len v Záhrade, Pivnici a Prístave – na Obývačke, Streche, Supermarkete a Továrni chýba
+- [x] Tajný quest „ďaleko od štartu“ / krvavá stopa je na každej mape (pribudli Pod nekonečným gaučom, Posledná strecha, Zadná časť obchodu, Opustená linka + 4 epické charmy)
+
+## Mapy s prekážkami, dev testy (25. 10. 2026, večer)
+
+- [x] Oprava: svätyňa a level-up naraz otvorili obe okná a po výbere svätyne sa hra rozbehla s otvoreným level-upom – teraz idú okná po sebe a čas stojí, kým nie sú zatvorené obe
+- [x] Terén na mapách (`scripts/world/terrain.gd`, kľúč `"terrain"` v `data/stages.json`): nikto neprejde, strely letia ponad
+  - [x] **Záhrada (3. mapa) – stromy a kríky** rozhádzané po celej nekonečnej mape
+  - [x] **Supermarket (5.) – úzka ulička**: hore a dole regále, ísť sa dá len doľava a doprava; nepriatelia prichádzajú z bokov
+  - [x] **Prístav (6.) – dynamický príliv**: každých ~70 s varovanie, voda príde zhora aj zdola a stlačí všetkých na pás súše okolo mačky, po ~18 s odíde
+  - [x] Karta mapy ukazuje, že mapa má prekážky; questy, svätyne, dvierka, pasce aj odmeny sa vždy položia na voľné miesto
+- [ ] Zahrať všetky tri a povedať, či je ulička príliš úzka a príliv príliš častý (konštanty hore v `terrain.gd`)
+- [ ] Ďalšie varianty: steny/miestnosti v Pivnici (bludisko), pohyblivé pásy a lisy v Továrni, padajúce regále, mosty cez vodu
+- [x] Dev panel (F1): **Silný build**, **Test bossa** (zoznam všetkých 40 bossov), **Boss rush** (všetci za sebou, 2 s pauza, liečenie), **Test questu** (všetky questy aj každý krok každého príbehu); po prvom teste sa do reštartu nič neukladá
+- [x] Testy: `dev_boss_rush`, `dev_quests` (spustí všetkých 91 questov/krokov), `dev_boss_kraken`, 4 nové `secret_*`
+
+## Inventár a výbava (príprava – zatiaľ NEROBIŤ, len plán)
+
+Cieľ: výbava na úrovni Halls of Torment a Death Must Die, ale s mačkami. Čísla
+konkurencie treba ešte overiť (odhad z pamäti: HoT má okolo 10 slotov výbavy a
+stovky predmetov, ktoré sa odomykajú studňou; DMD má ~7 slotov, predmety
+s raritami a náhodnými vlastnosťami, sety a desiatky unikátov). Chceme mať
+viac slotov aj viac základných predmetov než oni.
+
+**Sloty (12):** obojok, zvonček/prívesok, čiapka/mašľa, okuliare/maska, vesta/kožúšok,
+predné labky (rukavičky), zadné labky (topánočky), chvost (stuha, krúžok), fúzy (vosk, korálky),
+pazúry (návleky), batôžtek (taška na chrbte), 2 talizmany (dnešné charmy sa stanú talizmanmi).
+
+**Predmety:**
+- [ ] Rarity: bežný, neobvyklý, vzácny, epický, legendárny, mýtický (6) + unikáty s menom a príbehom
+- [ ] Minimálne **15 základných predmetov na slot = 180+** a k tomu **40+ unikátov** a **12+ setov** (napr. „Námornícky set“: obojok s kotvou, vesta, čiapka – bonus za 2/3 kusy)
+- [ ] Náhodné vlastnosti (affixy): 1–4 podľa rarity z ~40 vlastností (poškodenie, rýchlosť, oblasť, kritiky, život, brnenie, magnet, šťastie, chamtivosť, cooldown, projektily, trvanie, regenerácia, únik, odraz, jed, oheň, mráz, blesk, poškodenie bossom, poškodenie pri plnom živote, ...)
+- [ ] Vlastnosti špecifické pre zbrane („+1 klbko“, „škrabanec zasiahne 2×“) a pre mačky
+- [ ] Úroveň predmetu podľa mapy a temnoty; lepšie predmety na neskorších mapách
+
+**Kde predmety padajú a čo s nimi:**
+- [ ] Počas noci: z bossov, elít, truhlíc a questov (predmet si odnesieš len cez dvierka alebo výhrou – ako dnes charmy)
+- [ ] Úkryt (domček) medzi nocami: **inventár** (mriežka, triedenie, porovnanie s nasadeným, zamknutie), **truhla** na sklad, **kováč/šijacia dielňa** (vylepšenie, prehodenie vlastnosti, rozobratie na materiál), **obchodník** s ponukou, ktorá sa mení
+- [ ] Každá mačka má vlastnú nasadenú výbavu; predmety sa dajú presúvať
+- [ ] Materiály: chlpy, nite, rybie šupiny, kovové skrutky (z máp podľa témy)
+- [ ] Bezpečnosť uloženia: verzia profilu, migrácia charmov na talizmany, záloha
+
+**Technika (keď sa do toho pustíme):**
+- [ ] `data/items.json` (základné predmety, sety, unikáty), `data/affixes.json`
+- [ ] `scripts/progression/items.gd` (generovanie, hodnoty), `scripts/ui/inventory_panel.gd`, `Profile` – sklad a výbava každej mačky
+- [ ] Vzhľad: predmety sa kreslia na mačke (obojok, čiapka, topánočky) – aspoň obojok, čiapka a vesta
+- [ ] Testy: generovanie 10 000 predmetov bez chýb, uloženie/načítanie, migrácia starého profilu
+
+## Viac obsahu než konkurencia (cieľ)
+
+- [ ] Mapy: dnes 7 (z toho 3 s prekážkami) → cieľ **12+**: Pivnica-bludisko, Les (stromy hustejšie, rúbanisko), Kanál (úzke chodby, voda), Cintorín (náhrobky, hmla), Vlak (ide len doprava, vagóny), Zasnežené mesto (ľad, kĺzanie)
+- [ ] Questy: dnes 91 questov a krokov príbehov → cieľ **150+**; nové typy krokov: únik pred niečím, ochrana pohyblivého cieľa, hádanka (spínače v poradí), preteky na čas, stealth v tme
+- [ ] Bossovia: dnes 40 → cieľ 60, každý s aspoň 2 špeciálnymi útokmi (otestovať boss rushom)
+- [ ] Zbrane: dnes 16 základných + evolúcie → cieľ 30
+- [ ] Mačky: dnes 11 + 2 tajné → cieľ 20
 
 ## Fáza 3 – Grafika a zvuk
 

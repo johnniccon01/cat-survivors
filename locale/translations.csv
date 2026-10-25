@@ -1501,3 +1501,34 @@ TERRAIN_TREES,Trees in the way,Stromy v ceste,Stromy v cestě
 TERRAIN_AISLES,Narrow aisle,Úzka ulička,Úzká ulička
 TERRAIN_TIDE,The tide comes in,Prichádza príliv,Přichází příliv
 TIDE_WARNING,The tide is coming! Stay on the dry strip.,Prichádza príliv! Zostaň na suchom páse.,Přichází příliv! Zůstaň na suchém pásu.
+CHARM_STEEL_CLAW_NAME,Steel Claw,Oceľový pazúr,Ocelový dráp
+CHARM_STEEL_CLAW_DESC,+25% damage,+25 % poškodenie,+25 % poškození
+CHARM_COMET_TAIL_NAME,Comet Tail,Kométin chvost,Kometin ocas
+CHARM_COMET_TAIL_DESC,+18% movement speed,+18 % rýchlosť pohybu,+18 % rychlost pohybu
+CHARM_SHADOW_COAT_NAME,Shadow Coat,Tieňový kožuch,Stínový kožich
+CHARM_SHADOW_COAT_DESC,+3 armor,+3 brnenie,+3 brnění
+CHARM_MOON_PEARL_NAME,Moon Pearl,Mesačná perla,Měsíční perla
+CHARM_MOON_PEARL_DESC,+20% experience,+20 % skúsenosti,+20 % zkušenosti
+CHAIN_UNDER_THE_SOFA_NAME,Under the Endless Sofa,Pod nekonečným gaučom,Pod nekonečným gaučem
+CHAIN_UNDER_THE_SOFA_DESC,"Crumbs lead further than any flat should go. What lives that far under the sofa?","Omrvinky vedú ďalej, než by byt mal siahať. Čo žije tak hlboko pod gaučom?","Drobky vedou dál, než by byt měl sahat. Co žije tak hluboko pod gaučem?"
+CHAIN_UNDER_THE_SOFA_1,Follow the old crumbs,Choď po starých omrvinkách,Jdi po starých drobcích
+CHAIN_UNDER_THE_SOFA_1_START,"It's dark here, and the crumbs are years old...","Je tu tma a omrvinky sú roky staré...","Je tu tma a drobky jsou roky staré..."
+CHAIN_UNDER_THE_SOFA_2,Defeat the forgotten robot,Poraz zabudnutého robota,Poraz zapomenutého robota
+CHAIN_UNDER_THE_SOFA_2_DONE,The first robot vacuum ever bought. It guarded a steel claw.,Prvý robotický vysávač v dejinách bytu. Strážil oceľový pazúr.,První robotický vysavač v dějinách bytu. Hlídal ocelový dráp.
+CHAIN_LAST_ROOFTOP_NAME,The Last Rooftop,Posledná strecha,Poslední střecha
+CHAIN_LAST_ROOFTOP_DESC,Feathers fall in a long line across the roofs. Someone is leaving a trail.,Perie padá v dlhom rade cez strechy. Niekto tu nechal stopu.,Peří padá v dlouhé řadě přes střechy. Někdo tu nechal stopu.
+CHAIN_LAST_ROOFTOP_1,Hold the old chimney,Ubráň starý komín,Ubraň starý komín
+CHAIN_LAST_ROOFTOP_1_START,The trail ends at a chimney full of angry pigeons!,Stopa končí pri komíne plnom nahnevaných holubov!,Stopa končí u komína plného naštvaných holubů!
+CHAIN_LAST_ROOFTOP_2,Defeat the Pigeon Emperor's ghost,Poraz ducha Holubieho cisára,Poraz ducha Holubího císaře
+CHAIN_LAST_ROOFTOP_2_DONE,In his nest lies a feather as fast as a comet.,V jeho hniezde leží pierko rýchle ako kométa.,V jeho hnízdě leží pírko rychlé jako kometa.
+CHAIN_BACK_OF_THE_STORE_NAME,The Back of the Store,Zadná časť obchodu,Zadní část obchodu
+CHAIN_BACK_OF_THE_STORE_DESC,The aisle goes on and on. Staff say nobody comes back from the far end.,"Ulička pokračuje stále ďalej. Personál vraví, že zo zadného konca sa nikto nevráti.","Ulička pokračuje stále dál. Personál říká, že ze zadního konce se nikdo nevrátí."
+CHAIN_BACK_OF_THE_STORE_1,Defeat the haunted cash register,Poraz strašidelnú pokladňu,Poraz strašidelnou pokladnu
+CHAIN_BACK_OF_THE_STORE_1_START,The lights go out. Somewhere a cash register rings by itself.,Svetlá zhasnú. Niekde sama od seba zazvoní pokladňa.,Světla zhasnou. Někde sama od sebe zazvoní pokladna.
+CHAIN_BACK_OF_THE_STORE_1_DONE,Behind the register hangs a coat made of shadows.,Za pokladňou visí kožuch utkaný z tieňov.,Za pokladnou visí kožich utkaný ze stínů.
+CHAIN_ABANDONED_LINE_NAME,The Abandoned Line,Opustená linka,Opuštěná linka
+CHAIN_ABANDONED_LINE_DESC,Oil drips lead to a production line that was shut down long ago.,"Kvapky oleja vedú k výrobnej linke, ktorú dávno vypli.","Kapky oleje vedou k výrobní lince, kterou dávno vypnuli."
+CHAIN_ABANDONED_LINE_1,Guard the fuse box,Stráž poistkovú skriňu,Hlídej pojistkovou skříň
+CHAIN_ABANDONED_LINE_1_START,The old line wakes up – and so do its bugs!,Stará linka sa prebúdza – a s ňou aj jej chrobáky!,Stará linka se probouzí – a s ní i její brouci!
+CHAIN_ABANDONED_LINE_2,Defeat the Forge Golem,Poraz Kováčskeho golema,Poraz Kovářského golema
+CHAIN_ABANDONED_LINE_2_DONE,Inside the golem glows a pearl as pale as the moon.,V golemovi žiari perla bledá ako mesiac.,V golemovi září perla bledá jako měsíc.

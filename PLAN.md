@@ -13,7 +13,8 @@ Hra je hrateľná od menu po koniec noci na 7 mapách:
 
 - **Mapy:** Byt → Pivnica → Záhrada → Strecha → Supermarket → Prístav → Továreň (každá sa odomkne porazením
   finálneho bossa predchádzajúcej), každá s vlastnou podlahou, nábytkom,
-  nepriateľmi, bossmi, pascami a hudbou.
+  nepriateľmi, bossmi, pascami a hudbou. Od 3. mapy majú terén: Záhrada stromy, Strecha múriky,
+  Supermarket úzku uličku, Prístav príliv, Továreň pohyblivé pásy.
 - **Mačky:** 11 hrateľných (Mica, Luna, Snehulka, Mrňa, Tiger, Barón,
   Ďatelinka, Bruno, Tučko, Kapitán, Šrubka) + 2 tajné (anjel, diabol).
 - **Boj:** 16 zbraní s evolúciami a vetvami, 12 pasív, kritické zásahy a šťastie,
@@ -21,7 +22,7 @@ Hra je hrateľná od menu po koniec noci na 7 mapách:
 - **Priebeh noci:** rozpočet nepriateľov s krivkou intenzity, oddychy,
   udalosti (kruhy, roje), elity, bossovia, finálny boss, mačacie dvierka na
   útek, série výhier.
-- **Questy:** 45 príbehov (3 na každú mapu, 3 cez všetky mapy, 10 samostatných, tajomstvo na každej mape) s voľbami a trvalými zmenami máp, záchrany a súboje mačiek, príbehový quest na každej mape, vedľajšie úlohy.
+- **Questy:** 45 príbehov (3 na každú mapu, 3 cez všetky mapy, 10 samostatných, tajomstvo na každej mape) s voľbami a trvalými zmenami máp, záchrany a súboje mačiek, príbehový quest na každej mape, 7 druhov vedľajších úloh.
 - **Meta:** zlato, obchod s vylepšeniami, charmy, 29 artefaktov, 40 úspechov, dlhodobé ciele, kniha questov, výzvy, nekonečná noc.
 - **Tajomstvo:** anjel ťa na streche po 15. minúte s malou šancou zachráni;
   po dvoch záchranách príde diabol, ktorý zabije isto.

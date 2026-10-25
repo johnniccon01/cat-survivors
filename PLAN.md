@@ -21,7 +21,7 @@ Hra je hrateľná od menu po koniec noci na 7 mapách:
 - **Priebeh noci:** rozpočet nepriateľov s krivkou intenzity, oddychy,
   udalosti (kruhy, roje), elity, bossovia, finálny boss, mačacie dvierka na
   útek, série výhier.
-- **Questy:** 42 príbehov (3 na každú mapu, 3 cez všetky mapy, 10 samostatných, tajomstvo na každej mape) s voľbami a trvalými zmenami máp, záchrany a súboje mačiek, príbehový quest na každej mape, vedľajšie úlohy.
+- **Questy:** 45 príbehov (3 na každú mapu, 3 cez všetky mapy, 10 samostatných, tajomstvo na každej mape) s voľbami a trvalými zmenami máp, záchrany a súboje mačiek, príbehový quest na každej mape, vedľajšie úlohy.
 - **Meta:** zlato, obchod s vylepšeniami, charmy, 29 artefaktov, 40 úspechov, dlhodobé ciele, kniha questov, výzvy, nekonečná noc.
 - **Tajomstvo:** anjel ťa na streche po 15. minúte s malou šancou zachráni;
   po dvoch záchranách príde diabol, ktorý zabije isto.
@@ -261,6 +261,8 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Testy: `dev_boss_rush`, `dev_quests` (spustí všetkých 91 questov/krokov), `dev_boss_kraken`, 4 nové `secret_*`
 - [x] 4 nové príbehy pre mapy s terénom: Stará bylinkárka (Záhrada), Beh po múrikoch (Strecha), Rozliate mlieko (Supermarket), Vrecia s pieskom (Prístav)
 - [x] Predmety, zóny, stopy, cieľ červenej bodky aj domovy záchran sa kladú len na voľné miesto (nie do stromu, regálu či steny)
+- [x] Ďalšie 3 príbehy: Stratené gombíky (Byt), Lampáš pre moly (Pivnica), Náhradné diely (Továreň); 12 nových charmov (spolu 31)
+- [x] Nepriatelia sa pri náraze na stenu či strom šmýkajú popri nej k mačke
 
 ## Inventár a výbava (príprava – zatiaľ NEROBIŤ, len plán)
 

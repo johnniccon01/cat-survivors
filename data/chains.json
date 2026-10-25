@@ -1289,5 +1289,29 @@
       {"type": "zones", "count": 3, "hold": 6, "radius": 45, "spread": [200, 340]},
       {"type": "collect", "items": ["rope"], "item": "rope", "count": 3, "capacity": 1, "spread": [220, 420], "deliver": true, "look_to": "boat"}
     ]
+  },
+  "LOST_BUTTONS": {
+    "stage": "LIVING_ROOM",
+    "reward": {"gold": 400, "charm": "THIMBLE"},
+    "steps": [
+      {"type": "collect", "items": ["button"], "item": "button", "count": 5, "capacity": 5, "spread": [200, 420], "deliver": true, "look_to": "basket"},
+      {"type": "defend", "time": 25, "mode": "enemies", "enemy": "SOCK", "spawn_every": 2.5, "spawn_count": 5, "look": "basket"}
+    ]
+  },
+  "MOTH_LANTERN": {
+    "stage": "BASEMENT",
+    "reward": {"gold": 500, "charm": "MOTH_WING"},
+    "steps": [
+      {"type": "zones", "dark": true, "count": 4, "hold": 5, "radius": 40, "spread": [200, 340]},
+      {"type": "defend", "time": 30, "mode": "enemies", "enemy": "MOTH", "spawn_every": 2.5, "spawn_count": 5, "look": "lantern", "dark": true}
+    ]
+  },
+  "SPARE_PARTS": {
+    "stage": "FACTORY",
+    "reward": {"gold": 1000, "charm": "COPPER_COIL"},
+    "steps": [
+      {"type": "collect", "items": ["gear"], "item": "gear", "count": 6, "capacity": 3, "spread": [220, 460], "deliver": true, "look_to": "fuse"},
+      {"type": "boss", "enemy": "ASSEMBLY_ARM", "hp_mult": 2.5, "look": "fuse", "distance": 230, "after_minute": 5}
+    ]
   }
 }

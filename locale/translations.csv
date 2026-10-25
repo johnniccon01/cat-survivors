@@ -1562,3 +1562,41 @@ CHAIN_SANDBAGS_1_DONE,The wall holds. Now the boat needs tying up!,Hrádza drž�
 CHAIN_SANDBAGS_2,Bring ropes to the boat,Dones laná k loďke,Dones lana k loďce
 CHAIN_SANDBAGS_2_START,The ropes are scattered all over the pier.,Laná sú rozhádzané po celom móle.,Lana jsou rozházená po celém molu.
 CHAIN_SANDBAGS_2_DONE,The boat is safe. A gull feather drifts down as thanks.,Loďka je v bezpečí. Ako vďaka pristane pierko čajky.,Loďka je v bezpečí. Jako díky přistane pírko racka.
+CHARM_THIMBLE_NAME,Thimble,Náprstok,Náprstek
+CHARM_THIMBLE_DESC,+1 armor,+1 brnenie,+1 brnění
+CHARM_MOTH_WING_NAME,Moth Wing,Krídlo moly,Křídlo moli
+CHARM_MOTH_WING_DESC,+20% duration,+20 % trvanie,+20 % trvání
+CHARM_COPPER_COIL_NAME,Copper Coil,Medená cievka,Měděná cívka
+CHARM_COPPER_COIL_DESC,Weapons attack 8% more often,Zbrane útočia o 8 % častejšie,Zbraně útočí o 8 % častěji
+CHARM_CANDLE_STUB_NAME,Candle Stub,Ohorok sviečky,Oharek svíčky
+CHARM_CANDLE_STUB_DESC,+15% attack area,+15 % plocha útokov,+15 % plocha útoků
+CHARM_SALMON_SKIN_NAME,Salmon Skin,Lososia koža,Lososí kůže
+CHARM_SALMON_SKIN_DESC,+40 max health,+40 maximálne zdravie,+40 maximální zdraví
+CHARM_BIRD_BELL_NAME,Bird Bell,Vtáčí zvonček,Ptačí zvoneček
+CHARM_BIRD_BELL_DESC,Pick up kibble from much further away,Granule priťahuješ z oveľa väčšej diaľky,Granule přitahuješ z mnohem větší dálky
+CHARM_PIRATE_COIN_NAME,Pirate Coin,Pirátska minca,Pirátská mince
+CHARM_PIRATE_COIN_DESC,+30% gold,+30 % zlata,+30 % zlata
+CHARM_OWL_EYE_NAME,Owl Eye,Sovie oko,Soví oko
+CHARM_OWL_EYE_DESC,+10% critical hit chance,+10 % šanca na kritický zásah,+10 % šance na kritický zásah
+CHAIN_LOST_BUTTONS_NAME,Lost Buttons,Stratené gombíky,Ztracené knoflíky
+CHAIN_LOST_BUTTONS_DESC,Grandma's sewing box fell over. Buttons everywhere!,Babkina šijacia krabica spadla. Gombíky sú všade!,Babiččina šicí krabice spadla. Knoflíky jsou všude!
+CHAIN_LOST_BUTTONS_1,Gather the buttons into the basket,Pozbieraj gombíky do košíka,Posbírej knoflíky do košíku
+CHAIN_LOST_BUTTONS_1_START,Five shiny buttons rolled under the furniture.,Päť lesklých gombíkov sa zakotúľalo pod nábytok.,Pět lesklých knoflíků se zakutálelo pod nábytek.
+CHAIN_LOST_BUTTONS_1_DONE,All there! But the socks want them too...,Všetky sú tu! Ale chcú ich aj ponožky...,Všechny jsou tu! Ale chtějí je i ponožky...
+CHAIN_LOST_BUTTONS_2,Guard the sewing basket,Stráž šijací košík,Hlídej šicí košík
+CHAIN_LOST_BUTTONS_2_START,A sock army marches on the basket!,Armáda ponožiek pochoduje na košík!,Armáda ponožek pochoduje na košík!
+CHAIN_LOST_BUTTONS_2_DONE,Grandma gives you her old thimble.,Babka ti dá svoj starý náprstok.,Babička ti dá svůj starý náprstek.
+CHAIN_MOTH_LANTERN_NAME,The Moth Lantern,Lampáš pre moly,Lucerna pro můry
+CHAIN_MOTH_LANTERN_DESC,The basement lights went out and the moths are restless.,Svetlá v pivnici zhasli a moly sú nepokojné.,Světla ve sklepě zhasla a můry jsou neklidné.
+CHAIN_MOTH_LANTERN_1,Light the old candles,Zapáľ staré sviečky,Zapal staré svíčky
+CHAIN_MOTH_LANTERN_1_START,Stand by each candle until it burns.,"Postoj pri každej sviečke, kým nezhorí.","Postůj u každé svíčky, dokud nehoří."
+CHAIN_MOTH_LANTERN_1_DONE,The light draws every moth in the basement!,Svetlo priláka všetky moly v pivnici!,Světlo přiláká všechny můry ve sklepě!
+CHAIN_MOTH_LANTERN_2,Protect the lantern,Ochráň lampáš,Ochraň lucernu
+CHAIN_MOTH_LANTERN_2_DONE,A wing from the biggest moth stays on the floor.,Na zemi zostane krídlo najväčšej moly.,Na zemi zůstane křídlo největší můry.
+CHAIN_SPARE_PARTS_NAME,Spare Parts,Náhradné diely,Náhradní díly
+CHAIN_SPARE_PARTS_DESC,The fuse box is broken and gears are scattered all over the hall.,Poistková skriňa je pokazená a ozubené kolesá sú rozhádzané po hale.,Pojistková skříň je rozbitá a ozubená kola jsou rozházená po hale.
+CHAIN_SPARE_PARTS_1,Bring gears to the fuse box,Dones ozubené kolesá k poistkám,Dones ozubená kola k pojistkám
+CHAIN_SPARE_PARTS_1_START,Six gears. Three at a time is all a cat can carry.,Šesť koliesok. Mačka unesie naraz len tri.,Šest koleček. Kočka unese najednou jen tři.
+CHAIN_SPARE_PARTS_1_DONE,The machines start up – and so does the assembly arm!,Stroje sa rozbehli – aj montážne rameno!,Stroje se rozběhly – i montážní rameno!
+CHAIN_SPARE_PARTS_2,Stop the assembly arm,Zastav montážne rameno,Zastav montážní rameno
+CHAIN_SPARE_PARTS_2_DONE,In its claw it held a coil of copper wire.,V klepetách držalo cievku medeného drôtu.,V klepetech drželo cívku měděného drátu.

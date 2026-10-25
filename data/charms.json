@@ -20,5 +20,13 @@
   "STEEL_CLAW":   { "stat": "might",    "value": 0.25, "rarity": "epic",   "color": "#c9d1d9" },
   "COMET_TAIL":   { "stat": "speed",    "value": 0.18, "rarity": "epic",   "color": "#7fd6ff" },
   "SHADOW_COAT":  { "stat": "armor",    "value": 3.0,  "rarity": "epic",   "color": "#4b3a66" },
-  "MOON_PEARL":   { "stat": "growth",   "value": 0.2,  "rarity": "epic",   "color": "#f4efe1" }
+  "MOON_PEARL":   { "stat": "growth",   "value": 0.2,  "rarity": "epic",   "color": "#f4efe1" },
+  "THIMBLE":      { "stat": "armor",    "value": 1.0,  "rarity": "common", "color": "#d9d9d9" },
+  "MOTH_WING":    { "stat": "duration", "value": 0.2,  "rarity": "rare",   "color": "#cbb68a" },
+  "COPPER_COIL":  { "stat": "cooldown", "value": -0.08, "rarity": "rare",  "color": "#c87533" },
+  "CANDLE_STUB":  { "stat": "area",     "value": 0.15, "rarity": "rare",   "color": "#f6e7b0" },
+  "SALMON_SKIN":  { "stat": "max_hp",   "value": 40.0, "rarity": "rare",   "color": "#f08a6c" },
+  "BIRD_BELL":    { "stat": "magnet",   "value": 50.0, "rarity": "rare",   "color": "#e3c34f" },
+  "PIRATE_COIN":  { "stat": "greed",    "value": 0.3,  "rarity": "epic",   "color": "#e0b33a" },
+  "OWL_EYE":      { "stat": "crit_chance", "value": 0.1, "rarity": "epic", "color": "#9bd06b" }
 }

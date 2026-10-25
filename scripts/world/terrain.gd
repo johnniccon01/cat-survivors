@@ -3,6 +3,8 @@ extends Node2D
 ## Obstacles a map can have (stage "terrain"): nobody walks through them,
 ## shots fly over. Kinds:
 ## - "trees": bushes and trees scattered over the endless lawn.
+## - "walls": brick walls in a grid of rooms, each wall with a gap to walk
+##   through (Rooftop: parapets between the roofs).
 ## - "aisles": tall shelves above and below, only a corridor to the left and
 ##   right is free.
 ## - "tide": every now and then the sea comes in from above and below and
@@ -14,6 +16,11 @@ const TREE_CHANCE := 0.5
 ## No tree this close to where the night starts.
 const TREE_CLEAR := 240.0
 const AISLE_HALF := 105.0
+const WALL_CELL := 300.0
+const WALL_CHANCE := 0.65
+const WALL_THICK := 22.0
+## The gap in a wall (share of its length), so every room stays open.
+const WALL_GAP := [0.36, 0.64]
 ## Tide: calm for a while, then a warning, the water rises, stays, goes out.
 const TIDE_FIRST := 60.0
 const TIDE_CALM := 45.0
@@ -30,6 +37,7 @@ static var current: Terrain
 var kind := ""
 var main: Node
 var _trees := {}
+var _walls := {}
 var _seed := 0
 var _t := 0.0
 ## Tide: "calm", "warn", "rise", "hold", "fall"; the strip around _center_y
@@ -77,6 +85,12 @@ func resolve(pos: Vector2, r: float) -> Vector2:
 	if _half < INF:
 		var half := maxf(_half - r, 0.0)
 		pos.y = clampf(pos.y, _center_y - half, _center_y + half)
+	if kind == "walls":
+		var wc := Vector2i(floori(pos.x / WALL_CELL), floori(pos.y / WALL_CELL))
+		for dx in range(-1, 2):
+			for dy in range(-1, 2):
+				for rect: Rect2 in _wall_rects(Vector2i(wc.x + dx, wc.y + dy)):
+					pos = _push_out_of(rect, pos, r)
 	if kind == "trees":
 		var c := Vector2i(floori(pos.x / TREE_CELL), floori(pos.y / TREE_CELL))
 		for dx in range(-1, 2):
@@ -180,6 +194,8 @@ func _draw() -> void:
 	match kind:
 		"trees":
 			_draw_trees(view)
+		"walls":
+			_draw_walls(view)
 		"aisles":
 			_draw_aisles(view)
 		"tide":
@@ -281,3 +297,81 @@ func _draw_tide(view: Rect2) -> void:
 			while px < view.end.x:
 				draw_arc(Vector2(px, wy), 14.0, PI * 1.1, PI * 1.9, 6, Color(0.8, 0.92, 1.0, 0.45), 3.0)
 				px += 200.0
+
+
+## The wall pieces on a cell's top and left edges (each wall in two pieces
+## with a gap between them), the same every time.
+func _wall_rects(c: Vector2i) -> Array:
+	if _walls.has(c):
+		return _walls[c]
+	var rng := RandomNumberGenerator.new()
+	rng.seed = hash([c.x, c.y, _seed, "walls"])
+	var rects: Array = []
+	var o := Vector2(c) * WALL_CELL
+	# Nothing right around where the night starts.
+	var near_start := o.length() < WALL_CELL * 1.2 or (o + Vector2(WALL_CELL, WALL_CELL) * 0.5).length() < WALL_CELL
+	if not near_start:
+		var a: float = WALL_GAP[0] + rng.randf_range(-0.2, 0.2)
+		var b: float = a + (WALL_GAP[1] - WALL_GAP[0])
+		if rng.randf() < WALL_CHANCE:
+			rects.append(Rect2(o.x, o.y - WALL_THICK * 0.5, WALL_CELL * a, WALL_THICK))
+			rects.append(Rect2(o.x + WALL_CELL * b, o.y - WALL_THICK * 0.5, WALL_CELL * (1.0 - b) + WALL_THICK * 0.5, WALL_THICK))
+		a = WALL_GAP[0] + rng.randf_range(-0.2, 0.2)
+		b = a + (WALL_GAP[1] - WALL_GAP[0])
+		if rng.randf() < WALL_CHANCE:
+			rects.append(Rect2(o.x - WALL_THICK * 0.5, o.y, WALL_THICK, WALL_CELL * a))
+			rects.append(Rect2(o.x - WALL_THICK * 0.5, o.y + WALL_CELL * b, WALL_THICK, WALL_CELL * (1.0 - b)))
+	_walls[c] = rects
+	if _walls.size() > 4000:
+		_walls.clear()
+	return rects
+
+
+## `pos` moved just outside `rect` if something `r` big would overlap it.
+func _push_out_of(rect: Rect2, pos: Vector2, r: float) -> Vector2:
+	var closest := Vector2(clampf(pos.x, rect.position.x, rect.end.x), clampf(pos.y, rect.position.y, rect.end.y))
+	var off := pos - closest
+	if off != Vector2.ZERO:
+		var d := off.length()
+		return pos if d >= r else closest + off / d * r
+	# The centre is inside: out through the nearest side.
+	var left := pos.x - rect.position.x
+	var right := rect.end.x - pos.x
+	var up := pos.y - rect.position.y
+	var down := rect.end.y - pos.y
+	var m := minf(minf(left, right), minf(up, down))
+	if m == left:
+		return Vector2(rect.position.x - r, pos.y)
+	if m == right:
+		return Vector2(rect.end.x + r, pos.y)
+	if m == up:
+		return Vector2(pos.x, rect.position.y - r)
+	return Vector2(pos.x, rect.end.y + r)
+
+
+func _draw_walls(view: Rect2) -> void:
+	var c0 := Vector2i(floori(view.position.x / WALL_CELL) - 1, floori(view.position.y / WALL_CELL) - 1)
+	var c1 := Vector2i(floori(view.end.x / WALL_CELL) + 1, floori(view.end.y / WALL_CELL) + 1)
+	var brick := Color("b3aa9c")
+	for cx in range(c0.x, c1.x + 1):
+		for cy in range(c0.y, c1.y + 1):
+			for rect: Rect2 in _wall_rects(Vector2i(cx, cy)):
+				if not rect.intersects(view):
+					continue
+				draw_rect(Rect2(rect.position + Vector2(5, 8), rect.size), Color(0, 0, 0, 0.3))
+				draw_rect(rect, brick)
+				# Brick rows and a lighter top.
+				var horizontal := rect.size.x > rect.size.y
+				var length := rect.size.x if horizontal else rect.size.y
+				var n := int(length / 18.0)
+				for i in range(1, n + 1):
+					var t := i * 18.0
+					if horizontal:
+						draw_line(rect.position + Vector2(t, 0), rect.position + Vector2(t, rect.size.y), brick.darkened(0.25), 1.5)
+					else:
+						draw_line(rect.position + Vector2(0, t), rect.position + Vector2(rect.size.x, t), brick.darkened(0.25), 1.5)
+				if horizontal:
+					draw_line(rect.position + Vector2(0, rect.size.y * 0.5), rect.position + Vector2(rect.size.x, rect.size.y * 0.5), brick.darkened(0.25), 1.5)
+				else:
+					draw_line(rect.position + Vector2(rect.size.x * 0.5, 0), rect.position + Vector2(rect.size.x * 0.5, rect.size.y), brick.darkened(0.25), 1.5)
+				draw_rect(rect, Color("2b2520"), false, 3.0)

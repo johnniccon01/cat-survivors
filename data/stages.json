@@ -762,6 +762,7 @@
   },
   "ROOFTOP": {
     "theme": "rooftop",
+    "terrain": "walls",
     "damage_mult": 0.85,
     "music": "music_rooftop",
     "music_alt": "music_rooftop_alt",

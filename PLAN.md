@@ -251,6 +251,7 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Oprava: svätyňa a level-up naraz otvorili obe okná a po výbere svätyne sa hra rozbehla s otvoreným level-upom – teraz idú okná po sebe a čas stojí, kým nie sú zatvorené obe
 - [x] Terén na mapách (`scripts/world/terrain.gd`, kľúč `"terrain"` v `data/stages.json`): nikto neprejde, strely letia ponad
   - [x] **Záhrada (3. mapa) – stromy a kríky** rozhádzané po celej nekonečnej mape
+  - [x] **Strecha (4.) – múriky s priechodmi** (ako steny vo Vampire Survivors, v každom múriku je medzera)
   - [x] **Supermarket (5.) – úzka ulička**: hore a dole regále, ísť sa dá len doľava a doprava; nepriatelia prichádzajú z bokov
   - [x] **Prístav (6.) – dynamický príliv**: každých ~70 s varovanie, voda príde zhora aj zdola a stlačí všetkých na pás súše okolo mačky, po ~18 s odíde
   - [x] Karta mapy ukazuje, že mapa má prekážky; questy, svätyne, dvierka, pasce aj odmeny sa vždy položia na voľné miesto

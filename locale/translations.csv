@@ -1608,3 +1608,6 @@ QUEST_MOONBEAM_HOLD,Stay in the moving moonlight: %d s,Zostaň v putujúcom mesa
 QUEST_PACK_TITLE,The pack leaders,Vodcovia svorky,Vůdci smečky
 QUEST_PACK_FIND,Find where the pack gathers,"Nájdi miesto, kde sa zhromažďuje svorka","Najdi místo, kde se shromažďuje smečka"
 QUEST_PACK_FIGHT,Defeat the crowned leaders: %d left (%d s),Poraz vodcov s korunou: zostáva %d (%d s),Poraz vůdce s korunou: zbývá %d (%d s)
+QUEST_DIG_TITLE,Buried treasure,Zakopaný poklad,Zakopaný poklad
+QUEST_DIG_FIND,Find the X on the ground,Nájdi X na zemi,Najdi X na zemi
+QUEST_DIG_DIG,Dig at the X (%d/%d),Kopaj pri X (%d/%d),Kopej u X (%d/%d)

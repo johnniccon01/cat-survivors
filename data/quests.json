@@ -111,6 +111,13 @@
       "count": 3,
       "hp_mult": 8.0,
       "time_limit": 45.0
+    },
+    "BURIED_TREASURE": {
+      "spots": 3,
+      "radius": 40.0,
+      "dig_time": 3.0,
+      "guards": 6,
+      "next": [250.0, 400.0]
     }
   },
   "schedule": {

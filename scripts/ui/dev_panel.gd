@@ -7,6 +7,7 @@ var main: Node
 
 var _panel: PanelContainer
 var _god_button: Button
+var _terrain_button: Button
 ## The list of bosses or quests to pick from (null when closed).
 var _picker: PanelContainer
 ## The boss under test and, in a boss rush, the ones still to come.
@@ -66,6 +67,7 @@ func _ready() -> void:
 	_button(box, "Boss test...", _open_boss_picker)
 	_button(box, "Boss rush (all bosses)", _start_boss_rush)
 	_button(box, "Quest test...", _open_quest_picker)
+	_terrain_button = _button(box, "Terrain: %s" % (Terrain.current.kind if Terrain.current != null else "none"), _next_terrain)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -388,3 +390,19 @@ func _tick_quest_cycle(delta: float) -> void:
 	var id: String = _quest_cycle.pop_front()
 	print("DEV: quest test %s (%d left)" % [id, _quest_cycle.size()])
 	_test_quest(id)
+
+
+## Tries the next kind of terrain on this map (none → trees → walls → ...).
+func _next_terrain() -> void:
+	var kinds := ["", "trees", "walls", "aisles", "tide", "belts"]
+	var now: String = Terrain.current.kind if Terrain.current != null else ""
+	var next: String = kinds[(kinds.find(now) + 1) % kinds.size()]
+	if Terrain.current != null:
+		Terrain.current.queue_free()
+		Terrain.current = null
+	if next != "":
+		var terrain := Terrain.new()
+		terrain.setup(next, main)
+		main.add_child(terrain)
+		main.move_child(terrain, main.get_node("Floor").get_index() + 1)
+	_terrain_button.text = "Terrain: %s" % (next if next != "" else "none")

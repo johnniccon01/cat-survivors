@@ -46,6 +46,7 @@ extends Node2D
 ##   --boss-rush        dev panel: every boss one after another
 ##   --dev-quest=ID     dev panel: start quest ID, or CHAIN#N for step N of a story chain
 ##   --dev-quest-all    dev panel: start every quest and story step in turn, 5 s each (tests)
+##   --dev-next-terrain=N  dev panel: press "Terrain" N times (tests)
 
 const HEART_DROP_CHANCE := 0.005
 const COIN_DROP_CHANCE := 0.015
@@ -333,7 +334,7 @@ func _ready() -> void:
 	Engine.time_scale = _base_time_scale
 	for i in int(_arg("--levels=", "0")):
 		Upgrades.apply(player, Upgrades.roll(player)[0])
-	var dev_flags := ["--strong", "--boss-rush", "--dev-quest-all"].any(func(f: String) -> bool: return f in _args) or _arg("--dev-boss=", "") != "" or _arg("--dev-quest=", "") != ""
+	var dev_flags := ["--strong", "--boss-rush", "--dev-quest-all"].any(func(f: String) -> bool: return f in _args) or _arg("--dev-boss=", "") != "" or _arg("--dev-next-terrain=", "") != "" or _arg("--dev-quest=", "") != ""
 	if OS.is_debug_build() and (not _bot or dev_flags):
 		var dev := DevPanel.new()
 		dev.main = self
@@ -1430,3 +1431,5 @@ func _dev_start(dev: DevPanel) -> void:
 		dev._test_quest(_arg("--dev-quest=", ""))
 	if "--dev-quest-all" in _args:
 		dev.cycle_quests()
+	for i in int(_arg("--dev-next-terrain=", "0")):
+		dev._next_terrain()

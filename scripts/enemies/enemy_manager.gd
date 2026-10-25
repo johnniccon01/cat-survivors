@@ -277,7 +277,8 @@ func _physics_process(delta: float) -> void:
 					chase = c.position
 		enemy.tick(delta, chase, _separation(enemy) * SEPARATION)
 		if Terrain.current != null:
-			var moved := enemy.position + Terrain.flow(enemy.position) * delta
+			# Belts carry enemies at half speed, so they never get stuck on one.
+			var moved := enemy.position + Terrain.flow(enemy.position) * 0.5 * delta
 			var fixed := Terrain.current.resolve(moved, enemy.radius)
 			if fixed != moved:
 				# Pushed back by a wall or tree: slide along it towards the cat

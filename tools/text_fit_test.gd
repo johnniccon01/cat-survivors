@@ -24,6 +24,17 @@ func _run() -> void:
 			var data := root.get_node("GameData")
 			for id: String in data.stages:
 				profile.cleared_stages.append(id)
+			# Gear with the longest names in every slot, worn and in the bag.
+			var items_script: Script = load("res://scripts/progression/items.gd")
+			var found: Array = []
+			for id: String in data.items["legendaries"]:
+				found.append(items_script.legendary(id))
+			for i in 30:
+				found.append(items_script.roll(1.0, "rare"))
+			profile.bank_items(found)
+			for item: Dictionary in profile.items:
+				if not profile.equipped_items.has(item["slot"]):
+					profile.toggle_item(int(item["uid"]))
 			for id: String in data.cats:
 				profile.unlocked.append(id)
 		for locale: String in LOCALES:
@@ -34,7 +45,7 @@ func _run() -> void:
 			await _screen(tag, "menu", ["_shop", "_charms", "_journal", "_settings"])
 			change_scene_to_file("res://scenes/character_select.tscn")
 			await _frames(8)
-			await _screen(tag, "select", ["_shop", "_charms", "_artifacts", "_challenges", "_journal"])
+			await _screen(tag, "select", ["_shop", "_charms", "_items", "_artifacts", "_challenges", "_journal"])
 			_map_cards(tag)
 	print("TEXT: done, %d failures" % _failures)
 	quit(1 if _failures > 0 else 0)

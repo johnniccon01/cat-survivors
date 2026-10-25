@@ -103,6 +103,8 @@ func _ready() -> void:
 	if controller != "follow":
 		cat_id = Profile.selected_cat
 	_look = CatArt.look(cat_id)
+	if controller == "input" or controller == "bot":
+		_look = CatArt.with_gear(_look)
 	if controller == "follow" or controller == "escort":
 		camera.queue_free()
 		camera = null
@@ -288,6 +290,13 @@ func _recalc_stats() -> void:
 		var artifacts := Profile.artifact_bonus()
 		for key: String in artifacts:
 			stats[key] += artifacts[key]
+		var gear := Profile.item_bonus()
+		for key: String in gear:
+			# Two ability timers keep the shorter one instead of adding up.
+			if key in Items.TIMERS and stats[key] > 0.0:
+				stats[key] = minf(stats[key], gear[key])
+			else:
+				stats[key] += gear[key]
 	for b in blessings:
 		var bonus_stats: Dictionary = b["stats"]
 		for key: String in bonus_stats:

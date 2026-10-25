@@ -167,7 +167,44 @@ static func _draw_sprite(ci: CanvasItem, sprite: Dictionary, lk: Dictionary, fac
 		ci.draw_rect(Rect2(Vector2(3, -15.5) * s, Vector2(13, 2) * s), Color("2a3a6a"))
 		ci.draw_colored_polygon(Shapes.ellipse(Vector2(13, -13.5) * s, 4.0 * s, 1.3 * s, 10), Color("1f1c25"))
 		ci.draw_circle(Vector2(9.5, -17) * s, 1.0 * s, Color("f2c14e"))
+	var gear: Dictionary = lk.get("gear", {})
+	if extras and not dead and not gear.is_empty():
+		_draw_gear(ci, gear, s, lk.get("hat", false))
 	ci.draw_set_transform(Vector2.ZERO)
+
+
+## The look with the worn gear (see Items) added: the collar and the hat
+## show on the cat.
+static func with_gear(lk: Dictionary) -> Dictionary:
+	var out := lk.duplicate()
+	var gear := {}
+	for slot: String in ["COLLAR", "HAT"]:
+		var item := Profile.worn_item(slot)
+		if not item.is_empty():
+			gear[slot] = Items.color(item)
+	out["gear"] = gear
+	return out
+
+
+## A collar with a little tag round the neck and a knitted hat with a pompom
+## (no hat over a cat that already wears one).
+static func _draw_gear(ci: CanvasItem, gear: Dictionary, s: float, has_hat: bool) -> void:
+	if gear.has("COLLAR"):
+		var c: Color = gear["COLLAR"]
+		var band := Shapes.ellipse(Vector2(10.0, -3.0) * s, 4.2 * s, 1.2 * s, 14)
+		ci.draw_colored_polygon(band, c)
+		ci.draw_polyline(Shapes.closed(band), OUTLINE, 1.0)
+		ci.draw_circle(Vector2(11.0, -1.7) * s, 1.1 * s, Color("f2c14e"))
+	if gear.has("HAT") and not has_hat:
+		var c: Color = gear["HAT"]
+		var dome := PackedVector2Array()
+		for i in 9:
+			var a := PI + PI * i / 8.0
+			dome.append(Vector2(9.5, -14.5) * s + Vector2(cos(a) * 5.5, sin(a) * 4.5) * s)
+		ci.draw_colored_polygon(dome, c)
+		ci.draw_polyline(Shapes.closed(dome), OUTLINE, 1.0)
+		ci.draw_rect(Rect2(Vector2(4.0, -15.5) * s, Vector2(11.0, 2.0) * s), c.darkened(0.25))
+		ci.draw_circle(Vector2(9.5, -19.5) * s, 1.4 * s, c.lightened(0.4))
 
 
 ## Two feathered wings behind the back that flap slowly.

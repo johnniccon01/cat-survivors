@@ -42,6 +42,13 @@ var challenges: Array[String] = []
 const ARTIFACT_SLOTS := 2
 var artifacts: Array[String] = []
 var equipped_artifacts: Array[String] = []
+## Gear (see Items): every item you own, which one is worn in each slot
+## (slot -> uid), and the next uid to give out. The stash holds ITEM_STASH
+## items; anything brought home past that is melted into gold.
+const ITEM_STASH := 40
+var items: Array = []
+var equipped_items: Dictionary = {}
+var next_item_uid := 1
 ## The daily night: while it runs, `challenges` holds today's challenges and
 ## the player's own choice waits in _daily_backup (and is what gets saved).
 const DAILY_GOLD := 500
@@ -107,6 +114,10 @@ func _ready() -> void:
 		for id: String in cfg.get_value("artifacts", "owned", []):
 			if GameData.artifacts.has(id):
 				artifacts.append(id)
+		items = cfg.get_value("items", "owned", [])
+		equipped_items = cfg.get_value("items", "equipped", {})
+		next_item_uid = cfg.get_value("items", "next_uid", 1)
+		_clean_items()
 		for id: String in cfg.get_value("artifacts", "equipped", []):
 			if id in artifacts:
 				equipped_artifacts.append(id)
@@ -135,6 +146,15 @@ func _ready() -> void:
 			for id in arg.trim_prefix("--artifacts=").split(",", false):
 				artifacts.append(id)
 				equipped_artifacts.append(id)
+		# `-- --gear=RAT_CROWN,rare` owns and wears those legendaries and
+		# random items of those rarities.
+		if arg.begins_with("--gear="):
+			for id in arg.trim_prefix("--gear=").split(",", false):
+				var item := Items.legendary(id) if GameData.items["legendaries"].has(id) else Items.roll(1.0, id)
+				item["uid"] = next_item_uid
+				next_item_uid += 1
+				items.append(item)
+				equipped_items[item["slot"]] = item["uid"]
 		if arg.begins_with("--cat="):
 			selected_cat = arg.trim_prefix("--cat=")
 		elif arg.begins_with("--stage="):
@@ -376,6 +396,88 @@ func artifact_bonus() -> Dictionary:
 	return total
 
 
+## Brings items home from a run (gets them uids). Past the stash size they
+## are melted into gold; returns that gold.
+func bank_items(found: Array) -> int:
+	var gold_back := 0
+	for item: Dictionary in found:
+		if items.size() >= ITEM_STASH:
+			gold_back += Items.salvage_gold(item)
+			continue
+		var kept := item.duplicate(true)
+		kept["uid"] = next_item_uid
+		next_item_uid += 1
+		items.append(kept)
+	add_gold(gold_back)
+	save()
+	return gold_back
+
+
+func item_by_uid(uid: int) -> Dictionary:
+	for item: Dictionary in items:
+		if int(item["uid"]) == uid:
+			return item
+	return {}
+
+
+## The item worn in a slot (empty when none).
+func worn_item(slot: String) -> Dictionary:
+	return item_by_uid(int(equipped_items.get(slot, 0)))
+
+
+## Puts an item on (taking off whatever was in its slot), or takes it off
+## when it is already worn.
+func toggle_item(uid: int) -> void:
+	var item := item_by_uid(uid)
+	if item.is_empty():
+		return
+	var slot: String = item["slot"]
+	if int(equipped_items.get(slot, 0)) == uid:
+		equipped_items.erase(slot)
+	else:
+		equipped_items[slot] = uid
+	save()
+
+
+## Melts an item down for gold (taking it off first).
+func salvage_item(uid: int) -> int:
+	var item := item_by_uid(uid)
+	if item.is_empty():
+		return 0
+	if int(equipped_items.get(item["slot"], 0)) == uid:
+		equipped_items.erase(item["slot"])
+	items.erase(item)
+	var gold_back := Items.salvage_gold(item)
+	add_gold(gold_back)
+	save()
+	return gold_back
+
+
+## Sum of the worn items per stat.
+func item_bonus() -> Dictionary:
+	var bonus := {}
+	for slot: String in equipped_items:
+		var item := worn_item(slot)
+		if item.is_empty():
+			continue
+		var stats: Dictionary = item["stats"]
+		for key: String in stats:
+			if key in Items.TIMERS and bonus.has(key):
+				bonus[key] = minf(float(bonus[key]), float(stats[key]))
+			else:
+				bonus[key] = float(bonus.get(key, 0.0)) + float(stats[key])
+	return bonus
+
+
+## Drops items whose base no longer exists and slots pointing at nothing,
+## so a changed items.json never breaks an old profile.
+func _clean_items() -> void:
+	items = items.filter(func(item: Variant) -> bool: return item is Dictionary and not Items.info(item).is_empty())
+	for slot: String in equipped_items.keys():
+		if worn_item(slot).is_empty():
+			equipped_items.erase(slot)
+
+
 ## Sum of the worn charms per stat.
 func charm_bonus() -> Dictionary:
 	var bonus := {}
@@ -496,6 +598,9 @@ func save() -> void:
 	cfg.set_value("chains", "steps", chains)
 	cfg.set_value("achievements", "earned", achievements)
 	cfg.set_value("artifacts", "equipped", equipped_artifacts)
+	cfg.set_value("items", "owned", items)
+	cfg.set_value("items", "equipped", equipped_items)
+	cfg.set_value("items", "next_uid", next_item_uid)
 	# Keep the last good save before writing the new one.
 	if FileAccess.file_exists(PATH):
 		var previous := ConfigFile.new()

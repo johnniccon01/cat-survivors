@@ -13,6 +13,8 @@ var quests: Dictionary = {}
 var powerups: Dictionary = {}
 var charms: Dictionary = {}
 var artifacts: Dictionary = {}
+## Gear: slots, rarities, random stats, base items and legendaries (see Items).
+var items: Dictionary = {}
 var chains: Dictionary = {}
 var achievements: Dictionary = {}
 var traps: Dictionary = {}
@@ -39,6 +41,7 @@ func _ready() -> void:
 	powerups = _load_json("res://data/powerups.json")
 	charms = _load_json("res://data/charms.json")
 	artifacts = _load_json("res://data/artifacts.json")
+	items = _load_json("res://data/items.json")
 	chains = _load_json("res://data/chains.json")
 	achievements = _load_json("res://data/achievements.json")
 	traps = _load_json("res://data/traps.json")
@@ -100,6 +103,7 @@ func _setup_input() -> void:
 	_add_keys("reroll", [KEY_R])
 	_add_keys("charms", [KEY_C])
 	_add_keys("artifacts", [KEY_V])
+	_add_keys("items", [KEY_I])
 	_add_keys("goals", [KEY_G])
 	_add_keys("questbook", [KEY_Q])
 	_add_keys("journal", [KEY_J])

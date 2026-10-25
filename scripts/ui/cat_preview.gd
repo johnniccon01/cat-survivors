@@ -10,6 +10,8 @@ var locked := false
 var walking := false
 ## Drawing scale (the select screen uses 3, the journal less).
 var zoom := 3.0
+## Show the gear the player wears (the big cat on the select screen).
+var gear := false
 
 var _t := 0.0
 
@@ -27,4 +29,6 @@ func _draw() -> void:
 		lk["stripes"] = false
 		lk["patches"] = false
 		lk["silhouette"] = true
+	if gear and not locked:
+		lk = CatArt.with_gear(lk)
 	CatArt.draw(self, lk, 1, _t, false, false, "normal", size * 0.5, zoom, walking)

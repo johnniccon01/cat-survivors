@@ -22,6 +22,7 @@ var _stage_ids: Array[String] = []
 var _stage_index := 0
 var _shop: ShopPanel
 var _charms: CharmPanel
+var _items: ItemPanel
 var _artifacts: ArtifactPanel
 var _artifact_label: Label
 var _journal: JournalPanel
@@ -166,6 +167,7 @@ func _build() -> void:
 	_big.custom_minimum_size = Vector2(170 if wide else 190, 210)
 	_big.zoom = 5.0
 	_big.walking = true
+	_big.gear = true
 	_big.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	drow.add_child(_big)
 	var info := VBoxContainer.new()
@@ -270,6 +272,7 @@ func _build() -> void:
 	_play = play
 	for entry: Array in [["MENU_UPGRADES", "U", func() -> void: _shop.open()],
 			["MENU_CHARMS", "C", func() -> void: _charms.open()],
+			["MENU_ITEMS", "I", func() -> void: _items.open()],
 			["ARTIFACTS_TITLE", "V", func() -> void: _artifacts.open()],
 			["CHALLENGES_TITLE", "X", func() -> void: _challenges.open()],
 			["SELECT_BTN_DAILY", "T", _start_daily],
@@ -288,6 +291,9 @@ func _build() -> void:
 	_charms = CharmPanel.new()
 	add_child(_charms)
 	_charms.closed.connect(_refresh)
+	_items = ItemPanel.new()
+	add_child(_items)
+	_items.closed.connect(_refresh)
 	_artifacts = ArtifactPanel.new()
 	add_child(_artifacts)
 	_artifacts.closed.connect(_refresh)
@@ -442,7 +448,7 @@ func _on_map_input(event: InputEvent, i: int) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _shop.visible or _charms.visible or _journal.visible or _challenges.visible or _artifacts.visible:
+	if _shop.visible or _charms.visible or _items.visible or _journal.visible or _challenges.visible or _artifacts.visible:
 		return
 	if event.is_action_pressed("challenges"):
 		Audio.play("click", -6.0, 0.0)
@@ -456,6 +462,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shop"):
 		Audio.play("click", -6.0, 0.0)
 		_shop.open()
+	elif event.is_action_pressed("items"):
+		Audio.play("click", -6.0, 0.0)
+		_items.open()
 	elif event.is_action_pressed("charms"):
 		Audio.play("click", -6.0, 0.0)
 		_charms.open()

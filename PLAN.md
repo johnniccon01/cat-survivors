@@ -267,7 +267,9 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Nepriatelia sa pri náraze na stenu či strom šmýkajú popri nej k mačke
 - [x] 4 nové vedľajšie questy (boli len 3): **Mesačný lúč** (putujúce mesačné svetlo, treba v ňom vydržať 15 s, lieči) , **Vodcovia svorky** (3 silní nepriatelia s korunou, poraziť do 45 s) , **Zakopaný poklad** (3 miesta na kopanie za sebou, na konci truhla a mince) a **Mačacie preteky** (5 vlajočiek, každá do 10 s)
 
-## Inventár a výbava (príprava – zatiaľ NEROBIŤ, len plán; podrobný návrh v `INVENTAR.md`)
+## Inventár a výbava (malá verzia hotová 26. 10. 2026; zvyšok plán, podrobný návrh v `INVENTAR.md`)
+
+**Hotové (malá verzia):** 5 slotov (obojok, čiapka, vesta, labky, chvost), 40 základných predmetov, rarity bežný / vzácny (náhodná vlastnosť navyše) / legendárny. Každý finálny boss vždy dá svoju legendárku so schopnosťou (pulz magnetu, život navyše, tŕne, ochrana pri nízkom HP, zmrazenie, +1 projektil…), boss z vlny 50 %, elita 6 % (× šťastie). Predmety sa odnesú cez dvierka alebo výhrou; pri smrti studňa zachráni najlepší. Panel **Výbava (I)** na výbere mačky: nasadiť, dať dole, roztaviť na zlato (X dvakrát). Obojok a čiapka sa kreslia na mačke. Sklad 40 predmetov, výbava je spoločná pre všetky mačky. Kód: `data/items.json`, `scripts/progression/items.gd`, `scripts/ui/item_panel.gd`, `Profile.items`. Testy: `items_check`, `gear_*`.
 
 Cieľ: výbava na úrovni Halls of Torment a Death Must Die, ale s mačkami. Čísla
 konkurencie treba ešte overiť (odhad z pamäti: HoT má okolo 10 slotov výbavy a

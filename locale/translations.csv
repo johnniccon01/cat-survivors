@@ -1616,3 +1616,91 @@ QUEST_DIG_DIG,Dig at the X (%d/%d),Kopaj pri X (%d/%d),Kopej u X (%d/%d)
 QUEST_RACE_TITLE,The cat race,Mačacie preteky,Kočičí závod
 QUEST_RACE_FIND,Find the starting flag,Nájdi štartovú vlajočku,Najdi startovní vlaječku
 QUEST_RACE_RUN,Run to flag %d/%d: %d s,Bež k vlajočke %d/%d: %d s,Běž k vlaječce %d/%d: %d s
+RARITY_LEGENDARY,Legendary,Legendárny,Legendární
+MENU_ITEMS,Gear,Výbava,Výbava
+ITEMS_TITLE,Gear,Výbava,Výbava
+ITEMS_HINT,← → slot · ↑ ↓ item · Enter put on / take off · X melt for gold · I / Esc back,← → slot · ↑ ↓ predmet · Enter nasadiť / dať dole · X roztaviť na zlato · I / Esc späť,← → slot · ↑ ↓ předmět · Enter nasadit / sundat · X roztavit na zlato · I / Esc zpět
+ITEMS_EMPTY,"Nothing for this slot yet. Bosses and elites drop gear; every final boss drops its own legendary.","Na tento slot zatiaľ nič nemáš. Výbavu nechávajú bossovia a elity, každý finálny boss svoju legendárnu.","Na tento slot zatím nic nemáš. Výbavu nechávají bossové a elity, každý finální boss svou legendární."
+ITEMS_EMPTY_SLOT,(empty),(prázdne),(prázdné)
+ITEMS_COUNT,%d / %d items,%d / %d predmetov,%d / %d předmětů
+ITEMS_MELTED,Melted down for %d gold.,Roztavené na %d zlata.,Roztaveno na %d zlata.
+ITEMS_WORN,worn,nasadené,nasazeno
+ITEM_FOUND,Found: %s (%s)!,Našiel si: %s (%s)!,Našel jsi: %s (%s)!
+SUMMARY_ITEMS_KEPT,Gear brought home: %s,Výbava prinesená domov: %s,Výbava přinesená domů: %s
+SUMMARY_ITEM_WELL,The wishing well saved one item: %s,Studňa prianí zachránila jeden predmet: %s,Studna přání zachránila jeden předmět: %s
+SUMMARY_ITEMS_MELTED,Your stash is full: the rest melted into %d gold.,Sklad je plný: zvyšok sa roztavil na %d zlata.,Sklad je plný: zbytek se roztavil na %d zlata.
+ITEM_SLOT_COLLAR,Collar,Obojok,Obojek
+ITEM_SLOT_HAT,Hat,Čiapka,Čepice
+ITEM_SLOT_VEST,Vest,Vesta,Vesta
+ITEM_SLOT_PAWS,Paws,Labky,Tlapky
+ITEM_SLOT_TAIL,Tail,Chvost,Ocas
+ISTAT_MIGHT,+%s%% damage,+%s %% poškodenie,+%s %% poškození
+ISTAT_SPEED,+%s%% move speed,+%s %% rýchlosť pohybu,+%s %% rychlost pohybu
+ISTAT_MAX_HP,+%s max health,+%s max. zdravie,+%s max. zdraví
+ISTAT_AREA,+%s%% area,+%s %% plocha,+%s %% plocha
+ISTAT_COOLDOWN,+%s%% attack rate,+%s %% rýchlosť útokov,+%s %% rychlost útoků
+ISTAT_ARMOR,+%s armor,+%s brnenie,+%s brnění
+ISTAT_REGEN,+%s health/s,+%s zdravia/s,+%s zdraví/s
+ISTAT_MAGNET,+%s pickup range,+%s dosah magnetu,+%s dosah magnetu
+ISTAT_GREED,+%s%% gold,+%s %% zlata,+%s %% zlata
+ISTAT_LUCK,+%s%% luck,+%s %% šťastie,+%s %% štěstí
+ISTAT_CRIT_CHANCE,+%s%% critical chance,+%s %% šanca na kritický zásah,+%s %% šance na kritický zásah
+ISTAT_CRIT_MULT,+%s%% critical damage,+%s %% sila kritického zásahu,+%s %% síla kritického zásahu
+ISTAT_DURATION,+%s%% duration,+%s %% trvanie,+%s %% trvání
+ISTAT_PROJ_SPEED,+%s%% projectile speed,+%s %% rýchlosť striel,+%s %% rychlost střel
+ISTAT_GROWTH,+%s%% experience,+%s %% skúsenosti,+%s %% zkušenosti
+ITEM_RED_COLLAR_NAME,Red Collar,Červený obojok,Červený obojek
+ITEM_BELL_COLLAR_NAME,Bell Collar,Obojok so zvončekom,Obojek se zvonečkem
+ITEM_LEATHER_COLLAR_NAME,Leather Collar,Kožený obojok,Kožený obojek
+ITEM_SILVER_COLLAR_NAME,Silver Collar,Strieborný obojok,Stříbrný obojek
+ITEM_FLEA_COLLAR_NAME,Flea Collar,Obojok proti blchám,Obojek proti blechám
+ITEM_NAME_TAG_NAME,Name Tag,Známka s menom,Známka se jménem
+ITEM_SPIKED_COLLAR_NAME,Spiked Collar,Obojok s hrotmi,Obojek s hroty
+ITEM_BOW_COLLAR_NAME,Bow Collar,Obojok s mašľou,Obojek s mašlí
+ITEM_WOOL_HAT_NAME,Wool Hat,Vlnená čiapka,Vlněná čepice
+ITEM_PARTY_HAT_NAME,Party Hat,Párty klobúčik,Párty kloboučík
+ITEM_STRAW_HAT_NAME,Straw Hat,Slamený klobúk,Slaměný klobouk
+ITEM_BERET_NAME,Beret,Baretka,Baret
+ITEM_PIRATE_HAT_NAME,Pirate Hat,Pirátsky klobúk,Pirátský klobouk
+ITEM_WIZARD_HAT_NAME,Wizard Hat,Čarodejnícky klobúk,Čarodějnický klobouk
+ITEM_PAPER_CROWN_NAME,Paper Crown,Papierová korunka,Papírová korunka
+ITEM_NUTSHELL_HELMET_NAME,Nutshell Helmet,Prilba z orechovej škrupiny,Přilba z ořechové skořápky
+ITEM_KNIT_VEST_NAME,Knitted Vest,Pletená vesta,Pletená vesta
+ITEM_RAINCOAT_NAME,Raincoat,Pršiplášť,Pláštěnka
+ITEM_HOODIE_NAME,Hoodie,Mikina s kapucňou,Mikina s kapucí
+ITEM_SAILOR_SHIRT_NAME,Sailor Shirt,Námornícke tričko,Námořnické tričko
+ITEM_FUR_COAT_NAME,Fur Coat,Kožúšok,Kožíšek
+ITEM_APRON_NAME,Apron,Zástera,Zástěra
+ITEM_TUXEDO_NAME,Tuxedo,Frak,Frak
+ITEM_CAPE_NAME,Hero Cape,Plášť hrdinu,Plášť hrdiny
+ITEM_SOCKS_NAME,Striped Socks,Pruhované ponožky,Pruhované ponožky
+ITEM_BOOTIES_NAME,Booties,Papučky,Bačkůrky
+ITEM_MITTENS_NAME,Mittens,Palčiaky,Palčáky
+ITEM_CLAW_CAPS_NAME,Claw Caps,Návleky na pazúry,Návleky na drápy
+ITEM_SLIPPERS_NAME,Fluffy Slippers,Chlpaté papuče,Chlupaté pantofle
+ITEM_SNEAKERS_NAME,Sneakers,Tenisky,Tenisky
+ITEM_GLOVES_NAME,Gloves,Rukavičky,Rukavičky
+ITEM_DANCE_SHOES_NAME,Dance Shoes,Tanečné topánočky,Taneční botičky
+ITEM_TAIL_RIBBON_NAME,Tail Ribbon,Stuha na chvost,Stuha na ocas
+ITEM_TAIL_RING_NAME,Tail Ring,Krúžok na chvost,Kroužek na ocas
+ITEM_TAIL_BELL_NAME,Tail Bell,Zvonček na chvost,Zvoneček na ocas
+ITEM_TAIL_BOW_NAME,Tail Bow,Mašľa na chvost,Mašle na ocas
+ITEM_TAIL_SOCK_NAME,Tail Warmer,Návlek na chvost,Návlek na ocas
+ITEM_TAIL_TASSEL_NAME,Tail Tassel,Strapec na chvost,Střapec na ocas
+ITEM_TAIL_FEATHER_NAME,Tail Feather,Pierko na chvost,Pírko na ocas
+ITEM_TAIL_CHARM_NAME,Tail Charm,Prívesok na chvost,Přívěsek na ocas
+ITEM_POWER_CORD_NAME,The Power Cord,Napájací kábel,Napájecí kabel
+ITEM_POWER_CORD_DESC,"From the Vacuum King. Every 30 s pulls all kibble to you; +40 pickup range, +15% gold.","Od Kráľa vysávačov. Každých 30 s k tebe pritiahne všetky granulky; +40 dosah magnetu, +15 % zlata.","Od Krále vysavačů. Každých 30 s k tobě přitáhne všechny granulky; +40 dosah magnetu, +15 % zlata."
+ITEM_RAT_CROWN_NAME,The Rat Crown,Potkania koruna,Krysí koruna
+ITEM_RAT_CROWN_DESC,"From the Rat King. One extra life each night; +10% luck.","Od Potkanieho kráľa. Jeden život navyše každú noc; +10 % šťastie.","Od Krysího krále. Jeden život navíc každou noc; +10 % štěstí."
+ITEM_MOWER_BOOTS_NAME,Mower Boots,Kosačkové čižmy,Sekačkové boty
+ITEM_MOWER_BOOTS_DESC,"From the Lawnmower. Whenever you get hurt, blades cut every enemy close to you; +10% speed, +8% area.","Od Kosačky. Keď ťa niečo zraní, čepele sekajú všetkých nepriateľov blízko teba; +10 % rýchlosť, +8 % plocha.","Od Sekačky. Když tě něco zraní, čepele sekají všechny nepřátele blízko tebe; +10 % rychlost, +8 % plocha."
+ITEM_NIGHT_SCARF_NAME,The Night Scarf,Nočná šála,Noční šála
+ITEM_NIGHT_SCARF_DESC,"From Bruno. +8% critical chance, critical hits deal +40% more.","Od Bruna. +8 % šanca na kritický zásah, kritické zásahy o 40 % silnejšie.","Od Bruna. +8 % šance na kritický zásah, kritické zásahy o 40 % silnější."
+ITEM_GUARD_VEST_NAME,The Guard Vest,Strážna vesta,Strážní vesta
+ITEM_GUARD_VEST_DESC,"From Rex the Guard Dog. Below 30% health you take 30% less damage; +2 armor, +30 max health.","Od strážneho psa Rexa. Pod 30 % zdravia dostávaš o 30 % menšie poškodenie; +2 brnenie, +30 max. zdravie.","Od hlídacího psa Rexe. Pod 30 % zdraví dostáváš o 30 % menší poškození; +2 brnění, +30 max. zdraví."
+ITEM_KRAKEN_PEARL_NAME,The Kraken Pearl,Krakenova perla,Krakenova perla
+ITEM_KRAKEN_PEARL_DESC,"From the Kraken. Every 40 s the sea goes still: enemies around you freeze for 3 s (not bosses); +15% duration.","Od Krakena. Každých 40 s more stíchne: nepriatelia okolo teba zamrznú na 3 s (bossovia nie); +15 % trvanie.","Od Krakena. Každých 40 s moře ztichne: nepřátelé kolem tebe zamrznou na 3 s (bossové ne); +15 % trvání."
+ITEM_TURBO_TAIL_NAME,The Turbo Tail,Turbo chvost,Turbo ocas
+ITEM_TURBO_TAIL_DESC,"From the Robo-Vacuum 3000. +1 projectile for every weapon, +25% damage to bosses.","Od Robo-vysávača 3000. +1 projektil každej zbrani, o 25 % väčšie poškodenie bossom.","Od Robo-vysavače 3000. +1 projektil každé zbrani, o 25 % větší poškození bossům."
+ITEMS_MELT_ASK,Press X again to melt %s for %d gold.,Stlač X ešte raz a %s sa roztaví na %d zlata.,Stiskni X ještě jednou a %s se roztaví na %d zlata.

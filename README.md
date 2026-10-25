@@ -18,6 +18,8 @@ Ovládanie: **WASD / šípky / ľavá páčka**, **Esc** pauza, v pauze **L** ja
 
 V pauze: **N** čísla poškodenia, **K** otrasy obrazovky.
 
+**Výbava (I)** – na výbere mačky: 5 slotov, predmety z bossov a elít; odnesieš ich cez dvierka alebo výhrou, pri smrti studňa zachráni najlepší. X dvakrát roztaví predmet na zlato.
+
 **Vývojársky panel (F1)** – len vo vývojovej verzii (vo vydanej hre sa nezobrazí). Hru pozastaví; tri stĺpce: akcie, všetci bossovia podľa máp a všetky questy, s vyhľadávaním. Fajky sú checklist toho, čo si už vyskúšal (uložené v `user://dev_checklist.json`, nie v profile); porazený boss alebo splnený quest z testu sa odfajkne sám. Akcie: posun o minútu, nesmrteľnosť, +5 levelov, finálny boss hneď, quest hneď, **silný build** (všetky zbrane + 40 levelov), **test bossa** (zoznam všetkých bossov, vyber a bojuj), **boss rush** (všetci bossovia za sebou), **test questu** (každý quest a každý krok príbehu), **Terrain** (vyskúšaš ľubovoľný terén na ľubovoľnej mape). Po spustení testu sa do reštartu hry nič neukladá. Z príkazového riadku: `-- --strong --dev-boss=KRAKEN`, `-- --boss-rush`, `-- --dev-quest=KIBBLE_THIEF#2`. Pred vydaním ho zmažeme (`scripts/ui/dev_panel.gd`).
 
 Celá sada testov (asi 150 scenárov vrátane celých nocí na každej mape, ~9 min; `QUICK=1` = 30 scenárov za ~1 min):

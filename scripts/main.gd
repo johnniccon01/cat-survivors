@@ -46,6 +46,10 @@ extends Node2D
 ##   --dev-panel        open the dev panel (F1) right away
 ##   --no-arena         no arena or rings of enemies in final boss fights
 ##   --boss-hp=F        with --dev-boss: the boss starts at this share of its health
+##   --items-test       check the gear system (tools/items_check.gd)
+##   --item-chance=F    a boss or elite drops gear with this chance
+##   --gear=ID,rare     own and wear these legendaries / random items of a rarity
+##   --drop-item=ID     start the run with this legendary (or a random item of a rarity) in the bag
 ##   --expect=a,b       test runs: fail unless these BotLog events happen (--expect-not=)
 ##   --boss-rush        dev panel: every boss one after another
 ##   --dev-quest=ID     dev panel: start quest ID, or CHAIN#N for step N of a story chain
@@ -67,6 +71,10 @@ const BOSS_BREATHER := 12.0
 ## Charm drop chances.
 const CHARM_CHANCE_ELITE := 0.06
 const CHARM_CHANCE_BOSS := 0.35
+## Gear (see Items): a wave boss drops an item this often, an elite this
+## often (both x luck); a final boss always drops its own legendary.
+const ITEM_CHANCE_BOSS := 0.5
+const ITEM_CHANCE_ELITE := 0.06
 const CHARM_CHANCE_QUEST := 0.2
 ## Rarity weights when a charm drops.
 const CHARM_RARITY := [["common", 70.0], ["rare", 25.0], ["epic", 5.0]]
@@ -116,6 +124,9 @@ var extraction: Extraction
 var run_charms: Array[String] = []
 ## Quality (1-4) of each charm in run_charms.
 var run_charm_quality: Array[int] = []
+## Items found this run: kept on an escape or a win; on a death the well
+## saves only the best one.
+var run_items: Array = []
 ## Chance of each charm quality when one is picked up (better with luck).
 const CHARM_QUALITY := [[1, 60.0], [2, 27.0], [3, 10.0], [4, 3.0]]
 var _flap_index := 0
@@ -271,6 +282,10 @@ func _ready() -> void:
 		player.god = true
 	if "--endless-now" in _args:
 		_start_endless.call_deferred()
+	if "--items-test" in _args:
+		var check: Node = load("res://tools/items_check.gd").new()
+		check.run(self)
+		check.free()
 	if "--devil" in _args:
 		summon_devil.call_deferred()
 	var forced := _arg("--quest=", "")
@@ -288,7 +303,8 @@ func _ready() -> void:
 			hud.show_banner(tr("GOLDEN_MOUSE_GONE"), 3.0))
 	enemies.elite_killed.connect(func(pos: Vector2) -> void:
 		pickups.spawn_named("coin", pos + Vector2(8, 0), 10.0)
-		_maybe_drop_charm(pos + Vector2(-8, 0), CHARM_CHANCE_ELITE))
+		_maybe_drop_charm(pos + Vector2(-8, 0), CHARM_CHANCE_ELITE)
+		_maybe_find_item(ITEM_CHANCE_ELITE))
 	pickups.charm_collected.connect(_on_charm_collected)
 	pickups.heart_collected.connect(func() -> void: _hearts += 1)
 	pickups.page_collected.connect(func() -> void:
@@ -368,6 +384,11 @@ func _ready() -> void:
 	if "--test-numbers" in _args:
 		for i in 6:
 			enemies.numbers.add(player.position + Vector2(-60 + i * 24, -20), 12.0 + i * 7, i % 2 == 1)
+	# `--drop-item=RAT_CROWN` / `--drop-item=rare`: the cat starts with that
+	# item in its bag (tests).
+	var drop_item := _arg("--drop-item=", "")
+	if drop_item != "":
+		_find_item.call_deferred(Items.legendary(drop_item) if GameData.items["legendaries"].has(drop_item) else Items.roll(1.0, drop_item))
 	if "--drop-charm" in _args:
 		_maybe_drop_charm.call_deferred(player.position + Vector2(20, 0), 1.0)
 	if "--extract" in _args:
@@ -531,6 +552,7 @@ func _process(delta: float) -> void:
 		print("BOT: damage numbers on screen=%d" % enemies.numbers._numbers.size())
 		print("BOT: most enemies alive at once=%d, budget per minute (avg used/cap): %s" % [_max_alive, _budget_log])
 		print("BOT: gold=%d streak=%d extraction_open=%s charms=%s owned=%s" % [floori(run_gold), Profile.streak, extraction != null, run_charms, Profile.charms])
+		print("BOT: run items=%s owned items=%d worn=%s" % [run_items.map(func(i: Dictionary) -> String: return "%s:%s" % [i["base"], i["rarity"]]), Profile.items.size(), Profile.equipped_items])
 		var per_minute: Array[String] = []
 		for m: int in _xp_log:
 			per_minute.append("%d:%d" % [m, roundi(_xp_log[m])])
@@ -629,6 +651,11 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 		pickups.spawn_named("chest", pos, 2.0 if great else 1.0)
 		pickups.spawn_named("coin", pos + Vector2(14, 6), 60.0 if great else 25.0)
 		_maybe_drop_charm(pos + Vector2(-14, 6), CHARM_CHANCE_BOSS)
+		var legend := Items.legendary_of(id)
+		if legend != "":
+			_find_item(Items.legendary(legend))
+		else:
+			_maybe_find_item(ITEM_CHANCE_BOSS)
 		_open_extraction()
 		spawner.calm_for(BOSS_BREATHER)
 		hud.show_banner(tr("BREATHER"), 3.0)
@@ -837,6 +864,43 @@ func _maybe_drop_charm(pos: Vector2, chance: float) -> void:
 	pickups.spawn_charm(pos, pool.pick_random())
 
 
+func _maybe_find_item(chance: float) -> void:
+	if randf() < float(_arg("--item-chance=", str(chance))) * player.stat("luck"):
+		_find_item(Items.roll(player.stat("luck")))
+
+
+## A boss or an elite left an item: it goes straight into the cat's bag for
+## this run (see run_items).
+func _find_item(item: Dictionary) -> void:
+	run_items.append(item)
+	BotLog.event("item_found")
+	if item["rarity"] == "legendary":
+		BotLog.event("item_legendary")
+	hud.show_banner(tr("ITEM_FOUND") % [Items.item_name(item), tr("RARITY_" + String(item["rarity"]).to_upper())], 3.5)
+	Audio.play("sparkle", -2.0, 0.0)
+
+
+## Brings the run's items home. On a death the well saves just the best one.
+func _bank_items(kind: String, lines: Array[String]) -> void:
+	if run_items.is_empty():
+		return
+	var kept := run_items
+	if kind == "death":
+		var best: Dictionary = run_items[0]
+		for item: Dictionary in run_items:
+			if Items.worth(item) > Items.worth(best):
+				best = item
+		kept = [best]
+		lines.append(tr("SUMMARY_ITEM_WELL") % Items.item_name(best))
+	else:
+		lines.append(tr("SUMMARY_ITEMS_KEPT") % ", ".join(kept.map(func(i: Dictionary) -> String: return Items.item_name(i))))
+	# (A dev test never saves the profile, so this stays in memory.)
+	var melted := Profile.bank_items(kept)
+	BotLog.event("items_banked")
+	if melted > 0:
+		lines.append(tr("SUMMARY_ITEMS_MELTED") % melted)
+
+
 func _on_charm_collected(charm_id: String) -> void:
 	# Luck shifts the odds towards the better qualities.
 	var weights := []
@@ -942,6 +1006,7 @@ func _end_run(kind: String) -> void:
 			lines.append(tr("SUMMARY_PAGE_KEPT"))
 		else:
 			lines.append(tr("SUMMARY_PAGE_LOST"))
+	_bank_items(kind, lines)
 	if kind != "death" and not run_charms.is_empty():
 		var upgraded: Array[String] = []
 		var refund := Profile.bank_charms(run_charms, run_charm_quality, upgraded)

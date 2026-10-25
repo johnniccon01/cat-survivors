@@ -65,6 +65,14 @@ static func click_button(text: String, width: float = 160.0, size: int = 17) -> 
 	return b
 
 
+## The biggest font size up to `size` at which `text` fits in `width`, so
+## long names in other languages shrink instead of getting cut off.
+static func fit_size(font: Font, text: String, width: float, size: int, smallest: int = 8) -> int:
+	while size > smallest and font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x > width:
+		size -= 1
+	return size
+
+
 static func box(fill: Color, border: Color) -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = fill

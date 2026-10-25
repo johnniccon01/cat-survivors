@@ -43,6 +43,7 @@ extends Node2D
 ##   --shot=SECONDS     save a screenshot to user://shot_N.png every SECONDS
 ##   --strong           dev panel: every weapon that fits and 40 level-ups
 ##   --dev-boss=ID      dev panel: clear the field and fight boss ID (progress not saved)
+##   --dev-panel        open the dev panel (F1) right away
 ##   --boss-rush        dev panel: every boss one after another
 ##   --dev-quest=ID     dev panel: start quest ID, or CHAIN#N for step N of a story chain
 ##   --dev-quest-all    dev panel: start every quest and story step in turn, 5 s each (tests)
@@ -72,8 +73,14 @@ const CHEST_ROLLS := [[1, 70.0], [3, 25.0], [5, 5.0]]
 const PLAYER_SCENE := preload("res://scenes/player.tscn")
 const MAX_COMPANIONS := 1
 const DEVIL_ID := "DEVIL_CAT"
-## The devil shows up this long after the second angel save.
-const DEVIL_DELAY := 4.0
+## Angel: a dying cat with no lives left may be saved once per run, from
+## ANGEL_AFTER_MINUTE on; every life the cat already used makes it likelier
+## (3 used = 10 %). Dying again after that brings Death (the devil cat) in
+## half the cases: the cat gets up once more, but Death hunts it.
+const ANGEL_AFTER_MINUTE := 5.0
+const ANGEL_CHANCE := 0.01
+const ANGEL_CHANCE_PER_LIFE := 0.03
+const DEATH_AFTER_ANGEL := 0.5
 const GOLDEN_MOUSE := "GOLDEN_MOUSE"
 const HYPER_SPEED := 1.25
 ## Seconds between golden mouse visits (random in this range).
@@ -137,6 +144,8 @@ var _modals: Array[String] = []
 var _in_modal := false
 var _run_over := false
 ## Secret: times the angel cat saved you this run, and the devil it brings.
+## lives_used counts the revives the cat's own items gave it.
+var lives_used := 0
 var angel_saves := 0
 var devil: Enemy
 var _devil_portal: DevilPortal
@@ -334,7 +343,7 @@ func _ready() -> void:
 	Engine.time_scale = _base_time_scale
 	for i in int(_arg("--levels=", "0")):
 		Upgrades.apply(player, Upgrades.roll(player)[0])
-	var dev_flags := ["--strong", "--boss-rush", "--dev-quest-all"].any(func(f: String) -> bool: return f in _args) or _arg("--dev-boss=", "") != "" or _arg("--dev-next-terrain=", "") != "" or _arg("--dev-quest=", "") != ""
+	var dev_flags := ["--strong", "--boss-rush", "--dev-quest-all", "--dev-panel"].any(func(f: String) -> bool: return f in _args) or _arg("--dev-boss=", "") != "" or _arg("--dev-next-terrain=", "") != "" or _arg("--dev-quest=", "") != ""
 	if OS.is_debug_build() and (not _bot or dev_flags):
 		var dev := DevPanel.new()
 		dev.main = self
@@ -459,7 +468,7 @@ func _process(delta: float) -> void:
 				Performance.get_monitor(Performance.RENDER_TOTAL_OBJECTS_IN_FRAME),
 				Performance.get_monitor(Performance.OBJECT_NODE_COUNT),
 				enemies.enemies.size()])
-	if _kill_every > 0.0 and angel_saves < 2 and not _rescuing and not player.is_dead:
+	if _kill_every > 0.0 and not is_instance_valid(devil) and not _rescuing and not player.is_dead:
 		if _next_kill == INF:
 			_next_kill = spawner.elapsed + _kill_every
 		elif spawner.elapsed >= _next_kill:
@@ -800,6 +809,7 @@ func _on_banish(index: int) -> void:
 
 ## Revival power-up: back on your feet, and everything nearby is blown away.
 func _on_revived() -> void:
+	lives_used += 1
 	hud.show_banner(tr("REVIVED"), 3.0)
 	Audio.play("levelup", 0.0, 0.0)
 	for enemy in enemies.query_radius(player.position, 140.0):
@@ -1179,22 +1189,35 @@ func _on_player_died() -> void:
 	_end_run("death")
 
 
-## Secret: on some maps, late in the run, a dying cat may be saved by an angel
-## cat (a tiny chance, see "angel" in stages.json). Two saves in one run wake
-## up the devil cat.
+## Secret: a dying cat may be saved by an angel cat (see ANGEL_CHANCE), and
+## dying again after that may bring Death.
 func _angel_saves() -> bool:
 	# Nothing saves you from the devil.
-	if player.killed_by_fatal:
+	if player.killed_by_fatal or is_instance_valid(devil) or _devil_portal != null:
 		return false
-	var angel: Dictionary = spawner.stage().get("angel", {})
-	if angel.is_empty() or spawner.elapsed < float(angel["after_minute"]) * 60.0:
+	if angel_saves > 0:
+		if randf() >= float(_arg("--death-chance=", str(DEATH_AFTER_ANGEL))):
+			return false
+		_death_comes()
+		return true
+	if spawner.elapsed < ANGEL_AFTER_MINUTE * 60.0:
 		return false
 	# The Moon Windows story makes the angel come twice as often.
-	var chance := float(_arg("--angel-chance=", str(angel["chance"]))) * (2.0 if Profile.has_flag("angel_hint") else 1.0)
+	var chance := ANGEL_CHANCE + ANGEL_CHANCE_PER_LIFE * lives_used
+	chance = float(_arg("--angel-chance=", str(chance))) * (2.0 if Profile.has_flag("angel_hint") else 1.0)
 	if randf() >= chance:
 		return false
 	summon_angel()
 	return true
+
+
+## The cat died again after the angel: Death won't let it go that easily.
+## It gets up once more, but Death rises right next to it and hunts it.
+func _death_comes() -> void:
+	if _bot:
+		print("BOT: death comes")
+	player.revive(0.6, 3.0)
+	summon_devil()
 
 
 ## Plays the rescue (see AngelCat) with the game paused, then brings the cat
@@ -1234,8 +1257,6 @@ func _angel_done() -> void:
 	Audio.pause_music(false)
 	get_tree().paused = false
 	player.shake(4.0, 0.5)
-	if angel_saves >= 2 and not is_instance_valid(devil) and _devil_portal == null:
-		get_tree().create_timer(DEVIL_DELAY, false).timeout.connect(summon_devil)
 
 
 ## The devil cat: chases you down and kills in a hit or two; it can't be hurt
@@ -1431,5 +1452,7 @@ func _dev_start(dev: DevPanel) -> void:
 		dev._test_quest(_arg("--dev-quest=", ""))
 	if "--dev-quest-all" in _args:
 		dev.cycle_quests()
+	if "--dev-panel" in _args:
+		dev._open()
 	for i in int(_arg("--dev-next-terrain=", "0")):
 		dev._next_terrain()

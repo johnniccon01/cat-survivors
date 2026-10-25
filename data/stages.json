@@ -1001,10 +1001,6 @@
         "hp_mult": 7.0
       }
     ],
-    "angel": {
-      "after_minute": 15,
-      "chance": 0.0005
-    },
     "music_night": "music_rooftop_night",
     "story": "BRUNO_NOTE",
     "challenge": 1.5

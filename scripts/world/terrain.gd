@@ -5,8 +5,8 @@ extends Node2D
 ## - "trees": bushes and trees scattered over the endless lawn.
 ## - "walls": brick walls in a grid of rooms, each wall with a gap to walk
 ##   through (Rooftop: parapets between the roofs).
-## - "aisles": tall shelves above and below, only a corridor to the left and
-##   right is free.
+## - "aisles": tall shelves everywhere except a wide aisle that winds left and
+##   right and turns up and down like a road (Supermarket).
 ## - "tide": every now and then the sea comes in from above and below and
 ##   squeezes everyone into a strip of dry land, then goes out again.
 ## - "belts": conveyor belts across the hall push everyone sideways and
@@ -17,7 +17,11 @@ const TREE_CELL := 250.0
 const TREE_CHANCE := 0.5
 ## No tree this close to where the night starts.
 const TREE_CLEAR := 240.0
-const AISLE_HALF := 105.0
+## The aisle: columns ROAD_COL wide, each a straight stretch at its own row
+## (ROAD_ROW apart), joined by turns up or down; ROAD_HALF wide each way.
+const ROAD_COL := 560.0
+const ROAD_ROW := 360.0
+const ROAD_HALF := 150.0
 const BELT_EVERY := 300.0
 const BELT_WIDTH := 72.0
 const BELT_SPEED := 45.0
@@ -44,6 +48,8 @@ var kind := ""
 var main: Node
 var _trees := {}
 var _walls := {}
+## Aisle: the row of each column, a random walk out from column 0.
+var _rows := {0: 0}
 var _seed := 0
 var _t := 0.0
 ## Tide: "calm", "warn", "rise", "hold", "fall"; the strip around _center_y
@@ -88,10 +94,92 @@ static func fix_spawn(pos: Vector2, around: Vector2, r: float = 12.0) -> Vector2
 			var dy := y - around.y
 			var side := signf(pos.x - around.x) if pos.x != around.x else (1.0 if randf() < 0.5 else -1.0)
 			return Vector2(around.x + side * sqrt(maxf(dist * dist - dy * dy, 0.0)), y)
+	if current.kind == "aisles":
+		return current._road_spawn(pos, around, r)
 	return current.resolve(pos, r)
 
 
+## A spot on the aisle about as far from `around` as `pos`, never right
+## next to the cat (the aisle may not reach `pos` at all).
+func _road_spawn(pos: Vector2, around: Vector2, r: float) -> Vector2:
+	var dist := pos.distance_to(around)
+	var p := resolve(pos, r)
+	if p.distance_to(around) >= dist * 0.8:
+		return p
+	for i in 8:
+		p = resolve(around + Vector2.from_angle(randf() * TAU) * dist, r)
+		if p.distance_to(around) >= dist * 0.8:
+			return p
+	# Walk along the aisle, column by column, until far enough.
+	var side := 1 if pos.x > around.x or (pos.x == around.x and randf() < 0.5) else -1
+	var col := roundi(around.x / ROAD_COL)
+	for step in range(1, 40):
+		var c := col + side * step
+		p = Vector2(c * ROAD_COL, _row(c) * ROAD_ROW)
+		if p.distance_to(around) >= dist:
+			break
+	return resolve(p + Vector2(0.0, randf_range(-1.0, 1.0) * ROAD_HALF * 0.5), r)
+
+
+## The row of aisle column `c`, the same every time.
+func _row(c: int) -> int:
+	if _rows.has(c):
+		return _rows[c]
+	# Fill in every column from the nearest known one out to `c`.
+	var dir := 1 if c > 0 else -1
+	var at := c
+	while not _rows.has(at - dir):
+		at -= dir
+	var rng := RandomNumberGenerator.new()
+	while true:
+		rng.seed = hash([at, _seed, "road"])
+		var roll := rng.randf()
+		var step := 0
+		if roll < 0.28:
+			step = -1
+		elif roll < 0.56:
+			step = 1
+		elif roll < 0.64:
+			step = -2
+		elif roll < 0.72:
+			step = 2
+		_rows[at] = int(_rows[at - dir]) + step
+		if at == c:
+			break
+		at += dir
+	return _rows[c]
+
+
+## The straight stretch of column `c` and the turn on its left edge that
+## joins it to column c - 1; `shrink` keeps something that big inside.
+func _road_rects(c: int, shrink: float) -> Array[Rect2]:
+	var w := maxf(ROAD_HALF - shrink, 1.0)
+	var y := _row(c) * ROAD_ROW
+	var y_prev := _row(c - 1) * ROAD_ROW
+	var left := (c - 0.5) * ROAD_COL
+	return [Rect2(left, y - w, ROAD_COL, w * 2.0),
+		Rect2(left - w, minf(y, y_prev) - w, w * 2.0, absf(y - y_prev) + w * 2.0)]
+
+
+func _resolve_road(pos: Vector2, r: float) -> Vector2:
+	var col := roundi(pos.x / ROAD_COL)
+	var best := pos
+	var best_d := INF
+	for c in range(col - 1, col + 3):
+		for rect: Rect2 in _road_rects(c, r):
+			if rect.has_point(pos):
+				return pos
+			var p := Vector2(clampf(pos.x, rect.position.x, rect.end.x), clampf(pos.y, rect.position.y, rect.end.y))
+			var d := p.distance_squared_to(pos)
+			if d < best_d:
+				best_d = d
+				best = p
+	return best
+
+
 func resolve(pos: Vector2, r: float) -> Vector2:
+	if kind == "aisles":
+		return _resolve_road(pos, r)
 	if _half < INF:
 		var half := maxf(_half - r, 0.0)
 		pos.y = clampf(pos.y, _center_y - half, _center_y + half)
@@ -154,8 +242,6 @@ func _tree(c: Vector2i) -> Dictionary:
 func setup(p_kind: String, p_main: Node) -> void:
 	kind = p_kind
 	main = p_main
-	if kind == "aisles":
-		_half = AISLE_HALF
 
 
 func _process(delta: float) -> void:
@@ -263,36 +349,62 @@ func _draw_trees(view: Rect2) -> void:
 
 
 func _draw_aisles(view: Rect2) -> void:
-	var top := _center_y - _half
-	var bottom := _center_y + _half
-	for side in [-1, 1]:
-		var edge: float = top if side < 0 else bottom
-		var far: float = view.position.y if side < 0 else view.end.y
-		if (side < 0 and far > edge) or (side > 0 and far < edge):
-			continue
-		var y0 := minf(edge, far)
-		var y1 := maxf(edge, far)
-		draw_rect(Rect2(view.position.x, y0, view.size.x, y1 - y0), Color("6d7480"))
-		# Shelf rows with goods, 64 px apart, the same wherever you look.
-		var row := 64.0
-		var r0 := floori(y0 / row)
-		var r1 := floori(y1 / row)
-		var x0 := floori(view.position.x / 40.0)
-		var x1 := floori(view.end.x / 40.0)
-		for ry in range(r0, r1 + 1):
-			var ys := ry * row
-			draw_rect(Rect2(view.position.x, ys + 50.0, view.size.x, 8.0), Color("4a505a"))
-			for bx in range(x0, x1 + 1):
-				var h := absi((bx * 92821) ^ (ry * 68917) ^ _seed)
-				if h % 7 == 0:
-					continue
-				var hue := float(h % 360) / 360.0
-				var tall := 22.0 + float((h >> 8) % 20)
-				draw_rect(Rect2(bx * 40.0 + 4.0, ys + 50.0 - tall, 32.0, tall), Color.from_hsv(hue, 0.55, 0.85))
-				draw_rect(Rect2(bx * 40.0 + 8.0, ys + 50.0 - tall + 5.0, 24.0, 6.0), Color(1, 1, 1, 0.55))
-		# The shelf's front edge.
-		draw_rect(Rect2(view.position.x, edge - (10.0 if side > 0 else 0.0), view.size.x, 10.0), Color("2b2f36"))
-		draw_rect(Rect2(view.position.x, edge + (0.0 if side > 0 else -14.0), view.size.x, 14.0), Color(0, 0, 0, 0.18))
+	var c0 := roundi(view.position.x / ROAD_COL) - 1
+	var c1 := roundi(view.end.x / ROAD_COL) + 1
+	for c in range(c0, c1 + 1):
+		var left := (c - 0.5) * ROAD_COL
+		var right := left + ROAD_COL
+		var y := _row(c) * ROAD_ROW
+		var turn_in: Rect2 = _road_rects(c, 0.0)[1]
+		var turn_out: Rect2 = _road_rects(c + 1, 0.0)[1]
+		# Three bands per column: the turn in, the straight middle, the turn
+		# out; each is open over one stretch and shelves fill the rest.
+		var bands := [[left, left + ROAD_HALF, turn_in.position.y, turn_in.end.y],
+			[left + ROAD_HALF, right - ROAD_HALF, y - ROAD_HALF, y + ROAD_HALF],
+			[right - ROAD_HALF, right, turn_out.position.y, turn_out.end.y]]
+		for b in bands:
+			var x0: float = b[0]
+			var x1: float = b[1]
+			var top: float = b[2]
+			var bottom: float = b[3]
+			_draw_shelves(Rect2(x0, view.position.y, x1 - x0, top - view.position.y), view)
+			_draw_shelves(Rect2(x0, bottom, x1 - x0, view.end.y - bottom), view)
+			# The shelves' front edges and their shadow on the floor.
+			draw_rect(Rect2(x0, top - 10.0, x1 - x0, 10.0), Color("2b2f36"))
+			draw_rect(Rect2(x0, top, x1 - x0, 14.0), Color(0, 0, 0, 0.18))
+			draw_rect(Rect2(x0, bottom, x1 - x0, 10.0), Color("2b2f36"))
+
+
+## Shelf rows with goods, 64 px apart, the same wherever you look, cut to `area`.
+func _draw_shelves(area: Rect2, view: Rect2) -> void:
+	if area.size.x <= 0.0 or area.size.y <= 0.0:
+		return
+	area = area.intersection(view)
+	if not area.has_area():
+		return
+	draw_rect(area, Color("6d7480"))
+	var row := 64.0
+	var x0 := floori(area.position.x / 40.0)
+	var x1 := floori(area.end.x / 40.0)
+	for ry in range(floori(area.position.y / row), floori(area.end.y / row) + 1):
+		var ys := ry * row
+		_draw_cut(Rect2(area.position.x, ys + 50.0, area.size.x, 8.0), area, Color("4a505a"))
+		for bx in range(x0, x1 + 1):
+			var h := absi((bx * 92821) ^ (ry * 68917) ^ _seed)
+			if h % 7 == 0:
+				continue
+			var hue := float(h % 360) / 360.0
+			var tall := 22.0 + float((h >> 8) % 20)
+			_draw_cut(Rect2(bx * 40.0 + 4.0, ys + 50.0 - tall, 32.0, tall), area, Color.from_hsv(hue, 0.55, 0.85))
+			_draw_cut(Rect2(bx * 40.0 + 8.0, ys + 50.0 - tall + 5.0, 24.0, 6.0), area, Color(1, 1, 1, 0.55))
+	# The shelf unit's side panels.
+	draw_rect(area, Color("2b2f36"), false, 6.0)
+
+
+func _draw_cut(rect: Rect2, area: Rect2, color: Color) -> void:
+	rect = rect.intersection(area)
+	if rect.has_area():
+		draw_rect(rect, color)
 
 
 func _draw_tide(view: Rect2) -> void:

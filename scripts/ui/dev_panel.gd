@@ -1,22 +1,41 @@
 class_name DevPanel
 extends CanvasLayer
-## Development-only cheats (F1 to show/hide). Only created in debug builds,
-## so exported release builds never contain it. Remove before release.
+## Development-only cheats (F1 to show/hide; the game pauses while it is
+## open). Only created in debug builds, so exported release builds never
+## contain it. Remove before release.
+## Three columns: cheats for the run, every boss and every quest to test.
+## The tick boxes are a checklist of what has been tried (saved apart from
+## the profile in CHECKLIST); a boss beaten or a quest finished in a test
+## ticks itself.
+
+const CHECKLIST := "user://dev_checklist.json"
+const RED := Color("e04646")
+const DIM := Color(0.62, 0.56, 0.7)
 
 var main: Node
 
 var _panel: PanelContainer
 var _god_button: Button
 var _terrain_button: Button
-## The list of bosses or quests to pick from (null when closed).
-var _picker: PanelContainer
+var _search: LineEdit
+var _boss_head: Label
+var _quest_head: Label
+## Rows of the two lists: {"key", "text", "node", "box"}.
+var _rows: Array[Dictionary] = []
+## "BOSS:id" / "QUEST:id" -> true for everything already tried.
+var _checks := {}
+## Whether the game was already paused when the panel opened.
+var _was_paused := false
 ## The boss under test and, in a boss rush, the ones still to come.
 var _test_boss: Enemy
+var _test_id := ""
 var _testing := false
 var _rush: Array[String] = []
 var _rush_total := 0
 var _rush_wait := 0.0
 var _sandbox_label: Label
+## The quest started from the list, ticked off when it is done.
+var _test_quest_id := ""
 ## --dev-quest-all: the quests still to start, one every few seconds.
 var _quest_cycle: Array[String] = []
 var _quest_cycle_t := 0.0
@@ -25,57 +44,290 @@ var _quest_cycle_t := 0.0
 func _ready() -> void:
 	layer = 50
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	_panel = PanelContainer.new()
-	_panel.position = Vector2(12, 360)
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color(0.1, 0.08, 0.14, 0.85)
-	sb.border_color = Color("e04646")
-	sb.set_border_width_all(2)
-	sb.set_corner_radius_all(6)
-	sb.set_content_margin_all(8)
-	_panel.add_theme_stylebox_override("panel", sb)
-	add_child(_panel)
-	_panel.visible = false
+	_load_checks()
 	var hint := Label.new()
 	hint.text = "DEV: F1"
 	hint.position = Vector2(12, 668)
 	hint.add_theme_color_override("font_color", Color(0.9, 0.3, 0.3, 0.6))
 	hint.add_theme_font_size_override("font_size", 12)
 	add_child(hint)
-	var box := VBoxContainer.new()
-	_panel.add_child(box)
+	_panel = PanelContainer.new()
+	_panel.position = Vector2(16, 16)
+	_panel.custom_minimum_size = Vector2(1248, 688)
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0.08, 0.06, 0.11, 0.96)
+	sb.border_color = RED
+	sb.set_border_width_all(2)
+	sb.set_corner_radius_all(6)
+	sb.set_content_margin_all(10)
+	_panel.add_theme_stylebox_override("panel", sb)
+	add_child(_panel)
+	_panel.visible = false
+	var root := VBoxContainer.new()
+	root.add_theme_constant_override("separation", 8)
+	_panel.add_child(root)
+	var head := HBoxContainer.new()
+	head.add_theme_constant_override("separation", 12)
+	root.add_child(head)
 	var title := Label.new()
-	title.text = "DEV (F1)"
-	title.add_theme_color_override("font_color", Color("e04646"))
-	box.add_child(title)
-	_button(box, "+1 min (+levels)", func() -> void: _skip(60.0))
-	_button(box, "+5 min (+levels)", func() -> void: _skip(300.0))
-	_god_button = _button(box, "God mode: OFF", _toggle_god)
-	_button(box, "+5 levels", _levels)
-	_button(box, "Heal", func() -> void: main.player.heal(9999.0))
-	_button(box, "+1000 gold (saved)", func() -> void: Profile.add_gold(1000))
-	_button(box, "Drop a charm", func() -> void: main._maybe_drop_charm(main.player.position + Vector2(30, 0), 1.0))
-	_button(box, "Open cat flap", func() -> void: main._open_extraction(true))
-	_button(box, "Kill all enemies", func() -> void: main.enemies.clear_all())
-	_button(box, "Final boss now", _final_boss)
-	_button(box, "Cat quest now", func() -> void: _quest("cat"))
-	_button(box, "Side quest now", func() -> void: _quest("side"))
-	_button(box, "Story step now", func() -> void: _quest("chain"))
-	_button(box, "Angel cat now", func() -> void: main.summon_angel())
-	_button(box, "Devil cat now", func() -> void: main.summon_devil())
-	_button(box, "Strong build (test)", _strong_build)
-	_button(box, "Boss test...", _open_boss_picker)
-	_button(box, "Boss rush (all bosses)", _start_boss_rush)
-	_button(box, "Quest test...", _open_quest_picker)
-	_terrain_button = _button(box, "Terrain: %s" % (Terrain.current.kind if Terrain.current != null else "none"), _next_terrain)
+	title.text = "DEV  ·  game paused  ·  F1 / Esc closes"
+	title.add_theme_color_override("font_color", RED)
+	head.add_child(title)
+	_search = LineEdit.new()
+	_search.placeholder_text = "Search bosses and quests..."
+	_search.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_search.clear_button_enabled = true
+	_search.text_changed.connect(func(_t: String) -> void: _filter())
+	head.add_child(_search)
+	_button(head, "Close", _close)
+	var cols := HBoxContainer.new()
+	cols.add_theme_constant_override("separation", 14)
+	cols.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	root.add_child(cols)
+	_build_actions(_column(cols, 300))
+	var bosses := _column(cols, 450)
+	_boss_head = _list_head(bosses, "Boss rush (all)", _start_boss_rush)
+	_build_bosses(_scroll(bosses))
+	var quests := _column(cols, 450)
+	_quest_head = _list_head(quests, "", Callable())
+	_build_quests(_scroll(quests))
+	_count()
+
+
+func _build_actions(col: VBoxContainer) -> void:
+	var list := _scroll(col)
+	_section(list, "Time")
+	_button(list, "+1 min (+levels)", func() -> void: _skip(60.0))
+	_button(list, "+5 min (+levels)", func() -> void: _skip(300.0))
+	_button(list, "Final boss now", func() -> void: _act(_final_boss))
+	_section(list, "Cat")
+	_god_button = _button(list, "God mode: OFF", _toggle_god)
+	_button(list, "+5 levels", _levels)
+	_button(list, "Strong build (test)", _strong_build)
+	_button(list, "Heal", func() -> void: main.player.heal(9999.0))
+	_button(list, "+1000 gold (saved)", func() -> void: Profile.add_gold(1000))
+	_button(list, "Drop a charm", func() -> void: main._maybe_drop_charm(main.player.position + Vector2(30, 0), 1.0))
+	_section(list, "World")
+	_button(list, "Kill all enemies", func() -> void: main.enemies.clear_all())
+	_button(list, "Open cat flap", func() -> void: _act(func() -> void: main._open_extraction(true)))
+	_terrain_button = _button(list, "Terrain: %s" % (Terrain.current.kind if Terrain.current != null else "none"), _next_terrain)
+	_button(list, "Angel cat now", func() -> void: _act(main.summon_angel))
+	_button(list, "Death (devil cat) now", func() -> void: _act(main.summon_devil))
+	_section(list, "Random quest")
+	_button(list, "Cat quest now", func() -> void: _act(func() -> void: _quest("cat")))
+	_button(list, "Side quest now", func() -> void: _act(func() -> void: _quest("side")))
+	_button(list, "Story step now", func() -> void: _act(func() -> void: _quest("chain")))
+
+
+## Bosses grouped by the map you meet them on; the rest at the end.
+func _build_bosses(list: VBoxContainer) -> void:
+	var seen: Array[String] = []
+	for stage_id: String in GameData.stages:
+		var stage: Dictionary = GameData.stages[stage_id]
+		var ids: Array[String] = []
+		for w: Dictionary in stage["waves"]:
+			for b: String in w.get("bosses", []):
+				if b not in seen and GameData.enemies.has(b):
+					ids.append(b)
+					seen.append(b)
+		var final_id: String = stage.get("final_boss", "")
+		if final_id != "" and final_id not in seen:
+			ids.append(final_id)
+			seen.append(final_id)
+		if ids.is_empty():
+			continue
+		_section(list, tr("STAGE_%s_NAME" % stage_id))
+		for id in ids:
+			_boss_row(list, id, "  ★ final" if id == final_id else "")
+	var rest: Array[String] = []
+	for id in DevPanel.boss_ids():
+		if id not in seen:
+			rest.append(id)
+	if not rest.is_empty():
+		_section(list, "Quests, events, secrets")
+		for id in rest:
+			_boss_row(list, id, "")
+
+
+func _boss_row(list: VBoxContainer, id: String, note: String) -> void:
+	_row(list, "BOSS:" + id, tr("ENEMY_%s_NAME" % id) + note, id, func() -> void: _act(func() -> void:
+		_rush.clear()
+		_rush_total = 0
+		_fight(id)))
+
+
+func _build_quests(list: VBoxContainer) -> void:
+	var groups := {"cat_quests": "Cat quests", "side_quests": "Side quests", "story": "Story quests"}
+	for group: String in groups:
+		_section(list, groups[group])
+		for id: String in GameData.quests[group]:
+			var name := tr("CAT_%s_NAME" % id) if group == "cat_quests" else _quest_name(id)
+			_quest_row(list, id, name, id)
+	for chain_id: String in GameData.chains:
+		var steps: Array = ChainStep.steps(chain_id)
+		_section(list, "Story: " + tr("CHAIN_%s_NAME" % chain_id))
+		for n in steps.size():
+			if steps[n]["type"] == "final":
+				continue
+			_quest_row(list, "%s#%d" % [chain_id, n + 1], "%d. %s" % [n + 1, tr("CHAIN_%s_%d" % [chain_id, n + 1])], steps[n]["type"])
+
+
+func _quest_row(list: VBoxContainer, id: String, text: String, tag: String) -> void:
+	_row(list, "QUEST:" + id, text, tag, func() -> void: _act(func() -> void: _test_quest(id)))
+
+
+func _quest_name(id: String) -> String:
+	for key in ["QUEST_%s_TITLE" % id, "STORY_%s_NAME" % id, "QUEST_%s_NAME" % id]:
+		if tr(key) != key:
+			return tr(key)
+	return id.capitalize()
+
+
+func _column(parent: Node, width: float) -> VBoxContainer:
+	var col := VBoxContainer.new()
+	col.custom_minimum_size.x = width
+	if width > 400.0:
+		col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	parent.add_child(col)
+	return col
+
+
+func _scroll(col: VBoxContainer) -> VBoxContainer:
+	var scroll := ScrollContainer.new()
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	col.add_child(scroll)
+	var list := VBoxContainer.new()
+	list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.add_child(list)
+	return list
+
+
+func _list_head(col: VBoxContainer, button_text: String, action: Callable) -> Label:
+	var head := HBoxContainer.new()
+	col.add_child(head)
+	var label := Label.new()
+	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	label.add_theme_color_override("font_color", RED)
+	head.add_child(label)
+	if button_text != "":
+		_button(head, button_text, func() -> void: _act(action))
+	return label
+
+
+func _section(list: VBoxContainer, text: String) -> void:
+	var label := Label.new()
+	label.text = text
+	label.add_theme_color_override("font_color", Color("f2c14e"))
+	label.add_theme_font_size_override("font_size", 14)
+	list.add_child(label)
+
+
+## One boss or quest: a tick box (tried or not), its name to start the test,
+## and its id in grey.
+func _row(list: VBoxContainer, key: String, text: String, tag: String, action: Callable) -> void:
+	var row := HBoxContainer.new()
+	list.add_child(row)
+	var box := CheckBox.new()
+	box.focus_mode = Control.FOCUS_NONE
+	box.button_pressed = _checks.has(key)
+	box.toggled.connect(func(on: bool) -> void: _set_check(key, on))
+	box.tooltip_text = "Tried"
+	row.add_child(box)
+	var b := _button(row, text, action)
+	b.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	b.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	b.custom_minimum_size.x = 120
+	b.tooltip_text = "%s\n%s" % [text, tag]
+	var id_label := Label.new()
+	id_label.text = tag
+	id_label.add_theme_color_override("font_color", DIM)
+	id_label.add_theme_font_size_override("font_size", 12)
+	row.add_child(id_label)
+	_rows.append({"key": key, "text": (text + " " + tag).to_lower(), "node": row, "box": box})
+
+
+func _filter() -> void:
+	var q := _search.text.strip_edges().to_lower()
+	for r in _rows:
+		(r["node"] as Control).visible = q == "" or q in (r["text"] as String)
+
+
+func _count() -> void:
+	if _boss_head == null:
+		return
+	var counts := {"BOSS": [0, 0], "QUEST": [0, 0]}
+	for r in _rows:
+		var kind: String = (r["key"] as String).get_slice(":", 0)
+		counts[kind][1] += 1
+		if _checks.has(r["key"]):
+			counts[kind][0] += 1
+	_boss_head.text = "Bosses  %d/%d tried" % counts["BOSS"]
+	_quest_head.text = "Quests  %d/%d tried" % counts["QUEST"]
+
+
+func _set_check(key: String, on: bool) -> void:
+	if on:
+		_checks[key] = true
+	else:
+		_checks.erase(key)
+	for r in _rows:
+		if r["key"] == key:
+			(r["box"] as CheckBox).set_pressed_no_signal(on)
+	_count()
+	# Test runs never touch the checklist.
+	if "--bot" in GameData.args():
+		return
+	var file := FileAccess.open(CHECKLIST, FileAccess.WRITE)
+	if file != null:
+		file.store_string(JSON.stringify(_checks.keys()))
+
+
+func _load_checks() -> void:
+	if not FileAccess.file_exists(CHECKLIST):
+		return
+	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(CHECKLIST))
+	if data is Array:
+		for key: String in data:
+			_checks[key] = true
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_F1:
-		_panel.visible = not _panel.visible
-	elif event is InputEventKey and event.pressed and event.physical_keycode == KEY_ESCAPE and _picker != null:
-		_close_picker()
+		if _panel.visible:
+			_close()
+		else:
+			_open()
 		get_viewport().set_input_as_handled()
+
+
+func _input(event: InputEvent) -> void:
+	# Esc closes the panel before the game sees it (it would open the pause
+	# menu); F1 too, since the search box would swallow it.
+	if _panel.visible and event is InputEventKey and event.pressed and event.physical_keycode in [KEY_ESCAPE, KEY_F1]:
+		_close()
+		get_viewport().set_input_as_handled()
+
+
+func _open() -> void:
+	_was_paused = get_tree().paused
+	get_tree().paused = true
+	_panel.visible = true
+
+
+func _close() -> void:
+	if not _panel.visible:
+		return
+	_panel.visible = false
+	_search.release_focus()
+	get_tree().paused = _was_paused
+
+
+## Closes the panel (so the game runs again), then does `action`.
+func _act(action: Callable) -> void:
+	_close()
+	action.call()
 
 
 func _button(parent: Node, text: String, action: Callable) -> Button:
@@ -235,73 +487,6 @@ static func quest_ids() -> Array[String]:
 	return ids
 
 
-func _open_boss_picker() -> void:
-	var entries: Array = []
-	for id in DevPanel.boss_ids():
-		entries.append([id, "%s  (%s)" % [tr("ENEMY_%s_NAME" % id), id]])
-	_open_picker("Boss test", entries, func(id: String) -> void:
-		_rush.clear()
-		_rush_total = 0
-		_fight(id))
-
-
-func _open_quest_picker() -> void:
-	var entries: Array = []
-	for id in DevPanel.quest_ids():
-		var label := id
-		if "#" in id:
-			var parts := id.split("#")
-			label = "%s  step %s: %s" % [parts[0], parts[1], ChainStep.steps(parts[0])[int(parts[1]) - 1]["type"]]
-		entries.append([id, label])
-	_open_picker("Quest test", entries, _test_quest)
-
-
-func _open_picker(title_text: String, entries: Array, on_pick: Callable) -> void:
-	_close_picker()
-	get_tree().paused = true
-	_picker = PanelContainer.new()
-	_picker.position = Vector2(330, 40)
-	_picker.custom_minimum_size = Vector2(620, 640)
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color(0.1, 0.08, 0.14, 0.95)
-	sb.border_color = Color("e04646")
-	sb.set_border_width_all(2)
-	sb.set_corner_radius_all(6)
-	sb.set_content_margin_all(10)
-	_picker.add_theme_stylebox_override("panel", sb)
-	add_child(_picker)
-	var box := VBoxContainer.new()
-	_picker.add_child(box)
-	var head := HBoxContainer.new()
-	box.add_child(head)
-	var title := Label.new()
-	title.text = "%s (%d)  ·  Esc closes" % [title_text, entries.size()]
-	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	title.add_theme_color_override("font_color", Color("e04646"))
-	head.add_child(title)
-	_button(head, "Close", _close_picker)
-	var scroll := ScrollContainer.new()
-	scroll.custom_minimum_size = Vector2(600, 590)
-	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	box.add_child(scroll)
-	var list := VBoxContainer.new()
-	list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	scroll.add_child(list)
-	for e: Array in entries:
-		var b := _button(list, e[1], func() -> void:
-			_close_picker()
-			on_pick.call(e[0]))
-		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
-
-
-func _close_picker() -> void:
-	if _picker == null:
-		return
-	_picker.queue_free()
-	_picker = null
-	get_tree().paused = false
-
-
 ## Clears the field, stops the waves and puts the boss in front of the cat.
 func fight(id: String) -> void:
 	_fight(id)
@@ -316,6 +501,7 @@ func _fight(id: String) -> void:
 		main.quests.active.fail()
 	main.player.heal(9999.0)
 	_test_boss = main.enemies.spawn(id, main.player.position + Vector2(0, -230), main.player.stat("curse") * spawner.hp_multiplier())
+	_test_id = id
 	if _test_boss == null:
 		return
 	_testing = true
@@ -346,6 +532,15 @@ func _test_quest(id: String) -> void:
 		director.force_step(parts[0], int(parts[1]))
 	else:
 		director.force(id)
+	_test_quest_id = id
+	if not director.finished_quest.is_connected(_on_quest_finished):
+		director.finished_quest.connect(_on_quest_finished)
+
+
+func _on_quest_finished(success: bool) -> void:
+	if success and _test_quest_id != "":
+		_set_check("QUEST:" + _test_quest_id, true)
+	_test_quest_id = ""
 
 
 func _process(delta: float) -> void:
@@ -357,7 +552,8 @@ func _process(delta: float) -> void:
 		return
 	if is_instance_valid(_test_boss) and not _test_boss.dead:
 		return
-	# The boss under test fell.
+	# The boss under test fell: tick it off.
+	_set_check("BOSS:" + _test_id, true)
 	main.final_boss = null
 	if _rush.is_empty():
 		_testing = false

@@ -194,7 +194,7 @@ func spawn_prop(id: String, pos: Vector2) -> Enemy:
 	var prop := Enemy.new()
 	prop.setup(id, GameData.props[id], self)
 	prop.is_prop = true
-	prop.position = pos
+	prop.position = Terrain.fix_spawn(pos, player.position, prop.radius) if player != null else Terrain.fix(pos, prop.radius)
 	add_child(prop)
 	props.append(prop)
 	return prop
@@ -269,7 +269,7 @@ func _physics_process(delta: float) -> void:
 	for enemy in enemies:
 		var offset := enemy.position - target
 		if offset.length_squared() > relocate_distance * relocate_distance and not enemy.is_charging():
-			enemy.position = target - offset.normalized() * spawn_radius
+			enemy.position = Terrain.fix_spawn(target - offset.normalized() * spawn_radius, target, enemy.radius)
 		var chase := target
 		if cats.size() > 1:
 			for c in cats:

@@ -13,6 +13,7 @@ cd "$(dirname "$0")/.." || exit 1
 # "name|args after --" or "name|args after --|engine args" (e.g. a -s script).
 scenarios=(
   "menus|--ui-test|-s res://tools/ui_test.gd"
+  "text_fit|--ui-test|-s res://tools/text_fit_test.gd"
   "dev_boss_rush|--bot --strong --god --boss-rush --bot-time=1500 --bot-speed=8"
   "dev_quests|--bot --strong --god --dev-quest-all --bot-time=900 --bot-speed=8"
   "dev_boss_kraken|--bot --stage=HARBOR --strong --dev-boss=KRAKEN --bot-time=120"
@@ -66,7 +67,7 @@ scenarios=(
   "branches_misc|--bot --start-minute=6 --catch-up --start-weapon=FISHBONES,SCRATCH,YARN,COBWEB,SPRINKLER,MOUSE_TOY --branch=FISHBONES:SHARP_BONES:2,SCRATCH:BLOODTHIRST:2,YARN:RICOCHET:2,COBWEB:VENOM:1,SPRINKLER:BOILING:2,MOUSE_TOY:FIRECRACKER:2 --bot-time=500"
   "new_weapons|--bot --start-minute=8 --catch-up --start-weapon=ANTENNA --all-weapons --bot-time=600"
   "quest_clover|--bot --stage=GARDEN --levels=20 --quest=CLOVER --bot-time=150"
-  "angel_devil|--bot --stage=ROOFTOP --start-minute=16 --catch-up --angel-chance=1 --kill-cat-every=8 --bot-time=90"
+  "angel_devil|--bot --stage=ROOFTOP --start-minute=16 --catch-up --angel-chance=1 --death-chance=1 --kill-cat-every=8 --bot-time=90"
   "devil_kills|--bot --stage=ROOFTOP --start-minute=16 --catch-up --angel-chance=1 --devil --bot-time=60"
   "devil_mortal|--bot --stage=ROOFTOP --start-minute=29.9 --catch-up --devil --bot-time=30"
   "companion_grows|--bot --god --levels=30 --quest=SNOWBALL --bot-time=200"
@@ -208,8 +209,8 @@ run_one() {
   local limit=280
   [[ "$name" == night_* ]] && limit=600
   out=$(timeout "$limit" "$GODOT" --headless --log-file "${TMPDIR:-/tmp}/catsurvivors_$name.log" --path . $engine -- $args 2>&1)
-  errors=$(echo "$out" | grep -E "SCRIPT ERROR|Parse Error|ERROR: |UI: FAIL" | grep -vE "resources still in use|ObjectDB instances leaked" | sort | uniq -c | head -5)
-  summary=$(echo "$out" | grep -E "^(BOT|TEST): (time|weapons after|quests_done|active quest)|^UI: done" | tr '\n' ' ' | cut -c1-200)
+  errors=$(echo "$out" | grep -E "SCRIPT ERROR|Parse Error|ERROR: |UI: FAIL|TEXT: FAIL" | grep -vE "resources still in use|ObjectDB instances leaked" | sort | uniq -c | head -5)
+  summary=$(echo "$out" | grep -E "^(BOT|TEST): (time|weapons after|quests_done|active quest)|^(UI|TEXT): done" | tr '\n' ' ' | cut -c1-200)
   if [ -n "$errors" ]; then
     printf 'FAIL %s: %s\n%s\n' "$name" "$summary" "$(echo "$errors" | sed 's/^/     /')"
   else

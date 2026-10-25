@@ -124,7 +124,7 @@ func _quest_row(id: String) -> Control:
 	var done := QuestBook.is_complete(id)
 	var n := QuestBook.step_count(id)
 	var name_label := _label(18, DONE if done else Color.WHITE, HORIZONTAL_ALIGNMENT_LEFT)
-	name_label.custom_minimum_size.x = 640
+	_fill(name_label)
 	top.add_child(name_label)
 	var dots := _label(16, GOLD, HORIZONTAL_ALIGNMENT_LEFT)
 	dots.custom_minimum_size.x = 120
@@ -132,9 +132,11 @@ func _quest_row(id: String) -> Control:
 	var count := _label(15, TEXT, HORIZONTAL_ALIGNMENT_RIGHT)
 	count.custom_minimum_size.x = 110
 	top.add_child(count)
-	var reward := _label(15, GOLD, HORIZONTAL_ALIGNMENT_LEFT)
+	var reward := _reward_label()
 	top.add_child(reward)
 	var desc := _label(15, MUTED, HORIZONTAL_ALIGNMENT_LEFT)
+	desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	desc.custom_minimum_size.x = 1000
 	row.add_child(desc)
 	if QuestBook.is_hidden(id):
 		name_label.text = "  ???"
@@ -163,7 +165,7 @@ func _chain_row(id: String) -> Control:
 	var n := ChainStep.steps(id).size()
 	var steps := ChainStep.progress_of(id)
 	var name_label := _label(18, DONE if done else Color.WHITE, HORIZONTAL_ALIGNMENT_LEFT)
-	name_label.custom_minimum_size.x = 640
+	_fill(name_label)
 	# A secret keeps its name hidden until it is found (its hint still shows).
 	var hidden: bool = ChainStep.chain(id).has("secret") and steps == 0
 	name_label.text = "%s %s" % ["✓" if done else "·", "???" if hidden else tr("CHAIN_%s_NAME" % id)]
@@ -172,7 +174,7 @@ func _chain_row(id: String) -> Control:
 	dots.custom_minimum_size.x = 120
 	dots.text = "●".repeat(steps) + "○".repeat(n - steps)
 	top.add_child(dots)
-	var reward := _label(15, GOLD, HORIZONTAL_ALIGNMENT_LEFT)
+	var reward := _reward_label()
 	reward.text = "  " + QuestBook.reward_text(ChainStep.chain(id).get("reward", {}))
 	top.add_child(reward)
 	var desc := _label(15, MUTED, HORIZONTAL_ALIGNMENT_LEFT)
@@ -233,7 +235,7 @@ func _build_goals() -> void:
 		row.custom_minimum_size = Vector2(1000, 24)
 		var name_label := _label(16, DONE if done else Color.WHITE, HORIZONTAL_ALIGNMENT_LEFT)
 		name_label.text = "%s %s – %s" % ["✓" if done else "·", tr("GOAL_%s_NAME" % id), tr("GOAL_%s_DESC" % id)]
-		name_label.custom_minimum_size.x = 600
+		_fill(name_label)
 		row.add_child(name_label)
 		var bar := ProgressBar.new()
 		bar.custom_minimum_size = Vector2(150, 16)
@@ -246,7 +248,7 @@ func _build_goals() -> void:
 		count.text = "%d/%d" % [mini(Goals.progress(id), Goals.target(id)), Goals.target(id)]
 		count.custom_minimum_size.x = 90
 		row.add_child(count)
-		var reward := _label(15, GOLD, HORIZONTAL_ALIGNMENT_LEFT)
+		var reward := _reward_label()
 		reward.text = "  " + Goals.reward_text(id)
 		row.add_child(reward)
 		_list.add_child(row)
@@ -484,3 +486,19 @@ func _label(size: int, font_color: Color, align: HorizontalAlignment) -> Label:
 	label.label_settings = settings
 	label.horizontal_alignment = align
 	return label
+
+
+## A row's name takes the room the other columns leave and wraps if it must.
+func _fill(label: Label) -> void:
+	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	label.custom_minimum_size.x = 300
+
+
+## Rewards get a fixed column and wrap onto a second line when they're long,
+## so a long one in another language never pushes the list off the screen.
+func _reward_label() -> Label:
+	var reward := _label(15, GOLD, HORIZONTAL_ALIGNMENT_RIGHT)
+	reward.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	reward.custom_minimum_size.x = 360
+	return reward

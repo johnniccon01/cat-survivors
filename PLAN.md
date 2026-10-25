@@ -339,6 +339,14 @@ Sem píšeme nápady, ktoré zatiaľ nemajú miesto vo fázach.
 - Kozmetika pre mačky (obojky, klobúky) za zlato
 - Achievementy
 
+## Október 2026: spätná väzba z hrania
+
+- Menu sa zmestí v EN/SK/CS: mapové karty zmenšia písmo, denník zalamuje odmeny; test `text_fit` (`tools/text_fit_test.gd`) prejde všetky obrazovky a panely v každom jazyku.
+- F1 panel: pauza, celá obrazovka, bossovia podľa máp, questy, hľadanie, checklist vyskúšaného.
+- Supermarket: široká ulička, ktorá zatáča hore aj dole ako cesta; rozbitné veci a nepriatelia sa objavujú len na priechodnej ploche (všetky terény).
+- Anjel a Smrť: šanca rastie so spotrebovanými životmi, Smrť po anjelovi v 50 %.
+- Bossovia: 7 podpisových útokov (cross, blink, sweep, meteor, chase, cage, whirl), každý finálny boss má vlastný a otvára ním boj.
+
 ## Ako pracujeme
 
 - Každý väčší krok = commit; na GitHub pushujeme, keď povieš.

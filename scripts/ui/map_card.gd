@@ -66,15 +66,16 @@ func _draw() -> void:
 		# Maps with obstacles say so.
 		var terrain: String = GameData.stages[stage_id].get("terrain", "")
 		if terrain != "":
-			draw_string(ThemeDB.fallback_font, pic.position + Vector2(6, pic.size.y - 6), tr("TERRAIN_%s" % terrain.to_upper()), HORIZONTAL_ALIGNMENT_LEFT, pic.size.x - 12, 12, Color("9fe3ff"))
+			var label := tr("TERRAIN_%s" % terrain.to_upper())
+			draw_string(ThemeDB.fallback_font, pic.position + Vector2(6, pic.size.y - 6), label, HORIZONTAL_ALIGNMENT_LEFT, pic.size.x - 12, UiStyle.fit_size(ThemeDB.fallback_font, label, pic.size.x - 12, 12), Color("9fe3ff"))
 	var font := ThemeDB.fallback_font
 	var title := tr("STAGE_%s_NAME" % stage_id) if open else "???"
-	draw_string(font, Vector2(8, 100), title, HORIZONTAL_ALIGNMENT_CENTER, size.x - 16, 18, UiStyle.GOLD if selected else UiStyle.TEXT)
+	draw_string(font, Vector2(8, 100), title, HORIZONTAL_ALIGNMENT_CENTER, size.x - 16, UiStyle.fit_size(font, title, size.x - 16, 18), UiStyle.GOLD if selected else UiStyle.TEXT)
 	var sub := tr("SELECT_MAP_BEST") % Profile.get_stat("best_minutes:" + stage_id) if open else tr("STAGE_%s_HINT" % stage_id)
 	var best_dark := int(Profile.darkness_best.get(stage_id, 0))
 	if open and best_dark > 0:
 		sub = tr("SELECT_MAP_DARKNESS") % best_dark
-	draw_string(font, Vector2(8, 120), sub, HORIZONTAL_ALIGNMENT_CENTER, size.x - 16, 13, UiStyle.MUTED)
+	draw_string(font, Vector2(8, 120), sub, HORIZONTAL_ALIGNMENT_CENTER, size.x - 16, UiStyle.fit_size(font, sub, size.x - 16, 13), UiStyle.MUTED)
 	draw_rect(r, UiStyle.GOLD if selected else UiStyle.BORDER, false, 3.0 if selected else 2.0)
 
 

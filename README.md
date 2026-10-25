@@ -18,7 +18,7 @@ Ovládanie: **WASD / šípky / ľavá páčka**, **Esc** pauza, v pauze **L** ja
 
 V pauze: **N** čísla poškodenia, **K** otrasy obrazovky.
 
-**Vývojársky panel (F1)** – len vo vývojovej verzii (vo vydanej hre sa nezobrazí): posun o minútu, nesmrteľnosť, +5 levelov, finálny boss hneď, quest hneď, **silný build** (všetky zbrane + 40 levelov), **test bossa** (zoznam všetkých bossov, vyber a bojuj), **boss rush** (všetci bossovia za sebou), **test questu** (každý quest a každý krok príbehu), **Terrain** (vyskúšaš ľubovoľný terén na ľubovoľnej mape). Po spustení testu sa do reštartu hry nič neukladá. Z príkazového riadku: `-- --strong --dev-boss=KRAKEN`, `-- --boss-rush`, `-- --dev-quest=KIBBLE_THIEF#2`. Pred vydaním ho zmažeme (`scripts/ui/dev_panel.gd`).
+**Vývojársky panel (F1)** – len vo vývojovej verzii (vo vydanej hre sa nezobrazí). Hru pozastaví; tri stĺpce: akcie, všetci bossovia podľa máp a všetky questy, s vyhľadávaním. Fajky sú checklist toho, čo si už vyskúšal (uložené v `user://dev_checklist.json`, nie v profile); porazený boss alebo splnený quest z testu sa odfajkne sám. Akcie: posun o minútu, nesmrteľnosť, +5 levelov, finálny boss hneď, quest hneď, **silný build** (všetky zbrane + 40 levelov), **test bossa** (zoznam všetkých bossov, vyber a bojuj), **boss rush** (všetci bossovia za sebou), **test questu** (každý quest a každý krok príbehu), **Terrain** (vyskúšaš ľubovoľný terén na ľubovoľnej mape). Po spustení testu sa do reštartu hry nič neukladá. Z príkazového riadku: `-- --strong --dev-boss=KRAKEN`, `-- --boss-rush`, `-- --dev-quest=KIBBLE_THIEF#2`. Pred vydaním ho zmažeme (`scripts/ui/dev_panel.gd`).
 
 Celá sada testov (asi 150 scenárov vrátane celých nocí na každej mape, ~9 min; `QUICK=1` = 30 scenárov za ~1 min):
 
@@ -67,7 +67,7 @@ Balík pre kamarátov (exe + návod a dotazník `tools/PRECITAJ_MA.txt`): `bash 
 - `scripts/pickups/` – XP granule, srdiečka a sardinky (liečenie), magnet.
 - `data/cats.json` – mačky (vzhľad, štartová zbraň, bonus). Odomknuté mačky sa ukladajú do `user://profile.cfg`. Mačky s `"hidden": true` (anjel, diabol) sa nedajú vybrať. Ďatelinku zachrániš v záhrade, Bruno je finálny boss strechy a po jeho porazení sa odomkne.
 - `data/stages.json` – mapy (byt, pivnica, záhrada, strecha, supermarket, prístav, továreň): vlny, bossovia, finálny boss, hudba, ktoré mačky a príbehový quest tam patria. Každá ďalšia mapa sa odomkne porazením finálneho bossa predchádzajúcej (Kráľ vysávačov → Potkaní kráľ → Kosačka → Bruno → pes Rex → Kraken → Robo-vysávač 3000).
-- Tajomstvo: kľúč `"angel"` v mape (zatiaľ len strecha) dáva malú šancu, že po `after_minute` ťa pri smrti oživí anjel mačka. Dve oživenia v jednej hre privolajú diabol mačku (`DEVIL_CAT` v `data/enemies.json`), ktorá zabíja na pár zásahov a zraniť sa dá až od `mortal_from_minute`. Na testovanie: `-- --angel-chance=1`, `-- --devil`, alebo tlačidlá v dev paneli (F1).
+- Tajomstvo: keď mačka zomrie bez ďalších životov (od 5. minúty, na každej mape), môže ju raz za hru oživiť anjel mačka – 1 % + 3 % za každý už spotrebovaný život z predmetov (3 životy = 10 %). Ak potom zomrie znova, v polovici prípadov príde Smrť (diabol mačka, `DEVIL_CAT`): mačka ešte raz vstane, ale Smrť ju naháňa, zabíja na pár zásahov a zraniť sa dá až od `mortal_from_minute`. Na testovanie: `-- --angel-chance=1 --death-chance=1`, `-- --devil`, alebo tlačidlá v dev paneli (F1).
 - `data/quests.json` + `scripts/quests/` – questy: záchrany a súboje mačiek, vedľajšie úlohy, poradie počas noci.
 - `scripts/ui/character_select.gd` – výber mačky pred hrou.
 - `data/powerups.json` – trvalé vylepšenia z obchodu (U vo výbere mačky). Zlato a kúpené stupne sú v profile.
@@ -104,7 +104,7 @@ Balík pre kamarátov (exe + návod a dotazník `tools/PRECITAJ_MA.txt`): `bash 
 - **Ovládanie** – klávesnica (pohyb sa dá premapovať v Nastaveniach) aj gamepad (páčka/šípky, A potvrdí, B späť, Start pauza).
 - **Profil** – `user://profile.cfg`, pred každým uložením záloha `profile.bak.cfg`.
 
-Ladiace prepínače (za `--`): `--stage=`, `--cat=`, `--start-minute=N --catch-up`, `--levels=N`, `--start-weapon=A,B`, `--branch=W:B:R`, `--champions`, `--golden`, `--page`, `--endless-now`, `--challenges=A,B`, `--devil`, `--angel-chance=1`, `--kill-cat-every=N`, `--god`, `--no-save`, `--seed=N`, `--no-vsync`, `--perf`, `--shot=S`, `--show-choice`, `--shrine=KIND --choice=N`. Úplný zoznam je na začiatku `scripts/main.gd`.
+Ladiace prepínače (za `--`): `--stage=`, `--cat=`, `--start-minute=N --catch-up`, `--levels=N`, `--start-weapon=A,B`, `--branch=W:B:R`, `--champions`, `--golden`, `--page`, `--endless-now`, `--challenges=A,B`, `--devil`, `--angel-chance=1`, `--death-chance=1`, `--dev-panel`, `--kill-cat-every=N`, `--god`, `--no-save`, `--seed=N`, `--no-vsync`, `--perf`, `--shot=S`, `--show-choice`, `--shrine=KIND --choice=N`. Úplný zoznam je na začiatku `scripts/main.gd`.
 
 ## Zvuk
 

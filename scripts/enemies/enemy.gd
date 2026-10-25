@@ -96,6 +96,7 @@ var _summon_timer := 0.0
 ## of the usual behaviour, so every boss fights its own way.
 var _specials: Array = []
 var _special := ""
+var _specials_used := 0
 var _special_t := 4.0
 var _special_step := 0
 var _special_state_t := 0.0
@@ -362,15 +363,18 @@ func _tick_final(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 ## fans of shots), "rampage" (three quick lunges), "rain" (a line of marked
 ## strikes rolling towards the cat), "puddles" (pools that burn), "wall" (a
 ## row of shots with one gap), "nova" (three rings in a row), "pull" (drags
-## the cat in, then a ring). Returns the move, or Vector2.INF to keep the
-## usual one.
+## the cat in, then a ring), or a signature attack (see _tick_signature).
+## Returns the move, or Vector2.INF to keep the usual one.
 func _tick_special(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 	var angry := hp < max_hp * ENRAGE_AT
 	if _special == "":
 		_special_t -= delta * (1.5 if angry else 1.0)
 		if _special_t > 0.0 or position.distance_to(target) > SPECIAL_RANGE:
 			return Vector2.INF
-		_special = _specials[randi() % _specials.size()]
+		# The first special in the list is the boss's own: it opens the
+		# fight and comes up more often than the others.
+		_special = _specials[0] if _specials_used == 0 or randf() < 0.45 else _specials[randi() % _specials.size()]
+		_specials_used += 1
 		_special_step = 0
 		_special_state_t = 0.0
 		_special_at = target
@@ -459,10 +463,109 @@ func _tick_special(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 			for i in 12:
 				manager.spawn_bullet(position, Vector2.from_angle(TAU * i / 12.0), shot, "hair")
 			return _end_special()
+		_:
+			return _tick_signature(t, target, shot)
+	return _end_special()
+
+
+## Signature attacks: each big boss has its own (listed first in its
+## "specials"), always shown before it lands, so a good player can read it:
+## "cross" (a + of strikes, then an x), "blink" (vanishes and lands where the
+## cat stood, three times), "sweep" (a line of strikes turning round the boss
+## like a clock hand), "meteor" (a ring closing in on the cat, then a big
+## one on it), "chase" (strikes that follow the cat's steps), "cage" (a ring
+## around the cat with one way out before the middle blows), "whirl" (two
+## arms of shots spinning out).
+func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
+	var hurt := damage * 0.8
+	match _special:
+		"cross":
+			if _special_step < 2 and t >= _special_step * 1.1:
+				var turn := PI * 0.25 * _special_step + (PI * 0.25 if randf() < 0.5 and _special_step == 0 else 0.0)
+				for side in 4:
+					var aim := Vector2.from_angle(turn + side * PI * 0.5)
+					for i in 7:
+						manager.spawn_hazard(position + aim * (50.0 + i * 46.0), "strike", 26.0, 1.0, hurt)
+				_special_step += 1
+				Audio.play("roar", -10.0, 0.2)
+			if t > 2.2:
+				return _end_special()
+			return Vector2.ZERO
+		"blink":
+			var jump := int(t / 1.0)
+			if jump >= 3:
+				self_modulate.a = 1.0
+				return _end_special()
+			var in_jump := fmod(t, 1.0)
+			if _special_step == jump * 2:
+				_special_step += 1
+				_special_at = Terrain.fix(target, radius)
+				manager.spawn_hazard(_special_at, "strike", radius + 30.0, 0.75, hurt)
+			if _special_step == jump * 2 + 1 and in_jump >= 0.75:
+				_special_step += 1
+				position = _special_at
+				for i in 10:
+					manager.spawn_bullet(position, Vector2.from_angle(TAU * (i + 0.5 * jump) / 10.0), shot, "hair")
+			self_modulate.a = 0.25 if in_jump < 0.75 else 1.0
+			return Vector2.ZERO
+		"sweep":
+			# Twelve steps of 30 degrees; the warning runs ahead of the hit.
+			# It starts a quarter turn before the cat, so there's time to move.
+			if _special_step == 0:
+				_special_dir = (target - position).normalized()
+				_special_at = Vector2(1.0 if randf() < 0.5 else -1.0, 0.0)
+			if _special_step < 12 and t >= _special_step * 0.2:
+				var aim := _special_dir.rotated(_special_at.x * (_special_step * PI / 6.0 - PI * 0.5))
+				for i in 6:
+					manager.spawn_hazard(position + aim * (55.0 + i * 50.0), "strike", 26.0, 0.6, hurt)
+				_special_step += 1
+			if t > 3.0:
+				return _end_special()
+			return Vector2.ZERO
+		"meteor":
+			if _special_step == 0:
+				_special_step = 1
+				var start := randf() * TAU
+				for i in 6:
+					manager.spawn_hazard(target + Vector2.from_angle(start + TAU * i / 6.0) * 150.0, "strike", 46.0, 0.8 + i * 0.15, hurt)
+				manager.spawn_hazard(target, "strike", 80.0, 1.9, damage)
+				Audio.play("roar", -8.0, 0.1)
+			if t > 2.0:
+				return _end_special()
+			return Vector2.ZERO
+		"chase":
+			if _special_step < 8 and t >= _special_step * 0.3:
+				manager.spawn_hazard(target, "strike", 34.0, 0.7, hurt, "lightning")
+				_special_step += 1
+			if t > 3.2:
+				return _end_special()
+			return Vector2.ZERO
+		"cage":
+			if _special_step == 0:
+				_special_step = 1
+				var gap := randi() % 16
+				for i in 16:
+					if posmod(i - gap, 16) < 3:
+						continue
+					manager.spawn_hazard(target + Vector2.from_angle(TAU * i / 16.0) * 150.0, "strike", 30.0, 1.3, hurt)
+				manager.spawn_hazard(target, "strike", 110.0, 1.7, damage)
+			if t > 1.8:
+				return _end_special()
+			return Vector2.ZERO
+		"whirl":
+			if t >= _special_step * 0.12:
+				var a := _special_step * 0.35
+				for arm in 2:
+					manager.spawn_bullet(position, Vector2.from_angle(a + arm * PI), shot, "hair")
+				_special_step += 1
+			if t > 2.6:
+				return _end_special()
+			return Vector2.ZERO
 	return _end_special()
 
 
 func _end_special() -> Vector2:
+	self_modulate.a = 1.0
 	_special = ""
 	_special_t = randf_range(SPECIAL_EVERY.x, SPECIAL_EVERY.y)
 	return Vector2.INF

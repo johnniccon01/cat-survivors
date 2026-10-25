@@ -76,7 +76,7 @@
     "shape": "sock",
     "stripes": true,
     "boss": true,
-    "specials": ["nova", "puddles"],
+    "specials": ["whirl", "puddles"],
     "scale": 2.5,
     "color": "#f2ead8",
     "accent": "#7b5cc4",
@@ -150,7 +150,7 @@
   "VACUUM_KING": {
     "shape": "vacuum",
     "boss": true,
-    "specials": ["nova", "pull"],
+    "specials": ["cross", "nova", "pull"],
     "final": true,
     "behavior": "final",
     "scale": 4.0,
@@ -220,7 +220,7 @@
   "SPIDER_QUEEN": {
     "shape": "spider",
     "boss": true,
-    "specials": ["wall", "puddles"],
+    "specials": ["cage", "wall"],
     "behavior": "shooter",
     "scale": 2.6,
     "color": "#3a2050",
@@ -238,7 +238,7 @@
   "RAT_KING": {
     "shape": "rat",
     "boss": true,
-    "specials": ["rain", "rampage"],
+    "specials": ["blink", "rain", "rampage"],
     "final": true,
     "behavior": "final",
     "final_mode": "roar",
@@ -349,7 +349,7 @@
   "LAWNMOWER": {
     "shape": "mower",
     "boss": true,
-    "specials": ["rampage", "rain"],
+    "specials": ["sweep", "rampage", "rain"],
     "scale": 3.6,
     "color": "#d9534f",
     "accent": "#3f8f3e",
@@ -449,7 +449,7 @@
   "PIGEON_EMPEROR": {
     "shape": "pigeon",
     "boss": true,
-    "specials": ["rain", "nova"],
+    "specials": ["whirl", "rain"],
     "scale": 3.2,
     "color": "#7a6aa0",
     "accent": "#f2c14e",
@@ -468,7 +468,7 @@
     "shape": "cat",
     "cat": "BRUNO",
     "boss": true,
-    "specials": ["pounce", "nova", "rampage"],
+    "specials": ["meteor", "pounce", "rampage"],
     "final": true,
     "behavior": "final",
     "final_mode": "roar",
@@ -618,7 +618,7 @@
   },
   "THUNDERCLOUD": {
     "boss": true,
-    "specials": ["puddles", "nova"],
+    "specials": ["chase", "nova"],
     "knockback_resist": 0.95,
     "shape": "cloud",
     "behavior": "mortar",
@@ -697,7 +697,7 @@
   "SECURITY_BOT": {
     "shape": "roomba",
     "boss": true,
-    "specials": ["wall", "rampage"],
+    "specials": ["cross", "wall"],
     "scale": 2.6,
     "color": "#2a3a6a",
     "accent": "#e04646",
@@ -745,7 +745,7 @@
   "CASH_REGISTER": {
     "shape": "register",
     "boss": true,
-    "specials": ["bark", "nova"],
+    "specials": ["whirl", "bark"],
     "scale": 2.4,
     "color": "#5a6a7a",
     "accent": "#5ad16a",
@@ -760,7 +760,7 @@
   "GUARD_DOG": {
     "shape": "dog",
     "boss": true,
-    "specials": ["pounce", "bark", "rampage"],
+    "specials": ["chase", "pounce", "bark"],
     "final": true,
     "behavior": "final",
     "final_mode": "roar",
@@ -779,7 +779,7 @@
   "SHADOW_HOUND": {
     "shape": "dog",
     "boss": true,
-    "specials": ["pounce", "bark"],
+    "specials": ["blink", "pounce"],
     "behavior": "dash",
     "scale": 3.8,
     "color": "#2a2630",
@@ -861,7 +861,7 @@
   "OCTOPUS": {
     "shape": "octopus",
     "boss": true,
-    "specials": ["puddles", "wall"],
+    "specials": ["chase", "wall"],
     "scale": 3.0,
     "color": "#a04a7a",
     "accent": "#f2a0c0",
@@ -895,7 +895,7 @@
   "KRAKEN": {
     "shape": "octopus",
     "boss": true,
-    "specials": ["nova", "puddles"],
+    "specials": ["cage", "nova", "puddles"],
     "final": true,
     "behavior": "final",
     "final_mode": "suck",
@@ -973,7 +973,7 @@
   "GNOME_KING": {
     "shape": "gnome",
     "boss": true,
-    "specials": ["rain", "bark"],
+    "specials": ["meteor", "bark"],
     "scale": 2.8,
     "color": "#3a5aa0",
     "accent": "#f2c14e",
@@ -991,7 +991,7 @@
   "MOLE_KING": {
     "shape": "mole",
     "boss": true,
-    "specials": ["pounce", "rain"],
+    "specials": ["blink", "rain"],
     "scale": 3.2,
     "color": "#3a2e38",
     "accent": "#f2c14e",
@@ -1033,6 +1033,7 @@
     "xp": 0,
     "knockback_resist": 1.0,
     "behavior": "final",
+    "specials": ["sweep", "cross", "nova"],
     "final": true,
     "final_mode": "suck",
     "minion": "MINI_VAC",
@@ -1116,7 +1117,7 @@
   "ASSEMBLY_ARM": {
     "shape": "arm",
     "boss": true,
-    "specials": ["rain", "pounce"],
+    "specials": ["sweep", "pounce"],
     "scale": 2.6,
     "color": "#f2c14e",
     "accent": "#3a3e44",
@@ -1131,7 +1132,7 @@
   "FORGE_GOLEM": {
     "shape": "crusher",
     "boss": true,
-    "specials": ["pounce", "puddles"],
+    "specials": ["meteor", "puddles"],
     "scale": 2.8,
     "color": "#8a4a3a",
     "accent": "#ff8a3d",
@@ -1162,7 +1163,7 @@
   "DRONE_QUEEN": {
     "shape": "drone",
     "boss": true,
-    "specials": ["bark", "wall"],
+    "specials": ["whirl", "wall"],
     "scale": 3.2,
     "color": "#2a2c30",
     "accent": "#e04646",

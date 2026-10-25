@@ -254,9 +254,10 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
   - [x] **Strecha (4.) – múriky s priechodmi** (ako steny vo Vampire Survivors, v každom múriku je medzera)
   - [x] **Supermarket (5.) – úzka ulička**: hore a dole regále, ísť sa dá len doľava a doprava; nepriatelia prichádzajú z bokov
   - [x] **Prístav (6.) – dynamický príliv**: každých ~70 s varovanie, voda príde zhora aj zdola a stlačí všetkých na pás súše okolo mačky, po ~18 s odíde
+  - [x] **Továreň (7.) – pohyblivé pásy**: pásy cez halu posúvajú mačku aj nepriateľov do strán, susedné idú opačne a každých 25 s zmenia smer
   - [x] Karta mapy ukazuje, že mapa má prekážky; questy, svätyne, dvierka, pasce aj odmeny sa vždy položia na voľné miesto
 - [ ] Zahrať všetky tri a povedať, či je ulička príliš úzka a príliv príliš častý (konštanty hore v `terrain.gd`)
-- [ ] Ďalšie varianty: steny/miestnosti v Pivnici (bludisko), pohyblivé pásy a lisy v Továrni, padajúce regále, mosty cez vodu
+- [ ] Ďalšie varianty: miestnosti v Pivnici (bludisko), lisy v Továrni, padajúce regále, mosty cez vodu
 - [x] Dev panel (F1): **Silný build**, **Test bossa** (zoznam všetkých 40 bossov), **Boss rush** (všetci za sebou, 2 s pauza, liečenie), **Test questu** (všetky questy aj každý krok každého príbehu); po prvom teste sa do reštartu nič neukladá
 - [x] Testy: `dev_boss_rush`, `dev_quests` (spustí všetkých 91 questov/krokov), `dev_boss_kraken`, 4 nové `secret_*`
 - [x] 4 nové príbehy pre mapy s terénom: Stará bylinkárka (Záhrada), Beh po múrikoch (Strecha), Rozliate mlieko (Supermarket), Vrecia s pieskom (Prístav)
@@ -298,7 +299,7 @@ pazúry (návleky), batôžtek (taška na chrbte), 2 talizmany (dnešné charmy 
 
 ## Viac obsahu než konkurencia (cieľ)
 
-- [ ] Mapy: dnes 7 (z toho 3 s prekážkami) → cieľ **12+**: Pivnica-bludisko, Les (stromy hustejšie, rúbanisko), Kanál (úzke chodby, voda), Cintorín (náhrobky, hmla), Vlak (ide len doprava, vagóny), Zasnežené mesto (ľad, kĺzanie)
+- [ ] Mapy: dnes 7 (z toho 5 s terénom: stromy, múriky, ulička, príliv, pásy) → cieľ **12+**: Pivnica-bludisko, Les (stromy hustejšie, rúbanisko), Kanál (úzke chodby, voda), Cintorín (náhrobky, hmla), Vlak (ide len doprava, vagóny), Zasnežené mesto (ľad, kĺzanie)
 - [ ] Questy: dnes 91 questov a krokov príbehov → cieľ **150+**; nové typy krokov: únik pred niečím, ochrana pohyblivého cieľa, hádanka (spínače v poradí), preteky na čas, stealth v tme
 - [ ] Bossovia: dnes 40 → cieľ 60, každý s aspoň 2 špeciálnymi útokmi (otestovať boss rushom)
 - [ ] Zbrane: dnes 16 základných + evolúcie → cieľ 30

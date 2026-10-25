@@ -1600,3 +1600,5 @@ CHAIN_SPARE_PARTS_1_START,Six gears. Three at a time is all a cat can carry.,Še
 CHAIN_SPARE_PARTS_1_DONE,The machines start up – and so does the assembly arm!,Stroje sa rozbehli – aj montážne rameno!,Stroje se rozběhly – i montážní rameno!
 CHAIN_SPARE_PARTS_2,Stop the assembly arm,Zastav montážne rameno,Zastav montážní rameno
 CHAIN_SPARE_PARTS_2_DONE,In its claw it held a coil of copper wire.,V klepetách držalo cievku medeného drôtu.,V klepetech drželo cívku měděného drátu.
+TERRAIN_BELTS,Conveyor belts,Pohyblivé pásy,Pohyblivé pásy
+BELTS_SWITCH,The belts switch direction!,Pásy menia smer!,Pásy mění směr!

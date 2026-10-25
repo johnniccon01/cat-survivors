@@ -277,11 +277,12 @@ func _physics_process(delta: float) -> void:
 					chase = c.position
 		enemy.tick(delta, chase, _separation(enemy) * SEPARATION)
 		if Terrain.current != null:
-			var fixed := Terrain.current.resolve(enemy.position, enemy.radius)
-			if fixed != enemy.position:
+			var moved := enemy.position + Terrain.flow(enemy.position) * delta
+			var fixed := Terrain.current.resolve(moved, enemy.radius)
+			if fixed != moved:
 				# Pushed back by a wall or tree: slide along it towards the cat
 				# instead of standing stuck against it.
-				var along := (fixed - enemy.position).orthogonal().normalized()
+				var along := (fixed - moved).orthogonal().normalized()
 				if along.dot(chase - fixed) < 0.0:
 					along = -along
 				fixed = Terrain.current.resolve(fixed + along * enemy.speed * delta, enemy.radius)

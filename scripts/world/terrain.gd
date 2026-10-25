@@ -9,6 +9,8 @@ extends Node2D
 ##   right is free.
 ## - "tide": every now and then the sea comes in from above and below and
 ##   squeezes everyone into a strip of dry land, then goes out again.
+## - "belts": conveyor belts across the hall push everyone sideways and
+##   switch direction every now and then (Factory).
 ## Everything that moves or gets placed asks fix() for the nearest free spot.
 
 const TREE_CELL := 250.0
@@ -16,6 +18,10 @@ const TREE_CHANCE := 0.5
 ## No tree this close to where the night starts.
 const TREE_CLEAR := 240.0
 const AISLE_HALF := 105.0
+const BELT_EVERY := 300.0
+const BELT_WIDTH := 72.0
+const BELT_SPEED := 85.0
+const BELT_SWITCH := 25.0
 const WALL_CELL := 300.0
 const WALL_CHANCE := 0.65
 const WALL_THICK := 22.0
@@ -46,6 +52,10 @@ var _phase := "calm"
 var _phase_t := TIDE_FIRST
 var _half := INF
 var _center_y := 0.0
+## Belts: +1 or -1, flips every BELT_SWITCH seconds.
+var _belt_dir := 1.0
+var _belt_t := BELT_SWITCH
+var _belt_shift := 0.0
 
 
 func _ready() -> void:
@@ -106,6 +116,18 @@ func resolve(pos: Vector2, r: float) -> Vector2:
 	return pos
 
 
+## How fast the ground under `pos` carries things (conveyor belts).
+static func flow(pos: Vector2) -> Vector2:
+	if current == null or current.kind != "belts":
+		return Vector2.ZERO
+	var row := floori(pos.y / BELT_EVERY)
+	var inside := pos.y - row * BELT_EVERY
+	if inside > BELT_WIDTH or absf(pos.y) < BELT_EVERY * 0.5:
+		return Vector2.ZERO
+	# Neighbouring belts run opposite ways.
+	return Vector2(current._belt_dir * (1.0 if posmod(row, 2) == 0 else -1.0) * BELT_SPEED, 0.0)
+
+
 ## True when `pos` is inside an obstacle.
 func blocked(pos: Vector2, r: float = 0.0) -> bool:
 	return resolve(pos, r).distance_squared_to(pos) > 0.01
@@ -140,6 +162,14 @@ func _process(delta: float) -> void:
 	_t += delta
 	if kind == "tide":
 		_tick_tide(delta)
+	elif kind == "belts":
+		_belt_t -= delta
+		_belt_shift += _belt_dir * BELT_SPEED * delta
+		if _belt_t <= 0.0:
+			_belt_t = BELT_SWITCH
+			_belt_dir = -_belt_dir
+			if main != null and main.get("hud") != null:
+				main.hud.show_banner(tr("BELTS_SWITCH"), 2.0)
 	queue_redraw()
 
 
@@ -196,6 +226,8 @@ func _draw() -> void:
 			_draw_trees(view)
 		"walls":
 			_draw_walls(view)
+		"belts":
+			_draw_belts(view)
 		"aisles":
 			_draw_aisles(view)
 		"tide":
@@ -375,3 +407,24 @@ func _draw_walls(view: Rect2) -> void:
 				else:
 					draw_line(rect.position + Vector2(rect.size.x * 0.5, 0), rect.position + Vector2(rect.size.x * 0.5, rect.size.y), brick.darkened(0.25), 1.5)
 				draw_rect(rect, Color("2b2520"), false, 3.0)
+
+
+func _draw_belts(view: Rect2) -> void:
+	var r0 := floori(view.position.y / BELT_EVERY)
+	var r1 := floori(view.end.y / BELT_EVERY)
+	for row in range(r0, r1 + 1):
+		var y := row * BELT_EVERY
+		if absf(y + BELT_WIDTH * 0.5) < BELT_EVERY * 0.5:
+			continue
+		var dir := _belt_dir * (1.0 if posmod(row, 2) == 0 else -1.0)
+		draw_rect(Rect2(view.position.x, y, view.size.x, BELT_WIDTH), Color("3a3d44"))
+		draw_rect(Rect2(view.position.x, y, view.size.x, 6.0), Color("e0b53a"))
+		draw_rect(Rect2(view.position.x, y + BELT_WIDTH - 6.0, view.size.x, 6.0), Color("e0b53a"))
+		# Chevrons moving the way the belt runs.
+		var shift := fposmod(_belt_shift * (1.0 if posmod(row, 2) == 0 else -1.0), 48.0)
+		var x := floorf(view.position.x / 48.0) * 48.0 + shift - 48.0
+		while x < view.end.x + 48.0:
+			var tip := x + dir * 10.0
+			var mid := y + BELT_WIDTH * 0.5
+			draw_polyline(PackedVector2Array([Vector2(x - dir * 6.0, mid - 14.0), Vector2(tip, mid), Vector2(x - dir * 6.0, mid + 14.0)]), Color(0.75, 0.78, 0.82, 0.55), 5.0)
+			x += 48.0

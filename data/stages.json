@@ -1500,6 +1500,7 @@
   },
   "FACTORY": {
     "theme": "factory",
+    "terrain": "belts",
     "music": "music_factory",
     "music_alt": "music_factory_alt",
     "music_night": "music_factory_night",

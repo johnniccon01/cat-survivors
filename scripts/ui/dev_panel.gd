@@ -502,9 +502,11 @@ func _fight(id: String) -> void:
 	main.player.heal(9999.0)
 	_test_boss = main.enemies.spawn(id, main.player.position + Vector2(0, -230), main.player.stat("curse") * spawner.hp_multiplier())
 	_test_id = id
-	spawner.start_arena(_test_boss)
 	if _test_boss == null:
 		return
+	spawner.start_arena(_test_boss)
+	# Test runs can start the fight already part won (--boss-hp=0.4).
+	_test_boss.hp = _test_boss.max_hp * float(main._arg("--boss-hp=", "1"))
 	_testing = true
 	main.final_boss = _test_boss
 	var where := "%d/%d  " % [_rush_total - _rush.size(), _rush_total] if _rush_total > 0 else ""

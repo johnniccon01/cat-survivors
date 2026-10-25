@@ -44,7 +44,9 @@ extends Node2D
 ##   --strong           dev panel: every weapon that fits and 40 level-ups
 ##   --dev-boss=ID      dev panel: clear the field and fight boss ID (progress not saved)
 ##   --dev-panel        open the dev panel (F1) right away
-##   --no-arena         no thorn ring around boss fights
+##   --no-arena         no arena or rings of enemies in final boss fights
+##   --boss-hp=F        with --dev-boss: the boss starts at this share of its health
+##   --expect=a,b       test runs: fail unless these BotLog events happen (--expect-not=)
 ##   --boss-rush        dev panel: every boss one after another
 ##   --dev-quest=ID     dev panel: start quest ID, or CHAIN#N for step N of a story chain
 ##   --dev-quest-all    dev panel: start every quest and story step in turn, 5 s each (tests)
@@ -516,6 +518,7 @@ func _process(delta: float) -> void:
 		var weapons: Array[String] = []
 		for w: Weapon in player.weapons.get_children():
 			weapons.append("%s:%d%s" % [w.id, w.level, "" if w.branch == "" else "[%s%d]" % [w.branch, w.branch_rank]])
+		BotLog.verify()
 		if is_instance_valid(final_boss):
 			print("BOT: final boss hp=%.0f/%.0f" % [final_boss.hp, final_boss.max_hp])
 		print("BOT: time=%.1f level=%d kills=%d hp=%.0f/%.0f enemies=%d dead=%s" % [

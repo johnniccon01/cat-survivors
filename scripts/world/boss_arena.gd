@@ -53,15 +53,24 @@ func _process(delta: float) -> void:
 	if style != "":
 		radius = lerpf(START_RADIUS, END_RADIUS, _t / CLOSE_TIME) if style == "thorns" else WATER_RADIUS
 		manager.arena = {"center": position, "radius": radius, "inside": true, "owner": self}
+		if not BotLog.events.has("arena:" + style):
+			BotLog.event("arena:" + style)
+		# Nobody gets out (checked in test runs).
+		if manager.player.position.distance_to(position) > radius + 2.0:
+			BotLog.fail("the cat got out of the %s arena" % style)
+		if boss.position.distance_to(position) > radius + 2.0:
+			BotLog.fail("the boss got out of the %s arena (%.0f > %.0f, t=%.1f)" % [style, boss.position.distance_to(position), radius, _t])
 	if rings:
 		_ring_t -= delta
 		if _ring_t <= 0.0:
 			_ring_t = RING_EVERY
 			var r := minf(radius - 50.0, 240.0) if style != "" else 240.0
 			spawner.spawn_ring(manager.player.position, r, RING_COUNT)
+			BotLog.event("ring")
 
 
 func _open() -> void:
+	BotLog.event("arena_open")
 	_sink = 0.0
 	if manager.arena.get("owner") == self:
 		manager.arena = {}

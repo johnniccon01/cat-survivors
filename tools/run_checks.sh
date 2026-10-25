@@ -20,8 +20,8 @@ scenarios=(
   "apartment|--bot --bot-time=300"
   "basement|--bot --stage=BASEMENT --cat=TIGER --bot-time=300"
   "late_apartment|--bot --start-minute=12 --catch-up --bot-time=240"
-  "final_vacuum|--bot --start-minute=19.9 --catch-up --bot-time=60"
-  "final_rat|--bot --stage=BASEMENT --start-minute=19.9 --catch-up --bot-time=60"
+  "final_vacuum|--bot --start-minute=19.9 --catch-up --bot-time=60 --expect=ring --expect-not=arena:thorns,portal"
+  "final_rat|--bot --stage=BASEMENT --start-minute=19.9 --catch-up --bot-time=60 --expect=arena:thorns,ring"
   "garden|--bot --stage=GARDEN --cat=TIGER --bot-time=300"
   "rooftop|--bot --stage=ROOFTOP --cat=TIGER --bot-time=300"
   "late_rooftop|--bot --stage=ROOFTOP --start-minute=12 --catch-up --bot-time=240"
@@ -109,6 +109,14 @@ scenarios=(
   "factory|--bot --stage=FACTORY --cat=TIGER --bot-time=300"
   "late_factory|--bot --stage=FACTORY --start-minute=12 --catch-up --bot-time=240"
   "final_r3000|--bot --stage=FACTORY --god --start-minute=19.9 --catch-up --bot-time=90"
+  "boss_vacuum_king|--bot --god --strong --dev-boss=VACUUM_KING --bot-time=45 --expect=ring,special:cross --expect-not=portal,arena:thorns,arena:water"
+  "boss_rat_king|--bot --god --strong --stage=BASEMENT --dev-boss=RAT_KING --bot-time=80 --expect=arena:thorns,ring,portal,special:blink,arena_open"
+  "boss_lawnmower|--bot --god --strong --stage=GARDEN --dev-boss=LAWNMOWER --bot-time=45 --expect=hedges,hedge_solid,special:sweep --expect-not=portal,arena:thorns"
+  "boss_bruno|--bot --god --strong --stage=ROOFTOP --dev-boss=RIVAL_BRUNO --boss-hp=0.45 --bot-time=45 --expect=phase2,special:bats --expect-not=portal,arena:thorns"
+  "boss_guard_dog|--bot --god --strong --stage=SUPERMARKET --dev-boss=GUARD_DOG --boss-hp=0.6 --bot-time=45 --expect=pack,pack_run,special:chase --expect-not=portal,arena:thorns"
+  "boss_kraken|--bot --god --strong --stage=HARBOR --dev-boss=KRAKEN --bot-time=45 --expect=arena:water,special:cage --expect-not=portal"
+  "boss_r3000|--bot --god --strong --stage=FACTORY --dev-boss=ROBO_VACUUM_3000 --boss-hp=0.45 --bot-time=45 --expect=phase2,special:cross --expect-not=portal,arena:thorns"
+  "boss_small_plain|--bot --god --strong --stage=BASEMENT --dev-boss=GIANT_RAT --bot-time=45 --expect=special:rampage --expect-not=arena:thorns,arena:water,ring,portal,phase2"
   "traps_factory|--bot --stage=FACTORY --traps --bot-time=60"
   "quest_bolt|--bot --stage=FACTORY --god --levels=20 --quest=BOLT --bot-time=150"
   "story_blueprint|--bot --stage=FACTORY --god --levels=20 --quest=BLUEPRINT --bot-time=120"
@@ -180,7 +188,7 @@ scenarios=(
   "late_supermarket|--bot --stage=SUPERMARKET --start-minute=12 --catch-up --bot-time=240"
   "late_harbor|--bot --stage=HARBOR --start-minute=12 --catch-up --bot-time=240"
   "final_rex|--bot --stage=SUPERMARKET --start-minute=19.9 --catch-up --bot-time=60"
-  "final_kraken|--bot --stage=HARBOR --start-minute=19.9 --catch-up --bot-time=60"
+  "final_kraken|--bot --stage=HARBOR --start-minute=19.9 --catch-up --bot-time=60 --expect=arena:water"
   "traps_supermarket|--bot --stage=SUPERMARKET --traps --bot-time=60"
   "traps_harbor|--bot --stage=HARBOR --traps --bot-time=60"
   "quest_tucko|--bot --stage=SUPERMARKET --levels=20 --quest=TUCKO --bot-time=150"
@@ -209,7 +217,7 @@ run_one() {
   local limit=280
   [[ "$name" == night_* ]] && limit=600
   out=$(timeout "$limit" "$GODOT" --headless --log-file "${TMPDIR:-/tmp}/catsurvivors_$name.log" --path . $engine -- $args 2>&1)
-  errors=$(echo "$out" | grep -E "SCRIPT ERROR|Parse Error|ERROR: |UI: FAIL|TEXT: FAIL" | grep -vE "resources still in use|ObjectDB instances leaked" | sort | uniq -c | head -5)
+  errors=$(echo "$out" | grep -E "SCRIPT ERROR|Parse Error|ERROR: |UI: FAIL|TEXT: FAIL|TEST: FAIL" | grep -vE "resources still in use|ObjectDB instances leaked" | sort | uniq -c | head -5)
   summary=$(echo "$out" | grep -E "^(BOT|TEST): (time|weapons after|quests_done|active quest)|^(UI|TEXT): done" | tr '\n' ' ' | cut -c1-200)
   if [ -n "$errors" ]; then
     printf 'FAIL %s: %s\n%s\n' "$name" "$summary" "$(echo "$errors" | sed 's/^/     /')"

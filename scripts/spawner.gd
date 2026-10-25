@@ -378,6 +378,13 @@ func start_arena(boss: Enemy) -> void:
 	arena.rings = rings
 	arena.position = _player.position
 	get_parent().add_child(arena)
+	# The boss comes in from the edge of the screen, which may be outside the
+	# arena: it starts just inside the wall instead.
+	if style != "":
+		var r := (BossArena.WATER_RADIUS if style == "water" else BossArena.START_RADIUS) - boss.radius - 20.0
+		var off := boss.position - arena.position
+		if off.length() > r:
+			boss.position = arena.position + off.normalized() * r
 
 
 ## A pack of the wave's enemies runs in from one side of the screen in a
@@ -391,6 +398,7 @@ func send_pack(count: int = 10) -> void:
 		var enemy := _spawn(kind, start + dir.orthogonal() * (i - count * 0.5) * 34.0)
 		if enemy != null:
 			enemy.charge(dir, 6.0)
+	BotLog.event("pack_run")
 
 
 ## A ring of the current wave's enemies all round `center`, walking in.

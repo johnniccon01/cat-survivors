@@ -38,6 +38,9 @@ func _process(delta: float) -> void:
 	if not _solid and _t >= GROW and _t < GROW + stand:
 		_solid = true
 		Terrain.blockers.append(rect)
+		if Terrain.fix(rect.get_center(), 10.0) == rect.get_center():
+			BotLog.fail("a hedge does not block the way")
+		BotLog.event("hedge_solid")
 	elif _solid and _t >= GROW + stand:
 		_solid = false
 		Terrain.blockers.erase(rect)

@@ -352,5 +352,6 @@ Sem píšeme nápady, ktoré zatiaľ nemajú miesto vo fázach.
 
 - Každý väčší krok = commit; na GitHub pushujeme, keď povieš.
 - Pred commitom vždy prejdú testy: `bash tools/run_checks.sh`.
+- Scenáre môžu overiť, že sa niečo naozaj stalo: `--expect=udalosť` / `--expect-not=udalosť` (udalosti zapisuje `BotLog.event`, porušené pravidlá `BotLog.fail` → `TEST: FAIL`). Boje bossov: scenáre `boss_*`.
 - Testovacie behy nikdy neukladajú tvoj profil (`--bot`, `--ui-test`, `--no-save`).
 - Dev nástroje sú v poriadku počas vývoja, pred vydaním ich odstránime.

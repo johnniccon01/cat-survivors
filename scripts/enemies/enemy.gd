@@ -409,6 +409,7 @@ func _tick_special(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 			# The first special in the list is the boss's main attack: it
 			# opens the fight and keeps coming back.
 			_special = _specials[0]
+		BotLog.event("special:" + _special)
 		if _special != "portal":
 			_specials_used += 1
 		_special_step = 0
@@ -511,6 +512,7 @@ func _tick_fight(delta: float, target: Vector2) -> void:
 		_hedge_t -= delta
 		if _hedge_t <= 0.0 and position.distance_to(target) < SPECIAL_RANGE:
 			_hedge_t = HEDGE_EVERY
+			BotLog.event("hedges")
 			# Three hedges round the cat, open towards the mower.
 			var toward := (position - target).normalized()
 			for side in [toward.orthogonal(), -toward.orthogonal(), -toward]:
@@ -519,6 +521,7 @@ func _tick_fight(delta: float, target: Vector2) -> void:
 		var thresholds := [2.0 / 3.0, 1.0 / 3.0]
 		if _packs_sent < thresholds.size() and hp < max_hp * thresholds[_packs_sent]:
 			_packs_sent += 1
+			BotLog.event("pack")
 			manager.boss_event.emit(self, "pack")
 	if fight.has("phase2") and not _phase2 and hp < max_hp * 0.5:
 		_phase2 = true
@@ -529,6 +532,7 @@ func _tick_fight(delta: float, target: Vector2) -> void:
 		_end_special()
 		_special_t = 0.8
 		_flash = 0.4
+		BotLog.event("phase2")
 		manager.boss_event.emit(self, "phase2")
 
 
@@ -578,6 +582,7 @@ func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 			for i in 8:
 				manager.spawn_bullet(position, Vector2.from_angle(TAU * i / 8.0), shot, "hair")
 			_portal_t = randf_range(PORTAL_EVERY.x, PORTAL_EVERY.y)
+			BotLog.event("portal")
 			_end_special()
 			# Out of the portal straight into its main attack.
 			_special_t = 0.5

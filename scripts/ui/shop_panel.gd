@@ -54,7 +54,9 @@ func _ready() -> void:
 		_rows.append(row)
 
 	_desc = _label(18, Color("d9cce6"))
-	_desc.custom_minimum_size = Vector2(860, 50)
+	# Room for three lines, so a longer description doesn't shift the screen.
+	_desc.custom_minimum_size = Vector2(860, 84)
+	_desc.vertical_alignment = VERTICAL_ALIGNMENT_TOP
 	_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	box.add_child(_desc)
 	var hint := _label(16, Color("8f7ea3"))

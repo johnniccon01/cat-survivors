@@ -32,9 +32,9 @@ const GRADE_COLORS := [Color("6b5480"), Color("4aa3ff"), Color("b06aff"), Color(
 ## already has can show up (used by treasure chests).
 static func roll(player: Player, count: int = 3, owned_only: bool = false) -> Array[Dictionary]:
 	var pool: Array[Dictionary] = []
-	# The Stray (no weapon) gets passives at levels 2-4 and only weapons from level 5.
+	# The Stray (no weapon) gets passives until its "fragile_until" level (3), then weapons.
 	var weaponless := player.weapon_count() == 0 and not owned_only
-	var no_weapons_yet := weaponless and player.level < 5
+	var no_weapons_yet := weaponless and player.level < int(GameData.cats[player.cat_id].get("fragile_until", 0))
 	for id: String in GameData.weapons:
 		var data: Dictionary = GameData.weapons[id]
 		if data.get("evolved", false):
@@ -174,6 +174,43 @@ static func _has_evolution_of(player: Player, id: String) -> bool:
 	return not evolve.is_empty() and player.get_weapon(evolve["into"]) != null
 
 
+## Ids an offer touches, for marking them in the "your weapons" box: the
+## item itself and, for a passive, the weapons it can evolve.
+static func related_ids(offers: Array[Dictionary]) -> Array:
+	var ids := []
+	for offer in offers:
+		ids.append(offer["id"])
+		if offer["kind"] == "passive":
+			for id: String in GameData.weapons:
+				if GameData.weapons[id].get("evolve", {}).get("with", "") == offer["id"]:
+					ids.append(id)
+	return ids
+
+
+## Lines for a card about what the cat already has: the weapon's current
+## level, or for a passive the weapons it evolves and whether the cat has
+## them. Each line is [text, owned].
+static func owned_notes(player: Player, offer: Dictionary) -> Array:
+	var notes := []
+	match offer["kind"]:
+		"weapon", "branch":
+			var w := player.get_weapon(offer["id"])
+			if w != null:
+				notes.append([_t("CARD_OWNED") % [w.level, w.max_level()], true])
+			else:
+				notes.append([_t("CARD_NOT_OWNED"), false])
+		"passive":
+			for id: String in GameData.weapons:
+				if GameData.weapons[id].get("evolve", {}).get("with", "") != offer["id"]:
+					continue
+				var w := player.get_weapon(id)
+				if w != null:
+					notes.append([_t("CARD_EVOLVES_HAVE") % [item_name("weapon", id), w.level, w.max_level()], true])
+				else:
+					notes.append([_t("CARD_EVOLVES_MISSING") % item_name("weapon", id), false])
+	return notes
+
+
 ## Translated name of a weapon or passive.
 static func item_name(kind: String, id: String) -> String:
 	return _t("%s_%s_NAME" % [kind.to_upper(), id])
@@ -200,9 +237,10 @@ static func tag(offer: Dictionary) -> String:
 	return _t("TAG_LEVEL") % offer["level"]
 
 
-static func description(offer: Dictionary) -> String:
+## `pair_hint` = false leaves out "Can evolve X" (the card shows it with owned_notes).
+static func description(offer: Dictionary, pair_hint: bool = true) -> String:
 	var text := _base_description(offer)
-	var hint := _evolution_hint(offer)
+	var hint := _evolution_hint(offer) if pair_hint or offer["kind"] != "passive" else ""
 	return text if hint == "" else "%s
 %s" % [text, hint]
 

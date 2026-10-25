@@ -21,6 +21,7 @@ var progress := 0.0
 var _pressure := 0.0
 var _t := 0.0
 var _done := false
+var _declined := false
 
 
 func _init() -> void:
@@ -39,6 +40,10 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 		return
 	var inside: bool = position.distance_to(main.player.position) < RADIUS
+	# After "stay", the flap waits until the cat steps out before asking again.
+	if _declined:
+		_declined = inside
+		inside = false
 	if inside:
 		progress += delta / CHANNEL_TIME
 		# The house doesn't want you to leave: enemies pour in while you squeeze through.
@@ -51,9 +56,21 @@ func _physics_process(delta: float) -> void:
 	else:
 		progress = maxf(progress - delta * 0.3, 0.0)
 	if progress >= 1.0:
-		_done = true
-		escaped.emit()
+		_ask()
 	queue_redraw()
+
+
+## Leaving ends the run, so the cat is asked first (an easy thing to walk into).
+func _ask() -> void:
+	_done = true
+	main.ask_choice(tr("EXTRACT_ASK_TITLE"), tr("EXTRACT_ASK"), [tr("EXTRACT_YES"), tr("EXTRACT_NO")],
+			func(index: int) -> void:
+				if index == 0:
+					escaped.emit()
+				else:
+					_done = false
+					_declined = true
+					progress = 0.0)
 
 
 func _draw() -> void:

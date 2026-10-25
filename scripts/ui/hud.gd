@@ -438,7 +438,7 @@ func show_pause(on: bool) -> void:
 	_pause_shake.text = tr("PAUSE_SHAKE") % tr("SOUND_ON" if Settings.screen_shake else "SOUND_OFF")
 	_pause_stories.text = _stories_text()
 	if on:
-		_pause_weapons.text = _weapons_text()
+		_pause_weapons.text = weapons_text()
 		var log_text := "\n\n".join(_log) if not _log.is_empty() else tr("PAUSE_LOG_EMPTY")
 		if _quest_title.visible:
 			# The quest running now on top, then what was said lately.
@@ -449,27 +449,50 @@ func show_pause(on: bool) -> void:
 		(_pause_overlay.get_node("Box").get_child(1) as Button).grab_focus.call_deferred()
 
 
-## The cat's weapons (level, branch, what they do) and passives, as BBCode.
-func _weapons_text() -> String:
+## The cat's weapons (level, branch, what they do, which passive evolves
+## them) and passives, as BBCode. `columns` lays the weapons out in a table
+## (the level-up screen has little height); ids in `highlight` (what a
+## card or chest touches) are marked.
+func weapons_text(columns: int = 1, highlight: Array = []) -> String:
 	var cat: Variant = get_parent().get("player")
 	if cat == null or not is_instance_valid(cat):
 		return ""
+	var player := cat as Player
 	var gold := UiStyle.GOLD.to_html(false)
 	var muted := UiStyle.MUTED.to_html(false)
 	var parts: Array[String] = []
-	for w in (cat as Player).weapons.get_children():
+	var marked := 0
+	for w in player.weapons.get_children():
 		if not w is Weapon:
 			continue
-		var line := "[color=#%s]%s[/color]  Lv %d" % [gold, Upgrades.item_name("weapon", w.id), w.level]
+		var line := "[color=#%s]%s%s[/color]  Lv %d/%d" % [gold, "» " if w.id in highlight else "", Upgrades.item_name("weapon", w.id), w.level, w.max_level()]
 		line += "\n" + tr("WEAPON_%s_DESC" % w.id)
 		if w.branch != "":
 			line += "\n[color=#%s]%s %d: %s[/color]" % [muted, tr("BRANCH_%s_NAME" % w.branch), w.branch_rank, tr("BRANCH_%s_DESC" % w.branch)]
-		parts.append(line)
+		var evolve: Dictionary = w.data.get("evolve", {})
+		if not evolve.is_empty():
+			var has: bool = player.passives.has(evolve["with"])
+			line += "\n[color=#%s]%s[/color]" % ["8fdc8f" if has else muted, tr("INV_EVOLVE_HAVE" if has else "INV_EVOLVE_NEED") % Upgrades.item_name("passive", evolve["with"])]
+		# What the card or chest touches goes first, so it is seen without scrolling.
+		if w.id in highlight:
+			parts.insert(marked, line)
+			marked += 1
+		else:
+			parts.append(line)
 	var passives: Array[String] = []
-	for id: String in (cat as Player).passives:
-		passives.append("%s %d" % [Upgrades.item_name("passive", id), (cat as Player).passives[id]])
-	if not passives.is_empty():
-		parts.append("[color=#%s]%s[/color]" % [muted, ", ".join(passives)])
+	for id: String in player.passives:
+		var text := "%s %d" % [Upgrades.item_name("passive", id), player.passives[id]]
+		passives.append("[color=#%s]» %s[/color]" % [gold, text] if id in highlight else text)
+	var passive_line := "[color=#%s]%s[/color]" % [muted, ", ".join(passives)] if not passives.is_empty() else ""
+	if columns > 1 and not parts.is_empty():
+		var cells := ""
+		for p in parts:
+			cells += "[cell padding=0,0,16,8]%s[/cell]" % p
+		for i in (columns - parts.size() % columns) % columns:
+			cells += "[cell][/cell]"
+		return "%s[table=%d]%s[/table]" % [passive_line + "\n" if passive_line != "" else "", columns, cells]
+	if passive_line != "":
+		parts.append(passive_line)
 	return "\n\n".join(parts)
 
 

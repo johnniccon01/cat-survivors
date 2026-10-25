@@ -298,10 +298,12 @@ func _tick_dash(delta: float, dir: Vector2) -> Vector2:
 	_state_t -= delta
 	match _state:
 		"windup":
+			# The aim is locked when the wind-up starts and the enemy blinks,
+			# so the cat can step out of the line.
+			_flash = 0.05 if int(_state_t * 10.0) % 2 == 0 else 0.0
 			if _state_t <= 0.0:
 				_state = "dash"
 				_state_t = 0.45
-				_dash_dir = dir
 			return Vector2.ZERO
 		"dash":
 			if _state_t <= 0.0:
@@ -313,7 +315,8 @@ func _tick_dash(delta: float, dir: Vector2) -> Vector2:
 			return _dash_dir * speed * 5.0
 	if _state_t <= 0.0:
 		_state = "windup"
-		_state_t = 0.45
+		_state_t = 0.7
+		_dash_dir = dir
 	return dir * speed
 
 
@@ -401,13 +404,15 @@ func _tick_special(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 				return _end_special()
 			return Vector2.ZERO
 		"rampage":
-			var leg := int(t / 0.6)
+			# Each lunge aims first, then blinks still a moment with the aim locked.
+			var leg := int(t / 0.75)
 			if leg >= 3:
 				return _end_special()
-			var in_leg := fmod(t, 0.6)
-			if in_leg < 0.25:
-				_special_dir = (target - position).normalized()
-				_flash = 0.05
+			var in_leg := fmod(t, 0.75)
+			if in_leg < 0.4:
+				if in_leg < 0.1:
+					_special_dir = (target - position).normalized()
+				_flash = 0.05 if int(in_leg * 10.0) % 2 == 0 else 0.0
 				return Vector2.ZERO
 			return _special_dir * speed * 5.5
 		"rain":

@@ -12,6 +12,7 @@ const OUTLINE := Color("2b1d14")
 var _title: Label
 var _list: VBoxContainer
 var _hint: Label
+var _inventory: PanelContainer
 var _ready_for_input := false
 
 
@@ -31,6 +32,8 @@ func _ready() -> void:
 	_list = VBoxContainer.new()
 	_list.add_theme_constant_override("separation", 8)
 	box.add_child(_list)
+	_inventory = UiStyle.inventory_panel(1040, 160)
+	box.add_child(_inventory)
 	_hint = _label(20, Color("b9a8c9"))
 	_hint.text = "TREASURE_HINT"
 	box.add_child(_hint)
@@ -41,6 +44,10 @@ func open(results: Array[Dictionary]) -> void:
 		child.queue_free()
 	_hint.modulate.a = 0.0
 	_ready_for_input = false
+	var hud := get_parent() as Hud
+	var owned := hud.weapons_text(3, Upgrades.related_ids(results)) if hud != null else ""
+	(_inventory.get_meta("text") as RichTextLabel).text = owned
+	_inventory.visible = owned != ""
 	visible = true
 	for offer in results:
 		await get_tree().create_timer(REVEAL_STEP, true).timeout
@@ -50,8 +57,14 @@ func open(results: Array[Dictionary]) -> void:
 		elif offer["kind"] == "heal":
 			line.text = Upgrades.title(offer)
 		else:
-			line.text = "%s → %d" % [Upgrades.title(offer), offer["level"]]
+			line.text = "%s → %d" % [Upgrades.title(offer), int(offer["level"]) + int(offer.get("grade", 0))]
 		_list.add_child(line)
+		# What the new level does, like on the level-up card.
+		if offer["kind"] != "heal":
+			var desc := _label(18, Color("d8cbe6"))
+			desc.text = Upgrades.description(offer)
+			desc.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
+			_list.add_child(desc)
 	await get_tree().create_timer(REVEAL_STEP, true).timeout
 	_hint.modulate.a = 1.0
 	_ready_for_input = true

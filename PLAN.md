@@ -233,6 +233,19 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Oprava chyby pri uvoľnenom bossovi vo vlnách (filter v spawner.gd)
 - [ ] Overiť v hre: či sú špeciálne útoky férové/čitateľné a či veľká truhlica nie je príliš silná
 
+## Spätná väzba testerov (25. 10. 2026)
+
+- [x] Truhlica/odmena ukazuje aj čo nový level robí (napr. „Rybie kosti → 3“ + štatistiky)
+- [x] Mačacie dvierka sa pred odchodom opýtajú (Áno/Zostať); po „Zostať“ treba vystúpiť a vojsť znova
+- [x] Level-up, výber z bossovej truhly aj okno truhly ukazujú „Tvoje zbrane“ (level, popis, vetva, s akou pasívkou sa vyvinie a či ju máš); čoho sa ponuka týka, je označené » a hore
+- [x] Popis v obchode s vylepšeniami má miesto na 3 riadky (Prekliatie už neposúva obrazovku)
+- [x] Horiace mláky bossa 1 s blikajú ako varovanie, až potom pália (platí pre všetku paru)
+- [x] Výpady (boss aj dash nepriatelia): nabitie 0,7 s s blikaním a smer zamknutý na začiatku nabitia; sériové výpady tiež blikajú a zamierajú len na začiatku
+- [x] Škrabanec: ďalšie rady striedavo nad aj pod mačkou
+- [x] Túlavec dostane zbrane a plné zdravie už na 3. leveli
+- [x] Tma v queste na každej mape: pribudla na Obývačke (Mesačné okná), Záhrade (Strašiak), Streche (Búrková anténa), Prístave (Maják); Pivnica, Supermarket a Továreň ju už mali
+- [ ] Tajný quest „ďaleko od štartu“ / krvavá stopa je zatiaľ len v Záhrade, Pivnici a Prístave – na Obývačke, Streche, Supermarkete a Továrni chýba
+
 ## Fáza 3 – Grafika a zvuk
 
 - [ ] Sprity aj pre nábytok, podlahy, zbrane a projektily (teraz sú kreslené vektorovo)

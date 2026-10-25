@@ -6,6 +6,8 @@ extends Node2D
 ## "lightning" or "anchor" picks the look).
 
 const TICK := 0.5
+## Steam first shows where it will be for this long, then starts to burn.
+const ARM_TIME := 1.0
 
 var mode := "steam"
 var style := ""
@@ -29,10 +31,10 @@ func _physics_process(delta: float) -> void:
 	var inside := is_instance_valid(player) and player.position.distance_to(position) < radius
 	if mode == "steam":
 		_tick -= delta
-		if inside and _tick <= 0.0:
+		if inside and _tick <= 0.0 and _t >= ARM_TIME:
 			_tick = TICK
 			player.take_damage(damage)
-		if _t >= lifetime:
+		if _t >= lifetime + ARM_TIME:
 			queue_free()
 			return
 	elif _struck < 0.0 and _t >= lifetime:
@@ -48,7 +50,14 @@ func _physics_process(delta: float) -> void:
 
 func _draw() -> void:
 	if mode == "steam":
-		var a := clampf(lifetime - _t, 0.0, 1.0) * minf(_t * 4.0, 1.0)
+		if _t < ARM_TIME:
+			# Warning: a blinking ring that fills up before the steam burns.
+			var k := _t / ARM_TIME
+			var blink := 0.6 + 0.4 * sin(_t * 18.0)
+			Blit.disc(self, Vector2.ZERO, radius * k, Color(1.0, 0.55, 0.35, 0.18))
+			Blit.ring(self, Vector2.ZERO, radius + 0.75, 1.5, Color(1.0, 0.45, 0.25, 0.8 * blink))
+			return
+		var a := clampf(lifetime + ARM_TIME - _t, 0.0, 1.0) * minf((_t - ARM_TIME) * 4.0, 1.0)
 		for k in 3:
 			var r := radius * (0.6 + 0.2 * k) + sin(_t * 5.0 + k) * 1.5
 			Blit.disc(self, Vector2(0, -k * 2), r, Color(1.0, 0.9, 0.85, 0.16 * a))

@@ -69,6 +69,12 @@ WEAPON_CATNIP_GARDEN_DESC,Evolved Catnip: a huge aura that also heals the cat.,"
 WEAPON_BONE_CAROUSEL_NAME,Bone Carousel,Kostený kolotoč,Kostěný kolotoč
 WEAPON_BONE_CAROUSEL_DESC,Evolved Fish Bones: six bones that never stop spinning.,"Evolúcia Rybích kostí: šesť kostí, ktoré sa točia bez prestávky.","Evoluce Rybích kostí: šest kostí, které se točí bez přestávky."
 EVOLVE_HINT,Evolves with %s + a boss chest.,S pasívkou %s a truhlicou z bossa sa vyvinie.,S pasivkou %s a truhlou z bosse se vyvine.
+CARD_OWNED,You have it: Lv %d/%d,Už máš: Lv %d/%d,Už máš: Lv %d/%d
+CARD_NOT_OWNED,You don't have it yet,Ešte nemáš,Ještě nemáš
+CARD_EVOLVES_HAVE,"Evolves %s – you have it (Lv %d/%d)","Vyvinie %s – máš (Lv %d/%d)","Vyvine %s – máš (Lv %d/%d)"
+CARD_EVOLVES_MISSING,"Evolves %s – you don't have it","Vyvinie %s – nemáš","Vyvine %s – nemáš"
+INV_EVOLVE_HAVE,Evolves at max level: you have %s,Evolúcia na max. leveli: %s už máš,Evoluce na max. levelu: %s už máš
+INV_EVOLVE_NEED,Evolves with the passive %s,Evolúcia s pasívkou %s,Evoluce s pasivkou %s
 EVOLVE_PAIR,Can evolve %s.,Umožní evolúciu: %s.,Umožní evoluci: %s.
 WEAPON_LASER_NAME,Laser Pointer,Laserové ukazovátko,Laserové ukazovátko
 WEAPON_LASER_DESC,Fires a beam at a random enemy that hits everything in its path.,"Vystrelí lúč na náhodného nepriateľa, zasiahne všetko v ceste.",Vystřelí paprsek na náhodného nepřítele a zasáhne vše v cestě.
@@ -191,6 +197,10 @@ EVENT_SWARM,A swarm is coming!,Blíži sa roj!,Blíží se roj!
 EXTRACT_OPEN,A cat flap opened! Escape through it (60 s),Otvorili sa mačacie dvierka! Uteč nimi (60 s),Otevřela se kočičí dvířka! Uteč jimi (60 s)
 EXTRACT_CLOSED,The cat flap closed,Mačacie dvierka sa zavreli,Kočičí dvířka se zavřela
 EXTRACT_TRACKER,Cat flap: %d s,Mačacie dvierka: %d s,Kočičí dvířka: %d s
+EXTRACT_ASK_TITLE,Leave the map?,Odísť z mapy?,Odejít z mapy?
+EXTRACT_ASK,"The run ends here and you keep your gold. The next map unlocks only when you beat this one to the end.","Beh tu skončí a zlato ti ostane. Ďalšia mapa sa odomkne, až keď túto dohráš do konca.","Běh tu skončí a zlato ti zůstane. Další mapa se odemkne, až když tuto dohraješ do konce."
+EXTRACT_YES,"Yes, slip out","Áno, odísť","Ano, odejít"
+EXTRACT_NO,Stay and fight,"Zostať a bojovať","Zůstat a bojovat"
 EXTRACT_TITLE,You slipped out!,Mačka ušla!,Kočka utekla!
 EXTRACT_STATS,You escaped after %s with %d enemies defeated.,"Útek po %s, porazených nepriateľov: %d.","Útěk po %s, poražených nepřátel: %d."
 SUMMARY_GOLD,+%d gold (streak bonus +%d %%),+%d zlata (bonus série +%d %%),+%d zlata (bonus série +%d %%)
@@ -1394,7 +1404,7 @@ BOSS_CHEST_TITLE,Boss chest – pick one!,Truhlica bossa – vyber si!,Truhla bo
 BOSS_CHEST_JACKPOT,Jackpot! You get all three!,Jackpot! Dostávaš všetky tri!,Jackpot! Dostáváš všechny tři!
 GREAT_CHEST,Great chest! All three upgrades are yours!,Veľká truhlica! Všetky tri vylepšenia sú tvoje!,Velká truhla! Všechna tři vylepšení jsou tvoje!
 CAT_STRAY_NAME,Stray,Túlavec,Tulák
-CAT_STRAY_DESC,"A street cat with nothing but its wits. Starts with no weapon and only 1 HP – the first weapon and full health come at level 5. Fast, lucky, learns quickly and carries one weapon more.","Pouličná mačka, ktorá má len svoj rozum. Začína bez zbrane a s 1 životom – prvú zbraň a plné zdravie dostane až na 5. leveli. Rýchla, šťastná, rýchlo sa učí a unesie o zbraň viac.","Pouliční kočka, která má jen svůj rozum. Začíná bez zbraně a s 1 životem – první zbraň a plné zdraví dostane až na 5. levelu. Rychlá, šťastná, rychle se učí a unese o zbraň víc."
+CAT_STRAY_DESC,"A street cat with nothing but its wits. Starts with no weapon and only 1 HP – the first weapon and full health come at level 3. Fast, lucky, learns quickly and carries one weapon more.","Pouličná mačka, ktorá má len svoj rozum. Začína bez zbrane a s 1 životom – prvú zbraň a plné zdravie dostane až na 3. leveli. Rýchla, šťastná, rýchlo sa učí a unesie o zbraň viac.","Pouliční kočka, která má jen svůj rozum. Začíná bez zbraně a s 1 životem – první zbraň a plné zdraví dostane až na 3. levelu. Rychlá, šťastná, rychle se učí a unese o zbraň víc."
 CAT_STRAY_HINT,,,
 SELECT_NO_WEAPON,No weapon – use the traps!,Bez zbrane – využi pasce!,Bez zbraně – využij pasti!
 GRADE_1,Rare · level %d,Vzácne · úroveň %d,Vzácné · úroveň %d

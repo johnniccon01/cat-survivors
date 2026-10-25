@@ -19,6 +19,8 @@ const OUTLINE := Color("2b1d14")
 var _title: Label
 var _reroll: Label
 var _cards: HBoxContainer
+var _inventory: PanelContainer
+var _player: Player
 var _offers: Array[Dictionary] = []
 var _ready_for_input := false
 var _banish_left := 0
@@ -33,7 +35,7 @@ func _ready() -> void:
 	box.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	box.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	box.grow_vertical = Control.GROW_DIRECTION_BOTH
-	box.add_theme_constant_override("separation", 24)
+	box.add_theme_constant_override("separation", 14)
 	add_child(box)
 
 	_title = _label(44, CARD_FOCUS)
@@ -47,6 +49,10 @@ func _ready() -> void:
 	_reroll = _label(18, Color("b9a8c9"))
 	box.add_child(_reroll)
 
+	# What the cat already has, so the pick is easier (like the pause screen).
+	_inventory = UiStyle.inventory_panel(1040, 150)
+	box.add_child(_inventory)
+
 
 ## `title` replaces the "Level N!" heading (e.g. a boss chest's pick).
 func open(level: int, offers: Array[Dictionary], rerolls: int = 0, title: String = "", banishes: int = 0) -> void:
@@ -56,8 +62,13 @@ func open(level: int, offers: Array[Dictionary], rerolls: int = 0, title: String
 	_title.text = title if title != "" else tr("LEVEL_UP_TITLE") % level
 	for child in _cards.get_children():
 		child.queue_free()
+	var hud := get_parent() as Hud
+	_player = hud.get_parent().get("player") if hud != null else null
 	for i in offers.size():
 		_cards.add_child(_make_card(i, offers[i]))
+	var owned := hud.weapons_text(3, Upgrades.related_ids(offers)) if hud != null else ""
+	(_inventory.get_meta("text") as RichTextLabel).text = owned
+	_inventory.visible = owned != ""
 	visible = true
 	_ready_for_input = false
 	await get_tree().create_timer(INPUT_DELAY, true).timeout
@@ -104,7 +115,7 @@ func _make_card(index: int, offer: Dictionary) -> VBoxContainer:
 	column.add_theme_constant_override("separation", 6)
 	var card := Button.new()
 	column.add_child(card)
-	card.custom_minimum_size = Vector2(260, 280)
+	card.custom_minimum_size = Vector2(260, 300)
 	card.focus_mode = Control.FOCUS_ALL
 	var grade := int(offer.get("grade", 0))
 	var border: Color = Upgrades.GRADE_COLORS[grade] if grade > 0 else CARD_BORDER
@@ -142,8 +153,17 @@ func _make_card(index: int, offer: Dictionary) -> VBoxContainer:
 	kind.text = "KIND_" + String(offer["kind"]).to_upper()
 	content.add_child(kind)
 
+	# What the cat already has of it: "You have it: Lv 3/8", "Evolves Scratch – you have it".
+	if _player != null:
+		for note: Array in Upgrades.owned_notes(_player, offer):
+			var owned := _label(14, Color("8fdc8f") if note[1] else Color("e8a07a"))
+			owned.text = note[0]
+			owned.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			owned.custom_minimum_size.x = 232
+			content.add_child(owned)
+
 	var desc := _label(16, Color("eee6f3"))
-	desc.text = Upgrades.description(offer)
+	desc.text = Upgrades.description(offer, false)
 	desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	desc.custom_minimum_size.x = 232
 	content.add_child(desc)

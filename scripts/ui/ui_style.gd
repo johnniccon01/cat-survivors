@@ -75,6 +75,27 @@ static func box(fill: Color, border: Color) -> StyleBoxFlat:
 	return sb
 
 
+## A framed, scrollable "your weapons" box under the level-up cards or a
+## chest; fill its RichTextLabel (the panel's meta "text") with Hud.weapons_text.
+static func inventory_panel(width: float, height: float) -> PanelContainer:
+	var panel := PanelContainer.new()
+	panel.add_theme_stylebox_override("panel", box(Color(BG, 0.9), BORDER))
+	panel.custom_minimum_size = Vector2(width, height)
+	panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	var vbox := VBoxContainer.new()
+	vbox.add_child(label(TranslationServer.translate("PAUSE_WEAPONS"), 16, GOLD, HORIZONTAL_ALIGNMENT_LEFT))
+	var text := RichTextLabel.new()
+	text.bbcode_enabled = true
+	text.scroll_active = true
+	text.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	text.add_theme_font_size_override("normal_font_size", 13)
+	text.mouse_filter = Control.MOUSE_FILTER_PASS
+	vbox.add_child(text)
+	panel.add_child(vbox)
+	panel.set_meta("text", text)
+	return panel
+
+
 ## Full-screen dimmed backdrop with a centred vertical box; returns the box.
 static func overlay(parent: Control, alpha: float = 0.92) -> VBoxContainer:
 	parent.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)

@@ -41,6 +41,7 @@ func _physics_process(delta: float) -> void:
 	elif _struck < 0.0 and _t >= lifetime:
 		_struck = _t
 		if inside and damage > 0.0:
+			BotLog.event("hazard_hit")
 			player.take_damage(damage)
 		Audio.play("thunder" if style == "lightning" else "hit", -6.0 if style == "lightning" else -10.0)
 	elif _struck >= 0.0 and _t - _struck > 0.25:

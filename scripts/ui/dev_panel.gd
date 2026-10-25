@@ -500,7 +500,8 @@ func _fight(id: String) -> void:
 	if main.quests.active != null:
 		main.quests.active.fail()
 	main.player.heal(9999.0)
-	_test_boss = main.enemies.spawn(id, main.player.position + Vector2(0, -230), main.player.stat("curse") * spawner.hp_multiplier())
+	# As strong as where it comes in a run, whatever minute the test starts at.
+	_test_boss = spawner.spawn_boss_as_in_run(id, main.player.position + Vector2(0, -230))
 	_test_id = id
 	if _test_boss == null:
 		return
@@ -511,7 +512,7 @@ func _fight(id: String) -> void:
 	main.final_boss = _test_boss
 	var where := "%d/%d  " % [_rush_total - _rush.size(), _rush_total] if _rush_total > 0 else ""
 	main.hud.show_banner("DEV: %s%s" % [where, tr("ENEMY_%s_NAME" % id)], 3.0)
-	print("DEV: boss test %s hp=%.0f" % [id, _test_boss.max_hp])
+	print("DEV: boss test %s hp=%.0f damage=%.1f speed=%.0f" % [id, _test_boss.max_hp, _test_boss.damage, _test_boss.speed])
 
 
 ## Every boss one after another; the next comes 2 s after one falls.

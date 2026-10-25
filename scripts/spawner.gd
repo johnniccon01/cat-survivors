@@ -241,12 +241,41 @@ func _stage_bosses() -> Array:
 	return ids
 
 
+## How hard and fast new enemies are, from the run clock.
+func _update_mults() -> void:
+	_enemies.damage_mult = (1.0 + DAMAGE_PER_MINUTE_SQ * pow(elapsed / 60.0, 2.0)) * early_ease() * sqrt(challenge()) * (1.0 + DARKNESS_DAMAGE * darkness) * float(_stage.get("damage_mult", 1.0))
+	_enemies.speed_mult = 1.0 + minf(SPEED_PER_MINUTE * elapsed / 60.0, SPEED_MAX_BONUS) + minf(ENDLESS_SPEED_PER_MINUTE * endless_minutes(), ENDLESS_SPEED_MAX)
+
+
+## Spawns boss `id` as strong as it is when it comes in a run (dev tests):
+## a final boss as at the end of the night, any other as in its wave.
+func spawn_boss_as_in_run(id: String, pos: Vector2) -> Enemy:
+	var minute := duration_minutes()
+	var final := false
+	for stage_id: String in GameData.stages:
+		var stage: Dictionary = GameData.stages[stage_id]
+		if stage.get("final_boss", "") == id:
+			minute = float(stage.get("duration_minutes", 30))
+			final = true
+			break
+		for w: Dictionary in stage["waves"]:
+			if id in w.get("bosses", []):
+				minute = float(w["minute"]) + 0.5
+	var saved := elapsed
+	elapsed = minute * 60.0
+	_update_mults()
+	var mult := _player.stat("curse") * pow(challenge(), 0.8) if final else hp_multiplier()
+	var boss := _enemies.spawn(id, pos, mult)
+	elapsed = saved
+	_update_mults()
+	return boss
+
+
 func _physics_process(delta: float) -> void:
 	if _player == null or _player.is_dead:
 		return
 	elapsed += delta
-	_enemies.damage_mult = (1.0 + DAMAGE_PER_MINUTE_SQ * pow(elapsed / 60.0, 2.0)) * early_ease() * sqrt(challenge()) * (1.0 + DARKNESS_DAMAGE * darkness) * float(_stage.get("damage_mult", 1.0))
-	_enemies.speed_mult = 1.0 + minf(SPEED_PER_MINUTE * elapsed / 60.0, SPEED_MAX_BONUS) + minf(ENDLESS_SPEED_PER_MINUTE * endless_minutes(), ENDLESS_SPEED_MAX)
+	_update_mults()
 	if _cleared:
 		return
 	if endless:

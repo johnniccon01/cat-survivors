@@ -56,7 +56,8 @@ func _tick(delta: float) -> void:
 
 
 func _random_point() -> Vector2:
-	return Vector2.from_angle(randf() * TAU) * randf_range(30.0, ROAM_RADIUS)
+	# Never inside a tree, shelf or wall.
+	return Terrain.fix(position + Vector2.from_angle(randf() * TAU) * randf_range(30.0, ROAM_RADIUS), 12.0) - position
 
 
 func _draw() -> void:

@@ -21,7 +21,7 @@ Hra je hrateľná od menu po koniec noci na 7 mapách:
 - **Priebeh noci:** rozpočet nepriateľov s krivkou intenzity, oddychy,
   udalosti (kruhy, roje), elity, bossovia, finálny boss, mačacie dvierka na
   útek, série výhier.
-- **Questy:** 38 príbehov (3 na každú mapu, 3 cez všetky mapy, 10 samostatných, tajomstvo na každej mape) s voľbami a trvalými zmenami máp, záchrany a súboje mačiek, príbehový quest na každej mape, vedľajšie úlohy.
+- **Questy:** 42 príbehov (3 na každú mapu, 3 cez všetky mapy, 10 samostatných, tajomstvo na každej mape) s voľbami a trvalými zmenami máp, záchrany a súboje mačiek, príbehový quest na každej mape, vedľajšie úlohy.
 - **Meta:** zlato, obchod s vylepšeniami, charmy, 29 artefaktov, 40 úspechov, dlhodobé ciele, kniha questov, výzvy, nekonečná noc.
 - **Tajomstvo:** anjel ťa na streche po 15. minúte s malou šancou zachráni;
   po dvoch záchranách príde diabol, ktorý zabije isto.
@@ -259,6 +259,8 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [ ] Ďalšie varianty: steny/miestnosti v Pivnici (bludisko), pohyblivé pásy a lisy v Továrni, padajúce regále, mosty cez vodu
 - [x] Dev panel (F1): **Silný build**, **Test bossa** (zoznam všetkých 40 bossov), **Boss rush** (všetci za sebou, 2 s pauza, liečenie), **Test questu** (všetky questy aj každý krok každého príbehu); po prvom teste sa do reštartu nič neukladá
 - [x] Testy: `dev_boss_rush`, `dev_quests` (spustí všetkých 91 questov/krokov), `dev_boss_kraken`, 4 nové `secret_*`
+- [x] 4 nové príbehy pre mapy s terénom: Stará bylinkárka (Záhrada), Beh po múrikoch (Strecha), Rozliate mlieko (Supermarket), Vrecia s pieskom (Prístav)
+- [x] Predmety, zóny, stopy, cieľ červenej bodky aj domovy záchran sa kladú len na voľné miesto (nie do stromu, regálu či steny)
 
 ## Inventár a výbava (príprava – zatiaľ NEROBIŤ, len plán)
 

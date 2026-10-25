@@ -44,7 +44,7 @@ func _ready() -> void:
 	var spread: Array = data.get("spread", [160.0, 420.0])
 	for i in int(data.get("count", 5)):
 		var a := TAU * i / float(data.get("count", 5)) + randf_range(-0.4, 0.4)
-		_items.append(position + Vector2.from_angle(a) * randf_range(float(spread[0]), float(spread[1])))
+		_items.append(Terrain.fix(position + Vector2.from_angle(a) * randf_range(float(spread[0]), float(spread[1])), 24.0))
 		_guards.append(null)
 		_woke.append(false)
 		_looks.append(_look(i))

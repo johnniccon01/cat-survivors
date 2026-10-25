@@ -21,7 +21,7 @@ func _ready() -> void:
 	var spread: Array = data.get("spread", [220.0, 300.0])
 	for i in n - 1:
 		var a := TAU * i / maxf(n - 1, 1) + randf_range(-0.3, 0.3)
-		_spots.append(position + Vector2.from_angle(a) * randf_range(float(spread[0]), float(spread[1])))
+		_spots.append(Terrain.fix(position + Vector2.from_angle(a) * randf_range(float(spread[0]), float(spread[1])), 24.0))
 	for i in n:
 		_hp.append(SPOT_HP)
 	_left = float(data.get("time", 45.0))

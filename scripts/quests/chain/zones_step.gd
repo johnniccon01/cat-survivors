@@ -27,7 +27,7 @@ func _ready() -> void:
 	_zones.append(position)
 	for i in n - 1:
 		var a := TAU * i / maxf(n - 1, 1) + randf_range(-0.5, 0.5)
-		_zones.append(position + Vector2.from_angle(a) * randf_range(float(spread[0]), float(spread[1])))
+		_zones.append(Terrain.fix(position + Vector2.from_angle(a) * randf_range(float(spread[0]), float(spread[1])), 24.0))
 	for i in n:
 		_fill.append(0.0)
 	_left = float(data.get("time_limit", 0.0))
@@ -81,7 +81,7 @@ func _tick(delta: float) -> void:
 			var open: Array = range(_zones.size()).filter(func(k: int) -> bool: return _fill[k] < 1.0)
 			if not open.is_empty():
 				var from: Vector2 = _zones[open.pick_random()]
-				_zones.append(from + Vector2.from_angle(randf() * TAU) * randf_range(80.0, 140.0))
+				_zones.append(Terrain.fix(from + Vector2.from_angle(randf() * TAU) * randf_range(80.0, 140.0), 24.0))
 				_fill.append(0.0)
 				if open.size() + 1 > int(grow.get("max", 6)):
 					fail()

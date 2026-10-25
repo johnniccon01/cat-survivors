@@ -30,7 +30,7 @@ func _tick(_delta: float) -> void:
 		return
 	var spacing: Array = data.get("spacing", [140.0, 200.0])
 	_dir = _dir.rotated(randf_range(-0.9, 0.9))
-	position += _dir * randf_range(float(spacing[0]), float(spacing[1]))
+	position = Terrain.fix(position + _dir * randf_range(float(spacing[0]), float(spacing[1])), 24.0)
 	var traps: Dictionary = data.get("traps", {})
 	for i in int(traps.get("per_point", 0)):
 		var trap := Trap.new()

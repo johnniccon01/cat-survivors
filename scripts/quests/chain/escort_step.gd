@@ -25,7 +25,7 @@ func _ready() -> void:
 	var spread: Array = data.get("spread", [200.0, 380.0])
 	for i in n - _waiting.size():
 		var a := TAU * i / float(n) + randf_range(-0.4, 0.4)
-		_waiting.append(position + Vector2.from_angle(a) * randf_range(float(spread[0]), float(spread[1])))
+		_waiting.append(Terrain.fix(position + Vector2.from_angle(a) * randf_range(float(spread[0]), float(spread[1])), 24.0))
 
 
 func objective() -> String:

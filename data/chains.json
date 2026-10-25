@@ -1257,5 +1257,37 @@
       {"type": "defend", "time": 40, "mode": "enemies", "enemy": "BOLT_BUG", "spawn_every": 3.0, "spawn_count": 5, "look": "fuse"},
       {"type": "boss", "enemy": "FORGE_GOLEM", "hp_mult": 3.0, "look": "x", "distance": 240}
     ]
+  },
+  "OLD_HERBALIST": {
+    "stage": "GARDEN",
+    "reward": {"gold": 600, "charm": "CLOVER_LEAF"},
+    "steps": [
+      {"type": "collect", "items": ["flower"], "item": "flower", "count": 5, "capacity": 2, "spread": [250, 500], "deliver": true, "look_to": "basket"},
+      {"type": "defend", "time": 30, "mode": "enemies", "enemy": "GNOME", "spawn_every": 3.0, "spawn_count": 4, "look": "basket"}
+    ]
+  },
+  "PARAPET_RUN": {
+    "stage": "ROOFTOP",
+    "reward": {"gold": 700, "charm": "MOUSE_TAIL"},
+    "steps": [
+      {"type": "trail", "count": 7, "spacing": [200, 260], "look": "pawprints"},
+      {"type": "boss", "enemy": "BIG_GULL", "hp_mult": 2.5, "look": "antenna", "distance": 220, "after_minute": 4}
+    ]
+  },
+  "SPILLED_MILK": {
+    "stage": "SUPERMARKET",
+    "reward": {"gold": 800, "charm": "LUCKY_BELL"},
+    "steps": [
+      {"type": "collect", "items": ["milk"], "item": "milk", "count": 4, "capacity": 2, "spread": [250, 520], "deliver": true, "look_to": "register"},
+      {"type": "boss", "enemy": "BANANA_BUNCH", "hp_mult": 2.5, "look": "bin", "distance": 240, "after_minute": 5}
+    ]
+  },
+  "SANDBAGS": {
+    "stage": "HARBOR",
+    "reward": {"gold": 900, "charm": "WIND_FEATHER"},
+    "steps": [
+      {"type": "zones", "count": 3, "hold": 6, "radius": 45, "spread": [200, 340]},
+      {"type": "collect", "items": ["rope"], "item": "rope", "count": 3, "capacity": 1, "spread": [220, 420], "deliver": true, "look_to": "boat"}
+    ]
   }
 }

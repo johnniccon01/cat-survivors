@@ -149,7 +149,7 @@ func timer_text(seconds: float) -> String:
 
 
 func random_point(from: Vector2, dist: Array) -> Vector2:
-	return from + Vector2.from_angle(randf() * TAU) * randf_range(float(dist[0]), float(dist[1]))
+	return Terrain.fix(from + Vector2.from_angle(randf() * TAU) * randf_range(float(dist[0]), float(dist[1])), 30.0)
 
 
 ## Draws one of the quest things (`look`) centred on `at` (local position).

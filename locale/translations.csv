@@ -1533,3 +1533,32 @@ CHAIN_ABANDONED_LINE_1_START,The old line wakes up – and so do its bugs!,Star�
 CHAIN_ABANDONED_LINE_2,Defeat the Forge Golem,Poraz Kováčskeho golema,Poraz Kovářského golema
 CHAIN_ABANDONED_LINE_2_DONE,Inside the golem glows a pearl as pale as the moon.,V golemovi žiari perla bledá ako mesiac.,V golemovi září perla bledá jako měsíc.
 TERRAIN_WALLS,Walls and gaps,Múriky a priechody,Zídky a průchody
+CHAIN_OLD_HERBALIST_NAME,The Old Herbalist,Stará bylinkárka,Stará bylinkářka
+CHAIN_OLD_HERBALIST_DESC,An old cat among the trees needs herbs for her medicine.,Stará mačka medzi stromami potrebuje bylinky na liek.,Stará kočka mezi stromy potřebuje bylinky na lék.
+CHAIN_OLD_HERBALIST_1,Pick flowers between the trees,Natrhaj kvety medzi stromami,Natrhej květiny mezi stromy
+CHAIN_OLD_HERBALIST_1_START,"""Five flowers, dear, and mind the trees.""","„Päť kvetov, zlatko, a daj pozor na stromy.“","„Pět květin, zlato, a dej pozor na stromy.“"
+CHAIN_OLD_HERBALIST_1_DONE,The medicine is brewing...,Liek sa varí...,Lék se vaří...
+CHAIN_OLD_HERBALIST_2,Keep the gnomes away from the basket,Odožeň trpaslíkov od košíka,Odežeň trpaslíky od košíku
+CHAIN_OLD_HERBALIST_2_START,The garden gnomes smell the herbs!,Záhradní trpaslíci zacítili bylinky!,Zahradní trpaslíci ucítili bylinky!
+CHAIN_OLD_HERBALIST_2_DONE,The herbalist gives you a lucky four-leaf clover.,Bylinkárka ti dá šťastný štvorlístok.,Bylinkářka ti dá šťastný čtyřlístek.
+CHAIN_PARAPET_RUN_NAME,The Parapet Run,Beh po múrikoch,Běh po zídkách
+CHAIN_PARAPET_RUN_DESC,Someone runs across the roofs every night. Follow the paw prints through the gaps.,Niekto každú noc beží cez strechy. Choď po stopách cez priechody.,Někdo každou noc běží přes střechy. Jdi po stopách přes průchody.
+CHAIN_PARAPET_RUN_1,Follow the paw prints over the roofs,Choď po stopách cez strechy,Jdi po stopách přes střechy
+CHAIN_PARAPET_RUN_1_START,Tiny paw prints... and they go straight through the walls' gaps.,Drobné stopy... a vedú rovno cez priechody v múrikoch.,Drobné stopy... a vedou rovnou přes průchody v zídkách.
+CHAIN_PARAPET_RUN_2,Defeat the gull guarding the antenna,"Poraz čajku, čo stráži anténu","Poraz racka, co hlídá anténu"
+CHAIN_PARAPET_RUN_2_DONE,The runner was a mouse – it leaves you its lucky tail.,Bežcom bola myš – nechá ti svoj šťastný chvost.,Běžcem byla myš – nechá ti svůj šťastný ocásek.
+CHAIN_SPILLED_MILK_NAME,Spilled Milk,Rozliate mlieko,Rozlité mléko
+CHAIN_SPILLED_MILK_DESC,Milk cartons are rolling down the narrow aisle.,Úzkou uličkou sa kotúľajú krabice mlieka.,Úzkou uličkou se koulejí krabice mléka.
+CHAIN_SPILLED_MILK_1,Bring the milk back to the till,Dones mlieko späť k pokladni,Dones mléko zpět k pokladně
+CHAIN_SPILLED_MILK_1_START,The aisle is full of milk. Left and right – go!,Ulička je plná mlieka. Doľava a doprava – poď!,Ulička je plná mléka. Doleva a doprava – jdi!
+CHAIN_SPILLED_MILK_1_DONE,Who knocked them over? Something yellow ran away...,Kto ich zhodil? Niečo žlté utieklo...,Kdo je shodil? Něco žlutého uteklo...
+CHAIN_SPILLED_MILK_2,Defeat the Banana Bunch,Poraz Banánový trs,Poraz Banánový trs
+CHAIN_SPILLED_MILK_2_DONE,The cashier gives you a little bell for your help.,Pokladníčka ti za pomoc dá zvonček.,Pokladní ti za pomoc dá zvoneček.
+CHAIN_SANDBAGS_NAME,Sandbags,Vrecia s pieskom,Pytle s pískem
+CHAIN_SANDBAGS_DESC,The tide comes higher every night. The harbour cats need help.,Príliv je každú noc vyššie. Prístavné mačky potrebujú pomoc.,Příliv je každou noc výš. Přístavní kočky potřebují pomoc.
+CHAIN_SANDBAGS_1,Hold the dry spots,Udrž suché miesta,Udrž suchá místa
+CHAIN_SANDBAGS_1_START,Stand on each spot so the cats can stack the sandbags.,"Postoj na každom mieste, nech mačky naukladajú vrecia.","Postůj na každém místě, ať kočky naskládají pytle."
+CHAIN_SANDBAGS_1_DONE,The wall holds. Now the boat needs tying up!,Hrádza drží. Teraz treba priviazať loďku!,Hráz drží. Teď je třeba přivázat loďku!
+CHAIN_SANDBAGS_2,Bring ropes to the boat,Dones laná k loďke,Dones lana k loďce
+CHAIN_SANDBAGS_2_START,The ropes are scattered all over the pier.,Laná sú rozhádzané po celom móle.,Lana jsou rozházená po celém molu.
+CHAIN_SANDBAGS_2_DONE,The boat is safe. A gull feather drifts down as thanks.,Loďka je v bezpečí. Ako vďaka pristane pierko čajky.,Loďka je v bezpečí. Jako díky přistane pírko racka.

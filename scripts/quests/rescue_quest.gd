@@ -104,7 +104,7 @@ func _exit_tree() -> void:
 func _begin_escort() -> void:
 	_stage = "escort"
 	var dist: Array = data.get("escort_distance", [480.0, 620.0])
-	_home = position + Vector2.from_angle(randf() * TAU) * randf_range(dist[0], dist[1])
+	_home = Terrain.fix(position + Vector2.from_angle(randf() * TAU) * randf_range(dist[0], dist[1]), 30.0)
 	_escort = main.spawn_escort(cat_id, position, float(data.get("escort_hp", 60.0)))
 	# A welcoming party: a few enemies wait along the way home.
 	spawn_wave_enemies(10, position.lerp(_home, 0.5), 40.0, 120.0)

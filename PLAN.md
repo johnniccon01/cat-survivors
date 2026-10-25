@@ -264,7 +264,7 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Predmety, zóny, stopy, cieľ červenej bodky aj domovy záchran sa kladú len na voľné miesto (nie do stromu, regálu či steny)
 - [x] Ďalšie 3 príbehy: Stratené gombíky (Byt), Lampáš pre moly (Pivnica), Náhradné diely (Továreň); 12 nových charmov (spolu 31)
 - [x] Nepriatelia sa pri náraze na stenu či strom šmýkajú popri nej k mačke
-- [x] 3 nové vedľajšie questy (boli len 3): **Mesačný lúč** (putujúce mesačné svetlo, treba v ňom vydržať 15 s, lieči) , **Vodcovia svorky** (3 silní nepriatelia s korunou, poraziť do 45 s) a **Zakopaný poklad** (3 miesta na kopanie za sebou, na konci truhla a mince)
+- [x] 4 nové vedľajšie questy (boli len 3): **Mesačný lúč** (putujúce mesačné svetlo, treba v ňom vydržať 15 s, lieči) , **Vodcovia svorky** (3 silní nepriatelia s korunou, poraziť do 45 s) , **Zakopaný poklad** (3 miesta na kopanie za sebou, na konci truhla a mince) a **Mačacie preteky** (5 vlajočiek, každá do 10 s)
 
 ## Inventár a výbava (príprava – zatiaľ NEROBIŤ, len plán; podrobný návrh v `INVENTAR.md`)
 

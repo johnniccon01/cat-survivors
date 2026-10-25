@@ -118,6 +118,12 @@
       "dig_time": 3.0,
       "guards": 6,
       "next": [250.0, 400.0]
+    },
+    "CAT_RACE": {
+      "flags": 5,
+      "radius": 34.0,
+      "time_per_flag": 10.0,
+      "next": [260.0, 380.0]
     }
   },
   "schedule": {

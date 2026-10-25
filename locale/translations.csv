@@ -1611,3 +1611,6 @@ QUEST_PACK_FIGHT,Defeat the crowned leaders: %d left (%d s),Poraz vodcov s korun
 QUEST_DIG_TITLE,Buried treasure,Zakopaný poklad,Zakopaný poklad
 QUEST_DIG_FIND,Find the X on the ground,Nájdi X na zemi,Najdi X na zemi
 QUEST_DIG_DIG,Dig at the X (%d/%d),Kopaj pri X (%d/%d),Kopej u X (%d/%d)
+QUEST_RACE_TITLE,The cat race,Mačacie preteky,Kočičí závod
+QUEST_RACE_FIND,Find the starting flag,Nájdi štartovú vlajočku,Najdi startovní vlaječku
+QUEST_RACE_RUN,Run to flag %d/%d: %d s,Bež k vlajočke %d/%d: %d s,Běž k vlaječce %d/%d: %d s

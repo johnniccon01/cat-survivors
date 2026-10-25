@@ -37,6 +37,8 @@ scenarios=(
   "shrine_fortune|--bot --shrine=FORTUNE --choice=1 --bot-time=60"
   "shrine_haste|--bot --shrine=HASTE --choice=1 --bot-time=70"
   "shrine_milk|--bot --shrine=MILK --choice=1 --bot-time=60"
+  "quest_moonbeam|--bot --stage=SUPERMARKET --levels=15 --god --quest=MOONBEAM --bot-time=90"
+  "quest_pack|--bot --levels=15 --quest=PACK_LEADERS --bot-time=90"
   "shrine_might|--bot --shrine=MIGHT --choice=2 --bot-time=70"
   "banish_grade|--bot --banish --grade=2 --bot-time=60"
   "darkness|--bot --darkness=3 --bot-time=90"

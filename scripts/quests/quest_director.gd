@@ -10,6 +10,8 @@ const SIDE_SCRIPTS := {
 	"DEFEND_BOWL": preload("res://scripts/quests/bowl_quest.gd"),
 	"RED_DOT": preload("res://scripts/quests/red_dot_quest.gd"),
 	"FRIDGE": preload("res://scripts/quests/fridge_quest.gd"),
+	"MOONBEAM": preload("res://scripts/quests/moonbeam_quest.gd"),
+	"PACK_LEADERS": preload("res://scripts/quests/pack_quest.gd"),
 }
 
 ## Cat quests (rescues, duels) never come before this point of the night.

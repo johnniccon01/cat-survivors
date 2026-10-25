@@ -1602,3 +1602,9 @@ CHAIN_SPARE_PARTS_2,Stop the assembly arm,Zastav montážne rameno,Zastav montá
 CHAIN_SPARE_PARTS_2_DONE,In its claw it held a coil of copper wire.,V klepetách držalo cievku medeného drôtu.,V klepetech drželo cívku měděného drátu.
 TERRAIN_BELTS,Conveyor belts,Pohyblivé pásy,Pohyblivé pásy
 BELTS_SWITCH,The belts switch direction!,Pásy menia smer!,Pásy mění směr!
+QUEST_MOONBEAM_TITLE,The moonbeam,Mesačný lúč,Měsíční paprsek
+QUEST_MOONBEAM_FIND,Find the patch of moonlight,Nájdi škvrnu mesačného svetla,Najdi skvrnu měsíčního světla
+QUEST_MOONBEAM_HOLD,Stay in the moving moonlight: %d s,Zostaň v putujúcom mesačnom svetle: %d s,Zůstaň v putujícím měsíčním světle: %d s
+QUEST_PACK_TITLE,The pack leaders,Vodcovia svorky,Vůdci smečky
+QUEST_PACK_FIND,Find where the pack gathers,"Nájdi miesto, kde sa zhromažďuje svorka","Najdi místo, kde se shromažďuje smečka"
+QUEST_PACK_FIGHT,Defeat the crowned leaders: %d left (%d s),Poraz vodcov s korunou: zostáva %d (%d s),Poraz vůdce s korunou: zbývá %d (%d s)

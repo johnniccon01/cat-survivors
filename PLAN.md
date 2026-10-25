@@ -264,7 +264,7 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Ďalšie 3 príbehy: Stratené gombíky (Byt), Lampáš pre moly (Pivnica), Náhradné diely (Továreň); 12 nových charmov (spolu 31)
 - [x] Nepriatelia sa pri náraze na stenu či strom šmýkajú popri nej k mačke
 
-## Inventár a výbava (príprava – zatiaľ NEROBIŤ, len plán)
+## Inventár a výbava (príprava – zatiaľ NEROBIŤ, len plán; podrobný návrh v `INVENTAR.md`)
 
 Cieľ: výbava na úrovni Halls of Torment a Death Must Die, ale s mačkami. Čísla
 konkurencie treba ešte overiť (odhad z pamäti: HoT má okolo 10 slotov výbavy a

@@ -9,6 +9,11 @@ SPUSTENIE
   „Ďalšie informácie“ → „Spustiť aj tak“ (hra nie je podpísaná).
 - Uložená hra je v %APPDATA%\Cat Survivors
 
+NOVÁ VERZIA
+- Starý CatSurvivors.exe len prepíš novým (alebo ho rozbaľ hocikam inam).
+- Postup ostane: uložená hra nie je pri exe, ale v %APPDATA%\Cat Survivors,
+  takže nová verzia pokračuje tam, kde si skončil. Ten priečinok nemaž.
+
 OVLÁDANIE
 - Pohyb: WASD / šípky / ľavá páčka gamepadu
 - Esc: pauza (v pauze L = jazyk, M = zvuk)

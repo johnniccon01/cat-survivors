@@ -43,6 +43,8 @@ const TIDE_HALF := 115.0
 
 ## The terrain of the running night (null on open maps).
 static var current: Terrain
+## Walls that come and go on any map (the Lawnmower's hedges, HedgeWall).
+static var blockers: Array[Rect2] = []
 
 var kind := ""
 var main: Node
@@ -78,7 +80,11 @@ func _exit_tree() -> void:
 
 ## The nearest spot to `pos` where something `r` big fits.
 static func fix(pos: Vector2, r: float = 12.0) -> Vector2:
-	return current.resolve(pos, r) if current != null else pos
+	if current != null:
+		pos = current.resolve(pos, r)
+	for rect in blockers:
+		pos = _push_out_of(rect, pos, r)
+	return pos
 
 
 ## A spot for a new enemy around `around`: in a corridor it walks in from
@@ -472,7 +478,7 @@ func _wall_rects(c: Vector2i) -> Array:
 
 
 ## `pos` moved just outside `rect` if something `r` big would overlap it.
-func _push_out_of(rect: Rect2, pos: Vector2, r: float) -> Vector2:
+static func _push_out_of(rect: Rect2, pos: Vector2, r: float) -> Vector2:
 	var closest := Vector2(clampf(pos.x, rect.position.x, rect.end.x), clampf(pos.y, rect.position.y, rect.end.y))
 	var off := pos - closest
 	if off != Vector2.ZERO:

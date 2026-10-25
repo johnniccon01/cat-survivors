@@ -302,7 +302,6 @@ func _physics_process(delta: float) -> void:
 			var boss_id: String = _pending_bosses.pop_front()
 			var boss := _spawn(boss_id, _player.position + Vector2.from_angle(randf() * TAU) * radius)
 			if boss != null:
-				start_arena(boss)
 				_wave_bosses.append(boss)
 			boss_spawned.emit(boss_id)
 			_boss_timer = randf_range(BOSS_GAP[0], BOSS_GAP[1])
@@ -356,21 +355,42 @@ func _spawn(id: String, pos: Vector2) -> Enemy:
 	return enemy
 
 
-## Thorns close in around the cat while `boss` is fought (see BossArena);
-## not during a duel, which has its own arena (--no-arena: never).
+## The arena and rings of enemies of a final boss's fight (see BossArena);
+## none during a duel, which has its own arena (--no-arena: never).
 func start_arena(boss: Enemy) -> void:
+	if boss == null or "--no-arena" in GameData.args():
+		return
+	var style: String = boss.fight.get("arena", "")
+	var rings: bool = boss.fight.get("ring", false)
+	if style == "" and not rings:
+		return
 	# A new boss takes over the arena of one still standing.
 	var old: Variant = _enemies.arena.get("owner")
 	if old is BossArena:
 		(old as BossArena)._open()
-	if boss == null or not _enemies.arena.is_empty() or "--no-arena" in GameData.args():
+	if style != "" and not _enemies.arena.is_empty():
 		return
 	var arena := BossArena.new()
 	arena.spawner = self
 	arena.manager = _enemies
 	arena.boss = boss
+	arena.style = style
+	arena.rings = rings
 	arena.position = _player.position
 	get_parent().add_child(arena)
+
+
+## A pack of the wave's enemies runs in from one side of the screen in a
+## line, straight across (a final boss's "pack").
+func send_pack(count: int = 10) -> void:
+	var kinds: Array = current_wave()["enemies"]
+	var kind: String = kinds.pick_random()
+	var dir := Vector2.from_angle(randf() * TAU)
+	var start := _player.position - dir * _spawn_radius()
+	for i in count:
+		var enemy := _spawn(kind, start + dir.orthogonal() * (i - count * 0.5) * 34.0)
+		if enemy != null:
+			enemy.charge(dir, 6.0)
 
 
 ## A ring of the current wave's enemies all round `center`, walking in.

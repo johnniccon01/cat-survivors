@@ -21,6 +21,15 @@ var knockback_resist := 0.0
 var dead := false
 var is_prop := false
 var is_boss := false
+## The last boss of a map. Its "fight" (data/enemies.json) is what makes it
+## special: "arena" ("thorns" or "water", see BossArena), "ring" (rings of
+## enemies), "portal", "hedges" (walls that shut the cat in), "pack" (a pack
+## runs through at 2/3 and 1/3 health), "phase2" (new attacks at half health).
+var is_final := false
+var fight := {}
+var _hedge_t := HEDGE_EVERY * 0.5
+var _phase2 := false
+var _packs_sent := 0
 ## Seconds left of fading in (enemies that appear inside the screen).
 const SPAWN_IN := 0.6
 const HALO := 0.09
@@ -34,10 +43,13 @@ const SPECIAL_EVERY := Vector2(4.5, 6.5)
 ## every RARE_EVERY-th special is one of the others instead.
 const MAIN_EVERY := Vector2(2.4, 3.4)
 const RARE_EVERY := 4
-## Every so often (and whenever it falls far behind) a boss steps through a
+## Every so often (and whenever it falls far behind) a boss with "portal" steps through a
 ## portal: a dark swirl opens near the cat and it comes out of it.
 const PORTAL_EVERY := Vector2(13.0, 18.0)
 const PORTAL_OPEN := 1.0
+## Lawnmower: hedges spring up round the cat this often and stand this long.
+const HEDGE_EVERY := 11.0
+const HEDGE_STAND := 5.0
 ## Set by the manager in big crowds (or with the effect saver): enemies stop
 ## their walk animation then, which saves thousands of redraws a second.
 static var calm := false
@@ -141,6 +153,8 @@ func setup(p_id: String, data: Dictionary, p_manager: EnemyManager) -> void:
 	_color = Color(data.get("color", "#ffffff"))
 	_accent = Color(data.get("accent", "#888888"))
 	is_boss = data.get("boss", false)
+	is_final = data.get("final", false)
+	fight = data.get("fight", {})
 	_behavior = data.get("behavior", "chase")
 	_cat_id = data.get("cat", "")
 	_minion = data.get("minion", "")
@@ -269,6 +283,8 @@ func tick(delta: float, target: Vector2, push: Vector2) -> void:
 		# Badly hurt bosses get angry: faster.
 		if not is_elite and hp < max_hp * ENRAGE_AT and _special != "pounce" and _special != "rampage":
 			move *= ENRAGE_SPEED
+		if not fight.is_empty():
+			_tick_fight(delta, target)
 	if _summon_id != "":
 		_summon_timer -= delta
 		if _summon_timer <= 0.0:
@@ -382,7 +398,7 @@ func _tick_special(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 		_special_t -= delta * (1.5 if angry else 1.0)
 		_portal_t -= delta
 		var far := position.distance_to(target) > SPECIAL_RANGE
-		if _portal_t <= 0.0 or (far and _portal_t < PORTAL_EVERY.x - 4.0):
+		if fight.get("portal", false) and (_portal_t <= 0.0 or (far and _portal_t < PORTAL_EVERY.x - 4.0)):
 			_special = "portal"
 		elif _special_t > 0.0 or far:
 			return Vector2.INF
@@ -488,6 +504,34 @@ func _tick_special(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 	return _end_special()
 
 
+## What makes a final boss's fight its own (see `fight`); the arena and the
+## rings of enemies are run by BossArena.
+func _tick_fight(delta: float, target: Vector2) -> void:
+	if fight.get("hedges", false):
+		_hedge_t -= delta
+		if _hedge_t <= 0.0 and position.distance_to(target) < SPECIAL_RANGE:
+			_hedge_t = HEDGE_EVERY
+			# Three hedges round the cat, open towards the mower.
+			var toward := (position - target).normalized()
+			for side in [toward.orthogonal(), -toward.orthogonal(), -toward]:
+				HedgeWall.plant(get_parent(), target + side * 120.0, side, 260.0, HEDGE_STAND)
+	if fight.has("pack"):
+		var thresholds := [2.0 / 3.0, 1.0 / 3.0]
+		if _packs_sent < thresholds.size() and hp < max_hp * thresholds[_packs_sent]:
+			_packs_sent += 1
+			manager.boss_event.emit(self, "pack")
+	if fight.has("phase2") and not _phase2 and hp < max_hp * 0.5:
+		_phase2 = true
+		var p2: Dictionary = fight["phase2"]
+		_specials = p2.get("specials", _specials)
+		_specials_used = 0
+		speed *= float(p2.get("speed", 1.0))
+		_end_special()
+		_special_t = 0.8
+		_flash = 0.4
+		manager.boss_event.emit(self, "phase2")
+
+
 ## Signature attacks: each big boss has its own (listed first in its
 ## "specials"), always shown before it lands, so a good player can read it:
 ## "cross" (a + of strikes, then an x), "blink" (vanishes and lands where the
@@ -495,11 +539,31 @@ func _tick_special(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 ## like a clock hand), "meteor" (a ring closing in on the cat, then a big
 ## one on it), "chase" (strikes that follow the cat's steps), "cage" (a ring
 ## around the cat with one way out before the middle blows), "whirl" (two
-## arms of shots spinning out). "portal" is every boss's way to get close:
+## arms of shots spinning out), "bats" (a ring of shadows flies in, then a
+## pillar of blood). "portal" (for a final boss with "portal" in its fight):
 ## a dark swirl opens near the cat and the boss steps out of it.
 func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 	var hurt := damage * 0.8
 	match _special:
+		"bats":
+			# Like Dracula: shadows gather in a ring round the cat, fly in all
+			# at once, then a pillar of blood falls where the cat is.
+			if _special_step == 0:
+				_special_step = 1
+				_special_dir = Vector2.from_angle(randf() * TAU)
+				for i in 10:
+					manager.spawn_hazard(_special_at + _special_dir.rotated(TAU * i / 10.0) * 260.0, "strike", 24.0, 0.9, 0.0, "portal")
+			if _special_step == 1 and t >= 0.9:
+				_special_step = 2
+				for i in 10:
+					var from := _special_at + _special_dir.rotated(TAU * i / 10.0) * 260.0
+					manager.spawn_bullet(from, (_special_at - from).normalized(), shot, "hair", 130.0)
+			if _special_step == 2 and t >= 1.7:
+				_special_step = 3
+				manager.spawn_hazard(target, "strike", 70.0, 1.0, damage)
+			if t > 2.8:
+				return _end_special()
+			return Vector2.ZERO
 		"portal":
 			if _special_step == 0:
 				_special_step = 1

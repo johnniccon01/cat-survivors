@@ -11,6 +11,9 @@ signal elite_killed(pos: Vector2)
 signal champion_killed(affix: String, pos: Vector2)
 ## A fleeing enemy (the golden mouse) got away.
 signal escaped(enemy_id: String, pos: Vector2)
+## A final boss's fight moved on: "pack" (send a pack of enemies through),
+## "phase2" (it changed its attacks).
+signal boss_event(boss: Enemy, kind: String)
 
 const CELL := 24.0
 const MAX_ENEMIES := 500
@@ -277,17 +280,17 @@ func _physics_process(delta: float) -> void:
 				if c.position.distance_squared_to(enemy.position) < chase.distance_squared_to(enemy.position):
 					chase = c.position
 		enemy.tick(delta, chase, _separation(enemy) * SEPARATION)
-		if Terrain.current != null:
+		if Terrain.current != null or not Terrain.blockers.is_empty():
 			# Belts carry enemies at half speed, so they never get stuck on one.
 			var moved := enemy.position + Terrain.flow(enemy.position) * 0.5 * delta
-			var fixed := Terrain.current.resolve(moved, enemy.radius)
+			var fixed := Terrain.fix(moved, enemy.radius)
 			if fixed != moved:
 				# Pushed back by a wall or tree: slide along it towards the cat
 				# instead of standing stuck against it.
 				var along := (fixed - moved).orthogonal().normalized()
 				if along.dot(chase - fixed) < 0.0:
 					along = -along
-				fixed = Terrain.current.resolve(fixed + along * enemy.speed * delta, enemy.radius)
+				fixed = Terrain.fix(fixed + along * enemy.speed * delta, enemy.radius)
 			enemy.position = fixed
 		if not arena.is_empty():
 			_apply_arena(enemy)

@@ -55,6 +55,8 @@ TREASURE_TITLE,Treasure!,Poklad!,Poklad!
 TREASURE_HINT,Press any key to continue,Pokračuj ľubovoľným klávesom,Pokračuj libovolnou klávesou
 TREASURE_EVOLVED,EVOLVED!,EVOLÚCIA!,EVOLUCE!
 BOSS_WARNING,A boss approaches!,Blíži sa boss!,Blíží se boss!
+BOSS_PACK,%s calls the pack!,%s volá svorku!,%s volá smečku!
+BOSS_PHASE2,%s gets serious!,%s to myslí vážne!,%s to myslí vážně!
 VICTORY_TITLE,Morning has come!,Nastalo ráno!,Nastalo ráno!
 VICTORY_STATS,%s survived the night and defeated %d enemies.,Mačka %s prežila noc a porazila %d nepriateľov.,Kočka %s přežila noc a porazila %d nepřátel.
 VICTORY_HINT,R / Enter – play again,R / Enter – hrať znova,R / Enter – hrát znovu
@@ -341,7 +343,7 @@ CAT_DEVIL_NAME,Devil Cat,Diabol mačka,Ďábelská kočka
 ENEMY_RIVAL_BRUNO_NAME,"Bruno, King of the Rooftops","Bruno, kráľ striech","Bruno, král střech"
 ENEMY_DEVIL_CAT_NAME,The Devil Cat,Diabol mačka,Ďábelská kočka
 ANGEL_SAVED,An angel cat came down and saved you!,Zostúpila anjel mačka a zachránila ťa!,Sestoupila andělská kočka a zachránila tě!
-DEVIL_COMING,The angel came twice... something dark has noticed you.,Anjel prišiel dvakrát... všimlo si ťa niečo temné.,Anděl přišel dvakrát... všimlo si tě něco temného.
+DEVIL_COMING,You died again... and Death came for you.,Zomrel si znova... a prišla si po teba Smrť.,Zemřel jsi znovu... a přišla si pro tebe Smrt.
 DEVIL_WEAK,The Devil Cat weakens! Now it can be hurt.,Diabol mačka slabne! Teraz sa dá zraniť.,Ďábelská kočka slábne! Teď se dá zranit.
 DEVIL_SLAIN,The Devil Cat is defeated!,Diabol mačka je porazená!,Ďábelská kočka je poražena!
 SUMMARY_CAT_UNLOCKED,New cat unlocked: %s,Nová mačka odomknutá: %s,Nová kočka odemčena: %s

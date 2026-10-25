@@ -346,7 +346,7 @@ Sem píšeme nápady, ktoré zatiaľ nemajú miesto vo fázach.
 - Supermarket: široká ulička, ktorá zatáča hore aj dole ako cesta; rozbitné veci a nepriatelia sa objavujú len na priechodnej ploche (všetky terény).
 - Anjel a Smrť: šanca rastie so spotrebovanými životmi, Smrť po anjelovi v 50 %.
 - Bossovia: 7 podpisových útokov (cross, blink, sweep, meteor, chase, cage, whirl), každý finálny boss má vlastný a otvára ním boj.
-- Bossovia podľa Nekromanta z Death Must Die: pri príchode bossa sa okolo mačky na 1 minútu uzatvára tŕňová aréna (`scripts/world/boss_arena.gd`, `--no-arena` ju vypne), každých 15 s príde kruh mobov, hlavný útok (prvý v `specials`) chodí každé 2,4–3,4 s a každý 4. je zriedkavý iný, a každý boss sa občas (alebo keď zaostane) presunie cez portál – čierno-fialový vír pri mačke.
+- Bossovia: hlavný útok (prvý v `specials`) každé 2,4–3,4 s, každý 4. je zriedkavý iný. Len finálni bossovia majú vlastné pravidlo boja (`fight` v `data/enemies.json`): Vacuum King kruhy mobov, Rat King tŕňová aréna + kruhy mobov + portály (Nekromant z DMD), Lawnmower živé ploty (steny Frost Knighta z HoT), Bruno netopiere + krvavý stĺp a 2. fáza (Drakula z DMD), Guard Dog svorka pri 2/3 a 1/3 HP, Kraken vodná aréna, Robo Vacuum 3000 2. fáza. Menší bossovia nemajú arénu ani portál.
 
 ## Ako pracujeme
 

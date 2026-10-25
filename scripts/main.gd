@@ -312,6 +312,7 @@ func _ready() -> void:
 		Audio.play("warning", -4.0, 0.0))
 	spawner.stage_cleared.connect(_on_stage_cleared)
 	spawner.final_boss_spawned.connect(_on_final_boss)
+	enemies.boss_event.connect(_on_boss_event)
 	spawner.event_started.connect(func(kind: String) -> void:
 		player.shake(3.0, 0.3)
 		hud.show_banner(tr("EVENT_%s" % kind.to_upper()), 2.5)
@@ -1329,6 +1330,20 @@ func _victory_flags() -> void:
 		Profile.set_flag("win_challenge:" + c)
 	if Profile.challenges.size() >= 3:
 		Profile.set_flag("win_three_challenges")
+
+
+## A final boss's fight moves on (see Enemy.fight): a pack runs through, or
+## it changes its attacks at half health.
+func _on_boss_event(boss: Enemy, kind: String) -> void:
+	var boss_name := tr("ENEMY_%s_NAME" % boss.id)
+	match kind:
+		"pack":
+			spawner.send_pack()
+			hud.show_banner(tr("BOSS_PACK") % boss_name, 2.5)
+		"phase2":
+			hud.show_banner(tr("BOSS_PHASE2") % boss_name, 2.5)
+	player.shake(6.0, 0.5)
+	Audio.play("roar", 0.0, 0.1)
 
 
 func _on_final_boss(boss: Enemy) -> void:

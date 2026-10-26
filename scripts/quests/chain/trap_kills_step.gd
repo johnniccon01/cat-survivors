@@ -1,12 +1,12 @@
 extends ChainStep
 ## Hold the trap ring: while the cat stands inside it, tougher "lured"
-## enemies keep coming at it, and every one defeated counts (by traps or by
-## weapons). Outside the ring nothing comes and nothing counts.
+## enemies keep coming at it, and every enemy defeated anywhere counts (by
+## traps or by weapons, even ones that never get near the ring). Outside the
+## ring nothing comes and nothing counts.
 ## data: count, radius, spawn_every, spawn_count, hp_mult, enemy,
 ## traps {id, count}.
 
 var _traps: Array[Trap] = []
-var _lured: Array[Enemy] = []
 var _kills := 0
 var _spawn_t := 0.0
 
@@ -31,6 +31,7 @@ func _inside() -> bool:
 
 
 func _on_start() -> void:
+	main.enemies.enemy_killed.connect(_on_killed)
 	var traps: Dictionary = data.get("traps", {})
 	var n := int(traps.get("count", 6))
 	for i in n:
@@ -44,11 +45,6 @@ func _on_start() -> void:
 func _tick(delta: float) -> void:
 	if not started:
 		return
-	for i in range(_lured.size() - 1, -1, -1):
-		var e := _lured[i]
-		if not is_instance_valid(e) or e.dead:
-			_lured.remove_at(i)
-			_kills += 1
 	if _kills >= _count():
 		complete()
 		return
@@ -66,9 +62,12 @@ func _spawn_lured(count: int) -> void:
 	for i in count:
 		var id: String = data.get("enemy", "") if data.get("enemy", "") != "" else pool.pick_random()
 		var pos := position + Vector2.from_angle(TAU * i / count + randf() * 0.5) * randf_range(_radius() + 90.0, _radius() + 170.0)
-		var e: Enemy = main.enemies.spawn(id, pos, hp_mult)
-		if e != null:
-			_lured.append(e)
+		main.enemies.spawn(id, pos, hp_mult)
+
+
+func _on_killed(_enemy_id: String, _pos: Vector2, _xp: float) -> void:
+	if started and _inside():
+		_kills += 1
 
 
 func _exit_tree() -> void:

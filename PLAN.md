@@ -359,6 +359,15 @@ Sem píšeme nápady, ktoré zatiaľ nemajú miesto vo fázach.
 - Bossovia: 7 podpisových útokov (cross, blink, sweep, meteor, chase, cage, whirl), každý finálny boss má vlastný a otvára ním boj.
 - Bossovia: hlavný útok (prvý v `specials`) každé 2,4–3,4 s, každý 4. je zriedkavý iný. Len finálni bossovia majú vlastné pravidlo boja (`fight` v `data/enemies.json`): Vacuum King kruhy mobov, Rat King tŕňová aréna + kruhy mobov + portály (Nekromant z DMD), Lawnmower živé ploty (steny Frost Knighta z HoT), Bruno netopiere + krvavý stĺp a 2. fáza (Drakula z DMD), Guard Dog svorka pri 2/3 a 1/3 HP, Kraken vodná aréna, Robo Vacuum 3000 2. fáza. Menší bossovia nemajú arénu ani portál.
 
+## Október 2026: bossovia a korisť (spätná väzba 2)
+- Finálni bossovia: každý má vlastný útok, ktorý nemá nikto iný (Vacuum King `vortex`, Rat King `swarm`, Lawnmower `mow`, Kraken `tentacles`, Robo Vacuum 3000 `grid`, Bruno `bats`, Guard Dog/Rex bez zmeny) a žiadni dvaja finálni sa útokmi neprekrývajú. Mole King už nemá útoky Rat Kinga.
+- Zdravie finálneho bossa rastie s levelom mačky ako u bežných nepriateľov (`Spawner.final_hp_multiplier`).
+- Pomocníci bossov chodia v 3 vlnách (3× viac na vlnu, o polovicu zriedkavejšie); finálny boss volá 3 vlny po 16 silnejších miniónov.
+- `sweep` (Assembly Arm, Lawnmower) kreslí pásy ako ručičku hodín namiesto rozhádzaných kruhov; nový typ varovania `beam`.
+- Truhlica vyskočí z bossa, dopadne s odrazom a zvukom; bossova svieti svetelným stĺpom. Legendárny predmet: fanfára + zlatý výbuch.
+- Majster pascí: ráta sa každé zabitie, kým mačka stojí v kruhu.
+- Dev panel: v teste vždy padne predmet z bossa, tlačidlá „Find an item", „Find this map's legendary", „Unlock angel + devil cats".
+
 ## Ako pracujeme
 
 - Každý väčší krok = commit; na GitHub pushujeme, keď povieš.

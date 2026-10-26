@@ -124,6 +124,26 @@ def sfx():
 
     secret_sfx()
     more_sfx()
+    loot_sfx()
+
+
+def loot_sfx():
+    """Chests falling from bosses and legendary finds."""
+    # A chest lands: a short drop, a wooden thud and a little chime.
+    thud = mix(tone(0.12, 140, 60, "sine", 0.7, release=0.1), lowpass(tone(0.08, 0, 0, "noise", 0.4), 0.3))
+    save("chest_land", seq(tone(0.16, 900, 300, "tri", 0.2, release=0.04), thud,
+                           mix(*[seq(silence(i * 0.04), tone(0.2, f, None, "sine", 0.14, release=0.18)) for i, f in enumerate((1568, 2093))])))
+    # A boss chest: a rising sweep, the thud, then a bright bell arpeggio.
+    rise = tone(0.45, 200, 1600, "tri", 0.25, attack=0.05, release=0.05, vibrato=10)
+    bells = mix(*[seq(silence(i * 0.07), tone(0.6, f, None, "sine", 0.2, release=0.5)) for i, f in enumerate((1047, 1319, 1568, 2093, 2637))])
+    save("chest_boss", seq(rise, thud, bells), gain=1.2)
+    # A legendary: a brass-like fanfare over a shimmering choir.
+    fan = seq(*[tone(0.11, f, None, "square", 0.28, duty=0.25) for f in (784, 784, 784)], tone(0.2, 1047, None, "square", 0.3, duty=0.25),
+              tone(0.11, 988, None, "square", 0.28, duty=0.25), tone(0.11, 1047, None, "square", 0.28, duty=0.25),
+              tone(0.8, 1319, None, "square", 0.3, duty=0.25, release=0.6, vibrato=6))
+    choir = mix(*[tone(1.9, f, None, "tri", 0.1, attack=0.3, release=0.9, vibrato=5) for f in (523, 659, 784, 1047)])
+    shimmer = mix(*[seq(silence(0.4 + i * 0.06), tone(0.5, f, None, "sine", 0.12, release=0.45)) for i, f in enumerate((2093, 2637, 3136, 4186, 3136, 4186))])
+    save("legendary", mix(fan, choir, shimmer), gain=1.3)
 
 
 def more_sfx():
@@ -726,6 +746,10 @@ def music(only=None):
 if __name__ == "__main__":
     # `python tools/gen_audio.py music_garden music_boss` rebuilds only those.
     names = sys.argv[1:]
+    if names == ["loot"]:
+        # `python tools/gen_audio.py loot`: just the chest and legendary sounds.
+        loot_sfx()
+        sys.exit(0)
     if not names:
         sfx()
     music(set(names) if names else None)

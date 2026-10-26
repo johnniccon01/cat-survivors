@@ -107,6 +107,11 @@ func _build_actions(col: VBoxContainer) -> void:
 	_button(list, "Heal", func() -> void: main.player.heal(9999.0))
 	_button(list, "+1000 gold (saved)", func() -> void: Profile.add_gold(1000))
 	_button(list, "Drop a charm", func() -> void: main._maybe_drop_charm(main.player.position + Vector2(30, 0), 1.0))
+	_button(list, "Find an item (rare)", func() -> void: main._find_item(Items.roll(main.player.stat("luck"), "rare")))
+	_button(list, "Find this map's legendary", _find_legendary)
+	_button(list, "Unlock angel + devil cats (saved)", func() -> void:
+		for id: String in ["ANGEL", "DEVIL"]:
+			Profile.unlock(id))
 	_section(list, "World")
 	_button(list, "Kill all enemies", func() -> void: main.enemies.clear_all())
 	_button(list, "Open cat flap", func() -> void: _act(func() -> void: main._open_extraction(true)))
@@ -438,6 +443,14 @@ func _strong_build() -> void:
 	player.heal(player.max_hp)
 	main.hud.update_xp(player)
 	main.hud.update_inventory(player)
+
+
+## The legendary of this map's final boss goes into the bag (it is kept
+## like any found item: leave through the cat flap to see it at home).
+func _find_legendary() -> void:
+	var legend := Items.legendary_of(GameData.stages[main.spawner.stage_id].get("final_boss", ""))
+	if legend != "":
+		main._find_item(Items.legendary(legend))
 
 
 ## From the first test on, nothing is saved until the game restarts.

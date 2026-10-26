@@ -190,8 +190,18 @@ var ally_hp_mult := 1.0
 
 
 func hp_multiplier() -> float:
-	var level_bonus := maxf(_player.level - LEVEL_SCALING_FROM, 0) * LEVEL_SCALING
-	return float(current_wave().get("hp_mult", 1.0)) * (1.0 + level_bonus) * _player.stat("curse") * endless_factor() * early_ease() * challenge() * (1.0 + DARKNESS_HP * darkness) * ally_hp_mult
+	return float(current_wave().get("hp_mult", 1.0)) * level_factor() * _player.stat("curse") * endless_factor() * early_ease() * challenge() * (1.0 + DARKNESS_HP * darkness) * ally_hp_mult
+
+
+## Enemies grow with the cat's level (from LEVEL_SCALING_FROM on).
+func level_factor() -> float:
+	return 1.0 + maxf(_player.level - LEVEL_SCALING_FROM, 0) * LEVEL_SCALING
+
+
+## Health multiplier of a final boss: the map's challenge (a bit less than
+## the rest) and the cat's level, so a strong cat doesn't melt it.
+func final_hp_multiplier() -> float:
+	return _player.stat("curse") * pow(challenge(), 0.8) * level_factor()
 
 
 ## The map's challenge ("challenge" in stages.json): later maps grow tougher
@@ -264,7 +274,7 @@ func spawn_boss_as_in_run(id: String, pos: Vector2) -> Enemy:
 	var saved := elapsed
 	elapsed = minute * 60.0
 	_update_mults()
-	var mult := _player.stat("curse") * pow(challenge(), 0.8) if final else hp_multiplier()
+	var mult := final_hp_multiplier() if final else hp_multiplier()
 	var boss := _enemies.spawn(id, pos, mult)
 	elapsed = saved
 	_update_mults()
@@ -294,8 +304,7 @@ func _physics_process(delta: float) -> void:
 			stage_cleared.emit()
 		else:
 			_enemies.clear_all()
-			# The final boss carries the map's challenge too (a bit less than the rest).
-			var boss := _enemies.spawn(final_id, _player.position + Vector2(0, -_spawn_radius() * 0.8), _player.stat("curse") * pow(challenge(), 0.8))
+			var boss := _enemies.spawn(final_id, _player.position + Vector2(0, -_spawn_radius() * 0.8), final_hp_multiplier())
 			start_arena(boss)
 			final_boss_spawned.emit(boss)
 		return

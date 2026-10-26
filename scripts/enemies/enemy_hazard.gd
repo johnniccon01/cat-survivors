@@ -4,7 +4,10 @@ extends Node2D
 ## while it stands inside, for `lifetime` seconds; "strike" is a warning
 ## circle for `lifetime` seconds and then hits once (style: "pitchfork" or
 ## "lightning" or "anchor" picks the look; "portal" is a dark swirl where a
-## boss is about to appear, harmless when damage is 0).
+## boss is about to appear, harmless when damage is 0); "beam" is a strike
+## along a band from here to `beam` (`radius` is half its width): the band
+## shows, fills up from its start, then hits everything on it ("laser",
+## "tentacle", "rats" or "mow" picks the look).
 
 const TICK := 0.5
 ## Steam first shows where it will be for this long, then starts to burn.
@@ -16,6 +19,8 @@ var radius := 16.0
 var lifetime := 3.0
 var damage := 8.0
 var player: Player
+## "beam": where the band ends, relative to the start.
+var beam := Vector2.ZERO
 
 var _t := 0.0
 var _tick := 0.0
@@ -29,7 +34,7 @@ func _init() -> void:
 
 func _physics_process(delta: float) -> void:
 	_t += delta
-	var inside := is_instance_valid(player) and player.position.distance_to(position) < radius
+	var inside := is_instance_valid(player) and _distance(player.position) < radius
 	if mode == "steam":
 		_tick -= delta
 		if inside and _tick <= 0.0 and _t >= ARM_TIME:
@@ -50,7 +55,16 @@ func _physics_process(delta: float) -> void:
 	queue_redraw()
 
 
+func _distance(at: Vector2) -> float:
+	if mode != "beam":
+		return at.distance_to(position)
+	return at.distance_to(Geometry2D.get_closest_point_to_segment(at, position, position + beam))
+
+
 func _draw() -> void:
+	if mode == "beam":
+		_draw_beam()
+		return
 	if mode == "steam":
 		if _t < ARM_TIME:
 			# Warning: a blinking ring that fills up before the steam burns.
@@ -105,3 +119,38 @@ func _draw_portal(k: float) -> void:
 		draw_arc(Vector2.ZERO, r * 0.45, a + 0.8, a + 2.0, 8, Color(0.8, 0.5, 1.0, 0.7), 2.0)
 	Blit.disc(self, Vector2.ZERO, r * 0.25, Color(0, 0, 0, 0.9))
 	Blit.ring(self, Vector2.ZERO, r, 1.5, Color(0.7, 0.4, 1.0, 0.6 + 0.3 * sin(_t * 12.0)))
+
+
+## A band on the floor: a faint stripe with bright edges that fills from the
+## start towards the end while it warns, then one bright flash.
+func _draw_beam() -> void:
+	var length := beam.length()
+	draw_set_transform(Vector2.ZERO, beam.angle())
+	var band := Rect2(0.0, -radius, length, radius * 2.0)
+	var warn := Color(0.9, 0.2, 0.1)
+	if style == "laser":
+		warn = Color(1.0, 0.25, 0.35)
+	elif style == "tentacle":
+		warn = Color(0.75, 0.35, 0.95)
+	elif style == "rats":
+		warn = Color(0.95, 0.75, 0.3)
+	if _struck < 0.0:
+		var k := clampf(_t / lifetime, 0.0, 1.0)
+		var blink := 0.7 + 0.3 * sin(_t * 16.0)
+		draw_rect(band, Color(warn, 0.10 + 0.10 * k))
+		draw_rect(Rect2(0.0, -radius, length * k, radius * 2.0), Color(warn, 0.22))
+		draw_line(Vector2(0, -radius), Vector2(length, -radius), Color(warn, 0.85 * blink), 2.0)
+		draw_line(Vector2(0, radius), Vector2(length, radius), Color(warn, 0.85 * blink), 2.0)
+		# Arrows along the middle show which way something runs down it.
+		var step := 46.0
+		var x := fmod(_t * 60.0, step)
+		while x < length and (style == "rats" or style == "mow"):
+			draw_line(Vector2(x - 6, -5), Vector2(x, 0), Color(warn, 0.6), 2.0)
+			draw_line(Vector2(x - 6, 5), Vector2(x, 0), Color(warn, 0.6), 2.0)
+			x += step
+	else:
+		var f := 1.0 - (_t - _struck) / 0.25
+		var core := Color(1.0, 0.95, 0.7) if style != "tentacle" else Color(0.85, 0.6, 1.0)
+		draw_rect(band, Color(core, 0.55 * f))
+		draw_rect(Rect2(0.0, -radius * 0.35, length, radius * 0.7), Color(1, 1, 1, 0.8 * f))
+	draw_set_transform(Vector2.ZERO)

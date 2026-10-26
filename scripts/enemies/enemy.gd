@@ -47,6 +47,16 @@ const RARE_EVERY := 4
 ## portal: a dark swirl opens near the cat and it comes out of it.
 const PORTAL_EVERY := Vector2(13.0, 18.0)
 const PORTAL_OPEN := 1.0
+## Final boss signatures (see _tick_signature).
+const VORTEX_TIME := 2.6
+const VORTEX_PULL := 85.0
+const SWARM_WARN := 1.1
+const SWARM_LANE := 90.0
+const MOW_WARN := 0.9
+const MOW_LENGTH := 520.0
+const MOW_SPEED := 7.0
+const TENTACLES := 6
+const GRID_GAP := 120.0
 ## Lawnmower: hedges spring up round the cat this often and stand this long.
 const HEDGE_EVERY := 11.0
 const HEDGE_STAND := 5.0
@@ -106,7 +116,25 @@ var burn_tick := 0.0
 var _chill_t := 0.0
 ## Health multiplier this enemy was spawned with (its splits and summons use it).
 var hp_mult := 1.0
-## Bosses that call in helpers: id, how many, how often.
+## Bosses that call in helpers: id, how many, how often. Helpers come as a
+## pack of SUMMON_WAVES waves, SUMMON_SIZE times "summon_count" each, and the
+## packs come SUMMON_SLOWER times less often than "summon_every" says.
+const SUMMON_WAVES := 3
+const SUMMON_WAVE_GAP := 0.8
+const SUMMON_SIZE := 3
+const SUMMON_SLOWER := 1.5
+## No new helpers while this many enemies are about (the frame rate).
+const SUMMON_CAP := 380
+## A final boss's minions: a pack of waves this big this often, this much
+## tougher than the boss's own health factor says.
+const FINAL_MINIONS := 16
+const FINAL_SUMMON_EVERY := 10.0
+const FINAL_MINION_HP := 4.0
+var _pack_id := ""
+var _pack_left := 0
+var _pack_size := 0
+var _pack_hp := 1.0
+var _pack_t := 0.0
 var _summon_id := ""
 var _summon_count := 0
 var _summon_every := 0.0
@@ -166,8 +194,8 @@ func setup(p_id: String, data: Dictionary, p_manager: EnemyManager) -> void:
 	_mortar_style = data.get("mortar_style", "")
 	_summon_id = data.get("summon", "")
 	_summon_count = int(data.get("summon_count", 0))
-	_summon_every = float(data.get("summon_every", 8.0))
-	_summon_timer = _summon_every * 0.6
+	_summon_every = float(data.get("summon_every", 8.0)) * SUMMON_SLOWER
+	_summon_timer = _summon_every * 0.4
 	_specials = data.get("specials", [])
 	_special_t = randf_range(3.0, 5.0)
 	fatal = data.get("fatal", false)
@@ -281,7 +309,7 @@ func tick(delta: float, target: Vector2, push: Vector2) -> void:
 			if special_move != Vector2.INF:
 				move = special_move
 		# Badly hurt bosses get angry: faster.
-		if not is_elite and hp < max_hp * ENRAGE_AT and _special != "pounce" and _special != "rampage":
+		if not is_elite and hp < max_hp * ENRAGE_AT and _special != "pounce" and _special != "rampage" and _special != "mow":
 			move *= ENRAGE_SPEED
 		if not fight.is_empty():
 			_tick_fight(delta, target)
@@ -289,8 +317,9 @@ func tick(delta: float, target: Vector2, push: Vector2) -> void:
 		_summon_timer -= delta
 		if _summon_timer <= 0.0:
 			_summon_timer = _summon_every
-			for i in _summon_count:
-				manager.spawn(_summon_id, position + Vector2.from_angle(TAU * i / _summon_count + randf()) * radius * 1.6, hp_mult)
+			_call_pack(_summon_id, _summon_count * SUMMON_SIZE, hp_mult)
+	if _pack_left > 0:
+		_tick_pack(delta)
 	if _slow_t > 0.0:
 		_slow_t -= delta
 		move *= _slow
@@ -353,9 +382,8 @@ func _tick_dash(delta: float, dir: Vector2) -> Vector2:
 func _tick_final(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 	_summon_t -= delta
 	if _summon_t <= 0.0 and _minion != "":
-		_summon_t = 7.0
-		for i in 6:
-			manager.spawn(_minion, position + Vector2.from_angle(TAU * i / 6.0) * radius * 1.2)
+		_summon_t = FINAL_SUMMON_EVERY
+		_call_pack(_minion, FINAL_MINIONS, hp_mult * FINAL_MINION_HP)
 	if _final_mode == "roar":
 		_suck_t -= delta
 		if _suck_t <= 0.0:
@@ -383,6 +411,31 @@ func _tick_final(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 	if hp < max_hp * 0.5 and _state != "suck":
 		return _tick_dash(delta, dir)
 	return dir * speed
+
+
+## Starts a pack of helpers: SUMMON_WAVES waves of `size`, a moment apart.
+func _call_pack(id: String, size: int, pack_hp: float) -> void:
+	_pack_id = id
+	_pack_size = size
+	_pack_hp = pack_hp
+	_pack_left = SUMMON_WAVES
+	_pack_t = 0.0
+	BotLog.event("summon_pack")
+
+
+## Each wave stands in a ring round the boss, a bit wider than the last.
+func _tick_pack(delta: float) -> void:
+	_pack_t -= delta
+	if _pack_t > 0.0:
+		return
+	_pack_t = SUMMON_WAVE_GAP
+	var wave := SUMMON_WAVES - _pack_left
+	_pack_left -= 1
+	if manager.enemies.size() >= SUMMON_CAP:
+		return
+	var turn := randf() * TAU
+	for i in _pack_size:
+		manager.spawn(_pack_id, position + Vector2.from_angle(turn + TAU * i / _pack_size) * (radius * 1.6 + 26.0 * wave), _pack_hp)
 
 
 ## Boss specials. Every few seconds one of the boss's "specials" runs:
@@ -546,9 +599,90 @@ func _tick_fight(delta: float, target: Vector2) -> void:
 ## arms of shots spinning out), "bats" (a ring of shadows flies in, then a
 ## pillar of blood). "portal" (for a final boss with "portal" in its fight):
 ## a dark swirl opens near the cat and the boss steps out of it.
+## Every final boss has one of its own nobody else uses: "vortex" (sucks the
+## cat in while dust spirals in, then the ground round it blows), "swarm"
+## (three lanes are marked, then rats stampede down them), "mow" (a marked
+## lane, then it drives down it spraying cuttings), "tentacles" (bands slam
+## down across the cat one after another), "grid" (laser rows, then columns:
+## stand between them).
 func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 	var hurt := damage * 0.8
 	match _special:
+		"vortex":
+			if _special_step == 0:
+				_special_step = 1
+				manager.spawn_hazard(position, "strike", radius + 90.0, VORTEX_TIME, damage)
+				Audio.play("roar", -8.0, 0.1)
+			if t < VORTEX_TIME:
+				manager.player.pull = (position - target).normalized() * VORTEX_PULL
+				if t >= _special_step * 0.12:
+					_special_step += 1
+					var from := position + Vector2.from_angle(_special_step * 0.7) * 330.0
+					manager.spawn_bullet(from, (position - from).normalized().rotated(0.35), shot, "hair", 120.0)
+				return Vector2.ZERO
+			for i in 16:
+				manager.spawn_bullet(position, Vector2.from_angle(TAU * i / 16.0), shot, "hair")
+			return _end_special()
+		"swarm":
+			# Lanes cross the cat's path side to side; the rats come after the warning.
+			if _special_step == 0:
+				_special_step = 1
+				var run := (target - position).normalized().orthogonal() * (1.0 if randf() < 0.5 else -1.0)
+				_special_dir = run
+				for lane in 3:
+					var from := target + run.orthogonal() * (lane - 1) * SWARM_LANE - run * 340.0
+					manager.spawn_beam(from, from + run * 680.0, 36.0, SWARM_WARN, 0.0, "rats")
+			if _special_step == 1 and t >= SWARM_WARN:
+				_special_step = 2
+				var rat := _minion if _minion != "" else "RAT"
+				for lane in 3:
+					var from := _special_at + _special_dir.orthogonal() * (lane - 1) * SWARM_LANE - _special_dir * 340.0
+					for i in 7:
+						var e := manager.spawn(rat, from - _special_dir * i * 22.0, hp_mult)
+						if e != null:
+							e.spawn_in = 0.0
+							e.charge(_special_dir, 900.0 / maxf(e.speed * 2.2, 1.0))
+			if t > SWARM_WARN + 0.4:
+				return _end_special()
+			return Vector2.ZERO
+		"mow":
+			if _special_step == 0:
+				_special_step = 1
+				_special_dir = (target - position).normalized()
+				manager.spawn_beam(position, position + _special_dir * MOW_LENGTH, radius * 2.0, MOW_WARN, 0.0, "mow")
+				Audio.play("roar", -8.0, 0.1)
+			if t < MOW_WARN:
+				_flash = 0.05 if int(t * 10.0) % 2 == 0 else 0.0
+				return Vector2.ZERO
+			var drive := MOW_LENGTH / (speed * MOW_SPEED)
+			if t >= MOW_WARN + drive:
+				return _end_special()
+			if t >= MOW_WARN + (_special_step - 1) * 0.12:
+				_special_step += 1
+				for side in [-1.0, 1.0]:
+					manager.spawn_bullet(position, _special_dir.orthogonal() * side, shot, "hair", 110.0)
+			return _special_dir * speed * MOW_SPEED
+		"tentacles":
+			if _special_step < TENTACLES and t >= _special_step * 0.35:
+				_special_step += 1
+				var from_dir := Vector2.from_angle(randf() * TAU)
+				manager.spawn_beam(target + from_dir * 300.0, target - from_dir * 140.0, 32.0, 1.1, hurt, "tentacle")
+			if t > TENTACLES * 0.35 + 1.3:
+				return _end_special()
+			return Vector2.ZERO
+		"grid":
+			# Rows, then columns, GRID_GAP apart: the safe spots are between them.
+			for wave in 2:
+				if _special_step == wave and t >= wave * 0.8:
+					_special_step += 1
+					var along := Vector2.RIGHT if wave == 0 else Vector2.DOWN
+					for i in 3:
+						var mid := _special_at + along.orthogonal() * (i - 1) * GRID_GAP
+						manager.spawn_beam(mid - along * 360.0, mid + along * 360.0, 34.0, 1.2, hurt, "laser")
+					Audio.play("hit", -6.0, 0.1)
+			if t > 2.2:
+				return _end_special()
+			return Vector2.ZERO
 		"bats":
 			# Like Dracula: shadows gather in a ring round the cat, fly in all
 			# at once, then a pillar of blood falls where the cat is.
@@ -618,17 +752,17 @@ func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 			self_modulate.a = clampf(1.0 - in_jump * 4.0, 0.0, 1.0) if in_jump < 0.75 else 1.0
 			return Vector2.ZERO
 		"sweep":
-			# Twelve steps of 30 degrees; the warning runs ahead of the hit.
+			# A clock hand: twelve bands, 30 degrees apart, each one warned
+			# before it hits, turning round the boss (which stands still).
 			# It starts a quarter turn before the cat, so there's time to move.
 			if _special_step == 0:
 				_special_dir = (target - position).normalized()
 				_special_at = Vector2(1.0 if randf() < 0.5 else -1.0, 0.0)
-			if _special_step < 12 and t >= _special_step * 0.2:
+			if _special_step < 12 and t >= _special_step * 0.22:
 				var aim := _special_dir.rotated(_special_at.x * (_special_step * PI / 6.0 - PI * 0.5))
-				for i in 6:
-					manager.spawn_hazard(position + aim * (55.0 + i * 50.0), "strike", 26.0, 0.6, hurt)
+				manager.spawn_beam(position + aim * radius, position + aim * (radius + 300.0), 44.0, 0.7, hurt)
 				_special_step += 1
-			if t > 3.0:
+			if t > 3.4:
 				return _end_special()
 			return Vector2.ZERO
 		"meteor":

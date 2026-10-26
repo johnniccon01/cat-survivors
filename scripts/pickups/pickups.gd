@@ -108,7 +108,7 @@ func _physics_process(delta: float) -> void:
 		var to := target - item.position
 		var dist := to.length()
 		if item.kind == Pickup.Kind.CHEST:
-			if dist <= CHEST_DIST:
+			if dist <= CHEST_DIST and item.landed():
 				_collect(item)
 				items.remove_at(i)
 			continue

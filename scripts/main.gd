@@ -663,7 +663,8 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 		if legend != "":
 			_final_boss_loot(legend)
 		else:
-			_maybe_find_item(ITEM_CHANCE_BOSS)
+			# In a dev test every boss leaves an item, so loot can be tried out.
+			_maybe_find_item(1.0 if dev_test else ITEM_CHANCE_BOSS)
 		_open_extraction()
 		spawner.calm_for(BOSS_BREATHER)
 		hud.show_banner(tr("BREATHER"), 3.0)
@@ -893,10 +894,17 @@ func _maybe_find_item(chance: float) -> void:
 func _find_item(item: Dictionary) -> void:
 	run_items.append(item)
 	BotLog.event("item_found")
-	if item["rarity"] == "legendary":
+	var legendary: bool = item["rarity"] == "legendary"
+	hud.show_banner(tr("ITEM_FOUND") % [Items.item_name(item), tr("RARITY_" + String(item["rarity"]).to_upper())], 5.0 if legendary else 3.5)
+	if legendary:
 		BotLog.event("item_legendary")
-	hud.show_banner(tr("ITEM_FOUND") % [Items.item_name(item), tr("RARITY_" + String(item["rarity"]).to_upper())], 3.5)
-	Audio.play("sparkle", -2.0, 0.0)
+		# A legendary gets its own fanfare and a burst of gold round the cat.
+		Audio.play("legendary", 0.0, 0.0)
+		var burst := LegendaryBurst.new()
+		burst.position = player.position
+		add_child(burst)
+	else:
+		Audio.play("sparkle", -2.0, 0.0)
 
 
 ## Brings the run's items home. On a death the well saves just the best one.

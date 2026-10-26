@@ -124,7 +124,7 @@ func try_spit(pos: Vector2, dir: Vector2, bullet_damage: float) -> bool:
 
 ## A danger zone on the floor made by a boss: "steam" hurts while the cat
 ## stands in it, "strike" is marked first and hits once.
-func spawn_hazard(pos: Vector2, mode: String, r: float, seconds: float, hazard_damage: float, style: String = "") -> void:
+func spawn_hazard(pos: Vector2, mode: String, r: float, seconds: float, hazard_damage: float, style: String = "") -> EnemyHazard:
 	var h := EnemyHazard.new()
 	h.position = pos
 	h.mode = mode
@@ -134,6 +134,22 @@ func spawn_hazard(pos: Vector2, mode: String, r: float, seconds: float, hazard_d
 	h.style = style
 	h.player = player
 	get_parent().add_child(h)
+	return h
+
+
+## A strike along a band from `from` to `to`, `width` wide (see EnemyHazard).
+func spawn_beam(from: Vector2, to: Vector2, width: float, seconds: float, hazard_damage: float, style: String = "") -> EnemyHazard:
+	var h := EnemyHazard.new()
+	h.mode = "beam"
+	h.beam = to - from
+	h.position = from
+	h.radius = width * 0.5
+	h.lifetime = seconds
+	h.damage = hazard_damage
+	h.style = style
+	h.player = player
+	get_parent().add_child(h)
+	return h
 
 
 ## Silently removes one enemy (no XP, no effect), e.g. a swarm that ran off.

@@ -6,6 +6,11 @@ extends Node2D
 enum Kind { XP, HEART, SARDINE, MAGNET, CHEST, COIN, CHARM, PAGE }
 
 const OUTLINE := Color("2b1d14")
+## A chest pops up out of the enemy, falls and lands with a bounce first
+## (it can be opened once it lies); a boss chest then shines in a pillar of light.
+const DROP_TIME := 0.75
+const DROP_HEIGHT := 52.0
+const LAND_SQUASH := 0.3
 
 var kind := Kind.XP
 var value := 1.0
@@ -15,6 +20,8 @@ var speed := 0.0
 var charm_id := ""
 
 var _bob := randf() * TAU
+## Seconds since it appeared (chests: the drop animation).
+var _age := 0.0
 
 
 func _init() -> void:
@@ -36,7 +43,15 @@ func _process(delta: float) -> void:
 	# Only the special pickups bob, so they stand out from the kibble.
 	if kind != Kind.XP:
 		_bob += delta * 4.0
+		if kind == Kind.CHEST and _age < DROP_TIME and _age + delta >= DROP_TIME:
+			Audio.play("chest_boss" if value >= 1.0 else "chest_land", -3.0, 0.0)
+		_age += delta
 		queue_redraw()
+
+
+## A chest can be opened once it has landed.
+func landed() -> bool:
+	return kind != Kind.CHEST or _age >= DROP_TIME
 
 
 func _draw() -> void:
@@ -150,10 +165,27 @@ func _draw_magnet() -> void:
 
 
 func _draw_chest() -> void:
-	Blit.ellipse(self, Vector2(0, 7), 9, 2, Color(0, 0, 0, 0.3))
 	# A great chest (strong bosses) is bigger and purple.
 	var great := value >= 2.0
-	draw_set_transform(Vector2(0, sin(_bob) * 1.0), 0.0, Vector2.ONE * (1.4 if great else 1.0))
+	var boss := value >= 1.0
+	var size := 1.4 if great else 1.0
+	var k := clampf(_age / DROP_TIME, 0.0, 1.0)
+	var since := _age - DROP_TIME
+	if boss and since > 0.0:
+		_draw_chest_light(since, great)
+	# The shadow grows as it comes down.
+	Blit.ellipse(self, Vector2(0, 7), 9 * (0.5 + 0.5 * k), 2, Color(0, 0, 0, 0.3 * (0.4 + 0.6 * k)))
+	if since > 0.0 and since < 0.4:
+		# Dust puffs out where it lands.
+		var d := since / 0.4
+		Blit.ring(self, Vector2(0, 6), 8.0 + 22.0 * d, 2.0, Color(0.9, 0.85, 0.7, 0.6 * (1.0 - d)))
+	var lift := -sin(k * PI) * DROP_HEIGHT if k < 1.0 else sin(_bob) * 1.0
+	var squash := Vector2.ONE
+	if since > 0.0 and since < 0.3:
+		var b := sin(since / 0.3 * PI) * LAND_SQUASH
+		squash = Vector2(1.0 + b, 1.0 - b)
+	var spin := (1.0 - k) * 0.6 * sin(_age * 14.0)
+	draw_set_transform(Vector2(0, lift), spin, squash * size)
 	draw_rect(Rect2(-8, -4, 16, 10), Color("5b3a8a") if great else Color("8a5a2b"))
 	draw_rect(Rect2(-8, -8, 16, 5), Color("7d52b8") if great else Color("a8703a"))
 	draw_rect(Rect2(-8, -8, 16, 14), OUTLINE, false, 1.0)
@@ -165,3 +197,27 @@ func _draw_chest() -> void:
 	var a := 0.5 + 0.5 * sin(_bob * 1.7)
 	draw_line(Vector2(9, -11), Vector2(9, -7), Color(1, 1, 0.8, a), 1.0)
 	draw_line(Vector2(7, -9), Vector2(11, -9), Color(1, 1, 0.8, a), 1.0)
+
+
+## A boss chest: a pillar of light, slow turning rays and sparkles rising,
+## with a bright flash the moment it lands.
+func _draw_chest_light(since: float, great: bool) -> void:
+	var glow := Color("c77dff") if great else Color("f2c14e")
+	var pulse := 0.75 + 0.25 * sin(_bob * 1.3)
+	if since < 0.6:
+		var f := since / 0.6
+		Blit.ring(self, Vector2.ZERO, 10.0 + 70.0 * f, 3.0, Color(1, 1, 0.85, 0.8 * (1.0 - f)))
+		Blit.disc(self, Vector2.ZERO, 30.0 * (1.0 - f), Color(1, 1, 0.9, 0.5 * (1.0 - f)))
+	for i in 3:
+		var w := 14.0 - i * 4.0
+		draw_rect(Rect2(-w * 0.5, -140.0, w, 140.0), Color(glow, 0.07 * pulse * (i + 1)))
+	var rays := 10 if great else 8
+	for i in rays:
+		var a := _bob * 0.15 + TAU * i / rays
+		var tip := Vector2.from_angle(a) * (30.0 if great else 24.0)
+		draw_colored_polygon(PackedVector2Array([Vector2.ZERO, tip.rotated(0.12), tip.rotated(-0.12)]), Color(glow, 0.22 * pulse))
+	Blit.disc(self, Vector2(0, -2), 14.0, Color(glow, 0.18 * pulse))
+	for i in 5:
+		var rise := fmod(_age * 0.5 + i * 0.2, 1.0)
+		var x := sin(i * 2.3 + _age) * 9.0
+		Blit.disc(self, Vector2(x, -8.0 - rise * 70.0), 1.5, Color(1, 1, 0.8, 1.0 - rise))

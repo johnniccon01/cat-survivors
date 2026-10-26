@@ -1161,7 +1161,7 @@ CHAIN_LOST_KITTENS_1_START,They follow you once you find them. Help any that fal
 CHAIN_LOST_KITTENS_1_DONE,Mother cat purrs and licks all three.,Mačacia mama priadie a olizuje všetky tri.,Kočičí máma přede a olizuje všechna tři.,Mamá gata ronronea y los lame a los tres.,Мама-кошка мурлычет и вылизывает всех троих.,猫妈妈呼噜着舔了舔三只小猫。
 CHAIN_TRAPPER_NAME,Trap Master,Majster pascí,Mistr pastí,Maestro de trampas,Мастер ловушек,陷阱大师
 CHAIN_TRAPPER_DESC,Hold the trap ring against the lured pack.,Ubráň kruh pascí pred nalákanou svorkou.,Ubraň kruh pastí před nalákanou smečkou.,Aguanta en el anillo de trampas contra la manada atraída.,Удержи кольцо ловушек против приманенной стаи.,守住陷阱圈，对抗被引来的敌群。
-CHAIN_TRAPPER_1,Stay in the trap ring and defeat the lured enemies,Stoj v kruhu pascí a poraz nalákaných nepriateľov,Stůj v kruhu pastí a poraz nalákané nepřátele,Quédate en el anillo de trampas y derrota a los enemigos atraídos,Оставайся в кольце ловушек и побеждай приманенных врагов,待在陷阱圈里，击败被引来的敌人
+CHAIN_TRAPPER_1,Stay in the trap ring – every enemy you defeat counts,Stoj v kruhu pascí – ráta sa každý porazený nepriateľ,Stůj v kruhu pastí – počítá se každý poražený nepřítel,Quédate en el anillo de trampas: cuenta cada enemigo que derrotes,Стой в кольце ловушек – засчитывается каждый побеждённый враг,站在陷阱圈里——击败的每个敌人都算数
 CHAIN_TRAPPER_1_START,The bait is out – stay in the ring!,Návnada je vonku – drž sa v kruhu!,Návnada je venku – drž se v kruhu!,El cebo está puesto: ¡quédate en el anillo!,Приманка выложена – оставайся в кольце!,诱饵已经放好——待在圈里！
 TRAP_RING_BACK,back to the ring!,späť do kruhu!,zpět do kruhu!,¡vuelve al anillo!,назад в кольцо!,回到圈里！
 CHAIN_FIRE_NAME,Fire!,Požiar!,Požár!,¡Fuego!,Пожар!,着火了！

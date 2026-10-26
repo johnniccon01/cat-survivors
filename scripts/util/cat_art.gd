@@ -173,38 +173,73 @@ static func _draw_sprite(ci: CanvasItem, sprite: Dictionary, lk: Dictionary, fac
 	ci.draw_set_transform(Vector2.ZERO)
 
 
-## The look with the worn gear (see Items) added: the collar and the hat
-## show on the cat.
+## The look with the worn hat (see Items) added: only the hat shows on the
+## cat, and every kind of hat looks different.
 static func with_gear(lk: Dictionary) -> Dictionary:
 	var out := lk.duplicate()
-	var gear := {}
-	for slot: String in ["COLLAR", "HAT"]:
-		var item := Profile.worn_item(slot)
-		if not item.is_empty():
-			gear[slot] = Items.color(item)
-	out["gear"] = gear
+	var item := Profile.worn_item("HAT")
+	out["gear"] = {} if item.is_empty() else {"hat": item["base"], "color": Items.color(item)}
 	return out
 
 
-## A collar with a little tag round the neck and a knitted hat with a pompom
-## (no hat over a cat that already wears one).
+## The hat from the gear (none over a cat that already wears one).
 static func _draw_gear(ci: CanvasItem, gear: Dictionary, s: float, has_hat: bool) -> void:
-	if gear.has("COLLAR"):
-		var c: Color = gear["COLLAR"]
-		var band := Shapes.ellipse(Vector2(10.0, -3.0) * s, 4.2 * s, 1.2 * s, 14)
-		ci.draw_colored_polygon(band, c)
-		ci.draw_polyline(Shapes.closed(band), OUTLINE, 1.0)
-		ci.draw_circle(Vector2(11.0, -1.7) * s, 1.1 * s, Color("f2c14e"))
-	if gear.has("HAT") and not has_hat:
-		var c: Color = gear["HAT"]
-		var dome := PackedVector2Array()
-		for i in 9:
-			var a := PI + PI * i / 8.0
-			dome.append(Vector2(9.5, -14.5) * s + Vector2(cos(a) * 5.5, sin(a) * 4.5) * s)
-		ci.draw_colored_polygon(dome, c)
-		ci.draw_polyline(Shapes.closed(dome), OUTLINE, 1.0)
-		ci.draw_rect(Rect2(Vector2(4.0, -15.5) * s, Vector2(11.0, 2.0) * s), c.darkened(0.25))
-		ci.draw_circle(Vector2(9.5, -19.5) * s, 1.4 * s, c.lightened(0.4))
+	if has_hat or not gear.has("hat"):
+		return
+	var c: Color = gear["color"]
+	var poly := func(points: Array, color: Color) -> void:
+		var pts := PackedVector2Array()
+		for p: Vector2 in points:
+			pts.append(p * s)
+		ci.draw_colored_polygon(pts, color)
+		ci.draw_polyline(Shapes.closed(pts), OUTLINE, 1.0)
+	var oval := func(center: Vector2, rx: float, ry: float, color: Color) -> void:
+		var pts := Shapes.ellipse(center * s, rx * s, ry * s, 16)
+		ci.draw_colored_polygon(pts, color)
+		ci.draw_polyline(Shapes.closed(pts), OUTLINE, 1.0)
+	match String(gear["hat"]):
+		"PARTY_HAT":
+			poly.call([Vector2(6, -14), Vector2(13, -14), Vector2(10, -25)], c)
+			ci.draw_line(Vector2(7.5, -17) * s, Vector2(12, -17.5) * s, Color.WHITE, 1.0)
+			ci.draw_line(Vector2(8.5, -20.5) * s, Vector2(11, -21) * s, Color.WHITE, 1.0)
+			ci.draw_circle(Vector2(10, -25.5) * s, 1.3 * s, Color("f2d14e"))
+		"STRAW_HAT":
+			oval.call(Vector2(9.5, -14), 9.0, 2.0, c)
+			oval.call(Vector2(9.5, -16), 4.5, 2.8, c.lightened(0.1))
+			ci.draw_rect(Rect2(Vector2(5.2, -15.2) * s, Vector2(8.6, 1.2) * s), Color("c0504d"))
+		"BERET":
+			oval.call(Vector2(10.5, -15.5), 6.5, 2.4, c)
+			ci.draw_rect(Rect2(Vector2(10.2, -19) * s, Vector2(1.0, 1.6) * s), c.darkened(0.3))
+		"PIRATE_HAT":
+			poly.call([Vector2(2, -14), Vector2(17, -14), Vector2(15.5, -19.5), Vector2(9.5, -17.5), Vector2(3.5, -19.5)], c)
+			ci.draw_circle(Vector2(9.5, -15.8) * s, 1.1 * s, Color("f4f1ea"))
+		"WIZARD_HAT":
+			oval.call(Vector2(9.5, -14), 7.5, 1.6, c.darkened(0.15))
+			poly.call([Vector2(5.5, -14.5), Vector2(13.5, -14.5), Vector2(12.5, -21), Vector2(14.5, -27), Vector2(9, -21)], c)
+			ci.draw_circle(Vector2(9.5, -17.5) * s, 1.0 * s, Color("f2d14e"))
+		"PAPER_CROWN", "RAT_CROWN":
+			poly.call([Vector2(5, -14), Vector2(14, -14), Vector2(14, -19.5), Vector2(12.5, -16.8), Vector2(11, -20), Vector2(9.5, -16.8), Vector2(8, -20), Vector2(6.5, -16.8), Vector2(5, -19.5)], c)
+			if gear["hat"] == "RAT_CROWN":
+				for x: float in [7.0, 9.5, 12.0]:
+					ci.draw_circle(Vector2(x, -15.3) * s, 0.8 * s, Color("d94848"))
+		"NUTSHELL_HELMET":
+			var dome: Array = []
+			for i in 9:
+				var a := PI + PI * i / 8.0
+				dome.append(Vector2(9.5, -14) + Vector2(cos(a) * 6.0, sin(a) * 5.0))
+			poly.call(dome, c)
+			for x: float in [7.0, 9.5, 12.0]:
+				ci.draw_line(Vector2(x, -18.3) * s, Vector2(x, -14.5) * s, c.darkened(0.35), 1.0)
+			ci.draw_rect(Rect2(Vector2(9.0, -21) * s, Vector2(1.0, 2.0) * s), c.darkened(0.4))
+		_:
+			# A knitted hat with a pompom (the wool hat, and any hat not drawn yet).
+			var dome: Array = []
+			for i in 9:
+				var a := PI + PI * i / 8.0
+				dome.append(Vector2(9.5, -14.5) + Vector2(cos(a) * 5.5, sin(a) * 4.5))
+			poly.call(dome, c)
+			ci.draw_rect(Rect2(Vector2(4.0, -15.5) * s, Vector2(11.0, 2.0) * s), c.darkened(0.25))
+			ci.draw_circle(Vector2(9.5, -19.5) * s, 1.4 * s, c.lightened(0.4))
 
 
 ## Two feathered wings behind the back that flap slowly.

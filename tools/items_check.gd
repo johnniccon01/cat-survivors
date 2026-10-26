@@ -116,6 +116,22 @@ func _check_profile() -> void:
 		BotLog.fail("two collars worn at once")
 	if bonus.has("pulse_magnet") and bonus.has("freeze_every"):
 		BotLog.fail("both collars count at once")
+	# At most LEGENDARY_WORN legendaries at once; the next one is refused.
+	Profile.items.clear()
+	Profile.equipped_items.clear()
+	Profile.bank_items([Items.legendary("RAT_CROWN"), Items.legendary("MOWER_BOOTS"), Items.legendary("GUARD_VEST")])
+	var refused := 0
+	for item: Dictionary in Profile.items:
+		if not Profile.toggle_item(int(item["uid"])):
+			refused += 1
+	if Profile.legendaries_worn() != Profile.LEGENDARY_WORN or refused != 3 - Profile.LEGENDARY_WORN:
+		BotLog.fail("legendary limit: %d worn, %d refused" % [Profile.legendaries_worn(), refused])
+	# An old save with too many legendaries on loses the extra.
+	for item: Dictionary in Profile.items:
+		Profile.equipped_items[item["slot"]] = item["uid"]
+	Profile._clean_items()
+	if Profile.legendaries_worn() > Profile.LEGENDARY_WORN:
+		BotLog.fail("_clean_items left %d legendaries worn" % Profile.legendaries_worn())
 	# Save round trip.
 	var cfg := ConfigFile.new()
 	cfg.set_value("items", "owned", Profile.items)
@@ -145,5 +161,7 @@ func _check_worn(player: Player) -> void:
 		var want := float(Player.BASE_STATS[key]) + float(own.get(key, 0.0)) + float(gear[key])
 		if absf(player.stats[key] - want) > 0.001:
 			BotLog.fail("worn gear gives %s = %s, the cat has %s" % [key, want, player.stats[key]])
+	if Profile.legendaries_worn() > Profile.LEGENDARY_WORN:
+		BotLog.fail("--gear put on %d legendaries" % Profile.legendaries_worn())
 	if not gear.is_empty():
 		print("TEST: worn gear checked (%s)" % ", ".join(gear.keys()))

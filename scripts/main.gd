@@ -48,6 +48,7 @@ extends Node2D
 ##   --boss-hp=F        with --dev-boss: the boss starts at this share of its health
 ##   --items-test       check the gear system (tools/items_check.gd)
 ##   --item-chance=F    a boss or elite drops gear with this chance
+##   --legendary-chance=F  a final boss drops its legendary with this chance
 ##   --gear=ID,rare     own and wear these legendaries / random items of a rarity
 ##   --drop-item=ID     start the run with this legendary (or a random item of a rarity) in the bag
 ##   --expect=a,b       test runs: fail unless these BotLog events happen (--expect-not=)
@@ -72,9 +73,13 @@ const BOSS_BREATHER := 12.0
 const CHARM_CHANCE_ELITE := 0.06
 const CHARM_CHANCE_BOSS := 0.35
 ## Gear (see Items): a wave boss drops an item this often, an elite this
-## often (both x luck); a final boss always drops its own legendary.
+## often (both x luck). A final boss drops its own legendary with
+## LEGENDARY_CHANCE (x luck, at most LEGENDARY_CHANCE_MAX), only while you
+## don't own it yet; otherwise it drops a rare item.
 const ITEM_CHANCE_BOSS := 0.5
 const ITEM_CHANCE_ELITE := 0.06
+const LEGENDARY_CHANCE := 0.3
+const LEGENDARY_CHANCE_MAX := 0.45
 const CHARM_CHANCE_QUEST := 0.2
 ## Rarity weights when a charm drops.
 const CHARM_RARITY := [["common", 70.0], ["rare", 25.0], ["epic", 5.0]]
@@ -653,7 +658,7 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 		_maybe_drop_charm(pos + Vector2(-14, 6), CHARM_CHANCE_BOSS)
 		var legend := Items.legendary_of(id)
 		if legend != "":
-			_find_item(Items.legendary(legend))
+			_final_boss_loot(legend)
 		else:
 			_maybe_find_item(ITEM_CHANCE_BOSS)
 		_open_extraction()
@@ -862,6 +867,17 @@ func _maybe_drop_charm(pos: Vector2, chance: float) -> void:
 	var rarity: String = _weighted(CHARM_RARITY)
 	var pool: Array = GameData.charms.keys().filter(func(id: String) -> bool: return GameData.charms[id]["rarity"] == rarity)
 	pickups.spawn_charm(pos, pool.pick_random())
+
+
+## A final boss fell: maybe its legendary (see LEGENDARY_CHANCE), else a rare.
+func _final_boss_loot(legend: String) -> void:
+	var forced := _arg("--legendary-chance=", "")
+	var chance := float(forced) if forced != "" else minf(LEGENDARY_CHANCE * player.stat("luck"), LEGENDARY_CHANCE_MAX)
+	var owned := Profile.owns_item(legend) or run_items.any(func(i: Dictionary) -> bool: return i["base"] == legend)
+	if not owned and randf() < chance:
+		_find_item(Items.legendary(legend))
+	else:
+		_find_item(Items.roll(player.stat("luck"), "rare"))
 
 
 func _maybe_find_item(chance: float) -> void:

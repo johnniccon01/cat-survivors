@@ -46,6 +46,8 @@ var equipped_artifacts: Array[String] = []
 ## (slot -> uid), and the next uid to give out. The stash holds ITEM_STASH
 ## items; anything brought home past that is melted into gold.
 const ITEM_STASH := 40
+## At most this many legendary items worn at once.
+const LEGENDARY_WORN := 2
 var items: Array = []
 var equipped_items: Dictionary = {}
 var next_item_uid := 1
@@ -154,7 +156,8 @@ func _ready() -> void:
 				item["uid"] = next_item_uid
 				next_item_uid += 1
 				items.append(item)
-				equipped_items[item["slot"]] = item["uid"]
+				if item["rarity"] != "legendary" or legendaries_worn(item["slot"]) < LEGENDARY_WORN:
+					equipped_items[item["slot"]] = item["uid"]
 		if arg.begins_with("--cat="):
 			selected_cat = arg.trim_prefix("--cat=")
 		elif arg.begins_with("--stage="):
@@ -425,18 +428,35 @@ func worn_item(slot: String) -> Dictionary:
 	return item_by_uid(int(equipped_items.get(slot, 0)))
 
 
+func owns_item(base: String) -> bool:
+	return items.any(func(item: Dictionary) -> bool: return item["base"] == base)
+
+
+## Legendary items worn right now, leaving out `slot`.
+func legendaries_worn(except_slot: String = "") -> int:
+	var n := 0
+	for slot: String in equipped_items:
+		if slot != except_slot and worn_item(slot).get("rarity", "") == "legendary":
+			n += 1
+	return n
+
+
 ## Puts an item on (taking off whatever was in its slot), or takes it off
-## when it is already worn.
-func toggle_item(uid: int) -> void:
+## when it is already worn. Returns false when it can't go on: at most
+## LEGENDARY_WORN legendaries at once.
+func toggle_item(uid: int) -> bool:
 	var item := item_by_uid(uid)
 	if item.is_empty():
-		return
+		return false
 	var slot: String = item["slot"]
 	if int(equipped_items.get(slot, 0)) == uid:
 		equipped_items.erase(slot)
+	elif item["rarity"] == "legendary" and legendaries_worn(slot) >= LEGENDARY_WORN:
+		return false
 	else:
 		equipped_items[slot] = uid
 	save()
+	return true
 
 
 ## Melts an item down for gold (taking it off first).
@@ -469,12 +489,17 @@ func item_bonus() -> Dictionary:
 	return bonus
 
 
-## Drops items whose base no longer exists and slots pointing at nothing,
-## so a changed items.json never breaks an old profile.
+## Drops items whose base no longer exists, slots pointing at nothing and
+## legendaries over the limit,
+## so a changed items.json or rule never breaks an old profile.
 func _clean_items() -> void:
 	items = items.filter(func(item: Variant) -> bool: return item is Dictionary and not Items.info(item).is_empty())
 	for slot: String in equipped_items.keys():
 		if worn_item(slot).is_empty():
+			equipped_items.erase(slot)
+	# More legendaries worn than allowed (an older save): the extra come off.
+	for slot: String in equipped_items.keys():
+		if worn_item(slot).get("rarity", "") == "legendary" and legendaries_worn(slot) >= LEGENDARY_WORN:
 			equipped_items.erase(slot)
 
 

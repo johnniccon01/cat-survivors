@@ -1704,3 +1704,4 @@ ITEM_KRAKEN_PEARL_DESC,"From the Kraken. Every 40 s the sea goes still: enemies 
 ITEM_TURBO_TAIL_NAME,The Turbo Tail,Turbo chvost,Turbo ocas
 ITEM_TURBO_TAIL_DESC,"From the Robo-Vacuum 3000. +1 projectile for every weapon, +25% damage to bosses.","Od Robo-vysávača 3000. +1 projektil každej zbrani, o 25 % väčšie poškodenie bossom.","Od Robo-vysavače 3000. +1 projektil každé zbrani, o 25 % větší poškození bossům."
 ITEMS_MELT_ASK,Press X again to melt %s for %d gold.,Stlač X ešte raz a %s sa roztaví na %d zlata.,Stiskni X ještě jednou a %s se roztaví na %d zlata.
+ITEMS_LEGENDARY_LIMIT,At most %d legendary items at once – take one off first.,Naraz najviac %d legendárne predmety – najprv jeden daj dole.,Najednou nejvýš %d legendární předměty – nejdřív jeden sundej.

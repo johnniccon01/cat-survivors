@@ -2,7 +2,8 @@ class_name ItemPanel
 extends ColorRect
 ## Gear (see Items): the five slots across the top with what is worn in each,
 ## below them every item you own for the chosen slot. ← → choose the slot,
-## ↑ ↓ an item, Enter puts it on or takes it off, X twice melts it into gold,
+## ↑ ↓ an item, Enter puts it on or takes it off (at most
+## Profile.LEGENDARY_WORN legendaries), X twice melts it into gold,
 ## I / Esc closes.
 
 signal closed
@@ -175,7 +176,11 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("move_down") or event.is_action_pressed("ui_down"):
 		_index = (_index + 1) % count if count > 0 else 0
 	elif event.is_action_pressed("restart") or event.is_action_pressed("ui_accept"):
+		_melt_uid = 0
+		_note.text = ""
 		_activate()
+		_refresh()
+		return
 	elif event is InputEventKey and event.physical_keycode == KEY_X:
 		_melt()
 		_refresh()
@@ -202,7 +207,10 @@ func _activate() -> void:
 	if item.is_empty():
 		Audio.play("hurt", -10.0, 0.0)
 		return
-	Profile.toggle_item(int(item["uid"]))
+	if not Profile.toggle_item(int(item["uid"])):
+		_note.text = tr("ITEMS_LEGENDARY_LIMIT") % Profile.LEGENDARY_WORN
+		Audio.play("hurt", -10.0, 0.0)
+		return
 	Audio.play("select", -6.0, 0.0)
 
 

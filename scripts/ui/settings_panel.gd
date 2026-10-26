@@ -24,7 +24,7 @@ var _waiting := ""
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	visible = false
-	var box := UiStyle.overlay(self, 0.97)
+	var box := UiStyle.overlay(self, 1.0)
 	box.add_child(UiStyle.label("SETTINGS_TITLE", 40, UiStyle.GOLD))
 	_rows = VBoxContainer.new()
 	_rows.add_theme_constant_override("separation", 5)

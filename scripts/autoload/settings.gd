@@ -6,7 +6,7 @@ extends Node
 ## its code here is all a new language needs.
 
 const PATH := "user://settings.cfg"
-const LANGUAGES: Array[String] = ["en", "sk", "cs"]
+const LANGUAGES: Array[String] = ["en", "sk", "cs", "es", "ru", "zh_CN"]
 
 var language := "en"
 var muted := false
@@ -34,7 +34,11 @@ const REBINDABLE: Array[String] = ["move_up", "move_down", "move_left", "move_ri
 
 func _ready() -> void:
 	var cfg := ConfigFile.new()
-	if cfg.load(PATH) == OK:
+	var saved := cfg.load(PATH) == OK
+	# The first start speaks the system's language, if the game has it.
+	if not saved:
+		language = system_language()
+	if saved:
 		language = cfg.get_value("general", "language", language)
 		muted = cfg.get_value("general", "muted", muted)
 		damage_numbers = cfg.get_value("general", "damage_numbers", damage_numbers)
@@ -204,3 +208,11 @@ func _apply_key(action: String, keycode: int) -> void:
 		if e is InputEventKey:
 			(e as InputEventKey).physical_keycode = keycode as Key
 			return
+
+
+## The game language matching the computer's (English when there is none).
+static func system_language() -> String:
+	var lang := OS.get_locale_language()
+	if lang == "zh":
+		return "zh_CN"
+	return lang if lang in LANGUAGES else "en"

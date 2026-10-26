@@ -17,7 +17,7 @@ Survivors-like hra v Godot 4.6 (GDScript, renderer Compatibility). Hráč píše
 - `scripts/world/` – podlaha, pasce (`trap.gd`), stavby z questov (`map_feature.gd`), svätyne, noc.
 - `scripts/ui/` – HUD (`hud.gd`), menu, panely, šípky (`boss_arrows.gd`, `quest_arrow.gd`).
 - `scripts/autoload/` – `settings.gd`, `profile.gd` (uložená hra), `game_data.gd`, `audio.gd`.
-- `data/*.json` – balans a obsah. `locale/translations.csv` – texty `key,en,sk,cs` (po úprave CSV spusti import, aby sa obnovili `.translation`).
+- `data/*.json` – balans a obsah. `locale/translations.csv` – texty `key,en,sk,cs,es,ru,zh_CN` (po úprave CSV spusti import, aby sa obnovili `.translation`).
 - `PLAN.md` – stav a plán, `README.md` – ovládanie a prepínače.
 
 ## Godot
@@ -27,7 +27,7 @@ Ak cesta neexistuje, nájdi ju rovnako ako `hrat.bat` (Downloads, priečinok `go
 - Import po zmene súborov: `"$G" --headless --path . --import`
 - Rýchly test jedného scenára: `ONLY="nazov|nazov2" bash tools/run_checks.sh "$G"` (názvy scenárov v `tools/run_checks.sh`).
 - Rýchla sada: `QUICK=1 bash tools/run_checks.sh "$G"`. Celá sada (~150 scenárov) len na požiadanie.
-- Python tu nie je, preto kontrola `strings` v testoch vždy hlási FAIL – to nie je chyba hry.
+- Kontrola textov (všetky jazyky, zástupné znaky, písmo): `"$G" --headless --path . -s res://tools/strings_check.gd` (beží aj na konci `run_checks.sh`). Preklady: `tools/translations_tool.gd` (dump / merge / missing).
 - Spustenie hry s logom: `--log-file C:\Users\AndrejNikolaj\cat-survivors-logs\play.log`.
 
 ## Git a dva počítače

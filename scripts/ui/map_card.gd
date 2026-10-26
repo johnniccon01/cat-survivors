@@ -67,7 +67,11 @@ func _draw() -> void:
 		var terrain: String = GameData.stages[stage_id].get("terrain", "")
 		if terrain != "":
 			var label := tr("TERRAIN_%s" % terrain.to_upper())
-			draw_string(ThemeDB.fallback_font, pic.position + Vector2(6, pic.size.y - 6), label, HORIZONTAL_ALIGNMENT_LEFT, pic.size.x - 12, UiStyle.fit_size(ThemeDB.fallback_font, label, pic.size.x - 12, 12), Color("9fe3ff"))
+			var size := UiStyle.fit_size(ThemeDB.fallback_font, label, pic.size.x - 12, 12)
+			var w := ThemeDB.fallback_font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x
+			# A dark strip under it, so it reads over the boss picture.
+			draw_rect(Rect2(pic.position + Vector2(2, pic.size.y - 18), Vector2(w + 8, 16)), Color(0.05, 0.03, 0.08, 0.75))
+			draw_string(ThemeDB.fallback_font, pic.position + Vector2(6, pic.size.y - 6), label, HORIZONTAL_ALIGNMENT_LEFT, pic.size.x - 12, size, Color("9fe3ff"))
 	var font := ThemeDB.fallback_font
 	var title := tr("STAGE_%s_NAME" % stage_id) if open else "???"
 	draw_string(font, Vector2(8, 100), title, HORIZONTAL_ALIGNMENT_CENTER, size.x - 16, UiStyle.fit_size(font, title, size.x - 16, 18), UiStyle.GOLD if selected else UiStyle.TEXT)

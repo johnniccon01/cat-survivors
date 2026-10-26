@@ -40,7 +40,7 @@ textures/canvas_textures/default_texture_filter=0
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://locale/translations.en.translation", "res://locale/translations.sk.translation", "res://locale/translations.cs.translation")
+locale/translations=PackedStringArray("res://locale/translations.en.translation", "res://locale/translations.sk.translation", "res://locale/translations.cs.translation", "res://locale/translations.es.translation", "res://locale/translations.ru.translation", "res://locale/translations.zh_CN.translation")
 
 [debug]
 

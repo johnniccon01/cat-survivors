@@ -341,6 +341,13 @@ Sem píšeme nápady, ktoré zatiaľ nemajú miesto vo fázach.
 - Kozmetika pre mačky (obojky, klobúky) za zlato
 - Achievementy
 
+## Október 2026: jazyky
+
+- Pridané jazyky: španielčina, ruština, zjednodušená čínština (všetkých ~1700 textov). Čínske znaky kreslí systémové písmo. Prvé spustenie zvolí jazyk systému.
+- `tools/strings_check.gd` nahrádza pythonovú kontrolu: chýbajúce preklady, zástupné znaky aj ich poradie, osamotené %, znaky, ktoré písmo nevie nakresliť.
+- `tools/translations_tool.gd` (dump / merge / missing) na ďalšie preklady; `tools/menu_shots.gd` odfotí všetky menu vo všetkých jazykoch.
+- Spodný rad tlačidiel na výbere mačky sa zmenší, keď je v jazyku priširoký; názov terénu na mapovej karte má tmavý podklad.
+
 ## Október 2026: spätná väzba z hrania
 
 - Menu sa zmestí v EN/SK/CS: mapové karty zmenšia písmo, denník zalamuje odmeny; test `text_fit` (`tools/text_fit_test.gd`) prejde všetky obrazovky a panely v každom jazyku.

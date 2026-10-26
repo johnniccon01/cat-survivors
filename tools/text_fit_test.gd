@@ -5,7 +5,7 @@ extends SceneTree
 ##   godot --headless --path . -s res://tools/text_fit_test.gd -- --ui-test
 ## Prints "TEXT: FAIL ..." for each problem and "TEXT: done, N failures".
 
-const LOCALES := ["en", "sk", "cs"]
+const LOCALES := ["en", "sk", "cs", "es", "ru", "zh_CN"]
 
 var _failures := 0
 var _seen := {}

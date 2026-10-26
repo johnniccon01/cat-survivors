@@ -73,6 +73,36 @@ static func fit_size(font: Font, text: String, width: float, size: int, smallest
 	return size
 
 
+## Shrinks the font of every button in `row` until the row fits in
+## `width` (longer words in some languages would push it off the screen).
+static func fit_row(row: BoxContainer, width: float, smallest: int = 11) -> void:
+	var buttons: Array[Button] = []
+	for child in row.get_children():
+		if child is Button:
+			buttons.append(child)
+	if buttons.is_empty():
+		return
+	# All shrink by the same share, so a bigger button stays bigger.
+	var sizes: Array[int] = []
+	for b in buttons:
+		sizes.append(b.get_theme_font_size("font_size"))
+	var k := 1.0
+	while k > 0.4 and _row_width(row) > width:
+		k -= 0.04
+		for i in buttons.size():
+			buttons[i].add_theme_font_size_override("font_size", maxi(roundi(sizes[i] * k), smallest))
+
+
+static func _row_width(row: BoxContainer) -> float:
+	var total := 0.0
+	var shown := 0
+	for child in row.get_children():
+		if child is Control and child.visible:
+			total += (child as Control).get_combined_minimum_size().x
+			shown += 1
+	return total + row.get_theme_constant("separation") * maxi(shown - 1, 0)
+
+
 static func box(fill: Color, border: Color) -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = fill

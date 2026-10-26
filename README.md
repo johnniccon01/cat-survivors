@@ -116,6 +116,8 @@ Obrázok v hlavnom menu (nočné mesto, mesiac a mačky) kreslí `tools/gen_titl
 
 ## Preklady
 
+Jazyky: angličtina, slovenčina, čeština, španielčina, ruština a zjednodušená čínština (čínske znaky kreslí systémové písmo). Pri prvom spustení hra zvolí jazyk systému, ak ho má; inak angličtinu. Kontrola všetkých textov: `tools/strings_check.gd`; preklad po dávkach: `tools/translations_tool.gd` (`dump` anglických textov, `merge` hotového TSV, `missing` pre chýbajúce).
+
 Všetky texty sú v `locale/translations.csv` (stĺpec = jazyk). Nový jazyk:
 pridaj stĺpec (napr. `de`), doplň kód do `LANGUAGES` v `scripts/autoload/settings.gd`
 a cestu `res://locale/translations.de.translation` do `project.godot`

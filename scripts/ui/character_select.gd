@@ -281,6 +281,8 @@ func _build() -> void:
 		var b := UiStyle.click_button("%s (%s)" % [tr(entry[0]), entry[1]], 0)
 		b.pressed.connect(entry[2])
 		buttons.add_child(b)
+	# Longer words in some languages: shrink the row to fit the screen.
+	UiStyle.fit_row(buttons, 1240.0)
 	var hint := _label(15, Color("8f7ea3"))
 	hint.text = "SELECT_HINT"
 	root.add_child(hint)

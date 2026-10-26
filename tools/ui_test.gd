@@ -41,7 +41,7 @@ func _main_menu() -> void:
 		seen[TranslationServer.get_locale()] = true
 		if TranslationServer.get_locale() == start_locale:
 			break
-	_expect(seen.size() >= 6 and TranslationServer.get_locale() == start_locale, "the language button cycles all languages and back (saw %s)" % seen.keys())
+	_expect(seen.size() >= 6 and TranslationServer.get_locale() == start_locale, "the language button cycles all languages and back (saw %s)" % str(seen.keys()))
 	_expect(_focus_text() == "MENU_PLAY", "menu starts on Play, got %s" % _focus_text())
 	# The arrows wrap around, and W/S move like up/down.
 	await _press(KEY_UP)

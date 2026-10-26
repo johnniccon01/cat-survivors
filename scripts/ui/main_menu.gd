@@ -138,6 +138,16 @@ func _build() -> void:
 	_add_button("MENU_JOURNAL", func() -> void: _open(_journal))
 	_add_button("MENU_SETTINGS", func() -> void: _open(_settings))
 	_add_button("MENU_QUIT", func() -> void: get_tree().quit())
+	# The language in the corner, so a new player finds it right away; a
+	# click switches to the next one (the menu is rebuilt in it).
+	var lang := UiStyle.click_button("%s: %s" % [tr("SET_LANGUAGE"), tr("LANGUAGE_NAME")], 0, 15)
+	lang.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
+	lang.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+	lang.position += Vector2(-12, 12)
+	lang.pressed.connect(func() -> void:
+		Settings.cycle_language()
+		get_tree().reload_current_scene())
+	add_child(lang)
 	for panel: Control in [_shop, _charms, _journal, _settings]:
 		add_child(panel)
 		panel.closed.connect(_on_panel_closed)

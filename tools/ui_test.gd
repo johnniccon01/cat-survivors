@@ -25,6 +25,23 @@ func _run() -> void:
 # --- main menu ------------------------------------------------------------------
 
 func _main_menu() -> void:
+	# The language button in the corner goes through every language and back.
+	var start_locale := TranslationServer.get_locale()
+	var seen := {}
+	for i in 12:
+		var lang: Button = null
+		for c in current_scene.get_children():
+			if c is Button and String(c.text).begins_with(TranslationServer.translate("SET_LANGUAGE") + ":"):
+				lang = c
+		if lang == null:
+			_expect(false, "the menu has a language button")
+			break
+		lang.pressed.emit()
+		await _frames(6)
+		seen[TranslationServer.get_locale()] = true
+		if TranslationServer.get_locale() == start_locale:
+			break
+	_expect(seen.size() >= 6 and TranslationServer.get_locale() == start_locale, "the language button cycles all languages and back (saw %s)" % seen.keys())
 	_expect(_focus_text() == "MENU_PLAY", "menu starts on Play, got %s" % _focus_text())
 	# The arrows wrap around, and W/S move like up/down.
 	await _press(KEY_UP)
@@ -112,7 +129,7 @@ func _character_select() -> void:
 	await _press(KEY_UP)
 	_expect(sel.get("_stage_index") == stage, "Down/Up move the stage and back")
 	# Panels opened from here: keys go to the panel, Esc closes only the panel.
-	for entry: Array in [[KEY_C, "_charms"], [KEY_U, "_shop"], [KEY_G, "_journal"], [KEY_Q, "_journal"], [KEY_J, "_journal"], [KEY_X, "_challenges"], [KEY_V, "_artifacts"]]:
+	for entry: Array in [[KEY_C, "_charms"], [KEY_I, "_items"], [KEY_U, "_shop"], [KEY_G, "_journal"], [KEY_Q, "_journal"], [KEY_J, "_journal"], [KEY_X, "_challenges"], [KEY_V, "_artifacts"]]:
 		var panel: Control = sel.get(entry[1])
 		await _press(entry[0])
 		_expect(panel.visible, "select: %s opens" % entry[1])

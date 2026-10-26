@@ -6,6 +6,8 @@ extends SceneTree
 ## Prints "TEXT: FAIL ..." for each problem and "TEXT: done, N failures".
 
 const LOCALES := ["en", "sk", "cs", "es", "ru", "zh_CN"]
+## Symbols the game's font lacks but the system font draws.
+const SYMBOLS := "←→↑↓★☆◆◇●○✓×•…■□"
 
 var _failures := 0
 var _seen := {}
@@ -164,6 +166,13 @@ func _check(node: Node, where: String) -> void:
 			continue
 		if text.strip_edges() == "":
 			continue
+		# Every character must be drawable: by the game's font, or by the
+		# system font for Chinese and the few symbols it lacks.
+		for ch in text:
+			var code := ch.unicode_at(0)
+			if code > 32 and code != 0xA0 and code < 0x2E80 and ch not in SYMBOLS and not ThemeDB.fallback_font.has_char(code):
+				_fail("%s: \"%s\" has '%s' (U+%04X) the font can't draw" % [where, text.left(40), ch, code])
+				break
 		var rect := c.get_global_rect()
 		if clipped:
 			# Only the longest line counts for multi-line text.

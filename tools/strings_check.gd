@@ -16,7 +16,7 @@ const CSV := "res://locale/translations.csv"
 ## Languages drawn with the system font (the game's font has no such glyphs).
 const SYSTEM_FONT := ["zh_CN"]
 ## Symbols the game's font lacks but the system font draws (arrows, stars...).
-const SYMBOLS := "←→↑↓★☆◆◇●○✓×•…"
+const SYMBOLS := "←→↑↓★☆◆◇●○✓×•…■□"
 
 var _problems := 0
 

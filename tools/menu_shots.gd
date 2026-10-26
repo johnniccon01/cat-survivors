@@ -36,8 +36,43 @@ func _run() -> void:
 		await _shot(locale, "select")
 		for panel in ["_items", "_artifacts", "_challenges"]:
 			await _panel(locale, "select", panel)
+		await _game(locale)
 	print("SHOTS: saved to ", _out)
 	quit()
+
+
+## In a run: the HUD, pause, level-up cards, a shrine's choices, the summary.
+func _game(locale: String) -> void:
+	change_scene_to_file("res://scenes/main.tscn")
+	await _frames(40)
+	var main := current_scene
+	var hud: Node = main.get("hud")
+	main.get("player").set("god", true)
+	await _shot(locale, "game_hud")
+	paused = true
+	hud.call("show_pause", true)
+	await _frames(4)
+	await _shot(locale, "game_pause")
+	hud.call("show_pause", false)
+	var level_up: Control = hud.get("level_up")
+	level_up.call("open", 12, load("res://scripts/progression/upgrades.gd").roll(main.get("player"), 4), 2, "", 3)
+	await _frames(20)
+	await _shot(locale, "game_levelup")
+	level_up.visible = false
+	var choice: Control = hud.get("choice")
+	var options: Array = []
+	for key in ["SHRINE_HASTE_OPT0", "SHRINE_HASTE_OPT1", "SHRINE_HASTE_OPT2", "SHRINE_REFUSE"]:
+		options.append(TranslationServer.translate(key))
+	choice.call("open", TranslationServer.translate("SHRINE_HASTE_NAME"), TranslationServer.translate("SHRINE_PROMPT"), options)
+	await _frames(20)
+	await _shot(locale, "game_choice")
+	choice.visible = false
+	var lines: Array[String] = [TranslationServer.translate("SUMMARY_GOLD") % [321, 20], TranslationServer.translate("SUMMARY_STREAK") % [3, 5], TranslationServer.translate("SUMMARY_ITEMS_KEPT") % "%s, %s" % [TranslationServer.translate("ITEM_RAT_CROWN_NAME"), TranslationServer.translate("ITEM_NUTSHELL_HELMET_NAME")]]
+	hud.call("show_victory", 1234, TranslationServer.translate("CAT_KAPITAN_NAME"))
+	hud.call("show_summary", lines)
+	await _frames(30)
+	await _shot(locale, "game_summary")
+	paused = false
 
 
 func _unlock() -> void:

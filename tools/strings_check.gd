@@ -6,6 +6,7 @@ extends SceneTree
 ## - the %s / %d / %.2f placeholders are the same and in the same order as in
 ##   English (GDScript fills them by position), and a text that gets
 ##   formatted has no lone % (it must be %%),
+## - no plain space between a number and %, it must not break there,
 ## - every character can be drawn by the game's font (Chinese is drawn by the
 ##   system font, so its column is left out),
 ## - every literal key used in the scripts exists.
@@ -36,6 +37,7 @@ func _check_csv() -> Dictionary:
 	var keys := {}
 	var font := ThemeDB.fallback_font
 	var placeholder := RegEx.create_from_string("%(\\.\\d+)?[sdf]")
+	var space_pct := RegEx.create_from_string("[0-9sd] %")
 	var f := FileAccess.open(CSV, FileAccess.READ)
 	var header := f.get_csv_line()
 	var line := 1
@@ -66,6 +68,9 @@ func _check_csv() -> Dictionary:
 			var got := _found(placeholder, text)
 			if got != want:
 				_fail("line %d: %s placeholders in %s are %s, English has %s" % [line, key, lang, got, want])
+			# "8 %" must never break between the number and the % sign.
+			if space_pct.search(text) != null:
+				_fail("line %d: %s in %s has a plain space before %% (use a non-breaking space)" % [line, key, lang])
 			if formatted and "%" in placeholder.sub(text.replace("%%", ""), "", true):
 				_fail("line %d: %s in %s has a lone %% (write %%%%)" % [line, key, lang])
 			if lang not in SYSTEM_FONT:

@@ -6,7 +6,7 @@ PAUSE_TITLE,PAUSED,PAUZA,PAUZA,PAUSA,ПАУЗА,暂停
 PAUSE_HINT,Keyboard shortcuts:,Klávesové skratky:,Klávesové zkratky:,Atajos de teclado:,Горячие клавиши:,键盘快捷键：
 PAUSE_LANGUAGE,L – language: %s,L – jazyk: %s,L – jazyk: %s,L – idioma: %s,L – язык: %s,L – 语言：%s
 GAME_OVER_TITLE,%s gave up!,Mačka %s to zabalila!,Kočka %s to zabalila!,¡%s se rindió!,%s сдаётся!,%s 倒下了！
-GAME_OVER_STATS,You survived %s and defeated %d enemies.,"Prežitý čas %s, porazených nepriateľov: %d.","Přežitý čas %s, poražených nepřátel: %d.",Sobreviviste %s y derrotaste a %d enemigos.,Ты продержался %s и победил врагов: %d.,你坚持了 %s，击败了 %d 个敌人。
+GAME_OVER_STATS,You survived %s and defeated %d enemies.,"Prežitý čas %s, porazených nepriateľov: %d.","Přežitý čas %s, poražených nepřátel: %d.",Sobreviviste %s y derrotaste a %d enemigos.,Ты продержался %s и победил врагов: %d.,你坚持了 %s，击败了 %d 个敌人。
 GAME_OVER_HINT,R / Enter – try again,R / Enter – skúsiť znova,R / Enter – zkusit znovu,R / Enter – intentar de nuevo,R / Enter – ещё раз,R / Enter – 再试一次
 LEVEL_UP_TITLE,Level %d!,Level %d!,Level %d!,¡Nivel %d!,Уровень %d!,等级 %d！
 TAG_NEW,NEW!,NOVÉ!,NOVÉ!,¡NUEVO!,НОВОЕ!,新！
@@ -15,13 +15,13 @@ KIND_WEAPON,Weapon,Zbraň,Zbraň,Arma,Оружие,武器
 KIND_PASSIVE,Upgrade,Vylepšenie,Vylepšení,Mejora,Улучшение,强化
 KIND_HEAL,Food,Jedlo,Jídlo,Comida,Еда,食物
 HEAL_NAME,Sardine,Sardinka,Sardinka,Sardina,Сардина,沙丁鱼
-HEAL_DESC,Restores %d health.,Doplní %d zdravia.,Doplní %d zdraví.,Recupera %d de salud.,Восстанавливает %d здоровья.,恢复 %d 点生命。
+HEAL_DESC,Restores %d health.,Doplní %d zdravia.,Doplní %d zdraví.,Recupera %d de salud.,Восстанавливает %d здоровья.,恢复 %d 点生命。
 STAT_DAMAGE,+%s damage,+%s poškodenie,+%s poškození,+%s de daño,+%s урона,+%s 伤害
 STAT_AMOUNT,+%s projectile,+%s projektil,+%s projektil,+%s proyectil,+%s снаряд,+%s 投射物
 STAT_PIERCE,+%s pierce,+%s prieraz,+%s průraz,+%s perforación,+%s пробивание,+%s 穿透
-STAT_AREA,+%s%% area,+%s %% plocha,+%s %% plocha,+%s%% de área,+%s%% площади,+%s%% 范围
-STAT_SPEED,+%s%% speed,+%s %% rýchlosť,+%s %% rychlost,+%s%% de velocidad,+%s%% скорости,+%s%% 速度
-STAT_DURATION,+%s%% duration,+%s %% trvanie,+%s %% trvání,+%s%% de duración,+%s%% длительности,+%s%% 持续时间
+STAT_AREA,+%s%% area,+%s %% plocha,+%s %% plocha,+%s%% de área,+%s%% площади,+%s%% 范围
+STAT_SPEED,+%s%% speed,+%s %% rýchlosť,+%s %% rychlost,+%s%% de velocidad,+%s%% скорости,+%s%% 速度
+STAT_DURATION,+%s%% duration,+%s %% trvanie,+%s %% trvání,+%s%% de duración,+%s%% длительности,+%s%% 持续时间
 STAT_INTERVAL,%s s cooldown,%s s cooldown,%s s cooldown,%s s de recarga,%s с перезарядка,冷却 %s 秒
 WEAPON_SCRATCH_NAME,Scratch,Škrabanec,Škrábanec,Arañazo,Царапка,抓挠
 WEAPON_SCRATCH_DESC,Swipes to the side the cat is facing. Passes through enemies.,"Škrabne do strany, kam sa mačka pozerá. Prechádza cez nepriateľov.","Škrábne do strany, kam se kočka dívá. Prochází nepřáteli.",Araña hacia el lado al que mira el gato. Atraviesa enemigos.,"Бьёт в сторону, куда смотрит кошка. Проходит сквозь врагов.",向猫咪面朝的方向挥爪，可穿透敌人。
@@ -34,15 +34,15 @@ WEAPON_CATNIP_DESC,A dizzying aura that hurts nearby enemies.,Omamná aura okolo
 WEAPON_FISHBONES_NAME,Fish Bones,Rybie kosti,Rybí kosti,Espinas de pescado,Рыбьи косточки,鱼骨
 WEAPON_FISHBONES_DESC,Fish bones circle around the cat.,Rybie kosti krúžia okolo mačky.,Rybí kosti krouží kolem kočky.,Las espinas giran alrededor del gato.,Косточки кружат вокруг кошки.,鱼骨围绕猫咪旋转。
 PASSIVE_MIGHT_NAME,Sharp Claws,Ostré pazúry,Ostré drápy,Garras afiladas,Острые когти,锋利爪子
-PASSIVE_MIGHT_DESC,+10% damage for all weapons.,+10 % poškodenie všetkých zbraní.,+10 % poškození všech zbraní.,+10% de daño para todas las armas.,+10% урона всем оружиям.,所有武器伤害 +10%。
+PASSIVE_MIGHT_DESC,+10% damage for all weapons.,+10 % poškodenie všetkých zbraní.,+10 % poškození všech zbraní.,+10% de daño para todas las armas.,+10% урона всем оружиям.,所有武器伤害 +10%。
 PASSIVE_SPEED_NAME,Quick Paws,Rýchle labky,Rychlé tlapky,Patas rápidas,Быстрые лапки,敏捷爪子
-PASSIVE_SPEED_DESC,+10% movement speed.,+10 % rýchlosť pohybu.,+10 % rychlost pohybu.,+10% de velocidad de movimiento.,+10% скорости передвижения.,移动速度 +10%。
+PASSIVE_SPEED_DESC,+10% movement speed.,+10 % rýchlosť pohybu.,+10 % rychlost pohybu.,+10% de velocidad de movimiento.,+10% скорости передвижения.,移动速度 +10%。
 PASSIVE_MAXHP_NAME,Bowl of Milk,Miska mlieka,Miska mléka,Cuenco de leche,Миска молока,一碗牛奶
 PASSIVE_MAXHP_DESC,+20 max health.,+20 maximálne zdravie.,+20 maximální zdraví.,+20 de salud máxima.,+20 к макс. здоровью.,最大生命 +20。
 PASSIVE_COOLDOWN_NAME,Catnap,Šlofík,Šlofík,Siestecita,Кошачий сон,猫午睡
-PASSIVE_COOLDOWN_DESC,Weapons attack 8% more often.,Zbrane útočia o 8 % častejšie.,Zbraně útočí o 8 % častěji.,Las armas atacan un 8% más a menudo.,Оружие атакует на 8% чаще.,武器攻击频率 +8%。
+PASSIVE_COOLDOWN_DESC,Weapons attack 8% more often.,Zbrane útočia o 8 % častejšie.,Zbraně útočí o 8 % častěji.,Las armas atacan un 8% más a menudo.,Оружие атакует на 8% чаще.,武器攻击频率 +8%。
 PASSIVE_AREA_NAME,Fluffy Tail,Huňatý chvost,Huňatý ocas,Cola esponjosa,Пушистый хвост,蓬松尾巴
-PASSIVE_AREA_DESC,+10% attack area.,+10 % plocha útokov.,+10 % plocha útoků.,+10% de área de ataque.,+10% площади атаки.,攻击范围 +10%。
+PASSIVE_AREA_DESC,+10% attack area.,+10 % plocha útokov.,+10 % plocha útoků.,+10% de área de ataque.,+10% площади атаки.,攻击范围 +10%。
 PASSIVE_MAGNET_NAME,Sensitive Whiskers,Citlivé fúzy,Citlivé vousky,Bigotes sensibles,Чуткие усы,灵敏胡须
 PASSIVE_MAGNET_DESC,Pick up kibble from further away.,Granule priťahuješ z väčšej diaľky.,Granule přitahuješ z větší dálky.,Recoge pienso desde más lejos.,Подбирает корм с большего расстояния.,从更远处拾取猫粮。
 PASSIVE_AMOUNT_NAME,Kittens,Mačiatka,Koťátka,Gatitos,Котята,小猫们
@@ -58,7 +58,7 @@ BOSS_WARNING,A boss approaches!,Blíži sa boss!,Blíží se boss!,¡Se acerca u
 BOSS_PACK,%s calls the pack!,%s volá svorku!,%s volá smečku!,¡%s llama a la manada!,%s зовёт стаю!,%s 呼唤了同伴！
 BOSS_PHASE2,%s gets serious!,%s to myslí vážne!,%s to myslí vážně!,¡%s va en serio!,%s взялся всерьёз!,%s 认真起来了！
 VICTORY_TITLE,Morning has come!,Nastalo ráno!,Nastalo ráno!,¡Ha llegado la mañana!,Наступило утро!,天亮了！
-VICTORY_STATS,%s survived the night and defeated %d enemies.,Mačka %s prežila noc a porazila %d nepriateľov.,Kočka %s přežila noc a porazila %d nepřátel.,%s sobrevivió a la noche y derrotó a %d enemigos.,%s пережил ночь и победил врагов: %d.,%s 熬过了这一夜，击败了 %d 个敌人。
+VICTORY_STATS,%s survived the night and defeated %d enemies.,Mačka %s prežila noc a porazila %d nepriateľov.,Kočka %s přežila noc a porazila %d nepřátel.,%s sobrevivió a la noche y derrotó a %d enemigos.,%s пережил ночь и победил врагов: %d.,%s 熬过了这一夜，击败了 %d 个敌人。
 VICTORY_HINT,R / Enter – play again,R / Enter – hrať znova,R / Enter – hrát znovu,R / Enter – jugar de nuevo,R / Enter – играть снова,R / Enter – 再玩一次
 WEAPON_TIGER_CLAWS_NAME,Tiger Claws,Tigrie pazúry,Tygří drápy,Garras de tigre,Тигриные когти,虎爪
 WEAPON_TIGER_CLAWS_DESC,"Evolved Scratch: rips both sides at once, hard.","Evolúcia Škrabanca: trhá na obe strany naraz, poriadne.","Evoluce Škrábance: trhá na obě strany naráz, pořádně.","Arañazo evolucionado: desgarra a ambos lados a la vez, con fuerza.","Эволюция Царапки: рвёт сразу в обе стороны, и сильно.",抓挠的进化：同时猛抓两侧。
@@ -73,9 +73,9 @@ WEAPON_BONE_CAROUSEL_DESC,Evolved Fish Bones: six bones that never stop spinning
 EVOLVE_HINT,Evolves with %s + a boss chest.,S pasívkou %s a truhlicou z bossa sa vyvinie.,S pasivkou %s a truhlou z bosse se vyvine.,Evoluciona con %s + un cofre de jefe.,Эволюционирует с %s + сундук босса.,搭配 %s + Boss 宝箱即可进化。
 CARD_OWNED,You have it: Lv %d/%d,Už máš: Lv %d/%d,Už máš: Lv %d/%d,Lo tienes: Nv %d/%d,Есть: ур. %d/%d,已拥有：等级 %d/%d
 CARD_NOT_OWNED,You don't have it yet,Ešte nemáš,Ještě nemáš,Aún no lo tienes,Ещё нет,尚未拥有
-CARD_EVOLVES_HAVE,Evolves %s – you have it (Lv %d/%d),Vyvinie %s – máš (Lv %d/%d),Vyvine %s – máš (Lv %d/%d),Evoluciona %s – lo tienes (Nv %d/%d),Эволюционирует %s – есть (ур. %d/%d),可进化 %s – 已拥有（等级 %d/%d）
-CARD_EVOLVES_MISSING,Evolves %s – you don't have it,Vyvinie %s – nemáš,Vyvine %s – nemáš,Evoluciona %s – no lo tienes,Эволюционирует %s – нет,可进化 %s – 未拥有
-INV_EVOLVE_HAVE,Evolves at max level: you have %s,Evolúcia na max. leveli: %s už máš,Evoluce na max. levelu: %s už máš,Evoluciona al nivel máximo: tienes %s,Эволюция на макс. уровне: есть %s,满级时进化：已拥有 %s
+CARD_EVOLVES_HAVE,Evolves %s – you have it (Lv %d/%d),Vyvinie %s – máš (Lv %d/%d),Vyvine %s – máš (Lv %d/%d),Evoluciona %s – lo tienes (Nv %d/%d),Эволюционирует %s – есть (ур. %d/%d),可进化 %s – 已拥有（等级 %d/%d）
+CARD_EVOLVES_MISSING,Evolves %s – you don't have it,Vyvinie %s – nemáš,Vyvine %s – nemáš,Evoluciona %s – no lo tienes,Эволюционирует %s – нет,可进化 %s – 未拥有
+INV_EVOLVE_HAVE,Evolves at max level: you have %s,Evolúcia na max. leveli: %s už máš,Evoluce na max. levelu: %s už máš,Evoluciona al nivel máximo: tienes %s,Эволюция на макс. уровне: есть %s,满级时进化：已拥有 %s
 INV_EVOLVE_NEED,Evolves with the passive %s,Evolúcia s pasívkou %s,Evoluce s pasivkou %s,Evoluciona con la mejora %s,Эволюция с улучшением %s,需要强化 %s 才能进化
 EVOLVE_PAIR,Can evolve %s.,Umožní evolúciu: %s.,Umožní evoluci: %s.,Puede evolucionar %s.,Может эволюционировать %s.,可以进化 %s。
 WEAPON_LASER_NAME,Laser Pointer,Laserové ukazovátko,Laserové ukazovátko,Puntero láser,Лазерная указка,激光笔
@@ -101,11 +101,11 @@ CAT_PIP_NAME,Pip,Mrňa,Prcek,Pip,Пип,皮普
 CAT_TIGER_NAME,Tiger,Tiger,Tygr,Tigre,Тигр,老虎
 CAT_BARON_NAME,Baron,Barón,Baron,Barón,Барон,男爵
 CAT_MICA_DESC,A brave ginger tabby. Starts with Scratch.,Statočná ryšavá mačka. Začína so Škrabancom.,Statečná zrzavá kočka. Začíná se Škrábancem.,Una valiente gata atigrada naranja. Empieza con Arañazo.,Храбрая рыжая полосатая кошка. Начинает с Царапки.,勇敢的橘色虎斑猫，初始武器为抓挠。
-CAT_LUNA_DESC,A black cat of the night. Starts with Ball of Yarn; attacks 10% more often.,Čierna mačka noci. Začína s Klbkom; útočí o 10 % častejšie.,Černá kočka noci. Začíná s Klubkem; útočí o 10 % častěji.,Una gata negra de la noche. Empieza con Ovillo de lana; ataca un 10% más a menudo.,Чёрная кошка ночи. Начинает с Клубка пряжи; атакует на 10% чаще.,夜色中的黑猫，初始武器为毛线球；攻击频率 +10%。
-CAT_SNOWBALL_DESC,A fluffy white cloud. Starts with Fish Bones; +15% area.,Chlpatý biely obláčik. Začína s Rybími kosťami; +15 % plocha.,Chlupatý bílý obláček. Začíná s Rybími kostmi; +15 % plocha.,Una nube blanca y esponjosa. Empieza con Espinas de pescado; +15% de área.,Пушистое белое облачко. Начинает с Рыбьих косточек; +15% площади.,蓬松的白色云朵，初始武器为鱼骨；范围 +15%。
+CAT_LUNA_DESC,A black cat of the night. Starts with Ball of Yarn; attacks 10% more often.,Čierna mačka noci. Začína s Klbkom; útočí o 10 % častejšie.,Černá kočka noci. Začíná s Klubkem; útočí o 10 % častěji.,Una gata negra de la noche. Empieza con Ovillo de lana; ataca un 10% más a menudo.,Чёрная кошка ночи. Начинает с Клубка пряжи; атакует на 10% чаще.,夜色中的黑猫，初始武器为毛线球；攻击频率 +10%。
+CAT_SNOWBALL_DESC,A fluffy white cloud. Starts with Fish Bones; +15% area.,Chlpatý biely obláčik. Začína s Rybími kosťami; +15 % plocha.,Chlupatý bílý obláček. Začíná s Rybími kostmi; +15 % plocha.,Una nube blanca y esponjosa. Empieza con Espinas de pescado; +15% de área.,Пушистое белое облачко. Начинает с Рыбьих косточек; +15% площади.,蓬松的白色云朵，初始武器为鱼骨；范围 +15%。
 CAT_PIP_DESC,A tiny fast kitten. Starts with Feather Toy; faster and better magnet.,Malé rýchle mačiatko. Začína s Pierkom; rýchlejšie a s lepším magnetom.,Malé rychlé kotě. Začíná s Pírkem; rychlejší a s lepším magnetem.,Un gatito diminuto y rápido. Empieza con el Juguete de plumas; más rápido y con mejor imán.,Маленький шустрый котёнок. Начинает с Пёрышка; быстрее и с лучшим магнитом.,小巧敏捷的小猫，初始武器为羽毛玩具；速度更快，拾取范围更大。
 CAT_TIGER_DESC,The tough boss of the yard. Starts with Bell; +40 max health.,Tvrdý šéf dvora. Začína so Zvončekom; +40 zdravia.,Tvrdý šéf dvora. Začíná se Zvonečkem; +40 zdraví.,El duro jefe del patio. Empieza con Cascabel; +40 de salud máxima.,Суровый хозяин двора. Начинает с Колокольчика; +40 к макс. здоровью.,院子里的硬汉老大，初始武器为铃铛；最大生命 +40。
-CAT_BARON_DESC,A posh Siamese. Starts with Laser Pointer; +15% damage.,Nafúkaný siamský aristokrat. Začína s laserom; +15 % poškodenie.,Nafoukaný siamský aristokrat. Začíná s laserem; +15 % poškození.,Un siamés elegante. Empieza con Puntero láser; +15% de daño.,Изящный сиамец. Начинает с Лазерной указки; +15% урона.,高贵的暹罗猫，初始武器为激光笔；伤害 +15%。
+CAT_BARON_DESC,A posh Siamese. Starts with Laser Pointer; +15% damage.,Nafúkaný siamský aristokrat. Začína s laserom; +15 % poškodenie.,Nafoukaný siamský aristokrat. Začíná s laserem; +15 % poškození.,Un siamés elegante. Empieza con Puntero láser; +15% de daño.,Изящный сиамец. Начинает с Лазерной указки; +15% урона.,高贵的暹罗猫，初始武器为激光笔；伤害 +15%。
 CAT_LUNA_HINT,Rescue her from the box fort.,Zachráň ju z krabicovej pevnosti.,Zachraň ji z krabicové pevnosti.,Rescátala del fuerte de cajas.,Спаси её из крепости из коробок.,从纸箱堡垒中救出她。
 CAT_SNOWBALL_HINT,Rescue her from the laundry basket.,Zachráň ju z koša na prádlo.,Zachraň ji z koše na prádlo.,Rescátala del cesto de la ropa.,Спаси её из корзины для белья.,从洗衣篮中救出她。
 CAT_PIP_HINT,Rescue it from under the bed.,Zachráň ho spod postele.,Zachraň ho zpod postele.,Rescátalo de debajo de la cama.,Спаси его из-под кровати.,从床底下救出它。
@@ -117,7 +117,7 @@ QUEST_FAILED,Quest failed,Úloha zlyhala,Úkol se nezdařil,Misión fallida,За
 QUEST_JOINED,%s joined you!,%s sa k tebe pridáva!,%s se k tobě přidává!,¡%s se unió a ti!,%s присоединяется к тебе!,%s 加入了你！
 QUEST_UNLOCKED,New cat unlocked: %s,Nová mačka odomknutá: %s,Nová kočka odemčena: %s,Nuevo gato desbloqueado: %s,Новая кошка открыта: %s,解锁新猫咪：%s
 QUEST_RESCUE_TITLE,Rescue %s,Zachráň: %s,Zachraň: %s,Rescata a %s,Спаси: %s,营救 %s
-QUEST_RESCUE_FIND,Find %s (follow the arrow),Nájdi: %s (sleduj šípku),Najdi: %s (sleduj šipku),Encuentra a %s (sigue la flecha),Найди: %s (иди по стрелке),找到 %s（跟随箭头）
+QUEST_RESCUE_FIND,Find %s (follow the arrow),Nájdi: %s (sleduj šípku),Najdi: %s (sleduj šipku),Encuentra a %s (sigue la flecha),Найди: %s (иди по стрелке),找到 %s（跟随箭头）
 QUEST_RESCUE_GUARDS,Defeat the guards: %d left,Poraz strážcov: zostáva %d,Poraz strážce: zbývá %d,Derrota a los guardias: quedan %d,Победи стражей: осталось %d,击败守卫：剩余 %d
 QUEST_RESCUE_FREE,Stay close to free %s,Zostaň blízko a osloboď: %s,Zůstaň blízko a osvoboď: %s,Quédate cerca para liberar a %s,"Стой рядом, чтобы освободить: %s",靠近以解救 %s
 QUEST_DUEL_TITLE,Duel: %s,Súboj: %s,Souboj: %s,Duelo: %s,Дуэль: %s,决斗：%s
@@ -167,7 +167,7 @@ SHOP_GOLD,Gold: %d,Zlato: %d,Zlato: %d,Oro: %d,Золото: %d,金币：%d
 SHOP_MAX,MAX,MAX,MAX,MÁX,МАКС,满级
 SHOP_HINT,Arrows choose · Enter buy · Backspace refund all · U / Esc back,Šípky výber · Enter kúpiť · Backspace vrátiť všetko · U / Esc späť,Šipky výběr · Enter koupit · Backspace vrátit vše · U / Esc zpět,Flechas eligen · Enter comprar · Retroceso reembolsar todo · U / Esc volver,Стрелки – выбор · Enter – купить · Backspace – вернуть всё · U / Esc – назад,方向键选择 · Enter 购买 · Backspace 全部退款 · U / Esc 返回
 POWERUP_MIGHT_NAME,Might,Sila,Síla,Poder,Сила,力量
-POWERUP_MIGHT_DESC,+5% damage per rank.,+5 % poškodenie za stupeň.,+5 % poškození za stupeň.,+5% de daño por rango.,+5% урона за ранг.,每级伤害 +5%。
+POWERUP_MIGHT_DESC,+5% damage per rank.,+5 % poškodenie za stupeň.,+5 % poškození za stupeň.,+5% de daño por rango.,+5% урона за ранг.,每级伤害 +5%。
 POWERUP_ARMOR_NAME,Armor,Brnenie,Brnění,Armadura,Броня,护甲
 POWERUP_ARMOR_DESC,Every hit hurts 1 less per rank.,Každý zásah zraní o 1 menej za stupeň.,Každý zásah zraní o 1 méně za stupeň.,Cada golpe duele 1 menos por rango.,Каждый удар наносит на 1 меньше за ранг.,每级每次受到的伤害 -1。
 POWERUP_MAX_HEALTH_NAME,Max Health,Zdravie,Zdraví,Salud máxima,Макс. здоровье,最大生命
@@ -175,23 +175,23 @@ POWERUP_MAX_HEALTH_DESC,+10 max health per rank.,+10 maximálne zdravie za stupe
 POWERUP_RECOVERY_NAME,Recovery,Regenerácia,Regenerace,Recuperación,Восстановление,恢复
 POWERUP_RECOVERY_DESC,Recover 0.1 HP per second per rank.,"Obnova 0,1 HP za sekundu za stupeň.","Obnova 0,1 HP za sekundu za stupeň.","Recupera 0,1 de salud por segundo por rango.","+0,1 здоровья в секунду за ранг.",每级每秒恢复 0.1 点生命。
 POWERUP_COOLDOWN_NAME,Cooldown,Cooldown,Cooldown,Recarga,Перезарядка,冷却
-POWERUP_COOLDOWN_DESC,Weapons attack 2.5% faster per rank.,"Zbrane útočia o 2,5 % rýchlejšie za stupeň.","Zbraně útočí o 2,5 % rychleji za stupeň.","Las armas atacan un 2,5% más rápido por rango.","Оружие атакует на 2,5% быстрее за ранг.",每级武器攻击速度 +2.5%。
+POWERUP_COOLDOWN_DESC,Weapons attack 2.5% faster per rank.,"Zbrane útočia o 2,5 % rýchlejšie za stupeň.","Zbraně útočí o 2,5 % rychleji za stupeň.","Las armas atacan un 2,5% más rápido por rango.","Оружие атакует на 2,5% быстрее за ранг.",每级武器攻击速度 +2.5%。
 POWERUP_AREA_NAME,Area,Plocha,Plocha,Área,Площадь,范围
-POWERUP_AREA_DESC,+5% attack area per rank.,+5 % plocha útokov za stupeň.,+5 % plocha útoků za stupeň.,+5% de área de ataque por rango.,+5% площади атаки за ранг.,每级攻击范围 +5%。
+POWERUP_AREA_DESC,+5% attack area per rank.,+5 % plocha útokov za stupeň.,+5 % plocha útoků za stupeň.,+5% de área de ataque por rango.,+5% площади атаки за ранг.,每级攻击范围 +5%。
 POWERUP_MOVE_SPEED_NAME,Move Speed,Rýchlosť,Rychlost,Velocidad,Скорость,移动速度
-POWERUP_MOVE_SPEED_DESC,+5% movement speed per rank.,+5 % rýchlosť pohybu za stupeň.,+5 % rychlost pohybu za stupeň.,+5% de velocidad de movimiento por rango.,+5% скорости передвижения за ранг.,每级移动速度 +5%。
+POWERUP_MOVE_SPEED_DESC,+5% movement speed per rank.,+5 % rýchlosť pohybu za stupeň.,+5 % rychlost pohybu za stupeň.,+5% de velocidad de movimiento por rango.,+5% скорости передвижения за ранг.,每级移动速度 +5%。
 POWERUP_MAGNET_NAME,Magnet,Magnet,Magnet,Imán,Магнит,磁铁
 POWERUP_MAGNET_DESC,Pick up kibble from further away.,Granule priťahuješ z väčšej diaľky.,Granule přitahuješ z větší dálky.,Recoge pienso desde más lejos.,Подбирает корм с большего расстояния.,从更远处拾取猫粮。
 POWERUP_GROWTH_NAME,Growth,Rast,Růst,Crecimiento,Рост,成长
-POWERUP_GROWTH_DESC,+3% experience per rank.,+3 % skúseností za stupeň.,+3 % zkušeností za stupeň.,+3% de experiencia por rango.,+3% опыта за ранг.,每级经验 +3%。
+POWERUP_GROWTH_DESC,+3% experience per rank.,+3 % skúseností za stupeň.,+3 % zkušeností za stupeň.,+3% de experiencia por rango.,+3% опыта за ранг.,每级经验 +3%。
 POWERUP_GREED_NAME,Greed,Chamtivosť,Chamtivost,Codicia,Жадность,贪婪
-POWERUP_GREED_DESC,+10% gold per rank.,+10 % zlata za stupeň.,+10 % zlata za stupeň.,+10% de oro por rango.,+10% золота за ранг.,每级金币 +10%。
+POWERUP_GREED_DESC,+10% gold per rank.,+10 % zlata za stupeň.,+10 % zlata za stupeň.,+10% de oro por rango.,+10% золота за ранг.,每级金币 +10%。
 POWERUP_REVIVAL_NAME,Revival,Oživenie,Oživení,Resurrección,Воскрешение,复活
 POWERUP_REVIVAL_DESC,Come back once with half health after dying.,Po smrti sa raz vrátiš s polovicou zdravia.,Po smrti se jednou vrátíš s polovinou zdraví.,Vuelve una vez con la mitad de salud tras morir.,После смерти один раз вернёшься с половиной здоровья.,死亡后以一半生命复活一次。
 POWERUP_REROLL_NAME,Reroll,Prehodenie,Přehození,Relanzar,Переброс,刷新
 POWERUP_REROLL_DESC,Press R on the level-up screen to get new offers (once per rank each run).,Na level-up obrazovke stlač R a dostaneš nové ponuky (raz za stupeň v každej hre).,Na obrazovce level-upu stiskni R a dostaneš nové nabídky (jednou za stupeň v každé hře).,Pulsa R en la pantalla de nivel para obtener nuevas ofertas (una vez por rango en cada partida).,"Нажми R на экране уровня, чтобы получить новые варианты (раз за ранг в каждом забеге).",在升级界面按 R 获取新的选项（每局每级一次）。
 POWERUP_CURSE_NAME,Curse,Kliatba,Kletba,Maldición,Проклятие,诅咒
-POWERUP_CURSE_DESC,"Harder runs: enemies are 10% tougher, faster and more numerous per rank, but you get 10% more gold.","Ťažšia hra: nepriatelia sú o 10 % silnejší, rýchlejší a početnejší za stupeň, ale dostaneš o 10 % viac zlata.","Těžší hra: nepřátelé jsou o 10 % silnější, rychlejší a početnější za stupeň, ale dostaneš o 10 % víc zlata.","Partidas más duras: por rango los enemigos son un 10% más resistentes, rápidos y numerosos, pero ganas un 10% más de oro.","Забеги сложнее: за ранг враги на 10% крепче, быстрее и многочисленнее, но золота на 10% больше.",更难的对局：每级敌人更强、更快、更多 10%，但金币也多 10%。
+POWERUP_CURSE_DESC,"Harder runs: enemies are 10% tougher, faster and more numerous per rank, but you get 10% more gold.","Ťažšia hra: nepriatelia sú o 10 % silnejší, rýchlejší a početnejší za stupeň, ale dostaneš o 10 % viac zlata.","Těžší hra: nepřátelé jsou o 10 % silnější, rychlejší a početnější za stupeň, ale dostaneš o 10 % víc zlata.","Partidas más duras: por rango los enemigos son un 10% más resistentes, rápidos y numerosos, pero ganas un 10% más de oro.","Забеги сложнее: за ранг враги на 10% крепче, быстрее и многочисленнее, но золота на 10% больше.",更难的对局：每级敌人更强、更快、更多 10%，但金币也多 10%。
 LEVELUP_REROLL,R – reroll (%d left),R – prehodiť ponuku (zostáva %d),R – přehodit nabídku (zbývá %d),R – relanzar (quedan %d),R – переброс (осталось %d),R – 刷新（剩余 %d）
 REVIVED,Revived!,Oživenie!,Oživení!,¡Resucitado!,Воскрешение!,复活了！
 EVENT_RING,Surrounded!,Obkľúčenie!,Obklíčení!,¡Rodeado!,Окружение!,被包围了！
@@ -204,13 +204,13 @@ EXTRACT_ASK,The run ends here and you keep your gold. The next map unlocks only 
 EXTRACT_YES,"Yes, slip out","Áno, odísť","Ano, odejít","Sí, escabullirse","Да, улизнуть",是，溜走
 EXTRACT_NO,Stay and fight,Zostať a bojovať,Zůstat a bojovat,Quedarse a luchar,Остаться и сражаться,留下战斗
 EXTRACT_TITLE,You slipped out!,Mačka ušla!,Kočka utekla!,¡Te escabulliste!,Ты улизнул!,你溜走了！
-EXTRACT_STATS,You escaped after %s with %d enemies defeated.,"Útek po %s, porazených nepriateľov: %d.","Útěk po %s, poražených nepřátel: %d.",Escapaste tras %s con %d enemigos derrotados.,"Ты сбежал через %s, победив врагов: %d.",你在 %s 后逃脱，击败了 %d 个敌人。
-SUMMARY_GOLD,+%d gold (streak bonus +%d %%),+%d zlata (bonus série +%d %%),+%d zlata (bonus série +%d %%),+%d de oro (bono de racha +%d %%),+%d золота (бонус серии +%d %%),+%d 金币（连胜加成 +%d %%）
+EXTRACT_STATS,You escaped after %s with %d enemies defeated.,"Útek po %s, porazených nepriateľov: %d.","Útěk po %s, poražených nepřátel: %d.",Escapaste tras %s con %d enemigos derrotados.,"Ты сбежал через %s, победив врагов: %d.",你在 %s 后逃脱，击败了 %d 个敌人。
+SUMMARY_GOLD,+%d gold (streak bonus +%d %%),+%d zlata (bonus série +%d %%),+%d zlata (bonus série +%d %%),+%d de oro (bono de racha +%d %%),+%d золота (бонус серии +%d %%),+%d 金币（连胜加成 +%d %%）
 SUMMARY_GOLD_DEATH,+%d gold (half of %d – the rest is lost),+%d zlata (polovica z %d – zvyšok prepadol),+%d zlata (polovina z %d – zbytek propadl),+%d de oro (la mitad de %d – el resto se pierde),+%d золота (половина от %d – остальное потеряно),+%d 金币（%d 的一半，其余丢失）
-SUMMARY_STREAK,Streak: %d (best %d),Séria: %d (rekord %d),Série: %d (rekord %d),Racha: %d (mejor %d),Серия: %d (лучшая %d),连胜：%d（最佳 %d）
+SUMMARY_STREAK,Streak: %d (best %d),Séria: %d (rekord %d),Série: %d (rekord %d),Racha: %d (mejor %d),Серия: %d (лучшая %d),连胜：%d（最佳 %d）
 SUMMARY_STREAK_LOST,Streak of %d lost!,Séria %d je preč!,Série %d je pryč!,¡Racha de %d perdida!,Серия из %d прервана!,%d 连胜中断了！
 SUMMARY_TOTAL,Total gold: %d,Spolu zlata: %d,Celkem zlata: %d,Oro total: %d,Всего золота: %d,金币总计：%d
-SELECT_STREAK,Streak %d (best %d) +%d %% gold,Séria %d (rekord %d) +%d %% zlata,Série %d (rekord %d) +%d %% zlata,Racha %d (mejor %d) +%d %% de oro,Серия %d (лучшая %d) +%d %% золота,连胜 %d（最佳 %d）金币 +%d %%
+SELECT_STREAK,Streak %d (best %d) +%d %% gold,Séria %d (rekord %d) +%d %% zlata,Série %d (rekord %d) +%d %% zlata,Racha %d (mejor %d) +%d %% de oro,Серия %d (лучшая %d) +%d %% золота,连胜 %d（最佳 %d）金币 +%d %%
 HUD_CHARMS,Charms: %d (escape to keep),Prívesky: %d (uteč a ponecháš si ich),Přívěsky: %d (uteč a necháš si je),Amuletos: %d (escapa para quedártelos),"Амулеты: %d (сбеги, чтобы сохранить)",护符：%d（逃脱才能保留）
 CHARM_FOUND,Charm found: %s! Escape or win to keep it,Nájdený prívesok: %s! Uteč alebo vyhraj a ponecháš si ho,Nalezen přívěsek: %s! Uteč nebo vyhraj a necháš si ho,¡Amuleto encontrado: %s! Escapa o gana para quedártelo,"Найден амулет: %s! Сбеги или победи, чтобы сохранить его",找到护符：%s！逃脱或获胜才能保留
 SUMMARY_CHARMS_LOST,Charms lost: %s,Stratené prívesky: %s,Ztracené přívěsky: %s,Amuletos perdidos: %s,Потеряны амулеты: %s,丢失的护符：%s
@@ -225,15 +225,15 @@ RARITY_COMMON,Common,Bežný,Běžný,Común,Обычный,普通
 RARITY_RARE,Rare,Vzácny,Vzácný,Raro,Редкий,稀有
 RARITY_EPIC,Epic,Epický,Epický,Épico,Эпический,史诗
 CHARM_FISH_BONE_NAME,Fish Bone,Rybacia kosť,Rybí kost,Espina de pescado,Рыбья косточка,鱼骨
-CHARM_FISH_BONE_DESC,+10% damage,+10 % poškodenie,+10 % poškození,+10% de daño,+10% урона,伤害 +10%
+CHARM_FISH_BONE_DESC,+10% damage,+10 % poškodenie,+10 % poškození,+10% de daño,+10% урона,伤害 +10%
 CHARM_MOUSE_TAIL_NAME,Mouse Tail,Myší chvost,Myší ocásek,Cola de ratón,Мышиный хвостик,鼠尾巴
-CHARM_MOUSE_TAIL_DESC,+8% movement speed,+8 % rýchlosť pohybu,+8 % rychlost pohybu,+8% de velocidad de movimiento,+8% скорости передвижения,移动速度 +8%
+CHARM_MOUSE_TAIL_DESC,+8% movement speed,+8 % rýchlosť pohybu,+8 % rychlost pohybu,+8% de velocidad de movimiento,+8% скорости передвижения,移动速度 +8%
 CHARM_MILK_TOOTH_NAME,Milk Tooth,Mliečny zúbok,Mléčný zoubek,Diente de leche,Молочный зуб,乳牙
 CHARM_MILK_TOOTH_DESC,+20 max health,+20 maximálne zdravie,+20 maximální zdraví,+20 de salud máxima,+20 к макс. здоровью,最大生命 +20
 CHARM_YARN_KNOT_NAME,Yarn Knot,Uzlík vlny,Uzlík vlny,Nudo de lana,Узелок пряжи,毛线结
-CHARM_YARN_KNOT_DESC,+10% attack area,+10 % plocha útokov,+10 % plocha útoků,+10% de área de ataque,+10% площади атаки,攻击范围 +10%
+CHARM_YARN_KNOT_DESC,+10% attack area,+10 % plocha útokov,+10 % plocha útoků,+10% de área de ataque,+10% площади атаки,攻击范围 +10%
 CHARM_GOLD_WHISKER_NAME,Golden Whisker,Zlatý fúz,Zlatý vousek,Bigote dorado,Золотой ус,金胡须
-CHARM_GOLD_WHISKER_DESC,+15% gold,+15 % zlata,+15 % zlata,+15% de oro,+15% золота,金币 +15%
+CHARM_GOLD_WHISKER_DESC,+15% gold,+15 % zlata,+15 % zlata,+15% de oro,+15% золота,金币 +15%
 CHARM_SARDINE_TIN_NAME,Sardine Tin,Plechovka sardiniek,Plechovka sardinek,Lata de sardinas,Банка сардин,沙丁鱼罐头
 CHARM_SARDINE_TIN_DESC,Recover 0.3 HP per second,"Obnova 0,3 HP za sekundu","Obnova 0,3 HP za sekundu","Recupera 0,3 de salud por segundo","Восстанавливает 0,3 здоровья в секунду",每秒恢复 0.3 点生命
 CHARM_MAGNET_PAW_NAME,Magnet Paw,Magnetická labka,Magnetická tlapka,Pata imán,Лапка-магнит,磁铁爪
@@ -241,9 +241,9 @@ CHARM_MAGNET_PAW_DESC,Pick up kibble from further away,Granule priťahuješ z v�
 CHARM_LUCKY_BELL_NAME,Lucky Bell,Zvonček šťastia,Zvoneček štěstí,Cascabel de la suerte,Счастливый колокольчик,幸运铃铛
 CHARM_LUCKY_BELL_DESC,+1 reroll on level-ups,+1 prehodenie ponuky v level-upe,+1 přehození nabídky v level-upu,+1 relanzamiento al subir de nivel,+1 переброс при повышении уровня,升级时 +1 次刷新
 CHARM_CATNIP_LEAF_NAME,Catnip Leaf,Lístok šanty,Lístek šanty,Hoja de hierba gatera,Лист кошачьей мяты,猫薄荷叶
-CHARM_CATNIP_LEAF_DESC,Weapons attack 6% faster,Zbrane útočia o 6 % rýchlejšie,Zbraně útočí o 6 % rychleji,Las armas atacan un 6% más rápido,Оружие атакует на 6% быстрее,武器攻击速度 +6%
+CHARM_CATNIP_LEAF_DESC,Weapons attack 6% faster,Zbrane útočia o 6 % rýchlejšie,Zbraně útočí o 6 % rychleji,Las armas atacan un 6% más rápido,Оружие атакует на 6% быстрее,武器攻击速度 +6%
 CHARM_STAR_COLLAR_NAME,Star Collar,Hviezdny obojok,Hvězdný obojek,Collar de estrellas,Звёздный ошейник,星星项圈
-CHARM_STAR_COLLAR_DESC,+8% experience,+8 % skúseností,+8 % zkušeností,+8% de experiencia,+8% опыта,经验 +8%
+CHARM_STAR_COLLAR_DESC,+8% experience,+8 % skúseností,+8 % zkušeností,+8% de experiencia,+8% опыта,经验 +8%
 CHARM_IRON_TAG_NAME,Iron Tag,Železná známka,Železná známka,Placa de hierro,Железный жетон,铁牌
 CHARM_IRON_TAG_DESC,Every hit hurts 1 less,Každý zásah zraní o 1 menej,Každý zásah zraní o 1 méně,Cada golpe duele 1 menos,Каждый удар наносит на 1 меньше,每次受到的伤害 -1
 CHARM_NINTH_LIFE_NAME,Ninth Life,Deviaty život,Devátý život,Novena vida,Девятая жизнь,第九条命
@@ -292,9 +292,9 @@ GOAL_TEN_THOUSAND_DESC,Defeat 10000 enemies,Poraz 10000 nepriateľov,Poraz 10000
 PAUSE_NUMBERS,N – damage numbers: %s,N – čísla poškodenia: %s,N – čísla poškození: %s,N – números de daño: %s,N – числа урона: %s,N – 伤害数字：%s
 PAUSE_SHAKE,K – screen shake: %s,K – otrasy obrazovky: %s,K – otřesy obrazovky: %s,K – temblor de pantalla: %s,K – тряска экрана: %s,K – 屏幕震动：%s
 PASSIVE_LUCK_NAME,Lucky Cat,Mačka šťastia,Kočka štěstí,Gato de la suerte,Счастливая кошка,招财猫
-PASSIVE_LUCK_DESC,"+10% luck: more crits, bigger chests, more drops, sometimes a 4th card.","+10 % šťastie: viac kritických zásahov, väčšie truhlice, viac predmetov, občas 4. karta.","+10 % štěstí: víc kritických zásahů, větší truhly, víc předmětů, občas 4. karta.","+10% de suerte: más críticos, cofres mejores, más botín y a veces una 4.ª carta.","+10% удачи: больше критов, богаче сундуки, больше добычи, иногда 4-я карта.",幸运 +10%：更多暴击、更大的宝箱、更多掉落，有时出现第 4 张卡。
+PASSIVE_LUCK_DESC,"+10% luck: more crits, bigger chests, more drops, sometimes a 4th card.","+10 % šťastie: viac kritických zásahov, väčšie truhlice, viac predmetov, občas 4. karta.","+10 % štěstí: víc kritických zásahů, větší truhly, víc předmětů, občas 4. karta.","+10% de suerte: más críticos, cofres mejores, más botín y a veces una 4.ª carta.","+10% удачи: больше критов, богаче сундуки, больше добычи, иногда 4-я карта.",幸运 +10%：更多暴击、更大的宝箱、更多掉落，有时出现第 4 张卡。
 POWERUP_LUCK_NAME,Luck,Šťastie,Štěstí,Suerte,Удача,幸运
-POWERUP_LUCK_DESC,"+10% luck per rank: crits, chests, drops and a chance of a 4th level-up card.","+10 % šťastie za stupeň: kritické zásahy, truhlice, predmety a šanca na 4. kartu.","+10 % štěstí za stupeň: kritické zásahy, truhly, předměty a šance na 4. kartu.","+10% de suerte por rango: críticos, cofres, botín y opción a una 4.ª carta al subir de nivel.","+10% удачи за ранг: криты, сундуки, добыча и шанс на 4-ю карту при повышении уровня.",每级幸运 +10%：暴击、宝箱、掉落，以及升级时出现第 4 张卡的机会。
+POWERUP_LUCK_DESC,"+10% luck per rank: crits, chests, drops and a chance of a 4th level-up card.","+10 % šťastie za stupeň: kritické zásahy, truhlice, predmety a šanca na 4. kartu.","+10 % štěstí za stupeň: kritické zásahy, truhly, předměty a šance na 4. kartu.","+10% de suerte por rango: críticos, cofres, botín y opción a una 4.ª carta al subir de nivel.","+10% удачи за ранг: криты, сундуки, добыча и шанс на 4-ю карту при повышении уровня.",每级幸运 +10%：暴击、宝箱、掉落，以及升级时出现第 4 张卡的机会。
 MENU_TAGLINE,One cat. One night. Way too many socks.,Jedna mačka. Jedna noc. Priveľa ponožiek.,Jedna kočka. Jedna noc. Příliš mnoho ponožek.,Un gato. Una noche. Demasiados calcetines.,Одна кошка. Одна ночь. Слишком много носков.,一只猫，一个夜晚，多到离谱的袜子。
 MENU_PLAY,Play,Hrať,Hrát,Jugar,Играть,开始游戏
 MENU_UPGRADES,Upgrades,Vylepšenia,Vylepšení,Mejoras,Улучшения,升级
@@ -333,10 +333,10 @@ GOAL_BRUNO_DESC,Defeat Bruno on the rooftop,Poraz Bruna na streche,Poraz Bruna n
 STAGE_ROOFTOP_HINT,Clear the Garden,Prejdi Záhradu,Projdi Zahradu,Supera el jardín,Пройди Сад,通关花园
 STORY_ROOFTOP_INTRO,The whole city below. They say a huge tomcat rules these roofs...,Celé mesto pod labkami. Vraj tieto strechy ovláda obrovský kocúr...,Celé město pod tlapkami. Prý tyhle střechy ovládá obrovský kocour...,Toda la ciudad a tus pies. Dicen que un gato enorme gobierna estos tejados...,"Весь город внизу. Говорят, этими крышами правит огромный кот...",整座城市尽收眼底。据说有一只巨大的公猫统治着这些屋顶……
 CAT_CLOVER_NAME,Clover,Ďatelinka,Jetelinka,Trébol,Клевер,四叶草
-CAT_CLOVER_DESC,A lucky tuxedo cat from the garden. Starts with Catnip; +20% luck.,Šťastná mačka vo fraku zo záhrady. Začína so Šantou; +20 % šťastie.,Šťastná kočka ve fraku ze zahrady. Začíná se Šantou; +20 % štěstí.,Una gata esmoquin con suerte del jardín. Empieza con Hierba gatera; +20% de suerte.,Счастливая кошка-«смокинг» из сада. Начинает с Кошачьей мяты; +20% удачи.,来自花园的幸运燕尾服猫，初始武器为猫薄荷；幸运 +20%。
+CAT_CLOVER_DESC,A lucky tuxedo cat from the garden. Starts with Catnip; +20% luck.,Šťastná mačka vo fraku zo záhrady. Začína so Šantou; +20 % šťastie.,Šťastná kočka ve fraku ze zahrady. Začíná se Šantou; +20 % štěstí.,Una gata esmoquin con suerte del jardín. Empieza con Hierba gatera; +20% de suerte.,Счастливая кошка-«смокинг» из сада. Начинает с Кошачьей мяты; +20% удачи.,来自花园的幸运燕尾服猫，初始武器为猫薄荷；幸运 +20%。
 CAT_CLOVER_HINT,Rescue her from the garden shed.,Zachráň ju zo záhradnej búdy.,Zachraň ji ze zahradní kůlny.,Rescátala del cobertizo del jardín.,Спаси её из садового сарая.,从花园小屋中救出她。
 CAT_BRUNO_NAME,Bruno,Bruno,Bruno,Bruno,Бруно,布鲁诺
-CAT_BRUNO_DESC,"The huge tomcat who ruled the rooftops. Starts with Hairball; +20% damage, +20 health.","Obrovský kocúr, pán striech. Začína s Chlpáčom; +20 % poškodenie, +20 zdravia.","Obrovský kocour, pán střech. Začíná s Chlupáčem; +20 % poškození, +20 zdraví.","El enorme gato que gobernaba los tejados. Empieza con Bola de pelo; +20% de daño, +20 de salud.","Огромный кот, правивший крышами. Начинает с Комка шерсти; +20% урона, +20 здоровья.",曾统治屋顶的巨大公猫，初始武器为毛球；伤害 +20%，生命 +20。
+CAT_BRUNO_DESC,"The huge tomcat who ruled the rooftops. Starts with Hairball; +20% damage, +20 health.","Obrovský kocúr, pán striech. Začína s Chlpáčom; +20 % poškodenie, +20 zdravia.","Obrovský kocour, pán střech. Začíná s Chlupáčem; +20 % poškození, +20 zdraví.","El enorme gato que gobernaba los tejados. Empieza con Bola de pelo; +20% de daño, +20 de salud.","Огромный кот, правивший крышами. Начинает с Комка шерсти; +20% урона, +20 здоровья.",曾统治屋顶的巨大公猫，初始武器为毛球；伤害 +20%，生命 +20。
 CAT_BRUNO_HINT,Defeat him on the rooftop.,Poraz ho na streche.,Poraz ho na střeše.,Derrótalo en la azotea.,Победи его на крыше.,在屋顶击败他。
 CAT_ANGEL_NAME,Angel Cat,Anjel mačka,Andělská kočka,Gato ángel,Кошка-ангел,天使猫
 CAT_DEVIL_NAME,Devil Cat,Diabol mačka,Ďábelská kočka,Gato diablo,Кот-дьявол,恶魔猫
@@ -366,20 +366,20 @@ WEAPON_ANTENNA_DESC,A spark that jumps from enemy to enemy.,"Iskra, ktorá presk
 WEAPON_STORM_ANTENNA_NAME,Storm Antenna,Búrková anténa,Bouřková anténa,Antena de tormenta,Грозовая антенна,风暴天线
 WEAPON_STORM_ANTENNA_DESC,Evolved Antenna: forked lightning that also shocks around every hit.,"Evolúcia antény: rozvetvený blesk, ktorý zasiahne aj okolie.","Evoluce antény: rozvětvený blesk, který zasáhne i okolí.",Antena evolucionada: rayos bifurcados que además electrocutan alrededor de cada impacto.,"Эволюция Антенны: ветвистые молнии, бьющие током вокруг каждого попадания.",天线的进化：分叉闪电，还会电击每次命中点周围。
 PASSIVE_DURATION_NAME,Long Nap,Dlhý spánok,Dlouhý spánek,Siesta larga,Долгий сон,长长的午觉
-PASSIVE_DURATION_DESC,+10% duration of weapon effects.,+10 % trvanie efektov zbraní.,+10 % trvání efektů zbraní.,+10% de duración de los efectos de las armas.,+10% длительности эффектов оружия.,武器效果持续时间 +10%。
+PASSIVE_DURATION_DESC,+10% duration of weapon effects.,+10 % trvanie efektov zbraní.,+10 % trvání efektů zbraní.,+10% de duración de los efectos de las armas.,+10% длительности эффектов оружия.,武器效果持续时间 +10%。
 PASSIVE_PROJ_SPEED_NAME,Quick Toss,Rýchly hod,Rychlý hod,Lanzamiento rápido,Быстрый бросок,快速投掷
-PASSIVE_PROJ_SPEED_DESC,+10% projectile speed.,+10 % rýchlosť projektilov.,+10 % rychlost projektilů.,+10% de velocidad de los proyectiles.,+10% скорости снарядов.,投射物速度 +10%。
+PASSIVE_PROJ_SPEED_DESC,+10% projectile speed.,+10 % rýchlosť projektilov.,+10 % rychlost projektilů.,+10% de velocidad de los proyectiles.,+10% скорости снарядов.,投射物速度 +10%。
 SUMMARY_WEAPON_UNLOCKED,New weapon unlocked: %s,Nová zbraň odomknutá: %s,Nová zbraň odemčena: %s,Nueva arma desbloqueada: %s,Новое оружие открыто: %s,解锁新武器：%s
 CHARM_CLOVER_LEAF_NAME,Four-leaf Clover,Štvorlístok,Čtyřlístek,Trébol de cuatro hojas,Четырёхлистный клевер,四叶草
-CHARM_CLOVER_LEAF_DESC,+12% luck,+12 % šťastie,+12 % štěstí,+12% de suerte,+12% удачи,幸运 +12%
+CHARM_CLOVER_LEAF_DESC,+12% luck,+12 % šťastie,+12 % štěstí,+12% de suerte,+12% удачи,幸运 +12%
 CHARM_SPIDER_SILK_NAME,Spider Silk,Pavúčie vlákno,Pavoučí vlákno,Seda de araña,Паучий шёлк,蛛丝
-CHARM_SPIDER_SILK_DESC,+12% duration of weapon effects,+12 % trvanie efektov zbraní,+12 % trvání efektů zbraní,+12% de duración de los efectos de las armas,+12% длительности эффектов оружия,武器效果持续时间 +12%
+CHARM_SPIDER_SILK_DESC,+12% duration of weapon effects,+12 % trvanie efektov zbraní,+12 % trvání efektů zbraní,+12% de duración de los efectos de las armas,+12% длительности эффектов оружия,武器效果持续时间 +12%
 CHARM_WIND_FEATHER_NAME,Wind Feather,Pierko vetra,Pírko větru,Pluma del viento,Перо ветра,风之羽
-CHARM_WIND_FEATHER_DESC,+15% projectile speed,+15 % rýchlosť projektilov,+15 % rychlost projektilů,+15% de velocidad de los proyectiles,+15% скорости снарядов,投射物速度 +15%
+CHARM_WIND_FEATHER_DESC,+15% projectile speed,+15 % rýchlosť projektilov,+15 % rychlost projektilů,+15% de velocidad de los proyectiles,+15% скорости снарядов,投射物速度 +15%
 CHARM_CRESCENT_MOON_NAME,Crescent Moon,Polmesiac,Půlměsíc,Luna creciente,Полумесяц,新月
-CHARM_CRESCENT_MOON_DESC,+5% critical hit chance,+5 % šanca na kritický zásah,+5 % šance na kritický zásah,+5% de probabilidad de golpe crítico,+5% шанса критического удара,暴击率 +5%
+CHARM_CRESCENT_MOON_DESC,+5% critical hit chance,+5 % šanca na kritický zásah,+5 % šance na kritický zásah,+5% de probabilidad de golpe crítico,+5% шанса критического удара,暴击率 +5%
 CHARM_GOLDEN_FANG_NAME,Golden Fang,Zlatý tesák,Zlatý tesák,Colmillo dorado,Золотой клык,金獠牙
-CHARM_GOLDEN_FANG_DESC,Critical hits deal +30% more,Kritické zásahy o 30 % silnejšie,Kritické zásahy o 30 % silnější,Los golpes críticos hacen un 30% más,Критические удары сильнее на 30%,暴击伤害 +30%
+CHARM_GOLDEN_FANG_DESC,Critical hits deal +30% more,Kritické zásahy o 30 % silnejšie,Kritické zásahy o 30 % silnější,Los golpes críticos hacen un 30% más,Критические удары сильнее на 30%,暴击伤害 +30%
 GOAL_GNOME_TOPPLER_NAME,Gnome Toppler,Kolkár,Kuželkář,Derribagnomos,Гроза гномов,推倒地精
 GOAL_GNOME_TOPPLER_DESC,Defeat 300 garden gnomes,Poraz 300 záhradných trpaslíkov,Poraz 300 zahradních trpaslíků,Derrota 300 gnomos de jardín,Победи 300 садовых гномов,击败 300 个花园地精
 GOAL_WEB_WEAVER_NAME,Web Weaver,Tkáč sietí,Tkadlec sítí,Tejedor de telarañas,Ткач паутины,织网者
@@ -409,7 +409,7 @@ SUMMARY_PAGE_KEPT,Diary page brought home,Stránka denníka je doma,Stránka den
 SUMMARY_PAGE_LOST,The diary page was lost,Stránka denníka sa stratila,Stránka deníku se ztratila,La página de diario se perdió,Страница дневника потеряна,日记页丢失了
 CAT_ANGEL_DESC,The white cat from the diary. Starts with Spilled Milk; heals 1 health per second.,Biela mačka z denníka. Začína s Rozliatym mliekom; lieči 1 zdravie za sekundu.,Bílá kočka z deníku. Začíná s Rozlitým mlékem; léčí 1 zdraví za sekundu.,La gata blanca del diario. Empieza con Leche derramada; cura 1 de salud por segundo.,Белая кошка из дневника. Начинает с Пролитого молока; лечит 1 здоровье в секунду.,日记中的白猫，初始武器为洒出的牛奶；每秒恢复 1 点生命。
 CAT_ANGEL_HINT,Read the old diary to the end.,Dočítaj starý denník.,Dočti starý deník.,Lee el viejo diario hasta el final.,Дочитай старый дневник до конца.,把旧日记读到最后。
-CAT_DEVIL_DESC,It came for you twice. Starts with Laser Pointer; +50% damage.,Prišla si po teba dvakrát. Začína s laserom; +50 % poškodenie.,Přišla si pro tebe dvakrát. Začíná s laserem; +50 % poškození.,Vino a por ti dos veces. Empieza con Puntero láser; +50% de daño.,Он приходил за тобой дважды. Начинает с Лазерной указки; +50% урона.,它曾两次来找你，初始武器为激光笔；伤害 +50%。
+CAT_DEVIL_DESC,It came for you twice. Starts with Laser Pointer; +50% damage.,Prišla si po teba dvakrát. Začína s laserom; +50 % poškodenie.,Přišla si pro tebe dvakrát. Začíná s laserem; +50 % poškození.,Vino a por ti dos veces. Empieza con Puntero láser; +50% de daño.,Он приходил за тобой дважды. Начинает с Лазерной указки; +50% урона.,它曾两次来找你，初始武器为激光笔；伤害 +50%。
 CAT_DEVIL_HINT,Make a bargain with the devil.,Uzavri zmluvu s diablom.,Uzavři smlouvu s ďáblem.,Haz un trato con el diablo.,Заключи сделку с дьяволом.,与恶魔做个交易。
 QB_NIGHT_WATCH_NAME,Night Watch,Nočná hliadka,Noční hlídka,Guardia nocturna,Ночной дозор,守夜
 QB_NIGHT_WATCH_1,Survive 5 minutes in one night.,Prežiť 5 minút v jednej noci.,Přežít 5 minut v jedné noci.,Sobrevive 5 minutos en una noche.,Продержись 5 минут за одну ночь.,一夜之中坚持 5 分钟。
@@ -443,7 +443,7 @@ QB_ALCHEMIST_2,Evolve 4 different weapons.,Vyvinúť 4 rôzne zbrane.,Vyvinout 4
 QB_ALCHEMIST_3,Evolve 8 different weapons.,Vyvinúť 8 rôznych zbraní.,Vyvinout 8 různých zbraní.,Evoluciona 8 armas distintas.,Эволюционируй 8 разных оружий.,进化 8 种不同的武器。
 QB_ALCHEMIST_4,Evolve all 13 weapons.,Vyvinúť všetkých 13 zbraní.,Vyvinout všech 13 zbraní.,Evoluciona las 13 armas.,Эволюционируй все 13 оружий.,进化全部 13 种武器。
 QB_ON_THE_BRINK_NAME,On the Brink,Na pokraji,Na pokraji,Al límite,На грани,命悬一线
-QB_ON_THE_BRINK_1,Stay alive for 30 seconds with less than 10% health.,Vydržať 30 sekúnd s menej ako 10 % zdravia.,Vydržet 30 sekund s méně než 10 % zdraví.,Sigue vivo 30 segundos con menos del 10% de salud.,"Продержись 30 секунд, имея меньше 10% здоровья.",在生命低于 10% 的情况下存活 30 秒。
+QB_ON_THE_BRINK_1,Stay alive for 30 seconds with less than 10% health.,Vydržať 30 sekúnd s menej ako 10 % zdravia.,Vydržet 30 sekund s méně než 10 % zdraví.,Sigue vivo 30 segundos con menos del 10% de salud.,"Продержись 30 секунд, имея меньше 10% здоровья.",在生命低于 10% 的情况下存活 30 秒。
 QB_ON_THE_BRINK_2,Win a night after being on the brink.,"Vyhrať noc, v ktorej bola mačka na pokraji.","Vyhrát noc, ve které byla kočka na pokraji.",Gana una noche después de haber estado al límite.,"Выиграй ночь, побывав на грани.",在命悬一线之后赢下一夜。
 QB_RESCUER_NAME,Rescuer,Záchranár,Zachránce,Rescatador,Спасатель,救援者
 QB_RESCUER_1,Bring 3 rescued cats home.,Doviesť domov 3 zachránené mačky.,Dovést domů 3 zachráněné kočky.,Lleva a casa a 3 gatos rescatados.,Приведи домой 3 спасённых кошек.,带 3 只获救的猫咪回家。
@@ -575,7 +575,7 @@ BESTIARY_UNKNOWN,Not met yet,Zatiaľ nestretnutý,Zatím nepotkáno,Aún no vist
 BESTIARY_UNUSED,Not used yet,Zatiaľ nepoužitá,Zatím nepoužito,Aún no usado,Ещё не использовано,尚未使用
 BESTIARY_EVOLVES,Evolves with %s into %s,S pasívkou %s sa vyvinie na %s,S pasivkou %s se vyvine na %s,Evoluciona con %s en %s,С %s эволюционирует в %s,搭配 %s 进化为 %s
 BESTIARY_EVOLVED_FROM,Evolution of %s,Evolúcia zbrane %s,Evoluce zbraně %s,Evolución de %s,Эволюция %s,%s 的进化
-BESTIARY_FOUND,Found %d / %d,Objavené %d / %d,Objeveno %d / %d,Encontrados %d / %d,Найдено %d / %d,已发现 %d / %d
+BESTIARY_FOUND,Found %d / %d,Objavené %d / %d,Objeveno %d / %d,Encontrados %d / %d,Найдено %d / %d,已发现 %d / %d
 TAG_BRANCH,BRANCH,VETVA,VĚTEV,RAMA,ВЕТКА,分支
 TAG_BRANCH_2,BRANCH II,VETVA II,VĚTEV II,RAMA II,ВЕТКА II,分支 II
 BRANCH_TITLE,%s: %s,%s: %s,%s: %s,%s: %s,%s: %s,%s：%s
@@ -711,9 +711,9 @@ CHALLENGES_ON,Challenges: %s (gold x%.2f),Výzvy: %s (zlato ×%.2f),Výzvy: %s (
 SELECT_CHALLENGES,Challenges (X): %s · gold x%.2f,Výzvy (X): %s · zlato ×%.2f,Výzvy (X): %s · zlato ×%.2f,Desafíos (X): %s · oro x%.2f,Испытания (X): %s · золото x%.2f,挑战 (X)：%s · 金币 x%.2f
 SUMMARY_CHALLENGE,Challenges x%.2f: +%d gold,Výzvy ×%.2f: +%d zlata,Výzvy ×%.2f: +%d zlata,Desafíos x%.2f: +%d de oro,Испытания x%.2f: +%d золота,挑战 x%.2f：+%d 金币
 CHALLENGE_HYPER_NAME,Turbo,Turbo,Turbo,Turbo,Турбо,极速
-CHALLENGE_HYPER_DESC,Everything runs 25% faster – you too.,Všetko beží o 25 % rýchlejšie – aj ty.,Všechno běží o 25 % rychleji – i ty.,"Todo va un 25% más rápido, tú también.",Всё на 25% быстрее – и ты тоже.,一切加速 25%——你也一样。
+CHALLENGE_HYPER_DESC,Everything runs 25% faster – you too.,Všetko beží o 25 % rýchlejšie – aj ty.,Všechno běží o 25 % rychleji – i ty.,"Todo va un 25% más rápido, tú también.",Всё на 25% быстрее – и ты тоже.,一切加速 25%——你也一样。
 CHALLENGE_GLASS_NAME,Glass Cat,Krehká mačka,Křehká kočka,Gato de cristal,Стеклянная кошка,玻璃猫
-CHALLENGE_GLASS_DESC,"Half the health, but +50% damage.","Polovica zdravia, ale +50 % poškodenie.","Polovina zdraví, ale +50 % poškození.","La mitad de salud, pero +50% de daño.","Вполовину меньше здоровья, но +50% урона.",生命减半，但伤害 +50%。
+CHALLENGE_GLASS_DESC,"Half the health, but +50% damage.","Polovica zdravia, ale +50 % poškodenie.","Polovina zdraví, ale +50 % poškození.","La mitad de salud, pero +50% de daño.","Вполовину меньше здоровья, но +50% урона.",生命减半，但伤害 +50%。
 CHALLENGE_NO_HEAL_NAME,No Healing,Bez liečenia,Bez léčení,Sin curación,Без лечения,无法治疗
 CHALLENGE_NO_HEAL_DESC,"Hearts, sardines and regeneration don't heal you.","Srdiečka, sardinky ani regenerácia ťa nevyliečia.","Srdíčka, sardinky ani regenerace tě nevyléčí.","Los corazones, las sardinas y la regeneración no te curan.","Сердечки, сардины и регенерация не лечат.",爱心、沙丁鱼和再生都无法治疗你。
 CHALLENGE_ONE_WEAPON_NAME,One Weapon,Jediná zbraň,Jediná zbraň,Una sola arma,Одно оружие,单一武器
@@ -806,7 +806,7 @@ CAT_TUCKO_NAME,Chonk,Tučko,Buclík,Gordi,Толстячок,胖墩
 CAT_TUCKO_DESC,A big ginger who loves food. Starts with Wind-up Mouse; +50 health and a better magnet.,"Veľký ryšavec, ktorý miluje jedlo. Začína s Myškou na kľúčik; +50 zdravia a lepší magnet.","Velký zrzek, který miluje jídlo. Začíná s Myškou na klíček; +50 zdraví a lepší magnet.",Un gran gato naranja al que le encanta comer. Empieza con Ratón de cuerda; +50 de salud y mejor imán.,"Большой рыжий кот, обожающий поесть. Начинает с Заводной мыши; +50 здоровья и лучший магнит.",爱吃的大橘猫，初始武器为发条老鼠；生命 +50，拾取范围更大。
 CAT_TUCKO_HINT,Free him from the shopping cart (Supermarket).,Vysloboď ho z nákupného vozíka (Supermarket).,Vysvoboď ho z nákupního vozíku (Supermarket).,Libéralo del carrito de la compra (supermercado).,Освободи его из магазинной тележки (Супермаркет).,把他从购物车里救出来（超市）。
 CAT_KAPITAN_NAME,Captain,Kapitán,Kapitán,Capitán,Капитан,船长
-CAT_KAPITAN_DESC,"An old sea cat in a captain's cap. Starts with Sprinkler; +15% area, +10% speed.","Starý morský kocúr v kapitánskej čiapke. Začína s Kropičom; +15 % plocha, +10 % rýchlosť.","Starý mořský kocour v kapitánské čepici. Začíná s Kropičem; +15 % plocha, +10 % rychlost.","Un viejo gato marinero con gorra de capitán. Empieza con Aspersor; +15% de área, +10% de velocidad.","Старый морской кот в капитанской фуражке. Начинает с Разбрызгивателя; +15% площади, +10% скорости.",戴着船长帽的老海猫，初始武器为洒水器；范围 +15%，速度 +10%。
+CAT_KAPITAN_DESC,"An old sea cat in a captain's cap. Starts with Sprinkler; +15% area, +10% speed.","Starý morský kocúr v kapitánskej čiapke. Začína s Kropičom; +15 % plocha, +10 % rýchlosť.","Starý mořský kocour v kapitánské čepici. Začíná s Kropičem; +15 % plocha, +10 % rychlost.","Un viejo gato marinero con gorra de capitán. Empieza con Aspersor; +15% de área, +10% de velocidad.","Старый морской кот в капитанской фуражке. Начинает с Разбрызгивателя; +15% площади, +10% скорости.",戴着船长帽的老海猫，初始武器为洒水器；范围 +15%，速度 +10%。
 CAT_KAPITAN_HINT,Beat him in a duel at the Harbor.,Poraz ho v súboji v Prístave.,Poraz ho v souboji v Přístavu.,Véncelo en un duelo en el puerto.,Победи его в дуэли в Гавани.,在港口与他决斗并获胜。
 QB_SUPERMARKET_NAME,The Supermarket,Supermarket,Supermarket,El supermercado,Супермаркет,超市
 QB_SUPERMARKET_1,Survive 10 minutes in the Supermarket.,Prežiť 10 minút v Supermarkete.,Přežít 10 minut v Supermarketu.,Sobrevive 10 minutos en el supermercado.,Продержись 10 минут в Супермаркете.,在超市中坚持 10 分钟。
@@ -851,37 +851,37 @@ ARTIFACT_SOURCE,"Quest: %s, step %d – %s","Quest: %s, krok %d – %s","Quest: 
 SELECT_ARTIFACTS,Artifacts (V): %s,Artefakty (V): %s,Artefakty (V): %s,Artefactos (V): %s,Артефакты (V): %s,神器 (V)：%s
 QB_REWARD_ARTIFACT,Artifact: %s,Artefakt: %s,Artefakt: %s,Artefacto: %s,Артефакт: %s,神器：%s
 ARTIFACT_GLASS_EYE_NAME,Glass Eye,Sklenené oko,Skleněné oko,Ojo de cristal,Стеклянный глаз,玻璃眼
-ARTIFACT_GLASS_EYE_DESC,"Sees every weak spot: +8% critical chance, critical hits deal +50% more.","Vidí každé slabé miesto: +8 % šanca na kritický zásah, kritické zásahy o 50 % silnejšie.","Vidí každé slabé místo: +8 % šance na kritický zásah, kritické zásahy o 50 % silnější.","Ve cada punto débil: +8% de probabilidad de crítico, los críticos hacen un 50% más.","Видит каждое слабое место: +8% шанса крита, криты сильнее на 50%.",看穿每一个弱点：暴击率 +8%，暴击伤害 +50%。
+ARTIFACT_GLASS_EYE_DESC,"Sees every weak spot: +8% critical chance, critical hits deal +50% more.","Vidí každé slabé miesto: +8 % šanca na kritický zásah, kritické zásahy o 50 % silnejšie.","Vidí každé slabé místo: +8 % šance na kritický zásah, kritické zásahy o 50 % silnější.","Ve cada punto débil: +8% de probabilidad de crítico, los críticos hacen un 50% más.","Видит каждое слабое место: +8% шанса крита, криты сильнее на 50%.",看穿每一个弱点：暴击率 +8%，暴击伤害 +50%。
 ARTIFACT_HOURGLASS_NAME,Hourglass,Presýpacie hodiny,Přesýpací hodiny,Reloj de arena,Песочные часы,沙漏
 ARTIFACT_HOURGLASS_DESC,Every 45 s time stops: enemies around you freeze for 3 s (not bosses).,Každých 45 s sa zastaví čas: nepriatelia okolo teba zamrznú na 3 s (bossovia nie).,Každých 45 s se zastaví čas: nepřátelé kolem tebe zamrznou na 3 s (bossové ne).,Cada 45 s el tiempo se detiene: los enemigos a tu alrededor se congelan 3 s (no los jefes).,Каждые 45 с время останавливается: враги вокруг замирают на 3 с (кроме боссов).,每 45 秒时间静止一次：你周围的敌人冻结 3 秒（Boss 除外）。
 ARTIFACT_MAGNET_CORE_NAME,Magnet Core,Magnetické jadro,Magnetické jádro,Núcleo magnético,Магнитное ядро,磁铁核心
 ARTIFACT_MAGNET_CORE_DESC,Every 40 s pulls all kibble on the map to you.,Každých 40 s pritiahne k tebe všetky granulky na mape.,Každých 40 s přitáhne k tobě všechny granulky na mapě.,Cada 40 s atrae hacia ti todo el pienso del mapa.,Каждые 40 с притягивает к тебе весь корм на карте.,每 40 秒把地图上所有猫粮吸到你身边。
 ARTIFACT_LUCKY_COIN_NAME,Lucky Coin,Šťastná minca,Šťastná mince,Moneda de la suerte,Счастливая монетка,幸运硬币
-ARTIFACT_LUCKY_COIN_DESC,+15% luck and +25% gold.,+15 % šťastie a +25 % zlata.,+15 % štěstí a +25 % zlata.,+15% de suerte y +25% de oro.,+15% удачи и +25% золота.,幸运 +15%，金币 +25%。
+ARTIFACT_LUCKY_COIN_DESC,+15% luck and +25% gold.,+15 % šťastie a +25 % zlata.,+15 % štěstí a +25 % zlata.,+15% de suerte y +25% de oro.,+15% удачи и +25% золота.,幸运 +15%，金币 +25%。
 ARTIFACT_CATNIP_POUCH_NAME,Catnip Pouch,Vrecúško šantu,Pytlík šanty,Bolsita de hierba gatera,Мешочек мяты,猫薄荷袋
-ARTIFACT_CATNIP_POUCH_DESC,Every level up heals 8% of your health.,Každý nový level ťa vylieči o 8 % zdravia.,Každý nový level tě vyléčí o 8 % zdraví.,Cada subida de nivel te cura un 8% de la salud.,Каждый новый уровень лечит 8% здоровья.,每次升级恢复 8% 生命。
+ARTIFACT_CATNIP_POUCH_DESC,Every level up heals 8% of your health.,Každý nový level ťa vylieči o 8 % zdravia.,Každý nový level tě vyléčí o 8 % zdraví.,Cada subida de nivel te cura un 8% de la salud.,Каждый новый уровень лечит 8% здоровья.,每次升级恢复 8% 生命。
 ARTIFACT_BOSS_TOOTH_NAME,Boss Tooth,Zub bossa,Zub bosse,Diente de jefe,Зуб босса,Boss 之牙
-ARTIFACT_BOSS_TOOTH_DESC,Your attacks deal +35% damage to bosses.,Tvoje útoky dávajú bossom o 35 % väčšie poškodenie.,Tvoje útoky dávají bossům o 35 % větší poškození.,Tus ataques hacen un 35% más de daño a los jefes.,Твои атаки наносят боссам на 35% больше урона.,你对 Boss 的伤害 +35%。
+ARTIFACT_BOSS_TOOTH_DESC,Your attacks deal +35% damage to bosses.,Tvoje útoky dávajú bossom o 35 % väčšie poškodenie.,Tvoje útoky dávají bossům o 35 % větší poškození.,Tus ataques hacen un 35% más de daño a los jefes.,Твои атаки наносят боссам на 35% больше урона.,你对 Boss 的伤害 +35%。
 ARTIFACT_ANGEL_FEATHER_NAME,Angel Feather,Anjelské pierko,Andělské pírko,Pluma de ángel,Перо ангела,天使之羽
-ARTIFACT_ANGEL_FEATHER_DESC,Below 30% health you take 35% less damage.,Pod 30 % zdravia dostávaš o 35 % menšie poškodenie.,Pod 30 % zdraví dostáváš o 35 % menší poškození.,Con menos del 30% de salud recibes un 35% menos de daño.,При здоровье ниже 30% получаешь на 35% меньше урона.,生命低于 30% 时受到的伤害减少 35%。
+ARTIFACT_ANGEL_FEATHER_DESC,Below 30% health you take 35% less damage.,Pod 30 % zdravia dostávaš o 35 % menšie poškodenie.,Pod 30 % zdraví dostáváš o 35 % menší poškození.,Con menos del 30% de salud recibes un 35% menos de daño.,При здоровье ниже 30% получаешь на 35% меньше урона.,生命低于 30% 时受到的伤害减少 35%。
 ARTIFACT_THORN_COLLAR_NAME,Thorn Collar,Tŕňový obojok,Trnový obojek,Collar de espinas,Ошейник с шипами,荆棘项圈
 ARTIFACT_THORN_COLLAR_DESC,"Whenever you get hurt, thorns prick every enemy close to you.","Keď ťa niečo zraní, tŕne pichnú všetkých nepriateľov blízko teba.","Když tě něco zraní, trny píchnou všechny nepřátele blízko tebe.","Cada vez que te hieren, las espinas pinchan a todos los enemigos cercanos.","Когда тебя ранят, шипы колют всех врагов рядом.",每当你受伤，荆棘就会刺伤你附近的所有敌人。
 ARTIFACT_BLOOD_MOON_NAME,Blood Moon,Krvavý mesiac,Krvavý měsíc,Luna de sangre,Кровавая луна,血月
-ARTIFACT_BLOOD_MOON_DESC,"Enemies are 30% tougher, but you get +25% experience and +25% gold.","Nepriatelia sú o 30 % odolnejší, ale dostaneš +25 % skúseností a +25 % zlata.","Nepřátelé jsou o 30 % odolnější, ale dostaneš +25 % zkušeností a +25 % zlata.","Los enemigos son un 30% más duros, pero ganas +25% de experiencia y +25% de oro.","Враги на 30% крепче, но ты получаешь +25% опыта и +25% золота.",敌人强化 30%，但你获得 +25% 经验和 +25% 金币。
+ARTIFACT_BLOOD_MOON_DESC,"Enemies are 30% tougher, but you get +25% experience and +25% gold.","Nepriatelia sú o 30 % odolnejší, ale dostaneš +25 % skúseností a +25 % zlata.","Nepřátelé jsou o 30 % odolnější, ale dostaneš +25 % zkušeností a +25 % zlata.","Los enemigos son un 30% más duros, pero ganas +25% de experiencia y +25% de oro.","Враги на 30% крепче, но ты получаешь +25% опыта и +25% золота.",敌人强化 30%，但你获得 +25% 经验和 +25% 金币。
 ARTIFACT_CLOCKWORK_NAME,Clockwork,Hodinový strojček,Hodinový strojek,Mecanismo de relojería,Часовой механизм,发条装置
-ARTIFACT_CLOCKWORK_DESC,"Weapons attack 15% more often, but you move 8% slower.","Zbrane útočia o 15 % častejšie, ale pohybuješ sa o 8 % pomalšie.","Zbraně útočí o 15 % častěji, ale pohybuješ se o 8 % pomaleji.","Las armas atacan un 15% más a menudo, pero te mueves un 8% más lento.","Оружие атакует на 15% чаще, но ты двигаешься на 8% медленнее.",武器攻击频率 +15%，但移动速度 -8%。
+ARTIFACT_CLOCKWORK_DESC,"Weapons attack 15% more often, but you move 8% slower.","Zbrane útočia o 15 % častejšie, ale pohybuješ sa o 8 % pomalšie.","Zbraně útočí o 15 % častěji, ale pohybuješ se o 8 % pomaleji.","Las armas atacan un 15% más a menudo, pero te mueves un 8% más lento.","Оружие атакует на 15% чаще, но ты двигаешься на 8% медленнее.",武器攻击频率 +15%，但移动速度 -8%。
 QB_CHAPTER_CHAINS,Stories,Príbehy,Příběhy,Historias,Истории,故事
 CHAIN_TIME,%d s,%d s,%d s,%d s,%d с,%d 秒
-CHAIN_CARRYING,carrying %d,nesieš %d,neseš %d,llevas %d,несёшь %d,携带 %d
+CHAIN_CARRYING,carrying %d,nesieš %d,neseš %d,llevas %d,несёшь %d,携带 %d
 CHAIN_BUILD_START,Everything is here – now build it! Stay close.,Všetko je tu – teraz to postav! Zostaň pri tom.,Všechno je tu – teď to postav! Zůstaň u toho.,¡Ya está todo aquí: ahora constrúyelo! Quédate cerca.,Всё на месте – теперь строй! Держись рядом.,材料都齐了——开始建造吧！待在附近。
-CHAIN_BUILDING,Building – stay close: %d %%,Staviaš – zostaň pri tom: %d %%,Stavíš – zůstaň u toho: %d %%,"Construyendo, quédate cerca: %d %%",Строительство – держись рядом: %d %%,建造中——待在附近：%d %%
-CHAIN_HITS,hits %d/%d,zásahy %d/%d,zásahy %d/%d,golpes %d/%d,попадания %d/%d,命中 %d/%d
+CHAIN_BUILDING,Building – stay close: %d %%,Staviaš – zostaň pri tom: %d %%,Stavíš – zůstaň u toho: %d %%,"Construyendo, quédate cerca: %d %%",Строительство – держись рядом: %d %%,建造中——待在附近：%d %%
+CHAIN_HITS,hits %d/%d,zásahy %d/%d,zásahy %d/%d,golpes %d/%d,попадания %d/%d,命中 %d/%d
 CHAIN_FINISHED,Story complete: %s – %s,Príbeh dokončený: %s – %s,Příběh dokončen: %s – %s,Historia completada: %s – %s,История завершена: %s – %s,故事完成：%s – %s
 CHAIN_HEALED,A heart was picked up – the test is failed!,Zdvihnuté srdiečko – skúška neplatí!,Sebrané srdíčko – zkouška neplatí!,Has recogido un corazón: ¡prueba fallida!,Подобрано сердечко – испытание провалено!,拾取了爱心——考验失败！
 CHAIN_ANY_MAP,any map,ľubovoľná mapa,libovolná mapa,cualquier mapa,любая карта,任意地图
 ARTIFACT_SOURCE_CHAIN,Story: %s,Príbeh: %s,Příběh: %s,Historia: %s,История: %s,故事：%s
 ARTIFACT_FULL_BOWL_NAME,Full Bowl,Plná miska,Plná miska,Cuenco lleno,Полная миска,满满的食盆
-ARTIFACT_FULL_BOWL_DESC,Hearts and sardines heal 50% more.,Srdiečka a sardinky liečia o 50 % viac.,Srdíčka a sardinky léčí o 50 % víc.,Los corazones y las sardinas curan un 50% más.,Сердечки и сардины лечат на 50% больше.,爱心和沙丁鱼的治疗量 +50%。
+ARTIFACT_FULL_BOWL_DESC,Hearts and sardines heal 50% more.,Srdiečka a sardinky liečia o 50 % viac.,Srdíčka a sardinky léčí o 50 % víc.,Los corazones y las sardinas curan un 50% más.,Сердечки и сардины лечат на 50% больше.,爱心和沙丁鱼的治疗量 +50%。
 ENEMY_ROOMBA_THIEF_NAME,The Kibble Thief,Zlodej granúl,Zloděj granulí,El Ladrón de pienso,Похититель корма,偷粮贼
 ENEMY_ROOMBA_THIEF_DESC,A robot vacuum full of stolen kibble. It runs – catch it!,Robotický vysávač plný ukradnutých granúl. Uteká – chyť ho!,Robotický vysavač plný ukradených granulí. Utíká – chyť ho!,"Un robot aspirador lleno de pienso robado. Huye, ¡atrápalo!","Робот-пылесос, набитый украденным кормом. Убегает – лови!",装满偷来猫粮的扫地机器人。它在逃跑——快抓住它！
 CHAIN_KIBBLE_THIEF_NAME,The Kibble Thief,Zlodej granúl,Zloděj granulí,El Ladrón de pienso,Похититель корма,偷粮贼
@@ -953,9 +953,9 @@ CHAIN_BOILER_1_START,"Four parts – the strongest of the basement guard them. B
 CHAIN_BOILER_1_DONE,The boiler rumbles and warms up. From now on you can warm up next to it.,Kotol zahučal a zohrial sa. Odteraz sa pri ňom môžeš zohriať.,Kotel zahučel a zahřál se. Odteď se u něj můžeš ohřát.,La caldera retumba y se calienta. A partir de ahora puedes calentarte a su lado.,Котёл гудит и нагревается. Теперь возле него можно греться.,锅炉轰鸣着热了起来。从现在起你可以在它旁边取暖。
 CHAIN_BOILER_REWARD,the warm boiler heals in the Basement,teplý kotol lieči v Pivnici,teplý kotel léčí ve Sklepě,la caldera caliente cura en el sótano,тёплый котёл лечит в Подвале,地下室里温暖的锅炉会治疗你
 ARTIFACT_GNOME_HAT_NAME,Gnome Hat,Trpasličia čiapka,Trpasličí čepice,Gorro de gnomo,Шапка гнома,地精帽
-ARTIFACT_GNOME_HAT_DESC,"A thank-you from the gnomes: +10% luck, +20% gold.","Poďakovanie od trpaslíkov: +10 % šťastie, +20 % zlata.","Poděkování od trpaslíků: +10 % štěstí, +20 % zlata.","Un regalo de agradecimiento de los gnomos: +10% de suerte, +20% de oro.","Благодарность от гномов: +10% удачи, +20% золота.",地精们的谢礼：幸运 +10%，金币 +20%。
+ARTIFACT_GNOME_HAT_DESC,"A thank-you from the gnomes: +10% luck, +20% gold.","Poďakovanie od trpaslíkov: +10 % šťastie, +20 % zlata.","Poděkování od trpaslíků: +10 % štěstí, +20 % zlata.","Un regalo de agradecimiento de los gnomos: +10% de suerte, +20% de oro.","Благодарность от гномов: +10% удачи, +20% золота.",地精们的谢礼：幸运 +10%，金币 +20%。
 ARTIFACT_MOLE_CLAW_NAME,Mole Claw,Krtčí pazúr,Krtčí dráp,Garra de topo,Коготь крота,鼹鼠爪
-ARTIFACT_MOLE_CLAW_DESC,"A thank-you from the moles: +10% damage, +10% area.","Poďakovanie od krtkov: +10 % poškodenie, +10 % plocha.","Poděkování od krtků: +10 % poškození, +10 % plocha.","Un regalo de agradecimiento de los topos: +10% de daño, +10% de área.","Благодарность от кротов: +10% урона, +10% площади.",鼹鼠们的谢礼：伤害 +10%，范围 +10%。
+ARTIFACT_MOLE_CLAW_DESC,"A thank-you from the moles: +10% damage, +10% area.","Poďakovanie od krtkov: +10 % poškodenie, +10 % plocha.","Poděkování od krtků: +10 % poškození, +10 % plocha.","Un regalo de agradecimiento de los topos: +10% de daño, +10% de área.","Благодарность от кротов: +10% урона, +10% площади.",鼹鼠们的谢礼：伤害 +10%，范围 +10%。
 ARTIFACT_HONEY_POT_NAME,Honey Pot,Hrniec medu,Hrnec medu,Tarro de miel,Горшочек мёда,蜂蜜罐
 ARTIFACT_HONEY_POT_DESC,Sweet and healing: +1 health per second.,Sladký a liečivý: +1 zdravie za sekundu.,Sladký a léčivý: +1 zdraví za sekundu.,Dulce y curativo: +1 de salud por segundo.,Сладкий и целебный: +1 здоровье в секунду.,香甜又疗伤：每秒恢复 1 点生命。
 ENEMY_GNOME_KING_NAME,The Gnome King,Trpasličí kráľ,Trpasličí král,El Rey Gnomo,Король гномов,地精国王
@@ -995,7 +995,7 @@ CHAIN_SCARECROW_1_DONE,The scarecrow stands again – the crows scatter! From no
 CHAIN_SCARECROW_REWARD,the scarecrow hits birds in the Garden,strašiak bije vtáky v Záhrade,strašák bije ptáky v Zahradě,el espantapájaros golpea a los pájaros en el jardín,пугало бьёт птиц в Саду,花园里的稻草人会攻击鸟类
 CHAIN_EMPTY,Nothing here – but someone is!,Nič tu nie je – ale niekto áno!,Nic tu není – ale někdo ano!,Aquí no hay nada... ¡pero sí alguien!,Здесь ничего нет – зато кто-то есть!,这里什么都没有——但有人在！
 ARTIFACT_RACCOON_MASK_NAME,Raccoon Mask,Mývalia maska,Mývalí maska,Máscara de mapache,Маска енота,浣熊面具
-ARTIFACT_RACCOON_MASK_DESC,A thief's eye for loot: +15% experience.,Zlodejské oko na korisť: +15 % skúseností.,Zlodějské oko na kořist: +15 % zkušeností.,Ojo de ladrón para el botín: +15% de experiencia.,Воровской глаз на добычу: +15% опыта.,小偷的寻宝眼光：经验 +15%。
+ARTIFACT_RACCOON_MASK_DESC,A thief's eye for loot: +15% experience.,Zlodejské oko na korisť: +15 % skúseností.,Zlodějské oko na kořist: +15 % zkušeností.,Ojo de ladrón para el botín: +15% de experiencia.,Воровской глаз на добычу: +15% опыта.,小偷的寻宝眼光：经验 +15%。
 ENEMY_RIVAL_BRUNO_TRIAL_NAME,Bruno (trial),Bruno (skúška),Bruno (zkouška),Bruno (prueba),Бруно (испытание),布鲁诺（考验）
 ENEMY_RIVAL_BRUNO_TRIAL_DESC,Bruno tests you himself. He hits hard but fair.,"Bruno ťa skúša sám. Udiera tvrdo, ale férovo.","Bruno tě zkouší sám. Udeří tvrdě, ale férově.",Bruno te pone a prueba en persona. Golpea fuerte pero limpio.,"Бруно сам испытывает тебя. Бьёт сильно, но честно.",布鲁诺亲自考验你。他出手很重，但光明正大。
 ENEMY_RACCOON_THIEF_NAME,Raccoon Thief,Mýval zlodej,Mýval zloděj,Mapache ladrón,Енот-воришка,浣熊小偷
@@ -1014,7 +1014,7 @@ CHAIN_BRUNO_TRIAL_3_DONE,"Bruno laughs and shakes the dust off. ""You beat me fa
 CHAIN_BRUNO_TRIAL_REWARD,"Bruno may join the cat that beat him (if you want him, the night is harder)","Bruno sa môže pridať k mačke, ktorá ho porazila (ak ho chceš, noc bude ťažšia)","Bruno se může přidat ke kočce, která ho porazila (jestli ho chceš, noc bude těžší)","Bruno puede unirse al gato que lo venció (si lo llevas, la noche es más dura)",Бруно может присоединиться к победившей его кошке (с ним ночь сложнее),布鲁诺可以加入打败他的猫（带上他会让夜晚更难）
 ALLY_OFFER_TITLE,%s wants to come along,%s chce ísť s tebou,%s chce jít s tebou,%s quiere acompañarte,%s хочет пойти с тобой,%s 想和你同行
 ALLY_OFFER_ASK,"""Want me at your side tonight? With me along, the enemies will be tougher.""",„Chceš ma dnes pri sebe? So mnou budú nepriatelia tuhší.“,„Chceš mě dnes po svém boku? Se mnou budou nepřátelé tužší.“,"""¿Me quieres a tu lado esta noche? Conmigo, los enemigos serán más duros.""","«Хочешь, чтобы я был рядом этой ночью? Со мной враги будут крепче».",“今晚要我陪在你身边吗？有我在，敌人会更强。”
-ALLY_OFFER_YES,Take %s along (enemies +25%% health),Vziať %s so sebou (nepriatelia +25 %% života),Vzít %s s sebou (nepřátelé +25 %% života),Llevar a %s (enemigos +25%% de salud),Взять с собой: %s (враги +25%% здоровья),带上 %s（敌人生命 +25%%）
+ALLY_OFFER_YES,Take %s along (enemies +25%% health),Vziať %s so sebou (nepriatelia +25 %% života),Vzít %s s sebou (nepřátelé +25 %% života),Llevar a %s (enemigos +25%% de salud),Взять с собой: %s (враги +25%% здоровья),带上 %s（敌人生命 +25%%）
 ALLY_OFFER_NO,Go alone,Ísť sám,Jít sám,Ir solo,Идти одному,独自前往
 CHAIN_STORM_ANTENNA_NAME,The Storm Antenna,Búrková anténa,Bouřková anténa,La antena de tormenta,Грозовая антенна,风暴天线
 CHAIN_STORM_ANTENNA_DESC,A storm is coming. Maybe its power can be caught.,Blíži sa búrka. Možno sa jej sila dá zachytiť.,Blíží se bouřka. Možná se její síla dá zachytit.,Se acerca una tormenta. Quizá se pueda atrapar su energía.,"Надвигается гроза. Может, её силу удастся поймать.",风暴将至。也许能捕获它的力量。
@@ -1032,13 +1032,13 @@ CHAIN_STOLEN_COLLAR_2_START,Four bins. The collar is in one of them – and his 
 CHAIN_STOLEN_COLLAR_2_DONE,Found it! The sleeping cat gets its collar back – and you get the thief's mask.,Mám ho! Spiaca mačka dostane obojok späť – a ty zlodejovu masku.,Mám ho! Spící kočka dostane obojek zpět – a ty zlodějovu masku.,¡Encontrado! El gato dormido recupera su collar... y tú te quedas con la máscara del ladrón.,Нашёлся! Спящая кошка получает ошейник обратно – а тебе достаётся маска вора.,找到了！熟睡的猫拿回了项圈——而你得到了小偷的面具。
 REX_GIVES_UP,Rex lies down and wags his tail. He's had enough!,Rex si ľahol a vrtí chvostom. Stačilo mu!,Rex si lehl a vrtí ocasem. Stačilo mu!,Rex se tumba y mueve la cola. ¡Ya ha tenido bastante!,Рекс ложится и виляет хвостом. С него хватит!,雷克斯趴下摇起了尾巴。他受够了！
 ARTIFACT_LUNCHBOX_NAME,Lunchbox,Desiatový box,Svačinový box,Fiambrera,Коробка с обедом,饭盒
-ARTIFACT_LUNCHBOX_DESC,"Always something to eat: +30 health, hearts heal 20% more.","Vždy je čo jesť: +30 zdravia, srdiečka liečia o 20 % viac.","Vždy je co jíst: +30 zdraví, srdíčka léčí o 20 % víc.","Siempre hay algo para comer: +30 de salud, los corazones curan un 20% más.","Всегда есть чем перекусить: +30 здоровья, сердечки лечат на 20% больше.",总有东西可吃：生命 +30，爱心治疗量 +20%。
+ARTIFACT_LUNCHBOX_DESC,"Always something to eat: +30 health, hearts heal 20% more.","Vždy je čo jesť: +30 zdravia, srdiečka liečia o 20 % viac.","Vždy je co jíst: +30 zdraví, srdíčka léčí o 20 % víc.","Siempre hay algo para comer: +30 de salud, los corazones curan un 20% más.","Всегда есть чем перекусить: +30 здоровья, сердечки лечат на 20% больше.",总有东西可吃：生命 +30，爱心治疗量 +20%。
 ARTIFACT_REX_COLLAR_NAME,Rex's Collar,Rexov obojok,Rexův obojek,El collar de Rex,Ошейник Рекса,雷克斯的项圈
-ARTIFACT_REX_COLLAR_DESC,"A gift from an old friend: +1 armor, +10% damage.","Dar od starého priateľa: +1 brnenie, +10 % poškodenie.","Dar od starého přítele: +1 brnění, +10 % poškození.","Un regalo de un viejo amigo: +1 de armadura, +10% de daño.","Подарок старого друга: +1 броня, +10% урона.",老朋友的礼物：护甲 +1，伤害 +10%。
+ARTIFACT_REX_COLLAR_DESC,"A gift from an old friend: +1 armor, +10% damage.","Dar od starého priateľa: +1 brnenie, +10 % poškodenie.","Dar od starého přítele: +1 brnění, +10 % poškození.","Un regalo de un viejo amigo: +1 de armadura, +10% de daño.","Подарок старого друга: +1 броня, +10% урона.",老朋友的礼物：护甲 +1，伤害 +10%。
 ARTIFACT_CAPTAINS_COMPASS_NAME,Captain's Compass,Kapitánov kompas,Kapitánův kompas,La brújula del Capitán,Компас Капитана,船长的罗盘
-ARTIFACT_CAPTAINS_COMPASS_DESC,"Always points to treasure: bigger magnet, +5% speed.","Vždy ukazuje k pokladu: väčší magnet, +5 % rýchlosť.","Vždy ukazuje k pokladu: větší magnet, +5 % rychlost.","Siempre apunta al tesoro: imán más grande, +5% de velocidad.","Всегда указывает на сокровища: сильнее магнит, +5% скорости.",永远指向宝藏：拾取范围更大，速度 +5%。
+ARTIFACT_CAPTAINS_COMPASS_DESC,"Always points to treasure: bigger magnet, +5% speed.","Vždy ukazuje k pokladu: väčší magnet, +5 % rýchlosť.","Vždy ukazuje k pokladu: větší magnet, +5 % rychlost.","Siempre apunta al tesoro: imán más grande, +5% de velocidad.","Всегда указывает на сокровища: сильнее магнит, +5% скорости.",永远指向宝藏：拾取范围更大，速度 +5%。
 ARTIFACT_PIRATE_GOLD_NAME,Pirate Gold,Pirátske zlato,Pirátské zlato,Oro pirata,Пиратское золото,海盗金币
-ARTIFACT_PIRATE_GOLD_DESC,Cursed? Maybe. Shiny? Definitely: +40% gold.,Prekliate? Možno. Lesklé? Určite: +40 % zlata.,Prokleté? Možná. Lesklé? Určitě: +40 % zlata.,¿Maldito? Puede ser. ¿Brillante? Desde luego: +40% de oro.,Проклятое? Возможно. Блестящее? Безусловно: +40% золота.,受诅咒了？也许吧。闪闪发光？绝对的：金币 +40%。
+ARTIFACT_PIRATE_GOLD_DESC,Cursed? Maybe. Shiny? Definitely: +40% gold.,Prekliate? Možno. Lesklé? Určite: +40 % zlata.,Prokleté? Možná. Lesklé? Určitě: +40 % zlata.,¿Maldito? Puede ser. ¿Brillante? Desde luego: +40% de oro.,Проклятое? Возможно. Блестящее? Безусловно: +40% золота.,受诅咒了？也许吧。闪闪发光？绝对的：金币 +40%。
 CHAIN_SHOPPING_LIST_NAME,Chonk's Shopping List,Tučkov nákupný zoznam,Buclíkův nákupní seznam,La lista de la compra de Gordi,Список покупок Толстячка,胖墩的购物清单
 CHAIN_SHOPPING_LIST_DESC,Chonk has a list. The shop closes soon.,Tučko má zoznam. Obchod čoskoro zatvára.,Buclík má seznam. Obchod brzy zavírá.,Gordi tiene una lista. La tienda cierra pronto.,У Толстячка есть список. Магазин скоро закроется.,胖墩有一张清单。商店快关门了。
 CHAIN_SHOPPING_LIST_1,Bring everything on the list to the checkout,Dones všetko zo zoznamu k pokladni,Dones všechno ze seznamu k pokladně,Lleva todo lo de la lista a la caja,Принеси всё по списку на кассу,把清单上的东西都送到收银台
@@ -1083,7 +1083,7 @@ CHAIN_PIRATE_TREASURE_2_DONE,A chest! But tentacles are wrapped around it...,Tru
 CHAIN_PIRATE_TREASURE_3,Defeat the Octopus guarding the treasure,"Poraz chobotnicu, ktorá stráži poklad","Poraz chobotnici, která hlídá poklad",Derrota al Pulpo que vigila el tesoro,"Победи Осьминога, охраняющего клад",击败看守宝藏的章鱼
 CHAIN_PIRATE_TREASURE_3_DONE,The chest is full of pirate gold!,Truhla je plná pirátskeho zlata!,Truhla je plná pirátského zlata!,¡El cofre está lleno de oro pirata!,Сундук полон пиратского золота!,箱子里装满了海盗金币！
 CHAIN_NO_GOLD,Not enough gold (%d needed),Nemáš dosť zlata (treba %d),Nemáš dost zlata (je potřeba %d),No hay oro suficiente (se necesitan %d),Не хватает золота (нужно %d),金币不足（需要 %d）
-CHAIN_NEEDS_CAT,needs %s,treba mačku %s,je potřeba kočka %s,necesita a %s,нужен %s,需要 %s
+CHAIN_NEEDS_CAT,needs %s,treba mačku %s,je potřeba kočka %s,necesita a %s,нужен %s,需要 %s
 CAT_KITTEN_NAME,Kitten,Mačiatko,Kotě,Gatito,Котёнок,小猫
 CAT_KITTEN_DESC,A tiny lost kitten.,Malé stratené mačiatko.,Malé ztracené kotě.,Un gatito diminuto y perdido.,Крошечный потерявшийся котёнок.,一只走失的小小猫。
 CAT_KITTEN_HINT,,,,,,
@@ -1093,17 +1093,17 @@ CAT_OLD_CAT_HINT,,,,,,
 ENEMY_ROBO_VACUUM_3000_NAME,Robo-Vacuum 3000,Robo-vysávač 3000,Robo-vysavač 3000,Robo-Aspiradora 3000,Робо-пылесос 3000,机器吸尘器 3000
 ENEMY_ROBO_VACUUM_3000_DESC,The machine behind every boss. It wants a house without a single hair.,Stroj za všetkými bossmi. Chce dom bez jediného chlpu.,Stroj za všemi bossy. Chce dům bez jediného chlupu.,La máquina detrás de todos los jefes. Quiere una casa sin un solo pelo.,"Машина, стоящая за всеми боссами. Хочет дом без единой шерстинки.",所有 Boss 背后的机器。它想要一栋一根毛都没有的房子。
 ARTIFACT_HOME_KEY_NAME,Key to Home,Kľúč od domova,Klíč od domova,Llave de casa,Ключ от дома,家门钥匙
-ARTIFACT_HOME_KEY_DESC,"Wherever you are, you know the way home: +10% experience, +10% luck.","Nech si kdekoľvek, poznáš cestu domov: +10 % skúseností, +10 % šťastie.","Ať jsi kdekoli, znáš cestu domů: +10 % zkušeností, +10 % štěstí.","Estés donde estés, conoces el camino a casa: +10% de experiencia, +10% de suerte.","Где бы ты ни был, ты знаешь дорогу домой: +10% опыта, +10% удачи.",无论身在何处，你都认得回家的路：经验 +10%，幸运 +10%。
+ARTIFACT_HOME_KEY_DESC,"Wherever you are, you know the way home: +10% experience, +10% luck.","Nech si kdekoľvek, poznáš cestu domov: +10 % skúseností, +10 % šťastie.","Ať jsi kdekoli, znáš cestu domů: +10 % zkušeností, +10 % štěstí.","Estés donde estés, conoces el camino a casa: +10% de experiencia, +10% de suerte.","Где бы ты ни был, ты знаешь дорогу домой: +10% опыта, +10% удачи.",无论身在何处，你都认得回家的路：经验 +10%，幸运 +10%。
 ARTIFACT_FAMILY_PHOTO_NAME,Family Photo,Rodinná fotka,Rodinná fotka,Foto de familia,Семейное фото,全家福
-ARTIFACT_FAMILY_PHOTO_DESC,"All the cats together: +5% damage, +10 health, +3% speed.","Všetky mačky spolu: +5 % poškodenie, +10 zdravia, +3 % rýchlosť.","Všechny kočky spolu: +5 % poškození, +10 zdraví, +3 % rychlost.","Todos los gatos juntos: +5% de daño, +10 de salud, +3% de velocidad.","Все кошки вместе: +5% урона, +10 здоровья, +3% скорости.",所有猫咪都在一起：伤害 +5%，生命 +10，速度 +3%。
+ARTIFACT_FAMILY_PHOTO_DESC,"All the cats together: +5% damage, +10 health, +3% speed.","Všetky mačky spolu: +5 % poškodenie, +10 zdravia, +3 % rýchlosť.","Všechny kočky spolu: +5 % poškození, +10 zdraví, +3 % rychlost.","Todos los gatos juntos: +5% de daño, +10 de salud, +3% de velocidad.","Все кошки вместе: +5% урона, +10 здоровья, +3% скорости.",所有猫咪都在一起：伤害 +5%，生命 +10，速度 +3%。
 ARTIFACT_MASTER_REMOTE_NAME,The Master Remote,Hlavný ovládač,Hlavní ovladač,El mando maestro,Главный пульт,万能遥控器
-ARTIFACT_MASTER_REMOTE_DESC,"The remote of the Robo-Vacuum 3000: attacks 8% more often, +8% damage.","Ovládač Robo-vysávača 3000: útoky o 8 % častejšie, +8 % poškodenie.","Ovladač Robo-vysavače 3000: útoky o 8 % častěji, +8 % poškození.","El mando de la Robo-Aspiradora 3000: ataques un 8% más frecuentes, +8% de daño.","Пульт Робо-пылесоса 3000: атаки на 8% чаще, +8% урона.",机器吸尘器 3000 的遥控器：攻击频率 +8%，伤害 +8%。
+ARTIFACT_MASTER_REMOTE_DESC,"The remote of the Robo-Vacuum 3000: attacks 8% more often, +8% damage.","Ovládač Robo-vysávača 3000: útoky o 8 % častejšie, +8 % poškodenie.","Ovladač Robo-vysavače 3000: útoky o 8 % častěji, +8 % poškození.","El mando de la Robo-Aspiradora 3000: ataques un 8% más frecuentes, +8% de daño.","Пульт Робо-пылесоса 3000: атаки на 8% чаще, +8% урона.",机器吸尘器 3000 的遥控器：攻击频率 +8%，伤害 +8%。
 ARTIFACT_COURIER_BAG_NAME,Courier Bag,Kuriérska taška,Kurýrní taška,Bolsa de mensajero,Сумка курьера,信使包
-ARTIFACT_COURIER_BAG_DESC,Bigger magnet and +5% speed.,Väčší magnet a +5 % rýchlosť.,Větší magnet a +5 % rychlost.,Imán más grande y +5% de velocidad.,Сильнее магнит и +5% скорости.,拾取范围更大，速度 +5%。
+ARTIFACT_COURIER_BAG_DESC,Bigger magnet and +5% speed.,Väčší magnet a +5 % rýchlosť.,Větší magnet a +5 % rychlost.,Imán más grande y +5% de velocidad.,Сильнее магнит и +5% скорости.,拾取范围更大，速度 +5%。
 ARTIFACT_TRAVELERS_CLOAK_NAME,Traveller's Cloak,Pútnický plášť,Poutnický plášť,Capa de viajero,Плащ путника,旅人斗篷
-ARTIFACT_TRAVELERS_CLOAK_DESC,Light as the wind: +10% speed.,Ľahký ako vietor: +10 % rýchlosť.,Lehký jako vítr: +10 % rychlost.,Ligera como el viento: +10% de velocidad.,Лёгкий как ветер: +10% скорости.,轻如清风：速度 +10%。
+ARTIFACT_TRAVELERS_CLOAK_DESC,Light as the wind: +10% speed.,Ľahký ako vietor: +10 % rýchlosť.,Lehký jako vítr: +10 % rychlost.,Ligera como el viento: +10% de velocidad.,Лёгкий как ветер: +10% скорости.,轻如清风：速度 +10%。
 ARTIFACT_FISHERMANS_HOOK_NAME,Fisherman's Hook,Rybársky háčik,Rybářský háček,Anzuelo de pescador,Рыбацкий крючок,渔夫的鱼钩
-ARTIFACT_FISHERMANS_HOOK_DESC,"+5% critical chance, faster projectiles.","+5 % šanca na kritický zásah, rýchlejšie strely.","+5 % šance na kritický zásah, rychlejší střely.","+5% de probabilidad de crítico, proyectiles más rápidos.","+5% шанса крита, снаряды быстрее.",暴击率 +5%，投射物更快。
+ARTIFACT_FISHERMANS_HOOK_DESC,"+5% critical chance, faster projectiles.","+5 % šanca na kritický zásah, rýchlejšie strely.","+5 % šance na kritický zásah, rychlejší střely.","+5% de probabilidad de crítico, proyectiles más rápidos.","+5% шанса крита, снаряды быстрее.",暴击率 +5%，投射物更快。
 ARTIFACT_OLD_CATS_BELL_NAME,Old Whiskers' Bell,Zvonček starého Fúzača,Zvoneček starého Fouska,El cascabel de Viejo Bigotes,Колокольчик Старого Усача,老胡子的铃铛
 ARTIFACT_OLD_CATS_BELL_DESC,Rings once when you fall – and you get up again (+1 revival).,"Zazvoní raz, keď padneš – a vstaneš (+1 oživenie).","Zazvoní jednou, když padneš – a vstaneš (+1 oživení).",Suena una vez cuando caes... y te levantas de nuevo (+1 resurrección).,"Звенит, когда ты падаешь, – и ты встаёшь снова (+1 воскрешение).",当你倒下时响一声——你又站了起来（复活 +1）。
 CHAIN_WAY_HOME_NAME,The Way Home,Cesta domov,Cesta domů,El camino a casa,Дорога домой,回家的路
@@ -1307,7 +1307,7 @@ ENEMY_DRONE_QUEEN_DESC,Shoots and sends her drones after you.,Strieľa a posiela
 ENEMY_ROGUE_DRONE_NAME,Rogue Drone,Zblúdilý dron,Zbloudilý dron,Dron rebelde,Дрон-беглец,失控无人机
 ENEMY_ROGUE_DRONE_DESC,Broke loose from the line. It runs – catch it!,Utrhol sa z linky. Uteká – chyť ho!,Utrhl se z linky. Utíká – chyť ho!,"Se soltó de la cadena de montaje. Huye, ¡atrápalo!",Сбежал с конвейера. Убегает – лови!,从生产线上挣脱了。它在逃跑——快抓住它！
 CAT_BOLT_NAME,Bolt,Šrubka,Šroubek,Tuerca,Болтик,螺栓
-CAT_BOLT_DESC,"A factory cat who knows every machine. Starts with Antenna; attacks 5% more often, faster projectiles.","Továrenská mačka, ktorá pozná každý stroj. Začína s Anténou; útočí o 5 % častejšie, rýchlejšie strely.","Tovární kočka, která zná každý stroj. Začíná s Anténou; útočí o 5 % častěji, rychlejší střely.","Una gata de fábrica que conoce todas las máquinas. Empieza con Antena; ataca un 5% más a menudo, proyectiles más rápidos.","Фабричная кошка, знающая каждую машину. Начинает с Антенны; атакует на 5% чаще, снаряды быстрее.",熟悉每台机器的工厂猫，初始武器为天线；攻击频率 +5%，投射物更快。
+CAT_BOLT_DESC,"A factory cat who knows every machine. Starts with Antenna; attacks 5% more often, faster projectiles.","Továrenská mačka, ktorá pozná každý stroj. Začína s Anténou; útočí o 5 % častejšie, rýchlejšie strely.","Tovární kočka, která zná každý stroj. Začíná s Anténou; útočí o 5 % častěji, rychlejší střely.","Una gata de fábrica que conoce todas las máquinas. Empieza con Antena; ataca un 5% más a menudo, proyectiles más rápidos.","Фабричная кошка, знающая каждую машину. Начинает с Антенны; атакует на 5% чаще, снаряды быстрее.",熟悉每台机器的工厂猫，初始武器为天线；攻击频率 +5%，投射物更快。
 CAT_BOLT_HINT,Free her from the cage in the Factory.,Vysloboď ju z klietky v Továrni.,Vysvoboď ji z klece v Továrně.,Libérala de la jaula de la fábrica.,Освободи её из клетки на Фабрике.,把她从工厂的笼子里放出来。
 QB_FACTORY_NAME,The Factory,Továreň,Továrna,La fábrica,Фабрика,工厂
 QB_FACTORY_1,Survive 10 minutes in the Factory.,Prežiť 10 minút v Továrni.,Přežít 10 minut v Továrně.,Sobrevive 10 minutos en la fábrica.,Продержись 10 минут на Фабрике.,在工厂中坚持 10 分钟。
@@ -1327,7 +1327,7 @@ GOAL_SCRAP_METAL_DESC,Defeat 1000 Factory enemies,Poraz 1000 nepriateľov z Tov�
 ARTIFACT_SPARE_PARTS_NAME,Spare Parts,Náhradné diely,Náhradní díly,Piezas de repuesto,Запчасти,备用零件
 ARTIFACT_SPARE_PARTS_DESC,"Patched up and sturdy: +1 armor, +20 health.","Zalepené a pevné: +1 brnenie, +20 zdravia.","Zalepené a pevné: +1 brnění, +20 zdraví.","Remendado y resistente: +1 de armadura, +20 de salud.","Подлатано и крепко: +1 броня, +20 здоровья.",修修补补，结实耐用：护甲 +1，生命 +20。
 ARTIFACT_OVERCLOCK_NAME,Overclock Chip,Pretaktovaný čip,Přetaktovaný čip,Chip de overclock,Чип разгона,超频芯片
-ARTIFACT_OVERCLOCK_DESC,"Attacks 10% more often, faster projectiles.","Útoky o 10 % častejšie, rýchlejšie strely.","Útoky o 10 % častěji, rychlejší střely.","Ataca un 10% más a menudo, proyectiles más rápidos.","Атаки на 10% чаще, снаряды быстрее.",攻击频率 +10%，投射物更快。
+ARTIFACT_OVERCLOCK_DESC,"Attacks 10% more often, faster projectiles.","Útoky o 10 % častejšie, rýchlejšie strely.","Útoky o 10 % častěji, rychlejší střely.","Ataca un 10% más a menudo, proyectiles más rápidos.","Атаки на 10% чаще, снаряды быстрее.",攻击频率 +10%，投射物更快。
 CHAIN_CONVEYOR_JAM_NAME,The Jammed Line,Zaseknutá linka,Zaseknutá linka,La cadena atascada,Застрявший конвейер,卡住的生产线
 CHAIN_CONVEYOR_JAM_DESC,The conveyor stopped – its gears are guarded by the strongest machines.,Linka stojí – jej ozubené kolesá strážia najsilnejšie stroje.,Linka stojí – její ozubená kola hlídají nejsilnější stroje.,La cinta se ha parado: sus engranajes los vigilan las máquinas más fuertes.,Конвейер встал – его шестерни охраняют сильнейшие машины.,传送带停了——齿轮由最强的机器看守。
 CHAIN_CONVEYOR_JAM_1,Bring the four gears back to the line,Vráť štyri ozubené kolesá na linku,Vrať čtyři ozubená kola na linku,Devuelve los cuatro engranajes a la cadena,Верни четыре шестерни на конвейер,把四个齿轮送回生产线
@@ -1371,7 +1371,7 @@ BRANCH_OVERHEAT_NAME,Overheat,Prehriatie,Přehřátí,Sobrecalentamiento,Пер�
 BRANCH_OVERHEAT_DESC,Beams set enemies on fire.,Lúče podpália nepriateľov.,Paprsky zapálí nepřátele.,Los rayos prenden fuego a los enemigos.,Лучи поджигают врагов.,光束会点燃敌人。
 BRANCH_TARGETING_NAME,Targeting,Zameriavač,Zaměřovač,Apuntado,Наведение,锁定
 BRANCH_TARGETING_DESC,Finishes off weakened enemies.,Dorazí oslabených nepriateľov.,Dorazí oslabené nepřátele.,Remata a los enemigos debilitados.,Добивает ослабленных врагов.,终结虚弱的敌人。
-MENU_PROGRESS,Stories %d / %d   ·   Achievements %d / %d,Príbehy %d / %d   ·   Úspechy %d / %d,Příběhy %d / %d   ·   Úspěchy %d / %d,Historias %d / %d   ·   Logros %d / %d,Истории %d / %d   ·   Достижения %d / %d,故事 %d / %d   ·   成就 %d / %d
+MENU_PROGRESS,Stories %d / %d   ·   Achievements %d / %d,Príbehy %d / %d   ·   Úspechy %d / %d,Příběhy %d / %d   ·   Úspěchy %d / %d,Historias %d / %d   ·   Logros %d / %d,Истории %d / %d   ·   Достижения %d / %d,故事 %d / %d   ·   成就 %d / %d
 NEWS_TITLE,What's new,Čo je nové,Co je nového,Novedades,Что нового,更新内容
 NEWS_TEXT,"• Much faster: the floor is drawn once into a picture, and enemies, effects and kibble are drawn in big batches (a busy late night runs several times smoother)
 • Shrines now ask what you want: a safe gift, or a bigger one with a price – blood oath, storm, sweet fruit, greed, great curse
@@ -1406,7 +1406,7 @@ PAUSE_WEAPONS,Your weapons,Tvoje zbrane,Tvoje zbraně,Tus armas,Твоё ору�
 PAUSE_LOG,Quest and messages,Úloha a správy,Úkol a zprávy,Misión y mensajes,Задание и сообщения,任务与消息
 PAUSE_LOG_EMPTY,Nothing yet.,Zatiaľ nič.,Zatím nic.,Todavía nada.,Пока ничего.,暂无内容。
 SELECT_BTN_DAILY,Daily night,Denná noc,Denní noc,Noche diaria,Ежедневная ночь,每日之夜
-ENDLESS_MINUTE,Endless night: +%d min (record %d min) · +%d gold so far,Nekonečná noc: +%d min (rekord %d min) · zatiaľ +%d zlata,Nekonečná noc: +%d min (rekord %d min) · zatím +%d zlata,Noche sin fin: +%d min (récord %d min) · +%d de oro hasta ahora,Бесконечная ночь: +%d мин (рекорд %d мин) · пока +%d золота,无尽之夜：+%d 分钟（纪录 %d 分钟）· 目前 +%d 金币
+ENDLESS_MINUTE,Endless night: +%d min (record %d min) · +%d gold so far,Nekonečná noc: +%d min (rekord %d min) · zatiaľ +%d zlata,Nekonečná noc: +%d min (rekord %d min) · zatím +%d zlata,Noche sin fin: +%d min (récord %d min) · +%d de oro hasta ahora,Бесконечная ночь: +%d мин (рекорд %d мин) · пока +%d золота,无尽之夜：+%d 分钟（纪录 %d 分钟）· 目前 +%d 金币
 POWERUP_WEAPON_SLOT_NAME,Weapon Slot,Slot na zbraň,Slot na zbraň,Hueco de arma,Слот оружия,武器栏位
 POWERUP_WEAPON_SLOT_DESC,One more weapon you can carry (up to 8).,"O jednu zbraň viac, ktorú môžeš mať (až 8).","O jednu zbraň víc, kterou můžeš mít (až 8).",Un arma más que puedes llevar (hasta 8).,"Ещё одно оружие, которое можно носить (до 8).",多携带一把武器（最多 8 把）。
 SET_CONTRAST,"High contrast (darker floor, brighter enemies)","Vysoký kontrast (tmavšia podlaha, výraznejší nepriatelia)","Vysoký kontrast (tmavší podlaha, výraznější nepřátelé)","Alto contraste (suelo más oscuro, enemigos más brillantes)","Высокий контраст (пол темнее, враги ярче)",高对比度（地面更暗，敌人更亮）
@@ -1431,34 +1431,34 @@ SHRINE_CURSED_NAME,Cursed Shrine,Prekliata svätyňa,Prokletá svatyně,Santuari
 SHRINE_PROMPT,The statue wakes. What do you ask of it?,Soška sa prebúdza. O čo ju požiadaš?,Soška se probouzí. O co ji požádáš?,La estatua despierta. ¿Qué le pides?,Статуя пробуждается. О чём ты её попросишь?,雕像苏醒了。你想向它祈求什么？
 SHRINE_REFUSE,Ask for nothing and walk away,Nežiadaj nič a odíď,Nežádej nic a odejdi,No pedir nada y marcharse,Ничего не просить и уйти,什么都不求，转身离开
 SHRINE_HEAVY,Heavy paws,Ťažké labky,Těžké tlapky,Patas pesadas,Тяжёлые лапы,沉重的爪子
-SHRINE_MIGHT_OPT0,Blessing: +25 % damage for 45 s,Požehnanie: +25 % poškodenia na 45 s,Požehnání: +25 % poškození na 45 s,Bendición: +25 % de daño durante 45 s,Благословение: +25 % урона на 45 с,祝福：45 秒内伤害 +25 %
-SHRINE_MIGHT_OPT1,"Blood oath: +60 % damage for 60 s, but lose 25 % of your health","Krvavá prísaha: +60 % poškodenia na 60 s, ale stratíš 25 % zdravia","Krvavá přísaha: +60 % poškození na 60 s, ale ztratíš 25 % zdraví","Juramento de sangre: +60 % de daño durante 60 s, pero pierdes el 25 % de tu salud","Клятва крови: +60 % урона на 60 с, но теряешь 25 % здоровья",血之誓约：60 秒内伤害 +60 %，但失去 25 % 生命
-SHRINE_MIGHT_OPT2,"Lasting strength: +12 % damage all night, but enemies get 10 % tougher","Trvalá sila: +12 % poškodenia celú noc, ale nepriatelia sú o 10 % silnejší","Trvalá síla: +12 % poškození celou noc, ale nepřátelé jsou o 10 % silnější","Fuerza duradera: +12 % de daño toda la noche, pero los enemigos son un 10 % más duros","Долгая сила: +12 % урона на всю ночь, но враги крепче на 10 %",持久之力：整夜伤害 +12 %，但敌人强化 10 %
-SHRINE_HASTE_OPT0,Breeze: +15 % speed and 10 % faster weapons for 45 s,Vánok: +15 % rýchlosti a o 10 % rýchlejšie zbrane na 45 s,Vánek: +15 % rychlosti a o 10 % rychlejší zbraně na 45 s,Brisa: +15 % de velocidad y armas un 10 % más rápidas durante 45 s,Ветерок: +15 % скорости и оружие быстрее на 10 % на 45 с,微风：45 秒内速度 +15 %，武器加快 10 %
-SHRINE_HASTE_OPT1,"Storm: +35 % speed and 30 % faster weapons for 45 s, but 30 % less max health meanwhile","Búrka: +35 % rýchlosti a o 30 % rýchlejšie zbrane na 45 s, ale medzitým o 30 % menej max. zdravia","Bouře: +35 % rychlosti a o 30 % rychlejší zbraně na 45 s, ale mezitím o 30 % méně max. zdraví","Tormenta: +35 % de velocidad y armas un 30 % más rápidas durante 45 s, pero un 30 % menos de salud máxima mientras tanto","Буря: +35 % скорости и оружие быстрее на 30 % на 45 с, но на это время на 30 % меньше макс. здоровья",风暴：45 秒内速度 +35 %，武器加快 30 %，但期间最大生命 -30 %
-SHRINE_HASTE_OPT2,"Restless paws: weapons 8 % faster all night, but every hit hurts 2 more","Nepokojné labky: zbrane o 8 % rýchlejšie celú noc, ale každý zásah bolí o 2 viac","Neklidné tlapky: zbraně o 8 % rychlejší celou noc, ale každý zásah bolí o 2 víc","Patas inquietas: armas un 8 % más rápidas toda la noche, pero cada golpe duele 2 más","Беспокойные лапы: оружие быстрее на 8 % на всю ночь, но каждый удар наносит на 2 больше",躁动之爪：整夜武器加快 8 %，但每次受到的伤害 +2
-SHRINE_MILK_OPT0,"A sip: heal 40 %, then keep healing for 45 s","Dúšok: vylieči 40 %, potom liečenie ešte 45 s","Doušek: vyléčí 40 %, pak léčení ještě 45 s",Un sorbo: cura un 40 % y sigue curándote durante 45 s,Глоток: вылечись на 40 % и лечись ещё 45 с,啜一口：恢复 40 % 生命，之后 45 秒持续恢复
-SHRINE_MILK_OPT1,"Cream: +25 max health all night, but 25 % slower for 30 s","Smotana: +25 max. zdravia celú noc, ale na 30 s o 25 % pomalšia labka","Smetana: +25 max. zdraví celou noc, ale na 30 s o 25 % pomalejší tlapka","Nata: +25 de salud máxima toda la noche, pero un 25 % más lento durante 30 s","Сливки: +25 к макс. здоровью на всю ночь, но на 25 % медленнее на 30 с",奶油：整夜最大生命 +25，但 30 秒内速度 -25 %
+SHRINE_MIGHT_OPT0,Blessing: +25 % damage for 45 s,Požehnanie: +25 % poškodenia na 45 s,Požehnání: +25 % poškození na 45 s,Bendición: +25 % de daño durante 45 s,Благословение: +25 % урона на 45 с,祝福：45 秒内伤害 +25 %
+SHRINE_MIGHT_OPT1,"Blood oath: +60 % damage for 60 s, but lose 25 % of your health","Krvavá prísaha: +60 % poškodenia na 60 s, ale stratíš 25 % zdravia","Krvavá přísaha: +60 % poškození na 60 s, ale ztratíš 25 % zdraví","Juramento de sangre: +60 % de daño durante 60 s, pero pierdes el 25 % de tu salud","Клятва крови: +60 % урона на 60 с, но теряешь 25 % здоровья",血之誓约：60 秒内伤害 +60 %，但失去 25 % 生命
+SHRINE_MIGHT_OPT2,"Lasting strength: +12 % damage all night, but enemies get 10 % tougher","Trvalá sila: +12 % poškodenia celú noc, ale nepriatelia sú o 10 % silnejší","Trvalá síla: +12 % poškození celou noc, ale nepřátelé jsou o 10 % silnější","Fuerza duradera: +12 % de daño toda la noche, pero los enemigos son un 10 % más duros","Долгая сила: +12 % урона на всю ночь, но враги крепче на 10 %",持久之力：整夜伤害 +12 %，但敌人强化 10 %
+SHRINE_HASTE_OPT0,Breeze: +15 % speed and 10 % faster weapons for 45 s,Vánok: +15 % rýchlosti a o 10 % rýchlejšie zbrane na 45 s,Vánek: +15 % rychlosti a o 10 % rychlejší zbraně na 45 s,Brisa: +15 % de velocidad y armas un 10 % más rápidas durante 45 s,Ветерок: +15 % скорости и оружие быстрее на 10 % на 45 с,微风：45 秒内速度 +15 %，武器加快 10 %
+SHRINE_HASTE_OPT1,"Storm: +35 % speed and 30 % faster weapons for 45 s, but 30 % less max health meanwhile","Búrka: +35 % rýchlosti a o 30 % rýchlejšie zbrane na 45 s, ale medzitým o 30 % menej max. zdravia","Bouře: +35 % rychlosti a o 30 % rychlejší zbraně na 45 s, ale mezitím o 30 % méně max. zdraví","Tormenta: +35 % de velocidad y armas un 30 % más rápidas durante 45 s, pero un 30 % menos de salud máxima mientras tanto","Буря: +35 % скорости и оружие быстрее на 30 % на 45 с, но на это время на 30 % меньше макс. здоровья",风暴：45 秒内速度 +35 %，武器加快 30 %，但期间最大生命 -30 %
+SHRINE_HASTE_OPT2,"Restless paws: weapons 8 % faster all night, but every hit hurts 2 more","Nepokojné labky: zbrane o 8 % rýchlejšie celú noc, ale každý zásah bolí o 2 viac","Neklidné tlapky: zbraně o 8 % rychlejší celou noc, ale každý zásah bolí o 2 víc","Patas inquietas: armas un 8 % más rápidas toda la noche, pero cada golpe duele 2 más","Беспокойные лапы: оружие быстрее на 8 % на всю ночь, но каждый удар наносит на 2 больше",躁动之爪：整夜武器加快 8 %，但每次受到的伤害 +2
+SHRINE_MILK_OPT0,"A sip: heal 40 %, then keep healing for 45 s","Dúšok: vylieči 40 %, potom liečenie ešte 45 s","Doušek: vyléčí 40 %, pak léčení ještě 45 s",Un sorbo: cura un 40 % y sigue curándote durante 45 s,Глоток: вылечись на 40 % и лечись ещё 45 с,啜一口：恢复 40 % 生命，之后 45 秒持续恢复
+SHRINE_MILK_OPT1,"Cream: +25 max health all night, but 25 % slower for 30 s","Smotana: +25 max. zdravia celú noc, ale na 30 s o 25 % pomalšia labka","Smetana: +25 max. zdraví celou noc, ale na 30 s o 25 % pomalejší tlapka","Nata: +25 de salud máxima toda la noche, pero un 25 % más lento durante 30 s","Сливки: +25 к макс. здоровью на всю ночь, но на 25 % медленнее на 30 с",奶油：整夜最大生命 +25，但 30 秒内速度 -25 %
 SHRINE_FORTUNE_OPT0,A shower of gold and all kibble flies to you,Dážď zlata a všetky granulky letia k tebe,Déšť zlata a všechny granule letí k tobě,Una lluvia de oro y todo el pienso vuela hacia ti,"Дождь из золота, и весь корм летит к тебе",一阵金币雨，所有猫粮都飞向你
-SHRINE_FORTUNE_OPT1,"Sweet fruit: gain 2 levels, but lose 40 % of your health","Sladké ovocie: 2 levely navyše, ale stratíš 40 % zdravia","Sladké ovoce: 2 úrovně navíc, ale ztratíš 40 % zdraví","Fruta dulce: sube 2 niveles, pero pierdes el 40 % de tu salud","Сладкий плод: +2 уровня, но теряешь 40 % здоровья",甜美果实：提升 2 级，但失去 40 % 生命
-SHRINE_FORTUNE_OPT2,"Greed: +35 % gold all night, but enemies get 12 % tougher","Chamtivosť: +35 % zlata celú noc, ale nepriatelia sú o 12 % silnejší","Chamtivost: +35 % zlata celou noc, ale nepřátelé jsou o 12 % silnější","Codicia: +35 % de oro toda la noche, pero los enemigos son un 12 % más duros","Жадность: +35 % золота на всю ночь, но враги крепче на 12 %",贪婪：整夜金币 +35 %，但敌人强化 12 %
-SHRINE_CURSED_OPT0,Refuse the curse: +8 % luck all night,Odmietni kliatbu: +8 % šťastia celú noc,Odmítni kletbu: +8 % štěstí celou noc,Rechazar la maldición: +8 % de suerte toda la noche,Отказаться от проклятия: +8 % удачи на всю ночь,拒绝诅咒：整夜幸运 +8 %
+SHRINE_FORTUNE_OPT1,"Sweet fruit: gain 2 levels, but lose 40 % of your health","Sladké ovocie: 2 levely navyše, ale stratíš 40 % zdravia","Sladké ovoce: 2 úrovně navíc, ale ztratíš 40 % zdraví","Fruta dulce: sube 2 niveles, pero pierdes el 40 % de tu salud","Сладкий плод: +2 уровня, но теряешь 40 % здоровья",甜美果实：提升 2 级，但失去 40 % 生命
+SHRINE_FORTUNE_OPT2,"Greed: +35 % gold all night, but enemies get 12 % tougher","Chamtivosť: +35 % zlata celú noc, ale nepriatelia sú o 12 % silnejší","Chamtivost: +35 % zlata celou noc, ale nepřátelé jsou o 12 % silnější","Codicia: +35 % de oro toda la noche, pero los enemigos son un 12 % más duros","Жадность: +35 % золота на всю ночь, но враги крепче на 12 %",贪婪：整夜金币 +35 %，但敌人强化 12 %
+SHRINE_CURSED_OPT0,Refuse the curse: +8 % luck all night,Odmietni kliatbu: +8 % šťastia celú noc,Odmítni kletbu: +8 % štěstí celou noc,Rechazar la maldición: +8 % de suerte toda la noche,Отказаться от проклятия: +8 % удачи на всю ночь,拒绝诅咒：整夜幸运 +8 %
 SHRINE_CURSED_OPT1,Accept the curse: 5 guards appear – beat them for a treasure chest,Prijmi kliatbu: príde 5 strážcov – poraz ich a získaš truhlicu,Přijmi kletbu: přijde 5 strážců – poraž je a získáš truhlu,Aceptar la maldición: aparecen 5 guardias; derrótalos para conseguir un cofre del tesoro,Принять проклятие: появятся 5 стражей – победи их и получишь сундук с сокровищами,接受诅咒：出现 5 名守卫——击败它们获得宝箱
 SHRINE_CURSED_OPT2,Great curse: 8 champion guards – beat them for a boss chest and more gold,Veľká kliatba: 8 strážcov-šampiónov – poraz ich a získaš truhlicu bossa a viac zlata,Velká kletba: 8 strážců-šampionů – poraž je a získáš truhlu bosse a víc zlata,Gran maldición: 8 guardias campeones; derrótalos para conseguir un cofre de jefe y más oro,Великое проклятие: 8 стражей-чемпионов – победи их и получишь сундук босса и больше золота,大诅咒：8 名冠军守卫——击败它们获得 Boss 宝箱和更多金币
 SHRINE_CURSED_WON,The curse is broken: a treasure chest!,Kliatba zlomená: truhlica!,Kletba zlomena: truhla!,La maldición se ha roto: ¡un cofre del tesoro!,Проклятие снято: сундук с сокровищами!,诅咒被打破了：一个宝箱！
-BONUS_MIGHT,+%s %% damage,+%s %% poškodenie,+%s %% poškození,+%s %% de daño,+%s %% урона,伤害 +%s %%
-BONUS_COOLDOWN,%s %% faster attacks,o %s %% rýchlejšie útoky,o %s %% rychlejší útoky,ataques un %s %% más rápidos,атаки быстрее на %s %%,攻击加快 %s %%
-BONUS_AREA,+%s %% area,+%s %% plocha,+%s %% plocha,+%s %% de área,+%s %% площади,范围 +%s %%
-BONUS_SPEED,+%s %% speed,+%s %% rýchlosť,+%s %% rychlost,+%s %% de velocidad,+%s %% скорости,速度 +%s %%
+BONUS_MIGHT,+%s %% damage,+%s %% poškodenie,+%s %% poškození,+%s %% de daño,+%s %% урона,伤害 +%s %%
+BONUS_COOLDOWN,%s %% faster attacks,o %s %% rýchlejšie útoky,o %s %% rychlejší útoky,ataques un %s %% más rápidos,атаки быстрее на %s %%,攻击加快 %s %%
+BONUS_AREA,+%s %% area,+%s %% plocha,+%s %% plocha,+%s %% de área,+%s %% площади,范围 +%s %%
+BONUS_SPEED,+%s %% speed,+%s %% rýchlosť,+%s %% rychlost,+%s %% de velocidad,+%s %% скорости,速度 +%s %%
 BONUS_MAGNET,+%s magnet,+%s magnet,+%s magnet,+%s de imán,+%s к магниту,拾取范围 +%s
 BONUS_MAX_HP,+%s health,+%s zdravie,+%s zdraví,+%s de salud,+%s здоровья,生命 +%s
-BONUS_LUCK,+%s %% luck,+%s %% šťastie,+%s %% štěstí,+%s %% de suerte,+%s %% удачи,幸运 +%s %%
+BONUS_LUCK,+%s %% luck,+%s %% šťastie,+%s %% štěstí,+%s %% de suerte,+%s %% удачи,幸运 +%s %%
 BONUS_REGEN,+%s health/s,+%s zdravia/s,+%s zdraví/s,+%s de salud/s,+%s здоровья/с,每秒生命 +%s
-BONUS_PROJ_SPEED,+%s %% projectile speed,+%s %% rýchlosť striel,+%s %% rychlost střel,+%s %% de velocidad de proyectiles,+%s %% скорости снарядов,投射物速度 +%s %%
-BONUS_GROWTH,+%s %% experience,+%s %% skúsenosti,+%s %% zkušenosti,+%s %% de experiencia,+%s %% опыта,经验 +%s %%
+BONUS_PROJ_SPEED,+%s %% projectile speed,+%s %% rýchlosť striel,+%s %% rychlost střel,+%s %% de velocidad de proyectiles,+%s %% скорости снарядов,投射物速度 +%s %%
+BONUS_GROWTH,+%s %% experience,+%s %% skúsenosti,+%s %% zkušenosti,+%s %% de experiencia,+%s %% опыта,经验 +%s %%
 BONUS_WEAPON_SLOTS,+%s weapon slot,+%s slot na zbraň,+%s slot na zbraň,+%s hueco de arma,+%s слот оружия,武器栏位 +%s
 BONUS_NONE,No bonuses – a steady all-rounder,Bez bonusov – spoľahlivá všestranná mačka,Bez bonusů – spolehlivá všestranná kočka,Sin bonificaciones: un todoterreno fiable,Без бонусов – надёжный универсал,没有加成——稳健的全能型
-SELECT_STAGE_INFO,%d min night · difficulty %d/5,noc %d min · obtiažnosť %d/5,noc %d min · obtížnost %d/5,noche de %d min · dificultad %d/5,ночь %d мин · сложность %d/5,夜晚 %d 分钟 · 难度 %d/5
+SELECT_STAGE_INFO,%d min night · difficulty %d/5,noc %d min · obtiažnosť %d/5,noc %d min · obtížnost %d/5,noche de %d min · dificultad %d/5,ночь %d мин · сложность %d/5,夜晚 %d 分钟 · 难度 %d/5
 MENU_TIP,Tip: %s,Tip: %s,Tip: %s,Consejo: %s,Совет: %s,提示：%s
 MENU_TIP_1,Lure enemies over traps – traps hurt them too.,Lákaj nepriateľov do pascí – zrania aj ich.,Lákej nepřátele do pastí – zraní i je.,Atrae a los enemigos sobre las trampas: a ellos también les hacen daño.,Заманивай врагов на ловушки – им они тоже вредят.,把敌人引到陷阱上——陷阱也会伤害它们。
 MENU_TIP_2,A boss chest lets you pick 1 of 3 upgrades.,Truhlica po bossovi ti dá vybrať 1 z 3 vylepšení.,Truhla po bossovi ti dá vybrat 1 ze 3 vylepšení.,Un cofre de jefe te deja elegir 1 de 3 mejoras.,Сундук босса позволяет выбрать 1 из 3 улучшений.,Boss 宝箱可以让你从 3 项升级中选 1 项。
@@ -1470,13 +1470,13 @@ MENU_TIP_7,Glowing champions drop gold and sometimes a charm.,Žiariaci šampió
 MENU_TIP_8,The golden mouse runs away – catch it for gold and a chest!,Zlatá myš uteká – chyť ju a dostaneš zlato aj truhlicu!,Zlatá myš utíká – chyť ji a dostaneš zlato i truhlu!,El ratón dorado huye: ¡atrápalo para conseguir oro y un cofre!,Золотая мышь убегает – поймай её ради золота и сундука!,黄金鼠会逃跑——抓住它获得金币和宝箱！
 MENU_TIP_9,Later maps get much tougher after minute 6 – bring a strong build.,Neskoršie mapy sú po 6. minúte oveľa ťažšie – príď so silnou výbavou.,Pozdější mapy jsou po 6. minutě mnohem těžší – přijď se silnou výbavou.,Los mapas posteriores se endurecen mucho a partir del minuto 6: lleva una buena build.,Поздние карты становятся намного сложнее после 6-й минуты – подготовь сильную сборку.,后期地图在第 6 分钟后难度大增——带上强力的配置。
 MENU_TIP_10,The daily night (T) gives +500 gold for the first win of the day.,Denná noc (T) dá +500 zlata za prvú výhru dňa.,Denní noc (T) dá +500 zlata za první výhru dne.,La noche diaria (T) da +500 de oro por la primera victoria del día.,Ежедневная ночь (T) даёт +500 золота за первую победу дня.,每日之夜（T）当天首次获胜可得 +500 金币。
-SELECT_DARKNESS,"Darkness %d: enemies +%d %% health, +%d %% gold  (- / +)","Temnota %d: nepriatelia +%d %% zdravia, +%d %% zlata  (- / +)","Temnota %d: nepřátelé +%d %% zdraví, +%d %% zlata  (- / +)","Oscuridad %d: enemigos +%d %% de salud, +%d %% de oro  (- / +)","Тьма %d: враги +%d %% здоровья, +%d %% золота  (- / +)",黑暗 %d：敌人生命 +%d %%，金币 +%d %%（- / +）
+SELECT_DARKNESS,"Darkness %d: enemies +%d %% health, +%d %% gold  (- / +)","Temnota %d: nepriatelia +%d %% zdravia, +%d %% zlata  (- / +)","Temnota %d: nepřátelé +%d %% zdraví, +%d %% zlata  (- / +)","Oscuridad %d: enemigos +%d %% de salud, +%d %% de oro  (- / +)","Тьма %d: враги +%d %% здоровья, +%d %% золота  (- / +)",黑暗 %d：敌人生命 +%d %%，金币 +%d %%（- / +）
 SELECT_DARKNESS_OFF,Darkness off – up to %d open  (- / +),Temnota vypnutá – odomknutá do %d  (- / +),Temnota vypnutá – odemčená do %d  (- / +),Oscuridad desactivada: hasta %d disponible  (- / +),Тьма выключена – доступно до %d  (- / +),黑暗关闭——最多可开 %d 级（- / +）
 SELECT_DARKNESS_LOCKED,Win this map to open the Darkness,Vyhraj túto mapu a odomkneš Temnotu,Vyhraj tuto mapu a odemkneš Temnotu,Gana este mapa para abrir la Oscuridad,"Победи на этой карте, чтобы открыть Тьму",通关这张地图以开启黑暗模式
-SELECT_MAP_DARKNESS,Darkness %d won,Temnota %d prekonaná,Temnota %d překonána,Oscuridad %d ganada,Тьма %d пройдена,已通关黑暗 %d
-DARKNESS_ON,"Darkness %d: enemies +%d %% health, +%d %% gold","Temnota %d: nepriatelia +%d %% zdravia, +%d %% zlata","Temnota %d: nepřátelé +%d %% zdraví, +%d %% zlata","Oscuridad %d: enemigos +%d %% de salud, +%d %% de oro","Тьма %d: враги +%d %% здоровья, +%d %% золота",黑暗 %d：敌人生命 +%d %%，金币 +%d %%
-SUMMARY_DARKNESS,Darkness %d: +%d gold,Temnota %d: +%d zlata,Temnota %d: +%d zlata,Oscuridad %d: +%d de oro,Тьма %d: +%d золота,黑暗 %d：+%d 金币
-SUMMARY_DARKNESS_WON,Darkness %d beaten – the next level is open!,Temnota %d prekonaná – ďalšia úroveň je odomknutá!,Temnota %d překonána – další úroveň je odemčená!,Oscuridad %d superada: ¡el siguiente nivel está abierto!,Тьма %d пройдена – следующий уровень открыт!,已通关黑暗 %d——下一级已开启！
+SELECT_MAP_DARKNESS,Darkness %d won,Temnota %d prekonaná,Temnota %d překonána,Oscuridad %d ganada,Тьма %d пройдена,已通关黑暗 %d
+DARKNESS_ON,"Darkness %d: enemies +%d %% health, +%d %% gold","Temnota %d: nepriatelia +%d %% zdravia, +%d %% zlata","Temnota %d: nepřátelé +%d %% zdraví, +%d %% zlata","Oscuridad %d: enemigos +%d %% de salud, +%d %% de oro","Тьма %d: враги +%d %% здоровья, +%d %% золота",黑暗 %d：敌人生命 +%d %%，金币 +%d %%
+SUMMARY_DARKNESS,Darkness %d: +%d gold,Temnota %d: +%d zlata,Temnota %d: +%d zlata,Oscuridad %d: +%d de oro,Тьма %d: +%d золота,黑暗 %d：+%d 金币
+SUMMARY_DARKNESS_WON,Darkness %d beaten – the next level is open!,Temnota %d prekonaná – ďalšia úroveň je odomknutá!,Temnota %d překonána – další úroveň je odemčená!,Oscuridad %d superada: ¡el siguiente nivel está abierto!,Тьма %d пройдена – следующий уровень открыт!,已通关黑暗 %d——下一级已开启！
 SUMMARY_DARKNESS_OPEN,The Darkness is open on this map (- / + on the map screen),Na tejto mape sa odomkla Temnota (- / + pri výbere mapy),Na této mapě se odemkla Temnota (- / + při výběru mapy),La Oscuridad está abierta en este mapa (- / + en la pantalla de mapas),Тьма открыта на этой карте (- / + на экране выбора карты),此地图已开启黑暗模式（在地图界面按 - / +）
 ACH_PILGRIM_NAME,Pilgrim,Pútnik,Poutník,Peregrino,Паломник,朝圣者
 ACH_PILGRIM_DESC,Wake 10 shrines,Prebuď 10 svätýň,Probuď 10 svatyní,Despierta 10 santuarios,Пробуди 10 святилищ,唤醒 10 座神龛
@@ -1486,9 +1486,9 @@ ACH_ABYSS_NAME,The Abyss,Priepasť,Propast,El abismo,Бездна,深渊
 ACH_ABYSS_DESC,Win at Darkness 5,Vyhraj v Temnote 5,Vyhraj v Temnotě 5,Gana en Oscuridad 5,Победи на Тьме 5,在黑暗 5 中获胜
 ACH_LEGENDARY_NAME,Legendary,Legendárne,Legendární,Legendario,Легендарно,传说
 ACH_LEGENDARY_DESC,Pick a legendary level-up card,Vyber si legendárnu kartu pri leveli,Vyber si legendární kartu při levelu,Elige una carta de nivel legendaria,Выбери легендарную карту уровня,选择一张传说升级卡
-CHARM_FOUND_QUALITY,Charm found: %s %s,Nájdený talizman: %s %s,Nalezený talisman: %s %s,Amuleto encontrado: %s %s,Найден амулет: %s %s,找到护符：%s %s
-SUMMARY_CHARM_UPGRADED,Better copy: %s is now %s,Lepší kúsok: %s má teraz %s,Lepší kousek: %s má teď %s,Mejor copia: %s ahora es %s,Лучшая копия: %s теперь %s,更好的副本：%s 现在是 %s
-CHARM_QUALITY,Quality %s: effect +%d %%,Kvalita %s: účinok +%d %%,Kvalita %s: účinek +%d %%,Calidad %s: efecto +%d %%,Качество %s: эффект +%d %%,品质 %s：效果 +%d %%
+CHARM_FOUND_QUALITY,Charm found: %s %s,Nájdený talizman: %s %s,Nalezený talisman: %s %s,Amuleto encontrado: %s %s,Найден амулет: %s %s,找到护符：%s %s
+SUMMARY_CHARM_UPGRADED,Better copy: %s is now %s,Lepší kúsok: %s má teraz %s,Lepší kousek: %s má teď %s,Mejor copia: %s ahora es %s,Лучшая копия: %s теперь %s,更好的副本：%s 现在是 %s
+CHARM_QUALITY,Quality %s: effect +%d %%,Kvalita %s: účinok +%d %%,Kvalita %s: účinek +%d %%,Calidad %s: efecto +%d %%,Качество %s: эффект +%d %%,品质 %s：效果 +%d %%
 ENEMY_SHADOW_HOUND_NAME,The Shadow Hound,Tieňový pes,Stínový pes,El Sabueso de las sombras,Теневой пёс,暗影猎犬
 ENEMY_SHADOW_HOUND_DESC,"A huge black dog that lives deep in the dark, far beyond the cellar. Only red eyes give it away.","Obrovský čierny pes, ktorý žije hlboko v tme, ďaleko za pivnicou. Prezradia ho len červené oči.","Obrovský černý pes, který žije hluboko ve tmě, daleko za sklepem. Prozradí ho jen rudé oči.","Un enorme perro negro que vive en lo más hondo de la oscuridad, mucho más allá del sótano. Solo lo delatan sus ojos rojos.","Огромный чёрный пёс, живущий глубоко во тьме, далеко за подвалом. Выдают его только красные глаза.",一只巨大的黑狗，栖身于地下室远处的深深黑暗中。只有那双红眼睛会暴露它。
 CHAIN_FAR_WANDERER_NAME,The End of the Garden,Koniec záhrady,Konec zahrady,El fin del jardín,Конец сада,花园的尽头
@@ -1513,13 +1513,13 @@ TERRAIN_AISLES,Winding aisle,Kľukatá ulička,Klikatá ulička,Pasillo sinuoso,
 TERRAIN_TIDE,The tide comes in,Prichádza príliv,Přichází příliv,Sube la marea,Наступает прилив,涨潮
 TIDE_WARNING,The tide is coming! Stay on the dry strip.,Prichádza príliv! Zostaň na suchom páse.,Přichází příliv! Zůstaň na suchém pásu.,¡Sube la marea! Quédate en la franja seca.,Идёт прилив! Оставайся на сухой полосе.,潮水来了！待在干燥的地带上。
 CHARM_STEEL_CLAW_NAME,Steel Claw,Oceľový pazúr,Ocelový dráp,Garra de acero,Стальной коготь,钢爪
-CHARM_STEEL_CLAW_DESC,+25% damage,+25 % poškodenie,+25 % poškození,+25% de daño,+25% урона,伤害 +25%
+CHARM_STEEL_CLAW_DESC,+25% damage,+25 % poškodenie,+25 % poškození,+25% de daño,+25% урона,伤害 +25%
 CHARM_COMET_TAIL_NAME,Comet Tail,Kométin chvost,Kometin ocas,Cola de cometa,Хвост кометы,彗星尾
-CHARM_COMET_TAIL_DESC,+18% movement speed,+18 % rýchlosť pohybu,+18 % rychlost pohybu,+18% de velocidad de movimiento,+18% скорости передвижения,移动速度 +18%
+CHARM_COMET_TAIL_DESC,+18% movement speed,+18 % rýchlosť pohybu,+18 % rychlost pohybu,+18% de velocidad de movimiento,+18% скорости передвижения,移动速度 +18%
 CHARM_SHADOW_COAT_NAME,Shadow Coat,Tieňový kožuch,Stínový kožich,Abrigo de sombra,Теневая шубка,暗影外衣
 CHARM_SHADOW_COAT_DESC,+3 armor,+3 brnenie,+3 brnění,+3 de armadura,+3 брони,护甲 +3
 CHARM_MOON_PEARL_NAME,Moon Pearl,Mesačná perla,Měsíční perla,Perla lunar,Лунная жемчужина,月光珍珠
-CHARM_MOON_PEARL_DESC,+20% experience,+20 % skúsenosti,+20 % zkušenosti,+20% de experiencia,+20% опыта,经验 +20%
+CHARM_MOON_PEARL_DESC,+20% experience,+20 % skúsenosti,+20 % zkušenosti,+20% de experiencia,+20% опыта,经验 +20%
 CHAIN_UNDER_THE_SOFA_NAME,Under the Endless Sofa,Pod nekonečným gaučom,Pod nekonečným gaučem,Bajo el sofá sin fin,Под бесконечным диваном,无尽的沙发底下
 CHAIN_UNDER_THE_SOFA_DESC,Crumbs lead further than any flat should go. What lives that far under the sofa?,"Omrvinky vedú ďalej, než by byt mal siahať. Čo žije tak hlboko pod gaučom?","Drobky vedou dál, než by byt měl sahat. Co žije tak hluboko pod gaučem?",Las migas llevan más lejos de lo que debería llegar un piso. ¿Qué vive tan al fondo bajo el sofá?,"Крошки ведут дальше, чем может тянуться любая квартира. Кто живёт так глубоко под диваном?",面包屑一路延伸，远到不像是在公寓里。沙发底下那么深的地方住着什么？
 CHAIN_UNDER_THE_SOFA_1,Follow the old crumbs,Choď po starých omrvinkách,Jdi po starých drobcích,Sigue las migas viejas,Иди по старым крошкам,跟着旧面包屑走
@@ -1576,19 +1576,19 @@ CHAIN_SANDBAGS_2_DONE,The boat is safe. A gull feather drifts down as thanks.,Lo
 CHARM_THIMBLE_NAME,Thimble,Náprstok,Náprstek,Dedal,Наперсток,顶针
 CHARM_THIMBLE_DESC,+1 armor,+1 brnenie,+1 brnění,+1 de armadura,+1 броня,护甲 +1
 CHARM_MOTH_WING_NAME,Moth Wing,Krídlo moly,Křídlo moli,Ala de polilla,Крыло моли,蛾翅
-CHARM_MOTH_WING_DESC,+20% duration,+20 % trvanie,+20 % trvání,+20% de duración,+20% длительности,持续时间 +20%
+CHARM_MOTH_WING_DESC,+20% duration,+20 % trvanie,+20 % trvání,+20% de duración,+20% длительности,持续时间 +20%
 CHARM_COPPER_COIL_NAME,Copper Coil,Medená cievka,Měděná cívka,Bobina de cobre,Медная катушка,铜线圈
-CHARM_COPPER_COIL_DESC,Weapons attack 8% more often,Zbrane útočia o 8 % častejšie,Zbraně útočí o 8 % častěji,Las armas atacan un 8% más a menudo,Оружие атакует на 8% чаще,武器攻击频率 +8%
+CHARM_COPPER_COIL_DESC,Weapons attack 8% more often,Zbrane útočia o 8 % častejšie,Zbraně útočí o 8 % častěji,Las armas atacan un 8% más a menudo,Оружие атакует на 8% чаще,武器攻击频率 +8%
 CHARM_CANDLE_STUB_NAME,Candle Stub,Ohorok sviečky,Oharek svíčky,Cabo de vela,Огарок свечи,蜡烛头
-CHARM_CANDLE_STUB_DESC,+15% attack area,+15 % plocha útokov,+15 % plocha útoků,+15% de área de ataque,+15% площади атаки,攻击范围 +15%
+CHARM_CANDLE_STUB_DESC,+15% attack area,+15 % plocha útokov,+15 % plocha útoků,+15% de área de ataque,+15% площади атаки,攻击范围 +15%
 CHARM_SALMON_SKIN_NAME,Salmon Skin,Lososia koža,Lososí kůže,Piel de salmón,Кожа лосося,三文鱼皮
 CHARM_SALMON_SKIN_DESC,+40 max health,+40 maximálne zdravie,+40 maximální zdraví,+40 de salud máxima,+40 к макс. здоровью,最大生命 +40
 CHARM_BIRD_BELL_NAME,Bird Bell,Vtáčí zvonček,Ptačí zvoneček,Cascabel de pájaro,Птичий колокольчик,鸟铃
 CHARM_BIRD_BELL_DESC,Pick up kibble from much further away,Granule priťahuješ z oveľa väčšej diaľky,Granule přitahuješ z mnohem větší dálky,Recoge pienso desde mucho más lejos,Подбирает корм с гораздо большего расстояния,从远得多的地方拾取猫粮
 CHARM_PIRATE_COIN_NAME,Pirate Coin,Pirátska minca,Pirátská mince,Moneda pirata,Пиратская монета,海盗硬币
-CHARM_PIRATE_COIN_DESC,+30% gold,+30 % zlata,+30 % zlata,+30% de oro,+30% золота,金币 +30%
+CHARM_PIRATE_COIN_DESC,+30% gold,+30 % zlata,+30 % zlata,+30% de oro,+30% золота,金币 +30%
 CHARM_OWL_EYE_NAME,Owl Eye,Sovie oko,Soví oko,Ojo de búho,Совиный глаз,猫头鹰之眼
-CHARM_OWL_EYE_DESC,+10% critical hit chance,+10 % šanca na kritický zásah,+10 % šance na kritický zásah,+10% de probabilidad de golpe crítico,+10% шанса критического удара,暴击率 +10%
+CHARM_OWL_EYE_DESC,+10% critical hit chance,+10 % šanca na kritický zásah,+10 % šance na kritický zásah,+10% de probabilidad de golpe crítico,+10% шанса критического удара,暴击率 +10%
 CHAIN_LOST_BUTTONS_NAME,Lost Buttons,Stratené gombíky,Ztracené knoflíky,Botones perdidos,Потерянные пуговицы,丢失的纽扣
 CHAIN_LOST_BUTTONS_DESC,Grandma's sewing box fell over. Buttons everywhere!,Babkina šijacia krabica spadla. Gombíky sú všade!,Babiččina šicí krabice spadla. Knoflíky jsou všude!,Se cayó el costurero de la abuela. ¡Botones por todas partes!,Бабушкина шкатулка для шитья упала. Пуговицы повсюду!,奶奶的针线盒翻倒了。到处都是纽扣！
 CHAIN_LOST_BUTTONS_1,Gather the buttons into the basket,Pozbieraj gombíky do košíka,Posbírej knoflíky do košíku,Reúne los botones en la cesta,Собери пуговицы в корзинку,把纽扣收进篮子
@@ -1643,21 +1643,21 @@ ITEM_SLOT_HAT,Hat,Čiapka,Čepice,Sombrero,Шапка,帽子
 ITEM_SLOT_VEST,Vest,Vesta,Vesta,Chaleco,Жилет,背心
 ITEM_SLOT_PAWS,Paws,Labky,Tlapky,Patas,Лапки,爪子
 ITEM_SLOT_TAIL,Tail,Chvost,Ocas,Cola,Хвост,尾巴
-ISTAT_MIGHT,+%s%% damage,+%s %% poškodenie,+%s %% poškození,+%s%% de daño,+%s%% урона,伤害 +%s%%
-ISTAT_SPEED,+%s%% move speed,+%s %% rýchlosť pohybu,+%s %% rychlost pohybu,+%s%% de velocidad de movimiento,+%s%% скорости передвижения,移动速度 +%s%%
+ISTAT_MIGHT,+%s%% damage,+%s %% poškodenie,+%s %% poškození,+%s%% de daño,+%s%% урона,伤害 +%s%%
+ISTAT_SPEED,+%s%% move speed,+%s %% rýchlosť pohybu,+%s %% rychlost pohybu,+%s%% de velocidad de movimiento,+%s%% скорости передвижения,移动速度 +%s%%
 ISTAT_MAX_HP,+%s max health,+%s max. zdravie,+%s max. zdraví,+%s de salud máxima,+%s к макс. здоровью,最大生命 +%s
-ISTAT_AREA,+%s%% area,+%s %% plocha,+%s %% plocha,+%s%% de área,+%s%% площади,范围 +%s%%
-ISTAT_COOLDOWN,+%s%% attack rate,+%s %% rýchlosť útokov,+%s %% rychlost útoků,+%s%% de cadencia de ataque,+%s%% скорости атак,攻击速度 +%s%%
+ISTAT_AREA,+%s%% area,+%s %% plocha,+%s %% plocha,+%s%% de área,+%s%% площади,范围 +%s%%
+ISTAT_COOLDOWN,+%s%% attack rate,+%s %% rýchlosť útokov,+%s %% rychlost útoků,+%s%% de cadencia de ataque,+%s%% скорости атак,攻击速度 +%s%%
 ISTAT_ARMOR,+%s armor,+%s brnenie,+%s brnění,+%s de armadura,+%s брони,护甲 +%s
 ISTAT_REGEN,+%s health/s,+%s zdravia/s,+%s zdraví/s,+%s de salud/s,+%s здоровья/с,每秒生命 +%s
 ISTAT_MAGNET,+%s pickup range,+%s dosah magnetu,+%s dosah magnetu,+%s de alcance de recogida,+%s к дальности подбора,拾取范围 +%s
-ISTAT_GREED,+%s%% gold,+%s %% zlata,+%s %% zlata,+%s%% de oro,+%s%% золота,金币 +%s%%
-ISTAT_LUCK,+%s%% luck,+%s %% šťastie,+%s %% štěstí,+%s%% de suerte,+%s%% удачи,幸运 +%s%%
-ISTAT_CRIT_CHANCE,+%s%% critical chance,+%s %% šanca na kritický zásah,+%s %% šance na kritický zásah,+%s%% de probabilidad de crítico,+%s%% шанса крита,暴击率 +%s%%
-ISTAT_CRIT_MULT,+%s%% critical damage,+%s %% sila kritického zásahu,+%s %% síla kritického zásahu,+%s%% de daño crítico,+%s%% критического урона,暴击伤害 +%s%%
-ISTAT_DURATION,+%s%% duration,+%s %% trvanie,+%s %% trvání,+%s%% de duración,+%s%% длительности,持续时间 +%s%%
-ISTAT_PROJ_SPEED,+%s%% projectile speed,+%s %% rýchlosť striel,+%s %% rychlost střel,+%s%% de velocidad de proyectiles,+%s%% скорости снарядов,投射物速度 +%s%%
-ISTAT_GROWTH,+%s%% experience,+%s %% skúsenosti,+%s %% zkušenosti,+%s%% de experiencia,+%s%% опыта,经验 +%s%%
+ISTAT_GREED,+%s%% gold,+%s %% zlata,+%s %% zlata,+%s%% de oro,+%s%% золота,金币 +%s%%
+ISTAT_LUCK,+%s%% luck,+%s %% šťastie,+%s %% štěstí,+%s%% de suerte,+%s%% удачи,幸运 +%s%%
+ISTAT_CRIT_CHANCE,+%s%% critical chance,+%s %% šanca na kritický zásah,+%s %% šance na kritický zásah,+%s%% de probabilidad de crítico,+%s%% шанса крита,暴击率 +%s%%
+ISTAT_CRIT_MULT,+%s%% critical damage,+%s %% sila kritického zásahu,+%s %% síla kritického zásahu,+%s%% de daño crítico,+%s%% критического урона,暴击伤害 +%s%%
+ISTAT_DURATION,+%s%% duration,+%s %% trvanie,+%s %% trvání,+%s%% de duración,+%s%% длительности,持续时间 +%s%%
+ISTAT_PROJ_SPEED,+%s%% projectile speed,+%s %% rýchlosť striel,+%s %% rychlost střel,+%s%% de velocidad de proyectiles,+%s%% скорости снарядов,投射物速度 +%s%%
+ISTAT_GROWTH,+%s%% experience,+%s %% skúsenosti,+%s %% zkušenosti,+%s%% de experiencia,+%s%% опыта,经验 +%s%%
 ITEM_RED_COLLAR_NAME,Red Collar,Červený obojok,Červený obojek,Collar rojo,Красный ошейник,红项圈
 ITEM_BELL_COLLAR_NAME,Bell Collar,Obojok so zvončekom,Obojek se zvonečkem,Collar con cascabel,Ошейник с колокольчиком,铃铛项圈
 ITEM_LEATHER_COLLAR_NAME,Leather Collar,Kožený obojok,Kožený obojek,Collar de cuero,Кожаный ошейник,皮项圈
@@ -1699,18 +1699,20 @@ ITEM_TAIL_TASSEL_NAME,Tail Tassel,Strapec na chvost,Střapec na ocas,Borla para 
 ITEM_TAIL_FEATHER_NAME,Tail Feather,Pierko na chvost,Pírko na ocas,Pluma para la cola,Пёрышко на хвост,尾羽
 ITEM_TAIL_CHARM_NAME,Tail Charm,Prívesok na chvost,Přívěsek na ocas,Colgante para la cola,Подвеска на хвост,尾巴挂饰
 ITEM_POWER_CORD_NAME,The Power Cord,Napájací kábel,Napájecí kabel,El cable de alimentación,Силовой кабель,电源线
-ITEM_POWER_CORD_DESC,"From the Vacuum King. Every 30 s pulls all kibble to you; +40 pickup range, +15% gold.","Od Kráľa vysávačov. Každých 30 s k tebe pritiahne všetky granulky; +40 dosah magnetu, +15 % zlata.","Od Krále vysavačů. Každých 30 s k tobě přitáhne všechny granulky; +40 dosah magnetu, +15 % zlata.","Del Rey Aspiradora. Cada 30 s atrae hacia ti todo el pienso; +40 de alcance de recogida, +15% de oro.","От Короля Пылесосов. Каждые 30 с притягивает к тебе весь корм; +40 к дальности подбора, +15% золота.",来自吸尘器之王。每 30 秒把所有猫粮吸到你身边；拾取范围 +40，金币 +15%。
+ITEM_POWER_CORD_DESC,"From the Vacuum King. Every 30 s pulls all kibble to you; +40 pickup range, +15% gold.","Od Kráľa vysávačov. Každých 30 s k tebe pritiahne všetky granulky; +40 dosah magnetu, +15 % zlata.","Od Krále vysavačů. Každých 30 s k tobě přitáhne všechny granulky; +40 dosah magnetu, +15 % zlata.","Del Rey Aspiradora. Cada 30 s atrae hacia ti todo el pienso; +40 de alcance de recogida, +15% de oro.","От Короля Пылесосов. Каждые 30 с притягивает к тебе весь корм; +40 к дальности подбора, +15% золота.",来自吸尘器之王。每 30 秒把所有猫粮吸到你身边；拾取范围 +40，金币 +15%。
 ITEM_RAT_CROWN_NAME,The Rat Crown,Potkania koruna,Krysí koruna,La corona de las ratas,Крысиная корона,鼠王冠
-ITEM_RAT_CROWN_DESC,From the Rat King. One extra life each night; +10% luck.,Od Potkanieho kráľa. Jeden život navyše každú noc; +10 % šťastie.,Od Krysího krále. Jeden život navíc každou noc; +10 % štěstí.,Del Rey Rata. Una vida extra cada noche; +10% de suerte.,От Крысиного короля. Одна дополнительная жизнь каждую ночь; +10% удачи.,来自鼠王。每夜多一条命；幸运 +10%。
+ITEM_RAT_CROWN_DESC,From the Rat King. One extra life each night; +10% luck.,Od Potkanieho kráľa. Jeden život navyše každú noc; +10 % šťastie.,Od Krysího krále. Jeden život navíc každou noc; +10 % štěstí.,Del Rey Rata. Una vida extra cada noche; +10% de suerte.,От Крысиного короля. Одна дополнительная жизнь каждую ночь; +10% удачи.,来自鼠王。每夜多一条命；幸运 +10%。
 ITEM_MOWER_BOOTS_NAME,Mower Boots,Kosačkové čižmy,Sekačkové boty,Botas cortacésped,Сапоги-косилки,割草靴
-ITEM_MOWER_BOOTS_DESC,"From the Lawnmower. Whenever you get hurt, blades cut every enemy close to you; +10% speed, +8% area.","Od Kosačky. Keď ťa niečo zraní, čepele sekajú všetkých nepriateľov blízko teba; +10 % rýchlosť, +8 % plocha.","Od Sekačky. Když tě něco zraní, čepele sekají všechny nepřátele blízko tebe; +10 % rychlost, +8 % plocha.","Del Cortacésped. Cada vez que te hieren, unas cuchillas cortan a todos los enemigos cercanos; +10% de velocidad, +8% de área.","От Газонокосилки. Когда тебя ранят, лезвия режут всех врагов рядом; +10% скорости, +8% площади.",来自割草机。每当你受伤，刀刃会切割你附近的所有敌人；速度 +10%，范围 +8%。
+ITEM_MOWER_BOOTS_DESC,"From the Lawnmower. Whenever you get hurt, blades cut every enemy close to you; +10% speed, +8% area.","Od Kosačky. Keď ťa niečo zraní, čepele sekajú všetkých nepriateľov blízko teba; +10 % rýchlosť, +8 % plocha.","Od Sekačky. Když tě něco zraní, čepele sekají všechny nepřátele blízko tebe; +10 % rychlost, +8 % plocha.","Del Cortacésped. Cada vez que te hieren, unas cuchillas cortan a todos los enemigos cercanos; +10% de velocidad, +8% de área.","От Газонокосилки. Когда тебя ранят, лезвия режут всех врагов рядом; +10% скорости, +8% площади.",来自割草机。每当你受伤，刀刃会切割你附近的所有敌人；速度 +10%，范围 +8%。
 ITEM_NIGHT_SCARF_NAME,The Night Scarf,Nočná šála,Noční šála,La bufanda nocturna,Ночной шарф,夜之围巾
-ITEM_NIGHT_SCARF_DESC,"From Bruno. +8% critical chance, critical hits deal +40% more.","Od Bruna. +8 % šanca na kritický zásah, kritické zásahy o 40 % silnejšie.","Od Bruna. +8 % šance na kritický zásah, kritické zásahy o 40 % silnější.","De Bruno. +8% de probabilidad de crítico, los críticos hacen un 40% más.","От Бруно. +8% шанса крита, криты сильнее на 40%.",来自布鲁诺。暴击率 +8%，暴击伤害 +40%。
+ITEM_NIGHT_SCARF_DESC,"From Bruno. +8% critical chance, critical hits deal +40% more.","Od Bruna. +8 % šanca na kritický zásah, kritické zásahy o 40 % silnejšie.","Od Bruna. +8 % šance na kritický zásah, kritické zásahy o 40 % silnější.","De Bruno. +8% de probabilidad de crítico, los críticos hacen un 40% más.","От Бруно. +8% шанса крита, криты сильнее на 40%.",来自布鲁诺。暴击率 +8%，暴击伤害 +40%。
 ITEM_GUARD_VEST_NAME,The Guard Vest,Strážna vesta,Strážní vesta,El chaleco de guardia,Жилет охранника,守卫背心
-ITEM_GUARD_VEST_DESC,"From Rex the Guard Dog. Below 30% health you take 30% less damage; +2 armor, +30 max health.","Od strážneho psa Rexa. Pod 30 % zdravia dostávaš o 30 % menšie poškodenie; +2 brnenie, +30 max. zdravie.","Od hlídacího psa Rexe. Pod 30 % zdraví dostáváš o 30 % menší poškození; +2 brnění, +30 max. zdraví.","De Rex, el perro guardián. Con menos del 30% de salud recibes un 30% menos de daño; +2 de armadura, +30 de salud máxima.","От сторожевого пса Рекса. При здоровье ниже 30% получаешь на 30% меньше урона; +2 брони, +30 к макс. здоровью.",来自看门狗雷克斯。生命低于 30% 时受到的伤害减少 30%；护甲 +2，最大生命 +30。
+ITEM_GUARD_VEST_DESC,"From Rex the Guard Dog. Below 30% health you take 30% less damage; +2 armor, +30 max health.","Od strážneho psa Rexa. Pod 30 % zdravia dostávaš o 30 % menšie poškodenie; +2 brnenie, +30 max. zdravie.","Od hlídacího psa Rexe. Pod 30 % zdraví dostáváš o 30 % menší poškození; +2 brnění, +30 max. zdraví.","De Rex, el perro guardián. Con menos del 30% de salud recibes un 30% menos de daño; +2 de armadura, +30 de salud máxima.","От сторожевого пса Рекса. При здоровье ниже 30% получаешь на 30% меньше урона; +2 брони, +30 к макс. здоровью.",来自看门狗雷克斯。生命低于 30% 时受到的伤害减少 30%；护甲 +2，最大生命 +30。
 ITEM_KRAKEN_PEARL_NAME,The Kraken Pearl,Krakenova perla,Krakenova perla,La perla del Kraken,Жемчужина Кракена,克拉肯珍珠
-ITEM_KRAKEN_PEARL_DESC,From the Kraken. Every 40 s the sea goes still: enemies around you freeze for 3 s (not bosses); +15% duration.,Od Krakena. Každých 40 s more stíchne: nepriatelia okolo teba zamrznú na 3 s (bossovia nie); +15 % trvanie.,Od Krakena. Každých 40 s moře ztichne: nepřátelé kolem tebe zamrznou na 3 s (bossové ne); +15 % trvání.,Del Kraken. Cada 40 s el mar se calma: los enemigos a tu alrededor se congelan 3 s (no los jefes); +15% de duración.,От Кракена. Каждые 40 с море затихает: враги вокруг замирают на 3 с (кроме боссов); +15% длительности.,来自克拉肯。每 40 秒海面归于平静：你周围的敌人冻结 3 秒（Boss 除外）；持续时间 +15%。
+ITEM_KRAKEN_PEARL_DESC,From the Kraken. Every 40 s the sea goes still: enemies around you freeze for 3 s (not bosses); +15% duration.,Od Krakena. Každých 40 s more stíchne: nepriatelia okolo teba zamrznú na 3 s (bossovia nie); +15 % trvanie.,Od Krakena. Každých 40 s moře ztichne: nepřátelé kolem tebe zamrznou na 3 s (bossové ne); +15 % trvání.,Del Kraken. Cada 40 s el mar se calma: los enemigos a tu alrededor se congelan 3 s (no los jefes); +15% de duración.,От Кракена. Каждые 40 с море затихает: враги вокруг замирают на 3 с (кроме боссов); +15% длительности.,来自克拉肯。每 40 秒海面归于平静：你周围的敌人冻结 3 秒（Boss 除外）；持续时间 +15%。
 ITEM_TURBO_TAIL_NAME,The Turbo Tail,Turbo chvost,Turbo ocas,La cola turbo,Турбо-хвост,涡轮尾巴
-ITEM_TURBO_TAIL_DESC,"From the Robo-Vacuum 3000. +1 projectile for every weapon, +25% damage to bosses.","Od Robo-vysávača 3000. +1 projektil každej zbrani, o 25 % väčšie poškodenie bossom.","Od Robo-vysavače 3000. +1 projektil každé zbrani, o 25 % větší poškození bossům.","De la Robo-Aspiradora 3000. +1 proyectil para cada arma, +25% de daño a los jefes.","От Робо-пылесоса 3000. +1 снаряд каждому оружию, +25% урона по боссам.",来自机器吸尘器 3000。每把武器投射物 +1，对 Boss 伤害 +25%。
+ITEM_TURBO_TAIL_DESC,"From the Robo-Vacuum 3000. +1 projectile for every weapon, +25% damage to bosses.","Od Robo-vysávača 3000. +1 projektil každej zbrani, o 25 % väčšie poškodenie bossom.","Od Robo-vysavače 3000. +1 projektil každé zbrani, o 25 % větší poškození bossům.","De la Robo-Aspiradora 3000. +1 proyectil para cada arma, +25% de daño a los jefes.","От Робо-пылесоса 3000. +1 снаряд каждому оружию, +25% урона по боссам.",来自机器吸尘器 3000。每把武器投射物 +1，对 Boss 伤害 +25%。
 ITEMS_MELT_ASK,Press X again to melt %s for %d gold.,Stlač X ešte raz a %s sa roztaví na %d zlata.,Stiskni X ještě jednou a %s se roztaví na %d zlata.,Pulsa X otra vez para fundir %s por %d de oro.,"Нажми X ещё раз, чтобы переплавить %s в %d золота.",再按一次 X，将 %s 熔化为 %d 金币。
 ITEMS_LEGENDARY_LIMIT,At most %d legendary items at once – take one off first.,Naraz najviac %d legendárne predmety – najprv jeden daj dole.,Najednou nejvýš %d legendární předměty – nejdřív jeden sundej.,Como máximo %d objetos legendarios a la vez: quítate uno primero.,Не больше %d легендарных предметов сразу – сначала сними один.,最多同时穿戴 %d 件传说物品——请先卸下一件。
+HUD_LEVEL,Lv %d,Úr. %d,Úr. %d,Nv %d,Ур. %d,等级 %d
+HUD_WEAPON_LEVEL,Lv %d/%d,Úr. %d/%d,Úr. %d/%d,Nv %d/%d,Ур. %d/%d,等级 %d/%d

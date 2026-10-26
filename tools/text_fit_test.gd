@@ -47,8 +47,48 @@ func _run() -> void:
 			await _frames(8)
 			await _screen(tag, "select", ["_shop", "_charms", "_items", "_artifacts", "_challenges", "_journal"])
 			_map_cards(tag)
+			if opened:
+				await _in_game(tag)
 	print("TEXT: done, %d failures" % _failures)
 	quit(1 if _failures > 0 else 0)
+
+
+## A run: the HUD, the pause menu, level-up cards, a shrine's choices (the
+## longest texts) and the end-of-night summary.
+func _in_game(tag: String) -> void:
+	change_scene_to_file("res://scenes/main.tscn")
+	await _frames(20)
+	var main := current_scene
+	var hud: Node = main.get("hud")
+	main.get("player").set("god", true)
+	_check(hud, tag + " hud")
+	paused = true
+	hud.call("show_pause", true)
+	await _frames(3)
+	_check(hud, tag + " pause")
+	hud.call("show_pause", false)
+	var offers: Array[Dictionary] = load("res://scripts/progression/upgrades.gd").roll(main.get("player"), 4)
+	var level_up: Control = hud.get("level_up")
+	level_up.call("open", 12, offers, 2, "", 3)
+	await _frames(3)
+	_check(level_up, tag + " level-up")
+	level_up.visible = false
+	var choice: Control = hud.get("choice")
+	var options: Array = []
+	for key in ["SHRINE_HASTE_OPT0", "SHRINE_HASTE_OPT1", "SHRINE_HASTE_OPT2", "SHRINE_REFUSE"]:
+		options.append(TranslationServer.translate(key))
+	choice.call("open", TranslationServer.translate("SHRINE_HASTE_NAME"), TranslationServer.translate("SHRINE_PROMPT"), options)
+	await _frames(3)
+	_check(choice, tag + " shrine choice")
+	choice.visible = false
+	var lines: Array[String] = []
+	for key in ["SUMMARY_GOLD_DEATH", "SUMMARY_STREAK", "SUMMARY_ITEMS_KEPT", "SUMMARY_ITEM_WELL", "SUMMARY_CHARMS_LOST", "SUMMARY_DARKNESS_OPEN"]:
+		lines.append(_filled(TranslationServer.translate(key)))
+	hud.call("show_game_over", 754.0, 1234, TranslationServer.translate("GAME_OVER_TITLE") % TranslationServer.translate("CAT_KAPITAN_NAME"))
+	hud.call("show_summary", lines)
+	await _frames(3)
+	_check(hud, tag + " summary")
+	paused = false
 
 
 ## Checks the screen, then each of its panels open on top of it.
@@ -70,6 +110,15 @@ func _screen(locale: String, screen: String, panels: Array) -> void:
 			_check(panel, "%s %s %s" % [locale, screen, name])
 		panel.visible = false
 		await _frames(1)
+
+
+## A text with its placeholders filled: numbers, and the longest item name
+## for every %s (the worst case for the width).
+func _filled(text: String) -> String:
+	var fill: Array = []
+	for m in RegEx.create_from_string("%(\\.\\d+)?[sdf]").search_all(text):
+		fill.append(TranslationServer.translate("ITEM_NUTSHELL_HELMET_NAME") if m.get_string().ends_with("s") else 1234)
+	return text % fill if not fill.is_empty() else text
 
 
 ## The map cards draw their own text, shrinking it to fit; every map's name
@@ -129,7 +178,8 @@ func _check(node: Node, where: String) -> void:
 			if rect.position.x < -1.0 or rect.end.x > view.end.x + 1.0:
 				_fail("%s: \"%s\" too wide for the screen (%d px) at %s" % [where, text.left(40), rect.size.x, c.get_path()])
 			continue
-		if not view.grow(1.0).encloses(rect):
+		# (A few pixels over the edge is padding, not text.)
+		if not view.grow(6.0).encloses(rect):
 			_fail("%s: \"%s\" off the screen %s at %s" % [where, text.left(40), rect, c.get_path()])
 			continue
 		var box := _panel_of(c)

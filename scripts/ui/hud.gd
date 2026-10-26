@@ -317,7 +317,7 @@ func show_victory(kills: int, cat_name: String = "") -> void:
 func update_xp(player: Player) -> void:
 	var bar_width := get_viewport().get_visible_rect().size.x - 4.0
 	_xp_fill.size.x = bar_width * clampf(player.xp / player.xp_to_next(), 0.0, 1.0)
-	_level_label.text = "Lv %d" % player.level
+	_level_label.text = tr("HUD_LEVEL") % player.level
 
 
 func update_inventory(player: Player) -> void:
@@ -335,7 +335,7 @@ func update_blessings(player: Player) -> void:
 		if float(b["t"]) > 3600.0:
 			parts.append(tr(b["label"]))
 		else:
-			parts.append("%s %d s" % [tr(b["label"]), ceili(float(b["t"]))])
+			parts.append("%s %s" % [tr(b["label"]), tr("CHAIN_TIME") % ceili(float(b["t"]))])
 		color = b["color"]
 	_bless_label.text = "  ·  ".join(parts)
 	_bless_label.visible = not parts.is_empty()
@@ -465,7 +465,7 @@ func weapons_text(columns: int = 1, highlight: Array = []) -> String:
 	for w in player.weapons.get_children():
 		if not w is Weapon:
 			continue
-		var line := "[color=#%s]%s%s[/color]  Lv %d/%d" % [gold, "» " if w.id in highlight else "", Upgrades.item_name("weapon", w.id), w.level, w.max_level()]
+		var line := "[color=#%s]%s%s[/color]  %s" % [gold, "» " if w.id in highlight else "", Upgrades.item_name("weapon", w.id), tr("HUD_WEAPON_LEVEL") % [w.level, w.max_level()]]
 		line += "\n" + tr("WEAPON_%s_DESC" % w.id)
 		if w.branch != "":
 			line += "\n[color=#%s]%s %d: %s[/color]" % [muted, tr("BRANCH_%s_NAME" % w.branch), w.branch_rank, tr("BRANCH_%s_DESC" % w.branch)]

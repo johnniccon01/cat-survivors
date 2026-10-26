@@ -34,7 +34,7 @@ func _radius() -> float:
 func objective() -> String:
 	if not started:
 		return step_text()
-	return "%s · %s · %d %%" % [step_text(), timer_text(_left), roundi(_hp.min())]
+	return "%s · %s · %d %%" % [step_text(), timer_text(_left), roundi(_hp.min())]
 
 
 func target_position() -> Vector2:

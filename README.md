@@ -14,7 +14,7 @@ Herný profil (zlato, odomknuté veci) je uložený na každom PC zvlášť v `%
 
 Alebo otvor `project.godot` v Godot 4.6 a stlač **F5**. Hra začína hlavným menu (Hrať, Vylepšenia, Prívesky, Denník, Nastavenia, Koniec).
 
-Ovládanie: **WASD / šípky / ľavá páčka**, **Esc** pauza, v pauze **L** jazyk a **M** zvuk, **R / Enter** reštart po smrti.
+Ovládanie: **WASD / šípky / ľavá páčka**, **Esc** pauza, v pauze **L** jazyk (v hlavnom menu tlačidlo jazyka vpravo hore) a **M** zvuk, **R / Enter** reštart po smrti.
 
 V pauze: **N** čísla poškodenia, **K** otrasy obrazovky.
 

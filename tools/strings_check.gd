@@ -76,7 +76,7 @@ func _check_csv() -> Dictionary:
 			if lang not in SYSTEM_FONT:
 				for ch in text:
 					var code := ch.unicode_at(0)
-					if code > 32 and code != 0xA0 and ch not in SYMBOLS and not font.has_char(code):
+					if code > 32 and code != 0xA0 and code < 0x2E80 and ch not in SYMBOLS and not font.has_char(code):
 						_fail("line %d: %s in %s: the font can't draw '%s' (U+%04X)" % [line, key, lang, ch, code])
 						break
 	return keys

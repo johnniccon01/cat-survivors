@@ -347,6 +347,8 @@ Sem píšeme nápady, ktoré zatiaľ nemajú miesto vo fázach.
 - `tools/strings_check.gd` nahrádza pythonovú kontrolu: chýbajúce preklady, zástupné znaky aj ich poradie, osamotené %, znaky, ktoré písmo nevie nakresliť.
 - `tools/translations_tool.gd` (dump / merge / missing) na ďalšie preklady; `tools/menu_shots.gd` odfotí všetky menu vo všetkých jazykoch.
 - Spodný rad tlačidiel na výbere mačky sa zmenší, keď je v jazyku priširoký; názov terénu na mapovej karte má tmavý podklad.
+- Tlačidlo jazyka v rohu hlavného menu; text „Čo je nové“ (verzia 9) o bossoch, výbave a jazykoch.
+- Testy textov: `text_fit` prejde menu, panely, „Čo je nové“ aj hru (HUD, pauza, level-up, voľby svätyne, súhrn) vo všetkých 6 jazykoch a kontroluje aj nevykresliteľné znaky; medzi číslom a % je nezlomiteľná medzera.
 
 ## Október 2026: spätná väzba z hrania
 

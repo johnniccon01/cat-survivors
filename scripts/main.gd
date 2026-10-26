@@ -616,6 +616,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		Settings.cycle_language()
 		hud.show_pause(true)
 		hud.update_inventory(player)
+		# Texts that only change on an event, now in the new language.
+		hud.update_xp(player)
+		hud.update_blessings(player)
 	elif event.is_action_pressed("pause"):
 		get_tree().paused = not get_tree().paused
 		hud.show_pause(get_tree().paused)

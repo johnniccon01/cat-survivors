@@ -45,6 +45,13 @@ func _run() -> void:
 			change_scene_to_file("res://scenes/main_menu.tscn")
 			await _frames(8)
 			await _screen(tag, "menu", ["_shop", "_charms", "_journal", "_settings"])
+			# "What's new" (shown once after an update).
+			var news: Control = load("res://scripts/ui/news_panel.gd").new()
+			current_scene.add_child(news)
+			news.call("open")
+			await _frames(3)
+			_check(news, tag + " news")
+			news.queue_free()
 			change_scene_to_file("res://scenes/character_select.tscn")
 			await _frames(8)
 			await _screen(tag, "select", ["_shop", "_charms", "_items", "_artifacts", "_challenges", "_journal"])

@@ -29,7 +29,7 @@ var _struck := -1.0
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
-	z_index = -1
+	z_index = -2
 
 
 func _physics_process(delta: float) -> void:

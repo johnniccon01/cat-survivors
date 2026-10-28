@@ -16,6 +16,7 @@ scenarios=(
   "text_fit|--ui-test|-s res://tools/text_fit_test.gd"
   "dev_boss_rush|--bot --strong --god --boss-rush --bot-time=1500 --bot-speed=8"
   "dev_quests|--bot --strong --god --dev-quest-all --bot-time=900 --bot-speed=8"
+  "dev_endless|--bot --stage=GARDEN --god --dev-endless --bot-time=1290"
   "dev_boss_kraken|--bot --stage=HARBOR --strong --dev-boss=KRAKEN --bot-time=120"
   "apartment|--bot --bot-time=300"
   "basement|--bot --stage=BASEMENT --cat=TIGER --bot-time=300"

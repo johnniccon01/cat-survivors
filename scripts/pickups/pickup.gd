@@ -6,11 +6,8 @@ extends Node2D
 enum Kind { XP, HEART, SARDINE, MAGNET, CHEST, COIN, CHARM, PAGE }
 
 const OUTLINE := Color("2b1d14")
-## A chest pops up out of the enemy, falls and lands with a bounce first
-## (it can be opened once it lies); a boss chest then shines in a pillar of light.
-const DROP_TIME := 0.75
-const DROP_HEIGHT := 52.0
-const LAND_SQUASH := 0.3
+## A chest just appears where the enemy fell; a boss chest shines in a
+## pillar of light. The show is when it opens (TreasurePanel).
 
 var kind := Kind.XP
 var value := 1.0
@@ -20,15 +17,19 @@ var speed := 0.0
 var charm_id := ""
 
 var _bob := randf() * TAU
-## Seconds since it appeared (chests: the drop animation).
+## Seconds since it appeared (boss chests: the flash and the light).
 var _age := 0.0
 
 
+## Above puddles and other ground effects (-2); a chest even above the
+## cats and weapon effects, so it is never lost.
 func _init() -> void:
 	z_index = -1
 
 
 func _ready() -> void:
+	if kind == Kind.CHEST:
+		z_index = 6
 	# Kibble lies still; only the special pickups bob (saves hundreds of
 	# _process calls a frame on a full floor).
 	set_process(kind != Kind.XP)
@@ -43,15 +44,15 @@ func _process(delta: float) -> void:
 	# Only the special pickups bob, so they stand out from the kibble.
 	if kind != Kind.XP:
 		_bob += delta * 4.0
-		if kind == Kind.CHEST and _age < DROP_TIME and _age + delta >= DROP_TIME:
+		if kind == Kind.CHEST and _age == 0.0:
 			Audio.play("chest_boss" if value >= 1.0 else "chest_land", -3.0, 0.0)
 		_age += delta
 		queue_redraw()
 
 
-## A chest can be opened once it has landed.
+## A chest just appears (the show is when it opens), so it can be opened at once.
 func landed() -> bool:
-	return kind != Kind.CHEST or _age >= DROP_TIME
+	return true
 
 
 func _draw() -> void:
@@ -169,23 +170,10 @@ func _draw_chest() -> void:
 	var great := value >= 2.0
 	var boss := value >= 1.0
 	var size := 1.4 if great else 1.0
-	var k := clampf(_age / DROP_TIME, 0.0, 1.0)
-	var since := _age - DROP_TIME
-	if boss and since > 0.0:
-		_draw_chest_light(since, great)
-	# The shadow grows as it comes down.
-	Blit.ellipse(self, Vector2(0, 7), 9 * (0.5 + 0.5 * k), 2, Color(0, 0, 0, 0.3 * (0.4 + 0.6 * k)))
-	if since > 0.0 and since < 0.4:
-		# Dust puffs out where it lands.
-		var d := since / 0.4
-		Blit.ring(self, Vector2(0, 6), 8.0 + 22.0 * d, 2.0, Color(0.9, 0.85, 0.7, 0.6 * (1.0 - d)))
-	var lift := -sin(k * PI) * DROP_HEIGHT if k < 1.0 else sin(_bob) * 1.0
-	var squash := Vector2.ONE
-	if since > 0.0 and since < 0.3:
-		var b := sin(since / 0.3 * PI) * LAND_SQUASH
-		squash = Vector2(1.0 + b, 1.0 - b)
-	var spin := (1.0 - k) * 0.6 * sin(_age * 14.0)
-	draw_set_transform(Vector2(0, lift), spin, squash * size)
+	if boss:
+		_draw_chest_light(_age, great)
+	Blit.ellipse(self, Vector2(0, 7), 9, 2, Color(0, 0, 0, 0.3))
+	draw_set_transform(Vector2(0, sin(_bob) * 1.0), 0.0, Vector2.ONE * size)
 	draw_rect(Rect2(-8, -4, 16, 10), Color("5b3a8a") if great else Color("8a5a2b"))
 	draw_rect(Rect2(-8, -8, 16, 5), Color("7d52b8") if great else Color("a8703a"))
 	draw_rect(Rect2(-8, -8, 16, 14), OUTLINE, false, 1.0)

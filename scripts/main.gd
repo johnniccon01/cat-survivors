@@ -30,6 +30,7 @@ extends Node2D
 ##   --tutorial         the bot gets the first-night tips (fresh profile)
 ##   --endless          the bot carries on into the endless night after a win
 ##   --endless-now      start straight in the endless night (tests)
+##   --dev-endless      the dev panel's "Endless night now" (skips the night, tests)
 ##   --god              the cat can't be hurt (performance checks)
 ##   --perf             print frame timings every 2 s
 ##   --bot-speed=N      game speed while the bot plays (default 4)
@@ -368,7 +369,7 @@ func _ready() -> void:
 	Engine.time_scale = _base_time_scale
 	for i in int(_arg("--levels=", "0")):
 		Upgrades.apply(player, Upgrades.roll(player)[0])
-	var dev_flags := ["--strong", "--boss-rush", "--dev-quest-all", "--dev-panel"].any(func(f: String) -> bool: return f in _args) or _arg("--dev-boss=", "") != "" or _arg("--dev-next-terrain=", "") != "" or _arg("--dev-quest=", "") != ""
+	var dev_flags := ["--strong", "--boss-rush", "--dev-quest-all", "--dev-panel", "--dev-endless"].any(func(f: String) -> bool: return f in _args) or _arg("--dev-boss=", "") != "" or _arg("--dev-next-terrain=", "") != "" or _arg("--dev-quest=", "") != ""
 	if OS.is_debug_build() and (not _bot or dev_flags):
 		var dev := DevPanel.new()
 		dev.main = self
@@ -794,7 +795,7 @@ func _next_modal() -> void:
 		if _bot:
 			_next_modal.call_deferred()
 		else:
-			hud.treasure.open(results)
+			hud.treasure.open(results, kind)
 		return
 	Audio.play("levelup", -4.0, 0.0)
 	Audio.play("meow", -9.0, 0.15)
@@ -1563,6 +1564,8 @@ func _dev_start(dev: DevPanel) -> void:
 		dev._test_quest(_arg("--dev-quest=", ""))
 	if "--dev-quest-all" in _args:
 		dev.cycle_quests()
+	if "--dev-endless" in _args:
+		dev._endless_now()
 	if "--dev-panel" in _args:
 		dev._open()
 	for i in int(_arg("--dev-next-terrain=", "0")):

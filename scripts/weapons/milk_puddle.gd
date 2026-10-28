@@ -17,7 +17,7 @@ var _shape := PackedVector2Array()
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
-	z_index = -1
+	z_index = -2
 
 
 func _ready() -> void:

@@ -100,6 +100,7 @@ func _build_actions(col: VBoxContainer) -> void:
 	_button(list, "+1 min (+levels)", func() -> void: _skip(60.0))
 	_button(list, "+5 min (+levels)", func() -> void: _skip(300.0))
 	_button(list, "Final boss now", func() -> void: _act(_final_boss))
+	_button(list, "Endless night now", func() -> void: _act(_endless_now))
 	_section(list, "Cat")
 	_god_button = _button(list, "God mode: OFF", _toggle_god)
 	_button(list, "+5 levels", _levels)
@@ -403,6 +404,17 @@ func _levels() -> void:
 		main.player.level += 1
 		Upgrades.apply(main.player, DevPanel.smart_pick(main.player))
 	main.hud.update_xp(main.player)
+
+
+## Skips the rest of the night (catching the cat up) and goes straight on
+## into the endless night, as if the final boss had fallen.
+func _endless_now() -> void:
+	if main._endless:
+		return
+	_skip(main.spawner.duration_minutes() * 60.0)
+	main.spawner.skip_to(main.spawner.duration_minutes() * 60.0)
+	main.enemies.clear_all()
+	main._start_endless()
 
 
 func _final_boss() -> void:

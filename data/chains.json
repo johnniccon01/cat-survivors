@@ -1284,6 +1284,24 @@
       {"type": "boss", "enemy": "BANANA_BUNCH", "hp_mult": 2.5, "look": "bin", "distance": 240, "after_minute": 5}
     ]
   },
+  "DARK_LIGHTHOUSE": {
+    "stage": "HARBOR",
+    "reward": {"gold": 1200, "charm": "SARDINE_TIN"},
+    "steps": [
+      {"type": "collect", "items": ["lantern"], "item": "lantern", "count": 4, "capacity": 2, "spread": [220, 460], "deliver": true, "look_to": "lighthouse"},
+      {"type": "defend", "time": 35, "mode": "enemies", "enemy": "PIRATE_RAT", "spawn_every": 3.0, "spawn_count": 4, "look": "lighthouse", "dark": true},
+      {"type": "boss", "enemy": "GIANT_CRAB", "hp_mult": 2.5, "look": "barrel", "distance": 240, "after_minute": 6}
+    ]
+  },
+  "OVERHEAT": {
+    "stage": "FACTORY",
+    "reward": {"gold": 1400, "charm": "IRON_TAG"},
+    "steps": [
+      {"type": "zones", "count": 4, "hold": 5, "radius": 45, "spread": [200, 360]},
+      {"type": "collect", "items": ["gear"], "item": "gear", "count": 5, "capacity": 2, "spread": [220, 440], "deliver": true, "look_to": "boiler"},
+      {"type": "boss", "enemy": "PRESS", "hp_mult": 2.5, "look": "boiler", "distance": 240, "after_minute": 6}
+    ]
+  },
   "SANDBAGS": {
     "stage": "HARBOR",
     "reward": {"gold": 900, "charm": "WIND_FEATHER"},

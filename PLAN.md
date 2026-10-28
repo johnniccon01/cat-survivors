@@ -56,6 +56,7 @@ Hra je hrateľná od menu po koniec noci na 7 mapách:
 - [x] Vysávač z Kibble Thief uteká, treba ho chytiť 2×, rastie s levelom
 - [x] Príbehy: „časť 2/4“ v názve, po kroku „Ďalej v tomto príbehu: …“, dokončený príbeh s fanfárou
 - [x] Svätyne kostí, mesiaca a chaosu (bonusy aj kliatby na celú noc), svätyne častejšie
+- [x] Nový obsah: zbraň Pískacie kladivko → Zemetrasné kladivo (úder s omráčením, 3 vetvy), príbehy Zhasnutý maják (Prístav) a Prehriatie (Továreň)
 - [x] Anjel: väčší, krídla, lúče, perie, nápis ANJEL!; Smrť: zastaví svet, roztrhne zem, blesky, vstane obrovská s kosou, vlna zabije všetkých nepriateľov, 5 min sa nedá zraniť (odpočet v HUD), potom áno
 
 ## Fáza 1 – Doladenie podľa hrania

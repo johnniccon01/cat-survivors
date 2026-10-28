@@ -772,5 +772,25 @@
         {"mods": {"freeze": 1.0}}
       ]
     }
+  },
+  "SQUEAKY_HAMMER": {
+    "BIG_BONK": {
+      "ranks": [
+        {"mods": {"area": 0.25}},
+        {"mods": {"area": 0.5}}
+      ]
+    },
+    "HOT_HAMMER": {
+      "ranks": [
+        {"burn": [0.25, 3.0]},
+        {"burn": [0.4, 3.5]}
+      ]
+    },
+    "LONG_NAP": {
+      "ranks": [
+        {"mods": {"stun": 0.6}},
+        {"mods": {"stun": 1.2}}
+      ]
+    }
   }
 }

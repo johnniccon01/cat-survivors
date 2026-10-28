@@ -17,6 +17,7 @@ const STAT_TEXT := {
 	"duration": "STAT_DURATION",
 	"interval": "STAT_INTERVAL",
 	"freeze": "STAT_FREEZE",
+	"stun": "STAT_STUN",
 }
 const PERCENT_STATS := ["area", "speed", "duration"]
 ## Upgrades of what you already have come up more often than new things, so
@@ -295,7 +296,7 @@ static func _base_description(offer: Dictionary) -> String:
 		var shown: String
 		if key in PERCENT_STATS:
 			shown = str(roundi(value * 100.0))
-		elif key == "interval" or key == "freeze":
+		elif key in ["interval", "freeze", "stun"]:
 			shown = ("%+.1f" % value).replace(".", _t("DECIMAL_SEP"))
 		else:
 			shown = str(roundi(value))

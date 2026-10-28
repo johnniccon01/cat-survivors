@@ -121,6 +121,13 @@ static func _weapon(ci: CanvasItem, id: String) -> void:
 			for p: Vector2 in [Vector2(12, 3), Vector2(14, 6), Vector2(4, 3)]:
 				ci.draw_line(p + Vector2(-1.5, 0), p + Vector2(1.5, 0), Color.WHITE, 1.0)
 				ci.draw_line(p + Vector2(0, -1.5), p + Vector2(0, 1.5), Color.WHITE, 1.0)
+		"SQUEAKY_HAMMER":
+			ci.draw_line(Vector2(4, 14), Vector2(9, 7), OUTLINE, 3.0)
+			ci.draw_line(Vector2(4, 14), Vector2(9, 7), Color("e8c37a"), 1.5)
+			var head := PackedVector2Array([Vector2(5, 4), Vector2(10, 1), Vector2(14, 7), Vector2(9, 10)])
+			ci.draw_colored_polygon(head, Color("e0628f"))
+			ci.draw_polyline(Shapes.closed(head), OUTLINE, 1.0)
+			ci.draw_line(Vector2(6, 4), Vector2(10, 9), Color("ffd84a"), 1.5)
 		"TIN_CAN_TOSS":
 			ci.draw_rect(Rect2(5, 5, 7, 9), OUTLINE)
 			ci.draw_rect(Rect2(6, 6, 5, 7), Color("c9ced2"))

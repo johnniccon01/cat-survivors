@@ -379,6 +379,48 @@
       }
     ]
   },
+  "SQUEAKY_HAMMER": {
+    "script": "res://scripts/weapons/hammer.gd",
+    "rarity": 85,
+    "evolve": {
+      "with": "ARMOR",
+      "into": "QUAKE_HAMMER"
+    },
+    "levels": [
+      {
+        "damage": 22,
+        "interval": 2.2,
+        "repeat_interval": 0.25,
+        "amount": 1,
+        "area": 1.0,
+        "knockback": 0.6,
+        "stun": 0.6
+      },
+      {"damage": 8},
+      {"area": 0.2},
+      {"amount": 1},
+      {"interval": -0.3, "stun": 0.2},
+      {"damage": 10},
+      {"area": 0.2},
+      {"amount": 1}
+    ]
+  },
+  "QUAKE_HAMMER": {
+    "script": "res://scripts/weapons/hammer.gd",
+    "evolved": true,
+    "quake": true,
+    "levels": [
+      {
+        "damage": 55,
+        "interval": 1.4,
+        "repeat_interval": 0.15,
+        "amount": 4,
+        "area": 1.5,
+        "knockback": 1.0,
+        "stun": 1.0
+      }
+    ]
+  },
   "MILK": {
     "script": "res://scripts/weapons/milk.gd",
     "rarity": 80,

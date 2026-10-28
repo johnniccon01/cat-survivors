@@ -323,6 +323,62 @@
       }
     ]
   },
+  "FROST_FISH": {
+    "script": "res://scripts/weapons/frost_fish.gd",
+    "rarity": 80,
+    "evolve": {
+      "with": "DURATION",
+      "into": "ETERNAL_WINTER"
+    },
+    "levels": [
+      {
+        "damage": 8,
+        "interval": 1.6,
+        "repeat_interval": 0.1,
+        "amount": 1,
+        "area": 1.0,
+        "freeze": 1.0
+      },
+      {
+        "damage": 4
+      },
+      {
+        "freeze": 0.3
+      },
+      {
+        "interval": -0.2
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 5,
+        "area": 0.2
+      },
+      {
+        "interval": -0.2,
+        "freeze": 0.3
+      },
+      {
+        "amount": 1
+      }
+    ]
+  },
+  "ETERNAL_WINTER": {
+    "script": "res://scripts/weapons/frost_fish.gd",
+    "evolved": true,
+    "nova": true,
+    "levels": [
+      {
+        "damage": 26,
+        "interval": 0.8,
+        "repeat_interval": 0.06,
+        "amount": 4,
+        "area": 1.5,
+        "freeze": 2.0
+      }
+    ]
+  },
   "MILK": {
     "script": "res://scripts/weapons/milk.gd",
     "rarity": 80,

@@ -20,6 +20,7 @@ const RADIUS := 7.0
 const HIT_INVULN := 0.4
 const MAX_WEAPONS := 6
 const MAX_PASSIVES := 6
+const SPEED_SOFT_CAP := 1.4
 const BASE_SPEED := 115.0
 
 ## Base values of all character stats; passives add to these.
@@ -27,7 +28,7 @@ const BASE_STATS := {
 	"might": 1.0, "area": 1.0, "cooldown": 1.0, "amount": 0.0, "speed": 1.0,
 	"max_hp": 100.0, "regen": 0.0, "magnet": 40.0, "duration": 1.0,
 	"proj_speed": 1.0, "armor": 0.0,
-	"growth": 1.0, "greed": 1.0, "curse": 1.0, "revival": 0.0, "reroll": 0.0, "banish": 2.0,
+	"growth": 1.0, "greed": 1.0, "curse": 1.0, "revival": 0.0, "reroll": 0.0, "banish": 2.0, "discard": 1.0,
 	"crit_chance": 0.05, "crit_mult": 2.0, "luck": 1.0,
 	# Artifacts: damage to bosses, thorns when hurt, healing per level, less
 	# damage below 30 % health, and timers (seconds) for the hourglass freeze
@@ -66,6 +67,8 @@ var rerolls_left := 0
 ## Level-up cards that can still be banished, and the banished items
 ## ("weapon:ID" / "passive:ID"), never offered again this run.
 var banish_left := 0
+## Owned weapons or passives that can still be thrown away (pause menu).
+var discard_left := 0
 var banished: Array[String] = []
 ## Shrine blessings: [{stats: {...}, t: seconds left}].
 var blessings: Array[Dictionary] = []
@@ -121,6 +124,7 @@ func _ready() -> void:
 	revivals_left = int(stats["revival"])
 	rerolls_left = int(stats["reroll"])
 	banish_left = int(stats["banish"])
+	discard_left = int(stats["discard"])
 	if controller != "escort":
 		for id in _start_weapons():
 			add_weapon(id)
@@ -212,6 +216,28 @@ func add_weapon(id: String) -> Weapon:
 	weapons.add_child(weapon)
 	inventory_changed.emit()
 	return weapon
+
+
+## Throws away an owned weapon or passive for good: its slot is free again
+## and it (or the weapon it evolved from) is never offered again tonight.
+func discard(kind: String, id: String) -> void:
+	if discard_left <= 0:
+		return
+	if kind == "weapon":
+		var w := get_weapon(id)
+		if w == null:
+			return
+		weapons.remove_child(w)
+		w.queue_free()
+		banished.append("weapon:" + Icons.base_weapon(id))
+	else:
+		if not passives.has(id):
+			return
+		passives.erase(id)
+		banished.append("passive:" + id)
+		_recalc_stats()
+	discard_left -= 1
+	inventory_changed.emit()
 
 
 func level_up_weapon(id: String) -> void:
@@ -334,7 +360,12 @@ func _physics_process(delta: float) -> void:
 			input = _follow_input()
 		_:
 			input = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	velocity = input * BASE_SPEED * stat("speed") * speed_factor
+	# Speed above +40 % counts only half, so stacked boosts can't make the
+	# cat too fast to steer.
+	var paws := stat("speed")
+	if paws > SPEED_SOFT_CAP:
+		paws = SPEED_SOFT_CAP + (paws - SPEED_SOFT_CAP) * 0.5
+	velocity = input * BASE_SPEED * paws * speed_factor
 	position += (velocity + pull) * delta
 	pull = Vector2.ZERO
 	position = Terrain.fix(position + Terrain.flow(position) * delta, RADIUS)

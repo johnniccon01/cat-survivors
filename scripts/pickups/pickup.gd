@@ -87,17 +87,46 @@ func _draw_page() -> void:
 		draw_line(Vector2(-3, y), Vector2(3, y + 0.5), Color("8a6a4a"), 1.0)
 
 
+const CHARM_GLOW := {"common": Color("d8e4ee"), "rare": Color("5aa9ff"), "epic": Color("c77dff")}
+
+
+## A charm: a gem in a gold frame on a little chain, in a soft halo of its
+## rarity's color with slow turning rays, so it never looks like kibble.
 func _draw_charm() -> void:
-	_shadow_and_lift()
-	var c := Color(GameData.charms[charm_id]["color"])
-	var gem := PackedVector2Array([Vector2(0, -6), Vector2(5, -1), Vector2(0, 6), Vector2(-5, -1)])
-	draw_arc(Vector2(0, -6), 3.0, PI, TAU, 8, Color("f2c14e"), 1.0)
+	var data: Dictionary = GameData.charms[charm_id]
+	var glow: Color = CHARM_GLOW.get(data.get("rarity", "common"), Color.WHITE)
+	var pulse := 0.7 + 0.3 * sin(_bob * 1.2)
+	Blit.disc(self, Vector2(0, -2), 15.0, Color(glow, 0.14 * pulse))
+	Blit.disc(self, Vector2(0, -2), 9.0, Color(glow, 0.2 * pulse))
+	for i in 6:
+		var a := _bob * 0.2 + TAU * i / 6.0
+		var tip := Vector2.from_angle(a) * 20.0
+		draw_colored_polygon(PackedVector2Array([Vector2(0, -2), Vector2(0, -2) + tip.rotated(0.1), Vector2(0, -2) + tip.rotated(-0.1)]), Color(glow, 0.16 * pulse))
+	Blit.ellipse(self, Vector2(0, 8), 6, 1.5, Color(0, 0, 0, 0.3))
+	draw_set_transform(Vector2(0, sin(_bob) * 2.0))
+	var c := Color(data["color"])
+	# The chain loop on top.
+	draw_arc(Vector2(0, -9), 3.5, PI, TAU, 10, OUTLINE, 2.5)
+	draw_arc(Vector2(0, -9), 3.5, PI, TAU, 10, Color("f2c14e"), 1.2)
+	# Gold frame, then the gem.
+	var frame := PackedVector2Array([Vector2(0, -9), Vector2(7, -1), Vector2(0, 8), Vector2(-7, -1)])
+	var gem := PackedVector2Array([Vector2(0, -6), Vector2(4.5, -1), Vector2(0, 5), Vector2(-4.5, -1)])
+	draw_colored_polygon(frame, Color("f2c14e"))
+	draw_polyline(Shapes.closed(frame), OUTLINE, 1.0)
 	draw_colored_polygon(gem, c)
+	draw_colored_polygon(PackedVector2Array([Vector2(0, -6), Vector2(4.5, -1), Vector2(0, -1)]), c.lightened(0.35))
 	draw_polyline(Shapes.closed(gem), OUTLINE, 1.0)
-	draw_rect(Rect2(-2, -3, 1, 2), Color(1, 1, 1, 0.9))
+	draw_rect(Rect2(-2, -4, 1, 2), Color(1, 1, 1, 0.95))
 	var a := 0.5 + 0.5 * sin(_bob * 2.0)
-	draw_line(Vector2(7, -8), Vector2(7, -4), Color(1, 1, 0.8, a), 1.0)
-	draw_line(Vector2(5, -6), Vector2(9, -6), Color(1, 1, 0.8, a), 1.0)
+	for p: Vector2 in [Vector2(9, -10), Vector2(-9, 2)]:
+		draw_line(p + Vector2(0, -2.5), p + Vector2(0, 2.5), Color(1, 1, 0.85, a), 1.0)
+		draw_line(p + Vector2(-2.5, 0), p + Vector2(2.5, 0), Color(1, 1, 0.85, a), 1.0)
+
+
+## A soft colored halo under heart, sardine and magnet pickups, so they
+## stand out from the kibble on a full floor.
+func _halo(color: Color) -> void:
+	Blit.disc(self, Vector2(0, -1), 11.0, Color(color, 0.12 + 0.06 * sin(_bob * 1.5)))
 
 
 func _draw_coin() -> void:
@@ -133,6 +162,7 @@ func _shadow_and_lift() -> void:
 
 
 func _draw_heart() -> void:
+	_halo(Color("ff6060"))
 	_shadow_and_lift()
 	var pts := PackedVector2Array([
 		Vector2(0, 5), Vector2(-5, 0), Vector2(-5, -2), Vector2(-3, -4),
@@ -145,6 +175,7 @@ func _draw_heart() -> void:
 
 
 func _draw_sardine() -> void:
+	_halo(Color("9fd8ff"))
 	_shadow_and_lift()
 	var body := Shapes.ellipse(Vector2.ZERO, 6, 3)
 	var tail := PackedVector2Array([Vector2(-5, 0), Vector2(-9, -3), Vector2(-9, 3)])
@@ -156,6 +187,7 @@ func _draw_sardine() -> void:
 
 
 func _draw_magnet() -> void:
+	_halo(Color("ff7070"))
 	_shadow_and_lift()
 	draw_arc(Vector2(0, -1), 4.0, PI, TAU, 10, OUTLINE, 5.0)
 	draw_arc(Vector2(0, -1), 4.0, PI, TAU, 10, Color("d94848"), 3.0)

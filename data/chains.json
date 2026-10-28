@@ -16,7 +16,9 @@
       },
       {
         "type": "chase",
-        "enemy": "ROOMBA_THIEF"
+        "enemy": "ROOMBA_THIEF",
+        "times": 2,
+        "hp_mult": 1.6
       },
       {
         "type": "carry",

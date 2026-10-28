@@ -217,7 +217,7 @@ func _in_game() -> void:
 	_expect(_focus_text() == "PAUSE_RESUME", "pause menu back with focus (got %s)" % _focus_text())
 	for i in 6:
 		await _press(KEY_DOWN)
-		_expect(_focus_text() in ["PAUSE_RESUME", "MENU_SETTINGS", "PAUSE_GIVE_UP"], "pause focus stays on its buttons (got %s)" % _focus_text())
+		_expect(_focus_text() in ["PAUSE_RESUME", "MENU_SETTINGS", (hud.get("_discard") as Button).text, "PAUSE_GIVE_UP"], "pause focus stays on its buttons (got %s)" % _focus_text())
 	await _press(KEY_ESCAPE)
 	_expect(not paused, "Esc resumes")
 
@@ -260,10 +260,16 @@ func _in_game() -> void:
 	_expect(not treasure.visible and not paused, "Enter closes the chest")
 
 	# Give up from the pause menu, then back to character select.
+	# It asks once more first (the focus jumps back to Resume).
 	await _press(KEY_ESCAPE)
-	await _press(KEY_DOWN)
-	await _press(KEY_DOWN)
-	_expect(_focus_text() == "PAUSE_GIVE_UP", "Down twice reaches Give up (got %s)" % _focus_text())
+	for i in 3:
+		await _press(KEY_DOWN)
+	_expect(_focus_text() == "PAUSE_GIVE_UP", "Down three times reaches Give up (got %s)" % _focus_text())
+	await _press(KEY_ENTER)
+	_expect(not main.get("_run_over") and _focus_text() == "PAUSE_RESUME", "Give up asks first (focus %s)" % _focus_text())
+	for i in 3:
+		await _press(KEY_DOWN)
+	_expect(_focus_text() == "PAUSE_GIVE_UP_SURE", "Give up now asks to confirm (got %s)" % _focus_text())
 	await _press(KEY_ENTER)
 	_expect(main.get("_run_over"), "Give up ends the run")
 	await _press(KEY_ESCAPE)

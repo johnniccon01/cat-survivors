@@ -752,5 +752,25 @@
         }
       ]
     }
+  },
+  "FROST_FISH": {
+    "SHATTER": {
+      "ranks": [
+        {"blast": [0.3, 0.8, 30]},
+        {"blast": [0.5, 1.2, 40]}
+      ]
+    },
+    "FROSTBITE": {
+      "ranks": [
+        {"execute": 0.08},
+        {"execute": 0.14}
+      ]
+    },
+    "COLD_SNAP": {
+      "ranks": [
+        {"mods": {"freeze": 0.5}},
+        {"mods": {"freeze": 1.0}}
+      ]
+    }
   }
 }

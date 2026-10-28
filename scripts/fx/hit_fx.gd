@@ -11,7 +11,7 @@ const COLORS := {
 	"CATNIP": Color("8ee07a"), "FISHBONES": Color("f4f1ea"), "LASER": Color("ff5a5a"),
 	"MILK": Color("e8f4ff"), "BELL": Color("ffe066"), "FEATHER": Color("8fd3ff"),
 	"MOUSE_TOY": Color("ffb35a"), "COBWEB": Color("f4f4f4"), "SPRINKLER": Color("7ad0ff"),
-	"ANTENNA": Color("9ae0ff"),
+	"ANTENNA": Color("9ae0ff"), "FROST_FISH": Color("bfefff"),
 }
 
 static var alive := 0

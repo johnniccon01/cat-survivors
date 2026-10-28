@@ -129,7 +129,8 @@
   "schedule": {
     "first_delay": 40.0,
     "gap": 35.0,
-    "side_expire": 150.0,
+    "side_expire": 120.0,
+    "chain_expire": 120.0,
     "order": [
       "side",
       "chain",

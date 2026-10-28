@@ -71,7 +71,7 @@ const FLAP_MINUTES := [5.0, 10.0, 15.0]
 ## Quiet time after a boss falls.
 const BOSS_BREATHER := 12.0
 ## Charm drop chances.
-const CHARM_CHANCE_ELITE := 0.06
+const CHARM_CHANCE_ELITE := 0.03
 const CHARM_CHANCE_BOSS := 0.35
 ## Gear (see Items): a wave boss drops an item this often, an elite this
 ## often (both x luck). A final boss drops its own legendary with
@@ -81,7 +81,7 @@ const ITEM_CHANCE_BOSS := 0.5
 const ITEM_CHANCE_ELITE := 0.06
 const LEGENDARY_CHANCE := 0.3
 const LEGENDARY_CHANCE_MAX := 0.45
-const CHARM_CHANCE_QUEST := 0.2
+const CHARM_CHANCE_QUEST := 0.15
 ## Rarity weights when a charm drops.
 const CHARM_RARITY := [["common", 70.0], ["rare", 25.0], ["epic", 5.0]]
 const HEART_DROP_AMOUNT := 15.0
@@ -142,6 +142,8 @@ var chests_opened := 0
 
 var _args := GameData.args()
 var _bot := "--bot" in _args
+## Dev builds: a death asks whether to revive (see _dev_revive_asks).
+var dev_revive := false
 ## --perf: prints frame timings every 2 s (real time).
 var _perf := "--perf" in _args
 var _perf_t := 2.0
@@ -168,7 +170,9 @@ var _run_over := false
 var lives_used := 0
 var angel_saves := 0
 var devil: Enemy
-var _devil_portal: DevilPortal
+var _devil_portal: Node2D
+## Death can be hurt from this second of the night (5 minutes after it came).
+var _devil_mortal_at := INF
 ## True while the angel's rescue plays (the game is paused for it).
 var _rescuing := false
 ## Test hook: --kill-cat-every=SECONDS knocks the cat out on a timer.
@@ -312,6 +316,9 @@ func _ready() -> void:
 		_maybe_drop_charm(pos + Vector2(-8, 0), CHARM_CHANCE_ELITE)
 		_maybe_find_item(ITEM_CHANCE_ELITE))
 	pickups.charm_collected.connect(_on_charm_collected)
+	pickups.magnet_pulled.connect(func(count: int, xp: float) -> void:
+		if count > 0:
+			hud.show_banner(tr("MAGNET_PULLED") % [count, roundi(xp)], 2.5))
 	pickups.heart_collected.connect(func() -> void: _hearts += 1)
 	pickups.page_collected.connect(func() -> void:
 		_has_page = true
@@ -358,6 +365,7 @@ func _ready() -> void:
 	hud.resume_pressed.connect(func() -> void:
 		get_tree().paused = false
 		hud.show_pause(false))
+	hud.discard_pressed.connect(_ask_discard)
 	hud.give_up_pressed.connect(func() -> void:
 		hud.show_pause(false)
 		_end_run("death"))
@@ -375,6 +383,7 @@ func _ready() -> void:
 		dev.main = self
 		add_child(dev)
 		_dev_start.call_deferred(dev)
+		dev_revive = true
 	if "--traps" in _args:
 		var i := 0
 		for trap_id: String in GameData.traps:
@@ -508,7 +517,7 @@ func _process(delta: float) -> void:
 	# The devil is always a bit faster than the cat: it can't be outrun.
 	if is_instance_valid(devil):
 		devil.speed = maxf(float(GameData.enemies[DEVIL_ID]["speed"]), Player.BASE_SPEED * player.stat("speed") * DEVIL_SPEED_OVER_CAT)
-	if is_instance_valid(devil) and devil.immortal and spawner.elapsed >= _devil_mortal_from():
+	if is_instance_valid(devil) and devil.immortal and spawner.elapsed >= _devil_mortal_at:
 		devil.immortal = false
 		hud.show_banner(tr("DEVIL_WEAK"), 4.0)
 	_track_run(delta)
@@ -866,8 +875,10 @@ func _on_offer_chosen(offer: Dictionary) -> void:
 	_next_modal()
 
 
+## Every charm already found tonight makes the next one rarer.
 func _maybe_drop_charm(pos: Vector2, chance: float) -> void:
-	if randf() >= chance * player.stat("luck"):
+	var found := run_charms.size() + pickups.count_kind(Pickup.Kind.CHARM)
+	if randf() >= chance * player.stat("luck") / (1.0 + found * 0.35):
 		return
 	var rarity: String = _weighted(CHARM_RARITY)
 	var pool: Array = GameData.charms.keys().filter(func(id: String) -> bool: return GameData.charms[id]["rarity"] == rarity)
@@ -1282,9 +1293,41 @@ func _charm_names() -> String:
 
 
 func _on_player_died() -> void:
-	if _angel_saves():
+	if _angel_saves() or _dev_revive_asks():
 		return
 	_end_run("death")
+
+
+## Pause menu: pick an owned weapon or passive to throw away for good.
+func _ask_discard() -> void:
+	var picks: Array[Array] = []
+	for w: Weapon in player.weapons.get_children():
+		picks.append(["weapon", w.id])
+	for id: String in player.passives:
+		picks.append(["passive", id])
+	if picks.is_empty() or player.discard_left <= 0:
+		return
+	hud.show_pause(false)
+	var options: Array = picks.map(func(p: Array) -> String: return Upgrades.item_name(p[0], p[1]))
+	options.append(tr("DISCARD_KEEP"))
+	ask_choice(tr("DISCARD_TITLE"), tr("DISCARD_PROMPT") % player.discard_left, options, func(index: int) -> void:
+		if index < picks.size():
+			player.discard(picks[index][0], picks[index][1])
+			hud.update_inventory(player)
+			hud.show_banner(tr("DISCARD_DONE") % options[index], 3.0))
+
+
+## Dev builds with the dev panel ask before the night ends, so a test can
+## go on after a death (the dev panel's "Revive on death" switch).
+func _dev_revive_asks() -> bool:
+	if not dev_revive or _bot:
+		return false
+	ask_choice("DEV", "The cat died. Revive it? (dev builds only)", ["Revive (full health)", "Die"], func(index: int) -> void:
+		if index == 0:
+			player.revive(1.0, 3.0)
+		else:
+			_end_run("death"))
+	return true
 
 
 ## Secret: a dying cat may be saved by an angel cat (see ANGEL_CHANCE), and
@@ -1358,23 +1401,47 @@ func _angel_done() -> void:
 
 
 ## The devil cat: chases you down and kills in a hit or two; it can't be hurt
-## until the run reaches "mortal_from_minute".
+## for its first "immortal_seconds" (5 minutes).
 func summon_devil() -> void:
 	if _run_over or is_instance_valid(devil) or _devil_portal != null:
 		return
-	# A burning circle opens first; the devil climbs out when it's done.
-	_devil_portal = DevilPortal.new()
-	_devil_portal.position = player.position + Vector2.from_angle(randf() * TAU) * 140.0
-	_devil_portal.opened.connect(_devil_rises)
-	add_child(_devil_portal)
+	# The world stops for Death's arrival (DeathArrival): it tears the floor
+	# open, climbs out and reaps every enemy, then the hunt begins.
+	get_tree().paused = true
+	Audio.pause_music(true)
+	var arrival := DeathArrival.new()
+	arrival.position = player.position + Vector2.from_angle(randf() * TAU) * 150.0
+	arrival.cat_pos = player.position
+	arrival.survive_seconds = _devil_immortal_seconds()
+	arrival.reap.connect(_death_reaps)
+	arrival.finished.connect(func() -> void:
+		Audio.pause_music(false)
+		get_tree().paused = _in_modal or _run_over
+		_devil_rises())
+	_devil_portal = arrival
+	add_child(arrival)
 	hud.show_banner(tr("DEVIL_COMING"), 5.0)
 	player.shake(6.0, 1.8)
 
 
+## Death's arrival kills everything on the map but the cat (and the final
+## boss, whose fight decides the night); the waves pause for a breath.
+func _death_reaps() -> void:
+	player.shake(14.0, 1.0)
+	enemies.clear_all()
+	spawner.calm = maxf(spawner.calm, 6.0)
+
+
 func _devil_rises() -> void:
 	Profile.set_flag("devil_met")
-	devil = enemies.spawn(DEVIL_ID, _devil_portal.position)
-	devil.immortal = spawner.elapsed < _devil_mortal_from()
+	devil = enemies.spawn(DEVIL_ID, _devil_portal.position, spawner.final_hp_multiplier())
+	spawner.toughen(devil, 0.5)
+	# It can't be hurt for its first minutes: survive them, then fight back.
+	var shield := _devil_immortal_seconds()
+	_devil_mortal_at = spawner.elapsed + shield
+	devil.immortal = shield > 0.0
+	if shield > 0.0:
+		player.bless({}, shield, "DEVIL_SHIELD", Color("ff4a3a"))
 	_devil_portal = null
 	player.shake(10.0, 0.6)
 	Audio.play_music(GameData.enemies[DEVIL_ID].get("music", "music_boss"))
@@ -1382,8 +1449,9 @@ func _devil_rises() -> void:
 		print("BOT: devil summoned")
 
 
-func _devil_mortal_from() -> float:
-	return float(GameData.enemies[DEVIL_ID].get("mortal_from_minute", 30)) * 60.0
+## How long Death can't be hurt after it came (--devil-shield=S for tests).
+func _devil_immortal_seconds() -> float:
+	return float(_arg("--devil-shield=", str(GameData.enemies[DEVIL_ID].get("immortal_seconds", 300))))
 
 
 ## Big boss deaths: strong shake and a tiny freeze so the moment lands.

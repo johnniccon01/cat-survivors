@@ -22,7 +22,11 @@ func target_position() -> Vector2:
 
 func _on_start() -> void:
 	var id: String = data["enemy"]
-	_runner = main.enemies.spawn(id, position, main.spawner.hp_multiplier() * float(data.get("hp_mult", 1.0)))
+	# It bolts out a little way off, so the cat sees it run before the
+	# weapons reach it, and it is as tough as a boss for the cat's level.
+	var away := (position - player().position).normalized()
+	_runner = main.enemies.spawn(id, position + away * 140.0, main.spawner.hp_multiplier() * float(data.get("hp_mult", 1.0)))
+	main.spawner.toughen(_runner)
 	_left = float(GameData.enemies[id].get("flee_time", 30.0))
 	main.enemies.enemy_killed.connect(_on_killed)
 	main.enemies.escaped.connect(_on_escaped)
@@ -43,7 +47,9 @@ func _on_killed(enemy_id: String, _pos: Vector2, _xp: float) -> void:
 	# Off it goes again, a bit faster.
 	_runner = main.enemies.spawn(enemy_id, player().position + Vector2.from_angle(randf() * TAU) * 300.0, main.spawner.hp_multiplier() * float(data.get("hp_mult", 1.0)))
 	if _runner != null:
+		main.spawner.toughen(_runner)
 		_runner.speed *= pow(1.1, _caught)
+		main.hud.show_banner(tr("CHASE_AGAIN") % [_caught, int(data.get("times", 1))], 2.5)
 	_left = float(GameData.enemies[enemy_id].get("flee_time", 30.0))
 
 

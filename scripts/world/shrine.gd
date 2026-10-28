@@ -25,6 +25,8 @@ const FOR_THE_NIGHT := 99999.0
 ## How many offers each shrine makes (texts SHRINE_<KIND>_OPT<n>).
 const OFFERS := {"MIGHT": 3, "HASTE": 3, "MILK": 2, "FORTUNE": 3, "CURSED": 3}
 const CURSED_LIMIT := 75.0
+## The great curse gives a boss chest only from this second of the night.
+const BOSS_CHEST_FROM := 480.0
 ## Forgotten shrines crumble after a while.
 const LIFETIME := 100.0
 const KINDS := {"MIGHT": 3.0, "HASTE": 3.0, "MILK": 2.0, "FORTUNE": 2.0, "CURSED": 2.5}
@@ -167,6 +169,15 @@ func _summon_guards(count: int) -> void:
 		if guard != null:
 			if _big_curse:
 				guard.make_champion(GameData.champions.keys().pick_random())
+				# Tougher the later in the night, but they give far less
+				# experience than wild champions: the chest is the prize.
+				var minutes: float = main.spawner.elapsed / 60.0
+				guard.max_hp *= 1.6 + minutes * 0.12
+				guard.hp = guard.max_hp
+				guard.damage *= 1.25
+				guard.xp *= 0.15
+			else:
+				guard.xp *= 0.4
 			_guards.append(guard)
 
 
@@ -178,7 +189,10 @@ func _tick_guards(delta: float) -> void:
 	if not _guards.is_empty() and _guard_t < CURSED_LIMIT:
 		return
 	if _guard_t < CURSED_LIMIT:
-		main.pickups.spawn_named("chest", position, 1.0 if _big_curse else 0.0)
+		# A boss chest only once the night is well under way; early on the
+		# great curse gives a plain chest and more gold.
+		var boss_chest: bool = _big_curse and main.spawner.elapsed >= BOSS_CHEST_FROM
+		main.pickups.spawn_named("chest", position, 1.0 if boss_chest else 0.0)
 		for i in 16 if _big_curse else 8:
 			main.pickups.spawn_named("coin", position + Vector2.from_angle(TAU * i / 8.0) * (22.0 if i < 8 else 34.0), 5.0)
 		main.hud.show_banner(tr("SHRINE_CURSED_WON"), 3.5)

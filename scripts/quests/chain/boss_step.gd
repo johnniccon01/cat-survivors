@@ -26,6 +26,7 @@ func _on_start() -> void:
 		main.enemies.clear_all()
 		main.spawner.paused = true
 	_boss = main.enemies.spawn(id, position, main.spawner.hp_multiplier() * float(data.get("hp_mult", 1.0)))
+	main.spawner.toughen(_boss)
 	_left = float(data.get("time_limit", 0.0))
 	main.enemies.enemy_killed.connect(_on_killed)
 	if data.get("rule", "") == "no_heal":

@@ -71,6 +71,12 @@
     "max_rank": 3,
     "base_cost": 500
   },
+  "DISCARD": {
+    "stat": "discard",
+    "per_rank": 1.0,
+    "max_rank": 2,
+    "base_cost": 600
+  },
   "CURSE": {
     "stat": "curse",
     "per_rank": 0.1,

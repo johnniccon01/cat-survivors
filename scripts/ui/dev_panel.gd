@@ -15,6 +15,7 @@ const DIM := Color(0.62, 0.56, 0.7)
 var main: Node
 
 var _panel: PanelContainer
+var _revive_button: Button
 var _god_button: Button
 var _terrain_button: Button
 var _search: LineEdit
@@ -99,6 +100,10 @@ func _build_actions(col: VBoxContainer) -> void:
 	_section(list, "Time")
 	_button(list, "+1 min (+levels)", func() -> void: _skip(60.0))
 	_button(list, "+5 min (+levels)", func() -> void: _skip(300.0))
+	_button(list, "+5 min (time only)", func() -> void: _act(func() -> void: _skip_time(300.0)))
+	for minute in [10, 15, 20]:
+		_button(list, "Go to minute %d (as played)" % minute, func() -> void: _act(func() -> void: _go_to_minute(minute)))
+	_revive_button = _button(list, "Revive on death: ON", _toggle_revive)
 	_button(list, "Final boss now", func() -> void: _act(_final_boss))
 	_button(list, "Endless night now", func() -> void: _act(_endless_now))
 	_section(list, "Cat")
@@ -392,6 +397,26 @@ static func smart_pick(player: Player) -> Dictionary:
 			best_score = score
 			best = o
 	return best
+
+
+## Only the clock moves on: enemies get as strong as at that minute, the cat stays.
+func _skip_time(seconds: float) -> void:
+	var spawner: Spawner = main.spawner
+	spawner.skip_to(minf(spawner.elapsed + seconds, spawner.duration_minutes() * 60.0 - 5.0))
+
+
+## Jumps to `minute` with the level, weapons and chests a player would have
+## by then (an earlier minute stays where it is).
+func _go_to_minute(minute: float) -> void:
+	var left: float = minute * 60.0 - main.spawner.elapsed
+	if left > 0.0:
+		_skip(left)
+		main.hud.update_inventory(main.player)
+
+
+func _toggle_revive() -> void:
+	main.dev_revive = not main.dev_revive
+	_revive_button.text = "Revive on death: %s" % ("ON" if main.dev_revive else "OFF")
 
 
 func _toggle_god() -> void:

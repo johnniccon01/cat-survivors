@@ -23,19 +23,19 @@
     "rarity": 100,
     "levels": [
       {
-        "speed": 0.1
+        "speed": 0.06
       },
       {
-        "speed": 0.1
+        "speed": 0.06
       },
       {
-        "speed": 0.1
+        "speed": 0.06
       },
       {
-        "speed": 0.1
+        "speed": 0.06
       },
       {
-        "speed": 0.1
+        "speed": 0.06
       }
     ]
   },

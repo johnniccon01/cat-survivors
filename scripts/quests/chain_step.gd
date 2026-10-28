@@ -84,8 +84,13 @@ func _enter_tree() -> void:
 		add_child(dark)
 
 
+## The story's name with the part this step is ("The Kibble Thief · part
+## 2/4"), so the steps read as one quest.
 func title() -> String:
-	return tr("CHAIN_%s_NAME" % chain_id)
+	var total := steps(chain_id).size()
+	if total <= 1:
+		return tr("CHAIN_%s_NAME" % chain_id)
+	return tr("CHAIN_PART") % [tr("CHAIN_%s_NAME" % chain_id), step_no, total]
 
 
 func step_text() -> String:
@@ -124,7 +129,15 @@ func complete() -> void:
 		if not feature.is_empty() and feature["kind"] != "ally" and not data.has("build") \
 				and feature.get("stage", "") == main.spawner.stage_id:
 			MapFeature.place_one(main, feature["kind"], position, true)
-		line = ("%s\n" % line if line != "" else "") + tr("CHAIN_FINISHED") % [title(), QuestBook.reward_text(reward)]
+		line = ("%s\n" % line if line != "" else "") + tr("CHAIN_FINISHED") % [tr("CHAIN_%s_NAME" % chain_id), QuestBook.reward_text(reward)]
+		# The whole story is done: a fanfare and a golden burst.
+		Audio.play("legendary", -2.0, 0.0)
+		var burst := LegendaryBurst.new()
+		burst.position = main.player.position
+		main.add_child(burst)
+	else:
+		# Say what comes next, so the player knows the story goes on.
+		line = ("%s\n" % line if line != "" else "") + tr("CHAIN_NEXT") % tr("CHAIN_%s_%d" % [chain_id, next + 1])
 	Profile.save()
 	super.complete()
 	if line != "":

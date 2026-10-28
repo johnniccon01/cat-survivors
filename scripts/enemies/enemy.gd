@@ -327,7 +327,9 @@ func tick(delta: float, target: Vector2, push: Vector2) -> void:
 		hp = minf(max_hp, hp + max_hp * _regen * delta)
 	if _chill_t > 0.0:
 		_chill_t -= delta
-	modulate = Color(1.35, 0.8, 0.55) if burn_t > 0.0 else (Color(0.7, 0.9, 1.4) if _chill_t > 0.0 else Color.WHITE)
+	# Frozen solid (Frozen Fish) looks icier than just chilled.
+	var frozen := _slow_t > 0.0 and _slow <= 0.01
+	modulate = Color(1.35, 0.8, 0.55) if burn_t > 0.0 else (Color(0.55, 0.85, 1.7) if frozen else (Color(0.7, 0.9, 1.4) if _chill_t > 0.0 else Color.WHITE))
 	position += (move + _knock + push) * delta
 	_knock = _knock.move_toward(Vector2.ZERO, KNOCK_DECAY * delta)
 	if absf(dir.x) > 0.2:

@@ -16,6 +16,7 @@ const STAT_TEXT := {
 	"speed": "STAT_SPEED",
 	"duration": "STAT_DURATION",
 	"interval": "STAT_INTERVAL",
+	"freeze": "STAT_FREEZE",
 }
 const PERCENT_STATS := ["area", "speed", "duration"]
 ## Upgrades of what you already have come up more often than new things, so
@@ -37,7 +38,8 @@ static func roll(player: Player, count: int = 3, owned_only: bool = false) -> Ar
 	var no_weapons_yet := weaponless and player.level < int(GameData.cats[player.cat_id].get("fragile_until", 0))
 	for id: String in GameData.weapons:
 		var data: Dictionary = GameData.weapons[id]
-		if data.get("evolved", false):
+		# Evolved weapons only come by evolving, but keep leveling up after.
+		if data.get("evolved", false) and player.get_weapon(id) == null:
 			continue
 		# Some weapons only show up once their map has been cleared.
 		if data.has("requires_stage") and data["requires_stage"] not in Profile.cleared_stages and player.get_weapon(id) == null:
@@ -204,7 +206,10 @@ static func owned_notes(player: Player, offer: Dictionary) -> Array:
 				if GameData.weapons[id].get("evolve", {}).get("with", "") != offer["id"]:
 					continue
 				var w := player.get_weapon(id)
-				if w != null:
+				var into: String = GameData.weapons[id]["evolve"]["into"]
+				if w == null and player.get_weapon(into) != null:
+					notes.append([_t("CARD_EVOLVED_ALREADY") % [item_name("weapon", id), item_name("weapon", into)], true])
+				elif w != null:
 					notes.append([_t("CARD_EVOLVES_HAVE") % [item_name("weapon", id), w.level, w.max_level()], true])
 				else:
 					notes.append([_t("CARD_EVOLVES_MISSING") % item_name("weapon", id), false])
@@ -290,7 +295,7 @@ static func _base_description(offer: Dictionary) -> String:
 		var shown: String
 		if key in PERCENT_STATS:
 			shown = str(roundi(value * 100.0))
-		elif key == "interval":
+		elif key == "interval" or key == "freeze":
 			shown = ("%+.1f" % value).replace(".", _t("DECIMAL_SEP"))
 		else:
 			shown = str(roundi(value))

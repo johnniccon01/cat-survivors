@@ -34,6 +34,8 @@ func _on_start() -> void:
 	var minute := floorf(main.spawner.elapsed / 60.0)
 	# Rivals start beatable and grow with the night (+25 % health per minute).
 	_rival = main.enemies.spawn(data["rival"], position, maxf(1.0 + minute * 0.25, main.spawner.hp_multiplier()))
+	# ...and with the cat's level, so a duel at level 30 is still a duel.
+	main.spawner.toughen(_rival)
 	main.enemies.arena = {"center": position, "radius": ARENA_RADIUS, "rival": _rival}
 	main.spawner.paused = true
 	main.hud.show_banner(tr("QUEST_DUEL_CHALLENGE") % tr("CAT_%s_NAME" % cat_id), 3.0)

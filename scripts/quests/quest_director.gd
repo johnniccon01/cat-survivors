@@ -30,6 +30,11 @@ var _done_cats: Array[String] = []
 var _cat_given := false
 ## Chains whose step failed tonight (they wait for the next night).
 var _chains_failed: Array[String] = []
+## The chain played last: its next step waits until another quest ran, so
+## the same story doesn't come twice in a row.
+var _last_chain := ""
+## Side quests played tonight, latest last (picked least recently used).
+var _sides_done: Array[String] = []
 var _cfg: Dictionary
 
 ## Secret chains ("secret" in chains.json) are never on the schedule. "far":
@@ -116,7 +121,7 @@ func _physics_process(delta: float) -> void:
 	elif kind == "chain":
 		quest_id = _pick_chain()
 	if quest_id == "":
-		quest_id = (_cfg["side_quests"] as Dictionary).keys().pick_random()
+		quest_id = _pick_side()
 	var dist: Array = _cfg["distance"]
 	_start(quest_id, randf_range(dist[0], dist[1]))
 
@@ -143,11 +148,23 @@ func _update_secrets() -> void:
 		if found:
 			_secret_found.append(id)
 	main.night.far_dark = dark
-	if active != null or main.final_boss != null or _secret_found.is_empty():
+	if main.final_boss != null or _secret_found.is_empty():
+		return
+	# A side quest the cat hasn't begun gives way: the found secret starts
+	# right here instead of somewhere else much later.
+	if active != null and not active.started and not (active is ChainStep):
+		var old := active
+		active = null
+		old.queue_free()
+	if active != null:
 		return
 	var id: String = _secret_found.pop_front()
-	var at := (_trails[id] as BloodTrail).end if _trails.has(id) else Vector2.INF
-	_start(id, 180.0, at)
+	var at := Vector2.INF
+	if _trails.has(id):
+		var trail: BloodTrail = _trails[id]
+		# The cat may have walked on while another quest ran: start next to it.
+		at = trail.end if trail.reached(main.player.position) else Vector2.INF
+	_start(id, 120.0, at)
 
 
 ## The stage's story quest, unless its flag is already set.
@@ -166,7 +183,7 @@ func _pick_chain() -> String:
 	var ids: Array = GameData.chains.keys()
 	ids.sort_custom(func(x: String, y: String) -> bool: return _chain_rank(x) < _chain_rank(y))
 	for id: String in ids:
-		if ChainStep.is_done(id) or id in _chains_failed or GameData.chains[id].has("secret"):
+		if ChainStep.is_done(id) or id in _chains_failed or id == _last_chain or GameData.chains[id].has("secret"):
 			continue
 		var needs: Array = GameData.chains[id].get("requires", [])
 		if not needs.all(func(f: String) -> bool: return Profile.has_flag(f)):
@@ -191,6 +208,13 @@ func _chain_rank(id: String) -> int:
 	if ChainStep.progress_of(id) > 0:
 		return 0
 	return 2 if GameData.chains[id].get("stage", "any") == "any" else 1
+
+
+## A side quest not played tonight, else the one played longest ago.
+func _pick_side() -> String:
+	var ids: Array = (_cfg["side_quests"] as Dictionary).keys()
+	var fresh := ids.filter(func(q: String) -> bool: return not q in _sides_done)
+	return fresh.pick_random() if not fresh.is_empty() else _sides_done[0]
 
 
 func _pick_cat() -> String:
@@ -230,6 +254,11 @@ func _start(quest_id: String, distance: float, at: Vector2 = Vector2.INF) -> voi
 		quest = SIDE_SCRIPTS[quest_id].new()
 		quest.data = _cfg["side_quests"][quest_id]
 		quest.expire_after = float(_cfg["schedule"]["side_expire"])
+		_sides_done.erase(quest_id)
+		_sides_done.append(quest_id)
+	# Chain steps the cat ignores go away too (and wait for the next night).
+	if quest is ChainStep and _dev_step == 0 and not GameData.chains[quest_id].has("secret"):
+		quest.expire_after = float(_cfg["schedule"].get("chain_expire", 120.0))
 	quest.quest_id = quest_id
 	quest.main = main
 	quest.position = at if at != Vector2.INF else main.player.position + Vector2.from_angle(randf() * TAU) * distance
@@ -247,8 +276,10 @@ func _start(quest_id: String, distance: float, at: Vector2 = Vector2.INF) -> voi
 func _on_finished(success: bool) -> void:
 	if main.player.controller == "bot" and active != null:
 		print("BOT: quest %s %s at %.0f s (%s)" % [active.quest_id, "done" if success else "failed", main.spawner.elapsed, active.objective()])
+	_last_chain = ""
 	if active is ChainStep:
 		var id := (active as ChainStep).chain_id
+		_last_chain = id
 		# Failed steps wait for the next night, and so do "one_per_night" chains.
 		if not success or GameData.chains[id].get("one_per_night", false):
 			_chains_failed.append(id)

@@ -3,10 +3,12 @@ extends Node2D
 ## A long trail of blood drops on the floor (Halls of Torment-like) that
 ## leads criss-cross over the map from near the cat's start to a secret
 ## quest (a "trail" secret, see QuestDirector). The drops grow bigger and
-## fresher towards the end, so the cat can tell which way to follow.
+## fresher towards the end, so the cat can tell which way to follow. The
+## trail winds but never doubles back, and its end is a big pulsing pool
+## that can be seen from afar, so the cat doesn't have to walk every drop.
 ## data (the chain's "secret"): legs, leg [min, max], start [min, max].
 
-const REACH := 40.0
+const REACH := 110.0
 const DROP_EVERY := 22.0
 const BLOOD := Color(0.55, 0.05, 0.07)
 
@@ -26,9 +28,9 @@ func setup(origin: Vector2, data: Dictionary) -> void:
 	var dir := Vector2.from_angle(randf() * TAU)
 	var points: Array[Vector2] = [p]
 	for i in int(data.get("legs", 12)):
-		# Sharp turns both ways: the trail zig-zags back and forth across the
-		# map instead of running off in a straight line.
-		dir = dir.rotated(randf_range(0.8, 2.0) * (1.0 if randf() < 0.5 else -1.0))
+		# Gentle turns both ways: the trail winds but keeps heading away,
+		# so it never crosses itself and the way on is always clear.
+		dir = dir.rotated(randf_range(0.25, 0.9) * (1.0 if randf() < 0.5 else -1.0))
 		p += dir * randf_range(float(leg[0]), float(leg[1]))
 		points.append(p)
 	end = p
@@ -49,7 +51,30 @@ func setup(origin: Vector2, data: Dictionary) -> void:
 			_alphas.append(lerpf(0.35, 0.9, k))
 			d += DROP_EVERY * randf_range(0.6, 1.4)
 		walked += length
+	var marker := _EndMarker.new()
+	marker.position = end
+	add_child(marker)
 	queue_redraw()
+
+
+## The pulsing glow over the trail's end (redrawn every frame on its own,
+## so the many drops are drawn only once).
+class _EndMarker extends Node2D:
+	var _t := 0.0
+
+	func _process(delta: float) -> void:
+		_t += delta
+		queue_redraw()
+
+	func _draw() -> void:
+		var pulse := 0.5 + 0.5 * sin(_t * 3.0)
+		draw_circle(Vector2.ZERO, 46.0 + pulse * 14.0, Color(0.9, 0.1, 0.12, 0.10 + pulse * 0.08))
+		draw_arc(Vector2.ZERO, 30.0 + pulse * 30.0, 0.0, TAU, 40, Color(1.0, 0.25, 0.2, 0.7 * (1.0 - pulse)), 3.0)
+		# A small skull mark over the pool.
+		draw_circle(Vector2(0, -26), 7.0, Color(0.95, 0.9, 0.85))
+		draw_rect(Rect2(-4, -22, 8, 5), Color(0.95, 0.9, 0.85))
+		draw_circle(Vector2(-2.5, -27), 1.8, Color(0.2, 0.05, 0.05))
+		draw_circle(Vector2(2.5, -27), 1.8, Color(0.2, 0.05, 0.05))
 
 
 func reached(pos: Vector2) -> bool:

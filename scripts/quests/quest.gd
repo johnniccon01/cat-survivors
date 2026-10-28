@@ -19,7 +19,12 @@ var started := false
 ## A started quest that drags on this long gives up, so it can't block the
 ## rest of the night.
 const GIVE_UP_AFTER := 300.0
+## A started quest the cat walks this far away from, for ABANDON_AFTER
+## seconds, is given up too (the cat didn't want it).
+const ABANDON_DIST := 1300.0
+const ABANDON_AFTER := 12.0
 var _started_at := 0.0
+var _away := 0.0
 
 var _age := 0.0
 var _done := false
@@ -92,6 +97,11 @@ func _physics_process(delta: float) -> void:
 	elif _age - _started_at > GIVE_UP_AFTER:
 		fail()
 		return
+	else:
+		_away = _away + delta if target_position().distance_to(main.player.position) > ABANDON_DIST else 0.0
+		if _away > ABANDON_AFTER:
+			fail()
+			return
 	_tick(delta)
 	queue_redraw()
 

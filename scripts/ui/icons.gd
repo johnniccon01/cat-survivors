@@ -112,6 +112,15 @@ static func _weapon(ci: CanvasItem, id: String) -> void:
 			ci.draw_line(Vector2(2, 5), Vector2(8, 5), Color("c9ced2"), 1.0)
 			ci.draw_line(Vector2(3, 8), Vector2(7, 8), Color("c9ced2"), 1.0)
 			ci.draw_polyline(PackedVector2Array([Vector2(9, 3), Vector2(12, 7), Vector2(10, 8), Vector2(14, 13)]), Color("ffe066"), 1.5)
+		"FROST_FISH":
+			var fish := Shapes.ellipse(Vector2(7, 9), 5, 2.6, 12)
+			ci.draw_colored_polygon(fish, Color("bfefff"))
+			ci.draw_polyline(Shapes.closed(fish), OUTLINE, 1.0)
+			ci.draw_colored_polygon(PackedVector2Array([Vector2(2, 9), Vector2(0, 6), Vector2(0, 12)]), Color("8fe3ff"))
+			ci.draw_rect(Rect2(9, 8, 1, 1), OUTLINE)
+			for p: Vector2 in [Vector2(12, 3), Vector2(14, 6), Vector2(4, 3)]:
+				ci.draw_line(p + Vector2(-1.5, 0), p + Vector2(1.5, 0), Color.WHITE, 1.0)
+				ci.draw_line(p + Vector2(0, -1.5), p + Vector2(0, 1.5), Color.WHITE, 1.0)
 		"TIN_CAN_TOSS":
 			ci.draw_rect(Rect2(5, 5, 7, 9), OUTLINE)
 			ci.draw_rect(Rect2(6, 6, 5, 7), Color("c9ced2"))

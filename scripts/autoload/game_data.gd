@@ -30,6 +30,27 @@ var challenges: Dictionary = {}
 var loot: Array = []
 
 
+## Evolved weapons come with one level; they get EVOLVED_EXTRA_LEVELS more
+## (more damage, a little faster each), so they can still be leveled up.
+const EVOLVED_EXTRA_LEVELS := 4
+
+
+func _add_evolved_levels() -> void:
+	for id: String in weapons:
+		var data: Dictionary = weapons[id]
+		var levels: Array = data["levels"]
+		if not data.get("evolved", false) or levels.size() != 1:
+			continue
+		var base: Dictionary = levels[0]
+		for i in EVOLVED_EXTRA_LEVELS:
+			var lv := {}
+			if base.has("damage"):
+				lv["damage"] = snappedf(float(base["damage"]) * 0.15, 0.1)
+			if base.has("interval"):
+				lv["interval"] = -snappedf(float(base["interval"]) * 0.03, 0.01)
+			levels.append(lv)
+
+
 func _ready() -> void:
 	# --seed=N: the same map layout and rolls every time (performance checks).
 	if arg("--seed=", "") != "":
@@ -55,6 +76,7 @@ func _ready() -> void:
 	loot = props_file.get("loot", [])
 	enemies = _load_json("res://data/enemies.json")
 	stages = _load_json("res://data/stages.json")
+	_add_evolved_levels()
 	_setup_input()
 
 

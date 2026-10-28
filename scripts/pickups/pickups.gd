@@ -10,6 +10,8 @@ signal gold_collected(amount: float)
 signal charm_collected(charm_id: String)
 signal heart_collected
 signal page_collected
+## A magnet pulled `count` kibbles worth `xp` from all over the map.
+signal magnet_pulled(count: int, xp: float)
 
 const MAX_XP := 300
 ## How many kibbles are looked at to find a far one to merge (see spawn_xp).
@@ -125,12 +127,25 @@ func _physics_process(delta: float) -> void:
 
 
 ## Pulls every kibble and coin on the map towards the cat (magnet pickup, magnet core).
+## Far ones get a head start, so even the other end of the map arrives
+## within a few seconds.
 func pull_all_xp() -> void:
 	Audio.play("magnet", -4.0, 0.0)
+	var count := 0
+	var xp := 0.0
+	var at := player.position if player != null else Vector2.ZERO
 	for other in items:
 		if (other.kind == Pickup.Kind.XP or other.kind == Pickup.Kind.COIN) and not other.attracted:
 			other.attracted = true
-			other.speed = 0.0
+			other.speed = minf(other.position.distance_to(at) * 0.8, 1600.0)
+			if other.kind == Pickup.Kind.XP:
+				count += 1
+				xp += other.value
+	magnet_pulled.emit(count, xp)
+
+
+func count_kind(kind: Pickup.Kind) -> int:
+	return items.reduce(func(n: int, it: Pickup) -> int: return n + int(it.kind == kind), 0)
 
 
 func _collect(item: Pickup) -> void:

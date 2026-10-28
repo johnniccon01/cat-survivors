@@ -36,7 +36,7 @@ WEAPON_FISHBONES_DESC,Fish bones circle around the cat.,Rybie kosti krúžia oko
 PASSIVE_MIGHT_NAME,Sharp Claws,Ostré pazúry,Ostré drápy,Garras afiladas,Острые когти,锋利爪子
 PASSIVE_MIGHT_DESC,+10% damage for all weapons.,+10 % poškodenie všetkých zbraní.,+10 % poškození všech zbraní.,+10% de daño para todas las armas.,+10% урона всем оружиям.,所有武器伤害 +10%。
 PASSIVE_SPEED_NAME,Quick Paws,Rýchle labky,Rychlé tlapky,Patas rápidas,Быстрые лапки,敏捷爪子
-PASSIVE_SPEED_DESC,+10% movement speed.,+10 % rýchlosť pohybu.,+10 % rychlost pohybu.,+10% de velocidad de movimiento.,+10% скорости передвижения.,移动速度 +10%。
+PASSIVE_SPEED_DESC,+6% movement speed.,+6 % rýchlosť pohybu.,+6 % rychlost pohybu.,+6% de velocidad de movimiento.,+6% скорости передвижения.,移动速度 +6%。
 PASSIVE_MAXHP_NAME,Bowl of Milk,Miska mlieka,Miska mléka,Cuenco de leche,Миска молока,一碗牛奶
 PASSIVE_MAXHP_DESC,+20 max health.,+20 maximálne zdravie.,+20 maximální zdraví.,+20 de salud máxima.,+20 к макс. здоровью.,最大生命 +20。
 PASSIVE_COOLDOWN_NAME,Catnap,Šlofík,Šlofík,Siestecita,Кошачий сон,猫午睡
@@ -314,6 +314,7 @@ SET_LANGUAGE,Language,Jazyk,Jazyk,Idioma,Язык,语言
 SET_BACK,Back,Späť,Zpět,Volver,Назад,返回
 PAUSE_RESUME,Resume,Pokračovať,Pokračovat,Continuar,Продолжить,继续
 PAUSE_GIVE_UP,Give up (counts as death),Vzdať sa (ako smrť),Vzdát se (jako smrt),Rendirse (cuenta como muerte),Сдаться (считается смертью),放弃（视为死亡）
+PAUSE_GIVE_UP_SURE,Really give up? Click again,Naozaj sa vzdať? Klikni znova,Opravdu se vzdát? Klikni znovu,¿Rendirse de verdad? Pulsa otra vez,Точно сдаться? Нажми ещё раз,真的放弃？再点一次
 SET_SOUND,Sound,Zvuk,Zvuk,Sonido,Звук,声音
 STAGE_GARDEN_NAME,The Garden,Záhrada,Zahrada,El jardín,Сад,花园
 STAGE_GARDEN_HINT,Defeat the Rat King,Poraz Potkanieho kráľa,Poraz Krysího krále,Derrota al Rey Rata,Победи Крысиного короля,击败鼠王
@@ -1444,7 +1445,7 @@ SHRINE_FORTUNE_OPT1,"Sweet fruit: gain 2 levels, but lose 40 % of your health",
 SHRINE_FORTUNE_OPT2,"Greed: +35 % gold all night, but enemies get 12 % tougher","Chamtivosť: +35 % zlata celú noc, ale nepriatelia sú o 12 % silnejší","Chamtivost: +35 % zlata celou noc, ale nepřátelé jsou o 12 % silnější","Codicia: +35 % de oro toda la noche, pero los enemigos son un 12 % más duros","Жадность: +35 % золота на всю ночь, но враги крепче на 12 %",贪婪：整夜金币 +35 %，但敌人强化 12 %
 SHRINE_CURSED_OPT0,Refuse the curse: +8 % luck all night,Odmietni kliatbu: +8 % šťastia celú noc,Odmítni kletbu: +8 % štěstí celou noc,Rechazar la maldición: +8 % de suerte toda la noche,Отказаться от проклятия: +8 % удачи на всю ночь,拒绝诅咒：整夜幸运 +8 %
 SHRINE_CURSED_OPT1,Accept the curse: 5 guards appear – beat them for a treasure chest,Prijmi kliatbu: príde 5 strážcov – poraz ich a získaš truhlicu,Přijmi kletbu: přijde 5 strážců – poraž je a získáš truhlu,Aceptar la maldición: aparecen 5 guardias; derrótalos para conseguir un cofre del tesoro,Принять проклятие: появятся 5 стражей – победи их и получишь сундук с сокровищами,接受诅咒：出现 5 名守卫——击败它们获得宝箱
-SHRINE_CURSED_OPT2,Great curse: 8 champion guards – beat them for a boss chest and more gold,Veľká kliatba: 8 strážcov-šampiónov – poraz ich a získaš truhlicu bossa a viac zlata,Velká kletba: 8 strážců-šampionů – poraž je a získáš truhlu bosse a víc zlata,Gran maldición: 8 guardias campeones; derrótalos para conseguir un cofre de jefe y más oro,Великое проклятие: 8 стражей-чемпионов – победи их и получишь сундук босса и больше золота,大诅咒：8 名冠军守卫——击败它们获得 Boss 宝箱和更多金币
+SHRINE_CURSED_OPT2,Great curse: 8 strong champion guards – beat them for a chest (a boss chest from minute 8) and more gold,Veľká kliatba: 8 silných strážcov-šampiónov – poraz ich a získaš truhlicu (od 8. minúty truhlicu bossa) a viac zlata,Velká kletba: 8 silných strážců-šampionů – poraž je a získáš truhlu (od 8. minuty truhlu bosse) a víc zlata,Gran maldición: 8 guardias campeones fuertes; derrótalos para conseguir un cofre (de jefe desde el minuto 8) y más oro,Великое проклятие: 8 сильных стражей-чемпионов – победи их и получишь сундук (с 8-й минуты – сундук босса) и больше золота,大诅咒：8 名强大的冠军守卫——击败它们获得宝箱（第 8 分钟起为 Boss 宝箱）和更多金币
 SHRINE_CURSED_WON,The curse is broken: a treasure chest!,Kliatba zlomená: truhlica!,Kletba zlomena: truhla!,La maldición se ha roto: ¡un cofre del tesoro!,Проклятие снято: сундук с сокровищами!,诅咒被打破了：一个宝箱！
 BONUS_MIGHT,+%s %% damage,+%s %% poškodenie,+%s %% poškození,+%s %% de daño,+%s %% урона,伤害 +%s %%
 BONUS_COOLDOWN,%s %% faster attacks,o %s %% rýchlejšie útoky,o %s %% rychlejší útoky,ataques un %s %% más rápidos,атаки быстрее на %s %%,攻击加快 %s %%
@@ -1716,3 +1717,30 @@ ITEMS_MELT_ASK,Press X again to melt %s for %d gold.,Stlač X ešte raz a %s sa 
 ITEMS_LEGENDARY_LIMIT,At most %d legendary items at once – take one off first.,Naraz najviac %d legendárne predmety – najprv jeden daj dole.,Najednou nejvýš %d legendární předměty – nejdřív jeden sundej.,Como máximo %d objetos legendarios a la vez: quítate uno primero.,Не больше %d легендарных предметов сразу – сначала сними один.,最多同时穿戴 %d 件传说物品——请先卸下一件。
 HUD_LEVEL,Lv %d,Úr. %d,Úr. %d,Nv %d,Ур. %d,等级 %d
 HUD_WEAPON_LEVEL,Lv %d/%d,Úr. %d/%d,Úr. %d/%d,Nv %d/%d,Ур. %d/%d,等级 %d/%d
+MAGNET_PULLED,Magnet: %d kibbles (%d XP) fly to you,Magnet: %d granuliek (%d XP) letí k tebe,Magnet: %d granulí (%d XP) letí k tobě,Imán: %d croquetas (%d XP) vuelan hacia ti,Магнит: %d кормов (%d XP) летят к тебе,磁铁：%d 颗猫粮（%d 经验）飞向你
+CARD_EVOLVED_ALREADY,%s already evolved into %s – still boosts it,%s sa už vyvinul na %s – stále ho posilní,%s se už vyvinul v %s – stále ho posílí,%s ya evolucionó en %s; lo sigue potenciando,%s уже эволюционировал в %s – всё равно усиливает,%s 已进化为 %s——仍会强化它
+CHAIN_PART,%s · part %d/%d,%s · časť %d/%d,%s · část %d/%d,%s · parte %d/%d,%s · часть %d/%d,%s · 第 %d/%d 部分
+CHAIN_NEXT,Next in this story: %s,Ďalej v tomto príbehu: %s,Dál v tomto příběhu: %s,Lo siguiente en esta historia: %s,Дальше в этой истории: %s,故事下一步：%s
+CHASE_AGAIN,It got up and runs again! Caught %d/%d,Vstal a uteká znova! Chytené %d/%d,Vstal a utíká znovu! Chyceno %d/%d,¡Se levanta y vuelve a huir! Atrapado %d/%d,Поднялся и снова убегает! Поймано %d/%d,它爬起来又跑了！已抓住 %d/%d
+STAT_FREEZE,+%s s freeze,+%s s zmrazenie,+%s s zmrazení,+%s s de congelación,+%s с заморозки,冻结 +%s 秒
+WEAPON_FROST_FISH_NAME,Frozen Fish,Mrazená rybka,Mražená rybka,Pez congelado,Мороженая рыбка,冻鱼
+WEAPON_FROST_FISH_DESC,An icy beam at the toughest enemy nearby (bosses first) freezes it in place.,Ľadový lúč na najsilnejšieho nepriateľa nablízku (bossov najprv) ho zmrazí na mieste.,Ledový paprsek na nejsilnějšího nepřítele poblíž (bosse napřed) ho zmrazí na místě.,Un rayo helado contra el enemigo más fuerte cercano (primero jefes) lo congela en el sitio.,Ледяной луч в самого сильного врага рядом (сначала боссы) замораживает его на месте.,冰冷射线射向附近最强的敌人（优先首领），将其冻结在原地。
+WEAPON_ETERNAL_WINTER_NAME,Eternal Winter,Večná zima,Věčná zima,Invierno eterno,Вечная зима,永恒寒冬
+WEAPON_ETERNAL_WINTER_DESC,"Evolved Frozen Fish: beams at four foes, each freezing a ring around it.","Evolúcia mrazenej rybky: lúče na štyroch nepriateľov, každý zmrazí aj okolie.","Evoluce mražené rybky: paprsky na čtyři nepřátele, každý zmrazí i okolí.",Pez congelado evolucionado: rayos a cuatro enemigos que congelan también su alrededor.,"Эволюция мороженой рыбки: лучи в четырёх врагов, каждый замораживает и всё вокруг.",冻鱼进化：射向四个敌人，每道射线还会冻结周围。
+BRANCH_SHATTER_NAME,Shatter,Roztrieštenie,Roztříštění,Estallido,Раскол,碎冰
+BRANCH_SHATTER_DESC,Frozen foes may burst into ice shards that hit those nearby.,"Zmrazení nepriatelia môžu prasknúť na črepiny, ktoré zasiahnu okolie.","Zmrazení nepřátelé mohou prasknout na střepy, které zasáhnou okolí.",Los enemigos congelados pueden estallar en esquirlas que golpean a los cercanos.,"Замороженные враги могут разлететься осколками, ранящими соседей.",被冻结的敌人可能碎裂成冰片，击中附近的敌人。
+BRANCH_FROSTBITE_NAME,Frostbite,Omrzliny,Omrzliny,Congelación,Обморожение,冻伤
+BRANCH_FROSTBITE_DESC,Weakened foes freeze solid and break at once.,Oslabení nepriatelia zamrznú na kosť a hneď sa rozbijú.,Oslabení nepřátelé zamrznou na kost a hned se rozbijí.,Los enemigos debilitados se congelan del todo y se rompen al instante.,Ослабленные враги промерзают насквозь и сразу разбиваются.,虚弱的敌人会被冻透并立刻碎裂。
+BRANCH_COLD_SNAP_NAME,Cold Snap,Mrazivá vlna,Mrazivá vlna,Ola de frío,Резкий мороз,寒潮
+BRANCH_COLD_SNAP_DESC,Everything hit stays frozen much longer.,Všetko zasiahnuté zostane zmrazené oveľa dlhšie.,Vše zasažené zůstane zmrazené mnohem déle.,Todo lo alcanzado sigue congelado mucho más tiempo.,Всё поражённое остаётся замороженным гораздо дольше.,被击中的一切会被冻结更久。
+DEATH_TITLE,DEATH HAS COME,PRIŠLA SMRŤ,PŘIŠLA SMRT,HA LLEGADO LA MUERTE,ПРИШЛА СМЕРТЬ,死神降临
+DEATH_SURVIVE,Survive %s – then Death can be hurt!,Prežij %s – potom sa Smrť dá zraniť!,Přežij %s – pak se Smrt dá zranit!,¡Sobrevive %s y luego podrás herir a la Muerte!,Продержись %s – потом Смерть можно ранить!,坚持 %s——之后就能伤到死神！
+DEVIL_SHIELD,Death can't be hurt yet,Smrť sa zatiaľ nedá zraniť,Smrt se zatím nedá zranit,Aún no se puede herir a la Muerte,Смерть пока неуязвима,死神暂时无法被伤害
+ANGEL_TITLE,AN ANGEL!,ANJEL!,ANDĚL!,¡UN ÁNGEL!,АНГЕЛ!,天使！
+PAUSE_DISCARD,Throw away a weapon or skill (%d left),Vyhodiť zbraň alebo schopnosť (zostáva %d),Vyhodit zbraň nebo schopnost (zbývá %d),Tirar un arma o habilidad (quedan %d),Выбросить оружие или навык (осталось %d),丢弃武器或技能（剩余 %d）
+DISCARD_TITLE,Throw away,Vyhodiť,Vyhodit,Tirar,Выбросить,丢弃
+DISCARD_PROMPT,Pick what you want to get rid of for good. It frees its slot and won't be offered again tonight. (%d left),"Vyber, čoho sa chceš navždy zbaviť. Uvoľní sa miesto a dnes v noci ti to už nikto neponúkne. (zostáva %d)","Vyber, čeho se chceš navždy zbavit. Uvolní se místo a dnes v noci ti to už nikdo nenabídne. (zbývá %d)",Elige de qué quieres librarte para siempre. Libera su hueco y no se ofrecerá más esta noche. (quedan %d),"Выбери, от чего избавиться навсегда. Место освободится, и этой ночью это больше не предложат. (осталось %d)",选择要永久丢弃的物品。会空出栏位，今晚不会再出现。（剩余 %d）
+DISCARD_KEEP,Keep everything,Nechať všetko,Nechat vše,Quedarse con todo,Оставить всё,全部保留
+DISCARD_DONE,Thrown away: %s,Vyhodené: %s,Vyhozeno: %s,Tirado: %s,Выброшено: %s,已丢弃：%s
+POWERUP_DISCARD_NAME,Spring Cleaning,Upratovanie,Úklid,Limpieza,Уборка,大扫除
+POWERUP_DISCARD_DESC,One more weapon or skill you can throw away each night (pause menu).,Každú noc môžeš vyhodiť o jednu zbraň alebo schopnosť viac (v pauze).,Každou noc můžeš vyhodit o jednu zbraň nebo schopnost víc (v pauze).,Cada noche puedes tirar un arma o habilidad más (menú de pausa).,Каждую ночь можно выбросить ещё одно оружие или навык (меню паузы).,每晚可多丢弃一件武器或技能（暂停菜单）。

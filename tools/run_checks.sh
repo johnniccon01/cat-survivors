@@ -72,7 +72,7 @@ scenarios=(
   "quest_clover|--bot --stage=GARDEN --levels=20 --quest=CLOVER --bot-time=150"
   "angel_devil|--bot --stage=ROOFTOP --start-minute=16 --catch-up --angel-chance=1 --death-chance=1 --kill-cat-every=8 --bot-time=90"
   "devil_kills|--bot --stage=ROOFTOP --start-minute=16 --catch-up --angel-chance=1 --devil --bot-time=60"
-  "devil_mortal|--bot --stage=ROOFTOP --start-minute=29.9 --catch-up --devil --bot-time=30"
+  "devil_mortal|--bot --stage=ROOFTOP --start-minute=29.9 --catch-up --devil --devil-shield=8 --bot-time=30"
   "companion_grows|--bot --god --levels=30 --quest=SNOWBALL --bot-time=200"
   "quest_snowball|--bot --levels=20 --quest=SNOWBALL --bot-time=150"
   "quest_pip|--bot --levels=20 --quest=PIP --bot-time=150"

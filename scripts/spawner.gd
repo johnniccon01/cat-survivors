@@ -198,6 +198,25 @@ func level_factor() -> float:
 	return 1.0 + maxf(_player.level - LEVEL_SCALING_FROM, 0) * LEVEL_SCALING
 
 
+## Single strong foes (bosses, duel rivals, quest bosses) grow faster with
+## the cat's level than the crowd: a level-100 cat meeting a boss it beat at
+## level 20 finds it much stronger. `strength` < 1 softens it (final bosses
+## already have their own scaling).
+const BOSS_LEVEL_FROM := 5
+const BOSS_LEVEL_HP := 0.06
+const BOSS_LEVEL_DAMAGE := 0.012
+
+
+func toughen(enemy: Enemy, strength: float = 1.0) -> void:
+	if enemy == null:
+		return
+	var lv := maxf(_player.level - BOSS_LEVEL_FROM, 0)
+	var extra := pow((1.0 + lv * BOSS_LEVEL_HP) / level_factor(), strength)
+	enemy.max_hp *= extra
+	enemy.hp = enemy.max_hp
+	enemy.damage *= pow(1.0 + maxf(_player.level - 10, 0) * BOSS_LEVEL_DAMAGE, strength)
+
+
 ## Health multiplier of a final boss: the map's challenge (a bit less than
 ## the rest) and the cat's level, so a strong cat doesn't melt it.
 func final_hp_multiplier() -> float:
@@ -276,6 +295,7 @@ func spawn_boss_as_in_run(id: String, pos: Vector2) -> Enemy:
 	_update_mults()
 	var mult := final_hp_multiplier() if final else hp_multiplier()
 	var boss := _enemies.spawn(id, pos, mult)
+	toughen(boss, 0.5 if final else 1.0)
 	elapsed = saved
 	_update_mults()
 	return boss
@@ -305,6 +325,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			_enemies.clear_all()
 			var boss := _enemies.spawn(final_id, _player.position + Vector2(0, -_spawn_radius() * 0.8), final_hp_multiplier())
+			toughen(boss, 0.5)
 			start_arena(boss)
 			final_boss_spawned.emit(boss)
 		return
@@ -387,6 +408,8 @@ func spawn_guard(pos: Vector2) -> Enemy:
 func _spawn(id: String, pos: Vector2) -> Enemy:
 	var enemy := _enemies.spawn(id, pos, hp_multiplier())
 	if enemy != null:
+		if enemy.is_boss:
+			toughen(enemy)
 		enemy.speed *= 1.0 + (_player.stat("curse") - 1.0) * 0.5
 		if not enemy.is_boss and randf() < champion_chance():
 			enemy.make_champion(GameData.champions.keys().pick_random())

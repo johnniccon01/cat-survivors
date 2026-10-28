@@ -7,6 +7,7 @@ const XP_BAR_HEIGHT := 14.0
 
 signal resume_pressed
 signal give_up_pressed
+signal discard_pressed
 
 var level_up: LevelUpPanel
 var settings: SettingsPanel
@@ -22,6 +23,8 @@ var _gold_label: Label
 var _bless_label: Label
 var _debug_label: Label
 var _pause_overlay: Control
+var _give_up: Button
+var _discard: Button
 var _pause_stories: Label
 var _pause_language: Label
 var _pause_sound: Label
@@ -123,16 +126,25 @@ func _ready() -> void:
 		_pause_overlay.visible = false
 		settings.open())
 	var give_up := UiStyle.button("PAUSE_GIVE_UP", 340)
-	give_up.pressed.connect(func() -> void: give_up_pressed.emit())
-	for i in 3:
-		var b: Button = [resume, open_settings, give_up][i]
+	_give_up = give_up
+	# Asks once more first: a stray click or key must not end the night.
+	give_up.pressed.connect(func() -> void:
+		if give_up.text == "PAUSE_GIVE_UP_SURE":
+			give_up_pressed.emit()
+		else:
+			give_up.text = "PAUSE_GIVE_UP_SURE"
+			resume.grab_focus())
+	_discard = UiStyle.button("PAUSE_DISCARD", 340)
+	_discard.pressed.connect(func() -> void: discard_pressed.emit())
+	for i in 4:
+		var b: Button = [resume, open_settings, _discard, give_up][i]
 		b.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		pause_box.add_child(b)
 		pause_box.move_child(b, 1 + i)
-	_pause_language = _pause_overlay.get_node("Box").get_child(5)
-	_pause_sound = _pause_overlay.get_node("Box").get_child(6)
-	_pause_numbers = _pause_overlay.get_node("Box").get_child(7)
-	_pause_shake = _pause_overlay.get_node("Box").get_child(8)
+	_pause_language = _pause_overlay.get_node("Box").get_child(6)
+	_pause_sound = _pause_overlay.get_node("Box").get_child(7)
+	_pause_numbers = _pause_overlay.get_node("Box").get_child(8)
+	_pause_shake = _pause_overlay.get_node("Box").get_child(9)
 	for line: Label in [_pause_language, _pause_sound, _pause_numbers, _pause_shake]:
 		line.label_settings.font_size = 16
 		line.label_settings.font_color = UiStyle.MUTED
@@ -437,6 +449,11 @@ func show_pause(on: bool) -> void:
 	_pause_numbers.text = tr("PAUSE_NUMBERS") % tr("SOUND_ON" if Settings.damage_numbers else "SOUND_OFF")
 	_pause_shake.text = tr("PAUSE_SHAKE") % tr("SOUND_ON" if Settings.screen_shake else "SOUND_OFF")
 	_pause_stories.text = _stories_text()
+	_give_up.text = "PAUSE_GIVE_UP"
+	var cat: Player = get_parent().get("player")
+	_discard.visible = cat != null and cat.discard_left > 0
+	if cat != null:
+		_discard.text = tr("PAUSE_DISCARD") % cat.discard_left
 	if on:
 		_pause_weapons.text = weapons_text()
 		var log_text := "\n\n".join(_log) if not _log.is_empty() else tr("PAUSE_LOG_EMPTY")

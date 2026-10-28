@@ -13,6 +13,13 @@ extends Node2D
 ##             health; or more gold all night while enemies get tougher
 ##   CURSED  – a little luck; or guards that guard a chest; or champion
 ##             guards that guard a boss chest
+##   BONE    – (all night) armor; or armor and health but slower paws; or
+##             thorns and crits but less health
+##   MOON    – (all night) faster growth; or much faster growth but tougher
+##             enemies; or a reroll and a banish now
+##   CHAOS   – (all night) one random stat up; a gamble: an extra projectile
+##             or a third of your health gone; or big damage and area while
+##             enemies get tougher and faster
 
 const OUTLINE := Color("2b1d14")
 const RADIUS := 48.0
@@ -23,16 +30,19 @@ const CURSED_GUARDS_BIG := 8
 ## Bonuses that last the rest of the night (the HUD shows no seconds for them).
 const FOR_THE_NIGHT := 99999.0
 ## How many offers each shrine makes (texts SHRINE_<KIND>_OPT<n>).
-const OFFERS := {"MIGHT": 3, "HASTE": 3, "MILK": 2, "FORTUNE": 3, "CURSED": 3}
+const OFFERS := {"MIGHT": 3, "HASTE": 3, "MILK": 2, "FORTUNE": 3, "CURSED": 3, "BONE": 3, "MOON": 3, "CHAOS": 3}
 const CURSED_LIMIT := 75.0
 ## The great curse gives a boss chest only from this second of the night.
 const BOSS_CHEST_FROM := 480.0
 ## Forgotten shrines crumble after a while.
 const LIFETIME := 100.0
-const KINDS := {"MIGHT": 3.0, "HASTE": 3.0, "MILK": 2.0, "FORTUNE": 2.0, "CURSED": 2.5}
+const KINDS := {"MIGHT": 3.0, "HASTE": 3.0, "MILK": 2.0, "FORTUNE": 2.0, "CURSED": 2.5, "BONE": 2.0, "MOON": 2.0, "CHAOS": 1.5}
+## Chaos shrine's first offer: one of these, all night.
+const CHAOS_STATS := [{"might": 0.15}, {"area": 0.15}, {"cooldown": -0.1}, {"luck": 0.2}, {"magnet": 40.0}, {"regen": 1.0}]
 const COLORS := {
 	"MIGHT": Color("ff5a4a"), "HASTE": Color("6cc8ff"), "MILK": Color("8ee07a"),
 	"FORTUNE": Color("f2c14e"), "CURSED": Color("b06aff"),
+	"BONE": Color("e8e0cc"), "MOON": Color("9fb4ff"), "CHAOS": Color("ff6ad5"),
 }
 
 var kind := "MIGHT"
@@ -149,6 +159,33 @@ func _grant(cat: Player, offer: int) -> void:
 				cat.add_xp((cat.xp_to_next() - cat.xp) / cat.stat("growth") + 0.01)
 		["FORTUNE", 2]:
 			cat.bless({"greed": 0.35, "curse": 0.12}, FOR_THE_NIGHT, name_key, c)
+		["BONE", 0]:
+			cat.bless({"armor": 1.0}, FOR_THE_NIGHT, name_key, c)
+		["BONE", 1]:
+			cat.bless({"armor": 3.0, "max_hp": 30.0, "speed": -0.1}, FOR_THE_NIGHT, name_key, c)
+			cat.heal(30.0)
+		["BONE", 2]:
+			cat.bless({"thorns": 1.0, "crit_chance": 0.08, "max_hp": -cat.max_hp * 0.2}, FOR_THE_NIGHT, name_key, c)
+			cat.hp = minf(cat.hp, cat.max_hp)
+		["MOON", 0]:
+			cat.bless({"growth": 0.1}, FOR_THE_NIGHT, name_key, c)
+		["MOON", 1]:
+			cat.bless({"growth": 0.3, "curse": 0.15}, FOR_THE_NIGHT, name_key, c)
+		["MOON", 2]:
+			cat.rerolls_left += 1
+			cat.banish_left += 1
+		["CHAOS", 0]:
+			cat.bless(CHAOS_STATS.pick_random(), FOR_THE_NIGHT, name_key, c)
+		["CHAOS", 1]:
+			# A coin toss with the gods of chaos.
+			if randf() < 0.5:
+				cat.bless({"amount": 1.0}, FOR_THE_NIGHT, name_key, c)
+				main.hud.show_banner(tr("SHRINE_CHAOS_WON"), 3.0)
+			else:
+				_bleed(cat, 0.33)
+				main.hud.show_banner(tr("SHRINE_CHAOS_LOST"), 3.0)
+		["CHAOS", 2]:
+			cat.bless({"might": 0.3, "area": 0.2, "curse": 0.2}, FOR_THE_NIGHT, name_key, c)
 		["CURSED", 0]:
 			cat.bless({"luck": 0.08}, FOR_THE_NIGHT, name_key, c)
 		["CURSED", 1]:

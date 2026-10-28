@@ -193,7 +193,7 @@ var _page_time := INF
 ## Artifact timers (hourglass, magnet core) and their strength.
 ## A shrine turns up after SHRINE_FIRST seconds, then every SHRINE_EVERY.
 const SHRINE_FIRST := 70.0
-const SHRINE_EVERY := [100.0, 140.0]
+const SHRINE_EVERY := [80.0, 120.0]
 ## Chance (times luck) that a boss chest gives all three upgrades.
 const BOSS_CHEST_JACKPOT := 0.05
 ## Enemy health while a story ally walks with you.
@@ -1624,6 +1624,9 @@ func _test_evolution() -> void:
 func _dev_start(dev: DevPanel) -> void:
 	if "--strong" in _args:
 		dev._strong_build()
+	if _arg("--dev-go-minute=", "") != "":
+		dev._go_to_minute(float(_arg("--dev-go-minute=", "0")))
+		print("BOT: went to minute %.1f at level %d with %d weapons" % [spawner.elapsed / 60.0, player.level, player.weapon_count()])
 	if _arg("--dev-boss=", "") != "":
 		dev.fight(_arg("--dev-boss=", ""))
 	elif "--boss-rush" in _args:

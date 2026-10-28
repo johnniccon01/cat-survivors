@@ -55,6 +55,14 @@ var _grid: Dictionary = {}
 const SHOTS_PER_SECOND := 1.6
 const SHOT_BURST := 3.0
 const MAX_REGULAR_BULLETS := 10
+## At most this many enemy shots fly at once (several shooting bosses
+## together must still leave gaps to dodge through).
+const MAX_BULLETS := 80
+## A boss's summoned pack makes the other bosses wait this long before
+## calling theirs, so packs never pile up into a sudden double wave.
+const PACK_GAP := 10.0
+var pack_cooldown := 0.0
+var _bullets_alive := 0
 var _shot_budget := SHOT_BURST
 var _spits: Array = []
 
@@ -99,7 +107,11 @@ func spawn(id: String, pos: Vector2, hp_mult: float = 1.0) -> Enemy:
 
 ## A projectile fired by an enemy that hurts the player on contact.
 func spawn_bullet(pos: Vector2, dir: Vector2, bullet_damage: float, style: String = "laser", bullet_speed: float = 90.0) -> EnemyBullet:
+	if _bullets_alive >= MAX_BULLETS:
+		return null
+	_bullets_alive += 1
 	var bullet := EnemyBullet.new()
+	bullet.tree_exited.connect(func() -> void: _bullets_alive -= 1)
 	bullet.style = style
 	bullet.position = pos
 	bullet.velocity = dir * bullet_speed
@@ -117,8 +129,11 @@ func try_spit(pos: Vector2, dir: Vector2, bullet_damage: float) -> bool:
 			_spits.remove_at(i)
 	if _shot_budget < 1.0 or _spits.size() >= MAX_REGULAR_BULLETS:
 		return false
+	var spit := spawn_bullet(pos, dir, bullet_damage, "spit")
+	if spit == null:
+		return false
 	_shot_budget -= 1.0
-	_spits.append(spawn_bullet(pos, dir, bullet_damage, "spit"))
+	_spits.append(spit)
 	return true
 
 
@@ -278,6 +293,7 @@ func _physics_process(delta: float) -> void:
 	if player == null:
 		return
 	_shot_budget = minf(_shot_budget + SHOTS_PER_SECOND * delta, SHOT_BURST)
+	pack_cooldown -= delta
 	_rebuild_grid()
 	Enemy.calm = enemies.size() > CALM_CROWD or Settings.effects_scale() < 1.0
 	var target := player.position

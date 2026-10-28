@@ -417,6 +417,10 @@ func _tick_final(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 
 ## Starts a pack of helpers: SUMMON_WAVES waves of `size`, a moment apart.
 func _call_pack(id: String, size: int, pack_hp: float) -> void:
+	# Another boss just called its pack: this one waits for the next time.
+	if manager.pack_cooldown > 0.0:
+		return
+	manager.pack_cooldown = EnemyManager.PACK_GAP
 	_pack_id = id
 	_pack_size = size
 	_pack_hp = pack_hp

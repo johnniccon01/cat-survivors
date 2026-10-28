@@ -3,7 +3,7 @@
 Živý zoznam toho, čo je hotové, čo robíme teraz a čo príde. Po každom kroku
 ho aktualizujeme: hotové odškrtneme `[x]`, nové nápady pridáme do Zásobníka.
 
-Naposledy aktualizované: 25. 10. 2026 (mapy s prekážkami, dev testy, plán inventára)
+Naposledy aktualizované: 29. 10. 2026 (spätná väzba z hrania: Smrť, mraziaca zbraň, svätyne, questy)
 
 ---
 
@@ -35,6 +35,28 @@ Hra je hrateľná od menu po koniec noci na 7 mapách:
 
 - [ ] Vyskúšať novú obtiažnosť, anjela a diabla (`Spustit\4 Test anjel a diabol.bat`) a dať spätnú väzbu
 - [x] Pushnúť posledné commity na GitHub – odteraz sa pushuje po každom otestovanom kroku
+- [ ] Vyskúšať novú Smrť (F1 → „Death now“), Mrazenú rybku, nové svätyne a vyhadzovanie zbraní v pauze
+- [ ] Rozhodnúť: zlúčiť charmy, artefakty a výbavu do menej systémov? (otázka z 28. 10.)
+
+## Spätná väzba 28. 10. 2026 (hotové)
+
+- [x] Krvavá stopa: nevracia sa sama cez seba, koniec pulzuje z diaľky, tajomstvo začne hneď (nedokončená vedľajšia úloha ustúpi)
+- [x] Prekliata svätyňa: strážcovia silnejú s časom, dávajú málo skúseností, truhlica bossa až od 8. minúty
+- [x] Mrazená rybka → Večná zima: lúč na najsilnejšieho (bossov najprv), zmrazí ho, aj Smrť; 3 vetvy
+- [x] Charmy: šanca klesá s každým nájdeným, vyzerajú ako amulety so žiarou podľa vzácnosti; srdce, sardinka a magnet so žiarou
+- [x] Bossovia, súperi v súbojoch a bossovia z príbehov rastú s levelom mačky oveľa viac (level 100 ≠ level 20)
+- [x] Questy: ten istý príbeh nepríde dvakrát po sebe, vedľajšie úlohy sa striedajú, ignorovaná úloha zmizne do 2 min, opustená (ďaleko 12 s) zlyhá
+- [x] Vzdať sa v pauze sa pýta ešte raz
+- [x] Vyhodiť zbraň/schopnosť v pauze (1× za noc, +2 v obchode „Upratovanie“)
+- [x] Vyvinuté zbrane majú 4 ďalšie levely; karta pasívky povie, že zbraň sa už vyvinula
+- [x] Magnet ťahá z celej mapy rýchlo a povie, koľko granúl letí
+- [x] Rýchlosť: pasívka +6 % za level, nad +40 % sa ráta len polovica
+- [x] Najviac 80 striel nepriateľov naraz, privolané skupiny bossov s odstupom 10 s
+- [x] Dev (F1): oživenie po smrti (prepínač), +5 min bez levelov, skok na 10./15./20. minútu „ako odohrané“
+- [x] Vysávač z Kibble Thief uteká, treba ho chytiť 2×, rastie s levelom
+- [x] Príbehy: „časť 2/4“ v názve, po kroku „Ďalej v tomto príbehu: …“, dokončený príbeh s fanfárou
+- [x] Svätyne kostí, mesiaca a chaosu (bonusy aj kliatby na celú noc), svätyne častejšie
+- [x] Anjel: väčší, krídla, lúče, perie, nápis ANJEL!; Smrť: zastaví svet, roztrhne zem, blesky, vstane obrovská s kosou, vlna zabije všetkých nepriateľov, 5 min sa nedá zraniť (odpočet v HUD), potom áno
 
 ## Fáza 1 – Doladenie podľa hrania
 

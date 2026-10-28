@@ -1374,25 +1374,31 @@ BRANCH_TARGETING_NAME,Targeting,Zameriavač,Zaměřovač,Apuntado,Наведен
 BRANCH_TARGETING_DESC,Finishes off weakened enemies.,Dorazí oslabených nepriateľov.,Dorazí oslabené nepřátele.,Remata a los enemigos debilitados.,Добивает ослабленных врагов.,终结虚弱的敌人。
 MENU_PROGRESS,Stories %d / %d   ·   Achievements %d / %d,Príbehy %d / %d   ·   Úspechy %d / %d,Příběhy %d / %d   ·   Úspěchy %d / %d,Historias %d / %d   ·   Logros %d / %d,Истории %d / %d   ·   Достижения %d / %d,故事 %d / %d   ·   成就 %d / %d
 NEWS_TITLE,What's new,Čo je nové,Co je nového,Novedades,Что нового,更新内容
-NEWS_TEXT,"• Every final boss fights its own way: a closing thorn arena, hedges that shut you in, a ring of shadow bats, the sea around the Kraken, second phases
-• Gear (I on the cat screen): hats, collars, vests, paws and tails from bosses and elites – and a legendary from every final boss
-• New languages: Español, Русский, 简体中文 (the button in the menu's corner)
-• The Supermarket aisle winds like a road; the angel and Death come more often","• Každý finálny boss bojuje po svojom: zmenšujúca sa tŕňová aréna, ploty, ktoré ťa zavrú, kruh tieňových netopierov, more okolo Krakena, druhé fázy
-• Výbava (I na výbere mačky): čiapky, obojky, vesty, labky a chvosty z bossov a elít – a legendárka od každého finálneho bossa
-• Nové jazyky: Español, Русский, 简体中文 (tlačidlo v rohu menu)
-• Ulička v Supermarkete sa kľukatí ako cesta; anjel aj Smrť chodia častejšie","• Každý finální boss bojuje po svém: zmenšující se trnová aréna, ploty, které tě zavřou, kruh stínových netopýrů, moře kolem Krakena, druhé fáze
-• Výbava (I na výběru kočky): čepice, obojky, vesty, tlapky a ocasy z bossů a elit – a legendárka od každého finálního bosse
-• Nové jazyky: Español, Русский, 简体中文 (tlačítko v rohu menu)
-• Ulička v Supermarketu se klikatí jako cesta; anděl i Smrt chodí častěji","• Cada jefe final lucha a su manera: una arena de espinas que se cierra, setos que te encierran, un anillo de murciélagos de sombra, el mar alrededor del Kraken, segundas fases
-• Equipo (I en la pantalla de gatos): sombreros, collares, chalecos, patas y colas de jefes y élites, y un objeto legendario de cada jefe final
-• Nuevos idiomas: Español, Русский, 简体中文 (el botón de la esquina del menú)
-• El pasillo del supermercado serpentea como una carretera; el ángel y la Muerte vienen más a menudo","• Каждый финальный босс сражается по-своему: сужающаяся арена из шипов, живые изгороди, запирающие тебя, кольцо теневых летучих мышей, море вокруг Кракена, вторые фазы
-• Снаряжение (I на экране выбора кошки): шапки, ошейники, жилеты, лапки и хвосты из боссов и элиты – и легендарный предмет от каждого финального босса
-• Новые языки: Español, Русский, 简体中文 (кнопка в углу меню)
-• Проход в Супермаркете петляет, как дорога; ангел и Смерть приходят чаще","• 每个最终 Boss 都有自己的战斗方式：不断收缩的荆棘竞技场、把你困住的树篱、暗影蝙蝠之环、环绕克拉肯的大海、第二阶段
-• 装备（在选猫界面按 I）：从 Boss 和精英身上获得帽子、项圈、背心、爪子和尾巴——每个最终 Boss 还有专属的传说物品
-• 新语言：Español、Русский、简体中文（菜单角落的按钮）
-• 超市的通道像道路一样蜿蜒；天使和死神出现得更频繁"
+NEWS_TEXT,"• Death arrives in a show of its own: the world stops, every enemy dies, and Death can't be hurt for 5 minutes – then fight back
+• New weapon Frozen Fish (evolves into Eternal Winter): freezes bosses, and Death too
+• Throw away a weapon or skill from the pause menu; evolved weapons keep leveling up
+• Shrines of Bones, Moon and Chaos with bonuses and curses for the whole night
+• Stories show their part (2/4) and what comes next; bosses and duels grow with your level","• Smrť prichádza vo veľkom: svet sa zastaví, všetci nepriatelia zomrú a Smrť sa 5 minút nedá zraniť – potom jej to vráť
+• Nová zbraň Mrazená rybka (evolúcia Večná zima): zmrazí bossov aj Smrť
+• V pauze môžeš vyhodiť zbraň alebo schopnosť; vyvinuté zbrane sa dajú ďalej vylepšovať
+• Svätyne kostí, mesiaca a chaosu s bonusmi aj kliatbami na celú noc
+• Príbehy ukazujú svoju časť (2/4) a čo príde ďalej; bossovia a súboje rastú s tvojím levelom","• Smrt přichází ve velkém: svět se zastaví, všichni nepřátelé zemřou a Smrt se 5 minut nedá zranit – pak jí to vrať
+• Nová zbraň Mražená rybka (evoluce Věčná zima): zmrazí bosse i Smrt
+• V pauze můžeš vyhodit zbraň nebo schopnost; vyvinuté zbraně se dají dál vylepšovat
+• Svatyně kostí, měsíce a chaosu s bonusy i kletbami na celou noc
+• Příběhy ukazují svou část (2/4) a co přijde dál; bossové a souboje rostou s tvým levelem","• La Muerte llega a lo grande: el mundo se detiene, todos los enemigos mueren y durante 5 minutos no se la puede herir; luego, devuélveselo
+• Nueva arma Pez congelado (evoluciona en Invierno eterno): congela a los jefes y también a la Muerte
+• Desde la pausa puedes tirar un arma o habilidad; las armas evolucionadas siguen subiendo de nivel
+• Santuarios de huesos, de la luna y del caos con bonificaciones y maldiciones para toda la noche
+• Las historias muestran su parte (2/4) y lo que viene; jefes y duelos crecen con tu nivel","• Смерть приходит с размахом: мир замирает, все враги гибнут, и 5 минут Смерть неуязвима – потом дай ей отпор
+• Новое оружие Мороженая рыбка (эволюция – Вечная зима): замораживает боссов и даже Смерть
+• В паузе можно выбросить оружие или навык; эволюционировавшее оружие можно улучшать дальше
+• Святилища костей, луны и хаоса с бонусами и проклятиями на всю ночь
+• Истории показывают свою часть (2/4) и что дальше; боссы и дуэли растут вместе с твоим уровнем","• 死神隆重登场：世界静止，所有敌人死亡，5 分钟内死神无法被伤害——之后反击吧
+• 新武器冻鱼（进化为永恒寒冬）：能冻住首领，甚至死神
+• 可在暂停菜单丢弃武器或技能；进化后的武器还能继续升级
+• 骨之、月之、混沌神龛：整夜有效的加成与诅咒
+• 故事会显示进度（2/4）和下一步；首领和决斗会随你的等级变强"
 NEWS_HINT,Press any key,Stlač ľubovoľný kláves,Stiskni libovolnou klávesu,Pulsa cualquier tecla,Нажми любую клавишу,按任意键
 CHAIN_GROUP_ANY,Across the maps and anywhere,Cez všetky mapy a kdekoľvek,Přes všechny mapy a kdekoli,En todos los mapas y en cualquier lugar,На всех картах и где угодно,所有地图及任意地点
 SELECT_DAILY,T daily night: %s · %s,T denná noc: %s · %s,T denní noc: %s · %s,T noche diaria: %s · %s,T ежедневная ночь: %s · %s,T 每日之夜：%s · %s

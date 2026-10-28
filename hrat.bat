@@ -2,7 +2,7 @@
 rem Spusti Cat Survivors na akomkolvek PC.
 rem Hlada Godot 4.6 (win64): premenna GODOT, priecinok godot\ vedla hry,
 rem Stiahnute subory (Downloads) a Program Files. Pri prvom spusteni
-rem naimportuje obrazky a zvuky (chvilu to trva).
+rem naimportuje obrazky a zvuky (chvilu to trva), neskor len zmeny.
 rem   hrat.bat         spusti hru
 rem   hrat.bat check   len vypise, ktory Godot nasiel
 setlocal
@@ -24,8 +24,8 @@ if /i "%~1"=="check" (
   echo Godot: %G%
   exit /b 0
 )
-if not exist ".godot\imported" (
-  echo Prvy start na tomto PC: importujem obrazky a zvuky...
-  "%G%" --headless --path "%~dp0." --import
-)
+rem Import vzdy (po git pull mozu pribudnut skripty, obrazky, preklady);
+rem ked sa nic nezmenilo, trva to par sekund.
+if not exist ".godot\imported" echo Prvy start na tomto PC: importujem obrazky a zvuky...
+"%G%" --headless --path "%~dp0." --import
 start "" "%G%" --path "%~dp0."

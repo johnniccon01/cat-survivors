@@ -14,6 +14,8 @@ var id := ""
 var data: Dictionary
 var main: Node
 
+## Set up before the full moon: hurts only enemies, never the cat.
+var friendly := false
 var _type := "snap"
 var _active := true
 var _timer := 0.0
@@ -67,7 +69,7 @@ func _tick_snap(delta: float) -> void:
 	Audio.play("hit", -4.0, 0.0)
 	for e in victims:
 		_hurt(e)
-	if cat_in:
+	if cat_in and not friendly:
 		main.player.take_damage(float(data["player_damage"]))
 
 
@@ -97,7 +99,7 @@ func _tick_cycle(delta: float) -> void:
 		cat_hit = position.distance_to(main.player.position) < r + Player.RADIUS
 	for e in victims:
 		_hurt(e)
-	if cat_hit:
+	if cat_hit and not friendly:
 		main.player.take_damage(float(data["player_damage"]))
 
 

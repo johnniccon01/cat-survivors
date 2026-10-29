@@ -45,6 +45,12 @@ var _report_box: PanelContainer
 var _report_win: Label
 var _report_lose: Label
 var _home_marks: Array[Control] = []
+## The full moon is on show in the side panel.
+var _moon_mode := false
+var _moon_box: PanelContainer
+var _moon_traps: Label
+var _moon_guards: Label
+var _moon_chip: Label
 var _place_pic: TextureRect
 var _place_badge: Label
 var _place_story: Label
@@ -152,6 +158,15 @@ func _build() -> void:
 	var title := _label(28, GOLD)
 	title.text = "DISTRICT_TITLE"
 	top.add_child(title)
+	# How far off the full moon is.
+	var moon_icon := Control.new()
+	moon_icon.custom_minimum_size = Vector2(30, 30)
+	moon_icon.draw.connect(func() -> void: DistrictMap.draw_moon(moon_icon, Vector2(15, 13), 10.0, Profile.nights_to_moon(), _t))
+	moon_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	top.add_child(moon_icon)
+	_moon_chip = _label(15, Color("f4ecd4"))
+	_moon_chip.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	top.add_child(_moon_chip)
 	var buttons := HBoxContainer.new()
 	buttons.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -168,7 +183,7 @@ func _build() -> void:
 		var b := UiStyle.click_button("%s (%s)" % [tr(entry[0]), entry[1]], 0, 15)
 		b.pressed.connect(entry[2])
 		buttons.add_child(b)
-	UiStyle.fit_row(buttons, 600.0 if Profile.top_nemesis() != "" else 860.0)
+	UiStyle.fit_row(buttons, 460.0 if Profile.top_nemesis() != "" else 700.0)
 	var nem := Profile.top_nemesis()
 	if nem != "":
 		# Your nemesis, in red, beside your gold.
@@ -201,6 +216,7 @@ func _build() -> void:
 	_district = DistrictMap.new()
 	_district.place_chosen.connect(_on_place_chosen)
 	_district.report_chosen.connect(_on_report_chosen)
+	_district.moon_chosen.connect(_on_moon_chosen)
 	map_frame.add_child(_district)
 	var side := PanelContainer.new()
 	side.custom_minimum_size = Vector2(340, 0)
@@ -286,6 +302,29 @@ func _build() -> void:
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		l.custom_minimum_size = Vector2(300, 0)
 		rv.add_child(l)
+	# Getting home ready for the full moon: traps and guard cats.
+	_moon_box = PanelContainer.new()
+	_moon_box.add_theme_stylebox_override("panel", UiStyle.box(Color(0.12, 0.1, 0.05, 0.85), Color("8a6a2a")))
+	place.add_child(_moon_box)
+	var mv := VBoxContainer.new()
+	mv.add_theme_constant_override("separation", 4)
+	_moon_box.add_child(mv)
+	for entry: Array in [["trap", Profile.MOON_TRAP_PRICE], ["guard", Profile.MOON_GUARD_PRICE]]:
+		var mrow := HBoxContainer.new()
+		mrow.add_theme_constant_override("separation", 6)
+		mv.add_child(mrow)
+		var info := _label(13, Color("f4e4c0"))
+		info.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+		info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		mrow.add_child(info)
+		var buy := UiStyle.click_button(tr("MOON_BUY") % entry[1], 0, 13)
+		buy.pressed.connect(_buy_moon.bind(entry[0]))
+		mrow.add_child(buy)
+		if entry[0] == "trap":
+			_moon_traps = info
+		else:
+			_moon_guards = info
 	# Darkness of the chosen map: - and + (or the keys).
 	var dark_row := HBoxContainer.new()
 	dark_row.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -427,7 +466,7 @@ func _build() -> void:
 
 func _process(delta: float) -> void:
 	_t += delta
-	if _play != null and _place == "" and Profile.is_stage_unlocked(_stage_ids[_stage_index]):
+	if _play != null and _place == "" and Profile.is_stage_unlocked(_stage_ids[_stage_index]) and not (_moon_mode and not Profile.moon_full()):
 		_play.modulate = Color(1, 1, 1).lerp(Color(1.18, 1.12, 0.95), 0.5 + 0.5 * sin(_t * 3.0))
 
 
@@ -539,6 +578,11 @@ func _refresh_place() -> void:
 	_place_pic.texture = pic
 	var real := GameData.stages.has(id)
 	var state := DistrictMap.place_state(id)
+	_moon_box.visible = false
+	_boss_name.get_parent().get_parent().get_parent().visible = true
+	_place_stars.visible = true
+	var moon_n := Profile.nights_to_moon()
+	_moon_chip.text = tr("MOON_TONIGHT") if moon_n == 0 else tr("MOON_COUNTDOWN") % moon_n
 	if _report >= Profile.reports.size() or (_report >= 0 and Profile.reports[_report]["stage"] != id):
 		_report = -1
 	_district.selected_report = _report
@@ -600,10 +644,55 @@ func _refresh_place() -> void:
 		_place_stars.text = ""
 	var open := real and state != "locked"
 	_play.text = (tr("REPORT_GO_%s" % rep["kind"].to_upper()) if not rep.is_empty() else tr("MENU_PLAY")) if open else "🔒"
+	_play.modulate = Color.WHITE if open else Color(0.6, 0.6, 0.7)
 	for i in _home_marks.size():
 		_home_marks[i].visible = GameData.cats[_ids[i]].get("home", "") == id and Profile.is_unlocked(_ids[i])
 	_fill_home(id)
-	_play.modulate = Color.WHITE if open else Color(0.6, 0.6, 0.7)
+	if _moon_mode:
+		_show_moon()
+
+
+## The side panel for the full moon: what comes, how ready home is, and
+## what winning or losing means.
+func _show_moon() -> void:
+	var n := Profile.nights_to_moon()
+	_place_badge.text = tr("MOON_NAME")
+	_place_badge.label_settings.font_color = Color("ffe08a")
+	var bosses: Array[String] = []
+	for sid: String in GameData.stages:
+		var boss: String = GameData.stages[sid].get("final_boss", "")
+		if sid != "LIVING_ROOM" and boss != "" and Profile.is_stage_unlocked(sid):
+			bosses.append(tr("ENEMY_%s_NAME" % boss))
+	_place_story.text = (tr("MOON_STORY_TONIGHT") if n == 0 else tr("MOON_STORY_SOON") % n) + "\n" + tr("MOON_COMING") % (", ".join(bosses) if not bosses.is_empty() else tr("ENEMY_RAT_KING_NAME"))
+	_place_stats[0].get_parent().get_parent().get_parent().visible = false
+	_report_box.visible = true
+	_report_win.text = tr("MOON_WIN") % Profile.MOON_GOLD
+	_report_lose.text = tr("MOON_LOSE") % mini(floori(Profile.gold * Profile.MOON_THEFT), Profile.MOON_THEFT_MAX)
+	_moon_box.visible = true
+	# The home's own boss, darkness and stars don't matter on the full moon.
+	_boss_name.get_parent().get_parent().get_parent().visible = false
+	_dark_minus.get_parent().visible = false
+	_place_stars.visible = false
+	_moon_traps.text = tr("MOON_TRAPS") % [Profile.moon_traps, Profile.MOON_TRAPS_MAX]
+	var guards: Array = Profile.moon_guards.map(func(c: String) -> String: return tr("CAT_%s_NAME" % c))
+	_moon_guards.text = tr("MOON_GUARDS") % ["—" if guards.is_empty() else ", ".join(guards)]
+	_play.text = tr("MOON_GO") if n == 0 else tr("MOON_COUNTDOWN") % n
+	_play.modulate = Color.WHITE if n == 0 else Color(0.6, 0.6, 0.7)
+
+
+func _buy_moon(what: String) -> void:
+	var ok := Profile.buy_moon_trap() if what == "trap" else Profile.buy_moon_guard() != ""
+	Audio.play("chest" if ok else "hurt", -8.0, 0.0)
+	_refresh()
+
+
+func _on_moon_chosen() -> void:
+	Audio.play("click", -6.0, 0.0)
+	_moon_mode = true
+	_report = -1
+	_place = ""
+	_stage_index = maxi(_stage_ids.find("LIVING_ROOM"), 0)
+	_refresh()
 
 
 ## The chosen cat's home: its bonus here, or where its home is.
@@ -620,6 +709,7 @@ func _fill_home(id: String) -> void:
 
 func _on_report_chosen(i: int) -> void:
 	Audio.play("click", -6.0, 0.0)
+	_moon_mode = false
 	_report = i
 	_place = ""
 	_stage_index = _stage_ids.find(Profile.reports[i]["stage"])
@@ -628,6 +718,7 @@ func _on_report_chosen(i: int) -> void:
 
 func _on_place_chosen(id: String) -> void:
 	Audio.play("click", -6.0, 0.0)
+	_moon_mode = false
 	_report = -1
 	if GameData.stages.has(id):
 		_place = ""
@@ -702,12 +793,14 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("move_up") or event.is_action_pressed("ui_up"):
 		_place = ""
 		_report = -1
+		_moon_mode = false
 		_stage_index = (_stage_index - 1 + _stage_ids.size()) % _stage_ids.size()
 		Audio.play("click", -6.0, 0.0)
 		_refresh()
 	elif event.is_action_pressed("move_down") or event.is_action_pressed("ui_down"):
 		_place = ""
 		_report = -1
+		_moon_mode = false
 		_stage_index = (_stage_index + 1) % _stage_ids.size()
 		Audio.play("click", -6.0, 0.0)
 		_refresh()
@@ -749,12 +842,17 @@ func _start_daily() -> void:
 func _start() -> void:
 	var id := _ids[_index]
 	var stage_id := _stage_ids[_stage_index]
+	if _moon_mode and not Profile.moon_full():
+		Audio.play("hurt", -10.0, 0.0)
+		return
 	if _place != "" or not Profile.is_unlocked(id) or not Profile.is_stage_unlocked(stage_id):
 		Audio.play("hurt", -10.0, 0.0)
 		return
 	Profile.select_stage(stage_id)
 	Profile.select(id)
-	if _report >= 0:
+	if _moon_mode:
+		Profile.start_moon()
+	elif _report >= 0:
 		Profile.start_report(_report)
 	Audio.play("select", -4.0, 0.0)
 	get_tree().change_scene_to_file(MAIN_SCENE)

@@ -114,6 +114,10 @@ func _ready() -> void:
 			if GameData.stages.has(r.get("stage", "")):
 				reports.append(r)
 		report_news = cfg.get_value("reports", "news", [])
+		moon_night = cfg.get_value("moon", "night", 0)
+		moon_traps = cfg.get_value("moon", "traps", 0)
+		for c: String in cfg.get_value("moon", "guards", []):
+			moon_guards.append(c)
 		for id: String in cfg.get_value("nemesis", "bosses", {}):
 			if GameData.enemies.has(id):
 				nemesis[id] = cfg.get_value("nemesis", "bosses", {})[id]
@@ -169,6 +173,12 @@ func _ready() -> void:
 			selected_cat = arg.trim_prefix("--cat=")
 		elif arg.begins_with("--stage="):
 			selected_stage = arg.trim_prefix("--stage=")
+	# `-- --moon` plays a full moon night with two traps and a guard (tests).
+	if "--moon" in GameData.args():
+		moon_night = MOON_CYCLE - 1
+		moon_traps = 2
+		moon_guards.assign(["LUNA"])
+		start_moon()
 	# `-- --nemesis=RAT_KING` makes that boss a nemesis (tests).
 	var nem := GameData.arg("--nemesis=", "")
 	if nem != "" and GameData.enemies.has(nem):
@@ -408,9 +418,93 @@ func pass_night() -> void:
 					keep.append(r)
 	reports = keep
 	make_reports()
+	_moon_night_passed()
 	# The played one is gone from the list now.
 	report = -1
 	save()
+
+
+# --- the full moon ------------------------------------------------------------
+## Every MOON_CYCLE nights the moon is full and every boss comes for your home
+## at once. During the week you get ready: traps that only hurt enemies, and
+## guard cats that fight beside you. Win the full moon night for a big
+## reward; skip it or lose it and your home is raided.
+
+const MOON_CYCLE := 7
+const MOON_GOLD := 500
+const MOON_THEFT := 0.1
+const MOON_THEFT_MAX := 200
+const MOON_TRAP_PRICE := 60
+const MOON_TRAPS_MAX := 4
+const MOON_GUARD_PRICE := 120
+const MOON_GUARDS_MAX := 2
+
+## Nights since the last full moon.
+var moon_night := 0
+var moon_traps := 0
+var moon_guards: Array[String] = []
+## Tonight is the full moon night (from start_moon until the scene ends).
+var moon_on := false
+
+
+func nights_to_moon() -> int:
+	return maxi(MOON_CYCLE - 1 - moon_night, 0)
+
+
+func moon_full() -> bool:
+	return nights_to_moon() == 0
+
+
+func start_moon() -> void:
+	moon_on = true
+	selected_stage = "LIVING_ROOM"
+	print("MOON: full moon night, %d traps, guards %s" % [moon_traps, moon_guards])
+
+
+func end_moon() -> void:
+	moon_on = false
+
+
+## Buys one trap for the full moon; false if there's no gold or no room.
+func buy_moon_trap() -> bool:
+	if moon_traps >= MOON_TRAPS_MAX or gold < MOON_TRAP_PRICE:
+		return false
+	gold -= MOON_TRAP_PRICE
+	moon_traps += 1
+	save()
+	return true
+
+
+## Calls one of your other cats to guard home on the full moon; "" if none.
+func buy_moon_guard() -> String:
+	if moon_guards.size() >= MOON_GUARDS_MAX or gold < MOON_GUARD_PRICE:
+		return ""
+	var pool: Array = unlocked.filter(func(c: String) -> bool:
+		return c != selected_cat and c not in moon_guards and GameData.cats.has(c) and not GameData.cats[c].get("npc", false))
+	if pool.is_empty():
+		return ""
+	var cat: String = pool.pick_random()
+	gold -= MOON_GUARD_PRICE
+	moon_guards.append(cat)
+	save()
+	return cat
+
+
+## The moon moves on after every night (pass_night).
+func _moon_night_passed() -> void:
+	if moon_on:
+		moon_night = 0
+	elif moon_full():
+		# The full moon came and you weren't home.
+		var theft := mini(floori(gold * MOON_THEFT), MOON_THEFT_MAX)
+		gold -= theft
+		report_news.append(["MOON_NEWS_RAIDED", theft])
+		moon_night = 0
+	else:
+		moon_night += 1
+		return
+	moon_traps = 0
+	moon_guards.clear()
 
 
 # --- nemesis bosses ----------------------------------------------------------
@@ -784,6 +878,9 @@ func save() -> void:
 	cfg.set_value("reports", "list", reports)
 	cfg.set_value("reports", "news", report_news)
 	cfg.set_value("nemesis", "bosses", nemesis)
+	cfg.set_value("moon", "night", moon_night)
+	cfg.set_value("moon", "traps", moon_traps)
+	cfg.set_value("moon", "guards", moon_guards)
 	cfg.set_value("artifacts", "owned", artifacts)
 	cfg.set_value("chains", "steps", chains)
 	cfg.set_value("achievements", "earned", achievements)

@@ -9,6 +9,7 @@ extends Control
 
 signal place_chosen(id: String)
 signal report_chosen(index: int)
+signal moon_chosen
 
 ## Night report kinds: sign letter and colour.
 const REPORT_LOOK := {"defend": ["!", Color("c0392b")], "hunt": ["★", Color("d4801c")], "gold": ["$", Color("2f8a6a")]}
@@ -248,6 +249,8 @@ func _process(delta: float) -> void:
 	for i in _reports.size():
 		var r: Control = _reports[i]
 		r.position = r.get_meta("at") + Vector2(0, sin(_t * 3.5 + i) * 4.0)
+		if i == 0:
+			r.queue_redraw()
 
 
 func _gui_input(event: InputEvent) -> void:
@@ -269,11 +272,25 @@ func _on_mini_input(event: InputEvent) -> void:
 
 # --- signs on the map ---------------------------------------------------------
 
-## The night reports (Profile.reports) as bobbing round signs beside their places.
+## The night reports (Profile.reports) as bobbing round signs beside their
+## places, and the moon over your home (nights left, or glowing when full).
 func show_reports() -> void:
 	for r in _reports:
 		r.queue_free()
 	_reports.clear()
+	var moon := Control.new()
+	moon.size = Vector2(40, 40)
+	moon.mouse_filter = Control.MOUSE_FILTER_STOP
+	moon.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	var home: Vector2 = PLACES["LIVING_ROOM"]["pos"] * PX
+	moon.set_meta("at", Vector2(home.x - 90, home.y - 40))
+	moon.position = moon.get_meta("at")
+	moon.draw.connect(func() -> void: draw_moon(moon, moon.size * 0.5, 15.0, Profile.nights_to_moon(), _t))
+	moon.gui_input.connect(func(e: InputEvent) -> void:
+		if e is InputEventMouseButton and not e.pressed and e.button_index == MOUSE_BUTTON_LEFT and not _dragged:
+			moon_chosen.emit())
+	_pins_layer.add_child(moon)
+	_reports.append(moon)
 	for i in Profile.reports.size():
 		var rep: Dictionary = Profile.reports[i]
 		if not PLACES.has(rep["stage"]):
@@ -291,6 +308,22 @@ func show_reports() -> void:
 				report_chosen.emit(i))
 		_pins_layer.add_child(sign)
 		_reports.append(sign)
+
+
+## A moon `nights` nights from full (0 = full, glowing), on any canvas item.
+static func draw_moon(ci: CanvasItem, c: Vector2, r: float, nights: int, t: float) -> void:
+	if nights == 0:
+		ci.draw_circle(c, r + 6.0 + sin(t * 3.0) * 2.0, Color(1, 0.9, 0.5, 0.35))
+	ci.draw_circle(c + Vector2(0, 3), r + 1.0, Color(0, 0, 0, 0.45))
+	ci.draw_circle(c, r + 2.0, Color("2a2238"))
+	ci.draw_circle(c, r, Color("f4ecd4"))
+	ci.draw_circle(c + Vector2(-r * 0.3, -r * 0.25), r * 0.22, Color("d8ccb0"))
+	ci.draw_circle(c + Vector2(r * 0.35, r * 0.3), r * 0.15, Color("d8ccb0"))
+	if nights > 0:
+		# The dark part shrinks as the full moon nears.
+		var k := float(nights) / float(Profile.MOON_CYCLE - 1)
+		ci.draw_circle(c + Vector2(r * (2.0 - 1.4 * k), 0), r * 0.98, Color("2a2238"))
+		ci.draw_string(ThemeDB.fallback_font, c + Vector2(-r, r + 15), str(nights), HORIZONTAL_ALIGNMENT_CENTER, r * 2.0, 14, Color("f4ecd4"))
 
 
 func _draw_report(sign: Control, i: int) -> void:

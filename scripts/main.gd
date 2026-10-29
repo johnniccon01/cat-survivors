@@ -109,6 +109,10 @@ const NIGHT_MUSIC_AT := 0.5
 const DEVIL_SPEED_OVER_CAT := 1.25
 ## Winning on the cat's home map adds this share of the gold.
 const HOME_WIN_GOLD := 0.25
+## Full moon: a boss comes every this many seconds, final bosses with this
+## share of their health.
+const MOON_BOSS_EVERY := 180.0
+const MOON_FINAL_HP := 0.4
 ## A hunting nemesis that is another map's final boss has this share of its health.
 const NEMESIS_HUNT_FINAL_HP := 0.3
 
@@ -244,6 +248,10 @@ var _nemesis_at := -1.0
 var _nemesis_lines: Array[String] = []
 var _nemesis_planned := false
 var _nemesis_boss: Enemy
+## Full moon night: bosses still to come, and whether home is set up yet.
+var _moon_bosses: Array[String] = []
+var _moon_ready := false
+var _moon_next := MOON_BOSS_EVERY
 var _home_shown := false
 ## First night ever: short tips appear as things happen (see _tutorial).
 var _tutorial := false
@@ -609,6 +617,7 @@ func _exit_tree() -> void:
 	# come back.
 	Profile.end_daily()
 	Profile.end_report()
+	Profile.end_moon()
 	# Never leave the game slowed down by a hit-stop when the scene changes.
 	if not _bot:
 		Engine.time_scale = 1.0
@@ -1140,6 +1149,14 @@ func _end_run(kind: String) -> void:
 		gold += home_gold
 		lines.append(tr("SUMMARY_HOME") % home_gold)
 	gold += _report_reward(kind, gold, lines)
+	if Profile.moon_on:
+		if kind == "victory":
+			gold += Profile.MOON_GOLD
+			lines.append(tr("SUMMARY_MOON_WON") % Profile.MOON_GOLD)
+		else:
+			var theft := mini(floori(Profile.gold * Profile.MOON_THEFT), Profile.MOON_THEFT_MAX)
+			gold -= theft
+			lines.append(tr("SUMMARY_MOON_LOST") % theft)
 	Profile.add_gold(gold)
 	# The night has passed for the whole neighbourhood.
 	Profile.pass_night()
@@ -1270,6 +1287,8 @@ func _track_run(delta: float) -> void:
 	if not Profile.challenges.is_empty() and spawner.elapsed < 1.0 and not _challenge_shown:
 		_challenge_shown = true
 		hud.show_banner(tr("CHALLENGES_ON") % [", ".join(Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))), Profile.challenge_gold()], 4.0)
+	if Profile.moon_on and not _run_over:
+		_tick_moon()
 	if _nemesis_at < 0.0 and not _nemesis_planned:
 		_nemesis_planned = true
 		_plan_nemesis_hunt()
@@ -1403,10 +1422,56 @@ func _remember_killer() -> void:
 	BotLog.event("nemesis_new")
 
 
+## The full moon night: home is set up (traps, guard cats), then the
+## bosses of every map come one after another.
+func _tick_moon() -> void:
+	if not _moon_ready and spawner.elapsed >= 0.5:
+		_moon_ready = true
+		for id: String in GameData.stages:
+			var boss: String = GameData.stages[id].get("final_boss", "")
+			if id != spawner.stage_id and boss != "" and Profile.is_stage_unlocked(id):
+				_moon_bosses.append(boss)
+		if _moon_bosses.is_empty():
+			_moon_bosses.append("RAT_KING")
+		for i in Profile.moon_traps:
+			var trap := Trap.new()
+			trap.friendly = true
+			trap.position = Terrain.fix(player.position + Vector2.from_angle(TAU * i / maxf(Profile.moon_traps, 1.0) + 0.4) * 130.0, 30.0)
+			trap.setup("MOUSETRAP", self)
+			add_child(trap)
+		for cat_id: String in Profile.moon_guards:
+			var cat: Player = PLAYER_SCENE.instantiate()
+			cat.controller = "follow"
+			cat.cat_id = cat_id
+			cat.leader = player
+			cat.process_mode = Node.PROCESS_MODE_PAUSABLE
+			cat.position = player.position + Vector2(randf_range(-30, 30), 24)
+			add_child(cat)
+			move_child(cat, player.get_index())
+			companions.append(cat)
+		hud.show_banner(tr("MOON_ON") % _moon_bosses.size(), 4.5)
+		BotLog.event("moon_start")
+	if _moon_bosses.is_empty() or spawner.elapsed < _moon_next:
+		return
+	_moon_next += MOON_BOSS_EVERY
+	var id: String = _moon_bosses.pop_front()
+	var boss := spawner.spawn_boss_as_in_run(id, player.position + Vector2.from_angle(randf() * TAU) * 380.0)
+	if boss == null:
+		return
+	if GameData.enemies[id].get("final", false):
+		boss.max_hp *= MOON_FINAL_HP
+		boss.hp = boss.max_hp
+	player.shake(5.0, 0.5)
+	Audio.play("roar", 0.0, 0.0)
+	hud.show_banner(tr("MOON_BOSS") % tr("ENEMY_%s_NAME" % id), 3.5)
+	print("MOON: %s comes" % id)
+	BotLog.event("moon_boss")
+
+
 ## Your nemesis may turn up to hunt you, some minutes into another night.
 func _plan_nemesis_hunt() -> void:
 	var id := Profile.top_nemesis()
-	if id == "" or dev_test or _endless:
+	if id == "" or dev_test or _endless or Profile.moon_on:
 		return
 	if id == GameData.stages[spawner.stage_id].get("final_boss", ""):
 		return

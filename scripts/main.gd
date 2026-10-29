@@ -107,6 +107,8 @@ const GOLDEN_COINS := 10
 const NIGHT_MUSIC_AT := 0.5
 ## The devil moves this much faster than the cat's current speed.
 const DEVIL_SPEED_OVER_CAT := 1.25
+## Winning on the cat's home map adds this share of the gold.
+const HOME_WIN_GOLD := 0.25
 
 var kills := 0
 var props_broken := 0
@@ -233,6 +235,8 @@ var _banked_gold := 0.0
 var _last_end := ""
 var _champion_seen := false
 var _challenge_shown := false
+var _report_shown := false
+var _home_shown := false
 ## First night ever: short tips appear as things happen (see _tutorial).
 var _tutorial := false
 var _tips_shown: Dictionary = {}
@@ -594,6 +598,7 @@ func _exit_tree() -> void:
 	# The daily night ends with its scene (restart, menu): your own challenges
 	# come back.
 	Profile.end_daily()
+	Profile.end_report()
 	# Never leave the game slowed down by a hit-stop when the scene changes.
 	if not _bot:
 		Engine.time_scale = 1.0
@@ -980,6 +985,42 @@ func _open_extraction(force: bool = false) -> void:
 
 ## Ends the run: "death", "extract" or "victory". Banks gold (with the
 ## streak bonus unless you died) and updates the streak.
+## What tonight's night report asks of you, for the banner.
+func _report_goal(rep: Dictionary) -> String:
+	match rep["kind"]:
+		"defend":
+			return tr("REPORT_WIN_DEFEND") % [Profile.REPORT_DEFEND_MINUTES, Profile.REPORT_DEFEND_GOLD]
+		"hunt":
+			return tr("REPORT_WIN_HUNT") % Profile.REPORT_HUNT_GOLD
+	return tr("REPORT_WIN_GOLD")
+
+
+## Gold for tonight's night report (0 if none or not earned), with a line
+## for the summary.
+func _report_reward(kind: String, gold: int, lines: Array[String]) -> int:
+	var rep := Profile.active_report()
+	if rep.is_empty():
+		return 0
+	var place := tr("STAGE_%s_NAME" % rep["stage"])
+	match rep["kind"]:
+		"defend":
+			if kind == "victory" or spawner.elapsed >= Profile.REPORT_DEFEND_MINUTES * 60.0:
+				lines.append(tr("SUMMARY_REPORT_DEFEND") % [place, Profile.REPORT_DEFEND_GOLD])
+				return Profile.REPORT_DEFEND_GOLD
+			# Lost before the time was up: the map is robbed after all.
+			var theft := mini(floori(Profile.gold * Profile.REPORT_THEFT), Profile.REPORT_THEFT_MAX)
+			lines.append(tr("SUMMARY_REPORT_FAILED") % [place, theft])
+			return -theft
+		"hunt":
+			if kind == "victory":
+				lines.append(tr("SUMMARY_REPORT_HUNT") % Profile.REPORT_HUNT_GOLD)
+				return Profile.REPORT_HUNT_GOLD
+		"gold":
+			lines.append(tr("SUMMARY_REPORT_GOLD") % gold)
+			return gold
+	return 0
+
+
 func _end_run(kind: String) -> void:
 	if _run_over:
 		return
@@ -1080,7 +1121,17 @@ func _end_run(kind: String) -> void:
 		Profile.add_stat("daily_wins")
 		gold += Profile.DAILY_GOLD
 		lines.append(tr("SUMMARY_DAILY") % Profile.DAILY_GOLD)
+	if kind == "victory" and player.is_home():
+		var home_gold := floori(gold * HOME_WIN_GOLD)
+		gold += home_gold
+		lines.append(tr("SUMMARY_HOME") % home_gold)
+	gold += _report_reward(kind, gold, lines)
 	Profile.add_gold(gold)
+	# The night has passed for the whole neighbourhood.
+	Profile.pass_night()
+	for news: Array in Profile.report_news:
+		lines.append(tr(news[0]) % news.slice(1) if news.size() > 1 else tr(news[0]))
+	Profile.report_news.clear()
 	Achievements.check()
 	if _bot:
 		print("BOT: summary %s" % " | ".join(lines))
@@ -1204,6 +1255,14 @@ func _track_run(delta: float) -> void:
 	if not Profile.challenges.is_empty() and spawner.elapsed < 1.0 and not _challenge_shown:
 		_challenge_shown = true
 		hud.show_banner(tr("CHALLENGES_ON") % [", ".join(Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))), Profile.challenge_gold()], 4.0)
+	# After the challenge banner: tonight's night report, then the home bonus.
+	if not _report_shown and spawner.elapsed >= 4.5 and not Profile.active_report().is_empty():
+		_report_shown = true
+		var rep := Profile.active_report()
+		hud.show_banner("%s – %s" % [tr("REPORT_%s_NAME" % rep["kind"].to_upper()), _report_goal(rep)], 4.5)
+	if not _home_shown and spawner.elapsed >= 9.0 and player.is_home():
+		_home_shown = true
+		hud.show_banner(tr("HOME_ON") % DistrictMap.home_text(player.cat_id), 4.0)
 	if _tutorial:
 		_tutorial_tips()
 	if not _champion_seen and int(Engine.get_process_frames()) % 30 == 0:

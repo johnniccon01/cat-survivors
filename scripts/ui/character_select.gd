@@ -39,6 +39,12 @@ var _cat_stats: Label
 var _district: DistrictMap
 ## A future map chosen on the town (not playable yet); "" for a real map.
 var _place := ""
+## The night report chosen on the town (index into Profile.reports), or -1.
+var _report := -1
+var _report_box: PanelContainer
+var _report_win: Label
+var _report_lose: Label
+var _home_marks: Array[Control] = []
 var _place_pic: TextureRect
 var _place_badge: Label
 var _place_story: Label
@@ -84,7 +90,11 @@ func _ready() -> void:
 	for id: String in GameData.stages:
 		_stage_ids.append(id)
 	_stage_index = maxi(_stage_ids.find(Profile.selected_stage), 0)
+	# New night reports come in whenever some are missing.
+	Profile.make_reports()
+	Profile.save()
 	_build()
+	_district.show_reports()
 	_refresh()
 	Audio.play_music("music_menu")
 	if "--shop" in GameData.args():
@@ -172,6 +182,7 @@ func _build() -> void:
 	middle.add_child(map_frame)
 	_district = DistrictMap.new()
 	_district.place_chosen.connect(_on_place_chosen)
+	_district.report_chosen.connect(_on_report_chosen)
 	map_frame.add_child(_district)
 	var side := PanelContainer.new()
 	side.custom_minimum_size = Vector2(340, 0)
@@ -244,6 +255,20 @@ func _build() -> void:
 		v.add_child(val)
 		_place_stats.append(val)
 		stats.add_child(cell)
+	# A night report: what you win, and what happens if you don't go.
+	_report_box = PanelContainer.new()
+	_report_box.add_theme_stylebox_override("panel", UiStyle.box(Color(0.07, 0.05, 0.1, 0.8), Color("3a3148")))
+	place.add_child(_report_box)
+	var rv := VBoxContainer.new()
+	rv.add_theme_constant_override("separation", 4)
+	_report_box.add_child(rv)
+	_report_win = _label(14, Color("b8f0a0"))
+	_report_lose = _label(14, Color("ffb0a0"))
+	for l: Label in [_report_win, _report_lose]:
+		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		l.custom_minimum_size = Vector2(300, 0)
+		rv.add_child(l)
 	# Darkness of the chosen map: - and + (or the keys).
 	var dark_row := HBoxContainer.new()
 	dark_row.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -295,6 +320,18 @@ func _build() -> void:
 		preview.zoom = 1.6
 		preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		card.add_child(preview)
+		# A little gold house on the cats whose home is the chosen map.
+		var home := Control.new()
+		home.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		home.draw.connect(func() -> void:
+			var at := Vector2(home.size.x - 12, 9)
+			home.draw_colored_polygon(PackedVector2Array([at + Vector2(-8, 0), at + Vector2(0, -7), at + Vector2(8, 0)]), OUTLINE)
+			home.draw_rect(Rect2(at + Vector2(-6, -1), Vector2(12, 9)), OUTLINE)
+			home.draw_colored_polygon(PackedVector2Array([at + Vector2(-6, -1), at + Vector2(0, -6), at + Vector2(6, -1)]), GOLD)
+			home.draw_rect(Rect2(at + Vector2(-4, 0), Vector2(8, 6)), GOLD)
+			home.draw_rect(Rect2(at + Vector2(-1, 2), Vector2(2, 4)), OUTLINE))
+		card.add_child(home)
+		_home_marks.append(home)
 		row.add_child(card)
 		_cards.append(card)
 		_previews.append(preview)
@@ -485,11 +522,37 @@ func _refresh_place() -> void:
 	_place_pic.texture = pic
 	var real := GameData.stages.has(id)
 	var state := DistrictMap.place_state(id)
+	if _report >= Profile.reports.size() or (_report >= 0 and Profile.reports[_report]["stage"] != id):
+		_report = -1
+	_district.selected_report = _report
+	var rep: Dictionary = Profile.reports[_report] if _report >= 0 else {}
+	_report_box.visible = not rep.is_empty()
+	_place_stats[0].get_parent().get_parent().get_parent().visible = rep.is_empty()
 	_stage_label.text = DistrictMap.place_name(id)
 	var badge: Array = [["DISTRICT_NEW_MAP", Color("b8b0c8")], ["DISTRICT_LOCKED", Color("c9c2d4")], ["DISTRICT_YOURS", Color("7cf0b8")], ["DISTRICT_BOSS_LAND", Color("ff9a88")]][0 if not real else {"locked": 1, "yours": 2, "boss": 3}[state]]
 	_place_badge.text = tr(badge[0])
 	_place_badge.label_settings.font_color = badge[1]
 	var story := tr("DISTRICT_%s_STORY" % id)
+	if not rep.is_empty():
+		var kind: String = rep["kind"]
+		_place_badge.text = tr("REPORT_%s_NAME" % kind.to_upper())
+		_place_badge.label_settings.font_color = DistrictMap.REPORT_LOOK[kind][1].lightened(0.45)
+		var place_name := DistrictMap.place_name(id)
+		match kind:
+			"defend":
+				story = tr("REPORT_DEFEND_STORY") % place_name
+				_report_win.text = tr("REPORT_WIN_DEFEND") % [Profile.REPORT_DEFEND_MINUTES, Profile.REPORT_DEFEND_GOLD]
+				_report_lose.text = tr("REPORT_LOSE_DEFEND") % mini(floori(Profile.gold * Profile.REPORT_THEFT), Profile.REPORT_THEFT_MAX)
+			"hunt":
+				story = tr("REPORT_HUNT_STORY") % place_name
+				_report_win.text = tr("REPORT_WIN_HUNT") % Profile.REPORT_HUNT_GOLD
+				_report_lose.text = tr("REPORT_LOSE_HUNT") % (Profile.REPORT_HUNT_NIGHTS - int(rep["nights"]))
+			_:
+				story = tr("REPORT_GOLD_STORY") % place_name
+				_report_win.text = tr("REPORT_WIN_GOLD")
+				_report_lose.text = tr("REPORT_LOSE_GOLD")
+		if rep["challenge"] != "":
+			story += "\n" + tr("REPORT_CHALLENGE") % tr("CHALLENGE_%s_NAME" % rep["challenge"])
 	if real and state == "locked" and tr("STAGE_%s_HINT" % id) != "":
 		story += "\n🔒 " + tr("STAGE_%s_HINT" % id)
 	_place_story.text = story
@@ -512,12 +575,36 @@ func _refresh_place() -> void:
 			l.text = "?"
 		_place_stars.text = ""
 	var open := real and state != "locked"
-	_play.text = tr("MENU_PLAY") if open else "🔒"
+	_play.text = (tr("REPORT_GO_%s" % rep["kind"].to_upper()) if not rep.is_empty() else tr("MENU_PLAY")) if open else "🔒"
+	for i in _home_marks.size():
+		_home_marks[i].visible = GameData.cats[_ids[i]].get("home", "") == id and Profile.is_unlocked(_ids[i])
+	_fill_home(id)
 	_play.modulate = Color.WHITE if open else Color(0.6, 0.6, 0.7)
+
+
+## The chosen cat's home: its bonus here, or where its home is.
+func _fill_home(id: String) -> void:
+	var cat := _ids[_index]
+	var home: String = GameData.cats[cat].get("home", "")
+	if home == "" or not Profile.is_unlocked(cat):
+		return
+	if home == id:
+		_chips.add_child(_chip(tr("HOME_HERE") % DistrictMap.home_text(cat), GOLD))
+	else:
+		_chips.add_child(_chip(tr("HOME_AT") % tr("STAGE_%s_NAME" % home), Color("b9a8c9")))
+
+
+func _on_report_chosen(i: int) -> void:
+	Audio.play("click", -6.0, 0.0)
+	_report = i
+	_place = ""
+	_stage_index = _stage_ids.find(Profile.reports[i]["stage"])
+	_refresh()
 
 
 func _on_place_chosen(id: String) -> void:
 	Audio.play("click", -6.0, 0.0)
+	_report = -1
 	if GameData.stages.has(id):
 		_place = ""
 		_stage_index = _stage_ids.find(id)
@@ -590,11 +677,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		_refresh()
 	elif event.is_action_pressed("move_up") or event.is_action_pressed("ui_up"):
 		_place = ""
+		_report = -1
 		_stage_index = (_stage_index - 1 + _stage_ids.size()) % _stage_ids.size()
 		Audio.play("click", -6.0, 0.0)
 		_refresh()
 	elif event.is_action_pressed("move_down") or event.is_action_pressed("ui_down"):
 		_place = ""
+		_report = -1
 		_stage_index = (_stage_index + 1) % _stage_ids.size()
 		Audio.play("click", -6.0, 0.0)
 		_refresh()
@@ -641,6 +730,8 @@ func _start() -> void:
 		return
 	Profile.select_stage(stage_id)
 	Profile.select(id)
+	if _report >= 0:
+		Profile.start_report(_report)
 	Audio.play("select", -4.0, 0.0)
 	get_tree().change_scene_to_file(MAIN_SCENE)
 

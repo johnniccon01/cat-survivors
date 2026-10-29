@@ -301,12 +301,22 @@ func _tick_blessings(delta: float) -> void:
 		_recalc_stats()
 
 
+## True when tonight's map is this cat's home map.
+func is_home() -> bool:
+	return GameData.cats[cat_id].get("home", "") == Profile.selected_stage
+
+
 func _recalc_stats() -> void:
 	stats = BASE_STATS.duplicate()
 	var bonus: Dictionary = GameData.cats[cat_id].get("bonus", {})
 	for key: String in bonus:
 		stats[key] += bonus[key]
 	if controller == "input" or controller == "bot":
+		# On its home map a cat gets its home bonus (data/cats.json).
+		if is_home():
+			var home: Dictionary = GameData.cats[cat_id].get("home_bonus", {})
+			for key: String in home:
+				stats[key] += home[key]
 		var shop := Profile.powerup_bonus()
 		for key: String in shop:
 			stats[key] += shop[key]

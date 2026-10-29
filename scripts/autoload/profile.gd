@@ -110,6 +110,10 @@ func _ready() -> void:
 		for id: String in cfg.get_value("challenge", "active", []):
 			if GameData.challenges.has(id):
 				challenges.append(id)
+		for r: Dictionary in cfg.get_value("reports", "list", []):
+			if GameData.stages.has(r.get("stage", "")):
+				reports.append(r)
+		report_news = cfg.get_value("reports", "news", [])
 		chains = cfg.get_value("chains", "steps", {})
 		for id: String in cfg.get_value("achievements", "earned", []):
 			achievements.append(id)
@@ -162,6 +166,13 @@ func _ready() -> void:
 			selected_cat = arg.trim_prefix("--cat=")
 		elif arg.begins_with("--stage="):
 			selected_stage = arg.trim_prefix("--stage=")
+	# `-- --report=defend` plays a night report of that kind (tests).
+	var kind := GameData.arg("--report=", "")
+	if kind != "":
+		make_reports()
+		for i in reports.size():
+			if reports[i]["kind"] == kind:
+				start_report(i)
 
 
 func is_unlocked(cat_id: String) -> bool:
@@ -290,6 +301,109 @@ func end_daily() -> void:
 	daily = false
 	challenges = _daily_backup.duplicate()
 	_daily_backup.clear()
+
+
+# --- night reports (the neighbourhood) ---------------------------------------
+## Three offers wait on the neighbourhood before every night: hold a map you
+## won against a siege, hunt a boss, or a golden night. You play one (or any
+## other night); the rest settle themselves: an undefended map gets robbed,
+## a golden night passes, a boss hunt waits a few nights.
+
+const REPORT_DEFEND_GOLD := 150
+const REPORT_DEFEND_MINUTES := 10
+const REPORT_HUNT_GOLD := 250
+const REPORT_HUNT_NIGHTS := 3
+## An undefended map loses this share of your gold, at most REPORT_THEFT_MAX.
+const REPORT_THEFT := 0.05
+const REPORT_THEFT_MAX := 120
+
+## [{kind, stage, challenge, nights}]; kind is "defend", "hunt" or "gold".
+var reports: Array = []
+## The report played this night (index into `reports`), or -1.
+var report := -1
+## What happened to the other reports while you were out: [[key, args...]].
+var report_news: Array = []
+var _report_backup: Array[String] = []
+## True from start_report until the night's scene ends (challenges swapped).
+var _report_on := false
+
+
+## Tops the reports up to one of each kind, each on a different open map.
+func make_reports() -> void:
+	var open: Array = GameData.stages.keys().filter(func(s: String) -> bool: return is_stage_unlocked(s))
+	if open.is_empty():
+		return
+	var rng := RandomNumberGenerator.new()
+	rng.randomize()
+	for kind: String in ["defend", "hunt", "gold"]:
+		if reports.any(func(r: Dictionary) -> bool: return r["kind"] == kind):
+			continue
+		var used: Array = reports.map(func(r: Dictionary) -> String: return r["stage"])
+		var pool: Array = open.filter(func(s: String) -> bool: return s not in used)
+		if kind == "defend":
+			pool = pool.filter(func(s: String) -> bool: return s in cleared_stages)
+		elif kind == "hunt" and pool.any(func(s: String) -> bool: return s not in cleared_stages):
+			pool = pool.filter(func(s: String) -> bool: return s not in cleared_stages)
+		if pool.is_empty():
+			continue
+		var all: Array = GameData.challenges.keys()
+		reports.append({"kind": kind, "stage": pool[rng.randi() % pool.size()],
+			"challenge": all[rng.randi() % all.size()] if not all.is_empty() else "", "nights": 0})
+
+
+func active_report() -> Dictionary:
+	return reports[report] if report >= 0 and report < reports.size() else {}
+
+
+## Plays report `i` tonight: its map, and its challenge instead of yours.
+func start_report(i: int) -> void:
+	if i < 0 or i >= reports.size():
+		return
+	report = i
+	_report_on = true
+	_report_backup = challenges.duplicate()
+	challenges.clear()
+	if reports[i]["challenge"] != "":
+		challenges.append(reports[i]["challenge"])
+	selected_stage = reports[i]["stage"]
+	print("REPORT: %s on %s, challenge %s" % [reports[i]["kind"], selected_stage, reports[i]["challenge"]])
+
+
+## The night's scene is gone: your own challenges come back.
+func end_report() -> void:
+	if not _report_on:
+		return
+	_report_on = false
+	report = -1
+	challenges = _report_backup.duplicate()
+	_report_backup.clear()
+
+
+## A night has passed: the played report is done, the others settle
+## themselves, and new ones come in.
+func pass_night() -> void:
+	var keep: Array = []
+	for i in reports.size():
+		var r: Dictionary = reports[i]
+		if i == report:
+			continue
+		var place := TranslationServer.translate("STAGE_%s_NAME" % r["stage"])
+		match r["kind"]:
+			"defend":
+				var theft := mini(floori(gold * REPORT_THEFT), REPORT_THEFT_MAX)
+				gold -= theft
+				report_news.append(["REPORT_NEWS_THEFT", place, theft])
+			"gold":
+				report_news.append(["REPORT_NEWS_GONE", place])
+			_:
+				r["nights"] = int(r["nights"]) + 1
+				if r["nights"] < REPORT_HUNT_NIGHTS:
+					keep.append(r)
+	reports = keep
+	make_reports()
+	# The played one is gone from the list now.
+	report = -1
+	save()
 
 
 func has_challenge(id: String) -> bool:
@@ -618,7 +732,9 @@ func save() -> void:
 	cfg.set_value("shop", "spent", spent)
 	cfg.set_value("shop", "powerups", powerups)
 	cfg.set_value("questbook", "steps", questbook)
-	cfg.set_value("challenge", "active", _daily_backup if daily else challenges)
+	cfg.set_value("challenge", "active", _daily_backup if daily else (_report_backup if _report_on else challenges))
+	cfg.set_value("reports", "list", reports)
+	cfg.set_value("reports", "news", report_news)
 	cfg.set_value("artifacts", "owned", artifacts)
 	cfg.set_value("chains", "steps", chains)
 	cfg.set_value("achievements", "earned", achievements)

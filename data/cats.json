@@ -7,7 +7,11 @@
     "stripes": true,
     "weapon": "SCRATCH",
     "bonus": {},
-    "unlocked": true
+    "unlocked": true,
+    "home": "LIVING_ROOM",
+    "home_bonus": {
+      "growth": 0.15
+    }
   },
   "LUNA": {
     "fur": "#34303d",
@@ -18,7 +22,11 @@
     "bonus": {
       "cooldown": -0.1
     },
-    "unlock": "LUNA"
+    "unlock": "LUNA",
+    "home": "BASEMENT",
+    "home_bonus": {
+      "area": 0.15
+    }
   },
   "SNOWBALL": {
     "fur": "#f4f1ea",
@@ -30,7 +38,11 @@
     "bonus": {
       "area": 0.15
     },
-    "unlock": "SNOWBALL"
+    "unlock": "SNOWBALL",
+    "home": "BASEMENT",
+    "home_bonus": {
+      "max_hp": 20.0
+    }
   },
   "PIP": {
     "fur": "#e8d6bc",
@@ -44,7 +56,11 @@
       "speed": 0.15,
       "magnet": 30
     },
-    "unlock": "PIP"
+    "unlock": "PIP",
+    "home": "LIVING_ROOM",
+    "home_bonus": {
+      "speed": 0.15
+    }
   },
   "TIGER": {
     "fur": "#8c8c94",
@@ -57,7 +73,11 @@
     "bonus": {
       "max_hp": 40
     },
-    "unlock": "TIGER"
+    "unlock": "TIGER",
+    "home": "GARDEN",
+    "home_bonus": {
+      "might": 0.15
+    }
   },
   "BARON": {
     "fur": "#efe3cf",
@@ -69,7 +89,11 @@
     "bonus": {
       "might": 0.15
     },
-    "unlock": "BARON"
+    "unlock": "BARON",
+    "home": "SUPERMARKET",
+    "home_bonus": {
+      "luck": 0.15
+    }
   },
   "CLOVER": {
     "fur": "#2e2b33",
@@ -80,7 +104,11 @@
     "bonus": {
       "luck": 0.2
     },
-    "unlock": "CLOVER"
+    "unlock": "CLOVER",
+    "home": "GARDEN",
+    "home_bonus": {
+      "luck": 0.2
+    }
   },
   "BRUNO": {
     "fur": "#7a5a40",
@@ -94,7 +122,11 @@
       "might": 0.2,
       "max_hp": 20
     },
-    "unlock": "BRUNO"
+    "unlock": "BRUNO",
+    "home": "ROOFTOP",
+    "home_bonus": {
+      "might": 0.15
+    }
   },
   "TUCKO": {
     "fur": "#e89a4a",
@@ -108,7 +140,11 @@
       "max_hp": 50,
       "magnet": 30
     },
-    "unlock": "TUCKO"
+    "unlock": "TUCKO",
+    "home": "SUPERMARKET",
+    "home_bonus": {
+      "max_hp": 30.0
+    }
   },
   "KAPITAN": {
     "fur": "#e8e4dc",
@@ -123,7 +159,11 @@
       "area": 0.15,
       "speed": 0.1
     },
-    "unlock": "KAPITAN"
+    "unlock": "KAPITAN",
+    "home": "HARBOR",
+    "home_bonus": {
+      "speed": 0.15
+    }
   },
   "BOLT": {
     "fur": "#9aa0a6",
@@ -136,7 +176,11 @@
       "cooldown": -0.05,
       "proj_speed": 0.2
     },
-    "unlock": "BOLT"
+    "unlock": "BOLT",
+    "home": "FACTORY",
+    "home_bonus": {
+      "cooldown": -0.1
+    }
   },
   "STRAY": {
     "fur": "#8a7a6a",
@@ -154,7 +198,11 @@
       "growth": 0.25,
       "luck": 0.1
     },
-    "unlocked": true
+    "unlocked": true,
+    "home": "ROOFTOP",
+    "home_bonus": {
+      "luck": 0.15
+    }
   },
   "ANGEL": {
     "fur": "#fffaf0",
@@ -167,6 +215,10 @@
     "hidden": true,
     "weapon": "MILK",
     "bonus": {
+      "regen": 1.0
+    },
+    "home": "ROOFTOP",
+    "home_bonus": {
       "regen": 1.0
     }
   },
@@ -182,6 +234,10 @@
     "weapon": "LASER",
     "bonus": {
       "might": 0.5
+    },
+    "home": "FACTORY",
+    "home_bonus": {
+      "might": 0.15
     }
   },
   "KITTEN": {
@@ -193,7 +249,11 @@
     "weapon": "SCRATCH",
     "bonus": {},
     "hidden": true,
-    "npc": true
+    "npc": true,
+    "home": "GARDEN",
+    "home_bonus": {
+      "growth": 0.2
+    }
   },
   "OLD_CAT": {
     "fur": "#9a9aa0",
@@ -205,6 +265,10 @@
     "weapon": "SCRATCH",
     "bonus": {},
     "hidden": true,
-    "npc": true
+    "npc": true,
+    "home": "GARDEN",
+    "home_bonus": {
+      "regen": 1.0
+    }
   }
 }

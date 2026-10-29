@@ -394,7 +394,8 @@ Sem píšeme nápady, ktoré zatiaľ nemajú miesto vo fázach.
 ## Štvrť – nový výber mapy a živý svet (návrh 29. 10. 2026)
 
 Hotové (29. 10. 2026): krok 1 – výber mapy je kreslená nočná štvrť (`scripts/ui/district_map.gd`): všetkých 7 máp ako miesta, svetlá, voda, vlak, hmla nad zamknutými, budúce mapy Park/Cintorín/Ostrov/Stanica v hmle, ťahanie myšou, šípky na okrajoch, minimapa; panel miesta vpravo (príbeh, boss, náročnosť, dĺžka, príbehy, rekord, tma, hviezdy ★ výhra / ★★ výhra v tme / ★★★ všetky príbehy); pás mačiek dole. Menu panely (prívesky, artefakty, výbava, výzvy, denník, obchod, novinky) sú na rámovanej tabuli (`UiStyle.board`), nové farby v `UiStyle`. Mačky majú nové sprity s objemom.
-Ďalej: svet z dielov (chunkov) a prepínanie štvrtí cez stanicu, približovanie kolieskom, potom kroky 2–8.
+Hotové (29. 10. 2026): krok 3 – domov mačiek (`home`, `home_bonus` v `data/cats.json`; bonus v noci na domácej mape, +25 % zlata za výhru doma, domček pri mačke a štítok „Doma") a krok 4 – nočné správy (`Profile.reports`): obrana mapy, ktorú si vyhral (vydrž 10 min = +150 zlata, inak ťa okradnú až o 5 % zlata, max 120), lov na bossa (výhra = +250 zlata, čaká 3 noci), zlatá noc (zlato ×2, ráno zmizne); každá s jednou výzvou; značky na mape, panel správy, výsledky v súhrne noci. Testy `report_hunt`, `report_gold`, `home_cat`.
+Ďalej: svet z dielov (chunkov) a prepínanie štvrtí cez stanicu, približovanie kolieskom, kroky 2, 5–8; pri nočných správach ešte obyvatelia (unesený obyvateľ namiesto krádeže zlata).
 
 Cieľ: výber mapy vyzerá prémiovo, má význam a dáva dôvod vracať sa na staré miesta. Na mape sa rozhoduje do 15 sekúnd, všetko podstatné sa prejaví priamo v noci.
 

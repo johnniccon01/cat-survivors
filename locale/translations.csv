@@ -1833,3 +1833,29 @@ DISTRICT_ISLAND_NAME,The Island,Ostrov,Ostrov,La isla,Остров,小岛
 DISTRICT_ISLAND_STORY,"A new map: an island past the harbour, reachable only on the fisherman's boat.","Nová mapa: ostrov za prístavom, kam sa dá doplávať len rybárovou loďou.","Nová mapa: ostrov za přístavem, kam se dá doplout jen rybářovou lodí.","Un mapa nuevo: una isla más allá del puerto, a la que solo se llega en el barco del pescador.","Новая карта: остров за гаванью, куда можно доплыть только на лодке рыбака.",新地图：港口外的小岛，只能坐渔夫的船过去。
 DISTRICT_STATION_NAME,The Station,Stanica,Nádraží,La estación,Вокзал,车站
 DISTRICT_STATION_STORY,"A new map: the last night train is just leaving, to the next part of town.",Nová mapa: posledný nočný vlak práve odchádza do ďalšej časti mesta.,Nová mapa: poslední noční vlak právě odjíždí do další části města.,Un mapa nuevo: el último tren nocturno sale ahora hacia otra parte de la ciudad.,Новая карта: последний ночной поезд как раз уходит в другую часть города.,新地图：最后一班夜车正驶向城市的另一端。
+HOME_HERE,Home: %s,Doma: %s,Doma: %s,En casa: %s,Дома: %s,主场：%s
+HOME_AT,Home: %s,Domov: %s,Domov: %s,Hogar: %s,Дом: %s,家：%s
+HOME_ON,Home turf! %s,Doma! %s,Doma! %s,¡En casa! %s,Дома! %s,主场！%s
+SUMMARY_HOME,Won at home: +%d gold,Výhra doma: +%d zlata,Výhra doma: +%d zlata,Victoria en casa: +%d de oro,Победа дома: +%d золота,主场胜利：+%d 金币
+REPORT_DEFEND_NAME,Defence,Obrana,Obrana,Defensa,Оборона,防守
+REPORT_HUNT_NAME,Boss hunt,Lov na bossa,Lov na bosse,Caza del jefe,Охота на босса,猎杀首领
+REPORT_GOLD_NAME,Golden night,Zlatá noc,Zlatá noc,Noche dorada,Золотая ночь,黄金之夜
+REPORT_DEFEND_STORY,"Enemies are besieging %s tonight. Go and hold it, or they will rob you while you are away.","Nepriatelia dnes v noci obliehajú %s. Choď ju ubrániť, inak ťa okradnú, kým budeš preč.","Nepřátelé dnes v noci obléhají %s. Jdi ji ubránit, jinak tě okradou, než budeš pryč.",Esta noche los enemigos asedian %s. Ve a defenderlo o te robarán mientras no estás.,"Этой ночью враги осаждают %s. Иди защити это место, иначе тебя ограбят, пока тебя нет.",今晚敌人围攻%s。去守住它，否则你不在时他们会抢走你的东西。
+REPORT_HUNT_STORY,Word is the boss of %s is on the prowl. Win the night there for a bounty.,"Hovorí sa, že boss z miesta %s sa túla po okolí. Vyhraj tam noc a dostaneš odmenu.","Říká se, že boss z místa %s se toulá okolím. Vyhraj tam noc a dostaneš odměnu.",Dicen que el jefe de %s anda suelto. Gana la noche allí y cobra la recompensa.,"Говорят, босс из места «%s» бродит поблизости. Победи там этой ночью и получи награду.",据说%s的首领正在四处游荡。在那里赢下这一夜就能拿到赏金。
+REPORT_GOLD_STORY,A golden night in %s: all the gold you bring home tonight is doubled.,"Zlatá noc v mieste %s: všetko zlato, ktoré dnes prinesieš domov, sa zdvojnásobí.","Zlatá noc v místě %s: všechno zlato, které dnes přineseš domů, se zdvojnásobí.",Noche dorada en %s: todo el oro que traigas a casa esta noche se duplica.,"Золотая ночь в месте «%s»: всё золото, что ты принесёшь домой, удвоится.",%s的黄金之夜：今晚带回家的金币全部翻倍。
+REPORT_CHALLENGE,Tonight's challenge: %s,Dnešná výzva: %s,Dnešní výzva: %s,Desafío de esta noche: %s,Испытание этой ночи: %s,今晚的挑战：%s
+REPORT_WIN_DEFEND,Hold out %d minutes: +%d gold,Vydrž %d minút: +%d zlata,Vydrž %d minut: +%d zlata,Aguanta %d minutos: +%d de oro,Продержись %d минут: +%d золота,坚持 %d 分钟：+%d 金币
+REPORT_WIN_HUNT,Win the night: +%d gold,Vyhraj noc: +%d zlata,Vyhraj noc: +%d zlata,Gana la noche: +%d de oro,Выиграй ночь: +%d золота,赢下这一夜：+%d 金币
+REPORT_WIN_GOLD,All the night's gold ×2,Všetko zlato z noci ×2,Všechno zlato z noci ×2,Todo el oro de la noche ×2,Всё золото ночи ×2,本夜金币 ×2
+REPORT_LOSE_DEFEND,If you don't go: they steal up to %d gold,Ak nepôjdeš: ukradnú až %d zlata,Když nepůjdeš: ukradnou až %d zlata,Si no vas: te roban hasta %d de oro,Если не пойдёшь: украдут до %d золота,如果不去：会被偷走最多 %d 金币
+REPORT_LOSE_HUNT,If you don't go: it is still here for %d nights,Ak nepôjdeš: počká ešte %d noci,Když nepůjdeš: počká ještě %d noci,Si no vas: espera %d noches más,Если не пойдёшь: подождёт ещё %d ночи,如果不去：还会再等 %d 夜
+REPORT_LOSE_GOLD,If you don't go: it's over by morning,Ak nepôjdeš: ráno je po nej,Když nepůjdeš: ráno je po ní,Si no vas: por la mañana se acabó,Если не пойдёшь: к утру всё закончится,如果不去：天亮就结束了
+REPORT_GO_DEFEND,Defend,Brániť,Bránit,Defender,Защищать,防守
+REPORT_GO_HUNT,Hunt,Loviť,Lovit,Cazar,Охотиться,狩猎
+REPORT_GO_GOLD,Go,Ísť,Jít,Ir,Идти,出发
+SUMMARY_REPORT_DEFEND,%s held: +%d gold,%s ubránená: +%d zlata,%s ubráněna: +%d zlata,%s defendido: +%d de oro,%s удержано: +%d золота,守住了%s：+%d 金币
+SUMMARY_REPORT_FAILED,%s fell before the time was up: −%d gold,%s padla pred koncom: −%d zlata,%s padla před koncem: −%d zlata,%s cayó antes de tiempo: −%d de oro,%s пало раньше срока: −%d золота,%s提前失守：−%d 金币
+SUMMARY_REPORT_HUNT,Boss hunt bounty: +%d gold,Odmena za lov na bossa: +%d zlata,Odměna za lov na bosse: +%d zlata,Recompensa de la caza: +%d de oro,Награда за охоту: +%d золота,猎杀首领赏金：+%d 金币
+SUMMARY_REPORT_GOLD,Golden night: +%d gold,Zlatá noc: +%d zlata,Zlatá noc: +%d zlata,Noche dorada: +%d de oro,Золотая ночь: +%d золота,黄金之夜：+%d 金币
+REPORT_NEWS_THEFT,"While you were away, %s was raided: −%d gold","Kým si bol preč, vyplienili %s: −%d zlata","Než jsi byl pryč, vyplenili %s: −%d zlata","Mientras no estabas, saquearon %s: −%d de oro","Пока тебя не было, разграбили %s: −%d золота",你不在时%s遭到洗劫：−%d 金币
+REPORT_NEWS_GONE,The golden night in %s has passed,Zlatá noc v mieste %s pominula,Zlatá noc v místě %s pominula,La noche dorada en %s ha pasado,Золотая ночь в месте «%s» прошла,%s的黄金之夜已经过去

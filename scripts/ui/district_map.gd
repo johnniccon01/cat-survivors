@@ -8,6 +8,10 @@ extends Control
 ## Drag to look around, click a sign to choose a place.
 
 signal place_chosen(id: String)
+signal report_chosen(index: int)
+
+## Night report kinds: sign letter and colour.
+const REPORT_LOOK := {"defend": ["!", Color("c0392b")], "hunt": ["★", Color("d4801c")], "gold": ["$", Color("2f8a6a")]}
 
 const WW := 720
 const WH := 300
@@ -37,6 +41,13 @@ const FOG := {
 	"ISLAND": Rect2(576, 178, 92, 56), "STATION": Rect2(56, 274, 170, 26),
 }
 
+## Home bonus stats -> [text key, multiplier for the shown number].
+const HOME_STATS := {
+	"might": ["BONUS_MIGHT", 100.0], "cooldown": ["BONUS_COOLDOWN", -100.0], "area": ["BONUS_AREA", 100.0],
+	"speed": ["BONUS_SPEED", 100.0], "max_hp": ["BONUS_MAX_HP", 1.0], "luck": ["BONUS_LUCK", 100.0],
+	"regen": ["BONUS_REGEN", 1.0], "growth": ["BONUS_GROWTH", 100.0], "magnet": ["BONUS_MAGNET", 1.0],
+}
+
 static var _image: Image
 static var _lamps: Array[Vector2] = []
 static var _candles: Array[Vector2] = []
@@ -63,6 +74,9 @@ var _water: PackedVector2Array = []
 var _puffs := {}
 var _mini: Control
 var _arrows := {}
+var _reports: Array[Control] = []
+## The night report on show in the side panel, or -1.
+var selected_report := -1
 
 
 func _ready() -> void:
@@ -196,6 +210,8 @@ func select(id: String, instant: bool = false) -> void:
 		_style_pin(pid)
 	var v := view_size()
 	_cam_to = _clamp_cam(PLACES[id]["pos"] - v * 0.5 + Vector2(0, 20))
+	for i in _reports.size():
+		_reports[i].queue_redraw()
 	if instant:
 		cam = _cam_to
 	_ring.queue_redraw()
@@ -229,6 +245,9 @@ func _process(delta: float) -> void:
 		_fx.queue_redraw()
 		_ring.queue_redraw()
 	_mini.queue_redraw()
+	for i in _reports.size():
+		var r: Control = _reports[i]
+		r.position = r.get_meta("at") + Vector2(0, sin(_t * 3.5 + i) * 4.0)
 
 
 func _gui_input(event: InputEvent) -> void:
@@ -249,6 +268,45 @@ func _on_mini_input(event: InputEvent) -> void:
 
 
 # --- signs on the map ---------------------------------------------------------
+
+## The night reports (Profile.reports) as bobbing round signs beside their places.
+func show_reports() -> void:
+	for r in _reports:
+		r.queue_free()
+	_reports.clear()
+	for i in Profile.reports.size():
+		var rep: Dictionary = Profile.reports[i]
+		if not PLACES.has(rep["stage"]):
+			continue
+		var sign := Control.new()
+		sign.size = Vector2(34, 34)
+		sign.mouse_filter = Control.MOUSE_FILTER_STOP
+		sign.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		var p: Vector2 = PLACES[rep["stage"]]["pos"] * PX
+		sign.set_meta("at", Vector2(p.x + 34, p.y - 30))
+		sign.position = sign.get_meta("at")
+		sign.draw.connect(_draw_report.bind(sign, i))
+		sign.gui_input.connect(func(e: InputEvent) -> void:
+			if e is InputEventMouseButton and not e.pressed and e.button_index == MOUSE_BUTTON_LEFT and not _dragged:
+				report_chosen.emit(i))
+		_pins_layer.add_child(sign)
+		_reports.append(sign)
+
+
+func _draw_report(sign: Control, i: int) -> void:
+	if i >= Profile.reports.size():
+		return
+	var look: Array = REPORT_LOOK.get(Profile.reports[i]["kind"], ["?", Color.GRAY])
+	var c := sign.size * 0.5
+	var col: Color = look[1]
+	sign.draw_circle(c + Vector2(0, 3), 16.0, Color(0, 0, 0, 0.45))
+	if i == selected_report:
+		sign.draw_circle(c, 19.0, Color(UiStyle.GOLD, 0.5))
+	sign.draw_circle(c, 16.0, Color.WHITE)
+	sign.draw_circle(c, 14.0, col)
+	var font := ThemeDB.fallback_font
+	sign.draw_string(font, Vector2(0, c.y + 7), look[0], HORIZONTAL_ALIGNMENT_CENTER, sign.size.x, 20, Color.WHITE)
+
 
 func _add_pin(id: String) -> void:
 	var pin := PanelContainer.new()
@@ -353,6 +411,18 @@ static func place_stars(id: String) -> int:
 	if stories.y > 0 and stories.x >= stories.y:
 		n += 1
 	return n
+
+
+## A cat's home bonus as text ("+15 % damage").
+static func home_text(cat_id: String) -> String:
+	var parts: Array[String] = []
+	var bonus: Dictionary = GameData.cats[cat_id].get("home_bonus", {})
+	for key: String in bonus:
+		if HOME_STATS.has(key):
+			var v := float(bonus[key]) * float(HOME_STATS[key][1])
+			var shown := str(roundi(v)) if absf(v - roundf(v)) < 0.01 else ("%.1f" % v).replace(".", TranslationServer.translate("DECIMAL_SEP"))
+			parts.append(TranslationServer.translate(HOME_STATS[key][0]) % shown)
+	return ", ".join(parts)
 
 
 ## Stories of a map: (done, all).

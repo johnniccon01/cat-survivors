@@ -2,10 +2,12 @@ class_name UiStyle
 ## Shared look for menu widgets (buttons, labels, overlays) so every screen
 ## matches.
 
-const BG := Color("1d1626")
-const PANEL := Color("3b2a4a")
-const PANEL_HOVER := Color("5b4470")
-const BORDER := Color("6b5480")
+const BG := Color("161019")
+const PANEL := Color("2c2338")
+const PANEL_HOVER := Color("43355a")
+const BORDER := Color("57496e")
+## The dark lip under panels and buttons that gives them depth.
+const DEPTH := Color("0a0810")
 const GOLD := Color("f2c14e")
 const TEXT := Color("eee6f3")
 const MUTED := Color("8f7ea3")
@@ -110,6 +112,39 @@ static func box(fill: Color, border: Color) -> StyleBoxFlat:
 	sb.set_border_width_all(2)
 	sb.set_corner_radius_all(8)
 	sb.set_content_margin_all(6)
+	# A dark lip underneath, like the signs on the neighbourhood map.
+	sb.shadow_color = Color(DEPTH, 0.55 * fill.a)
+	sb.shadow_size = 1
+	sb.shadow_offset = Vector2(0, 3)
+	return sb
+
+
+## A big panel of the menus (map frame, side panel, bars): a dark plum
+## board with a soft border, a gold hairline inside and a dark lip.
+static func frame(fill: Color = Color("211b2b"), border: Color = Color("4a3f5c"), width: int = 2) -> StyleBoxFlat:
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = fill
+	sb.border_color = border
+	sb.set_border_width_all(width)
+	sb.set_corner_radius_all(11)
+	sb.set_content_margin_all(8 + width - 2)
+	sb.shadow_color = Color(DEPTH, 0.7)
+	sb.shadow_size = 2
+	sb.shadow_offset = Vector2(0, 5)
+	return sb
+
+
+## The gold Play button: bright face, darker rim, a deep lip underneath.
+static func gold_button(hover: bool) -> StyleBoxFlat:
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color("ffcf5e") if hover else Color("f2b33a")
+	sb.border_color = Color("7a4d0c")
+	sb.set_border_width_all(2)
+	sb.border_width_bottom = 6
+	sb.set_corner_radius_all(12)
+	sb.set_content_margin_all(10)
+	sb.shadow_color = Color(GOLD, 0.45 if hover else 0.28)
+	sb.shadow_size = 10 if hover else 6
 	return sb
 
 
@@ -131,6 +166,23 @@ static func inventory_panel(width: float, height: float) -> PanelContainer:
 	vbox.add_child(text)
 	panel.add_child(vbox)
 	panel.set_meta("text", text)
+	return panel
+
+
+## Puts a menu's centred content box on a framed board (the same plum board
+## with a gold hairline as the neighbourhood screen), centred in `parent`.
+static func board(parent: Control, box: Control) -> PanelContainer:
+	var sb := frame(Color(0.13, 0.1, 0.17, 0.96), Color("5a4a6e"), 2)
+	sb.set_content_margin_all(16)
+	sb.content_margin_top = 10
+	sb.content_margin_bottom = 10
+	var panel := PanelContainer.new()
+	panel.add_theme_stylebox_override("panel", sb)
+	panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	panel.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	panel.grow_vertical = Control.GROW_DIRECTION_BOTH
+	parent.add_child(panel)
+	panel.add_child(box)
 	return panel
 
 

@@ -29,7 +29,7 @@ func _ready() -> void:
 	box.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	box.grow_vertical = Control.GROW_DIRECTION_BOTH
 	box.add_theme_constant_override("separation", 6)
-	add_child(box)
+	UiStyle.board(self, box)
 
 	var title := _label(38, GOLD)
 	title.text = "CHARMS_TITLE"
@@ -38,13 +38,13 @@ func _ready() -> void:
 	box.add_child(_header)
 
 	var grid := GridContainer.new()
-	grid.columns = 2
+	grid.columns = 3
 	grid.add_theme_constant_override("h_separation", 10)
 	grid.add_theme_constant_override("v_separation", 6)
 	box.add_child(grid)
 	for id in _ids:
 		var row := PanelContainer.new()
-		row.custom_minimum_size = Vector2(430, 34)
+		row.custom_minimum_size = Vector2(360, 34)
 		var label := _label(18, Color.WHITE)
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		row.add_child(label)
@@ -54,7 +54,7 @@ func _ready() -> void:
 		_rows.append(row)
 
 	_desc = _label(18, Color("d9cce6"))
-	_desc.custom_minimum_size = Vector2(860, 50)
+	_desc.custom_minimum_size = Vector2(1000, 50)
 	_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	box.add_child(_desc)
 	var hint := _label(16, Color("8f7ea3"))

@@ -34,7 +34,7 @@ func _ready() -> void:
 	box.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	box.grow_vertical = Control.GROW_DIRECTION_BOTH
 	box.add_theme_constant_override("separation", 8)
-	add_child(box)
+	UiStyle.board(self, box)
 	var title := _label(34, GOLD, HORIZONTAL_ALIGNMENT_CENTER)
 	title.text = "JOURNAL_TITLE"
 	box.add_child(title)

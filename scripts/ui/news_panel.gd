@@ -24,7 +24,7 @@ func _ready() -> void:
 	box.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	box.grow_vertical = Control.GROW_DIRECTION_BOTH
 	box.add_theme_constant_override("separation", 14)
-	add_child(box)
+	UiStyle.board(self, box)
 	box.add_child(UiStyle.label("NEWS_TITLE", 40, UiStyle.GOLD))
 	var text := UiStyle.label("NEWS_TEXT", 19, UiStyle.TEXT, HORIZONTAL_ALIGNMENT_LEFT)
 	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

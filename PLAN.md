@@ -391,7 +391,10 @@ Sem píšeme nápady, ktoré zatiaľ nemajú miesto vo fázach.
 - Majster pascí: ráta sa každé zabitie, kým mačka stojí v kruhu.
 - Dev panel: v teste vždy padne predmet z bossa, tlačidlá „Find an item", „Find this map's legendary", „Unlock angel + devil cats".
 
-## Štvrť – nový výber mapy a živý svet (návrh 29. 10. 2026, zatiaľ nerobiť)
+## Štvrť – nový výber mapy a živý svet (návrh 29. 10. 2026)
+
+Hotové (29. 10. 2026): krok 1 – výber mapy je kreslená nočná štvrť (`scripts/ui/district_map.gd`): všetkých 7 máp ako miesta, svetlá, voda, vlak, hmla nad zamknutými, budúce mapy Park/Cintorín/Ostrov/Stanica v hmle, ťahanie myšou, šípky na okrajoch, minimapa; panel miesta vpravo (príbeh, boss, náročnosť, dĺžka, príbehy, rekord, tma, hviezdy ★ výhra / ★★ výhra v tme / ★★★ všetky príbehy); pás mačiek dole. Menu panely (prívesky, artefakty, výbava, výzvy, denník, obchod, novinky) sú na rámovanej tabuli (`UiStyle.board`), nové farby v `UiStyle`. Mačky majú nové sprity s objemom.
+Ďalej: svet z dielov (chunkov) a prepínanie štvrtí cez stanicu, približovanie kolieskom, potom kroky 2–8.
 
 Cieľ: výber mapy vyzerá prémiovo, má význam a dáva dôvod vracať sa na staré miesta. Na mape sa rozhoduje do 15 sekúnd, všetko podstatné sa prejaví priamo v noci.
 

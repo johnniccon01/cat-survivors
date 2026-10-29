@@ -259,10 +259,13 @@ def cat_frame(look, frame, mood="normal", dead=False, scale=1.0):
         c.ellipse(*P(19, 14 - bob), 2.2 * s, 2 * s, "patch2", only=("fur",))
         c.ellipse(*P(23, 8 - bob), 2.4 * s, 2 * s, "dark", only=("fur",))
 
-    # Eyes (3/4 view: two eyes on the right side of the head)
+    # Eyes (3/4 view: two eyes on the right side of the head). Placed from
+    # the unbobbed spot and then moved by whole pixels, so they bob together
+    # with the head instead of sliding on it (rounding used to make them
+    # jump on some cat sizes).
     for ex in (23, 27.5):
-        x, y = P(ex, 10.5 - bob)
-        x, y = int(round(x)), int(round(y))
+        x, y = P(ex, 10.5)
+        x, y = int(math.floor(x + 0.5)), int(math.floor(y + 0.5)) - bob
         if dead:
             c.set(x, y, "ink"); c.set(x + 1, y + 1, "ink"); c.set(x + 1, y, "ink"); c.set(x, y + 1, "ink")
             continue
@@ -270,6 +273,10 @@ def cat_frame(look, frame, mood="normal", dead=False, scale=1.0):
             c.set(x, y, "eye"); c.set(x + 1, y, "pupil")
             c.set(x - 1 if ex < 25 else x + 2, y - 1, "ink")
             c.set(x if ex < 25 else x + 1, y - 1, "ink")
+            continue
+        if mood == "blink":
+            # Closed eyes: a short dark lid line.
+            c.set(x, y + 1, "ink"); c.set(x + 1, y + 1, "ink")
             continue
         c.set(x, y, "glint"); c.set(x + 1, y, "eye")
         c.set(x, y + 1, "eye"); c.set(x + 1, y + 1, "pupil")
@@ -313,6 +320,8 @@ def build_cat(cat_id, data):
     dead = rotate_cw(dead_canvas.render(pal), dw, dh)
     rows[0].append(dead)
     rows.append([cat_frame(look, f, "normal", scale=scale).render(pal, flash=True) for f in range(4)])
+    # Row 4: eyes closed, for blinking.
+    rows.append([cat_frame(look, f, "blink", scale=scale).render(pal) for f in range(4)])
     cw, ch = dead_canvas.w, dead_canvas.h
     w, h, img = sheet(rows, cw, ch)
     write_png(os.path.join(OUT, "cat_%s.png" % cat_id.lower()), w, h, img)

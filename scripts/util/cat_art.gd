@@ -127,6 +127,35 @@ static func draw(ci: CanvasItem, lk: Dictionary, facing: int, walk_t: float,
 
 
 const MOOD_ROW := {"normal": 0, "angry": 1, "sad": 2}
+## Sheet row with the eyes closed (blinking).
+const BLINK_ROW := 4
+## Living cats breathe, flick their tails, blink and lean into their steps.
+const BREATH := 0.035
+const LEAN := 0.07
+## Seconds between blinks (plus a per-cat offset) and how long one lasts.
+const BLINK_EVERY := 3.4
+const BLINK_TIME := 0.14
+
+
+## Breathing, step squash, lean and blink for a living cat at this moment.
+## Uses the clock (not walk_t) so standing cats keep moving gently; `seed`
+## keeps cats side by side out of step.
+static func _life(walk_t: float, moving: bool, seed: int) -> Dictionary:
+	var t := Time.get_ticks_msec() / 1000.0 + float(seed % 997) * 0.37
+	var squash := 0.0
+	var lean := 0.0
+	var col := 1
+	if moving:
+		# A little stretch as the paws push off, squash as they land.
+		squash = sin(walk_t * PI / 1.6) * 0.045
+		lean = LEAN + sin(walk_t * PI / 3.2) * 0.02
+		col = floori(walk_t / 1.6) % 4
+	else:
+		squash = sin(t * 2.4) * BREATH
+		# Frames 1 and 3 differ only in the tail: now and then it flicks.
+		col = 3 if fmod(t, 2.6) > 2.0 else 1
+	var blink := fmod(t, BLINK_EVERY + float(seed % 7) * 0.3) < BLINK_TIME
+	return {"squash": squash, "lean": lean, "col": col, "blink": blink}
 
 
 static func _draw_sprite(ci: CanvasItem, sprite: Dictionary, lk: Dictionary, facing: int, walk_t: float,
@@ -134,15 +163,25 @@ static func _draw_sprite(ci: CanvasItem, sprite: Dictionary, lk: Dictionary, fac
 	var size: float = lk["size"] * zoom
 	ci.draw_colored_polygon(Shapes.ellipse(offset + Vector2(0, 9) * size, 9 * size, 2.5 * size), Color(0, 0, 0, 0.25))
 	var row: int = 3 if flash else MOOD_ROW.get(mood, 0)
-	# Walk frames while moving; frame 1 (all paws down) when standing still.
-	var col := (floori(walk_t / 1.6) % 4) if moving else 1
+	var life := _life(walk_t, moving, ci.get_instance_id())
+	# Walk frames while moving; standing still all paws are down and only
+	# the tail flicks now and then.
+	var col: int = life["col"]
+	if life["blink"] and row == 0:
+		row = BLINK_ROW
+	var s: float = lk["size"]
 	if dead:
 		row = 0
 		col = 4
+		ci.draw_set_transform(offset, 0.0, Vector2(facing, 1) * zoom)
+	else:
+		# Squash and lean around the paws, so the feet stay on the ground.
+		var feet := Vector2(0, 11.0 * s)
+		var sq: float = life["squash"]
+		var basis := Transform2D(float(life["lean"]) * facing, Vector2(facing * (1.0 - sq * 0.5), 1.0 + sq) * zoom, 0.0, Vector2.ZERO)
+		ci.draw_set_transform_matrix(Transform2D(basis.x, basis.y, offset + feet * zoom - basis.basis_xform(feet)))
 	# A locked cat on the selection screen is shown as a dark silhouette.
 	var tint := Color(0.12, 0.09, 0.15) if lk.get("silhouette", false) else Color.WHITE
-	ci.draw_set_transform(offset, 0.0, Vector2(facing, 1) * zoom)
-	var s: float = lk["size"]
 	# A silhouette keeps secrets: no wings, halo or horns to give it away.
 	var extras: bool = not lk.get("silhouette", false)
 	if extras and lk.get("wings", false) and not dead:

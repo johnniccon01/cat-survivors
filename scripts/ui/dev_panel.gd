@@ -356,7 +356,7 @@ func _button(parent: Node, text: String, action: Callable) -> Button:
 func _skip(seconds: float) -> void:
 	var spawner: Spawner = main.spawner
 	var from := spawner.elapsed
-	var to := minf(from + seconds, spawner.duration_minutes() * 60.0 - 5.0)
+	var to := _skip_target(from + seconds)
 	spawner.skip_to(to)
 	var player: Player = main.player
 	var target := DevPanel.expected_level(to / 60.0)
@@ -399,10 +399,18 @@ static func smart_pick(player: Player) -> Dictionary:
 	return best
 
 
+## Where a jump lands: just before the night's end (so it still ends
+## normally), but once past the end (endless night, final boss) on from there.
+func _skip_target(to: float) -> float:
+	var spawner: Spawner = main.spawner
+	var last := spawner.duration_minutes() * 60.0 - 5.0
+	return to if spawner.elapsed >= last else minf(to, last)
+
+
 ## Only the clock moves on: enemies get as strong as at that minute, the cat stays.
 func _skip_time(seconds: float) -> void:
 	var spawner: Spawner = main.spawner
-	spawner.skip_to(minf(spawner.elapsed + seconds, spawner.duration_minutes() * 60.0 - 5.0))
+	spawner.skip_to(_skip_target(spawner.elapsed + seconds))
 
 
 ## Jumps to `minute` with the level, weapons and chests a player would have

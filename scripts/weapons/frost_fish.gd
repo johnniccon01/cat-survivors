@@ -1,15 +1,19 @@
 extends Weapon
 ## Mrazená rybka: an icy beam at the toughest enemy nearby (bosses first)
 ## that freezes everything it hits in place for a moment. Bosses thaw twice
-## as fast, but a steady stream keeps even Death standing still.
+## as fast, and Death shrugs the ice off: it only slows down a little.
 ## Eternal Winter beams at several foes and freezes a ring around each.
 
 const RANGE := 320.0
 const BASE_LENGTH := 240.0
 const BASE_WIDTH := 3.5
 const ICE := Color("8fe3ff")
-## Bosses (and Death) stay frozen this much of the time.
+## Bosses stay frozen this much of the time.
 const BOSS_FREEZE := 0.5
+## Death resists the ice: never stopped, only slowed to this much of its
+## speed, and for a short part of the freeze.
+const DEATH_SLOW := 0.6
+const DEATH_FREEZE := 0.3
 
 
 func shoot(index: int) -> void:
@@ -37,9 +41,13 @@ func shoot(index: int) -> void:
 	world.add_child(beam)
 
 
-## Stops `enemy` where it stands (bosses for half as long).
+## Stops `enemy` where it stands (bosses for half as long, Death only slows).
 static func freeze(enemy: Enemy, seconds: float) -> void:
 	if enemy == null or enemy.dead or enemy.is_prop:
+		return
+	if enemy.fatal:
+		enemy.slow_down(DEATH_SLOW, seconds * DEATH_FREEZE)
+		enemy.chill(seconds * DEATH_FREEZE)
 		return
 	var t := seconds * (BOSS_FREEZE if enemy.is_boss else 1.0)
 	enemy.slow_down(0.0, t)

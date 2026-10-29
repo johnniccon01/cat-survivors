@@ -106,7 +106,7 @@ const GOLDEN_COINS := 10
 ## Share of the night after which the map's night track plays.
 const NIGHT_MUSIC_AT := 0.5
 ## The devil moves this much faster than the cat's current speed.
-const DEVIL_SPEED_OVER_CAT := 1.15
+const DEVIL_SPEED_OVER_CAT := 1.25
 
 var kills := 0
 var props_broken := 0
@@ -742,9 +742,10 @@ func spawn_escort(cat_id: String, at: Vector2, hp: float) -> Player:
 	return cat
 
 
-## A story choice (pauses like a level-up); `callback` gets the answer's index.
-func ask_choice(title: String, prompt: String, options: Array, callback: Callable) -> void:
-	_choices.append({"title": title, "prompt": prompt, "options": options, "callback": callback})
+## A story choice (pauses like a level-up); `callback` gets the answer's index
+## (-1 when `cancel` shows a back button and it is used).
+func ask_choice(title: String, prompt: String, options: Array, callback: Callable, cancel: bool = false) -> void:
+	_choices.append({"title": title, "prompt": prompt, "options": options, "callback": callback, "cancel": cancel})
 	_queue_modal("choice")
 
 
@@ -761,6 +762,11 @@ func _queue_modal(kind: String) -> void:
 ## Opens the next queued level-up or chest, or resumes the game.
 func _next_modal() -> void:
 	if _run_over:
+		# The run ended from a choice (or with one queued): let the game-over
+		# screen take keys again.
+		_in_modal = false
+		_modals.clear()
+		_choices.clear()
 		return
 	if _modals.is_empty():
 		_in_modal = false
@@ -776,7 +782,7 @@ func _next_modal() -> void:
 			callback.call(int(_arg("--choice=", "0")))
 			_next_modal.call_deferred()
 		else:
-			hud.choice.open(_choice["title"], _choice["prompt"], _choice["options"])
+			hud.choice.open(_choice["title"], _choice["prompt"], _choice["options"], _choice.get("cancel", false))
 		return
 	if kind == "boss_chest" and Upgrades.find_evolution(player).is_empty() and randf() >= BOSS_CHEST_JACKPOT * player.stat("luck"):
 		# A boss chest: pick one of three upgrades of what you already have.
@@ -1308,13 +1314,17 @@ func _ask_discard() -> void:
 	if picks.is_empty() or player.discard_left <= 0:
 		return
 	hud.show_pause(false)
-	var options: Array = picks.map(func(p: Array) -> String: return Upgrades.item_name(p[0], p[1]))
-	options.append(tr("DISCARD_KEEP"))
+	var names: Array = picks.map(func(p: Array) -> String: return Upgrades.item_name(p[0], p[1]))
+	var options: Array = []
+	for i in picks.size():
+		var key := "%s_%s_DESC" % [String(picks[i][0]).to_upper(), picks[i][1]]
+		var desc := tr(key)
+		options.append({"title": names[i], "desc": "" if desc == key else desc})
 	ask_choice(tr("DISCARD_TITLE"), tr("DISCARD_PROMPT") % player.discard_left, options, func(index: int) -> void:
-		if index < picks.size():
+		if index >= 0 and index < picks.size():
 			player.discard(picks[index][0], picks[index][1])
 			hud.update_inventory(player)
-			hud.show_banner(tr("DISCARD_DONE") % options[index], 3.0))
+			hud.show_banner(tr("DISCARD_DONE") % names[index], 3.0), true)
 
 
 ## Dev builds with the dev panel ask before the night ends, so a test can

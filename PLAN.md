@@ -391,6 +391,21 @@ Sem píšeme nápady, ktoré zatiaľ nemajú miesto vo fázach.
 - Majster pascí: ráta sa každé zabitie, kým mačka stojí v kruhu.
 - Dev panel: v teste vždy padne predmet z bossa, tlačidlá „Find an item", „Find this map's legendary", „Unlock angel + devil cats".
 
+## Štvrť – nový výber mapy a živý svet (návrh 29. 10. 2026, zatiaľ nerobiť)
+
+Cieľ: výber mapy vyzerá prémiovo, má význam a dáva dôvod vracať sa na staré miesta. Na mape sa rozhoduje do 15 sekúnd, všetko podstatné sa prejaví priamo v noci.
+
+1. **Obrazovka štvrte.** Celá obrazovka je ručne kreslená štvrť (pixel-art): dom s obývačkou a pivnicou, záhrada, strecha, supermarket, prístav, fabrika; cestičky, dym, vlnky, svetlá v oknách. Vpravo panel vybraného miesta (krátky príbeh, boss, náročnosť, príbehy, rekord, hviezdy, čo prinesie dobytie). Dole menší pás mačiek s popisom a tlačidlom Hrať. Režim „Jedna noc" ako doteraz.
+2. **Rast štvrte.** Hviezdy (★ prežiť, ★★ boss, ★★★ všetky príbehy), neprebádané miesta v hmle, odkrývanie ďalších ulíc. Zachránené mačky sa nasťahujú do domov a otvoria služby (kováč, liečiteľka, obchod, mapy).
+3. **Domáci terén mačiek.** Každá mačka má domácu mapu (+bonus, zlatá bodka v páse mačiek) a nemilovanú (malý postih); výhra doma = extra truhla.
+4. **Nočné správy.** Pred nocou 3 karty z dobytých miest (obrana, nočná túra, príležitosť); vyberieš jednu, ostatné sa vyriešia samy (dobre, zle, alebo zmiznú). Neúspech = unesený obyvateľ a zatvorená služba, kým ho nezachrániš.
+5. **Nočná túra.** Jedna noc cez 3 miesta; v 7. a 14. minúte dve brány (vľavo/vpravo). Cesta sa potom nakreslí na mapu štvrte. Nahrádza výpravu na 3 noci.
+6. **Nemesis bossovia.** Boss, ktorý ťa zabil, dostane prezývku a novú schopnosť, občas ťa loví v iných nociach; pomsta = legendárna truhla.
+7. **Spln každých 7 nocí.** Všetci bossovia útočia naraz; príprava (pasce, hliadky, stráže z mačiek, obyvatelia) je priamo v obrannej noci. Domov sa nedá stratiť úplne.
+8. **Dobývanie v noci.** Herná mapa rozdelená na tvoju a nepriateľskú časť, zabíjaním posúvaš hranicu; dobyté územie dá trvalý bonus a otvorí susedné.
+
+Pravidlá: hviezdy, odomknutia a príbehy sa nikdy nestratia; najviac 2 hrozby naraz; voľba „Pokojná štvrť" bez útokov. Vyhodené z návrhu: percentá hrozby, produkcia za noc, stráženie ako samostatné menu.
+
 ## Ako pracujeme
 
 - Každý väčší krok = commit; na GitHub pushujeme, keď povieš.

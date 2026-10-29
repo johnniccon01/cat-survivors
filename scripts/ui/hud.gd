@@ -455,7 +455,7 @@ func show_pause(on: bool) -> void:
 	if cat != null:
 		_discard.text = tr("PAUSE_DISCARD") % cat.discard_left
 	if on:
-		_pause_weapons.text = weapons_text()
+		_pause_weapons.text = weapons_text() + blessings_text()
 		var log_text := "\n\n".join(_log) if not _log.is_empty() else tr("PAUSE_LOG_EMPTY")
 		if _quest_title.visible:
 			# The quest running now on top, then what was said lately.
@@ -464,6 +464,32 @@ func show_pause(on: bool) -> void:
 	_pause_overlay.visible = on
 	if on:
 		(_pause_overlay.get_node("Box").get_child(1) as Button).grab_focus.call_deferred()
+
+
+## Shrine bonuses still running (what each gave, and for how long), as
+## BBCode under the weapons in the pause screen.
+func blessings_text() -> String:
+	var cat: Variant = get_parent().get("player")
+	if cat == null or not is_instance_valid(cat):
+		return ""
+	var lines: Array[String] = []
+	for b in (cat as Player).blessings:
+		if String(b.get("label", "")) == "":
+			continue
+		var left: String = tr("BLESS_ALL_NIGHT") if float(b["t"]) > 3600.0 else tr("CHAIN_TIME") % ceili(float(b["t"]))
+		var line := "[color=#%s]%s[/color]  %s" % [(b["color"] as Color).lightened(0.3).to_html(false), tr(b["label"]), left]
+		if String(b.get("desc", "")) != "":
+			line += "
+" + String(b["desc"])
+		lines.append(line)
+	if lines.is_empty():
+		return ""
+	return "
+
+[color=#%s]%s[/color]
+%s" % [UiStyle.GOLD.to_html(false), tr("PAUSE_BLESSINGS"), "
+
+".join(lines)]
 
 
 ## The cat's weapons (level, branch, what they do, which passive evolves

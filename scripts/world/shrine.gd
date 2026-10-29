@@ -11,8 +11,8 @@ extends Node2D
 ##             heavy paws for a while
 ##   FORTUNE – a shower of gold and all kibble; or two levels for 40 % of your
 ##             health; or more gold all night while enemies get tougher
-##   CURSED  – a little luck; or guards that guard a chest; or champion
-##             guards that guard a boss chest
+##   CURSED  – a little luck; or guards that guard a chest; or (from minute
+##             5) champion guards that guard a boss chest
 ##   BONE    – (all night) armor; or armor and health but slower paws; or
 ##             thorns and crits but less health
 ##   MOON    – (all night) faster growth; or much faster growth but tougher
@@ -32,8 +32,9 @@ const FOR_THE_NIGHT := 99999.0
 ## How many offers each shrine makes (texts SHRINE_<KIND>_OPT<n>).
 const OFFERS := {"MIGHT": 3, "HASTE": 3, "MILK": 2, "FORTUNE": 3, "CURSED": 3, "BONE": 3, "MOON": 3, "CHAOS": 3}
 const CURSED_LIMIT := 75.0
-## The great curse gives a boss chest only from this second of the night.
-const BOSS_CHEST_FROM := 480.0
+## The great curse (champion guards for a boss chest) is offered only from
+## this second of the night.
+const GREAT_CURSE_FROM := 300.0
 ## Forgotten shrines crumble after a while.
 const LIFETIME := 100.0
 const KINDS := {"MIGHT": 3.0, "HASTE": 3.0, "MILK": 2.0, "FORTUNE": 2.0, "CURSED": 2.5, "BONE": 2.0, "MOON": 2.0, "CHAOS": 1.5}
@@ -55,6 +56,8 @@ var _guards: Array[Enemy] = []
 var _guard_t := 0.0
 ## The big curse: champion guards, and a boss chest for beating them.
 var _big_curse := false
+## The bonus a gamble actually gave (chaos dice), shown instead of the offer.
+var _rolled := ""
 
 
 static func random_kind() -> String:
@@ -107,19 +110,34 @@ func _physics_process(delta: float) -> void:
 func _activate(cat: Player) -> void:
 	used = true
 	Audio.play("bell", -2.0, 0.0)
+	var offers := _offer_count()
 	var options: Array = []
-	for i in OFFERS[kind]:
+	for i in offers:
 		options.append(tr("SHRINE_%s_OPT%d" % [kind, i]))
 	# The last choice turns every offer down; the shrine just goes quiet.
 	options.append(tr("SHRINE_REFUSE"))
 	main.ask_choice(tr("SHRINE_%s_NAME" % kind), tr("SHRINE_PROMPT"), options, func(index: int) -> void:
-		if index >= OFFERS[kind]:
+		if index >= offers:
 			print("SHRINE: %s refused" % kind)
 			return
 		Profile.add_stat("shrines")
+		var before := cat.blessings.size()
+		_rolled = ""
 		_grant(cat, index)
-		main.hud.show_banner("%s: %s" % [tr("SHRINE_%s_NAME" % kind), options[index]], 4.0)
+		# What the shrine gave, kept with each new bonus for the pause list.
+		var what: String = _rolled if _rolled != "" else options[index]
+		for i in range(before, cat.blessings.size()):
+			if not cat.blessings[i].has("desc"):
+				cat.blessings[i]["desc"] = what
+		main.hud.show_banner("%s: %s" % [tr("SHRINE_%s_NAME" % kind), what], 4.0)
 		print("SHRINE: %s activated, offer %d" % [kind, index]))
+
+
+## Early in the night the cursed shrine keeps its great curse to itself.
+func _offer_count() -> int:
+	if kind == "CURSED" and main.spawner.elapsed < GREAT_CURSE_FROM:
+		return OFFERS[kind] - 1
+	return OFFERS[kind]
 
 
 func _grant(cat: Player, offer: int) -> void:
@@ -175,15 +193,17 @@ func _grant(cat: Player, offer: int) -> void:
 			cat.rerolls_left += 1
 			cat.banish_left += 1
 		["CHAOS", 0]:
-			cat.bless(CHAOS_STATS.pick_random(), FOR_THE_NIGHT, name_key, c)
+			var roll := randi() % CHAOS_STATS.size()
+			cat.bless(CHAOS_STATS[roll], FOR_THE_NIGHT, name_key, c)
+			_rolled = tr("SHRINE_CHAOS_ROLL%d" % roll)
 		["CHAOS", 1]:
 			# A coin toss with the gods of chaos.
 			if randf() < 0.5:
 				cat.bless({"amount": 1.0}, FOR_THE_NIGHT, name_key, c)
-				main.hud.show_banner(tr("SHRINE_CHAOS_WON"), 3.0)
+				_rolled = tr("SHRINE_CHAOS_WON")
 			else:
 				_bleed(cat, 0.33)
-				main.hud.show_banner(tr("SHRINE_CHAOS_LOST"), 3.0)
+				_rolled = tr("SHRINE_CHAOS_LOST")
 		["CHAOS", 2]:
 			cat.bless({"might": 0.3, "area": 0.2, "curse": 0.2}, FOR_THE_NIGHT, name_key, c)
 		["CURSED", 0]:
@@ -226,10 +246,8 @@ func _tick_guards(delta: float) -> void:
 	if not _guards.is_empty() and _guard_t < CURSED_LIMIT:
 		return
 	if _guard_t < CURSED_LIMIT:
-		# A boss chest only once the night is well under way; early on the
-		# great curse gives a plain chest and more gold.
-		var boss_chest: bool = _big_curse and main.spawner.elapsed >= BOSS_CHEST_FROM
-		main.pickups.spawn_named("chest", position, 1.0 if boss_chest else 0.0)
+		# The great curse (offered only from minute 5) always pays a boss chest.
+		main.pickups.spawn_named("chest", position, 1.0 if _big_curse else 0.0)
 		for i in 16 if _big_curse else 8:
 			main.pickups.spawn_named("coin", position + Vector2.from_angle(TAU * i / 8.0) * (22.0 if i < 8 else 34.0), 5.0)
 		main.hud.show_banner(tr("SHRINE_CURSED_WON"), 3.5)

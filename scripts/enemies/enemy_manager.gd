@@ -57,7 +57,7 @@ const SHOT_BURST := 3.0
 const MAX_REGULAR_BULLETS := 10
 ## At most this many enemy shots fly at once (several shooting bosses
 ## together must still leave gaps to dodge through).
-const MAX_BULLETS := 80
+const MAX_BULLETS := 55
 ## A boss's summoned pack makes the other bosses wait this long before
 ## calling theirs, so packs never pile up into a sudden double wave.
 const PACK_GAP := 10.0

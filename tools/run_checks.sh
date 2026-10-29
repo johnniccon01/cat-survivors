@@ -72,6 +72,7 @@ scenarios=(
   "shrine_bone|--bot --shrine=BONE --choice=2 --bot-time=60"
   "shrine_moon|--bot --shrine=MOON --choice=2 --bot-time=60"
   "shrine_chaos|--bot --shrine=CHAOS --choice=1 --bot-time=60"
+  "shrine_chaos_roll|--bot --shrine=CHAOS --choice=0 --bot-time=40"
   "time_jump|--bot --dev-panel --dev-go-minute=15 --bot-time=60"
   "new_weapons_2|--bot --god --start-minute=5 --catch-up --start-weapon=TIN_CAN_TOSS,WAVE,DRONE_BUDDY --branch=TIN_CAN_TOSS:HOT_CAN:2,WAVE:UNDERTOW:2,DRONE_BUDDY:MORE_DRONES:2 --bot-time=200"
   "evolved_new|--bot --god --start-minute=5 --catch-up --start-weapon=CLUSTER_CAN,TSUNAMI,DRONE_SWARM --bot-time=120"

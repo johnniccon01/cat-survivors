@@ -35,7 +35,7 @@ const LEVEL_SCALING := 0.022
 const DAMAGE_PER_MINUTE_SQ := 0.0045
 const CHAMPION_PER_MINUTE := 0.004
 ## Endless night tuning.
-const ENDLESS_HP_PER_MINUTE := 0.6
+const ENDLESS_HP_PER_MINUTE := 0.25
 ## Extra enemy speed per endless minute, up to ENDLESS_SPEED_MAX on top.
 const ENDLESS_SPEED_PER_MINUTE := 0.03
 const ENDLESS_SPEED_MAX := 0.4
@@ -203,7 +203,7 @@ func level_factor() -> float:
 ## level 20 finds it much stronger. `strength` < 1 softens it (final bosses
 ## already have their own scaling).
 const BOSS_LEVEL_FROM := 5
-const BOSS_LEVEL_HP := 0.06
+const BOSS_LEVEL_HP := 0.045
 const BOSS_LEVEL_DAMAGE := 0.012
 
 
@@ -241,7 +241,7 @@ func early_ease() -> float:
 	return lerpf(EARLY_EASE, 1.0, elapsed / (EASE_UNTIL * 60.0))
 
 
-## Endless night: +60 % enemy health for every minute past the final boss.
+## Endless night: +25 % enemy health for every minute past the final boss.
 func endless_factor() -> float:
 	return 1.0 + ENDLESS_HP_PER_MINUTE * endless_minutes() if endless else 1.0
 

@@ -297,6 +297,8 @@ func update_boss(boss: Enemy) -> void:
 		return
 	_boss_fill.size.x = 594.0 * clampf(boss.hp / boss.max_hp, 0.0, 1.0)
 	_boss_name.text = tr("ENEMY_%s_NAME" % boss.id)
+	if boss.has_meta("nemesis"):
+		_boss_name.text += "  –  " + tr("NEMESIS_TITLE_%d" % int(boss.get_meta("nemesis")))
 
 
 ## Big warning text below the clock that fades out after `seconds`.

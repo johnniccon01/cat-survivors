@@ -1859,3 +1859,11 @@ SUMMARY_REPORT_HUNT,Boss hunt bounty: +%d gold,Odmena za lov na bossa: +%d zlata
 SUMMARY_REPORT_GOLD,Golden night: +%d gold,Zlatá noc: +%d zlata,Zlatá noc: +%d zlata,Noche dorada: +%d de oro,Золотая ночь: +%d золота,黄金之夜：+%d 金币
 REPORT_NEWS_THEFT,"While you were away, %s was raided: −%d gold","Kým si bol preč, vyplienili %s: −%d zlata","Než jsi byl pryč, vyplenili %s: −%d zlata","Mientras no estabas, saquearon %s: −%d de oro","Пока тебя не было, разграбили %s: −%d золота",你不在时%s遭到洗劫：−%d 金币
 REPORT_NEWS_GONE,The golden night in %s has passed,Zlatá noc v mieste %s pominula,Zlatá noc v místě %s pominula,La noche dorada en %s ha pasado,Золотая ночь в месте «%s» прошла,%s的黄金之夜已经过去
+NEMESIS_TITLE_1,the Grudge-Holder,Pamätá si ťa,Pamatuje si tě,el Rencoroso,Помнит тебя,记仇者
+NEMESIS_TITLE_2,the Cat Hunter,Lovec mačiek,Lovec koček,el Cazagatos,Охотник на кошек,猎猫者
+NEMESIS_TITLE_3,Terror of the Neighbourhood,Postrach štvrte,Postrach čtvrti,Terror del barrio,Гроза района,街区噩梦
+NEMESIS_NEW,"Nemesis: %s – %s (level %d). It will be back, stronger.",Nemesis: %s – %s (úroveň %d). Vráti sa silnejší.,Nemesis: %s – %s (úroveň %d). Vrátí se silnější.,Némesis: %s – %s (nivel %d). Volverá más fuerte.,Немезида: %s – %s (уровень %d). Вернётся сильнее.,宿敌：%s – %s（等级 %d）。它会变得更强再回来。
+NEMESIS_HUNTS,Your nemesis is here: %s – %s!,Tvoj nemesis je tu: %s – %s!,Tvůj nemesis je tady: %s – %s!,¡Tu némesis está aquí: %s – %s!,Твоя немезида здесь: %s – %s!,你的宿敌来了：%s – %s！
+NEMESIS_REVENGE,Revenge on %s! A boss chest and +%d gold,Pomsta na %s! Truhlica bossa a +%d zlata,Pomsta na %s! Truhla bosse a +%d zlata,¡Venganza contra %s! Cofre de jefe y +%d de oro,Месть: %s! Сундук босса и +%d золота,向%s复仇！首领宝箱和 +%d 金币
+SUMMARY_NEMESIS_REVENGE,Revenge on your nemesis: %s: +%d gold,Pomsta na nemesis: %s: +%d zlata,Pomsta na nemesis: %s: +%d zlata,Venganza contra tu némesis: %s: +%d de oro,Месть немезиде %s: +%d золота,向宿敌%s复仇：+%d 金币
+NEMESIS_SUB,nemesis · %s (level %d),nemesis · %s (úroveň %d),nemesis · %s (úroveň %d),némesis · %s (nivel %d),немезида · %s (уровень %d),宿敌 · %s（等级 %d）

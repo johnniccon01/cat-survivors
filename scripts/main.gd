@@ -109,6 +109,8 @@ const NIGHT_MUSIC_AT := 0.5
 const DEVIL_SPEED_OVER_CAT := 1.25
 ## Winning on the cat's home map adds this share of the gold.
 const HOME_WIN_GOLD := 0.25
+## A hunting nemesis that is another map's final boss has this share of its health.
+const NEMESIS_HUNT_FINAL_HP := 0.3
 
 var kills := 0
 var props_broken := 0
@@ -236,6 +238,12 @@ var _last_end := ""
 var _champion_seen := false
 var _challenge_shown := false
 var _report_shown := false
+## When (seconds into the night) your nemesis comes hunting, or -1.
+var _nemesis_at := -1.0
+## Summary lines about nemeses from this night.
+var _nemesis_lines: Array[String] = []
+var _nemesis_planned := false
+var _nemesis_boss: Enemy
 var _home_shown := false
 ## First night ever: short tips appear as things happen (see _tutorial).
 var _tutorial := false
@@ -561,6 +569,8 @@ func _process(delta: float) -> void:
 		BotLog.verify()
 		if is_instance_valid(final_boss):
 			print("BOT: final boss hp=%.0f/%.0f" % [final_boss.hp, final_boss.max_hp])
+		if is_instance_valid(_nemesis_boss) and not _nemesis_boss.dead:
+			print("NEMESIS: still alive at %d %% health, %d px away" % [roundi(_nemesis_boss.hp / _nemesis_boss.max_hp * 100.0), roundi(_nemesis_boss.position.distance_to(player.position))])
 		print("BOT: time=%.1f level=%d kills=%d hp=%.0f/%.0f enemies=%d dead=%s" % [
 			spawner.elapsed, player.level, kills, player.hp, player.max_hp,
 			enemies.enemies.size(), player.is_dead])
@@ -644,7 +654,11 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 	Profile.add_stat("kills")
 	Profile.add_stat("kills:" + id)
 	pickups.spawn_xp(pos, xp)
-	if GameData.enemies[id].get("final", false) and not dev_test:
+	if GameData.enemies[id].get("boss", false) or GameData.enemies[id].get("final", false):
+		_nemesis_revenge(id, pos)
+	# Only this map's own final boss ends the night (a hunting nemesis from
+	# another map is just a boss here).
+	if GameData.enemies[id].get("final", false) and id == GameData.stages[spawner.stage_id].get("final_boss", "") and not dev_test:
 		bosses_killed += 1
 		var cat: String = GameData.enemies[id].get("cat", "")
 		if cat != "" and Profile.unlock(cat):
@@ -1132,6 +1146,7 @@ func _end_run(kind: String) -> void:
 	for news: Array in Profile.report_news:
 		lines.append(tr(news[0]) % news.slice(1) if news.size() > 1 else tr(news[0]))
 	Profile.report_news.clear()
+	lines.append_array(_nemesis_lines)
 	Achievements.check()
 	if _bot:
 		print("BOT: summary %s" % " | ".join(lines))
@@ -1255,6 +1270,11 @@ func _track_run(delta: float) -> void:
 	if not Profile.challenges.is_empty() and spawner.elapsed < 1.0 and not _challenge_shown:
 		_challenge_shown = true
 		hud.show_banner(tr("CHALLENGES_ON") % [", ".join(Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))), Profile.challenge_gold()], 4.0)
+	if _nemesis_at < 0.0 and not _nemesis_planned:
+		_nemesis_planned = true
+		_plan_nemesis_hunt()
+	if _nemesis_at >= 0.0 and spawner.elapsed >= _nemesis_at and not _run_over:
+		_nemesis_hunt()
 	# After the challenge banner: tonight's night report, then the home bonus.
 	if not _report_shown and spawner.elapsed >= 4.5 and not Profile.active_report().is_empty():
 		_report_shown = true
@@ -1360,7 +1380,79 @@ func _charm_names() -> String:
 func _on_player_died() -> void:
 	if _angel_saves() or _dev_revive_asks():
 		return
+	_remember_killer()
 	_end_run("death")
+
+
+## The boss closest to the cat when it fell (if one was near) becomes, or
+## grows as, a nemesis.
+func _remember_killer() -> void:
+	if dev_test:
+		return
+	var killer: Enemy = null
+	var best := 700.0 * 700.0
+	for e in enemies.enemies:
+		if e.is_boss and not e.dead and e.position.distance_squared_to(player.position) < best:
+			best = e.position.distance_squared_to(player.position)
+			killer = e
+	if killer == null:
+		return
+	var level := Profile.add_nemesis(killer.id)
+	_nemesis_lines.append(tr("NEMESIS_NEW") % [tr("ENEMY_%s_NAME" % killer.id), tr("NEMESIS_TITLE_%d" % level), level])
+	print("NEMESIS: %s level %d" % [killer.id, level])
+	BotLog.event("nemesis_new")
+
+
+## Your nemesis may turn up to hunt you, some minutes into another night.
+func _plan_nemesis_hunt() -> void:
+	var id := Profile.top_nemesis()
+	if id == "" or dev_test or _endless:
+		return
+	if id == GameData.stages[spawner.stage_id].get("final_boss", ""):
+		return
+	var forced := GameData.arg("--nemesis-at=", "")
+	if forced != "":
+		_nemesis_at = float(forced)
+	elif randf() < Profile.NEMESIS_HUNT_CHANCE:
+		_nemesis_at = randf_range(480.0, 720.0)
+
+
+func _nemesis_hunt() -> void:
+	_nemesis_at = -1.0
+	var id := Profile.top_nemesis()
+	if id == "":
+		return
+	var boss := spawner.spawn_boss_as_in_run(id, player.position + Vector2.from_angle(randf() * TAU) * 360.0)
+	if boss == null:
+		return
+	_nemesis_boss = boss
+	# A final boss from another map comes as a hunter, not as a whole night's
+	# finale: much less health than at the end of its own night.
+	if GameData.enemies[id].get("final", false):
+		boss.max_hp *= NEMESIS_HUNT_FINAL_HP
+		boss.hp = boss.max_hp
+	player.shake(6.0, 0.6)
+	Audio.play("roar", 0.0, 0.0)
+	hud.show_banner(tr("NEMESIS_HUNTS") % [tr("ENEMY_%s_NAME" % id), tr("NEMESIS_TITLE_%d" % Profile.nemesis_level(id))], 5.0)
+	print("NEMESIS: %s hunts" % id)
+	BotLog.event("nemesis_hunt")
+
+
+## Beating a nemesis: it forgets you, and you get a boss chest and gold.
+func _nemesis_revenge(id: String, pos: Vector2) -> void:
+	if not Profile.nemesis.has(id) or dev_test:
+		return
+	Profile.nemesis.erase(id)
+	Profile.add_stat("revenges")
+	Profile.save()
+	pickups.spawn_named("chest", pos, 1.0)
+	for i in 12:
+		pickups.spawn_named("coin", pos + Vector2.from_angle(TAU * i / 12.0) * 30.0, 5.0)
+	run_gold += Profile.NEMESIS_REVENGE_GOLD
+	hud.show_banner(tr("NEMESIS_REVENGE") % [tr("ENEMY_%s_NAME" % id), Profile.NEMESIS_REVENGE_GOLD], 5.0)
+	_nemesis_lines.append(tr("SUMMARY_NEMESIS_REVENGE") % [tr("ENEMY_%s_NAME" % id), Profile.NEMESIS_REVENGE_GOLD])
+	print("NEMESIS: %s beaten" % id)
+	BotLog.event("nemesis_beaten")
 
 
 ## Pause menu: pick an owned weapon or passive to throw away for good.

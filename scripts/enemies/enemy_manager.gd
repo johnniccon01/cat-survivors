@@ -102,6 +102,14 @@ func spawn(id: String, pos: Vector2, hp_mult: float = 1.0) -> Enemy:
 	add_child(enemy)
 	enemies.append(enemy)
 	budget_used += enemy.cost
+	# A nemesis boss comes back stronger for every time it killed the cat.
+	var level := Profile.nemesis_level(id) if enemy.is_boss else 0
+	if level > 0:
+		enemy.max_hp *= 1.0 + Profile.NEMESIS_HP * level
+		enemy.hp = enemy.max_hp
+		enemy.damage *= 1.0 + Profile.NEMESIS_DAMAGE * level
+		enemy.speed *= 1.0 + Profile.NEMESIS_SPEED * level
+		enemy.set_meta("nemesis", level)
 	return enemy
 
 

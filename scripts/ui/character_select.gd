@@ -50,6 +50,7 @@ var _place_badge: Label
 var _place_story: Label
 var _boss_pic: BossPortrait
 var _boss_name: Label
+var _boss_sub: Label
 var _place_stats: Array[Label] = []
 var _place_stars: Label
 var _chips: HFlowContainer
@@ -167,7 +168,24 @@ func _build() -> void:
 		var b := UiStyle.click_button("%s (%s)" % [tr(entry[0]), entry[1]], 0, 15)
 		b.pressed.connect(entry[2])
 		buttons.add_child(b)
-	UiStyle.fit_row(buttons, 860.0)
+	UiStyle.fit_row(buttons, 600.0 if Profile.top_nemesis() != "" else 860.0)
+	var nem := Profile.top_nemesis()
+	if nem != "":
+		# Your nemesis, in red, beside your gold.
+		var chip := PanelContainer.new()
+		chip.add_theme_stylebox_override("panel", UiStyle.box(Color("3a1416"), Color("8a3030")))
+		var ch := HBoxContainer.new()
+		ch.add_theme_constant_override("separation", 6)
+		chip.add_child(ch)
+		var face := BossPortrait.new()
+		face.id = nem
+		face.custom_minimum_size = Vector2(28, 28)
+		ch.add_child(face)
+		var nl := _label(14, Color("ffb3a8"))
+		nl.text = "%s – %s" % [tr("ENEMY_%s_NAME" % nem), tr("NEMESIS_TITLE_%d" % Profile.nemesis_level(nem))]
+		nl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		ch.add_child(nl)
+		top.add_child(chip)
 	_gold = _label(17, GOLD)
 	top.add_child(_gold)
 
@@ -229,10 +247,9 @@ func _build() -> void:
 	_boss_name = _label(17, Color("ffd0c4"))
 	_boss_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	boss_v.add_child(_boss_name)
-	var boss_sub := _label(12, Color("a59cb4"))
-	boss_sub.text = "DISTRICT_FINAL_BOSS"
-	boss_sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
-	boss_v.add_child(boss_sub)
+	_boss_sub = _label(12, Color("a59cb4"))
+	_boss_sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	boss_v.add_child(_boss_sub)
 	var stats := GridContainer.new()
 	stats.columns = 2
 	stats.add_theme_constant_override("h_separation", 6)
@@ -560,6 +577,13 @@ func _refresh_place() -> void:
 	_boss_pic.id = boss
 	_boss_pic.known = state != "locked"
 	_boss_name.text = tr("ENEMY_%s_NAME" % boss) if boss != "" and state != "locked" else "???"
+	var nem_level := Profile.nemesis_level(boss) if boss != "" else 0
+	if nem_level > 0:
+		_boss_sub.text = tr("NEMESIS_SUB") % [tr("NEMESIS_TITLE_%d" % nem_level), nem_level]
+		_boss_sub.label_settings.font_color = Color("ff8a7a")
+	else:
+		_boss_sub.text = tr("DISTRICT_FINAL_BOSS")
+		_boss_sub.label_settings.font_color = Color("a59cb4")
 	_dark_minus.get_parent().visible = real
 	if real:
 		var stories := DistrictMap.place_stories(id)

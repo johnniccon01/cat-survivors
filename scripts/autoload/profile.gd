@@ -114,6 +114,9 @@ func _ready() -> void:
 			if GameData.stages.has(r.get("stage", "")):
 				reports.append(r)
 		report_news = cfg.get_value("reports", "news", [])
+		for id: String in cfg.get_value("nemesis", "bosses", {}):
+			if GameData.enemies.has(id):
+				nemesis[id] = cfg.get_value("nemesis", "bosses", {})[id]
 		chains = cfg.get_value("chains", "steps", {})
 		for id: String in cfg.get_value("achievements", "earned", []):
 			achievements.append(id)
@@ -166,6 +169,10 @@ func _ready() -> void:
 			selected_cat = arg.trim_prefix("--cat=")
 		elif arg.begins_with("--stage="):
 			selected_stage = arg.trim_prefix("--stage=")
+	# `-- --nemesis=RAT_KING` makes that boss a nemesis (tests).
+	var nem := GameData.arg("--nemesis=", "")
+	if nem != "" and GameData.enemies.has(nem):
+		nemesis[nem] = {"level": 1, "order": 1}
 	# `-- --report=defend` plays a night report of that kind (tests).
 	var kind := GameData.arg("--report=", "")
 	if kind != "":
@@ -404,6 +411,47 @@ func pass_night() -> void:
 	# The played one is gone from the list now.
 	report = -1
 	save()
+
+
+# --- nemesis bosses ----------------------------------------------------------
+## A boss that kills the cat remembers it: it becomes a nemesis, grows a level
+## stronger with every kill (up to NEMESIS_MAX_LEVEL), may turn up in other
+## nights to hunt you, and pays a big reward when you finally beat it.
+
+const NEMESIS_MAX_LEVEL := 3
+const NEMESIS_HUNT_CHANCE := 0.35
+const NEMESIS_REVENGE_GOLD := 300
+## Per level: more health, harder hits, faster.
+const NEMESIS_HP := 0.2
+const NEMESIS_DAMAGE := 0.1
+const NEMESIS_SPEED := 0.08
+
+## boss id -> {"level": int, "order": int} (order: the most recent is highest).
+var nemesis: Dictionary = {}
+
+
+## `boss_id` just killed the cat: it becomes (or grows as) a nemesis.
+func add_nemesis(boss_id: String) -> int:
+	var order := 0
+	for id: String in nemesis:
+		order = maxi(order, int(nemesis[id].get("order", 0)))
+	var level := mini(int(nemesis.get(boss_id, {}).get("level", 0)) + 1, NEMESIS_MAX_LEVEL)
+	nemesis[boss_id] = {"level": level, "order": order + 1}
+	save()
+	return level
+
+
+func nemesis_level(boss_id: String) -> int:
+	return int(nemesis.get(boss_id, {}).get("level", 0))
+
+
+## The nemesis to show and to hunt you: the strongest, then the newest.
+func top_nemesis() -> String:
+	var best := ""
+	for id: String in nemesis:
+		if best == "" or [nemesis_level(id), int(nemesis[id]["order"])] > [nemesis_level(best), int(nemesis[best]["order"])]:
+			best = id
+	return best
 
 
 func has_challenge(id: String) -> bool:
@@ -735,6 +783,7 @@ func save() -> void:
 	cfg.set_value("challenge", "active", _daily_backup if daily else (_report_backup if _report_on else challenges))
 	cfg.set_value("reports", "list", reports)
 	cfg.set_value("reports", "news", report_news)
+	cfg.set_value("nemesis", "bosses", nemesis)
 	cfg.set_value("artifacts", "owned", artifacts)
 	cfg.set_value("chains", "steps", chains)
 	cfg.set_value("achievements", "earned", achievements)

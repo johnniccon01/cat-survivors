@@ -76,6 +76,8 @@ scenarios=(
   "report_hunt|--bot --report=hunt --bot-time=30"
   "report_gold|--bot --report=gold --bot-time=30"
   "home_cat|--bot --cat=TIGER --stage=GARDEN --bot-time=20"
+  "nemesis_new|--bot --nemesis=RAT_KING --nemesis-at=3 --kill-cat-every=12 --bot-time=30 --expect=nemesis_hunt,nemesis_new"
+  "nemesis_revenge|--bot --god --stage=GARDEN --start-minute=12 --catch-up --nemesis=VACUUM_KING --nemesis-at=5 --bot-time=150 --expect=nemesis_beaten"
   "time_jump|--bot --dev-panel --dev-go-minute=15 --bot-time=60"
   "new_weapons_2|--bot --god --start-minute=5 --catch-up --start-weapon=TIN_CAN_TOSS,WAVE,DRONE_BUDDY --branch=TIN_CAN_TOSS:HOT_CAN:2,WAVE:UNDERTOW:2,DRONE_BUDDY:MORE_DRONES:2 --bot-time=200"
   "evolved_new|--bot --god --start-minute=5 --catch-up --start-weapon=CLUSTER_CAN,TSUNAMI,DRONE_SWARM --bot-time=120"

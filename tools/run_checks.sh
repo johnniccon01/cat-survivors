@@ -13,6 +13,7 @@ cd "$(dirname "$0")/.." || exit 1
 # "name|args after --" or "name|args after --|engine args" (e.g. a -s script).
 scenarios=(
   "menus|--ui-test|-s res://tools/ui_test.gd"
+  "map_clicks|--ui-test|-s res://tools/map_click_test.gd"
   "text_fit|--ui-test|-s res://tools/text_fit_test.gd"
   "dev_boss_rush|--bot --strong --god --boss-rush --bot-time=1500 --bot-speed=8"
   "dev_quests|--bot --strong --god --dev-quest-all --bot-time=900 --bot-speed=8"
@@ -257,7 +258,7 @@ export -f run_one
 export GODOT QUICK
 
 if [ -n "$QUICK" ] && [ -z "$ONLY" ]; then
-  ONLY="menus|apartment|basement|garden|rooftop|supermarket|harbor|factory|final_vacuum|final_kraken|final_r3000|all_weapons|new_weapons_2|evolution_mica|evolution_drone|branches_fx|quest_luna|quest_baron|story_note|chain_trail|chain_carry|chain_zones|chain_gift|chain_kittens|chain_fire|artifacts_hurt|challenges|traps|endless|champions"
+  ONLY="menus|map_clicks|apartment|basement|garden|rooftop|supermarket|harbor|factory|final_vacuum|final_kraken|final_r3000|all_weapons|new_weapons_2|evolution_mica|evolution_drone|branches_fx|quest_luna|quest_baron|story_note|chain_trail|chain_carry|chain_zones|chain_gift|chain_kittens|chain_fire|artifacts_hurt|challenges|traps|endless|champions"
 fi
 # ONLY="name1|name2" runs just those scenarios.
 printf '%s\n' "${scenarios[@]}" | grep -E "^(${ONLY:-[^|]+})\|" | xargs -P "$JOBS" -I{} bash -c 'run_one "$@"' _ {} | tee /tmp/catsurvivors_checks.txt

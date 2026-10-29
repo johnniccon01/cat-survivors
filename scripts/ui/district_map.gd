@@ -78,6 +78,9 @@ var _puffs := {}
 var _mini: Control
 var _arrows := {}
 var _reports: Array[Control] = []
+var _hover := ""
+var _hint: PanelContainer
+var _press_at := Vector2.ZERO
 ## The night report on show in the side panel, or -1.
 var selected_report := -1
 
@@ -171,6 +174,12 @@ func _ready() -> void:
 	_mini.draw.connect(_draw_mini)
 	_mini.gui_input.connect(_on_mini_input)
 	add_child(_mini)
+	# A short hint in the bottom-left corner.
+	_hint = PanelContainer.new()
+	_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_hint.add_theme_stylebox_override("panel", UiStyle.box(Color(0.06, 0.05, 0.09, 0.8), Color("4a3f5c")))
+	_hint.add_child(UiStyle.label(tr("DISTRICT_HINT"), 13, Color("cfc3dc")))
+	add_child(_hint)
 	resized.connect(_place_controls)
 	_place_controls()
 
@@ -207,6 +216,8 @@ func _place_controls() -> void:
 	_arrows["u"].position = Vector2(size.x * 0.5 - 20, 10)
 	_arrows["d"].position = Vector2(size.x * 0.5 - 20, size.y - 50)
 	_mini.position = Vector2(size.x - 192, 12)
+	_hint.reset_size()
+	_hint.position = Vector2(10, size.y - _hint.size.y - 10)
 	# The real size is only known now: centre on the chosen place again.
 	if selected != "":
 		select(selected, cam == Vector2.ZERO)
@@ -261,14 +272,58 @@ func _process(delta: float) -> void:
 			r.queue_redraw()
 
 
+## What is under the mouse: a report sign ("report", index; the moon is -1),
+## a place's sign or building ("place", id), or nothing ([]).
+func _hit(global: Vector2, local: Vector2) -> Array:
+	for sign in _reports:
+		if sign.get_global_rect().grow(4).has_point(global):
+			return ["report", int(sign.get_meta("report"))]
+	for id: String in _pins:
+		if (_pins[id] as Control).get_global_rect().grow(3).has_point(global):
+			return ["place", id]
+	# A click on a building: the smallest place whose area holds the point.
+	var at := cam + local / px
+	var best := ""
+	var best_area := INF
+	for id: String in PLACES:
+		var r: Rect2 = PLACES[id]["view"]
+		if r.has_point(at) and r.get_area() < best_area:
+			best = id
+			best_area = r.get_area()
+	return ["place", best] if best != "" else []
+
+
 func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion and not _drag:
+		var hit := _hit(event.global_position, event.position)
+		var over: String = hit[1] if not hit.is_empty() and hit[0] == "place" else ""
+		if over != _hover:
+			_hover = over
+			_ring.queue_redraw()
+		mouse_default_cursor_shape = Control.CURSOR_ARROW if hit.is_empty() else Control.CURSOR_POINTING_HAND
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		_drag = event.pressed
 		if event.pressed:
 			_dragged = false
-	elif event is InputEventMouseMotion and _drag:
-		if event.relative.length() > 0.5:
+			_press_at = event.position
+		elif not _dragged:
+			# A press and release without dragging is a click.
+			var hit := _hit(event.global_position, event.position)
+			if hit.is_empty():
+				return
+			if hit[0] == "place":
+				place_chosen.emit(hit[1])
+			elif hit[1] < 0:
+				moon_chosen.emit()
+			else:
+				report_chosen.emit(hit[1])
+		return
+	if event is InputEventMouseMotion and _drag:
+		# A few pixels of wobble while clicking is still a click.
+		if event.position.distance_to(_press_at) > 6.0:
 			_dragged = true
+		if not _dragged:
+			return
 		cam = _clamp_cam(cam - event.relative / px)
 		_cam_to = cam
 
@@ -288,15 +343,12 @@ func show_reports() -> void:
 	_reports.clear()
 	var moon := Control.new()
 	moon.size = Vector2(40, 40)
-	moon.mouse_filter = Control.MOUSE_FILTER_STOP
-	moon.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	moon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	moon.set_meta("report", -1)
 	var home: Vector2 = PLACES["LIVING_ROOM"]["pos"] * px
 	moon.set_meta("at", Vector2(home.x - 90, home.y - 40))
 	moon.position = moon.get_meta("at")
 	moon.draw.connect(func() -> void: draw_moon(moon, moon.size * 0.5, 15.0, Profile.nights_to_moon(), _t))
-	moon.gui_input.connect(func(e: InputEvent) -> void:
-		if e is InputEventMouseButton and not e.pressed and e.button_index == MOUSE_BUTTON_LEFT and not _dragged:
-			moon_chosen.emit())
 	_pins_layer.add_child(moon)
 	_reports.append(moon)
 	for i in Profile.reports.size():
@@ -305,15 +357,12 @@ func show_reports() -> void:
 			continue
 		var sign := Control.new()
 		sign.size = Vector2(34, 34)
-		sign.mouse_filter = Control.MOUSE_FILTER_STOP
-		sign.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		sign.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		sign.set_meta("report", i)
 		var p: Vector2 = PLACES[rep["stage"]]["pos"] * px
 		sign.set_meta("at", Vector2(p.x + 34, p.y - 30))
 		sign.position = sign.get_meta("at")
 		sign.draw.connect(_draw_report.bind(sign, i))
-		sign.gui_input.connect(func(e: InputEvent) -> void:
-			if e is InputEventMouseButton and not e.pressed and e.button_index == MOUSE_BUTTON_LEFT and not _dragged:
-				report_chosen.emit(i))
 		_pins_layer.add_child(sign)
 		_reports.append(sign)
 
@@ -352,8 +401,7 @@ func _draw_report(sign: Control, i: int) -> void:
 
 func _add_pin(id: String) -> void:
 	var pin := PanelContainer.new()
-	pin.mouse_filter = Control.MOUSE_FILTER_STOP
-	pin.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	pin.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var box := VBoxContainer.new()
 	box.add_theme_constant_override("separation", -2)
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -410,8 +458,15 @@ func _style_pin(id: String) -> void:
 
 
 func _draw_ring() -> void:
+	# The place under the mouse: its area outlined in gold.
+	if _hover != "" and _hover != selected:
+		var hr: Rect2 = PLACES[_hover]["view"]
+		_ring.draw_rect(Rect2(hr.position * px, hr.size * px), Color(UiStyle.GOLD, 0.12))
+		_ring.draw_rect(Rect2(hr.position * px, hr.size * px), Color(UiStyle.GOLD, 0.8), false, 2.0)
 	if selected == "":
 		return
+	var sr: Rect2 = PLACES[selected]["view"]
+	_ring.draw_rect(Rect2(sr.position * px, sr.size * px), Color(UiStyle.GOLD, 0.35 + 0.15 * sin(_t * 3.0)), false, 2.0)
 	var p: Vector2 = PLACES[selected]["pos"] * px + Vector2(0, 60)
 	var k := fmod(_t, 1.4) / 1.4
 	_ring.draw_arc(p, 20.0 + k * 26.0, 0, TAU, 40, Color(UiStyle.GOLD, 1.0 - k), 3.0)

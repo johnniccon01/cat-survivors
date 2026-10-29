@@ -129,9 +129,8 @@ static func draw(ci: CanvasItem, lk: Dictionary, facing: int, walk_t: float,
 const MOOD_ROW := {"normal": 0, "angry": 1, "sad": 2}
 ## Sheet row with the eyes closed (blinking).
 const BLINK_ROW := 4
-## Living cats breathe, flick their tails, blink and lean into their steps.
+## Standing cats breathe, flick their tails and blink.
 const BREATH := 0.035
-const LEAN := 0.07
 ## Seconds between blinks (plus a per-cat offset) and how long one lasts.
 const BLINK_EVERY := 3.4
 const BLINK_TIME := 0.14
@@ -146,9 +145,8 @@ static func _life(walk_t: float, moving: bool, seed: int) -> Dictionary:
 	var lean := 0.0
 	var col := 1
 	if moving:
-		# A little stretch as the paws push off, squash as they land.
-		squash = sin(walk_t * PI / 1.6) * 0.045
-		lean = LEAN + sin(walk_t * PI / 3.2) * 0.02
+		# Walking is the sheet's own frames only: no stretch or lean, which
+		# smeared the pixels while the cat moved.
 		col = floori(walk_t / 1.6) % 4
 	else:
 		squash = sin(t * 2.4) * BREATH

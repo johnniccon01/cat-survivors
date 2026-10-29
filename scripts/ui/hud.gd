@@ -22,6 +22,7 @@ var _kills_label: Label
 var _gold_label: Label
 var _bless_label: Label
 var _debug_label: Label
+var _pause_resume: Button
 var _pause_overlay: Control
 var _give_up: Button
 var _discard: Button
@@ -136,15 +137,19 @@ func _ready() -> void:
 			resume.grab_focus())
 	_discard = UiStyle.button("PAUSE_DISCARD", 340)
 	_discard.pressed.connect(func() -> void: discard_pressed.emit())
-	for i in 4:
-		var b: Button = [resume, open_settings, _discard, give_up][i]
-		b.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-		pause_box.add_child(b)
-		pause_box.move_child(b, 1 + i)
-	_pause_language = _pause_overlay.get_node("Box").get_child(6)
-	_pause_sound = _pause_overlay.get_node("Box").get_child(7)
-	_pause_numbers = _pause_overlay.get_node("Box").get_child(8)
-	_pause_shake = _pause_overlay.get_node("Box").get_child(9)
+	# The buttons in a column of their own: all as wide as the widest.
+	var pause_buttons := VBoxContainer.new()
+	pause_buttons.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	pause_buttons.add_theme_constant_override("separation", 10)
+	for b: Button in [resume, open_settings, _discard, give_up]:
+		pause_buttons.add_child(b)
+	pause_box.add_child(pause_buttons)
+	pause_box.move_child(pause_buttons, 1)
+	_pause_resume = resume
+	_pause_language = _pause_overlay.get_node("Box").get_child(3)
+	_pause_sound = _pause_overlay.get_node("Box").get_child(4)
+	_pause_numbers = _pause_overlay.get_node("Box").get_child(5)
+	_pause_shake = _pause_overlay.get_node("Box").get_child(6)
 	for line: Label in [_pause_language, _pause_sound, _pause_numbers, _pause_shake]:
 		line.label_settings.font_size = 16
 		line.label_settings.font_color = UiStyle.MUTED
@@ -465,7 +470,7 @@ func show_pause(on: bool) -> void:
 		_pause_log.text = log_text
 	_pause_overlay.visible = on
 	if on:
-		(_pause_overlay.get_node("Box").get_child(1) as Button).grab_focus.call_deferred()
+		_pause_resume.grab_focus.call_deferred()
 
 
 ## Shrine bonuses still running (what each gave, and for how long), as

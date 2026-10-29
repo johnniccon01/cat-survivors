@@ -37,6 +37,8 @@ const PLACES := {
 	"ISLAND": {"pos": Vector2(622, 190), "view": Rect2(570, 166, 104, 76), "future": true},
 	"STATION": {"pos": Vector2(140, 276), "view": Rect2(56, 250, 170, 50), "future": true},
 }
+## Paths from the open maps on to the future ones (still in fog).
+const FUTURE_LINKS := [["ROOFTOP", "PARK"], ["PARK", "CEMETERY"], ["HARBOR", "ISLAND"], ["SUPERMARKET", "STATION"]]
 ## Fog over each place until it opens.
 const FOG := {
 	"FACTORY": Rect2(318, 0, 126, 110), "PARK": Rect2(446, 0, 146, 118), "CEMETERY": Rect2(600, 0, 120, 118),
@@ -174,7 +176,7 @@ func _ready() -> void:
 	_mini.draw.connect(_draw_mini)
 	_mini.gui_input.connect(_on_mini_input)
 	add_child(_mini)
-	# A short hint in the bottom-left corner.
+	# A short hint in the bottom-right corner.
 	_hint = PanelContainer.new()
 	_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_hint.add_theme_stylebox_override("panel", UiStyle.box(Color(0.06, 0.05, 0.09, 0.8), Color("4a3f5c")))
@@ -217,7 +219,7 @@ func _place_controls() -> void:
 	_arrows["d"].position = Vector2(size.x * 0.5 - 20, size.y - 50)
 	_mini.position = Vector2(size.x - 192, 12)
 	_hint.reset_size()
-	_hint.position = Vector2(10, size.y - _hint.size.y - 10)
+	_hint.position = Vector2(size.x - _hint.size.x - 10, size.y - _hint.size.y - 10)
 	# The real size is only known now: centre on the chosen place again.
 	if selected != "":
 		select(selected, cam == Vector2.ZERO)
@@ -430,7 +432,8 @@ func _style_pin(id: String) -> void:
 	var state := place_state(id)
 	var title: Label = pin.find_child("Name", true, false)
 	var stars: Label = pin.find_child("Stars", true, false)
-	title.text = place_name(id)
+	var order := stage_order().find(id)
+	title.text = place_name(id) if order < 0 else "%d · %s" % [order + 1, place_name(id)]
 	var edge: Color = {"yours": Color("3f9a78"), "boss": Color("9a4a3a"), "locked": Color("55505e")}[state]
 	title.label_settings.font_color = {"yours": Color("bff0dc"), "boss": Color("ffd0c4"), "locked": Color("c9c2d4")}[state]
 	if state == "locked":
@@ -458,6 +461,7 @@ func _style_pin(id: String) -> void:
 
 
 func _draw_ring() -> void:
+	_draw_paths()
 	# The place under the mouse: its area outlined in gold.
 	if _hover != "" and _hover != selected:
 		var hr: Rect2 = PLACES[_hover]["view"]
@@ -467,6 +471,7 @@ func _draw_ring() -> void:
 		return
 	var sr: Rect2 = PLACES[selected]["view"]
 	_ring.draw_rect(Rect2(sr.position * px, sr.size * px), Color(UiStyle.GOLD, 0.35 + 0.15 * sin(_t * 3.0)), false, 2.0)
+	_draw_next()
 	var p: Vector2 = PLACES[selected]["pos"] * px + Vector2(0, 60)
 	var k := fmod(_t, 1.4) / 1.4
 	_ring.draw_arc(p, 20.0 + k * 26.0, 0, TAU, 40, Color(UiStyle.GOLD, 1.0 - k), 3.0)
@@ -480,6 +485,91 @@ func _draw_ring() -> void:
 		var wave := sin(_t * 5.0 + q.x) * 1.5
 		var col := Color("3fbf8a") if state == "yours" else Color("d24a3a")
 		_ring.draw_colored_polygon(PackedVector2Array([q + Vector2(2, 0), q + Vector2(15, wave), q + Vector2(11, 4.5), q + Vector2(15, 9 + wave), q + Vector2(2, 9)]), col)
+
+
+## The maps in the order they open (each one "requires" the one before).
+static func stage_order() -> Array[String]:
+	var order: Array[String] = []
+	var left: Array = GameData.stages.keys()
+	while not left.is_empty():
+		var added := false
+		for id: String in left.duplicate():
+			var req: String = GameData.stages[id].get("requires", "")
+			if req == "" or req in order:
+				order.append(id)
+				left.erase(id)
+				added = true
+		if not added:
+			order.append_array(left)
+			break
+	return order
+
+
+## The map to play next: the first open one you have not won yet.
+static func next_place() -> String:
+	for id in stage_order():
+		if Profile.is_stage_unlocked(id) and id not in Profile.cleared_stages:
+			return id
+	return ""
+
+
+## Where a path meets a place: just under its sign.
+func _path_end(id: String) -> Vector2:
+	return PLACES[id]["pos"] * px + Vector2(0, 46)
+
+
+## A dotted path from `a` to `b` along a gentle curve. `march` makes the dots
+## walk towards `b`.
+func _draw_path(a: Vector2, b: Vector2, col: Color, march: bool, size: float = 2.6) -> void:
+	var mid := (a + b) * 0.5 + (b - a).orthogonal().normalized() * minf(a.distance_to(b) * 0.12, 40.0)
+	var length := a.distance_to(mid) + mid.distance_to(b)
+	var step := 11.0
+	var phase := fmod(_t * 18.0, step) if march else 0.0
+	var d := phase
+	while d < length:
+		var k := d / length
+		var p := a.lerp(mid, k).lerp(mid.lerp(b, k), k)
+		_ring.draw_circle(p, size + 1.2, Color(OUTLINE, col.a))
+		_ring.draw_circle(p, size, col)
+		d += step
+
+
+## The ways between the places: gold where you have been, marching dots to
+## the next map, grey to locked ones, faint purple to the maps to come.
+func _draw_paths() -> void:
+	for link: Array in FUTURE_LINKS:
+		_draw_path(_path_end(link[0]), _path_end(link[1]), Color(0.7, 0.6, 0.9, 0.45), false, 2.0)
+	for id in stage_order():
+		var req: String = GameData.stages[id].get("requires", "")
+		if req == "" or not PLACES.has(req) or not PLACES.has(id):
+			continue
+		var col := Color(0.55, 0.52, 0.6, 0.6)
+		var march := false
+		if id in Profile.cleared_stages:
+			col = Color(UiStyle.GOLD, 0.95)
+		elif Profile.is_stage_unlocked(id):
+			col = Color("fff0b0")
+			march = true
+		_draw_path(_path_end(req), _path_end(id), col, march)
+
+
+## A bouncing "next" arrow over the map to play next.
+func _draw_next() -> void:
+	var id := next_place()
+	if id == "" or not _pins.has(id):
+		return
+	var pin: Control = _pins[id]
+	var tip := Vector2(pin.position.x + pin.size.x * 0.5, pin.position.y - 6.0 - absf(sin(_t * 4.0)) * 6.0)
+	var tri := PackedVector2Array([tip, tip + Vector2(-9, -12), tip + Vector2(9, -12)])
+	_ring.draw_colored_polygon(PackedVector2Array([tri[0] + Vector2(0, 2), tri[1] + Vector2(-2, -1), tri[2] + Vector2(2, -1)]), OUTLINE)
+	_ring.draw_colored_polygon(tri, UiStyle.GOLD)
+	var font := ThemeDB.fallback_font
+	var text := tr("DISTRICT_NEXT")
+	var w := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, 13).x
+	var box := Rect2(tip + Vector2(-w * 0.5 - 6, -32), Vector2(w + 12, 18))
+	_ring.draw_rect(box, Color(OUTLINE, 0.9))
+	_ring.draw_rect(box, UiStyle.GOLD, false, 1.5)
+	_ring.draw_string(font, box.position + Vector2(6, 14), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, UiStyle.GOLD)
 
 
 ## "yours" (won there), "boss" (open but not won yet) or "locked".

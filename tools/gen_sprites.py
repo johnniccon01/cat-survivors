@@ -59,16 +59,22 @@ class Canvas:
     def __init__(self, w, h):
         self.w, self.h = w, h
         self.m = [None] * (w * h)
+        # Which body part each pixel belongs to (cats only); `cur` is the
+        # part being drawn now. Markings painted with `only=` keep the part.
+        self.p = [None] * (w * h)
+        self.cur = None
 
     def get(self, x, y):
         if 0 <= x < self.w and 0 <= y < self.h:
             return self.m[y * self.w + x]
         return None
 
-    def set(self, x, y, mat):
+    def set(self, x, y, mat, keep_part=False):
         x, y = int(round(x)), int(round(y))
         if 0 <= x < self.w and 0 <= y < self.h:
             self.m[y * self.w + x] = mat
+            if not keep_part:
+                self.p[y * self.w + x] = self.cur
 
     def ellipse(self, cx, cy, rx, ry, mat, only=None, jag=0.0):
         for y in range(int(cy - ry - 2), int(cy + ry + 3)):
@@ -80,13 +86,13 @@ class Canvas:
                     r += jag * (0.5 + 0.5 * math.sin(a * 9.0))
                 if dx * dx + dy * dy <= r * r:
                     if only is None or self.get(x, y) in only:
-                        self.set(x, y, mat)
+                        self.set(x, y, mat, only is not None)
 
     def rect(self, x0, y0, w, h, mat, only=None):
         for y in range(int(y0), int(y0 + h)):
             for x in range(int(x0), int(x0 + w)):
                 if only is None or self.get(x, y) in only:
-                    self.set(x, y, mat)
+                    self.set(x, y, mat, only is not None)
 
     def poly(self, pts, mat, only=None):
         ys = [p[1] for p in pts]
@@ -101,7 +107,7 @@ class Canvas:
             for i in range(0, len(xs) - 1, 2):
                 for x in range(int(math.ceil(xs[i] - 0.5)), int(math.floor(xs[i + 1] - 0.5)) + 1):
                     if only is None or self.get(x, y) in only:
-                        self.set(x, y, mat)
+                        self.set(x, y, mat, only is not None)
 
     def thick_line(self, pts, radius, mat):
         for i in range(len(pts) - 1):
@@ -110,6 +116,81 @@ class Canvas:
             for s in range(steps + 1):
                 t = s / steps
                 self.ellipse(x1 + (x2 - x1) * t, y1 + (y2 - y1) * t, radius, radius, mat)
+
+    def render_parts(self, palette, flash=False):
+        """Cats: light from the top left on every body part separately, so the
+        head, body, legs and tail look round; a part tucked behind another
+        (body under the head) gets its shadow; outlines take the colour of
+        what they wrap and are lighter on the lit side."""
+        w, h = self.w, self.h
+        flat = ("eye", "pupil", "glint", "nose", "ink", "tear", "eyelow", "blush")
+        rank = {"tail": 0, "leg_far": 1, "body": 2, "leg": 3, "head": 4}
+        def part(x, y):
+            if 0 <= x < w and 0 <= y < h and self.m[y * w + x] is not None:
+                return self.p[y * w + x]
+            return "none"
+        px = [(0, 0, 0, 0)] * (w * h)
+        for y in range(h):
+            for x in range(w):
+                mat = self.m[y * w + x]
+                if mat is None:
+                    continue
+                if flash:
+                    px[y * w + x] = (255, 255, 255, 255)
+                    continue
+                c = palette[mat]
+                me = self.p[y * w + x]
+                if mat not in flat and me in rank:
+                    # Count this part's pixels straight above and below: the
+                    # top rows catch the light, the bottom rows sit in shade.
+                    up = 0
+                    while up < 3 and part(x, y - up - 1) == me:
+                        up += 1
+                    down = 0
+                    while down < 3 and part(x, y + down + 1) == me:
+                        down += 1
+                    k = 0.0
+                    if up == 0:
+                        k = 0.3
+                    elif up == 1:
+                        k = 0.13
+                    if down == 0:
+                        k = -0.34
+                    elif down == 1 and up > 1:
+                        k = -0.17
+                    if part(x - 1, y) != me and up > 0 and down > 0:
+                        k += 0.08
+                    if part(x + 1, y) != me and up > 0 and down > 0:
+                        k -= 0.12
+                    above = part(x, y - 1)
+                    if above not in ("none", me) and rank.get(above, 0) > rank[me]:
+                        k = -0.38
+                    elif part(x, y - 2) not in ("none", me) and rank.get(part(x, y - 2), 0) > rank[me]:
+                        k = min(k, -0.18)
+                    if k:
+                        c = shade(c, k)
+                px[y * w + x] = c
+        out = list(px)
+        for y in range(h):
+            for x in range(w):
+                if px[y * w + x][3] != 0:
+                    continue
+                for dx, dy in ((0, 1), (1, 0), (-1, 0), (0, -1)):
+                    xx, yy = x + dx, y + dy
+                    if 0 <= xx < w and 0 <= yy < h and px[yy * w + xx][3] != 0:
+                        if flash:
+                            out[y * w + x] = (255, 255, 255, 255)
+                            break
+                        n = px[yy * w + xx]
+                        dark = shade(n, -0.7)
+                        if dy == 1 or dx == 1:
+                            # Lit side (the shape is below or right of us):
+                            # a dark shade of the fur, not plain black.
+                            out[y * w + x] = tuple((a * 2 + b) // 3 for a, b in zip(dark, OUTLINE))[:3] + (255,)
+                        else:
+                            out[y * w + x] = tuple((a + b * 2) // 3 for a, b in zip(dark, OUTLINE))[:3] + (255,)
+                        break
+        return out
 
     def render(self, palette, outline=True, flash=False, translucent=()):
         """Materials -> RGBA with shading and outline."""
@@ -196,6 +277,7 @@ def cat_frame(look, frame, mood="normal", dead=False, scale=1.0):
     bob = 1 if frame in (1, 3) else 0
 
     # Tail (sways with the walk)
+    c.cur = "tail"
     sway = [0, 1, 0, -1][frame]
     tail = [P(9, 19 - bob), P(5, 16 - bob), P(4 + sway, 10), P(6 + sway, 6), P(8 + sway, 5)]
     c.thick_line(tail, (2.0 if fluffy else 1.4) * s, "tailtip" if points else "fur")
@@ -204,6 +286,8 @@ def cat_frame(look, frame, mood="normal", dead=False, scale=1.0):
     lifts = [(0, 2), (1, 1), (2, 0), (1, 1)][frame]
     swing = [(-1, 1), (0, 0), (1, -1), (0, 0)][frame]
     for i, (lx, pair) in enumerate([(10, 0), (13, 1), (21, 1), (24, 0)]):
+        # Far-side legs sit behind the body, near-side ones in front.
+        c.cur = "leg_far" if lx in (13, 24) else "leg"
         lift = lifts[pair]
         dx = swing[pair]
         x, y = P(lx + dx, 21 - lift)
@@ -211,6 +295,7 @@ def cat_frame(look, frame, mood="normal", dead=False, scale=1.0):
         c.ellipse(x + 1.3 * s, y + (5.6 - lift) * s, 1.7 * s, 1.0 * s + 0.4, "paw")
 
     # Body
+    c.cur = "body"
     bx, by = P(16, 18 - bob)
     c.ellipse(bx, by, 9.5 * s, 5.2 * s, "fur", jag=0.08 if fluffy else 0.0)
     c.ellipse(bx + 1 * s, by + 2.6 * s, 6 * s, 2.2 * s, "belly", only=("fur",))
@@ -218,9 +303,10 @@ def cat_frame(look, frame, mood="normal", dead=False, scale=1.0):
     cx_, cy_ = P(23, 17 - bob)
     c.ellipse(cx_, cy_, 3.4 * s, 3.6 * s, "belly", jag=0.1 if fluffy else 0.0)
 
-    # Head
+    # Head (a touch bigger than the old one: cuter, and room for the eyes)
+    c.cur = "head"
     hx, hy = P(25, 11 - bob)
-    hr = 6.4 * s
+    hr = 6.9 * s
     # Ears (behind the head outline)
     ear_l = [P(19.5, 8 - bob), P(20.5, 1.5 - bob), P(24, 6 - bob)]
     ear_r = [P(25.5, 6 - bob), P(29.5, 1.5 - bob), P(30.5, 8.5 - bob)]
@@ -247,13 +333,15 @@ def cat_frame(look, frame, mood="normal", dead=False, scale=1.0):
     if look.get("stripes"):
         for y in range(H):
             for x in range(W):
-                if c.get(x, y) == "fur" and y < by and (x + y // 2) % 4 == 0:
-                    c.set(x, y, "dark")
+                # Bands across the back and tail only; the head keeps its "M".
+                part = c.p[y * W + x]
+                if c.get(x, y) == "fur" and part in ("body", "tail") and y < by + 1 and int(x + y * 0.6) % 5 < 2:
+                    c.set(x, y, "dark", True)
         # Forehead "M"
         for dx in (-1.5, 0.5, 2.5):
             fx, fy = P(25 + dx, 6.5 - bob)
-            c.set(fx, fy, "dark")
-            c.set(fx, fy + 1, "dark")
+            c.set(fx, fy, "dark", True)
+            c.set(fx, fy + 1, "dark", True)
     if look.get("patches"):
         c.ellipse(*P(13, 15 - bob), 3.2 * s, 2.6 * s, "dark", only=("fur",))
         c.ellipse(*P(19, 14 - bob), 2.2 * s, 2 * s, "patch2", only=("fur",))
@@ -275,22 +363,25 @@ def cat_frame(look, frame, mood="normal", dead=False, scale=1.0):
             c.set(x if ex < 25 else x + 1, y - 1, "ink")
             continue
         if mood == "blink":
-            # Closed eyes: a short dark lid line.
-            c.set(x, y + 1, "ink"); c.set(x + 1, y + 1, "ink")
+            # Closed eyes: a happy curved lid line.
+            c.set(x, y + 1, "ink"); c.set(x + 1, y + 1, "ink"); c.set(x - 1 if ex < 25 else x + 2, y, "ink")
+            c.set(x - 1 if ex < 25 else x + 2, y + 3, "blush")
             continue
+        # Tall eyes: a glint on top, the pupil to the front, darker iris below.
         c.set(x, y, "glint"); c.set(x + 1, y, "eye")
         c.set(x, y + 1, "eye"); c.set(x + 1, y + 1, "pupil")
+        c.set(x, y + 2, "eyelow"); c.set(x + 1, y + 2, "pupil")
         if s > 1.1:
             c.set(x + 1, y - 1, "eye"); c.set(x, y - 1, "eye")
+        # A rosy cheek under each eye.
+        c.set(x - 1 if ex < 25 else x + 2, y + 3, "blush")
         if sad and ex > 25:
-            c.set(x + 1, y + 2, "tear")
+            c.set(x + 1, y + 3, "tear")
     # Nose and mouth
     nx, ny = P(29.2, 12.6 - bob)
     c.set(nx, ny, "nose")
     c.set(nx + 1, ny, "nose")
     c.set(nx, ny + 1.4, "ink")
-    # Whiskers hint
-    c.set(*P(31.5, 13.5 - bob), "ink")
     return c
 
 
@@ -303,6 +394,8 @@ def cat_palette(look):
         "ear": dark, "tailtip": dark, "leg": dark,
         "paw": shade(hexc(look["belly"]), 0.1) if not look.get("points") else shade(dark, -0.2),
         "inner": hexc("#f3a9b8"), "eye": hexc(look["eyes"]), "pupil": hexc("#1a1210"),
+        "eyelow": shade(hexc(look["eyes"]), -0.35),
+        "blush": tuple((a * 3 + b * 2) // 5 for a, b in zip(hexc(look["belly"])[:3], (240, 120, 140))) + (255,),
         "glint": (255, 255, 255, 255), "nose": hexc("#f08aa0"), "ink": OUTLINE,
         "tear": hexc("#8fd3ff"), "patch2": hexc("#3a2a22"),
     }
@@ -314,14 +407,14 @@ def build_cat(cat_id, data):
     pal = cat_palette(look)
     rows = []
     for mood in ("normal", "angry", "sad"):
-        rows.append([cat_frame(look, f, mood, scale=scale).render(pal) for f in range(4)])
+        rows.append([cat_frame(look, f, mood, scale=scale).render_parts(pal) for f in range(4)])
     dead_canvas = cat_frame(look, 0, "normal", dead=True, scale=scale)
     dw, dh = dead_canvas.w, dead_canvas.h
-    dead = rotate_cw(dead_canvas.render(pal), dw, dh)
+    dead = rotate_cw(dead_canvas.render_parts(pal), dw, dh)
     rows[0].append(dead)
-    rows.append([cat_frame(look, f, "normal", scale=scale).render(pal, flash=True) for f in range(4)])
+    rows.append([cat_frame(look, f, "normal", scale=scale).render_parts(pal, flash=True) for f in range(4)])
     # Row 4: eyes closed, for blinking.
-    rows.append([cat_frame(look, f, "blink", scale=scale).render(pal) for f in range(4)])
+    rows.append([cat_frame(look, f, "blink", scale=scale).render_parts(pal) for f in range(4)])
     cw, ch = dead_canvas.w, dead_canvas.h
     w, h, img = sheet(rows, cw, ch)
     write_png(os.path.join(OUT, "cat_%s.png" % cat_id.lower()), w, h, img)

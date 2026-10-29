@@ -16,8 +16,9 @@ const REPORT_LOOK := {"defend": ["!", Color("c0392b")], "hunt": ["★", Color("d
 
 const WW := 720
 const WH := 300
-## One world pixel is this many screen pixels.
-const PX := 2.0
+## One town pixel is at least this many screen pixels; a taller or wider map
+## area zooms in further so the town always fills it.
+const MIN_PX := 2.0
 const SEA_B := 252.0
 const OUTLINE := Color("2b1d14")
 
@@ -55,10 +56,11 @@ static var _candles: Array[Vector2] = []
 static var _lit: Array = []
 
 var selected := ""
+## Screen pixels per town pixel right now (see MIN_PX).
+var px := MIN_PX
 var cam := Vector2.ZERO
 var _cam_to := Vector2.ZERO
 var _t := 0.0
-var _redraw_t := 0.0
 var _world: Control
 var _pins_layer: Control
 var _anim: Control
@@ -111,7 +113,7 @@ func _ready() -> void:
 
 	_world = Control.new()
 	_world.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_world.scale = Vector2(PX, PX)
+	_world.scale = Vector2(px, px)
 	_world.size = Vector2(WW, WH)
 	add_child(_world)
 	var base := TextureRect.new()
@@ -183,7 +185,7 @@ func _layer(fn: Callable) -> Control:
 
 
 func view_size() -> Vector2:
-	return size / PX
+	return size / px
 
 
 func _clamp_cam(c: Vector2) -> Vector2:
@@ -192,6 +194,14 @@ func _clamp_cam(c: Vector2) -> Vector2:
 
 
 func _place_controls() -> void:
+	var fill := maxf(MIN_PX, ceilf(maxf(size.y / WH, size.x / WW)))
+	if fill != px and size.x > 0.0:
+		px = fill
+		_world.scale = Vector2(px, px)
+		for id: String in _pins:
+			_style_pin(id)
+		if not _reports.is_empty():
+			show_reports()
 	_arrows["l"].position = Vector2(10, size.y * 0.5 - 20)
 	_arrows["r"].position = Vector2(size.x - 50, size.y * 0.5 - 20)
 	_arrows["u"].position = Vector2(size.x * 0.5 - 20, 10)
@@ -230,21 +240,19 @@ func _process(delta: float) -> void:
 	_t += delta
 	if not _drag:
 		cam = cam.lerp(_cam_to, minf(1.0, delta * 7.0))
-	var c := cam.round()
-	_world.position = -c * PX
-	_pins_layer.position = -c * PX
+	# Snap to whole screen pixels, not whole town pixels: a smooth glide.
+	_world.position = (-cam * px).round()
+	_pins_layer.position = _world.position
 	_arrows["l"].visible = _cam_to.x > 1.0
 	_arrows["r"].visible = _cam_to.x < WW - view_size().x - 1.0
 	_arrows["u"].visible = _cam_to.y > 1.0
 	_arrows["d"].visible = _cam_to.y < WH - view_size().y - 1.0
-	_redraw_t -= delta
-	if _redraw_t <= 0.0:
-		_redraw_t = 1.0 / 15.0
-		_anim.queue_redraw()
-		_windows.queue_redraw()
-		_lights.queue_redraw()
-		_fx.queue_redraw()
-		_ring.queue_redraw()
+	# Everything that moves is redrawn every frame, so nothing stutters.
+	_anim.queue_redraw()
+	_windows.queue_redraw()
+	_lights.queue_redraw()
+	_fx.queue_redraw()
+	_ring.queue_redraw()
 	_mini.queue_redraw()
 	for i in _reports.size():
 		var r: Control = _reports[i]
@@ -261,7 +269,7 @@ func _gui_input(event: InputEvent) -> void:
 	elif event is InputEventMouseMotion and _drag:
 		if event.relative.length() > 0.5:
 			_dragged = true
-		cam = _clamp_cam(cam - event.relative / PX)
+		cam = _clamp_cam(cam - event.relative / px)
 		_cam_to = cam
 
 
@@ -282,7 +290,7 @@ func show_reports() -> void:
 	moon.size = Vector2(40, 40)
 	moon.mouse_filter = Control.MOUSE_FILTER_STOP
 	moon.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	var home: Vector2 = PLACES["LIVING_ROOM"]["pos"] * PX
+	var home: Vector2 = PLACES["LIVING_ROOM"]["pos"] * px
 	moon.set_meta("at", Vector2(home.x - 90, home.y - 40))
 	moon.position = moon.get_meta("at")
 	moon.draw.connect(func() -> void: draw_moon(moon, moon.size * 0.5, 15.0, Profile.nights_to_moon(), _t))
@@ -299,7 +307,7 @@ func show_reports() -> void:
 		sign.size = Vector2(34, 34)
 		sign.mouse_filter = Control.MOUSE_FILTER_STOP
 		sign.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		var p: Vector2 = PLACES[rep["stage"]]["pos"] * PX
+		var p: Vector2 = PLACES[rep["stage"]]["pos"] * px
 		sign.set_meta("at", Vector2(p.x + 34, p.y - 30))
 		sign.position = sign.get_meta("at")
 		sign.draw.connect(_draw_report.bind(sign, i))
@@ -311,7 +319,7 @@ func show_reports() -> void:
 
 
 ## A moon `nights` nights from full (0 = full, glowing), on any canvas item.
-static func draw_moon(ci: CanvasItem, c: Vector2, r: float, nights: int, t: float) -> void:
+static func draw_moon(ci: CanvasItem, c: Vector2, r: float, nights: int, t: float, number: bool = true) -> void:
 	if nights == 0:
 		ci.draw_circle(c, r + 6.0 + sin(t * 3.0) * 2.0, Color(1, 0.9, 0.5, 0.35))
 	ci.draw_circle(c + Vector2(0, 3), r + 1.0, Color(0, 0, 0, 0.45))
@@ -323,7 +331,8 @@ static func draw_moon(ci: CanvasItem, c: Vector2, r: float, nights: int, t: floa
 		# The dark part shrinks as the full moon nears.
 		var k := float(nights) / float(Profile.MOON_CYCLE - 1)
 		ci.draw_circle(c + Vector2(r * (2.0 - 1.4 * k), 0), r * 0.98, Color("2a2238"))
-		ci.draw_string(ThemeDB.fallback_font, c + Vector2(-r, r + 15), str(nights), HORIZONTAL_ALIGNMENT_CENTER, r * 2.0, 14, Color("f4ecd4"))
+		if number:
+			ci.draw_string(ThemeDB.fallback_font, c + Vector2(-r, r + 15), str(nights), HORIZONTAL_ALIGNMENT_CENTER, r * 2.0, 14, Color("f4ecd4"))
 
 
 func _draw_report(sign: Control, i: int) -> void:
@@ -396,14 +405,14 @@ func _style_pin(id: String) -> void:
 		sb.shadow_size = 8
 	pin.add_theme_stylebox_override("panel", sb)
 	pin.reset_size()
-	var p: Vector2 = PLACES[id]["pos"] * PX
+	var p: Vector2 = PLACES[id]["pos"] * px
 	pin.position = Vector2(p.x - pin.size.x * 0.5, p.y + 38 - pin.size.y - 14)
 
 
 func _draw_ring() -> void:
 	if selected == "":
 		return
-	var p: Vector2 = PLACES[selected]["pos"] * PX + Vector2(0, 60)
+	var p: Vector2 = PLACES[selected]["pos"] * px + Vector2(0, 60)
 	var k := fmod(_t, 1.4) / 1.4
 	_ring.draw_arc(p, 20.0 + k * 26.0, 0, TAU, 40, Color(UiStyle.GOLD, 1.0 - k), 3.0)
 	# A little flag pole under the sign, in the owner's colour.
@@ -411,7 +420,7 @@ func _draw_ring() -> void:
 		var state := place_state(id)
 		if state == "locked":
 			continue
-		var q: Vector2 = PLACES[id]["pos"] * PX + Vector2(0, 24)
+		var q: Vector2 = PLACES[id]["pos"] * px + Vector2(0, 24)
 		_ring.draw_rect(Rect2(q, Vector2(2, 14)), Color("2a1c10"))
 		var wave := sin(_t * 5.0 + q.x) * 1.5
 		var col := Color("3fbf8a") if state == "yours" else Color("d24a3a")

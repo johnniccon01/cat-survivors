@@ -45,6 +45,9 @@ var _report_box: PanelContainer
 var _report_win: Label
 var _report_lose: Label
 var _home_marks: Array[Control] = []
+var _top_buttons: HBoxContainer
+## The cat bar's fixed height: choosing a cat never resizes the map.
+const BOTTOM_HEIGHT := 178.0
 ## The full moon is on show in the side panel.
 var _moon_mode := false
 var _moon_box: PanelContainer
@@ -59,7 +62,7 @@ var _boss_name: Label
 var _boss_sub: Label
 var _place_stats: Array[Label] = []
 var _place_stars: Label
-var _chips: HFlowContainer
+var _chips: HBoxContainer
 var _play: Button
 var _hover := -1
 var _dark_label: Label
@@ -102,6 +105,7 @@ func _ready() -> void:
 	Profile.save()
 	_build()
 	_district.show_reports()
+	_fit_top()
 	_refresh()
 	Audio.play_music("music_menu")
 	if "--shop" in GameData.args():
@@ -158,15 +162,6 @@ func _build() -> void:
 	var title := _label(28, GOLD)
 	title.text = "DISTRICT_TITLE"
 	top.add_child(title)
-	# How far off the full moon is.
-	var moon_icon := Control.new()
-	moon_icon.custom_minimum_size = Vector2(30, 30)
-	moon_icon.draw.connect(func() -> void: DistrictMap.draw_moon(moon_icon, Vector2(15, 13), 10.0, Profile.nights_to_moon(), _t))
-	moon_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	top.add_child(moon_icon)
-	_moon_chip = _label(15, Color("f4ecd4"))
-	_moon_chip.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	top.add_child(_moon_chip)
 	var buttons := HBoxContainer.new()
 	buttons.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -183,24 +178,7 @@ func _build() -> void:
 		var b := UiStyle.click_button("%s (%s)" % [tr(entry[0]), entry[1]], 0, 15)
 		b.pressed.connect(entry[2])
 		buttons.add_child(b)
-	UiStyle.fit_row(buttons, 460.0 if Profile.top_nemesis() != "" else 700.0)
-	var nem := Profile.top_nemesis()
-	if nem != "":
-		# Your nemesis, in red, beside your gold.
-		var chip := PanelContainer.new()
-		chip.add_theme_stylebox_override("panel", UiStyle.box(Color("3a1416"), Color("8a3030")))
-		var ch := HBoxContainer.new()
-		ch.add_theme_constant_override("separation", 6)
-		chip.add_child(ch)
-		var face := BossPortrait.new()
-		face.id = nem
-		face.custom_minimum_size = Vector2(28, 28)
-		ch.add_child(face)
-		var nl := _label(14, Color("ffb3a8"))
-		nl.text = "%s – %s" % [tr("ENEMY_%s_NAME" % nem), tr("NEMESIS_TITLE_%d" % Profile.nemesis_level(nem))]
-		nl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		ch.add_child(nl)
-		top.add_child(chip)
+	_top_buttons = buttons
 	_gold = _label(17, GOLD)
 	top.add_child(_gold)
 
@@ -218,13 +196,51 @@ func _build() -> void:
 	_district.report_chosen.connect(_on_report_chosen)
 	_district.moon_chosen.connect(_on_moon_chosen)
 	map_frame.add_child(_district)
+	# Badges in the map's top-left corner: the full moon and your nemesis.
+	var badges := MarginContainer.new()
+	badges.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for side_name: String in ["margin_left", "margin_top"]:
+		badges.add_theme_constant_override(side_name, 10)
+	map_frame.add_child(badges)
+	var badge_col := VBoxContainer.new()
+	badge_col.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	badge_col.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	badge_col.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	badge_col.add_theme_constant_override("separation", 6)
+	badges.add_child(badge_col)
+	var moon_chip := _badge(Color(0.08, 0.06, 0.12, 0.88), Color("6a5a7e"))
+	badge_col.add_child(moon_chip)
+	var moon_icon := Control.new()
+	moon_icon.custom_minimum_size = Vector2(28, 28)
+	moon_icon.draw.connect(func() -> void: DistrictMap.draw_moon(moon_icon, Vector2(14, 14), 10.0, Profile.nights_to_moon(), _t, false))
+	moon_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	moon_chip.get_child(0).add_child(moon_icon)
+	_moon_chip = _label(14, Color("f4ecd4"))
+	_moon_chip.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	moon_chip.get_child(0).add_child(_moon_chip)
+	var nem := Profile.top_nemesis()
+	if nem != "":
+		var chip := _badge(Color(0.23, 0.08, 0.09, 0.9), Color("8a3030"))
+		badge_col.add_child(chip)
+		var face := BossPortrait.new()
+		face.id = nem
+		face.custom_minimum_size = Vector2(28, 28)
+		chip.get_child(0).add_child(face)
+		var nl := _label(14, Color("ffb3a8"))
+		nl.text = "%s – %s" % [tr("ENEMY_%s_NAME" % nem), tr("NEMESIS_TITLE_%d" % Profile.nemesis_level(nem))]
+		nl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		chip.get_child(0).add_child(nl)
 	var side := PanelContainer.new()
 	side.custom_minimum_size = Vector2(340, 0)
 	side.add_theme_stylebox_override("panel", UiStyle.frame())
 	middle.add_child(side)
+	var side_scroll := ScrollContainer.new()
+	side_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	side.add_child(side_scroll)
 	var place := VBoxContainer.new()
 	place.add_theme_constant_override("separation", 5)
-	side.add_child(place)
+	place.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	side_scroll.add_child(place)
 	var pic_box := Control.new()
 	pic_box.custom_minimum_size = Vector2(0, 100)
 	pic_box.clip_contents = true
@@ -246,7 +262,7 @@ func _build() -> void:
 	_place_story = _label(14, Color("ddd3e8"))
 	_place_story.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_place_story.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_place_story.custom_minimum_size = Vector2(316, 0)
+	_place_story.custom_minimum_size = Vector2(296, 0)
 	place.add_child(_place_story)
 	var boss_row := PanelContainer.new()
 	boss_row.add_theme_stylebox_override("panel", UiStyle.box(Color(0.07, 0.05, 0.1, 0.8), Color("3a3148")))
@@ -274,7 +290,7 @@ func _build() -> void:
 	_place_stats.clear()
 	for key: String in ["DISTRICT_DIFFICULTY", "DISTRICT_LENGTH", "DISTRICT_STORIES", "DISTRICT_RECORD"]:
 		var cell := PanelContainer.new()
-		cell.custom_minimum_size = Vector2(155, 0)
+		cell.custom_minimum_size = Vector2(146, 0)
 		cell.add_theme_stylebox_override("panel", UiStyle.box(Color(0.07, 0.05, 0.1, 0.8), Color("3a3148")))
 		var v := VBoxContainer.new()
 		v.add_theme_constant_override("separation", -2)
@@ -300,7 +316,7 @@ func _build() -> void:
 	for l: Label in [_report_win, _report_lose]:
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		l.custom_minimum_size = Vector2(300, 0)
+		l.custom_minimum_size = Vector2(290, 0)
 		rv.add_child(l)
 	# Getting home ready for the full moon: traps and guard cats.
 	_moon_box = PanelContainer.new()
@@ -342,12 +358,13 @@ func _build() -> void:
 	dark_row.add_child(_dark_plus)
 	_place_stars = _label(11, GOLD)
 	_place_stars.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_place_stars.custom_minimum_size = Vector2(316, 0)
+	_place_stars.custom_minimum_size = Vector2(296, 0)
 	place.add_child(_place_stars)
 
 	# Bottom: the cats, the chosen one's details, what you take along, and Play.
 	var bottom_bar := PanelContainer.new()
 	bottom_bar.add_theme_stylebox_override("panel", UiStyle.frame())
+	bottom_bar.custom_minimum_size = Vector2(0, BOTTOM_HEIGHT)
 	root.add_child(bottom_bar)
 	var bottom := HBoxContainer.new()
 	bottom.add_theme_constant_override("separation", 12)
@@ -393,6 +410,7 @@ func _build() -> void:
 		_previews.append(preview)
 	var info := HBoxContainer.new()
 	info.add_theme_constant_override("separation", 10)
+	info.custom_minimum_size = Vector2(0, 34)
 	left.add_child(info)
 	_big = CatPreview.new()
 	_big.custom_minimum_size = Vector2(44, 34)
@@ -402,10 +420,19 @@ func _build() -> void:
 	info.add_child(_big)
 	_name = _label(21, Color.WHITE)
 	info.add_child(_name)
-	_chips = HFlowContainer.new()
-	_chips.add_theme_constant_override("h_separation", 6)
-	_chips.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	info.add_child(_chips)
+	# The bonus chips sit in a clipped strip: however many there are, the
+	# bar never grows or pushes Play off the screen.
+	var chips_clip := Control.new()
+	chips_clip.clip_contents = true
+	chips_clip.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	chips_clip.size_flags_stretch_ratio = 1.6
+	chips_clip.custom_minimum_size = Vector2(0, 30)
+	chips_clip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	info.add_child(chips_clip)
+	_chips = HBoxContainer.new()
+	_chips.add_theme_constant_override("separation", 6)
+	_chips.position = Vector2(0, 2)
+	chips_clip.add_child(_chips)
 	_weapon_icon = IconView.new("weapon", "SCRATCH", 28.0)
 	info.add_child(_weapon_icon)
 	_weapon_label = _label(14, GOLD)
@@ -414,6 +441,11 @@ func _build() -> void:
 	_cat_stats = _label(13, Color("8f7ea3"))
 	_cat_stats.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	info.add_child(_cat_stats)
+	for l: Label in [_weapon_label, _cat_stats]:
+		l.clip_text = true
+		l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_desc = _label(13, Color("cfc3dc"))
 	_desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_desc.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
@@ -426,6 +458,10 @@ func _build() -> void:
 	loadout.add_child(_worn)
 	_artifact_label = _label(13, Color("8fd3ff"))
 	loadout.add_child(_artifact_label)
+	for l: Label in [_worn, _artifact_label]:
+		l.clip_text = true
+		l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_challenge_label = _label(13, Color("ff7a6a"))
 	_challenge_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	_challenge_label.clip_text = true
@@ -462,6 +498,29 @@ func _build() -> void:
 	_challenges = ChallengePanel.new()
 	add_child(_challenges)
 	_challenges.closed.connect(_refresh)
+
+
+## A small rounded badge with a row inside (child 0) for its content.
+func _badge(fill: Color, edge: Color) -> PanelContainer:
+	var chip := PanelContainer.new()
+	chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var sb := UiStyle.box(fill, edge)
+	sb.content_margin_left = 6
+	sb.content_margin_right = 10
+	sb.content_margin_top = 2
+	sb.content_margin_bottom = 2
+	chip.add_theme_stylebox_override("panel", sb)
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 6)
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	chip.add_child(row)
+	return chip
+
+
+## Shrinks the top buttons until the bar fits the screen's real width.
+func _fit_top() -> void:
+	var room := get_viewport_rect().size.x - 28.0 - 20.0 - 28.0 * 2.0 - 260.0
+	UiStyle.fit_row(_top_buttons, maxf(room, 400.0))
 
 
 func _process(delta: float) -> void:
@@ -562,7 +621,7 @@ func _refresh() -> void:
 	_challenge_label.text += "      " + tr("SELECT_DAILY") % [tr("STAGE_%s_NAME" % plan["stage"]), ", ".join((plan["challenges"] as Array).map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c)))] + (" ✓" if done else "")
 	_gold.text = tr("SELECT_GOLD") % Profile.gold
 	if Profile.streak > 0 or Profile.best_streak > 0:
-		_gold.text += "   ·   " + tr("SELECT_STREAK") % [Profile.streak, Profile.best_streak, roundi((Profile.streak_multiplier() - 1.0) * 100.0)]
+		_challenge_label.text = tr("SELECT_STREAK") % [Profile.streak, Profile.best_streak, roundi((Profile.streak_multiplier() - 1.0) * 100.0)] + "      " + _challenge_label.text
 	_refresh_darkness(_stage_ids[_stage_index])
 	_refresh_place()
 

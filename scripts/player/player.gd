@@ -103,7 +103,9 @@ var _bot_t := 0.0
 
 
 func _ready() -> void:
-	if controller != "follow":
+	# Only your own cat is the chosen one; companions and the cat you are
+	# walking home keep their own look and weapon.
+	if controller == "input" or controller == "bot":
 		cat_id = Profile.selected_cat
 	_look = CatArt.look(cat_id)
 	if controller == "input" or controller == "bot":

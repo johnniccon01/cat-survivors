@@ -253,15 +253,17 @@ func _in_game() -> void:
 	# Chest: any key closes it once everything is shown.
 	var treasure: Control = hud.get("treasure")
 	main.call("_queue_modal", "chest")
+	await _until(func() -> bool: return treasure.visible)
 	await _frames(240)
 	_expect(treasure.visible, "chest opens")
 	await _press(KEY_ENTER)
-	await _frames(5)
+	await _until(func() -> bool: return not treasure.visible and not paused)
 	_expect(not treasure.visible and not paused, "Enter closes the chest")
 
 	# Give up from the pause menu, then back to character select.
 	# It asks once more first (the focus jumps back to Resume).
 	await _press(KEY_ESCAPE)
+	await _until(func() -> bool: return _focus_text() == "PAUSE_RESUME")
 	for i in 3:
 		await _press(KEY_DOWN)
 	_expect(_focus_text() == "PAUSE_GIVE_UP", "Down three times reaches Give up (got %s)" % _focus_text())
@@ -273,10 +275,11 @@ func _in_game() -> void:
 	await _press(KEY_ENTER)
 	_expect(main.get("_run_over"), "Give up ends the run")
 	await _press(KEY_ESCAPE)
+	await _until(func() -> bool: return current_scene != null and current_scene.name == "CharacterSelect")
 	await _frames(10)
 	_expect(current_scene.name == "CharacterSelect", "Esc after the run goes to character select (got %s)" % current_scene.name)
 	await _press(KEY_ESCAPE)
-	await _frames(10)
+	await _until(func() -> bool: return current_scene != null and current_scene.name == "MainMenu")
 	_expect(current_scene.name == "MainMenu", "Esc on character select goes to the menu (got %s)" % current_scene.name)
 
 
@@ -337,6 +340,14 @@ func _press(key: Key) -> void:
 		Input.parse_input_event(e)
 		await _frames(2)
 	await _frames(2)
+
+
+## Waits until `ready` is true (a busy machine may need many frames), at most
+## `seconds` of real time.
+func _until(ready: Callable, seconds: float = 10.0) -> void:
+	var end := Time.get_ticks_msec() + int(seconds * 1000.0)
+	while not ready.call() and Time.get_ticks_msec() < end:
+		await process_frame
 
 
 func _frames(n: int) -> void:

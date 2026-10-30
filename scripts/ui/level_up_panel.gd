@@ -164,6 +164,10 @@ func _make_card(index: int, offer: Dictionary) -> VBoxContainer:
 
 	var desc := _label(16, Color("eee6f3"))
 	desc.text = Upgrades.description(offer, false)
+	var combo := _new_combo(offer)
+	if combo != "":
+		desc.text += "
+" + tr("COMBO_NEW") % [tr("COMBO_%s_NAME" % combo), tr("COMBO_%s_DESC" % combo)]
 	desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	desc.custom_minimum_size.x = 232
 	content.add_child(desc)
@@ -180,6 +184,24 @@ func _make_card(index: int, offer: Dictionary) -> VBoxContainer:
 		banish.pressed.connect(_banish.bind(index))
 		column.add_child(banish)
 	return column
+
+
+## The weapon combo taking this new weapon would start, or "".
+func _new_combo(offer: Dictionary) -> String:
+	if offer["kind"] != "weapon" or offer["level"] != 1:
+		return ""
+	var cat: Variant = get_tree().current_scene.get("player") if get_tree().current_scene != null else null
+	if not (cat is Player):
+		return ""
+	var owned: Array = []
+	for w: Weapon in (cat as Player).weapons.get_children():
+		owned.append(w.base_id())
+	var now := Combos.active(owned)
+	owned.append(Icons.base_weapon(offer["id"]))
+	for c in Combos.active(owned):
+		if c not in now:
+			return c
+	return ""
 
 
 func _flat(bg: Color) -> StyleBoxFlat:

@@ -99,6 +99,8 @@ var _hurt_flash := 0.0
 var _wading := false
 ## The played cat's instinct (Instinct), or null.
 var instinct: Instinct
+## Weapon combos the weapons on hand make (Combos), kept up to date.
+var combos: Array[String] = []
 var _walk_t := 0.0
 var _bot_t := 0.0
 
@@ -134,6 +136,8 @@ func _ready() -> void:
 	if controller != "escort":
 		for id in _start_weapons():
 			add_weapon(id)
+	inventory_changed.connect(_update_combos)
+	_update_combos()
 	if (controller == "input" or controller == "bot") and Instinct.has(cat_id):
 		instinct = Instinct.new()
 		instinct.cat = cat_id
@@ -206,6 +210,22 @@ func heal(amount: float) -> void:
 	if (controller == "input" or controller == "bot") and Profile.has_challenge("NO_HEAL"):
 		return
 	hp = minf(hp + amount, max_hp)
+
+
+func _update_combos() -> void:
+	var owned: Array = []
+	for weapon: Weapon in weapons.get_children():
+		if not weapon.is_queued_for_deletion():
+			owned.append(weapon.base_id())
+	var before := combos
+	combos = Combos.active(owned)
+	for c in combos:
+		if c not in before:
+			BotLog.event("combo_on:" + c)
+
+
+func has_combo(id: String) -> bool:
+	return id in combos
 
 
 func get_weapon(id: String) -> Weapon:

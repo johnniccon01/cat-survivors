@@ -18,7 +18,7 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_font = ThemeDB.fallback_font
 	position = Vector2(10, 22)
-	size = Vector2((SLOT + GAP) * (Player.MAX_WEAPONS + 2), (SLOT + GAP) * 2)
+	size = Vector2((SLOT + GAP) * (Player.MAX_WEAPONS + 2), (SLOT + GAP) * 2 + 20 * 4)
 
 
 func refresh() -> void:
@@ -58,6 +58,22 @@ func _draw() -> void:
 			_badge(rect, "MAX" if lvl >= max_lvl else str(lvl), GOLD if lvl >= max_lvl else Color.WHITE)
 		else:
 			_empty(rect)
+	# Active weapon combos under the slots: both icons and the name.
+	var y := (SLOT + GAP) * 2 + 2
+	for c: String in player.combos:
+		var pair: Array = Combos.LIST[c]
+		var x := 0.0
+		for group: Array in pair:
+			var shown: String = group[0]
+			for w: Weapon in weapons:
+				if w.base_id() in group:
+					shown = w.id
+					break
+			Icons.draw(self, "weapon", shown, Rect2(Vector2(x, y), Vector2(16, 16)))
+			x += 18.0
+		draw_string_outline(_font, Vector2(x + 2, y + 13), tr("COMBO_%s_NAME" % c), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, 3, OUTLINE)
+		draw_string(_font, Vector2(x + 2, y + 13), tr("COMBO_%s_NAME" % c), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color("bfe8ff"))
+		y += 19.0
 
 
 func _empty(rect: Rect2) -> void:

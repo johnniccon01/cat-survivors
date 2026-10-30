@@ -86,14 +86,31 @@ func strike(enemy: Enemy, amount_hit: float, dir: Vector2, knockback: float) -> 
 	if not enemy.dead and not enemy.is_prop:
 		HitFx.spawn(world, enemy.position, id)
 	var base := base_id()
-	var conduct := base == "ANTENNA" and not enemy.is_prop and enemy.is_wet()
+	var real := not enemy.is_prop
+	var conduct := base == "ANTENNA" and real and enemy.is_wet()
 	if conduct:
 		amount_hit *= 1.0 + CONDUCT_BONUS
+	# Combos that make this hit itself stronger (see Combos).
+	var shatter := base == "SQUEAKY_HAMMER" and real and player.has_combo("SHATTER") and (enemy.is_chilled() or enemy.is_frozen())
+	if shatter:
+		amount_hit *= 1.0 + Combos.SHATTER_BONUS
+	if base == "MOUSE_TOY" and real and enemy.mark_t > 0.0 and player.has_combo("CHASE"):
+		amount_hit *= 1.0 + Combos.CHASE_BONUS
+		BotLog.event("combo:CHASE")
+	if base == "HAIRBALL" and player.has_combo("HEAVY"):
+		amount_hit *= 1.0 + Combos.HEAVY_BONUS
+		knockback *= 1.0 + Combos.HEAVY_BONUS
+	if base == "FEATHER" and real and player.has_combo("CATNIP_HIGH") and _in_catnip(enemy):
+		amount_hit *= 1.0 + Combos.CATNIP_BONUS
+		BotLog.event("combo:CATNIP_HIGH")
+	var was_wet := real and enemy.is_wet()
 	enemy.hit(amount_hit, dir, knockback)
-	if base in WET_SOURCES and not enemy.dead and not enemy.is_prop:
+	if base in WET_SOURCES and not enemy.dead and real:
 		enemy.make_wet(WET_SECONDS)
 	if conduct:
 		_conduct(enemy, amount_hit)
+	if real:
+		_after_combos(base, enemy, amount_hit, was_wet, shatter)
 	var fx := branch_effect()
 	if fx.is_empty() or enemy == null:
 		return
@@ -143,6 +160,69 @@ static func strike_from(source: Variant, enemy: Enemy, amount_hit: float, dir: V
 		enemy.hit(amount_hit, dir, knockback)
 
 
+## Combos that add something after the hit (see Combos).
+func _after_combos(base: String, enemy: Enemy, amount_hit: float, was_wet: bool, shatter: bool) -> void:
+	if player.combos.is_empty():
+		return
+	match base:
+		"FROST_FISH":
+			if was_wet and not enemy.dead and player.has_combo("ICE"):
+				enemy.slow_down(0.5 if enemy.is_boss else 0.0, Combos.ICE_SECONDS)
+				enemy.chill(Combos.ICE_SECONDS + 1.0)
+				BotLog.event("combo:ICE")
+		"SQUEAKY_HAMMER":
+			if shatter:
+				for e in enemies.query_radius(enemy.position, Combos.SHATTER_RADIUS):
+					if e != enemy and not e.dead:
+						e.hit(amount_hit * Combos.SHATTER_SPLINTER, e.position - enemy.position, 0.3, false)
+				_burst(enemy.position, Combos.SHATTER_RADIUS, Color("bfe8ff"))
+				BotLog.event("combo:SHATTER")
+			if player.has_combo("RESONANCE") and randf() < Combos.RESONANCE_CHANCE:
+				var ring := _burst(enemy.position, Combos.RESONANCE_RADIUS * area(), Color("f2c14e"))
+				ring.damage = amount_hit * Combos.RESONANCE_DAMAGE
+				ring.knockback = 0.4
+				Audio.play("bell", -14.0, 0.2)
+				BotLog.event("combo:RESONANCE")
+		"LASER":
+			if player.has_combo("CHASE"):
+				enemy.mark_t = Combos.CHASE_MARK
+		"YARN":
+			if not enemy.dead and player.has_combo("TANGLE"):
+				enemy.slow_down(Combos.TANGLE_SLOW, Combos.TANGLE_SECONDS)
+				BotLog.event("combo:TANGLE")
+		"DRONE_BUDDY":
+			if player.has_combo("SIGNAL") and randf() < Combos.SIGNAL_CHANCE:
+				var other := _nearest_other(enemy, 80.0)
+				if other != null:
+					other.hit(amount_hit * Combos.SIGNAL_DAMAGE, other.position - enemy.position, 0.2, false)
+					var bolt := ChainBolt.new()
+					bolt.points = PackedVector2Array([enemy.position, other.position])
+					world.add_child(bolt)
+					BotLog.event("combo:SIGNAL")
+
+
+## A ring that only shows (or hits, once `damage` is set) round `at`.
+func _burst(at: Vector2, r: float, color: Color) -> RingWave:
+	var ring := RingWave.new()
+	ring.enemies = enemies
+	ring.position = at
+	ring.max_radius = r
+	ring.expand_time = 0.16
+	ring.damage = 0.0
+	ring.knockback = 0.0
+	ring.color = color
+	world.add_child(ring)
+	return ring
+
+
+## Inside the catnip cloud round the cat (combo Catnip high).
+func _in_catnip(enemy: Enemy) -> bool:
+	for w: Weapon in player.weapons.get_children():
+		if w.base_id() == "CATNIP":
+			return enemy.position.distance_to(player.position) < Combos.CATNIP_RADIUS * w.area()
+	return false
+
+
 ## Water carries the spark on to the nearest other wet enemy.
 func _conduct(from: Enemy, amount_hit: float) -> void:
 	var best: Enemy = null
@@ -183,7 +263,11 @@ func damage() -> float:
 
 
 func area() -> float:
-	return stat("area", 1.0) * player.stat("area")
+	var a := stat("area", 1.0) * player.stat("area")
+	# Combo: watered-down milk spreads wider.
+	if base_id() == "MILK" and player.has_combo("THIN_MILK"):
+		a *= 1.0 + Combos.MILK_AREA
+	return a
 
 
 func interval() -> float:

@@ -117,6 +117,8 @@ var _chill_t := 0.0
 ## Wet (sprinkler, wave, milk): lightning jumps between wet enemies, and in
 ## frost they freeze.
 var wet_t := 0.0
+## Marked by the laser dot (combo Chase): toy mice hit it harder.
+var mark_t := 0.0
 ## Health multiplier this enemy was spawned with (its splits and summons use it).
 var hp_mult := 1.0
 ## Bosses that call in helpers: id, how many, how often. Helpers come as a
@@ -357,6 +359,8 @@ func tick(delta: float, target: Vector2, push: Vector2) -> void:
 		_chill_t -= delta
 	if wet_t > 0.0:
 		wet_t -= delta
+	if mark_t > 0.0:
+		mark_t -= delta
 	if Weather.current == "FROST":
 		move *= Weather.FROST_SLOW
 	# Frozen solid (Frozen Fish) looks icier than just chilled.

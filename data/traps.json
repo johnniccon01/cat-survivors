@@ -151,5 +151,21 @@
     "damage": 38,
     "player_damage": 8,
     "rearm": 3.0
+  },
+  "GRAVE_HAND": {
+    "type": "snap",
+    "radius": 11,
+    "damage": 50,
+    "player_damage": 11,
+    "rearm": 3.5
+  },
+  "WILL_O_WISP": {
+    "type": "pulse",
+    "radius": 28,
+    "damage": 14,
+    "player_damage": 7,
+    "on": 1.6,
+    "off": 3.0,
+    "tick": 0.35
   }
 }

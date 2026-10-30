@@ -831,6 +831,49 @@
         }
       ]
     },
+    "CEMETERY": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:CEMETERY"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 450
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:CEMETERY"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 950
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:CEMETERY",
+          "target": 1,
+          "reward": {
+            "gold": 1450
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:CEMETERY"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 2300
+          }
+        }
+      ]
+    },
     "OLD_DIARY": {
       "chapter": "story",
       "tiers": [

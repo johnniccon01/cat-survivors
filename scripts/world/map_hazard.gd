@@ -7,6 +7,9 @@ extends Node2D
 ##   (Station).
 ## - "low_tide": when the sea goes out it leaves treasures glittering on the
 ##   wet sand for a while: coins, sometimes a chest (Island).
+## - "graves": fog drifts over the graves; now and then a few graves around
+##   the cat start to glow and crack. Sit on one a moment to seal it (a burst
+##   of XP); the ones left open let ghosts out (Cemetery).
 
 const TRAIN_FIRST := 35.0
 const TRAIN_EVERY := Vector2(30.0, 45.0)
@@ -23,6 +26,15 @@ const TREASURES := 3
 const TREASURE_TIME := 25.0
 const TREASURE_COINS := 6
 const TREASURE_CHEST := 0.3
+const GRAVE_FIRST := 40.0
+const GRAVE_EVERY := Vector2(35.0, 50.0)
+const GRAVE_WARN := 8.0
+const GRAVES := 3
+const GRAVE_SEAL := 1.5
+const GRAVE_RADIUS := 22.0
+const GRAVE_GHOSTS := 4
+const GRAVE_XP := 12.0
+const FOG_PATCHES := 7
 
 static var current: MapHazard
 
@@ -45,6 +57,9 @@ var _last_tide := ""
 var _forced := -1.0
 var _arrow: QuestArrow
 var _told := false
+## Graves: {"pos": Vector2, "seal": 0..GRAVE_SEAL, "sealed": bool}.
+var _graves: Array[Dictionary] = []
+var _fog: Node2D
 
 
 func _init() -> void:
@@ -70,6 +85,14 @@ func setup(p_kind: String, p_main: Node) -> void:
 	_forced = float(GameData.arg("--hazard-at=", "-1"))
 	if kind == "low_tide":
 		z_index = -2
+	elif kind == "graves":
+		z_index = -2
+		_phase_t = float(GameData.arg("--hazard-at=", str(GRAVE_FIRST)))
+		# Fog drifts over everyone, so it has its own layer on top.
+		_fog = Node2D.new()
+		_fog.z_index = 9
+		_fog.draw.connect(_draw_fog)
+		add_child(_fog)
 
 
 ## Where the test bot should go for this map's special, if anywhere.
@@ -78,6 +101,9 @@ func bot_goal(from: Vector2) -> Vector2:
 	for tr_ in _treasures:
 		if (tr_["pos"] as Vector2).distance_to(from) < best.distance_to(from):
 			best = tr_["pos"]
+	for g in _graves:
+		if not g["sealed"] and (g["pos"] as Vector2).distance_to(from) < best.distance_to(from):
+			best = g["pos"]
 	return best
 
 
@@ -93,7 +119,53 @@ func _physics_process(delta: float) -> void:
 			_tick_train(delta)
 		"low_tide":
 			_tick_low_tide(delta)
+		"graves":
+			_tick_graves(delta)
+			_fog.queue_redraw()
 	queue_redraw()
+
+
+func _tick_graves(delta: float) -> void:
+	_phase_t -= delta
+	var cat: Vector2 = main.player.position
+	for g in _graves:
+		if g["sealed"]:
+			continue
+		if (g["pos"] as Vector2).distance_to(cat) < GRAVE_RADIUS + Player.RADIUS:
+			g["seal"] += delta
+			if g["seal"] >= GRAVE_SEAL:
+				g["sealed"] = true
+				for i in 4:
+					main.pickups.spawn_xp(g["pos"] + Vector2.from_angle(TAU * i / 4.0) * 16.0, GRAVE_XP)
+				Audio.play("sparkle", 0.0)
+				Profile.add_stat("graves_sealed")
+				BotLog.event("grave_sealed")
+		else:
+			g["seal"] = maxf(g["seal"] - delta * 0.5, 0.0)
+	if _phase_t > 0.0:
+		return
+	if _phase == "wait":
+		_phase = "rise"
+		_phase_t = GRAVE_WARN
+		_graves.clear()
+		for i in GRAVES:
+			var pos := cat + Vector2.from_angle(TAU * i / GRAVES + randf_range(-0.5, 0.5)) * randf_range(140.0, 240.0)
+			_graves.append({"pos": Terrain.fix(pos, 20.0), "seal": 0.0, "sealed": false})
+		Audio.play("thunder", -4.0)
+		if not _told:
+			_told = true
+			main.hud.show_banner(tr("GRAVES_WARNING"), 3.5)
+		BotLog.event("graves_rise")
+	else:
+		_phase = "wait"
+		_phase_t = randf_range(GRAVE_EVERY.x, GRAVE_EVERY.y)
+		for g in _graves:
+			if g["sealed"]:
+				continue
+			for i in GRAVE_GHOSTS:
+				main.spawner._spawn("GHOST", g["pos"] + Vector2.from_angle(TAU * i / GRAVE_GHOSTS) * 12.0)
+			BotLog.event("graves_open")
+		_graves.clear()
 
 
 func _tick_low_tide(delta: float) -> void:
@@ -226,6 +298,44 @@ func _draw() -> void:
 			_draw_train()
 		"low_tide":
 			_draw_treasures()
+		"graves":
+			_draw_graves()
+
+
+func _draw_graves() -> void:
+	var k := 0.5 + 0.5 * sin(_t * 6.0)
+	for g in _graves:
+		var p: Vector2 = g["pos"]
+		if g["sealed"]:
+			draw_arc(p, GRAVE_RADIUS, 0.0, TAU, 24, Color(0.6, 1.0, 0.7, 0.5), 2.0)
+			continue
+		var left := clampf(_phase_t / GRAVE_WARN, 0.0, 1.0)
+		# A cracked mound glowing green, brighter as it gets ready to open.
+		draw_colored_polygon(Shapes.ellipse(p, GRAVE_RADIUS, GRAVE_RADIUS * 0.6, 16), Color(0.29, 0.23, 0.19, 0.9))
+		draw_colored_polygon(Shapes.ellipse(p, GRAVE_RADIUS * 0.8, GRAVE_RADIUS * 0.45, 16), Color(0.4, 1.0, 0.55, (0.15 + 0.35 * k) * (1.2 - left)))
+		draw_polyline(PackedVector2Array([p + Vector2(-10, -3), p + Vector2(-3, 1), p + Vector2(2, -4), p + Vector2(9, 2)]), Color(0.75, 1.0, 0.8, 0.9), 1.5)
+		var stone := Rect2(p + Vector2(-7, -26), Vector2(14, 16))
+		draw_rect(stone.grow(1.0), Color("2b1d14"))
+		draw_rect(stone, Color("8a8a92"))
+		draw_line(p + Vector2(0, -23), p + Vector2(0, -14), Color("5a5a62"), 1.5)
+		draw_line(p + Vector2(-3, -20), p + Vector2(3, -20), Color("5a5a62"), 1.5)
+		# How long until it opens, and how far the seal has come.
+		draw_arc(p, GRAVE_RADIUS + 4.0, -PI * 0.5, -PI * 0.5 + TAU * left, 24, Color(1.0, 0.45, 0.35, 0.8), 2.0)
+		if g["seal"] > 0.0:
+			draw_arc(p, GRAVE_RADIUS - 3.0, -PI * 0.5, -PI * 0.5 + TAU * g["seal"] / GRAVE_SEAL, 24, Color(0.6, 1.0, 0.7, 1.0), 3.0)
+
+
+## Soft fog banks drifting slowly through the view.
+func _draw_fog() -> void:
+	var view := _view()
+	for i in FOG_PATCHES:
+		var speed := 12.0 + i * 3.0
+		var w := view.size.x + 400.0
+		var x := view.position.x - 200.0 + fposmod(_t * speed + i * 383.0 - view.position.x, w)
+		var y := view.position.y - 100.0 + fposmod(i * 211.0 - view.position.y, view.size.y + 200.0)
+		var r := 90.0 + (i % 3) * 30.0
+		for j in 3:
+			_fog.draw_colored_polygon(Shapes.ellipse(Vector2(x + j * r * 0.6, y + sin(_t * 0.4 + i + j) * 10.0), r, r * 0.45, 18), Color(0.85, 0.9, 0.95, 0.07))
 
 
 func _draw_treasures() -> void:

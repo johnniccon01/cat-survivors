@@ -252,6 +252,26 @@ func _draw() -> void:
 				draw_line(Vector2(-9 + k * 6, -9), Vector2(-3 + k * 6, 9), Color("2b2b2b"), 2.0)
 			if _flash > 0.0:
 				Blit.disc(self, Vector2.ZERO, 14.0, Color(1, 1, 1, _flash * 2.0))
+		"GRAVE_HAND":
+			# Loose earth; when armed, bony fingers poke out and grab.
+			draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, 12.0, 8.0, 12), Color("4a3a30"))
+			if _active:
+				for k in 4:
+					var x := -6.0 + k * 4.0
+					draw_line(Vector2(x, 2), Vector2(x + 1, -6 - (k % 2) * 2), OUTLINE, 3.0)
+					draw_line(Vector2(x, 2), Vector2(x + 1, -6 - (k % 2) * 2), Color("e8e2d0"), 1.5)
+			if _flash > 0.0:
+				Blit.disc(self, Vector2.ZERO, 14.0, Color(0.6, 1.0, 0.7, _flash * 2.0))
+		"WILL_O_WISP":
+			var r := float(data["radius"])
+			var bob := sin(_t * 3.0) * 3.0
+			if _active:
+				Blit.disc(self, Vector2.ZERO, r, Color(0.4, 0.8, 1.0, 0.18))
+				for k in 5:
+					var p := Vector2.from_angle(_t * 2.0 + k * TAU / 5.0) * r * 0.6
+					Blit.disc(self, p, 3.0, Color(0.6, 0.9, 1.0, 0.8))
+			draw_circle(Vector2(0, -6 + bob), 6.0, Color(0.4, 0.8, 1.0, 0.35))
+			draw_circle(Vector2(0, -6 + bob), 3.5, Color(0.8, 0.95, 1.0, 0.9))
 		"COCONUT_PALM":
 			# Seen from above: a palm crown; a coconut's shadow grows before it drops.
 			var r := float(data["radius"])

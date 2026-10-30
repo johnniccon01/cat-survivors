@@ -372,6 +372,28 @@ func draw_look(at: Vector2, look: String, alpha: float = 1.0) -> void:
 			draw_rect(Rect2(at + Vector2(-5, -7), Vector2(10, 12)), Color(OUTLINE, a))
 			draw_rect(Rect2(at + Vector2(-4, -6), Vector2(8, 10)), Color(1.0, 0.85, 0.4, a))
 			draw_arc(at + Vector2(0, -8), 4.0, PI, TAU, 8, Color(OUTLINE, a), 1.5)
+		"candle":
+			draw_rect(Rect2(at + Vector2(-4, -4), Vector2(8, 12)), Color(OUTLINE, a))
+			draw_rect(Rect2(at + Vector2(-3, -3), Vector2(6, 10)), Color(0.96, 0.93, 0.82, a))
+			var fl := 1.0 + 0.2 * sin(_age * 10.0)
+			draw_colored_polygon(PackedVector2Array([at + Vector2(-2.5, -4), at + Vector2(2.5, -4), at + Vector2(0, -4 - 8 * fl)]), Color(1.0, 0.7, 0.2, a))
+			draw_circle(at + Vector2(0, -6), 1.5, Color(1.0, 0.95, 0.6, a))
+		"crypt_door":
+			draw_rect(Rect2(at + Vector2(-30, -30), Vector2(60, 48)), Color(OUTLINE, a))
+			draw_rect(Rect2(at + Vector2(-29, -29), Vector2(58, 46)), Color(0.48, 0.48, 0.52, a))
+			draw_colored_polygon(PackedVector2Array([at + Vector2(-34, -30), at + Vector2(34, -30), at + Vector2(0, -46)]), Color(0.38, 0.38, 0.42, a))
+			draw_rect(Rect2(at + Vector2(-11, -16), Vector2(22, 34)), Color(0.16, 0.14, 0.18, a))
+			draw_line(at + Vector2(0, -16), at + Vector2(0, 18), Color(0.3, 0.28, 0.32, a), 1.5)
+			draw_circle(at + Vector2(-4, 2), 1.5, Color(0.85, 0.7, 0.3, a))
+		"shovel":
+			draw_line(at + Vector2(-8, 8), at + Vector2(6, -6), Color(0.55, 0.36, 0.2, a), 3.0)
+			draw_colored_polygon(PackedVector2Array([at + Vector2(4, -4), at + Vector2(12, -12), at + Vector2(10, -2), at + Vector2(6, 0)]), Color(0.7, 0.72, 0.76, a))
+		"grave":
+			draw_colored_polygon(Shapes.ellipse(at + Vector2(0, 6), 18, 10), Color(0.35, 0.27, 0.2, a))
+			draw_rect(Rect2(at + Vector2(-9, -22), Vector2(18, 24)), Color(OUTLINE, a))
+			draw_rect(Rect2(at + Vector2(-8, -21), Vector2(16, 22)), Color(0.6, 0.6, 0.65, a))
+			draw_line(at + Vector2(0, -18), at + Vector2(0, -6), Color(0.4, 0.4, 0.45, a), 2.0)
+			draw_line(at + Vector2(-4, -14), at + Vector2(4, -14), Color(0.4, 0.4, 0.45, a), 2.0)
 		"bottle":
 			draw_rect(Rect2(at + Vector2(-4, -6), Vector2(8, 13)), Color(OUTLINE, a))
 			draw_rect(Rect2(at + Vector2(-3, -5), Vector2(6, 11)), Color(0.45, 0.75, 0.55, 0.85 * a))

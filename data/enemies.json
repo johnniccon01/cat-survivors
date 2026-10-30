@@ -1307,5 +1307,17 @@
     "xp": 4,
     "knockback_resist": 0.85,
     "cost": 3.5
+  },
+  "GHOST": {
+    "shape": "ghost",
+    "color": "#dfe8f0",
+    "accent": "#9ab0c8",
+    "hp": 16,
+    "speed": 64,
+    "damage": 7,
+    "radius": 7,
+    "xp": 2,
+    "knockback_resist": 0.3,
+    "cost": 1.6
   }
 }

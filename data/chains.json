@@ -1367,5 +1367,21 @@
       {"type": "zones", "count": 4, "hold": 5, "radius": 40, "spread": [200, 340], "look": "nest"},
       {"type": "boss", "enemy": "GIANT_CRAB", "hp_mult": 2.5, "look": "nest", "distance": 240, "after_minute": 5}
     ]
+  },
+  "RESTLESS_SPIRITS": {
+    "stage": "CEMETERY",
+    "reward": {"gold": 1100, "charm": "CANDLE_STUB"},
+    "steps": [
+      {"type": "zones", "dark": true, "count": 4, "hold": 6, "radius": 40, "spread": [200, 340], "look": "candle"},
+      {"type": "defend", "time": 30, "mode": "enemies", "enemy": "GHOST", "spawn_every": 2.5, "spawn_count": 5, "look": "crypt_door", "dark": true}
+    ]
+  },
+  "GRAVEDIGGER": {
+    "stage": "CEMETERY",
+    "reward": {"gold": 1300, "charm": "OWL_EYE"},
+    "steps": [
+      {"type": "carry", "item": "shovel", "to_distance": [450, 600], "time": 60, "look_to": "grave", "guards": {"enemy": "GHOST", "count": 8}},
+      {"type": "boss", "enemy": "SPIDER_QUEEN", "hp_mult": 2.0, "look": "grave", "distance": 240, "after_minute": 6}
+    ]
   }
 }

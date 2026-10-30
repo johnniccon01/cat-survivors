@@ -1080,6 +1080,17 @@
       ],
       "frames": 2
     },
+    "GHOST": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
     "BOX": {
       "cell": [
         28,
@@ -1235,6 +1246,28 @@
       "frames": 2
     },
     "DRIFTWOOD": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "URN": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "WREATH": {
       "cell": [
         28,
         28

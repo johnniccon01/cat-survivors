@@ -1986,9 +1986,9 @@
     "requires": "PARK",
     "cat_quests": [],
     "props": [
-      "FLOWERPOT",
-      "FLOWERPOT",
-      "SEED_SACK"
+      "URN",
+      "WREATH",
+      "URN"
     ],
     "max_props": 6,
     "prop_interval": 4.0,
@@ -2004,37 +2004,38 @@
       {
         "minute": 6.5,
         "type": "ring",
-        "enemy": "SPIDER",
-        "count": 36
+        "enemy": "GHOST",
+        "count": 30
       },
       {
         "minute": 9.5,
         "type": "swarm",
         "enemy": "BAT",
-        "count": 50
+        "count": 60
       },
       {
         "minute": 12.5,
         "type": "ring",
-        "enemy": "CROW",
-        "count": 40
+        "enemy": "SPIDER",
+        "count": 44
       },
       {
         "minute": 15.5,
         "type": "swarm",
-        "enemy": "BAT",
-        "count": 80
+        "enemy": "GHOST",
+        "count": 70
       },
       {
         "minute": 18.0,
         "type": "ring",
-        "enemy": "SPIDER",
-        "count": 44
+        "enemy": "GHOST",
+        "count": 50
       }
     ],
     "traps": [
-      "RAKE",
-      "SPRINKLER"
+      "GRAVE_HAND",
+      "WILL_O_WISP",
+      "GRAVE_HAND"
     ],
     "max_traps": 6,
     "intensity": [
@@ -2080,7 +2081,8 @@
         "enemies": [
           "BAT",
           "RAT",
-          "SPIDER"
+          "SPIDER",
+          "GHOST"
         ],
         "hp_mult": 1.44
       },
@@ -2104,7 +2106,8 @@
         "enemies": [
           "RAT",
           "SPIDER",
-          "CROW"
+          "CROW",
+          "GHOST"
         ],
         "hp_mult": 1.8,
         "bosses": [
@@ -2120,7 +2123,8 @@
           "BAT",
           "CROW",
           "MOTH",
-          "SPIDER"
+          "SPIDER",
+          "GHOST"
         ],
         "hp_mult": 2.4
       },
@@ -2149,7 +2153,8 @@
           "BAT",
           "CROW",
           "SPIDER",
-          "MOTH"
+          "MOTH",
+          "GHOST"
         ],
         "hp_mult": 3.6
       },
@@ -2162,7 +2167,8 @@
           "SPITTER_SPIDER",
           "RAT",
           "CROW",
-          "MOTH"
+          "MOTH",
+          "GHOST"
         ],
         "hp_mult": 4.2,
         "bosses": [
@@ -2194,7 +2200,8 @@
           "CROW",
           "SPITTER_SPIDER",
           "RAT",
-          "MOTH"
+          "MOTH",
+          "GHOST"
         ],
         "hp_mult": 6.0,
         "bosses": [
@@ -2210,13 +2217,15 @@
           "SPITTER_SPIDER",
           "CROW",
           "BAT",
-          "MOTH"
+          "MOTH",
+          "GHOST"
         ],
         "hp_mult": 7.2
       }
     ],
     "music_night": "music_garden_night",
-    "challenge": 1.75
+    "challenge": 1.75,
+    "hazard": "graves"
   },
   "ISLAND": {
     "theme": "island",

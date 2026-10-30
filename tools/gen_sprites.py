@@ -831,6 +831,18 @@ def enemy_canvas(shape, frame, data):
         c.rect(7, 8 + drop, 14, 2, "top", only=("body",))
         c.set(11, 12 + drop, "eye"); c.set(16, 12 + drop, "eye")
         c.rect(3, 22, 22, 3, "accent")
+    elif shape == "ghost":
+        # A little sheet ghost, its wavy hem flapping.
+        flap = frame
+        c.ellipse(14, 11, 7, 7, "bubble")
+        c.rect(7, 11, 15, 9, "bubble")
+        for i in range(4):
+            x = 7 + i * 4
+            c.ellipse(x + 2, 20 + ((i + flap) % 2), 2.2, 2.2, "bubble")
+        c.ellipse(11, 11, 1.6, 2.2, "pupil")
+        c.ellipse(17, 11, 1.6, 2.2, "pupil")
+        c.ellipse(14, 16, 1.4, 1.2, "pupil")
+        c.set(10, 7, "glint"); c.set(11, 7, "glint")
     elif shape == "turtle":
         # A sea turtle from above, flippers paddling.
         swim = frame

@@ -540,6 +540,12 @@ func _bot_input(delta: float) -> Vector2:
 	if quest_here != null and quest_here.started and hp > max_hp * 0.5 and quest_here.target_position().distance_to(position) < 40.0:
 		var stay := quest_here.target_position() - position
 		return stay.normalized() if stay.length() > 6.0 else Vector2.ZERO
+	# Same for sealing a grave and the like (the map's special).
+	if MapHazard.current != null and hp > max_hp * 0.5:
+		var spot := MapHazard.current.bot_goal(position)
+		if spot.distance_to(position) < 40.0:
+			var to_spot := spot - position
+			return to_spot.normalized() if to_spot.length() > 6.0 else Vector2.ZERO
 	var away := Vector2.ZERO
 	# Keep clear of each enemy by its own size (big bosses from further away).
 	for enemy in manager.query_radius(position, 90.0):

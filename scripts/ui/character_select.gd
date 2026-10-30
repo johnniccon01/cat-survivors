@@ -688,7 +688,9 @@ func _refresh_place() -> void:
 			"defend":
 				story = tr("REPORT_DEFEND_STORY") % place_name
 				_report_win.text = tr("REPORT_WIN_DEFEND") % [Profile.REPORT_DEFEND_MINUTES, Profile.REPORT_DEFEND_GOLD]
-				_report_lose.text = tr("REPORT_LOSE_DEFEND") % mini(floori(Profile.gold * Profile.REPORT_THEFT), Profile.REPORT_THEFT_MAX)
+				var theft := mini(floori(Profile.gold * Profile.REPORT_THEFT), Profile.REPORT_THEFT_MAX)
+				var left := Profile.REPORT_DEFEND_NIGHTS - int(rep["nights"])
+				_report_lose.text = tr("REPORT_LOSE_DEFEND") % theft if left <= 1 else tr("REPORT_LOSE_DEFEND_LATER") % [left, theft]
 			"hunt":
 				story = tr("REPORT_HUNT_STORY") % place_name
 				_report_win.text = tr("REPORT_WIN_HUNT") % Profile.REPORT_HUNT_GOLD

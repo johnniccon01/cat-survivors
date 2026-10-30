@@ -14,6 +14,7 @@ cd "$(dirname "$0")/.." || exit 1
 scenarios=(
   "menus|--ui-test|-s res://tools/ui_test.gd"
   "map_clicks|--ui-test|-s res://tools/map_click_test.gd"
+  "sieges|--ui-test|-s res://tools/siege_test.gd"
   "text_fit|--ui-test|-s res://tools/text_fit_test.gd"
   "dev_boss_rush|--bot --strong --god --boss-rush --bot-time=1500 --bot-speed=8"
   "dev_quests|--bot --strong --god --dev-quest-all --bot-time=900 --bot-speed=8"

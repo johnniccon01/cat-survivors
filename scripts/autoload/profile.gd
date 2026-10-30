@@ -114,6 +114,7 @@ func _ready() -> void:
 			if GameData.stages.has(r.get("stage", "")):
 				reports.append(r)
 		report_news = cfg.get_value("reports", "news", [])
+		siege_calm = cfg.get_value("reports", "calm", 0)
 		for c: String in cfg.get_value("residents", "services", []):
 			services.append(c)
 		kidnapped = cfg.get_value("residents", "kidnapped", "")
@@ -340,13 +341,19 @@ func end_daily() -> void:
 
 
 # --- night reports (the neighbourhood) ---------------------------------------
-## Three offers wait on the neighbourhood before every night: hold a map you
-## won against a siege, hunt a boss, or a golden night. You play one (or any
-## other night); the rest settle themselves: an undefended map gets robbed,
-## a golden night passes, a boss hunt waits a few nights.
+## Offers wait on the neighbourhood before every night: hold a map you won
+## against a siege, hunt a boss, or a golden night. You play one (or any
+## other night); the rest settle themselves: a golden night passes, a boss
+## hunt waits a few nights. A siege is rare and patient: it comes only every
+## few nights, on one of the maps you won last, and waits REPORT_DEFEND_NIGHTS
+## nights before the map is robbed. Conquered maps are never besieged.
 
 const REPORT_DEFEND_GOLD := 150
 const REPORT_DEFEND_MINUTES := 10
+## How many nights a siege waits for you before the map is robbed.
+const REPORT_DEFEND_NIGHTS := 2
+## Quiet nights after a siege before the next one: a random count in range.
+const SIEGE_CALM := [2, 3]
 const REPORT_HUNT_GOLD := 250
 const REPORT_HUNT_NIGHTS := 3
 ## An undefended map loses this share of your gold, at most REPORT_THEFT_MAX.
@@ -359,6 +366,8 @@ var reports: Array = []
 var report := -1
 ## What happened to the other reports while you were out: [[key, args...]].
 var report_news: Array = []
+## Quiet nights left before the next siege can come.
+var siege_calm := 0
 var _report_backup: Array[String] = []
 ## True from start_report until the night's scene ends (challenges swapped).
 var _report_on := false
@@ -380,10 +389,16 @@ func make_reports() -> void:
 	for kind: String in kinds:
 		if reports.any(func(r: Dictionary) -> bool: return r["kind"] == kind):
 			continue
+		# Sieges wait out their quiet nights (a test asking for one skips it).
+		if kind == "defend" and siege_calm > 0 and GameData.arg("--report=", "") != "defend":
+			continue
 		var used: Array = reports.map(func(r: Dictionary) -> String: return r["stage"])
 		var pool: Array = open.filter(func(s: String) -> bool: return s not in used)
 		if kind == "defend":
-			pool = pool.filter(func(s: String) -> bool: return s in cleared_stages)
+			# Only the two maps won last, never a conquered one: nobody has to
+			# go all the way back to the first maps to guard them.
+			var held: Array = cleared_stages.filter(func(s: String) -> bool: return s in open and s not in territories)
+			pool = held.slice(maxi(held.size() - 2, 0)).filter(func(s: String) -> bool: return s in pool)
 		elif kind == "hunt" and pool.any(func(s: String) -> bool: return s not in cleared_stages):
 			pool = pool.filter(func(s: String) -> bool: return s not in cleared_stages)
 		if pool.is_empty():
@@ -425,14 +440,24 @@ func end_report() -> void:
 ## themselves, and new ones come in.
 func pass_night() -> void:
 	var keep: Array = []
+	siege_calm = maxi(siege_calm - 1, 0)
 	for i in reports.size():
 		var r: Dictionary = reports[i]
 		if i == report:
+			if r["kind"] == "defend":
+				siege_calm = randi_range(SIEGE_CALM[0], SIEGE_CALM[1])
 			continue
 		var place := TranslationServer.translate("STAGE_%s_NAME" % r["stage"])
 		match r["kind"]:
 			"defend":
-				report_news.append(raid(place))
+				# The siege waits a while; only then is the map robbed.
+				r["nights"] = int(r["nights"]) + 1
+				if r["nights"] < REPORT_DEFEND_NIGHTS and r["stage"] not in territories:
+					keep.append(r)
+				else:
+					if r["stage"] not in territories:
+						report_news.append(raid(place))
+					siege_calm = randi_range(SIEGE_CALM[0], SIEGE_CALM[1])
 			"rescue":
 				# A kidnapped friend waits for you as long as it takes.
 				if kidnapped != "":
@@ -999,6 +1024,7 @@ func save() -> void:
 	cfg.set_value("challenge", "active", _daily_backup if daily else (_report_backup if _report_on else challenges))
 	cfg.set_value("reports", "list", reports)
 	cfg.set_value("reports", "news", report_news)
+	cfg.set_value("reports", "calm", siege_calm)
 	cfg.set_value("nemesis", "bosses", nemesis)
 	cfg.set_value("residents", "services", services)
 	cfg.set_value("trip", "last", last_trip)

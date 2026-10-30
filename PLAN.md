@@ -412,6 +412,8 @@ Hotové (30. 10. 2026, značka `specialita-cintorin`): Cintorín – hmla sa pla
 Hotové (30. 10. 2026, značka `specialita-park`): Park má vlastnú tému podlahy (lúka, chodníky, jazierko s kačkami a trstinou, fontána, piknikové deky) a špecialitu holub zlodej (`hazard: pigeon_thief`): každých 40–55 s pristane pri mačke tučný holub, uteká a zobe granuly; keď ho chytíš, vráti 1,5× toľko XP aj mince, inak uletí. Nové pasce trávnikový postrekovač a husacie hniezdo, rekvizity piknikový košík a vrecko chleba, nový nepriateľ Veverička, vlastné udalosti, questy Nakŕm kačky a Stratený šarkan, riadok v knihe úloh. Nočné osvetlenie pre Park, Ostrov a Stanicu. Testy `park_thief`, `chain_ducks`, `chain_kite`.
 
 Hotové (30. 10. 2026, značky `mapa-napoveda`, `mapa-cesty`): nápoveda na mape štvrte má krížik a po 5 s sama zmizne; bodkované cesty medzi miestami sa už nestrácajú pri posúvaní mapy (vrstva mala nulovú veľkosť a Godot ju skryl) a dajú sa vypnúť tlačidlom „Cesty" pod minimapou (uloží sa v nastaveniach).
+
+Hotové (30. 10. 2026, značka `obrana-zriedkava`): obrana na mape už nie je daň za každú noc. Príde len raz za 2–3 pokojné noci, len na jednu z dvoch naposledy vyhratých máp (nie na staré), počká 2 noci (číslo na štítku, posledná noc bliká) a dobyté mapy sa nikdy neobliehajú. Test `sieges` (`tools/siege_test.gd`).
 Ďalej: prepínanie štvrtí cez stanicu (druhá štvrť s novými mapami). pri nočných správach ešte obyvatelia (unesený obyvateľ namiesto krádeže zlata).
 
 Cieľ: výber mapy vyzerá prémiovo, má význam a dáva dôvod vracať sa na staré miesta. Na mape sa rozhoduje do 15 sekúnd, všetko podstatné sa prejaví priamo v noci.

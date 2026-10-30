@@ -480,6 +480,15 @@ func _draw_report(sign: Control, i: int) -> void:
 	sign.draw_circle(c, 14.0, col)
 	var font := ThemeDB.fallback_font
 	sign.draw_string(font, Vector2(0, c.y + 7), look[0], HORIZONTAL_ALIGNMENT_CENTER, sign.size.x, 20, Color.WHITE)
+	# A siege counts down the nights it still waits; the last one pulses.
+	var rep: Dictionary = Profile.reports[i]
+	if rep["kind"] == "defend":
+		var left := Profile.REPORT_DEFEND_NIGHTS - int(rep["nights"])
+		var b := c + Vector2(13, -13)
+		var r := 7.5 + (1.5 * absf(sin(_t * 5.0)) if left <= 1 else 0.0)
+		sign.draw_circle(b, r + 1.5, OUTLINE)
+		sign.draw_circle(b, r, Color("ffd94a") if left <= 1 else Color.WHITE)
+		sign.draw_string(font, b + Vector2(-8, 4), str(left), HORIZONTAL_ALIGNMENT_CENTER, 16, 11, Color("3a2600"))
 
 
 func _add_pin(id: String) -> void:

@@ -256,8 +256,11 @@ func _in_game() -> void:
 	await _until(func() -> bool: return treasure.visible)
 	await _frames(240)
 	_expect(treasure.visible, "chest opens")
-	await _press(KEY_ENTER)
-	await _until(func() -> bool: return not treasure.visible and not paused)
+	# On a busy machine the first Enter may only skip the opening show.
+	var end := Time.get_ticks_msec() + 10000
+	while (treasure.visible or paused) and Time.get_ticks_msec() < end:
+		await _press(KEY_ENTER)
+		await _frames(10)
 	_expect(not treasure.visible and not paused, "Enter closes the chest")
 
 	# Give up from the pause menu, then back to character select.

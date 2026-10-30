@@ -399,14 +399,14 @@ func _build() -> void:
 	bottom.add_child(left)
 	var scroll := ScrollContainer.new()
 	scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	scroll.custom_minimum_size = Vector2(0, 76)
+	scroll.custom_minimum_size = Vector2(0, 70)
 	left.add_child(scroll)
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 5)
 	scroll.add_child(row)
 	for i in _ids.size():
 		var card := PanelContainer.new()
-		card.custom_minimum_size = Vector2(60, 72)
+		card.custom_minimum_size = Vector2(58, 66)
 		card.mouse_filter = Control.MOUSE_FILTER_STOP
 		card.gui_input.connect(_on_card_input.bind(i))
 		card.mouse_entered.connect(_on_card_hover.bind(i, true))
@@ -462,35 +462,28 @@ func _build() -> void:
 	_weapon_label = _label(14, GOLD)
 	_weapon_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	info.add_child(_weapon_label)
-	_cat_stats = _label(13, Color("8f7ea3"))
-	_cat_stats.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	info.add_child(_cat_stats)
-	for l: Label in [_weapon_label, _cat_stats]:
-		l.clip_text = true
-		l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_desc = _label(13, Color("cfc3dc"))
-	_desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
-	_desc.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	_desc.clip_text = true
 	left.add_child(_desc)
+	# Two full-width lines: the cat's record and what you take along, then
+	# challenges, streak and the daily night.
 	var loadout := HBoxContainer.new()
 	loadout.add_theme_constant_override("separation", 22)
 	left.add_child(loadout)
+	_cat_stats = _label(13, Color("8f7ea3"))
+	loadout.add_child(_cat_stats)
 	_worn = _label(13, Color("c77dff"))
 	loadout.add_child(_worn)
 	_artifact_label = _label(13, Color("8fd3ff"))
 	loadout.add_child(_artifact_label)
-	for l: Label in [_worn, _artifact_label]:
-		l.clip_text = true
-		l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_challenge_label = _label(13, Color("ff7a6a"))
-	_challenge_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	_challenge_label.clip_text = true
-	_challenge_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	loadout.add_child(_challenge_label)
+	left.add_child(_challenge_label)
+	# Never cut off: these lines shrink their font to fit (see _fit_lines).
+	for l: Label in [_weapon_label, _cat_stats, _worn, _artifact_label, _challenge_label, _desc]:
+		l.clip_text = true
+		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+		l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		l.set_meta("base_size", l.label_settings.font_size)
 	var play := Button.new()
 	play.custom_minimum_size = Vector2(210, 0)
 	play.focus_mode = Control.FOCUS_NONE
@@ -539,6 +532,14 @@ func _badge(fill: Color, edge: Color) -> PanelContainer:
 	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	chip.add_child(row)
 	return chip
+
+
+## The bottom lines shrink their font until all of their text fits.
+func _fit_lines() -> void:
+	for l: Label in [_weapon_label, _cat_stats, _worn, _artifact_label, _challenge_label, _desc]:
+		var base: int = l.get_meta("base_size", 13)
+		var font := l.get_theme_font("font")
+		l.label_settings.font_size = UiStyle.fit_size(font, l.text, maxf(l.size.x - 2.0, 40.0), base, 9)
 
 
 ## Shrinks the top buttons until the bar fits the screen's real width.
@@ -744,6 +745,7 @@ func _refresh_place() -> void:
 	for i in _home_marks.size():
 		_home_marks[i].visible = GameData.cats[_ids[i]].get("home", "") == id and Profile.is_unlocked(_ids[i])
 	_fill_home(id)
+	_fit_lines.call_deferred()
 	if _moon_mode:
 		_show_moon()
 	elif _resident != "":

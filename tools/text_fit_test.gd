@@ -194,6 +194,10 @@ func _check(node: Node, where: String) -> void:
 			if rect.position.x < -1.0 or rect.end.x > view.end.x + 1.0:
 				_fail("%s: \"%s\" too wide for the screen (%d px) at %s" % [where, text.left(40), rect.size.x, c.get_path()])
 			continue
+		# Clipped on purpose (the neighbourhood map shows only part of the
+		# town): what lies outside the clip is not on screen at all.
+		if _clipped(c):
+			continue
 		# (A few pixels over the edge is padding, not text.)
 		if not view.grow(6.0).encloses(rect):
 			_fail("%s: \"%s\" off the screen %s at %s" % [where, text.left(40), rect, c.get_path()])
@@ -213,6 +217,15 @@ func _controls(node: Node) -> Array[Control]:
 
 
 ## Inside a scroll container text may run past the visible part.
+func _clipped(c: Control) -> bool:
+	var p := c.get_parent()
+	while p != null:
+		if p is Control and (p as Control).clip_contents:
+			return true
+		p = p.get_parent()
+	return false
+
+
 func _scrolled(c: Control) -> bool:
 	var p := c.get_parent()
 	while p != null:

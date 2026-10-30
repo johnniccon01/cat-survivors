@@ -175,8 +175,15 @@ func _ready() -> void:
 
 	# Edge arrows (only where there is more town) and a minimap.
 	for d: String in ["l", "r", "u", "d"]:
-		var b := UiStyle.click_button({"l": "‹", "r": "›", "u": "˄", "d": "˅"}[d], 40, 24)
+		var b := UiStyle.click_button({"l": "‹", "r": "›", "u": "", "d": ""}[d], 40, 24)
 		b.custom_minimum_size = Vector2(40, 40)
+		if d == "u" or d == "d":
+			# Up and down are drawn: the font has no such arrows.
+			var up := d == "u"
+			b.draw.connect(func() -> void:
+				var c := b.size * 0.5
+				var k := -1.0 if up else 1.0
+				b.draw_colored_polygon(PackedVector2Array([c + Vector2(-8, -4 * k), c + Vector2(8, -4 * k), c + Vector2(0, 5 * k)]), UiStyle.GOLD))
 		var step: Vector2 = {"l": Vector2(-220, 0), "r": Vector2(220, 0), "u": Vector2(0, -120), "d": Vector2(0, 120)}[d]
 		b.pressed.connect(func() -> void: _cam_to = _clamp_cam(_cam_to + step))
 		add_child(b)
@@ -226,7 +233,7 @@ func _place_controls() -> void:
 	_arrows["d"].position = Vector2(size.x * 0.5 - 20, size.y - 50)
 	_mini.position = Vector2(size.x - 192, 12)
 	_hint.reset_size()
-	_hint.position = Vector2(size.x - _hint.size.x - 10, size.y - _hint.size.y - 10)
+	_hint.position = Vector2(size.x - _hint.size.x - 10, size.y - _hint.size.y - 58)
 	# The real size is only known now: centre on the chosen place again.
 	if selected != "":
 		select(selected, cam == Vector2.ZERO)

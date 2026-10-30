@@ -71,6 +71,10 @@
     "NIGHT_SCARF": { "slot": "TAIL", "boss": "RIVAL_BRUNO", "color": "#4b3a66", "stats": { "crit_chance": 0.08, "crit_mult": 0.4 } },
     "GUARD_VEST": { "slot": "VEST", "boss": "GUARD_DOG", "color": "#2a3a6a", "stats": { "low_hp_guard": 0.3, "armor": 2.0, "max_hp": 30.0 } },
     "KRAKEN_PEARL": { "slot": "COLLAR", "boss": "KRAKEN", "color": "#8fd3ff", "stats": { "freeze_every": 40.0, "duration": 0.15 } },
-    "TURBO_TAIL": { "slot": "TAIL", "boss": "ROBO_VACUUM_3000", "color": "#e04646", "stats": { "amount": 1.0, "boss_damage": 0.25 } }
+    "TURBO_TAIL": { "slot": "TAIL", "boss": "ROBO_VACUUM_3000", "color": "#e04646", "stats": { "amount": 1.0, "boss_damage": 0.25 } },
+    "FEATHER_CAPE": { "slot": "VEST", "boss": "PIGEON_KING", "color": "#6a5a92", "stats": { "speed": 0.12, "magnet": 30.0 } },
+    "COUNT_HAT": { "slot": "HAT", "boss": "BAT_COUNT", "color": "#3a2a4a", "stats": { "crit_chance": 0.08, "might": 0.1 } },
+    "CRAB_SHELL": { "slot": "VEST", "boss": "CRAB_EMPEROR", "color": "#c0503a", "stats": { "armor": 2.0, "max_hp": 20.0 } },
+    "STATION_WHISTLE": { "slot": "COLLAR", "boss": "STATIONMASTER", "color": "#e0a020", "stats": { "cooldown": -0.08, "growth": 0.1 } }
   }
 }

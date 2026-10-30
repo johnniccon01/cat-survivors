@@ -1014,6 +1014,61 @@
       ],
       "frames": 2
     },
+    "PIGEON_KING": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "BAT_COUNT": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "CRAB_EMPEROR": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "STATIONMASTER": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "SUITCASE": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
     "BOX": {
       "cell": [
         28,
@@ -1135,7 +1190,7 @@
       ],
       "frames": 2
     },
-    "PIGEON_KING": {
+    "LUGGAGE": {
       "cell": [
         28,
         28
@@ -1146,29 +1201,7 @@
       ],
       "frames": 2
     },
-    "BAT_COUNT": {
-      "cell": [
-        28,
-        28
-      ],
-      "anchor": [
-        14.0,
-        15.0
-      ],
-      "frames": 2
-    },
-    "CRAB_EMPEROR": {
-      "cell": [
-        28,
-        28
-      ],
-      "anchor": [
-        14.0,
-        15.0
-      ],
-      "frames": 2
-    },
-    "STATIONMASTER": {
+    "NEWSPAPERS": {
       "cell": [
         28,
         28

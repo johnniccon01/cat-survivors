@@ -289,10 +289,11 @@ func _ready() -> void:
 		terrain.setup(terrain_kind, self)
 		add_child(terrain)
 		move_child(terrain, $Floor.get_index() + 1)
+	_setup_hazard()
 	if spawner.stage_id == "BASEMENT" and not Profile.is_unlocked("LUNA"):
 		var intro := "STORY_BASEMENT_COLLAR" if Profile.has_flag("collar") else "STORY_BASEMENT_INTRO"
 		hud.show_banner.call_deferred(tr(intro), 6.0)
-	elif spawner.stage_id in ["GARDEN", "ROOFTOP", "SUPERMARKET", "HARBOR", "FACTORY"] and spawner.stage_id not in Profile.cleared_stages:
+	elif spawner.stage_id not in ["LIVING_ROOM", "BASEMENT"] and spawner.stage_id not in Profile.cleared_stages:
 		hud.show_banner.call_deferred(tr("STORY_%s_INTRO" % spawner.stage_id), 6.0)
 	spawner.skip_to(float(_arg("--start-minute=", "0")) * 60.0)
 	if "--catch-up" in _args:
@@ -1581,12 +1582,26 @@ func _go_through_gate(id: String) -> void:
 		terrain.setup(kind, self)
 		add_child(terrain)
 		move_child(terrain, $Floor.get_index() + 1)
+	_setup_hazard()
 	_day_music = ""
 	Audio.play_music(_map_music())
 	player.shake(4.0, 0.4)
 	hud.show_banner(tr("TRIP_ARRIVED") % tr("STAGE_%s_NAME" % id), 4.0)
 	print("TRIP: through the gate to %s" % id)
 	BotLog.event("trip_gate")
+
+
+## The map's own special event (a train, the tide's treasures...), if it has one.
+func _setup_hazard() -> void:
+	if MapHazard.current != null:
+		MapHazard.current.queue_free()
+		MapHazard.current = null
+	var kind: String = _arg("--hazard=", spawner.stage().get("hazard", ""))
+	if kind == "" or kind == "none":
+		return
+	var hazard := MapHazard.new()
+	hazard.setup(kind, self)
+	add_child(hazard)
 
 
 ## Your nemesis may turn up to hunt you, some minutes into another night.

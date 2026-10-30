@@ -831,6 +831,21 @@ def enemy_canvas(shape, frame, data):
         c.rect(7, 8 + drop, 14, 2, "top", only=("body",))
         c.set(11, 12 + drop, "eye"); c.set(16, 12 + drop, "eye")
         c.rect(3, 22, 22, 3, "accent")
+    elif shape == "suitcase":
+        # Lost luggage that got up and walks: a case on little legs.
+        step = frame
+        for x in ((8, 18) if frame else (10, 16)):
+            c.rect(x, 21, 2, 4, "leg")
+        c.rect(9, 5 + step, 10, 2, "ink")
+        c.rect(9, 5 + step, 2, 4, "ink"); c.rect(17, 5 + step, 2, 4, "ink")
+        c.rect(4, 8 + step, 20, 14, "body")
+        c.rect(4, 8 + step, 20, 3, "top", only=("body",))
+        c.rect(4, 14 + step, 20, 2, "accent", only=("body", "top"))
+        c.rect(19, 9 + step, 3, 3, "accent")
+        for x in (9, 16):
+            c.ellipse(x, 12 + step, 1.8, 1.8, "white")
+            c.set(x + 1, 12 + step, "pupil")
+        c.rect(11, 18 + step, 6, 1, "ink")
     elif shape == "sack":
         c.poly([(8, 9), (20, 9), (23, 24), (5, 24)], "body")
         c.rect(10, 6, 8, 4, "body")

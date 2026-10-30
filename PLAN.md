@@ -406,6 +406,7 @@ Hotové (30. 10. 2026, značka `mapa-ostrov`): nová mapa Ostrov (téma prístav
 Hotové (30. 10. 2026, značka `mapa-stanica`): nová mapa Stanica (betónové nástupištia v téme strechy, holuby, potkany, mývaly, drony; finálny boss Mýval prednosta `STATIONMASTER`; odomkne sa po Supermarkete). Testy `station`, `final_stationmaster`.
 Hotové (30. 10. 2026, značka `tema-stanica`): Stanica má vlastnú tému podlahy (nástupištia so žltou čiarou, koľajisko, hala, návestidlá, zarážadlá, automaty na lístky, kufre, staničné lampy). Legendárne predmety pre 4 nových bossov, okno Čo je nové 11.
 Hotové (30. 10. 2026, značka `tema-ostrov`): Ostrov má vlastnú tému podlahy (piesok, palmový háj, skalnaté pobrežie s jazierkami, palmy, skaly, vrak, táborák so svetlom).
+Hotové (30. 10. 2026, značka `specialita-stanica`): Stanica má vlastnú špecialitu – vlak (`MapHazard`, stage `hazard: train`): červený pás s varovaním, potom vlak prejde cez riadok mačky, zrazí nepriateľov (bossom zoberie 4 %), mačke 18 zdravia. Nové pasce koľajnica s iskrami a turniket, rekvizity kufre a noviny, nový nepriateľ Stratený kufor, vlastné udalosti, questy Stratená batožina a Posledný vlak, riadok v knihe úloh. Testy `station_train`, `chain_luggage`, `chain_last_train`.
 Ďalej: prepínanie štvrtí cez stanicu (druhá štvrť s novými mapami). pri nočných správach ešte obyvatelia (unesený obyvateľ namiesto krádeže zlata).
 
 Cieľ: výber mapy vyzerá prémiovo, má význam a dáva dôvod vracať sa na staré miesta. Na mape sa rozhoduje do 15 sekúnd, všetko podstatné sa prejaví priamo v noci.

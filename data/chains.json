@@ -1333,5 +1333,22 @@
       {"type": "collect", "items": ["gear"], "item": "gear", "count": 6, "capacity": 3, "spread": [220, 460], "deliver": true, "look_to": "fuse"},
       {"type": "boss", "enemy": "ASSEMBLY_ARM", "hp_mult": 2.5, "look": "fuse", "distance": 230, "after_minute": 5}
     ]
+  },
+  "LOST_LUGGAGE": {
+    "stage": "STATION",
+    "reward": {"gold": 900, "charm": "MAGNET_PAW"},
+    "steps": [
+      {"type": "collect", "items": ["suitcase"], "item": "suitcase", "count": 5, "capacity": 1, "slow_each": 0.3, "spread": [220, 440], "deliver": true, "look_to": "lost_found"},
+      {"type": "chase", "enemy": "RACCOON_THIEF", "times": 2, "hp_mult": 1.4}
+    ]
+  },
+  "LAST_TRAIN": {
+    "stage": "STATION",
+    "reward": {"gold": 1300, "charm": "BIRD_BELL"},
+    "steps": [
+      {"type": "zones", "count": 3, "hold": 6, "radius": 42, "spread": [200, 340], "look": "signal_light"},
+      {"type": "defend", "time": 35, "mode": "enemies", "enemy": "SUITCASE", "spawn_every": 3.0, "spawn_count": 4, "look": "locomotive", "distance": 300},
+      {"type": "boss", "enemy": "SECURITY_BOT", "hp_mult": 2.5, "look": "locomotive", "distance": 240, "after_minute": 6}
+    ]
   }
 }

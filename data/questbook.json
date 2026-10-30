@@ -745,6 +745,49 @@
         }
       ]
     },
+    "STATION": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:STATION"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 450
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:STATION"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 900
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:STATION",
+          "target": 1,
+          "reward": {
+            "gold": 1400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:STATION"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 2200
+          }
+        }
+      ]
+    },
     "OLD_DIARY": {
       "chapter": "story",
       "tiers": [

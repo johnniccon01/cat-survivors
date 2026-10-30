@@ -119,5 +119,21 @@
     "damage": 60,
     "player_damage": 14,
     "rearm": 4.0
+  },
+  "RAIL_SPARK": {
+    "type": "pulse",
+    "radius": 28,
+    "damage": 18,
+    "player_damage": 9,
+    "on": 1.0,
+    "off": 2.4,
+    "tick": 0.3
+  },
+  "TICKET_GATE": {
+    "type": "snap",
+    "radius": 12,
+    "damage": 55,
+    "player_damage": 12,
+    "rearm": 3.5
   }
 }

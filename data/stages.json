@@ -2463,9 +2463,9 @@
     "requires": "SUPERMARKET",
     "cat_quests": [],
     "props": [
-      "BUCKET",
-      "BUCKET",
-      "CRATE"
+      "LUGGAGE",
+      "NEWSPAPERS",
+      "LUGGAGE"
     ],
     "max_props": 6,
     "prop_interval": 4.0,
@@ -2481,14 +2481,14 @@
       {
         "minute": 6.0,
         "type": "ring",
-        "enemy": "PIGEON",
-        "count": 48
+        "enemy": "SUITCASE",
+        "count": 30
       },
       {
         "minute": 9.0,
         "type": "swarm",
-        "enemy": "PIGEON",
-        "count": 50
+        "enemy": "RAT",
+        "count": 70
       },
       {
         "minute": 12.0,
@@ -2499,20 +2499,20 @@
       {
         "minute": 15.0,
         "type": "swarm",
-        "enemy": "PIGEON",
-        "count": 100
+        "enemy": "DRONE",
+        "count": 80
       },
       {
         "minute": 18.0,
         "type": "ring",
-        "enemy": "PIGEON",
-        "count": 60
+        "enemy": "SUITCASE",
+        "count": 50
       }
     ],
     "traps": [
-      "VENT",
-      "VENT",
-      "LIVE_WIRE"
+      "RAIL_SPARK",
+      "TICKET_GATE",
+      "RAIL_SPARK"
     ],
     "max_traps": 6,
     "intensity": [
@@ -2569,7 +2569,8 @@
         "enemies": [
           "RAT",
           "PIGEON",
-          "RACCOON"
+          "RACCOON",
+          "SUITCASE"
         ],
         "hp_mult": 1.2
       },
@@ -2581,7 +2582,8 @@
         "enemies": [
           "RAT",
           "PIGEON",
-          "RACCOON"
+          "RACCOON",
+          "SUITCASE"
         ],
         "hp_mult": 1.38,
         "bosses": [
@@ -2608,7 +2610,8 @@
         "enemies": [
           "RACCOON",
           "PIGEON",
-          "DRONE"
+          "DRONE",
+          "SUITCASE"
         ],
         "hp_mult": 2.76,
         "bosses": [
@@ -2624,7 +2627,8 @@
           "RAT",
           "RACCOON_THIEF",
           "PIGEON",
-          "DRONE"
+          "DRONE",
+          "SUITCASE"
         ],
         "hp_mult": 3.22
       },
@@ -2653,7 +2657,8 @@
           "RACCOON",
           "ROGUE_DRONE",
           "RAT",
-          "RACCOON_THIEF"
+          "RACCOON_THIEF",
+          "SUITCASE"
         ],
         "hp_mult": 4.6,
         "bosses": [
@@ -2685,12 +2690,14 @@
           "RACCOON",
           "ROGUE_DRONE",
           "RAT",
-          "RACCOON_THIEF"
+          "RACCOON_THIEF",
+          "SUITCASE"
         ],
         "hp_mult": 6.44
       }
     ],
     "music_night": "music_rooftop_night",
-    "challenge": 1.8
+    "challenge": 1.8,
+    "hazard": "train"
   }
 }

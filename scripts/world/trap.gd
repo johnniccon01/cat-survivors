@@ -252,6 +252,32 @@ func _draw() -> void:
 				draw_line(Vector2(-9 + k * 6, -9), Vector2(-3 + k * 6, 9), Color("2b2b2b"), 2.0)
 			if _flash > 0.0:
 				Blit.disc(self, Vector2.ZERO, 14.0, Color(1, 1, 1, _flash * 2.0))
+		"RAIL_SPARK":
+			# A loose bit of live rail that sparks now and then.
+			for y: float in [-6.0, 6.0]:
+				draw_rect(Rect2(-22, y - 2, 44, 4), Color("6a6a72"))
+				draw_rect(Rect2(-22, y - 2, 44, 2), Color("c8c8d0"))
+			for x: float in [-16.0, 0.0, 16.0]:
+				draw_rect(Rect2(x - 3, -10, 6, 20), Color("5a3a24"))
+			if _active:
+				for k in 7:
+					var p1 := Vector2(randf_range(-20, 20), randf_range(-8, 8))
+					Blit.line(self, p1, p1 + Vector2.from_angle(_t * 15.0 + k) * 8.0, Color("fff2a0"), 1.5)
+				Blit.disc(self, Vector2.ZERO, float(data["radius"]), Color(1.0, 0.9, 0.4, 0.12))
+		"TICKET_GATE":
+			# A turnstile: its arms snap round on whoever pushes through.
+			draw_rect(Rect2(-12, -9, 6, 18), OUTLINE)
+			draw_rect(Rect2(-11, -8, 4, 16), Color("9aa0a6"))
+			draw_rect(Rect2(6, -9, 6, 18), OUTLINE)
+			draw_rect(Rect2(7, -8, 4, 16), Color("9aa0a6"))
+			var spin := 0.0 if _active else _t * 12.0
+			for k in 3:
+				var tip := Vector2.from_angle(spin + TAU * k / 3.0) * 9.0
+				draw_line(Vector2.ZERO, tip, OUTLINE, 3.0)
+				draw_line(Vector2.ZERO, tip, Color("e24b4a") if _active else Color("c8c8d0"), 1.5)
+			draw_circle(Vector2.ZERO, 2.5, OUTLINE)
+			if _flash > 0.0:
+				Blit.disc(self, Vector2.ZERO, 14.0, Color(1, 1, 1, _flash * 2.0))
 		"MOUSETRAP":
 			draw_rect(Rect2(-8, -5, 16, 10), OUTLINE)
 			draw_rect(Rect2(-7, -4, 14, 8), Color("c9a26a"))

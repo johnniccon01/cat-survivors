@@ -76,6 +76,20 @@
       "radius": 7,
       "color": "#3a5a8a",
       "accent": "#c9ced2"
+    },
+    "LUGGAGE": {
+      "shape": "box",
+      "hp": 1,
+      "radius": 8,
+      "color": "#5a6ac8",
+      "accent": "#e0a020"
+    },
+    "NEWSPAPERS": {
+      "shape": "sack",
+      "hp": 1,
+      "radius": 7,
+      "color": "#e8e2d0",
+      "accent": "#5a5a60"
     }
   },
   "loot": [

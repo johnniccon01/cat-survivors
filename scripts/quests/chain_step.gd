@@ -372,6 +372,34 @@ func draw_look(at: Vector2, look: String, alpha: float = 1.0) -> void:
 			draw_rect(Rect2(at + Vector2(-5, -7), Vector2(10, 12)), Color(OUTLINE, a))
 			draw_rect(Rect2(at + Vector2(-4, -6), Vector2(8, 10)), Color(1.0, 0.85, 0.4, a))
 			draw_arc(at + Vector2(0, -8), 4.0, PI, TAU, 8, Color(OUTLINE, a), 1.5)
+		"suitcase":
+			draw_rect(Rect2(at + Vector2(-9, -6), Vector2(18, 13)), Color(OUTLINE, a))
+			draw_rect(Rect2(at + Vector2(-8, -5), Vector2(16, 11)), Color(0.54, 0.35, 0.2, a))
+			draw_rect(Rect2(at + Vector2(-8, -1), Vector2(16, 2)), Color(0.88, 0.63, 0.13, a))
+			draw_rect(Rect2(at + Vector2(-3, -9), Vector2(6, 3)), Color(OUTLINE, a))
+		"lost_found":
+			# The lost-and-found booth: a hut with a window and a sign.
+			draw_rect(Rect2(at + Vector2(-26, -24), Vector2(52, 44)), Color(OUTLINE, a))
+			draw_rect(Rect2(at + Vector2(-25, -23), Vector2(50, 42)), Color(0.35, 0.42, 0.62, a))
+			draw_rect(Rect2(at + Vector2(-18, -14), Vector2(36, 16)), Color(0.56, 0.82, 0.94, a))
+			draw_rect(Rect2(at + Vector2(-28, -30), Vector2(56, 8)), Color(0.88, 0.63, 0.13, a))
+			draw_rect(Rect2(at + Vector2(-20, 6), Vector2(40, 6)), Color(0.54, 0.35, 0.2, a))
+		"signal_light":
+			draw_rect(Rect2(at + Vector2(-2, -6), Vector2(4, 26)), Color(OUTLINE, a))
+			draw_rect(Rect2(at + Vector2(-8, -30), Vector2(16, 26)), Color(OUTLINE, a))
+			draw_rect(Rect2(at + Vector2(-7, -29), Vector2(14, 24)), Color(0.16, 0.16, 0.19, a))
+			var on := 0.5 + 0.5 * sin(_age * 6.0)
+			draw_circle(at + Vector2(0, -23), 4.0, Color(0.9, 0.3, 0.29, a * (0.4 + 0.6 * on)))
+			draw_circle(at + Vector2(0, -12), 4.0, Color(0.3, 0.85, 0.4, a * (1.0 - on * 0.6)))
+		"locomotive":
+			draw_rect(Rect2(at + Vector2(-34, -18), Vector2(68, 32)), Color(OUTLINE, a))
+			draw_rect(Rect2(at + Vector2(-33, -17), Vector2(66, 30)), Color(0.75, 0.22, 0.17, a))
+			draw_rect(Rect2(at + Vector2(14, -12), Vector2(14, 12)), Color(0.56, 0.82, 0.94, a))
+			draw_rect(Rect2(at + Vector2(-33, 4), Vector2(66, 4)), Color(0.91, 0.75, 0.16, a))
+			draw_rect(Rect2(at + Vector2(-26, -26), Vector2(8, 9)), Color(OUTLINE, a))
+			for x: float in [-22.0, -6.0, 10.0, 24.0]:
+				draw_circle(at + Vector2(x, 15), 5.0, Color(OUTLINE, a))
+				draw_circle(at + Vector2(x, 15), 3.0, Color(0.42, 0.42, 0.45, a))
 		"hint":
 			for i in 3:
 				draw_circle(at + Vector2(-8 + i * 8, 0), 2.5, Color(1, 1, 1, 0.5 * a))

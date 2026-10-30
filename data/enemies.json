@@ -1282,5 +1282,18 @@
     "final_mode": "roar",
     "minion": "RACCOON",
     "music": "music_boss"
+  },
+  "SUITCASE": {
+    "shape": "suitcase",
+    "color": "#8a5a34",
+    "accent": "#e0a020",
+    "hp": 28,
+    "speed": 44,
+    "damage": 8,
+    "radius": 9,
+    "xp": 3,
+    "knockback_resist": 0.5,
+    "cost": 2.5,
+    "behavior": "dash"
   }
 }

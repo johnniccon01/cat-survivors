@@ -20,8 +20,9 @@ const ROOFTOP_ITEMS: Array[String] = ["leaf", "pebble", "feather", "bottle_cap",
 const SUPERMARKET_ITEMS: Array[String] = ["receipt", "grape", "price_tag", "coin_small", "crumbs"]
 const HARBOR_ITEMS: Array[String] = ["shell", "starfish", "pebble", "rope_bit", "feather"]
 const FACTORY_ITEMS: Array[String] = ["bolt", "bolt", "rag", "coin_small", "crumbs"]
+const CEMETERY_ITEMS: Array[String] = ["leaf", "twig", "pebble", "feather", "leaf"]
 const THEME_ITEMS := {"basement": BASEMENT_ITEMS, "garden": GARDEN_ITEMS, "rooftop": ROOFTOP_ITEMS,
-	"supermarket": SUPERMARKET_ITEMS, "harbor": HARBOR_ITEMS, "factory": FACTORY_ITEMS}
+	"supermarket": SUPERMARKET_ITEMS, "harbor": HARBOR_ITEMS, "factory": FACTORY_ITEMS, "cemetery": CEMETERY_ITEMS}
 ## Zones per theme, from low noise to high noise.
 const THEME_ZONES := {
 	"apartment": ["kitchen", "living", "bedroom"],
@@ -31,6 +32,7 @@ const THEME_ZONES := {
 	"supermarket": ["produce", "aisle", "freezer"],
 	"harbor": ["beach", "dock", "pier"],
 	"factory": ["storage_bay", "assembly", "conveyor"],
+	"cemetery": ["gravel", "grave_lawn", "graves"],
 }
 const FURNITURE := {
 	"living": ["sofa", "armchair", "coffee_table", "bookshelf", "tv", "floor_lamp", "plant", "cat_tree"],
@@ -54,8 +56,11 @@ const FURNITURE := {
 	"storage_bay": ["pallet_stack", "pallet_stack", "barrels", "crates", "factory_lamp"],
 	"assembly": ["machine", "robot_arm", "control_panel", "factory_lamp", "machine"],
 	"conveyor": ["gear_pile", "robot_arm", "factory_lamp", "control_panel"],
+	"grave_lawn": ["dead_tree", "gravestone", "bench", "grave_candle", "gravestone", "bush"],
+	"gravel": ["grave_candle", "bench", "grave_cross", "gravestone"],
+	"graves": ["gravestone", "grave_cross", "gravestone", "grave_candle", "crypt", "grave_cross"],
 }
-const LAMPS := ["floor_lamp", "nightstand", "bulb", "garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp", "factory_lamp"]
+const LAMPS := ["floor_lamp", "nightstand", "bulb", "garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp", "factory_lamp", "grave_candle"]
 const LAMP_COLOR := Color(1.0, 0.82, 0.55)
 
 static var _light_texture: Texture2D
@@ -127,9 +132,9 @@ func _draw_ground() -> void:
 			_draw_tiles(size)
 		"concrete", "storage", "laundry":
 			_draw_concrete(size, desc["zone"])
-		"lawn", "flowerbed":
+		"lawn", "flowerbed", "grave_lawn", "graves":
 			_draw_grass(size, desc["zone"])
-		"path":
+		"path", "gravel":
 			_draw_path(size)
 		"tar":
 			_draw_tar(size)
@@ -152,7 +157,7 @@ func _draw_ground() -> void:
 		_:
 			_draw_planks(area)
 	var strip := Color("3e2a1c")
-	if desc["zone"] in ["lawn", "flowerbed", "path"]:
+	if desc["zone"] in ["lawn", "flowerbed", "path", "grave_lawn", "graves", "gravel"]:
 		strip = Color(0.2, 0.3, 0.12, 0.35)
 	elif desc["zone"] in ["tar", "tiles", "deck"]:
 		strip = Color("4a4a52")
@@ -253,11 +258,11 @@ func _draw_carpet(size: float) -> void:
 
 
 func _draw_grass(size: float, zone: String) -> void:
-	var base := Color("5e9e4a") if zone == "lawn" else Color("6b4a32")
+	var base: Color = {"lawn": Color("5e9e4a"), "grave_lawn": Color("3f5e38"), "graves": Color("4a3a30")}.get(zone, Color("6b4a32"))
 	draw_rect(Rect2(0, 0, size, size), base)
 	var rng := RandomNumberGenerator.new()
 	rng.seed = desc["seed"]
-	if zone == "lawn":
+	if zone == "lawn" or zone == "grave_lawn":
 		# Mowing stripes in world space, then tufts.
 		var stripe := 40.0
 		var x0 := floori(position.x / stripe)
@@ -799,6 +804,43 @@ func _draw_furniture(f: Dictionary) -> void:
 			for x: float in [-38.0, -26.0, -14.0, -2.0, 10.0, 22.0]:
 				draw_line(Vector2(x + 11, -12), Vector2(x + 11, 12), WOOD_DARK, 1.0)
 			_box(Rect2(-40, -16, 80, 5), Color("3a3a40"))
+		"gravestone":
+			draw_rect(Rect2(-14, 6, 28, 6), Color(0, 0, 0, 0.25))
+			draw_circle(Vector2(0, -16), 13.0, OUTLINE)
+			draw_rect(Rect2(-13, -16, 26, 26), OUTLINE)
+			draw_circle(Vector2(0, -16), 12.0, Color("8a8a92"))
+			draw_rect(Rect2(-12, -16, 24, 25), Color("8a8a92"))
+			draw_rect(Rect2(-12, -16, 4, 25), Color("9e9ea8"))
+			draw_line(Vector2(-6, -14), Vector2(6, -14), Color("5a5a62"), 2.0)
+			draw_line(Vector2(-6, -8), Vector2(6, -8), Color("5a5a62"), 2.0)
+			draw_line(Vector2(3, -2), Vector2(6, 4), Color("5a5a62"), 1.0)
+			draw_rect(Rect2(-16, 8, 32, 4), Color("3f5e38"))
+		"grave_cross":
+			draw_rect(Rect2(-12, 10, 24, 4), Color(0, 0, 0, 0.25))
+			draw_rect(Rect2(-4, -30, 8, 42), OUTLINE)
+			draw_rect(Rect2(-13, -22, 26, 8), OUTLINE)
+			draw_rect(Rect2(-3, -29, 6, 40), Color("9a9aa2"))
+			draw_rect(Rect2(-12, -21, 24, 6), Color("9a9aa2"))
+			draw_rect(Rect2(-3, -29, 2, 40), Color("b0b0b8"))
+		"dead_tree":
+			draw_circle(Vector2(4, 6), 16.0, Color(0, 0, 0, 0.2))
+			for b: Array in [[Vector2(0, 8), Vector2(0, -30), 6.0], [Vector2(0, -12), Vector2(-18, -28), 3.0], [Vector2(0, -18), Vector2(16, -34), 3.0],
+					[Vector2(-10, -20), Vector2(-14, -36), 2.0], [Vector2(8, -26), Vector2(20, -24), 2.0]]:
+				draw_line(b[0], b[1], OUTLINE, b[2] + 2.0)
+				draw_line(b[0], b[1], Color("4a3a36"), b[2])
+		"grave_candle":
+			draw_rect(Rect2(-4, -4, 8, 10), OUTLINE)
+			draw_rect(Rect2(-3, -3, 6, 8), Color("f4ecd4"))
+			draw_circle(Vector2(0, -8), 3.5, Color("ff9a2a"))
+			draw_circle(Vector2(0, -8), 2.0, Color("fff3c8"))
+		"crypt":
+			draw_rect(Rect2(-34, 20, 72, 8), Color(0, 0, 0, 0.25))
+			_box(Rect2(-34, -20, 68, 42), Color("6a6a72"))
+			draw_colored_polygon(PackedVector2Array([Vector2(-40, -18), Vector2(0, -42), Vector2(40, -18)]), OUTLINE)
+			draw_colored_polygon(PackedVector2Array([Vector2(-36, -19), Vector2(0, -39), Vector2(36, -19)]), Color("4a4a52"))
+			_box(Rect2(-10, -2, 20, 24), Color("2a2a30"))
+			draw_rect(Rect2(-2, -34, 4, 10), Color("9a9aa2"))
+			draw_rect(Rect2(-6, -31, 12, 3), Color("9a9aa2"))
 		"birdbath":
 			draw_circle(Vector2.ZERO, 17.0, OUTLINE)
 			draw_circle(Vector2.ZERO, 16.0, Color("c9c4bc"))

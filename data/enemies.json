@@ -1217,5 +1217,24 @@
     "final_mode": "roar",
     "minion": "PIGEON",
     "music": "music_boss"
+  },
+  "BAT_COUNT": {
+    "shape": "bat",
+    "boss": true,
+    "specials": ["blink", "whirl", "rain"],
+    "scale": 4.4,
+    "color": "#3a2a4a",
+    "accent": "#c0392b",
+    "hp": 38000,
+    "speed": 50,
+    "damage": 27,
+    "radius": 30,
+    "xp": 0,
+    "knockback_resist": 1.0,
+    "final": true,
+    "behavior": "final",
+    "final_mode": "roar",
+    "minion": "BAT",
+    "music": "music_boss"
   }
 }

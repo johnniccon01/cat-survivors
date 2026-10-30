@@ -8,6 +8,7 @@ const GROUNDS := {
 	"apartment": [Color("8a5a3b"), Color("6b4630")],
 	"basement": [Color("6a6e72"), Color("4a4e52")],
 	"garden": [Color("5e9e4a"), Color("4a8a3a")],
+	"cemetery": [Color("3f5e38"), Color("6a6a72")],
 	"rooftop": [Color("a8503a"), Color("3e3e46")],
 	"supermarket": [Color("dcd8cc"), Color("b8c4cc")],
 	"harbor": [Color("e2cc94"), Color("1f4a6a")],

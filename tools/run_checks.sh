@@ -28,6 +28,8 @@ scenarios=(
   "final_rat_fight|--bot --god --stage=BASEMENT --start-minute=19.9 --catch-up --bot-time=40 --expect=arena:thorns,ring"
   "garden|--bot --stage=GARDEN --cat=TIGER --bot-time=300"
   "park|--bot --stage=PARK --cat=TIGER --bot-time=300"
+  "cemetery|--bot --stage=CEMETERY --cat=TIGER --bot-time=300"
+  "final_bat|--bot --god --stage=CEMETERY --start-minute=19.9 --catch-up --bot-time=60"
   "final_pigeon|--bot --god --stage=PARK --start-minute=19.9 --catch-up --bot-time=60"
   "rooftop|--bot --stage=ROOFTOP --cat=TIGER --bot-time=300"
   "late_rooftop|--bot --stage=ROOFTOP --start-minute=12 --catch-up --bot-time=240"

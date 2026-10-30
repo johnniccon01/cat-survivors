@@ -166,6 +166,10 @@ func _dim(vp: SubViewport) -> void:
 	vp.render_target_update_mode = SubViewport.UPDATE_ONCE
 
 
+## Furniture that is never turned (it would stand on its head).
+const UPRIGHT := ["gravestone", "grave_cross", "dead_tree", "crypt", "grave_candle"]
+
+
 func _pick(rng: RandomNumberGenerator, list: Array) -> Variant:
 	return list[rng.randi() % list.size()]
 
@@ -196,10 +200,14 @@ func _generate(c: Vector2i) -> Dictionary:
 	# Two loose slots per chunk, in opposite corners, so pieces don't overlap.
 	for slot: Vector2 in [Vector2(0.28, 0.3), Vector2(0.72, 0.72)]:
 		if rng.randf() < 0.55:
+			var kind: String = pool[rng.randi() % pool.size()]
+			var pos := slot * CHUNK + Vector2(rng.randf_range(-25, 25), rng.randf_range(-25, 25))
+			var turn: float = [0.0, PI * 0.5, PI, PI * 1.5][rng.randi() % 4]
 			desc["furniture"].append({
-				"kind": pool[rng.randi() % pool.size()],
-				"pos": slot * CHUNK + Vector2(rng.randf_range(-25, 25), rng.randf_range(-25, 25)),
-				"rot": [0.0, PI * 0.5, PI, PI * 1.5][rng.randi() % 4],
+				"kind": kind,
+				"pos": pos,
+				# Gravestones and crosses always stand upright.
+				"rot": 0.0 if kind in UPRIGHT else turn,
 				"color": FloorChunk.RUG_COLORS[rng.randi() % FloorChunk.RUG_COLORS.size()],
 			})
 	for i in rng.randi_range(1, 4):

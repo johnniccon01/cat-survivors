@@ -1978,5 +1978,244 @@
     ],
     "music_night": "music_garden_night",
     "challenge": 1.55
+  },
+  "CEMETERY": {
+    "theme": "cemetery",
+    "terrain": "trees",
+    "music": "music_garden_night",
+    "requires": "PARK",
+    "cat_quests": [],
+    "props": [
+      "FLOWERPOT",
+      "FLOWERPOT",
+      "SEED_SACK"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "BAT_COUNT",
+    "events": [
+      {
+        "minute": 4.0,
+        "type": "swarm",
+        "enemy": "BAT",
+        "count": 50
+      },
+      {
+        "minute": 6.5,
+        "type": "ring",
+        "enemy": "SPIDER",
+        "count": 36
+      },
+      {
+        "minute": 9.5,
+        "type": "swarm",
+        "enemy": "BAT",
+        "count": 50
+      },
+      {
+        "minute": 12.5,
+        "type": "ring",
+        "enemy": "CROW",
+        "count": 40
+      },
+      {
+        "minute": 15.5,
+        "type": "swarm",
+        "enemy": "BAT",
+        "count": 80
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "SPIDER",
+        "count": 44
+      }
+    ],
+    "traps": [
+      "RAKE",
+      "SPRINKLER"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.7,
+      0.9,
+      1.05,
+      0.85,
+      1.2,
+      0.6,
+      1.1,
+      1.25,
+      1.35,
+      0.9,
+      0.6,
+      1.25,
+      1.4,
+      0.95,
+      1.4,
+      0.65,
+      1.4,
+      1.55,
+      1.05,
+      1.5,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.5,
+        "per_tick": 1,
+        "enemies": [
+          "BAT",
+          "RAT"
+        ],
+        "hp_mult": 1.44
+      },
+      {
+        "minute": 1,
+        "minimum": 18,
+        "interval": 1.2,
+        "per_tick": 2,
+        "enemies": [
+          "BAT",
+          "RAT",
+          "SPIDER"
+        ],
+        "hp_mult": 1.44
+      },
+      {
+        "minute": 2,
+        "minimum": 30,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": [
+          "SPIDER",
+          "BAT",
+          "MOTH"
+        ],
+        "hp_mult": 1.56
+      },
+      {
+        "minute": 3,
+        "minimum": 45,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "RAT",
+          "SPIDER",
+          "CROW"
+        ],
+        "hp_mult": 1.8,
+        "bosses": [
+          "SPIDER_QUEEN"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.8,
+        "per_tick": 3,
+        "enemies": [
+          "BAT",
+          "CROW",
+          "MOTH",
+          "SPIDER"
+        ],
+        "hp_mult": 2.4
+      },
+      {
+        "minute": 7,
+        "minimum": 100,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "CROW",
+          "RAT",
+          "SPITTER_SPIDER",
+          "MOTH"
+        ],
+        "hp_mult": 3.0,
+        "bosses": [
+          "SCARECROW"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 140,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "BAT",
+          "CROW",
+          "SPIDER",
+          "MOTH"
+        ],
+        "hp_mult": 3.6
+      },
+      {
+        "minute": 11,
+        "minimum": 170,
+        "interval": 0.5,
+        "per_tick": 5,
+        "enemies": [
+          "SPITTER_SPIDER",
+          "RAT",
+          "CROW",
+          "MOTH"
+        ],
+        "hp_mult": 4.2,
+        "bosses": [
+          "GIANT_RAT"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 200,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "BAT",
+          "SPITTER_SPIDER",
+          "SPIDER",
+          "MOTH"
+        ],
+        "hp_mult": 4.8,
+        "bosses": [
+          "SPIDER_QUEEN"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 240,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "CROW",
+          "SPITTER_SPIDER",
+          "RAT",
+          "MOTH"
+        ],
+        "hp_mult": 6.0,
+        "bosses": [
+          "SCARECROW"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 280,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "SPITTER_SPIDER",
+          "CROW",
+          "BAT",
+          "MOTH"
+        ],
+        "hp_mult": 7.2
+      }
+    ],
+    "music_night": "music_garden_night",
+    "challenge": 1.75
   }
 }

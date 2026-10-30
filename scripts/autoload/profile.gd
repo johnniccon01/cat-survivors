@@ -474,7 +474,7 @@ const TERRITORY_FLAGS := 3
 const TERRITORY_BONUS := {
 	"LIVING_ROOM": {"max_hp": 10.0}, "BASEMENT": {"magnet": 15.0}, "GARDEN": {"regen": 0.3},
 	"ROOFTOP": {"speed": 0.05}, "SUPERMARKET": {"luck": 0.1}, "HARBOR": {"area": 0.05},
-	"FACTORY": {"might": 0.05}, "PARK": {"growth": 0.05},
+	"FACTORY": {"might": 0.05}, "PARK": {"growth": 0.05}, "CEMETERY": {"cooldown": -0.03},
 }
 var territories: Array[String] = []
 

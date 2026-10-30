@@ -72,11 +72,11 @@ func open() -> void:
 
 
 func _refresh() -> void:
-	_header.text = tr("CHARMS_EQUIPPED") % [Profile.equipped_charms.size(), Profile.CHARM_SLOTS]
+	_header.text = tr("CHARMS_EQUIPPED") % [Profile.charms.size(), _ids.size()]
 	for i in _ids.size():
 		var id := _ids[i]
 		var owned := Profile.has_charm(id)
-		var worn := id in Profile.equipped_charms
+		var worn: bool = Profile.careers.has(Profile.selected_cat) and ("charm:" + id) in Profile.careers[Profile.selected_cat]["talents"]
 		var label := _rows[i].get_child(0) as Label
 		label.text = "  %s %s" % ["◆" if worn else "◇", "%s %s" % [tr("CHARM_%s_NAME" % id), stars(Profile.quality_of(id))] if owned else "???"]
 		label.label_settings.font_color = RARITY_COLORS[GameData.charms[id]["rarity"]] if owned else Color("6a5a7a")
@@ -137,11 +137,9 @@ func _input(event: InputEvent) -> void:
 
 
 ## What Enter (or a click) does on the selected row.
+## Charms are talents now: they are picked in the cat's talents, not worn here.
 func _activate() -> void:
-	if Profile.toggle_charm(_ids[_index]):
-		Audio.play("select", -6.0, 0.0)
-	else:
-		Audio.play("hurt", -10.0, 0.0)
+	Audio.play("hurt", -12.0, 0.0)
 
 
 ## Mouse: hovering a row selects it, clicking it does what Enter does.

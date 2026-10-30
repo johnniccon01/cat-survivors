@@ -23,7 +23,7 @@ var _stage_label: Label
 var _stage_ids: Array[String] = []
 var _stage_index := 0
 var _shop: ShopPanel
-var _charms: CharmPanel
+var _charms: TalentPanel
 var _items: ItemPanel
 var _artifacts: ArtifactPanel
 var _artifact_label: Label
@@ -180,7 +180,7 @@ func _build() -> void:
 	buttons.add_theme_constant_override("separation", 6)
 	top.add_child(buttons)
 	for entry: Array in [["MENU_UPGRADES", "U", func() -> void: _shop.open()],
-			["MENU_CHARMS", "C", func() -> void: _charms.open()],
+			["MENU_TALENTS", "C", func() -> void: _charms.open()],
 			["MENU_ITEMS", "I", func() -> void: _items.open()],
 			["ARTIFACTS_TITLE", "V", func() -> void: _artifacts.open()],
 			["CHALLENGES_TITLE", "X", func() -> void: _challenges.open()],
@@ -550,7 +550,7 @@ func _build() -> void:
 	_shop = ShopPanel.new()
 	add_child(_shop)
 	_shop.closed.connect(_refresh)
-	_charms = CharmPanel.new()
+	_charms = TalentPanel.new()
 	add_child(_charms)
 	_charms.closed.connect(_refresh)
 	_items = ItemPanel.new()
@@ -688,10 +688,13 @@ func _refresh() -> void:
 		_desc.text = tr("CAT_%s_HINT" % id)
 		_weapon_label.text = ""
 		_cat_stats.text = ""
-	var worn: Array = Profile.equipped_charms.map(func(c: String) -> String: return tr("CHARM_%s_NAME" % c))
-	_worn.text = tr("SELECT_CHARMS") % ("—" if worn.is_empty() else ", ".join(worn))
-	var arts: Array = Profile.equipped_artifacts.map(func(a: String) -> String: return tr("ARTIFACT_%s_NAME" % a))
-	_artifact_label.text = tr("SELECT_ARTIFACTS") % ("—" if arts.is_empty() else ", ".join(arts))
+	var career := Profile.career(id) if unlocked else {}
+	if unlocked:
+		var picks := int(career["picks"])
+		_worn.text = tr("SELECT_CAREER") % [int(career["lives"]), Profile.LIVES, int(career["rank"]), Profile.MAX_RANK, (career["talents"] as Array).size()] + ("  " + tr("SELECT_CAREER_PICK") % picks if picks > 0 else "")
+	else:
+		_worn.text = ""
+	_artifact_label.text = tr("SELECT_LEGACY") % Profile.legacy if Profile.legacy > 0 else ""
 	var ch: Array = Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))
 	_challenge_label.text = tr("SELECT_CHALLENGES") % ["—" if ch.is_empty() else ", ".join(ch), Profile.challenge_gold()]
 	var plan := Profile.daily_plan()

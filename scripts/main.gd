@@ -1203,6 +1203,8 @@ func _end_run(kind: String) -> void:
 			gold -= theft
 			lines.append(tr("SUMMARY_MOON_LOST") % theft)
 	Profile.add_gold(gold)
+	if not dev_test:
+		lines.append_array(Profile.career_night(player.cat_id, kind, spawner.elapsed / 60.0, player.is_home()))
 	# The night has passed for the whole neighbourhood.
 	Profile.pass_night()
 	for news: Array in Profile.report_news:

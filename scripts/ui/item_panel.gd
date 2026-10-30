@@ -20,6 +20,9 @@ var _top := 0
 var _melt_uid := 0
 var _slot_boxes: Array[PanelContainer] = []
 var _rows: Array[PanelContainer] = []
+var _slot_icons: Array[ItemIcon] = []
+var _row_icons: Array[ItemIcon] = []
+var _cat: CatPreview
 var _header: Label
 var _desc: Label
 var _note: Label
@@ -41,17 +44,35 @@ func _ready() -> void:
 	_header = _label(18, Color("d9cce6"))
 	box.add_child(_header)
 
+	# The cat wearing it all, beside the five slots.
+	var top := HBoxContainer.new()
+	top.alignment = BoxContainer.ALIGNMENT_CENTER
+	top.add_theme_constant_override("separation", 10)
+	box.add_child(top)
+	_cat = CatPreview.new()
+	_cat.gear = true
+	_cat.zoom = 3.2
+	_cat.walking = true
+	_cat.custom_minimum_size = Vector2(150, 110)
+	top.add_child(_cat)
 	var slots := HBoxContainer.new()
 	slots.alignment = BoxContainer.ALIGNMENT_CENTER
-	slots.add_theme_constant_override("separation", 8)
-	box.add_child(slots)
+	slots.add_theme_constant_override("separation", 6)
+	top.add_child(slots)
 	for i in Items.slots().size():
 		var slot_box := PanelContainer.new()
-		slot_box.custom_minimum_size = Vector2(176, 62)
-		var label := _label(15, Color.WHITE)
+		slot_box.custom_minimum_size = Vector2(150, 62)
+		var inner := HBoxContainer.new()
+		inner.add_theme_constant_override("separation", 4)
+		slot_box.add_child(inner)
+		var icon := ItemIcon.new(30.0)
+		icon.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		inner.add_child(icon)
+		_slot_icons.append(icon)
+		var label := _label(14, Color.WHITE)
 		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		label.custom_minimum_size.x = 160
-		slot_box.add_child(label)
+		label.custom_minimum_size.x = 104
+		inner.add_child(label)
 		slot_box.mouse_filter = Control.MOUSE_FILTER_STOP
 		slot_box.gui_input.connect(_on_slot_input.bind(i))
 		slots.add_child(slot_box)
@@ -64,11 +85,17 @@ func _ready() -> void:
 	for i in ROWS:
 		var row := PanelContainer.new()
 		row.custom_minimum_size = Vector2(700, 28)
+		var inner := HBoxContainer.new()
+		inner.add_theme_constant_override("separation", 6)
+		row.add_child(inner)
+		var icon := ItemIcon.new(22.0)
+		inner.add_child(icon)
+		_row_icons.append(icon)
 		var label := _label(17, Color.WHITE)
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-		label.custom_minimum_size.x = 680
-		row.add_child(label)
+		label.custom_minimum_size.x = 650
+		inner.add_child(label)
 		row.mouse_filter = Control.MOUSE_FILTER_STOP
 		row.gui_input.connect(_on_row_input.bind(i))
 		list.add_child(row)
@@ -118,7 +145,8 @@ func _refresh() -> void:
 	for i in _slot_boxes.size():
 		var slot: String = Items.slots()[i]
 		var worn := Profile.worn_item(slot)
-		var label := _slot_boxes[i].get_child(0) as Label
+		_slot_icons[i].show_item(worn, slot)
+		var label := _slot_boxes[i].get_child(0).get_child(1) as Label
 		label.text = "%s\n%s" % [tr("ITEM_SLOT_" + slot), Items.item_name(worn) if not worn.is_empty() else tr("ITEMS_EMPTY_SLOT")]
 		label.label_settings.font_color = Items.rarity_color(worn) if not worn.is_empty() else Color("8f7ea3")
 		_slot_boxes[i].add_theme_stylebox_override("panel", _box(i == _slot, not worn.is_empty()))
@@ -129,15 +157,18 @@ func _refresh() -> void:
 	for i in ROWS:
 		var n := _top + i
 		var row := _rows[i]
-		var label := row.get_child(0) as Label
+		var label := row.get_child(0).get_child(1) as Label
 		row.visible = n < list.size()
 		if n >= list.size():
 			continue
 		var item: Dictionary = list[n]
 		var worn := int(item["uid"]) == worn_uid
+		_row_icons[i].show_item(item)
 		label.text = "  %s %s%s" % ["◆" if worn else "◇", Items.item_name(item), "   (%s)" % tr("ITEMS_WORN") if worn else ""]
 		label.label_settings.font_color = Items.rarity_color(item)
 		row.add_theme_stylebox_override("panel", _box(n == _index, worn))
+	_cat.cat_id = Profile.selected_cat
+	_cat.queue_redraw()
 	if list.is_empty():
 		_desc.text = tr("ITEMS_EMPTY")
 	else:

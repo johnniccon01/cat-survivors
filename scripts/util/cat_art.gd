@@ -206,6 +206,7 @@ static func _draw_sprite(ci: CanvasItem, sprite: Dictionary, lk: Dictionary, fac
 		ci.draw_circle(Vector2(9.5, -17) * s, 1.0 * s, Color("f2c14e"))
 	var gear: Dictionary = lk.get("gear", {})
 	if extras and not dead and not gear.is_empty():
+		_draw_outfit(ci, gear, s, col)
 		_draw_gear(ci, gear, s, lk.get("hat", false))
 	ci.draw_set_transform(Vector2.ZERO)
 
@@ -214,9 +215,78 @@ static func _draw_sprite(ci: CanvasItem, sprite: Dictionary, lk: Dictionary, fac
 ## cat, and every kind of hat looks different.
 static func with_gear(lk: Dictionary) -> Dictionary:
 	var out := lk.duplicate()
+	var gear := {}
 	var item := Profile.worn_item("HAT")
-	out["gear"] = {} if item.is_empty() else {"hat": item["base"], "color": Items.color(item)}
+	if not item.is_empty():
+		gear["hat"] = item["base"]
+		gear["color"] = Items.color(item)
+	# The rest of the gear shows too: collar, vest, paws and a tail ornament.
+	for slot: String in ["COLLAR", "VEST", "PAWS", "TAIL"]:
+		var worn := Profile.worn_item(slot)
+		if not worn.is_empty():
+			gear[slot.to_lower()] = {"base": worn["base"], "color": Items.color(worn)}
+	out["gear"] = gear
 	return out
+
+
+## Collar, vest, paws and tail ornament over the sprite. Points are in the
+## sprite's own units (tools/gen_sprites.py, cat_frame) moved so the body
+## centre is the origin; `col` is the walk frame, so paws and tail follow it.
+static func _draw_outfit(ci: CanvasItem, gear: Dictionary, s: float, col: int) -> void:
+	var frame := col % 4
+	var bob := 1.0 if frame in [1, 3] else 0.0
+	var at := func(x: float, y: float) -> Vector2: return Vector2(x - 16.0, y - 18.0) * s
+	var fill := func(pts: PackedVector2Array, color: Color) -> void:
+		ci.draw_colored_polygon(pts, color)
+		ci.draw_polyline(Shapes.closed(pts), OUTLINE, 1.0)
+	if gear.has("vest"):
+		var v: Dictionary = gear["vest"]
+		var c: Color = v["color"]
+		if String(v["base"]) in ["CAPE", "FEATHER_CAPE"]:
+			# A cape from the neck, blowing back over the body.
+			fill.call(PackedVector2Array([at.call(21.0, 13.5 - bob), at.call(23.0, 15.5 - bob), at.call(9.0, 21.0 - bob), at.call(6.5, 17.0 - bob)]), c)
+		else:
+			# A vest over the back: the upper half of the body ellipse.
+			var pts := PackedVector2Array()
+			for i in 9:
+				var a := PI * 1.08 + PI * 0.84 * i / 8.0
+				pts.append(at.call(16.0 + cos(a) * 9.0, 18.0 - bob + sin(a) * 4.9))
+			pts.append(at.call(23.5, 19.0 - bob))
+			pts.append(at.call(8.5, 19.0 - bob))
+			fill.call(pts, c)
+			ci.draw_line(at.call(9.5, 18.6 - bob), at.call(22.5, 18.6 - bob), c.darkened(0.35), 1.0)
+	if gear.has("paws"):
+		var c: Color = (gear["paws"] as Dictionary)["color"]
+		var lifts: Array = [[0, 2], [1, 1], [2, 0], [1, 1]][frame]
+		var swing: Array = [[-1, 1], [0, 0], [1, -1], [0, 0]][frame]
+		for leg: Array in [[10.0, 0], [13.0, 1], [21.0, 1], [24.0, 0]]:
+			var lift := float(lifts[leg[1]])
+			var p: Vector2 = at.call(float(leg[0]) + float(swing[leg[1]]) + 1.3, 26.4 - 2.0 * lift)
+			var pts := Shapes.ellipse(p, 2.0 * s, 1.3 * s, 10)
+			fill.call(pts, c)
+	if gear.has("tail"):
+		var t: Dictionary = gear["tail"]
+		var c: Color = t["color"]
+		var sway := float([0, 1, 0, -1][frame])
+		var tip: Vector2 = at.call(6.0 + sway, 7.5)
+		if String(t["base"]) in ["TAIL_BELL"]:
+			ci.draw_circle(tip, 1.9 * s, OUTLINE)
+			ci.draw_circle(tip, 1.4 * s, c)
+		else:
+			# A little bow tied round the tail.
+			fill.call(PackedVector2Array([tip, tip + Vector2(-2.6, -1.6) * s, tip + Vector2(-2.6, 1.6) * s]), c)
+			fill.call(PackedVector2Array([tip, tip + Vector2(2.6, -1.6) * s, tip + Vector2(2.6, 1.6) * s]), c)
+			ci.draw_circle(tip, 0.9 * s, c.darkened(0.3))
+	if gear.has("collar"):
+		var k: Dictionary = gear["collar"]
+		var c: Color = k["color"]
+		var band := PackedVector2Array([at.call(20.2, 14.4 - bob), at.call(22.0, 16.2 - bob), at.call(24.5, 17.0 - bob), at.call(27.0, 16.4 - bob), at.call(28.4, 15.0 - bob)])
+		ci.draw_polyline(band, OUTLINE, 2.6 * s)
+		ci.draw_polyline(band, c, 1.4 * s)
+		var tag: Vector2 = at.call(24.5, 18.0 - bob)
+		var bell := String(k["base"]) in ["BELL_COLLAR", "STATION_WHISTLE"]
+		ci.draw_circle(tag, (1.5 if bell else 1.1) * s, OUTLINE)
+		ci.draw_circle(tag, (1.1 if bell else 0.75) * s, Color("f2c14e") if bell else c.lightened(0.45))
 
 
 ## The hat from the gear (none over a cat that already wears one).
@@ -259,6 +329,11 @@ static func _draw_gear(ci: CanvasItem, gear: Dictionary, s: float, has_hat: bool
 			if gear["hat"] == "RAT_CROWN":
 				for x: float in [7.0, 9.5, 12.0]:
 					ci.draw_circle(Vector2(x, -15.3) * s, 0.8 * s, Color("d94848"))
+		"COUNT_HAT":
+			# The count's tall black top hat with a red band.
+			oval.call(Vector2(9.5, -14), 7.0, 1.5, c)
+			poly.call([Vector2(5.5, -14.5), Vector2(13.5, -14.5), Vector2(13.0, -23), Vector2(6.0, -23)], c)
+			ci.draw_rect(Rect2(Vector2(5.6, -16.5) * s, Vector2(7.8, 1.4) * s), Color("b02a2a"))
 		"NUTSHELL_HELMET":
 			var dome: Array = []
 			for i in 9:

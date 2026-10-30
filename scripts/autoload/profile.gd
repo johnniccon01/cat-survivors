@@ -125,6 +125,8 @@ func _ready() -> void:
 		moon_night = cfg.get_value("moon", "night", 0)
 		weather_today = cfg.get_value("weather", "today", "")
 		materials = cfg.get_value("build", "materials", 0)
+		careers = cfg.get_value("careers", "cats", {})
+		legacy = cfg.get_value("careers", "legacy", 0)
 		buildings = cfg.get_value("build", "levels", {})
 		weather_tomorrow = cfg.get_value("weather", "tomorrow", "")
 		moon_traps = cfg.get_value("moon", "traps", 0)
@@ -168,6 +170,7 @@ func _ready() -> void:
 			chains[parts[0]] = int(parts[1])
 		# `-- --artifacts=HOURGLASS,THORN_COLLAR` owns and wears them.
 		if arg.begins_with("--artifacts="):
+			_hand_worn = true
 			for id in arg.trim_prefix("--artifacts=").split(",", false):
 				artifacts.append(id)
 				equipped_artifacts.append(id)
@@ -208,6 +211,15 @@ func _ready() -> void:
 		if GameData.stages.has(id) and id not in cleared_stages:
 			cleared_stages.append(id)
 	ensure_weather()
+	# `-- --career=LIVES,RANK,TALENT...` sets the played cat's career (tests).
+	var forced_career := GameData.arg("--career=", "")
+	if forced_career != "":
+		var parts := forced_career.split(",")
+		var c := career(selected_cat)
+		c["lives"] = int(parts[0])
+		c["rank"] = int(parts[1]) if parts.size() > 1 else 0
+		c["talents"] = Array(parts.slice(2))
+		c["picks"] = 0
 	# `-- --report=defend` plays a night report of that kind (tests).
 	var kind := GameData.arg("--report=", "")
 	if kind != "":
@@ -643,6 +655,171 @@ func buy_moon_guard() -> String:
 	return cat
 
 
+# --- cat careers: nine lives, rank and talents ------------------------------------
+## Every cat earns rank from its nights (a win most); each rank lets it pick
+## one talent out of three (talents = the charms and artifacts you own).
+## A death costs one of the nine lives, the last rank and its talent; a win
+## on the cat's home map gives a life back. With no lives left the cat
+## retires: it leaves a small legacy for all cats and starts over as a young
+## cat of the next generation.
+const LIVES := 9
+const MAX_RANK := 9
+const RANK_XP := 100
+const RANK_XP_WIN := 100
+const RANK_XP_EXTRACT := 45
+const RANK_XP_DEATH_PER_MIN := 2
+const RANK_XP_DEATH_MAX := 30
+const TALENT_OFFERS := 3
+## Legacy of every retired cat (up to LEGACY_MAX) for all cats.
+const LEGACY_MAX := 10
+const LEGACY_STATS := {"might": 0.02, "greed": 0.03}
+## cat -> {"rank", "xp", "lives", "talents", "picks", "offers", "gen"}
+var careers: Dictionary = {}
+var legacy := 0
+var _hand_worn := false
+
+
+## The cat's career, made the first time (a cat that already won nights
+## starts with up to 3 ranks to pick talents for).
+func career(cat: String) -> Dictionary:
+	if not careers.has(cat):
+		var rank := mini(get_stat("wins_cat:" + cat), 3)
+		careers[cat] = {"rank": rank, "xp": 0, "lives": LIVES, "talents": [], "picks": rank, "offers": [], "gen": 1}
+	return careers[cat]
+
+
+## All talents you could pick: "charm:ID" and "art:ID" you own.
+func talent_pool() -> Array[String]:
+	var out: Array[String] = []
+	for id in charms:
+		out.append("charm:" + id)
+	for id in artifacts:
+		out.append("art:" + id)
+	return out
+
+
+## The three talents on offer for the cat's next pick (kept until chosen).
+func talent_offers(cat: String) -> Array:
+	var c := career(cat)
+	if int(c["picks"]) <= 0:
+		return []
+	var offers: Array = c["offers"]
+	if offers.is_empty():
+		var pool := talent_pool().filter(func(t: String) -> bool: return t not in c["talents"])
+		pool.shuffle()
+		offers = pool.slice(0, TALENT_OFFERS)
+		c["offers"] = offers
+	return offers
+
+
+func pick_talent(cat: String, talent: String) -> bool:
+	var c := career(cat)
+	if int(c["picks"]) <= 0 or talent not in c["offers"]:
+		return false
+	(c["talents"] as Array).append(talent)
+	c["picks"] = int(c["picks"]) - 1
+	c["offers"] = []
+	save()
+	return true
+
+
+## What one talent gives (charm quality counts).
+static func talent_stats(talent: String) -> Dictionary:
+	var parts := talent.split(":")
+	if parts.size() != 2:
+		return {}
+	if parts[0] == "charm":
+		var data: Dictionary = GameData.charms.get(parts[1], {})
+		return {} if data.is_empty() else {data["stat"]: float(data["value"]) * quality_mult(Profile.quality_of(parts[1]))}
+	return (GameData.artifacts.get(parts[1], {}).get("stats", {}) as Dictionary).duplicate()
+
+
+static func talent_name(talent: String) -> String:
+	var parts := talent.split(":")
+	if parts.size() != 2:
+		return talent
+	return TranslationServer.translate(("CHARM_%s_NAME" if parts[0] == "charm" else "ARTIFACT_%s_NAME") % parts[1])
+
+
+static func talent_desc(talent: String) -> String:
+	var parts := talent.split(":")
+	if parts.size() != 2:
+		return ""
+	return TranslationServer.translate(("CHARM_%s_DESC" if parts[0] == "charm" else "ARTIFACT_%s_DESC") % parts[1])
+
+
+func talent_bonus(cat: String) -> Dictionary:
+	var total := {}
+	if not careers.has(cat):
+		return legacy_bonus()
+	for t: String in careers[cat]["talents"]:
+		var bonus := talent_stats(t)
+		for key: String in bonus:
+			total[key] = float(total.get(key, 0.0)) + float(bonus[key])
+	var old := legacy_bonus()
+	for key: String in old:
+		total[key] = float(total.get(key, 0.0)) + float(old[key])
+	return total
+
+
+func legacy_bonus() -> Dictionary:
+	var out := {}
+	for key: String in LEGACY_STATS:
+		out[key] = float(LEGACY_STATS[key]) * mini(legacy, LEGACY_MAX)
+	return out
+
+
+## The night is over for `cat`: rank, lives, retirement. Returns summary
+## lines (already translated).
+func career_night(cat: String, kind: String, minutes: float, home: bool) -> Array[String]:
+	var lines: Array[String] = []
+	var c := career(cat)
+	var xp := 0
+	match kind:
+		"victory":
+			xp = RANK_XP_WIN
+		"extract":
+			xp = RANK_XP_EXTRACT
+		_:
+			xp = mini(floori(minutes * RANK_XP_DEATH_PER_MIN), RANK_XP_DEATH_MAX)
+	c["xp"] = int(c["xp"]) + xp
+	while int(c["xp"]) >= RANK_XP and int(c["rank"]) < MAX_RANK:
+		c["xp"] = int(c["xp"]) - RANK_XP
+		c["rank"] = int(c["rank"]) + 1
+		c["picks"] = int(c["picks"]) + 1
+		lines.append(TranslationServer.translate("CAREER_RANK_UP") % c["rank"])
+		BotLog.event("career_rank_up")
+	if int(c["rank"]) >= MAX_RANK:
+		c["xp"] = mini(int(c["xp"]), RANK_XP)
+	if kind == "death":
+		c["lives"] = int(c["lives"]) - 1
+		if int(c["rank"]) > 0:
+			c["rank"] = int(c["rank"]) - 1
+		var talents: Array = c["talents"]
+		if talents.size() > int(c["rank"]):
+			var lost: String = talents.pop_back()
+			lines.append(TranslationServer.translate("CAREER_TALENT_LOST") % talent_name(lost))
+		c["picks"] = clampi(int(c["picks"]), 0, int(c["rank"]) - talents.size())
+		c["offers"] = []
+		if int(c["lives"]) <= 0:
+			legacy += 1
+			c["gen"] = int(c["gen"]) + 1
+			c["rank"] = 0
+			c["xp"] = 0
+			c["lives"] = LIVES
+			c["talents"] = []
+			c["picks"] = 0
+			lines.append(TranslationServer.translate("CAREER_RETIRED") % c["gen"])
+			BotLog.event("career_retired")
+		else:
+			lines.append(TranslationServer.translate("CAREER_LIFE_LOST") % [c["lives"], LIVES])
+			BotLog.event("career_life_lost")
+	elif kind == "victory" and home and int(c["lives"]) < LIVES:
+		c["lives"] = int(c["lives"]) + 1
+		lines.append(TranslationServer.translate("CAREER_LIFE_BACK") % [c["lives"], LIVES])
+	return lines
+
+
 # --- building materials ---------------------------------------------------------
 ## Earned at the end of a night (a win pays by far the most), spent on the
 ## houses of the neighbourhood: every place can be built up to level 3.
@@ -892,10 +1069,12 @@ func toggle_artifact(id: String) -> bool:
 	return true
 
 
-## Sum of the equipped artifacts per stat.
+## Artifacts worn by hand in tests (--artifacts=); normally they are talents.
 func artifact_bonus() -> Dictionary:
 	var total := {}
 	for id in equipped_artifacts:
+		if not _hand_worn:
+			break
 		var bonus: Dictionary = GameData.artifacts.get(id, {}).get("stats", {})
 		for key: String in bonus:
 			total[key] = float(total.get(key, 0.0)) + float(bonus[key])
@@ -1006,10 +1185,14 @@ func _clean_items() -> void:
 			equipped_items.erase(slot)
 
 
-## Sum of the worn charms per stat.
+## Charms and artifacts are talents now (see careers): what the played cat
+## has chosen, plus the legacy of retired cats. Tests that wear charms or
+## artifacts by hand (--artifacts=) still get those.
 func charm_bonus() -> Dictionary:
-	var bonus := {}
+	var bonus := talent_bonus(selected_cat)
 	for id in equipped_charms:
+		if not _hand_worn:
+			break
 		var data: Dictionary = GameData.charms.get(id, {})
 		if not data.is_empty():
 			bonus[data["stat"]] = bonus.get(data["stat"], 0.0) + float(data["value"]) * quality_mult(quality_of(id))
@@ -1133,6 +1316,8 @@ func save() -> void:
 	cfg.set_value("moon", "night", moon_night)
 	cfg.set_value("weather", "today", weather_today)
 	cfg.set_value("build", "materials", materials)
+	cfg.set_value("careers", "cats", careers)
+	cfg.set_value("careers", "legacy", legacy)
 	cfg.set_value("build", "levels", buildings)
 	cfg.set_value("weather", "tomorrow", weather_tomorrow)
 	cfg.set_value("moon", "traps", moon_traps)

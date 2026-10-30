@@ -636,6 +636,9 @@ func _refresh() -> void:
 	if unlocked:
 		_name.text = tr("CAT_%s_NAME" % id)
 		_desc.text = tr("CAT_%s_DESC" % id)
+		if Instinct.has(id):
+			_desc.text += "
+" + tr("SELECT_INSTINCT") % [tr("INSTINCT_%s_NAME" % id), tr("INSTINCT_%s_DESC" % id)]
 		_weapon_label.text = tr("SELECT_START_WEAPON") % tr("WEAPON_%s_NAME" % weapon) if weapon != "" else tr("SELECT_NO_WEAPON")
 		_cat_stats.text = tr("SELECT_CAT_STATS") % [Profile.get_stat("wins_cat:" + id), Profile.get_stat("best_level_cat:" + id), Profile.get_stat("bosses_cat:" + id)]
 	else:

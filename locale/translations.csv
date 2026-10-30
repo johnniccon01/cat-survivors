@@ -1942,7 +1942,7 @@ TERRITORY_FLAG,Flag taken: %d / %d,Vlajka obsadená: %d / %d,Vlajka obsazena: %d
 TERRITORY_ALL,Every flag is yours! Win the night and the map is conquered,Všetky vlajky sú tvoje! Vyhraj noc a mapa bude dobytá,Všechny vlajky jsou tvoje! Vyhraj noc a mapa bude dobytá,¡Todas las banderas son tuyas! Gana la noche y el mapa será conquistado,"Все флаги твои! Выиграй ночь, и карта будет завоёвана",所有旗帜都是你的了！赢下这一夜即可征服地图
 SUMMARY_TERRITORY,%s conquered for good: %s in every night,%s je dobytá navždy: %s v každej noci,%s je dobyta navždy: %s v každé noci,%s conquistado para siempre: %s en cada noche,%s завоёвано навсегда: %s в каждую ночь,%s已永久征服：每夜 %s
 TERRITORY_HOW,Conquest: take all %d boss flags in one night and win it: %s for good,Dobytie: obsaď všetky %d vlajky bossa v jednej noci a vyhraj: %s navždy,Dobytí: obsaď všechny %d vlajky bosse v jedné noci a vyhraj: %s navždy,Conquista: toma en una noche todas las banderas del jefe (%d) y gánala: %s para siempre,Завоевание: захвати все %d флага босса за одну ночь и победи: %s навсегда,征服：一夜之内夺取全部 %d 面首领旗帜并获胜：永久 %s
-TERRITORY_OWNED,"Conquered: %s in every night, and it is never besieged","Dobyté: %s v každej noci a nikto ho neoblieha","Dobyto: %s v každé noci a nikdo ho neobléhá","Conquistado: %s en cada noche, y nunca lo asedian","Завоёвано: %s в каждую ночь, и его никогда не осаждают","已征服：每夜 %s，且永远不会被围攻"
+TERRITORY_OWNED,"Conquered: %s in every night, and it is never besieged",Dobyté: %s v každej noci a nikto ho neoblieha,Dobyto: %s v každé noci a nikdo ho neobléhá,"Conquistado: %s en cada noche, y nunca lo asedian","Завоёвано: %s в каждую ночь, и его никогда не осаждают",已征服：每夜 %s，且永远不会被围攻
 STAGE_CEMETERY_NAME,The Cemetery,Cintorín,Hřbitov,El cementerio,Кладбище,墓地
 STAGE_CEMETERY_HINT,Defeat the Pigeon King in the Park,Poraz Holubieho kráľa v Parku,Poraz Holubího krále v Parku,Derrota al Rey Paloma en el parque,Победи Голубиного короля в Парке,在公园击败鸽子国王
 STORY_CEMETERY_INTRO,Quiet graves and candles that burn without wind. Bats wake up as the clock strikes.,"Tiché hroby a sviečky, ktoré horia aj bez vetra. Keď odbije hodina, prebúdzajú sa netopiere.","Tiché hroby a svíčky, které hoří i bez větru. Když odbije hodina, probouzejí se netopýři.",Tumbas silenciosas y velas que arden sin viento. Al sonar la hora despiertan los murciélagos.,"Тихие могилы и свечи, что горят без ветра. С боем часов просыпаются летучие мыши.",寂静的坟墓和无风也燃烧的蜡烛。钟声一响，蝙蝠就醒了。
@@ -2067,3 +2067,32 @@ QB_PARK_1,Survive 10 minutes in the Park.,Prežiť 10 minút v Parku.,Přežít 
 QB_PARK_2,Defeat the Pigeon King.,Poraziť Holubieho kráľa.,Porazit Holubího krále.,Derrota al Rey Paloma.,Победи Голубиного короля.,击败鸽子国王。
 QB_PARK_3,Beat him with at least half of your health left.,Poraziť ho s aspoň polovicou zdravia.,Porazit ho s alespoň polovinou zdraví.,Véncelo con al menos la mitad de tu salud.,"Победи его, сохранив хотя бы половину здоровья.",在生命至少剩一半时击败它。
 QB_PARK_4,Win in the Park 5 times.,Vyhrať v Parku 5-krát.,Vyhrát v Parku 5krát.,Gana 5 veces en el parque.,Победи в Парке 5 раз.,在公园获胜 5 次。
+SELECT_INSTINCT,Instinct – %s: %s,Inštinkt – %s: %s,Instinkt – %s: %s,Instinto – %s: %s,Инстинкт – %s: %s,本能 – %s：%s
+INSTINCT_MICA_NAME,Hunter,Lovkyňa,Lovkyně,Cazadora,Охотница,猎手
+INSTINCT_MICA_DESC,every 25th defeated enemy: attacks 15% faster for 4 s,každý 25. porazený nepriateľ: 4 s útočí o 15 % rýchlejšie,každý 25. poražený nepřítel: 4 s útočí o 15 % rychleji,cada 25.º enemigo derrotado: ataca un 15% más rápido durante 4 s,каждый 25-й побеждённый враг: 4 с атакует на 15% быстрее,每击败第 25 个敌人：4 秒内攻击速度 +15%
+INSTINCT_LUNA_NAME,Night eyes,Nočné oči,Noční oči,Ojos nocturnos,Ночные глаза,夜视
+INSTINCT_LUNA_DESC,every 30 s: +10% critical chance for 5 s,každých 30 s: na 5 s +10 % kritická šanca,každých 30 s: na 5 s +10 % kritická šance,cada 30 s: +10% de probabilidad crítica durante 5 s,каждые 30 с: +10% к шансу крита на 5 с,每 30 秒：5 秒内暴击率 +10%
+INSTINCT_SNOWBALL_NAME,Cold breath,Chladný dych,Chladný dech,Aliento frío,Холодное дыхание,寒息
+INSTINCT_SNOWBALL_DESC,every 20 s: slows nearby enemies by half for 3 s,každých 20 s: na 3 s spomalí blízkych nepriateľov na polovicu,každých 20 s: na 3 s zpomalí blízké nepřátele na polovinu,cada 20 s: ralentiza a la mitad a los enemigos cercanos durante 3 s,каждые 20 с: на 3 с вдвое замедляет ближних врагов,每 20 秒：附近敌人减速一半，持续 3 秒
+INSTINCT_PIP_NAME,Nimble,Šikovná,Mrštná,Ágil,Ловкость,灵巧
+INSTINCT_PIP_DESC,12% chance to slip away from a hit,12 % šanca vyhnúť sa zásahu,12 % šance vyhnout se zásahu,12% de probabilidad de esquivar un golpe,12% шанс увернуться от удара,12% 几率躲开攻击
+INSTINCT_TIGER_NAME,Roar,Rev,Řev,Rugido,Рык,怒吼
+INSTINCT_TIGER_DESC,"below 35% health, once in 45 s: pushes enemies away and +25% might for 6 s",pod 35 % zdravia raz za 45 s: odhodí nepriateľov a 6 s má +25 % silu,pod 35 % zdraví jednou za 45 s: odhodí nepřátele a 6 s má +25 % sílu,"por debajo del 35% de salud, una vez cada 45 s: aparta a los enemigos y +25% de poder durante 6 s","ниже 35% здоровья, раз в 45 с: отбрасывает врагов и +25% силы на 6 с",生命低于 35% 时，每 45 秒一次：击退敌人，6 秒内力量 +25%
+INSTINCT_BARON_NAME,Disdain,Pohŕdanie,Pohrdání,Desdén,Презрение,轻蔑
+INSTINCT_BARON_DESC,a defeated elite or boss: +20% might for 8 s,porazená elita alebo boss: 8 s +20 % sila,poražená elita nebo boss: 8 s +20 % síla,élite o jefe derrotado: +20% de poder durante 8 s,побеждённая элита или босс: +20% силы на 8 с,击败精英或首领：8 秒内力量 +20%
+INSTINCT_CLOVER_NAME,Lucky paw,Šťastná labka,Šťastná tlapka,Pata de la suerte,Счастливая лапка,幸运爪
+INSTINCT_CLOVER_DESC,3% chance that a defeated enemy drops an extra coin,"3 % šanca, že porazený nepriateľ pustí mincu navyše","3 % šance, že poražený nepřítel upustí minci navíc",3% de probabilidad de que un enemigo derrotado suelte una moneda extra,"3% шанс, что побеждённый враг уронит лишнюю монету",击败的敌人有 3% 几率额外掉落一枚硬币
+INSTINCT_BRUNO_NAME,Thick fur,Hrubá srsť,Hustá srst,Pelaje grueso,Густой мех,厚毛皮
+INSTINCT_BRUNO_DESC,every 15 s: a shield that stops one hit,"každých 15 s: štít, ktorý zastaví jeden zásah","každých 15 s: štít, který zastaví jeden zásah",cada 15 s: un escudo que detiene un golpe,"каждые 15 с: щит, который блокирует один удар",每 15 秒：获得一个可抵挡一次攻击的护盾
+INSTINCT_TUCKO_NAME,Snack,Desiata,Svačina,Merienda,Перекус,零食
+INSTINCT_TUCKO_DESC,"below 40% health, once in 60 s: eats a snack and heals 25%",pod 40 % zdravia raz za 60 s: zje desiatu a vylieči sa o 25 %,pod 40 % zdraví jednou za 60 s: sní svačinu a vyléčí se o 25 %,"por debajo del 40% de salud, una vez cada 60 s: come algo y se cura un 25%","ниже 40% здоровья, раз в 60 с: перекусывает и лечится на 25%",生命低于 40% 时，每 60 秒一次：吃点零食，恢复 25% 生命
+INSTINCT_KAPITAN_NAME,Sea legs,Námornícke nohy,Námořnické nohy,Piernas de marino,Морские лапы,海员步伐
+INSTINCT_KAPITAN_DESC,water does not slow him down; +10% area in rain,voda ho nespomalí; v daždi +10 % plocha,voda ho nezpomalí; v dešti +10 % plocha,el agua no lo frena; +10% de área con lluvia,вода его не замедляет; в дождь +10% к области,水不会减慢他的速度；雨天范围 +10%
+INSTINCT_BOLT_NAME,Static,Statika,Statika,Estática,Статика,静电
+INSTINCT_BOLT_DESC,every 6 s: a spark hits the nearest enemy,každých 6 s: iskra zasiahne najbližšieho nepriateľa,každých 6 s: jiskra zasáhne nejbližšího nepřítele,cada 6 s: una chispa golpea al enemigo más cercano,каждые 6 с: искра бьёт ближайшего врага,每 6 秒：电火花击中最近的敌人
+INSTINCT_STRAY_NAME,Street smarts,Pouličná škola,Pouliční škola,Astucia callejera,Уличная смекалка,街头智慧
+INSTINCT_STRAY_DESC,a defeated boss gives +1 reroll,porazený boss dá +1 losovanie,poražený boss dá +1 losování,cada jefe derrotado da +1 cambio,побеждённый босс даёт +1 переброс,击败首领获得 +1 次重抽
+INSTINCT_ANGEL_NAME,Guardian,Ochranca,Ochránce,Guardián,Хранитель,守护
+INSTINCT_ANGEL_DESC,once a night survives a deadly hit with 1 health,raz za noc prežije smrteľný zásah s 1 zdravím,jednou za noc přežije smrtelný zásah s 1 zdravím,una vez por noche sobrevive a un golpe mortal con 1 de salud,раз за ночь переживает смертельный удар с 1 здоровья,每晚一次，以 1 点生命承受致命一击
+INSTINCT_DEVIL_NAME,Hellfire,Pekelný oheň,Pekelný oheň,Fuego infernal,Адский огонь,地狱火
+INSTINCT_DEVIL_DESC,4% chance that a defeated enemy explodes,"4 % šanca, že porazený nepriateľ vybuchne","4 % šance, že poražený nepřítel vybuchne",4% de probabilidad de que un enemigo derrotado explote,"4% шанс, что побеждённый враг взорвётся",击败的敌人有 4% 几率爆炸

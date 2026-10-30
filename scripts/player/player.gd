@@ -97,6 +97,8 @@ var _invuln := 0.0
 var _hurt_flash := 0.0
 ## Wading through a park pond (slower, with ripples round the paws).
 var _wading := false
+## The played cat's instinct (Instinct), or null.
+var instinct: Instinct
 var _walk_t := 0.0
 var _bot_t := 0.0
 
@@ -132,6 +134,11 @@ func _ready() -> void:
 	if controller != "escort":
 		for id in _start_weapons():
 			add_weapon(id)
+	if (controller == "input" or controller == "bot") and Instinct.has(cat_id):
+		instinct = Instinct.new()
+		instinct.cat = cat_id
+		instinct.player = self
+		add_child(instinct)
 
 
 ## The cat's own weapon, or --start-weapon=ID[,ID...] (tests) for the played cat.
@@ -389,7 +396,8 @@ func _physics_process(delta: float) -> void:
 		paws = SPEED_SOFT_CAP + (paws - SPEED_SOFT_CAP) * 0.5
 	velocity = input * BASE_SPEED * paws * speed_factor
 	_wading = WorldFloor.in_water(position)
-	if _wading:
+	# The captain is at home in water.
+	if _wading and cat_id != "KAPITAN":
 		velocity *= WorldFloor.WATER_SLOW
 	position += (velocity + pull) * delta
 	pull = Vector2.ZERO
@@ -418,6 +426,14 @@ func take_damage(amount: float, fatal: bool = false) -> void:
 	elif stats["low_hp_guard"] > 0.0 and hp < max_hp * 0.3:
 		amount *= 1.0 - stats["low_hp_guard"]
 	var dealt := maxf(amount - stats["armor"], 1.0)
+	if instinct != null and not fatal:
+		dealt = instinct.absorb(dealt)
+		if dealt <= 0.0:
+			_invuln = HIT_INVULN
+			return
+	var saved := instinct != null and not fatal and hp - dealt <= 0.0 and instinct.cheat_death()
+	if saved:
+		dealt = hp - 1.0
 	hp -= dealt
 	damage_taken += dealt
 	if controller == "bot" and hp <= 0.0:
@@ -432,7 +448,7 @@ func take_damage(amount: float, fatal: bool = false) -> void:
 		Audio.play("hurt", -6.0)
 		shake(2.5, 0.18)
 		hurt.emit()
-	_invuln = HIT_INVULN
+	_invuln = 2.0 if saved else HIT_INVULN
 	_hurt_flash = 0.12
 	if hp <= 0.0 and revivals_left > 0 and not fatal:
 		revivals_left -= 1

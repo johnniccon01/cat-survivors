@@ -114,6 +114,9 @@ var burn_damage := 0.0
 var burn_t := 0.0
 var burn_tick := 0.0
 var _chill_t := 0.0
+## Wet (sprinkler, wave, milk): lightning jumps between wet enemies, and in
+## frost they freeze.
+var wet_t := 0.0
 ## Health multiplier this enemy was spawned with (its splits and summons use it).
 var hp_mult := 1.0
 ## Bosses that call in helpers: id, how many, how often. Helpers come as a
@@ -239,6 +242,31 @@ func chill(seconds: float) -> void:
 	_chill_t = maxf(_chill_t, seconds)
 
 
+func is_chilled() -> bool:
+	return _chill_t > 0.0
+
+
+func is_frozen() -> bool:
+	return _slow_t > 0.0 and _slow <= 0.01
+
+
+## Rain wets everyone.
+func is_wet() -> bool:
+	return wet_t > 0.0 or Weather.rainy()
+
+
+func make_wet(seconds: float) -> void:
+	var was := wet_t > 0.0
+	wet_t = maxf(wet_t, seconds)
+	# A wet enemy in frost freezes solid for a moment (bosses only slow).
+	if not was and Weather.current == "FROST":
+		if is_boss:
+			slow_down(0.6, 1.0)
+		else:
+			slow_down(0.0, 1.0)
+		chill(2.0)
+
+
 func charge(dir: Vector2, seconds: float) -> void:
 	_charge_dir = dir
 	_charge_t = seconds
@@ -327,9 +355,13 @@ func tick(delta: float, target: Vector2, push: Vector2) -> void:
 		hp = minf(max_hp, hp + max_hp * _regen * delta)
 	if _chill_t > 0.0:
 		_chill_t -= delta
+	if wet_t > 0.0:
+		wet_t -= delta
+	if Weather.current == "FROST":
+		move *= Weather.FROST_SLOW
 	# Frozen solid (Frozen Fish) looks icier than just chilled.
 	var frozen := _slow_t > 0.0 and _slow <= 0.01
-	modulate = Color(1.35, 0.8, 0.55) if burn_t > 0.0 else (Color(0.55, 0.85, 1.7) if frozen else (Color(0.7, 0.9, 1.4) if _chill_t > 0.0 else Color.WHITE))
+	modulate = Color(1.35, 0.8, 0.55) if burn_t > 0.0 else (Color(0.55, 0.85, 1.7) if frozen else (Color(0.7, 0.9, 1.4) if _chill_t > 0.0 else (Color(0.85, 0.95, 1.2) if wet_t > 0.0 else Color.WHITE)))
 	position += (move + _knock + push) * delta
 	_knock = _knock.move_toward(Vector2.ZERO, KNOCK_DECAY * delta)
 	if absf(dir.x) > 0.2:

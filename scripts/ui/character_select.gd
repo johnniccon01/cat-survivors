@@ -61,6 +61,8 @@ var _moon_box: PanelContainer
 var _moon_traps: Label
 var _moon_guards: Label
 var _moon_chip: Label
+var _weather_chip: Label
+var _weather_next: Label
 var _place_pic: TextureRect
 var _place_badge: Label
 var _place_story: Label
@@ -226,6 +228,22 @@ func _build() -> void:
 	_moon_chip = _label(14, Color("f4ecd4"))
 	_moon_chip.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	moon_chip.get_child(0).add_child(_moon_chip)
+	# The weather forecast: tonight and tomorrow night.
+	var weather_chip := _badge(Color(0.08, 0.06, 0.12, 0.88), Color("5a6a8e"))
+	badge_col.add_child(weather_chip)
+	for when: String in ["today", "tomorrow"]:
+		var icon := Control.new()
+		icon.custom_minimum_size = Vector2(26, 26)
+		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		icon.draw.connect(func() -> void: Weather.draw_icon(icon, Vector2(13, 13), 10.0, Profile.weather_today if when == "today" else Profile.weather_tomorrow))
+		weather_chip.get_child(0).add_child(icon)
+		var text := _label(14, Color("e4ecf8") if when == "today" else Color("a8b4c8"))
+		text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		weather_chip.get_child(0).add_child(text)
+		if when == "today":
+			_weather_chip = text
+		else:
+			_weather_next = text
 	var nem := Profile.top_nemesis()
 	if nem != "":
 		var chip := _badge(Color(0.23, 0.08, 0.09, 0.9), Color("8a3030"))
@@ -679,6 +697,12 @@ func _refresh_place() -> void:
 	_place_stars.visible = true
 	var moon_n := Profile.nights_to_moon()
 	_moon_chip.text = tr("MOON_TONIGHT") if moon_n == 0 else tr("MOON_COUNTDOWN") % moon_n
+	var today := tr("WEATHER_%s_NAME" % Profile.weather_today)
+	if Weather.indoor(id) and Profile.weather_today != "CLEAR":
+		today = tr("WEATHER_INDOOR") % today
+	_weather_chip.text = tr("WEATHER_FORECAST") % today
+	_weather_next.text = tr("WEATHER_%s_NAME" % Profile.weather_tomorrow)
+	_weather_chip.tooltip_text = tr("WEATHER_%s_DESC" % Profile.weather_today)
 	if _report >= Profile.reports.size() or (_report >= 0 and Profile.reports[_report]["stage"] != id):
 		_report = -1
 	_district.selected_report = _report

@@ -72,11 +72,28 @@ func branch_effect() -> Dictionary:
 	return ranks[branch_rank - 1] if branch_rank >= 1 and branch_rank <= ranks.size() else {}
 
 
+## Weapons whose hits leave enemies wet (evolutions count as their base).
+const WET_SOURCES := ["SPRINKLER", "WAVE", "MILK"]
+const WET_SECONDS := 3.0
+## Lightning on a wet enemy: this much harder, and it jumps to one more.
+const CONDUCT_BONUS := 0.3
+const CONDUCT_JUMP := 0.5
+const CONDUCT_RANGE := 90.0
+
+
 ## Hits an enemy with this weapon, then applies the branch's on-hit effect.
 func strike(enemy: Enemy, amount_hit: float, dir: Vector2, knockback: float) -> void:
 	if not enemy.dead and not enemy.is_prop:
 		HitFx.spawn(world, enemy.position, id)
+	var base := base_id()
+	var conduct := base == "ANTENNA" and not enemy.is_prop and enemy.is_wet()
+	if conduct:
+		amount_hit *= 1.0 + CONDUCT_BONUS
 	enemy.hit(amount_hit, dir, knockback)
+	if base in WET_SOURCES and not enemy.dead and not enemy.is_prop:
+		enemy.make_wet(WET_SECONDS)
+	if conduct:
+		_conduct(enemy, amount_hit)
 	var fx := branch_effect()
 	if fx.is_empty() or enemy == null:
 		return
@@ -124,6 +141,26 @@ static func strike_from(source: Variant, enemy: Enemy, amount_hit: float, dir: V
 		(source as Weapon).strike(enemy, amount_hit, dir, knockback)
 	else:
 		enemy.hit(amount_hit, dir, knockback)
+
+
+## Water carries the spark on to the nearest other wet enemy.
+func _conduct(from: Enemy, amount_hit: float) -> void:
+	var best: Enemy = null
+	var best_d2 := CONDUCT_RANGE * CONDUCT_RANGE
+	for e in enemies.query_radius(from.position, CONDUCT_RANGE):
+		if e == from or e.dead or e.is_prop or not e.is_wet():
+			continue
+		var d2 := e.position.distance_squared_to(from.position)
+		if d2 < best_d2:
+			best_d2 = d2
+			best = e
+	if best == null:
+		return
+	best.hit(amount_hit * CONDUCT_JUMP, best.position - from.position, 0.2, false)
+	var bolt := ChainBolt.new()
+	bolt.points = PackedVector2Array([from.position, best.position])
+	world.add_child(bolt)
+	BotLog.event("combo:CONDUCT")
 
 
 func _nearest_other(from: Enemy, r: float) -> Enemy:

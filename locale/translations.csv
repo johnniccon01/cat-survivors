@@ -2096,3 +2096,17 @@ INSTINCT_ANGEL_NAME,Guardian,Ochranca,Ochránce,Guardián,Хранитель,守
 INSTINCT_ANGEL_DESC,once a night survives a deadly hit with 1 health,raz za noc prežije smrteľný zásah s 1 zdravím,jednou za noc přežije smrtelný zásah s 1 zdravím,una vez por noche sobrevive a un golpe mortal con 1 de salud,раз за ночь переживает смертельный удар с 1 здоровья,每晚一次，以 1 点生命承受致命一击
 INSTINCT_DEVIL_NAME,Hellfire,Pekelný oheň,Pekelný oheň,Fuego infernal,Адский огонь,地狱火
 INSTINCT_DEVIL_DESC,4% chance that a defeated enemy explodes,"4 % šanca, že porazený nepriateľ vybuchne","4 % šance, že poražený nepřítel vybuchne",4% de probabilidad de que un enemigo derrotado explote,"4% шанс, что побеждённый враг взорвётся",击败的敌人有 4% 几率爆炸
+WEATHER_FORECAST,Tonight: %s · tomorrow:,Dnes: %s · zajtra:,Dnes: %s · zítra:,Esta noche: %s · mañana:,Сегодня: %s · завтра:,今晚：%s · 明天：
+WEATHER_INDOOR,%s (not under a roof),%s (pod strechou nie),%s (pod střechou ne),%s (no bajo techo),%s (не под крышей),%s（室内无影响）
+WEATHER_CLEAR_NAME,Clear,Jasno,Jasno,Despejado,Ясно,晴
+WEATHER_RAIN_NAME,Rain,Dážď,Déšť,Lluvia,Дождь,雨
+WEATHER_STORM_NAME,Storm,Búrka,Bouřka,Tormenta,Гроза,雷暴
+WEATHER_WIND_NAME,Wind,Vietor,Vítr,Viento,Ветер,大风
+WEATHER_FOG_NAME,Fog,Hmla,Mlha,Niebla,Туман,雾
+WEATHER_FROST_NAME,Frost,Mráz,Mráz,Helada,Мороз,霜冻
+WEATHER_CLEAR_DESC,"A calm night, nothing special.","Pokojná noc, nič zvláštne.","Klidná noc, nic zvláštního.","Una noche tranquila, nada especial.","Спокойная ночь, ничего особенного.",平静的夜晚，没有特别之处。
+WEATHER_RAIN_DESC,Every enemy is wet: lightning jumps between them and hits 30% harder. Fire burns weaker.,Všetci nepriatelia sú mokrí: blesk medzi nimi preskakuje a zasiahne o 30 % silnejšie. Oheň horí slabšie.,Všichni nepřátelé jsou mokří: blesk mezi nimi přeskakuje a zasáhne o 30 % silněji. Oheň hoří slaběji.,Todos los enemigos están mojados: el rayo salta entre ellos y golpea un 30% más fuerte. El fuego quema menos.,Все враги мокрые: молния перескакивает между ними и бьёт на 30% сильнее. Огонь горит слабее.,所有敌人都被淋湿：闪电在它们之间跳跃，伤害 +30%。火焰较弱。
+WEATHER_STORM_DESC,"Rain, and lightning strikes now and then – leave the red ring!",Dážď a občas udrie blesk – uteč z červeného kruhu!,Déšť a občas udeří blesk – uteč z červeného kruhu!,"Lluvia, y de vez en cuando cae un rayo: ¡sal del círculo rojo!","Дождь, и время от времени бьёт молния – уходи из красного круга!",下雨，并不时落下闪电——离开红圈！
+WEATHER_WIND_DESC,"The wind pushes the cat to one side: faster with it, slower against it.","Vietor tlačí mačku na jednu stranu: po vetre rýchlejšie, proti nemu pomalšie.","Vítr tlačí kočku na jednu stranu: po větru rychleji, proti němu pomaleji.","El viento empuja al gato hacia un lado: más rápido a favor, más lento en contra.","Ветер толкает кошку в одну сторону: по ветру быстрее, против – медленнее.",风把猫推向一侧：顺风更快，逆风更慢。
+WEATHER_FOG_DESC,"You see less at the edges, but learn more: +15% experience.","Na okrajoch vidíš menej, ale naučíš sa viac: +15 % skúseností.","Na okrajích vidíš méně, ale naučíš se víc: +15 % zkušeností.","Ves menos en los bordes, pero aprendes más: +15% de experiencia.","По краям видно хуже, зато учишься больше: +15% опыта.",边缘视野变差，但学得更多：经验 +15%。
+WEATHER_FROST_DESC,"Everyone is a little slower, and a wet enemy freezes solid for a moment.",Všetci sú o trochu pomalší a mokrý nepriateľ na chvíľu zamrzne.,Všichni jsou o trochu pomalejší a mokrý nepřítel na chvíli zamrzne.,"Todos van un poco más lentos, y un enemigo mojado se congela un momento.","Все немного медленнее, а мокрый враг на миг замерзает.",所有人都稍慢一些，被淋湿的敌人会被短暂冻住。

@@ -123,6 +123,8 @@ func _ready() -> void:
 		for id: String in cfg.get_value("territory", "conquered", []):
 			territories.append(id)
 		moon_night = cfg.get_value("moon", "night", 0)
+		weather_today = cfg.get_value("weather", "today", "")
+		weather_tomorrow = cfg.get_value("weather", "tomorrow", "")
 		moon_traps = cfg.get_value("moon", "traps", 0)
 		for c: String in cfg.get_value("moon", "guards", []):
 			moon_guards.append(c)
@@ -203,6 +205,7 @@ func _ready() -> void:
 	for id in GameData.arg("--cleared=", "").split(",", false):
 		if GameData.stages.has(id) and id not in cleared_stages:
 			cleared_stages.append(id)
+	ensure_weather()
 	# `-- --report=defend` plays a night report of that kind (tests).
 	var kind := GameData.arg("--report=", "")
 	if kind != "":
@@ -472,6 +475,7 @@ func pass_night() -> void:
 	services.clear()
 	make_reports()
 	_moon_night_passed()
+	_weather_night_passed()
 	# The played one is gone from the list now.
 	report = -1
 	save()
@@ -635,6 +639,31 @@ func buy_moon_guard() -> String:
 	moon_guards.append(cat)
 	save()
 	return cat
+
+
+# --- weather ------------------------------------------------------------------
+## One weather for the whole neighbourhood each night, and a forecast for the
+## next one (see Weather).
+var weather_today := ""
+var weather_tomorrow := ""
+
+
+## Fills in the forecast the first time (old profiles have none).
+func ensure_weather() -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.randomize()
+	if weather_today == "":
+		weather_today = "CLEAR"
+	if weather_tomorrow == "":
+		weather_tomorrow = Weather.pick(rng)
+
+
+func _weather_night_passed() -> void:
+	ensure_weather()
+	var rng := RandomNumberGenerator.new()
+	rng.randomize()
+	weather_today = weather_tomorrow
+	weather_tomorrow = Weather.pick(rng)
 
 
 ## The moon moves on after every night (pass_night).
@@ -1031,6 +1060,8 @@ func save() -> void:
 	cfg.set_value("territory", "conquered", territories)
 	cfg.set_value("residents", "kidnapped", kidnapped)
 	cfg.set_value("moon", "night", moon_night)
+	cfg.set_value("weather", "today", weather_today)
+	cfg.set_value("weather", "tomorrow", weather_tomorrow)
 	cfg.set_value("moon", "traps", moon_traps)
 	cfg.set_value("moon", "guards", moon_guards)
 	cfg.set_value("artifacts", "owned", artifacts)

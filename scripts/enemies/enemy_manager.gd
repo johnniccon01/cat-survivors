@@ -200,6 +200,10 @@ func clear_all() -> void:
 
 ## Sets an enemy on fire: `per_tick` damage every half second for `seconds`.
 func ignite(enemy: Enemy, per_tick: float, seconds: float) -> void:
+	# Rain puts fire out sooner.
+	if Weather.rainy():
+		per_tick *= Weather.RAIN_BURN
+		seconds *= Weather.RAIN_BURN
 	if enemy.burn_t <= 0.0:
 		burning.append(enemy)
 		enemy.burn_tick = 0.5

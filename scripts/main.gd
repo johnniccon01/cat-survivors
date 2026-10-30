@@ -300,6 +300,7 @@ func _ready() -> void:
 		_catch_up.call_deferred(spawner.elapsed)
 	_bot_time += spawner.elapsed
 	night.setup(spawner, player)
+	_start_weather()
 	for m: float in FLAP_MINUTES:
 		_flap_times.append(m * 60.0 + randf_range(-30.0, 30.0))
 	quests = QuestDirector.new()
@@ -1602,6 +1603,20 @@ func _setup_hazard() -> void:
 	var hazard := MapHazard.new()
 	hazard.setup(kind, self)
 	add_child(hazard)
+
+
+## Tonight's weather over the map (none under a roof, in tests or endless).
+func _start_weather() -> void:
+	var kind := Weather.for_stage(spawner.stage_id)
+	if kind == "CLEAR" or kind == "" or (dev_test and GameData.arg("--weather=", "") == ""):
+		return
+	var w := Weather.new()
+	w.kind = kind
+	w.player = player
+	w.enemies = enemies
+	add_child(w)
+	if not player.blessings.is_empty():
+		player.blessings[-1]["desc"] = tr("WEATHER_%s_DESC" % kind)
 
 
 ## Your nemesis may turn up to hunt you, some minutes into another night.

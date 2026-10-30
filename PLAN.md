@@ -416,6 +416,8 @@ Hotové (30. 10. 2026, značky `mapa-napoveda`, `mapa-cesty`): nápoveda na mape
 Hotové (30. 10. 2026, značka `obrana-zriedkava`): obrana na mape už nie je daň za každú noc. Príde len raz za 2–3 pokojné noci, len na jednu z dvoch naposledy vyhratých máp (nie na staré), počká 2 noci (číslo na štítku, posledná noc bliká) a dobyté mapy sa nikdy neobliehajú. Test `sieges` (`tools/siege_test.gd`).
 
 Hotové (30. 10. 2026, značka `mapa-jeden-klik`): klik na miesto na mape hneď ukáže aj jeho úlohu (obrana, zlato, lov…), tlačidlo „Vynechať, len hrať tu" ju vypne a „Prijať úlohu" vráti. Obyvatelia majú namiesto „$" cenovku s cenou a po prejdení myšou ukážu, akú službu ponúkajú. Opravené pokazené čísla v 6 textoch (služby obyvateľov, 3 predmety bossov) a kontrola textov teraz hlási riadiace znaky.
+
+Hotové (30. 10. 2026, značka `park-jazierka`): jazierka v Parku už nie sú len kresba. Brodenie spomalí mačku aj nepriateľov na polovicu (lietajúci – holuby, včely, netopiere, duchovia… – letia ponad), okolo labiek sú vlnky. `WorldFloor.in_water()` počíta tvar jazierka rovnako ako kresba (`FloorChunk.pond_shape`).
 Ďalej: prepínanie štvrtí cez stanicu (druhá štvrť s novými mapami). pri nočných správach ešte obyvatelia (unesený obyvateľ namiesto krádeže zlata).
 
 Cieľ: výber mapy vyzerá prémiovo, má význam a dáva dôvod vracať sa na staré miesta. Na mape sa rozhoduje do 15 sekúnd, všetko podstatné sa prejaví priamo v noci.

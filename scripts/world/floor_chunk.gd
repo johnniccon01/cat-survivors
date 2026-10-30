@@ -377,14 +377,26 @@ func _draw_grass(size: float, zone: String) -> void:
 			draw_rect(Rect2(p, Vector2(1, 1)), base.darkened(0.35))
 
 
+## The water of a park pond chunk: [centre, radius x, radius y], local to
+## the chunk. The floor asks it too, so wading through slows you down.
+static func pond_shape(seed: int, size: float) -> Array:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = seed
+	var c := Vector2(size, size) * 0.5 + Vector2(rng.randf_range(-30, 30), rng.randf_range(-30, 30))
+	return [c, size * 0.36, size * 0.26]
+
+
 ## Park pond: a lawn with a pond in the middle, reeds and lily pads.
 func _draw_pond(size: float) -> void:
 	_draw_grass(size, "meadow")
 	var rng := RandomNumberGenerator.new()
 	rng.seed = desc["seed"]
-	var c := Vector2(size, size) * 0.5 + Vector2(rng.randf_range(-30, 30), rng.randf_range(-30, 30))
-	var rx := size * 0.36
-	var ry := size * 0.26
+	var shape := pond_shape(desc["seed"], size)
+	var c: Vector2 = shape[0]
+	var rx: float = shape[1]
+	var ry: float = shape[2]
+	rng.randf()
+	rng.randf()
 	draw_colored_polygon(Shapes.ellipse(c, rx + 8.0, ry + 8.0, 28), Color("8a7a5a"))
 	draw_colored_polygon(Shapes.ellipse(c, rx, ry, 28), Color("3f7fa8"))
 	draw_colored_polygon(Shapes.ellipse(c + Vector2(-rx * 0.2, -ry * 0.25), rx * 0.6, ry * 0.45, 20), Color("4f92ba"))

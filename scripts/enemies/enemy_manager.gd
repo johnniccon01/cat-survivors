@@ -310,6 +310,8 @@ func _physics_process(delta: float) -> void:
 	for c in escorts:
 		if not c.is_dead:
 			cats.append(c)
+	# Park ponds slow everything that walks; fliers pass over.
+	var wet := WorldFloor.current != null and WorldFloor.current.theme == "park"
 	for enemy in enemies:
 		var offset := enemy.position - target
 		if offset.length_squared() > relocate_distance * relocate_distance and not enemy.is_charging():
@@ -319,7 +321,10 @@ func _physics_process(delta: float) -> void:
 			for c in cats:
 				if c.position.distance_squared_to(enemy.position) < chase.distance_squared_to(enemy.position):
 					chase = c.position
+		var before := enemy.position
 		enemy.tick(delta, chase, _separation(enemy) * SEPARATION)
+		if wet and not _flies(enemy.id) and WorldFloor.in_water(enemy.position):
+			enemy.position = before.lerp(enemy.position, WorldFloor.WATER_SLOW)
 		if Terrain.current != null or not Terrain.blockers.is_empty():
 			# Belts carry enemies at half speed, so they never get stuck on one.
 			var moved := enemy.position + Terrain.flow(enemy.position) * 0.5 * delta
@@ -426,6 +431,18 @@ func _rebuild_grid() -> void:
 		if not _grid.has(c):
 			_grid[c] = []
 		_grid[c].append(enemy)
+
+
+## Shapes that fly over water instead of wading.
+const FLIERS: Array[String] = ["bat", "bee", "crow", "gull", "pigeon", "ghost", "moth", "drone", "cloud"]
+## Enemy id -> true when it flies (looked up once per kind).
+var _flier_ids: Dictionary = {}
+
+
+func _flies(id: String) -> bool:
+	if not _flier_ids.has(id):
+		_flier_ids[id] = GameData.enemies.get(id, {}).get("shape", "") in FLIERS
+	return _flier_ids[id]
 
 
 func _separation(enemy: Enemy) -> Vector2:

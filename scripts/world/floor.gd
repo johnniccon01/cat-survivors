@@ -1,3 +1,4 @@
+class_name WorldFloor
 extends Node2D
 ## Endless apartment floor. The world is split into CHUNK-sized squares; each
 ## visible chunk draws its three FloorChunk layers (ground, furniture, light
@@ -20,6 +21,12 @@ const SPARE_AT_START := 40
 ## furniture.
 var theme := "apartment"
 const FLOOR_DIM := Color(0.8, 0.8, 0.84)
+## Wading through a park pond: speed is multiplied by this.
+const WATER_SLOW := 0.5
+
+static var current: WorldFloor
+## chunk coords -> its pond in world space [centre, rx, ry], or [] (no pond).
+var _ponds: Dictionary = {}
 const FLOOR_DIM_STRONG := Color(0.45, 0.45, 0.5)
 
 var _noise := FastNoiseLite.new()
@@ -31,6 +38,7 @@ var _spare: Array[SubViewport] = []
 
 
 func _ready() -> void:
+	current = self
 	_noise.seed = _seed
 	_noise.frequency = 0.22
 	_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
@@ -58,8 +66,40 @@ func zone_at(c: Vector2i) -> String:
 
 ## Changes the look of the floor (a night trip passing a gate): every chunk is
 ## made again in the new theme.
+func _exit_tree() -> void:
+	if current == self:
+		current = null
+
+
+## True when `pos` is in the water of a park pond.
+static func in_water(pos: Vector2) -> bool:
+	if current == null or current.theme != "park":
+		return false
+	var c := Vector2i(floori(pos.x / CHUNK), floori(pos.y / CHUNK))
+	var pond: Array = current._ponds.get(c, [null])
+	if pond == [null]:
+		pond = current._pond(c)
+		current._ponds[c] = pond
+	if pond.is_empty():
+		return false
+	# A little inside the drawn water, so the reedy shore stays dry.
+	var d: Vector2 = pos - pond[0]
+	return pow(d.x / (pond[1] * 0.92), 2) + pow(d.y / (pond[2] * 0.92), 2) < 1.0
+
+
+func _pond(c: Vector2i) -> Array:
+	if zone_at(c) != "pond":
+		return []
+	# The same seed _generate gives the chunk (its first draw).
+	var rng := RandomNumberGenerator.new()
+	rng.seed = hash(c) ^ _seed
+	var shape := FloorChunk.pond_shape(rng.randi(), CHUNK)
+	return [Vector2(c) * CHUNK + shape[0], shape[1], shape[2]]
+
+
 func set_theme(new_theme: String) -> void:
 	theme = new_theme
+	_ponds.clear()
 	for c: Vector2i in _chunks.keys():
 		_release(c)
 

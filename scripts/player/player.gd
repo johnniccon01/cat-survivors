@@ -95,6 +95,8 @@ var _shake_time := 0.0
 var _shake_left := 0.0
 var _invuln := 0.0
 var _hurt_flash := 0.0
+## Wading through a park pond (slower, with ripples round the paws).
+var _wading := false
 var _walk_t := 0.0
 var _bot_t := 0.0
 
@@ -386,6 +388,9 @@ func _physics_process(delta: float) -> void:
 	if paws > SPEED_SOFT_CAP:
 		paws = SPEED_SOFT_CAP + (paws - SPEED_SOFT_CAP) * 0.5
 	velocity = input * BASE_SPEED * paws * speed_factor
+	_wading = WorldFloor.in_water(position)
+	if _wading:
+		velocity *= WorldFloor.WATER_SLOW
 	position += (velocity + pull) * delta
 	pull = Vector2.ZERO
 	position = Terrain.fix(position + Terrain.flow(position) * delta, RADIUS)
@@ -602,6 +607,11 @@ func _bot_input(delta: float) -> Vector2:
 
 
 func _draw() -> void:
+	if _wading:
+		var k := fmod(_walk_t * 0.5, 1.0)
+		for i in 2:
+			var f := fmod(k + i * 0.5, 1.0)
+			draw_arc(Vector2(0, 6), 8.0 + f * 10.0, 0, TAU, 20, Color(0.75, 0.9, 1.0, 0.7 * (1.0 - f)), 1.5)
 	CatArt.draw(self, _look, facing, _walk_t, _hurt_flash > 0.0, is_dead, "normal", Vector2.ZERO, 1.0, velocity.length_squared() > 1.0)
 	if _hp_bar != null:
 		_hp_bar.queue_redraw()

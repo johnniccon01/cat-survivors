@@ -102,6 +102,11 @@ func spawn(id: String, pos: Vector2, hp_mult: float = 1.0) -> Enemy:
 	add_child(enemy)
 	enemies.append(enemy)
 	budget_used += enemy.cost
+	# Curse: furious bosses.
+	if enemy.is_boss and Profile.has_challenge("FAST_BOSSES"):
+		enemy.max_hp *= 1.3
+		enemy.hp = enemy.max_hp
+		enemy.speed *= 1.2
 	# A nemesis boss comes back stronger for every time it killed the cat.
 	var level := Profile.nemesis_level(id) if enemy.is_boss else 0
 	if level > 0:

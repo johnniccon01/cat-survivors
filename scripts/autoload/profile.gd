@@ -744,6 +744,22 @@ func challenge_gold() -> float:
 	return mult
 
 
+## Extra chance (and better odds) for items from all curses switched on.
+func challenge_loot() -> float:
+	var sum := 0.0
+	for id in challenges:
+		sum += float(GameData.challenges.get(id, {}).get("loot", 0.0))
+	return sum
+
+
+## Building materials multiplier of all curses switched on.
+func challenge_materials() -> float:
+	var mult := 1.0
+	for id in challenges:
+		mult *= float(GameData.challenges.get(id, {}).get("materials", 1.0))
+	return mult
+
+
 func has_charm(id: String) -> bool:
 	return id in charms
 

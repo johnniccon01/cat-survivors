@@ -63,12 +63,12 @@ func open() -> void:
 
 
 func _refresh() -> void:
-	_header.text = tr("CHALLENGES_GOLD") % Profile.challenge_gold()
+	_header.text = tr("CHALLENGES_GOLD") % [Profile.challenge_gold(), roundi(Profile.challenge_loot() * 100.0)]
 	for i in _ids.size():
 		var id := _ids[i]
 		var on := id in Profile.challenges
 		var label := _rows[i].get_child(0) as Label
-		label.text = "  %s %s   (%s)" % ["■" if on else "□", tr("CHALLENGE_%s_NAME" % id), tr("CHALLENGES_MULT") % float(GameData.challenges[id]["gold"])]
+		label.text = "  %s %s   (%s)" % ["■" if on else "□", tr("CHALLENGE_%s_NAME" % id), tr("CHALLENGES_MULT") % [float(GameData.challenges[id]["gold"]), roundi(float(GameData.challenges[id].get("loot", 0.0)) * 100.0)]]
 		label.label_settings.font_color = ON if on else Color.WHITE
 		var sb := StyleBoxFlat.new()
 		sb.bg_color = Color("5b4470") if i == _index else Color("3b2a4a")

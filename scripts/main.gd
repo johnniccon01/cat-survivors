@@ -941,8 +941,10 @@ func _final_boss_loot(legend: String) -> void:
 
 
 func _maybe_find_item(chance: float) -> void:
-	if randf() < float(_arg("--item-chance=", str(chance))) * player.stat("luck"):
-		_find_item(Items.roll(player.stat("luck")))
+	# Curses make loot likelier and better.
+	var curse := 1.0 + Profile.challenge_loot()
+	if randf() < float(_arg("--item-chance=", str(chance))) * player.stat("luck") * curse:
+		_find_item(Items.roll(player.stat("luck") * curse))
 
 
 ## A boss or an elite left an item: it goes straight into the cat's bag for

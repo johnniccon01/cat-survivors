@@ -389,6 +389,10 @@ func _recalc_stats() -> void:
 			stats["might"] *= 1.5
 		if Profile.has_challenge("CURSED"):
 			stats["curse"] += 0.5
+		if Profile.has_challenge("FEWER_GEMS"):
+			stats["growth"] -= 0.25
+		if Profile.has_challenge("NO_MAGNET"):
+			stats["magnet"] *= 0.4
 	# The played Stray lives on 1 HP until its "fragile_until" level.
 	if (controller == "input" or controller == "bot") and level < int(GameData.cats[cat_id].get("fragile_until", 0)):
 		stats["max_hp"] = 1.0

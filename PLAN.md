@@ -418,7 +418,7 @@ Hotové (30. 10. 2026, značka `obrana-zriedkava`): obrana na mape už nie je da
 Hotové (30. 10. 2026, značka `mapa-jeden-klik`): klik na miesto na mape hneď ukáže aj jeho úlohu (obrana, zlato, lov…), tlačidlo „Vynechať, len hrať tu" ju vypne a „Prijať úlohu" vráti. Obyvatelia majú namiesto „$" cenovku s cenou a po prejdení myšou ukážu, akú službu ponúkajú. Opravené pokazené čísla v 6 textoch (služby obyvateľov, 3 predmety bossov) a kontrola textov teraz hlási riadiace znaky.
 
 Hotové (30. 10. 2026, značka `park-jazierka`): jazierka v Parku už nie sú len kresba. Brodenie spomalí mačku aj nepriateľov na polovicu (lietajúci – holuby, včely, netopiere, duchovia… – letia ponad), okolo labiek sú vlnky. `WorldFloor.in_water()` počíta tvar jazierka rovnako ako kresba (`FloorChunk.pond_shape`).
-Ďalej: najprv dokončiť prvú štvrť (pravidlo najviac 2 hrozby naraz, doladenie podľa hrania, grafika a zvuk). Druhá štvrť až potom – pozri „Psie štvrte".
+Ďalej: najprv dokončiť prvú štvrť (~~pravidlo najviac 2 hrozby naraz~~ overené 30. 10. – nemesis už nepríde ani na vynechaný spln, doladenie podľa hrania, grafika a zvuk). Druhá štvrť až potom – pozri „Psie štvrte".
 
 Cieľ: výber mapy vyzerá prémiovo, má význam a dáva dôvod vracať sa na staré miesta. Na mape sa rozhoduje do 15 sekúnd, všetko podstatné sa prejaví priamo v noci.
 
@@ -432,6 +432,18 @@ Cieľ: výber mapy vyzerá prémiovo, má význam a dáva dôvod vracať sa na s
 8. **Dobývanie v noci.** Herná mapa rozdelená na tvoju a nepriateľskú časť, zabíjaním posúvaš hranicu; dobyté územie dá trvalý bonus a otvorí susedné.
 
 Pravidlá: hviezdy, odomknutia a príbehy sa nikdy nestratia; najviac 2 hrozby naraz. Voľba „Pokojná štvrť" vyhodená (30. 10. 2026) – obliehanie je už zriedkavé a mierne. Vyhodené z návrhu: percentá hrozby, produkcia za noc, stráženie ako samostatné menu.
+
+## Nové mechaniky – nápady (30. 10. 2026, zatiaľ nerobíme)
+
+Každá sa dá urobiť malá v 1. štvrti a neskôr rozšíriť (psie štvrte, nové mapy).
+
+- [ ] **Aktívna schopnosť mačky** (jedno tlačidlo, cooldown): Mica skok, Tiger rev, Snehulka zamrazenie… Neskôr psy: štekot, čuch, privolanie svorky. Dnes má mačka len pasívny bonus.
+- [ ] **Počasie v noci:** dážď (pomalší nepriatelia, mláky), vietor (odfúkne projektily a granuly), búrka (blesky do nepriateľov aj do mačky), hmla. Náhodne alebo podľa mapy; každá nová štvrť pridá svoje.
+- [ ] **Spojenia zbraní:** dve konkrétne zbrane naraz dajú bonus navyše (napr. Mrazená rybka + blesk = rozbitie ľadu). Nie evolúcia, len spoločný efekt; ľahko sa pridávajú ďalšie dvojice.
+- [ ] **Deväť životov:** každá mačka má 9 životov na celú hru; smrť jeden zoberie a dá malý trvalý bonus („jazva"), stratené životy sa dajú vrátiť v štvrti. Dáva smrti zmysel a príbeh mačky.
+- [ ] **Krotenie:** oslabeného elitného nepriateľa chytíš (podržíš tlačidlo) a do konca noci bojuje za teba. V psej štvrti hlavná mechanika (získavanie psov do svorky).
+- [ ] **Dielňa v štvrti:** z nocí nosíš suroviny (klbká, kosti, skrutky), obyvatelia z nich vyrábajú vylepšenia výbavy. Každá štvrť nové suroviny a recepty.
+- [ ] **Prekliatia za odmenu:** pred nocou si zoberieš 1–3 prekliatia (rýchlejší nepriatelia, menej liečenia…) za viac zlata a lepšiu korisť. Jednoduchý spôsob, ako zvýšiť obtiažnosť pre skúsených.
 
 ## Psie štvrte (plán 30. 10. 2026, zatiaľ nerobíme – najprv dokončiť prvú štvrť)
 

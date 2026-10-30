@@ -1605,9 +1605,11 @@ func _setup_hazard() -> void:
 
 
 ## Your nemesis may turn up to hunt you, some minutes into another night.
+## Never on a full moon, played or skipped: with a siege waiting that would be
+## a third threat at once.
 func _plan_nemesis_hunt() -> void:
 	var id := Profile.top_nemesis()
-	if id == "" or dev_test or _endless or Profile.moon_on:
+	if id == "" or dev_test or _endless or Profile.moon_on or Profile.moon_full():
 		return
 	if id == GameData.stages[spawner.stage_id].get("final_boss", ""):
 		return

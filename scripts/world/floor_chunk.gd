@@ -21,8 +21,10 @@ const SUPERMARKET_ITEMS: Array[String] = ["receipt", "grape", "price_tag", "coin
 const HARBOR_ITEMS: Array[String] = ["shell", "starfish", "pebble", "rope_bit", "feather"]
 const FACTORY_ITEMS: Array[String] = ["bolt", "bolt", "rag", "coin_small", "crumbs"]
 const CEMETERY_ITEMS: Array[String] = ["leaf", "twig", "pebble", "feather", "leaf"]
+const STATION_ITEMS: Array[String] = ["receipt", "coin_small", "bolt", "crumbs", "feather"]
 const THEME_ITEMS := {"basement": BASEMENT_ITEMS, "garden": GARDEN_ITEMS, "rooftop": ROOFTOP_ITEMS,
-	"supermarket": SUPERMARKET_ITEMS, "harbor": HARBOR_ITEMS, "factory": FACTORY_ITEMS, "cemetery": CEMETERY_ITEMS}
+	"supermarket": SUPERMARKET_ITEMS, "harbor": HARBOR_ITEMS, "factory": FACTORY_ITEMS, "cemetery": CEMETERY_ITEMS,
+	"station": STATION_ITEMS}
 ## Zones per theme, from low noise to high noise.
 const THEME_ZONES := {
 	"apartment": ["kitchen", "living", "bedroom"],
@@ -33,6 +35,7 @@ const THEME_ZONES := {
 	"harbor": ["beach", "dock", "pier"],
 	"factory": ["storage_bay", "assembly", "conveyor"],
 	"cemetery": ["gravel", "grave_lawn", "graves"],
+	"station": ["hall", "platform", "tracks"],
 }
 const FURNITURE := {
 	"living": ["sofa", "armchair", "coffee_table", "bookshelf", "tv", "floor_lamp", "plant", "cat_tree"],
@@ -59,8 +62,11 @@ const FURNITURE := {
 	"grave_lawn": ["dead_tree", "gravestone", "bench", "grave_candle", "gravestone", "bush"],
 	"gravel": ["grave_candle", "bench", "grave_cross", "gravestone"],
 	"graves": ["gravestone", "grave_cross", "gravestone", "grave_candle", "crypt", "grave_cross"],
+	"hall": ["bench", "ticket_machine", "station_lamp", "plant", "trash_bin"],
+	"platform": ["bench", "station_lamp", "luggage", "ticket_machine", "trash_bin", "station_lamp"],
+	"tracks": ["signal", "buffer_stop", "crates", "signal"],
 }
-const LAMPS := ["floor_lamp", "nightstand", "bulb", "garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp", "factory_lamp", "grave_candle"]
+const LAMPS := ["floor_lamp", "nightstand", "bulb", "garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp", "factory_lamp", "grave_candle", "station_lamp"]
 const LAMP_COLOR := Color(1.0, 0.82, 0.55)
 
 static var _light_texture: Texture2D
@@ -136,6 +142,12 @@ func _draw_ground() -> void:
 			_draw_grass(size, desc["zone"])
 		"path", "gravel":
 			_draw_path(size)
+		"hall":
+			_draw_tiles(size)
+		"platform":
+			_draw_platform(size)
+		"tracks":
+			_draw_tracks(size)
 		"tar":
 			_draw_tar(size)
 		"tiles":
@@ -159,7 +171,7 @@ func _draw_ground() -> void:
 	var strip := Color("3e2a1c")
 	if desc["zone"] in ["lawn", "flowerbed", "path", "grave_lawn", "graves", "gravel"]:
 		strip = Color(0.2, 0.3, 0.12, 0.35)
-	elif desc["zone"] in ["tar", "tiles", "deck"]:
+	elif desc["zone"] in ["tar", "tiles", "deck", "platform", "tracks", "hall"]:
 		strip = Color("4a4a52")
 	elif desc["zone"] in ["aisle", "produce", "freezer"]:
 		strip = Color("8a9096")
@@ -210,6 +222,49 @@ func _draw_tiles(size: float) -> void:
 	for i in n + 1:
 		draw_line(Vector2(i * TILE, 0), Vector2(i * TILE, size), grout, 1.0)
 		draw_line(Vector2(0, i * TILE), Vector2(size, i * TILE), grout, 1.0)
+
+
+## Station platform: big concrete slabs with a yellow safety line.
+func _draw_platform(size: float) -> void:
+	draw_rect(Rect2(0, 0, size, size), Color("a8a49c"))
+	var slab := 64.0
+	var n := int(size / slab)
+	for i in n + 1:
+		draw_line(Vector2(i * slab, 0), Vector2(i * slab, size), Color("8e8a82"), 1.0)
+		draw_line(Vector2(0, i * slab), Vector2(size, i * slab), Color("8e8a82"), 1.0)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = desc["seed"]
+	for i in 60:
+		draw_rect(Rect2(Vector2(rng.randf_range(0, size), rng.randf_range(0, size)), Vector2(1, 1)), Color("948f87"))
+	# The safety line runs along the world, every few chunks.
+	var y := fmod(-position.y, 512.0)
+	if y < 0.0:
+		y += 512.0
+	if y < size:
+		draw_rect(Rect2(0, y, size, 8), Color("e8c02a"))
+		for x in range(0, int(size), 16):
+			draw_rect(Rect2(x, y + 2, 8, 4), Color("c9a020"))
+
+
+## Station tracks: gravel, sleepers and two shiny rails, lined up in world space.
+func _draw_tracks(size: float) -> void:
+	draw_rect(Rect2(0, 0, size, size), Color("7a7268"))
+	var rng := RandomNumberGenerator.new()
+	rng.seed = desc["seed"]
+	for i in 220:
+		draw_rect(Rect2(Vector2(rng.randf_range(0, size), rng.randf_range(0, size)), Vector2(2, 2)), Color("6a6258") if i % 2 else Color("8a8276"))
+	var gauge := 128.0
+	var y0 := fmod(-position.y, gauge)
+	if y0 < 0.0:
+		y0 += gauge
+	var y := y0 - gauge
+	while y < size:
+		for x in range(0, int(size), 24):
+			draw_rect(Rect2(x, y + 20, 10, 48), Color("5a3a24"))
+		for ry: float in [y + 30.0, y + 58.0]:
+			draw_rect(Rect2(0, ry, size, 4), Color("6a6a72"))
+			draw_rect(Rect2(0, ry, size, 2), Color("c8c8d0"))
+		y += gauge
 
 
 func _draw_concrete(size: float, zone: String) -> void:
@@ -804,6 +859,27 @@ func _draw_furniture(f: Dictionary) -> void:
 			for x: float in [-38.0, -26.0, -14.0, -2.0, 10.0, 22.0]:
 				draw_line(Vector2(x + 11, -12), Vector2(x + 11, 12), WOOD_DARK, 1.0)
 			_box(Rect2(-40, -16, 80, 5), Color("3a3a40"))
+		"ticket_machine":
+			_box(Rect2(-14, -20, 28, 36), Color("c0392b"))
+			draw_rect(Rect2(-9, -15, 18, 10), Color("8fd0f0"))
+			draw_rect(Rect2(-6, 0, 12, 3), Color("2a2a30"))
+			draw_rect(Rect2(-6, 7, 12, 5), Color("f4f1ea"))
+		"luggage":
+			_box(Rect2(-14, -10, 28, 20), Color("8a5a34"))
+			draw_rect(Rect2(-5, -14, 10, 4), OUTLINE)
+			draw_line(Vector2(-14, 0), Vector2(14, 0), Color("6a4428"), 2.0)
+			_box(Rect2(10, -4, 14, 12), Color("3a6ac8"))
+		"signal":
+			draw_rect(Rect2(-2, -30, 4, 40), OUTLINE)
+			_box(Rect2(-8, -42, 16, 22), Color("2a2a30"))
+			draw_circle(Vector2(0, -36), 4.0, Color("e24b4a"))
+			draw_circle(Vector2(0, -26), 4.0, Color("3a4a3a"))
+		"buffer_stop":
+			_box(Rect2(-30, -10, 60, 20), Color("c0392b"))
+			for x: float in [-26.0, -10.0, 6.0, 22.0]:
+				draw_rect(Rect2(x, -10, 6, 20), Color("f4f1ea"))
+			draw_circle(Vector2(-18, 12), 5.0, Color("3a3a40"))
+			draw_circle(Vector2(18, 12), 5.0, Color("3a3a40"))
 		"gravestone":
 			draw_rect(Rect2(-14, 6, 28, 6), Color(0, 0, 0, 0.25))
 			draw_circle(Vector2(0, -16), 13.0, OUTLINE)
@@ -846,7 +922,7 @@ func _draw_furniture(f: Dictionary) -> void:
 			draw_circle(Vector2.ZERO, 16.0, Color("c9c4bc"))
 			draw_circle(Vector2.ZERO, 12.0, Color("6fb0e0"))
 			draw_rect(Rect2(-5, -6, 3, 2), Color(1, 1, 1, 0.7))
-		"garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp", "factory_lamp":
+		"garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp", "factory_lamp", "station_lamp":
 			draw_circle(Vector2.ZERO, 8.0, OUTLINE)
 			draw_circle(Vector2.ZERO, 7.0, Color("3a3a40"))
 			draw_circle(Vector2.ZERO, 4.0, Color("fff3c8"))

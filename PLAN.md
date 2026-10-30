@@ -404,7 +404,8 @@ Hotové (30. 10. 2026, značka `krok-8-dobyvanie`): krok 8 – dobývanie: na ne
 Hotové (30. 10. 2026, značka `mapa-cintorin`): nová mapa Cintorín s vlastnou témou podlahy (tmavý trávnik, štrk, hroby, náhrobky, kríže, mŕtve stromy, hrobka, sviečky so svetlom), netopiere, pavúky, mole; finálny boss Gróf Netopier `BAT_COUNT`; odomkne sa po Parku. Testy `cemetery`, `final_bat`.
 Hotové (30. 10. 2026, značka `mapa-ostrov`): nová mapa Ostrov (téma prístavu s prílivom, kraby, medúzy, čajky; finálny boss Krabí cisár `CRAB_EMPEROR`; odomkne sa po Prístave). Testy `island`, `final_crab_emperor`.
 Hotové (30. 10. 2026, značka `mapa-stanica`): nová mapa Stanica (betónové nástupištia v téme strechy, holuby, potkany, mývaly, drony; finálny boss Mýval prednosta `STATIONMASTER`; odomkne sa po Supermarkete). Testy `station`, `final_stationmaster`.
-Ďalej: prepínanie štvrtí cez stanicu (druhá štvrť s novými mapami); vlastné témy podlahy pre Ostrov a Stanicu. pri nočných správach ešte obyvatelia (unesený obyvateľ namiesto krádeže zlata).
+Hotové (30. 10. 2026, značka `tema-stanica`): Stanica má vlastnú tému podlahy (nástupištia so žltou čiarou, koľajisko, hala, návestidlá, zarážadlá, automaty na lístky, kufre, staničné lampy). Legendárne predmety pre 4 nových bossov, okno Čo je nové 11.
+Ďalej: prepínanie štvrtí cez stanicu (druhá štvrť s novými mapami); vlastná téma podlahy pre Ostrov. pri nočných správach ešte obyvatelia (unesený obyvateľ namiesto krádeže zlata).
 
 Cieľ: výber mapy vyzerá prémiovo, má význam a dáva dôvod vracať sa na staré miesta. Na mape sa rozhoduje do 15 sekúnd, všetko podstatné sa prejaví priamo v noci.
 

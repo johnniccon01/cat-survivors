@@ -22,9 +22,10 @@ const HARBOR_ITEMS: Array[String] = ["shell", "starfish", "pebble", "rope_bit", 
 const FACTORY_ITEMS: Array[String] = ["bolt", "bolt", "rag", "coin_small", "crumbs"]
 const CEMETERY_ITEMS: Array[String] = ["leaf", "twig", "pebble", "feather", "leaf"]
 const STATION_ITEMS: Array[String] = ["receipt", "coin_small", "bolt", "crumbs", "feather"]
+const ISLAND_ITEMS: Array[String] = ["shell", "starfish", "pebble", "shell", "leaf"]
 const THEME_ITEMS := {"basement": BASEMENT_ITEMS, "garden": GARDEN_ITEMS, "rooftop": ROOFTOP_ITEMS,
 	"supermarket": SUPERMARKET_ITEMS, "harbor": HARBOR_ITEMS, "factory": FACTORY_ITEMS, "cemetery": CEMETERY_ITEMS,
-	"station": STATION_ITEMS}
+	"station": STATION_ITEMS, "island": ISLAND_ITEMS}
 ## Zones per theme, from low noise to high noise.
 const THEME_ZONES := {
 	"apartment": ["kitchen", "living", "bedroom"],
@@ -36,6 +37,7 @@ const THEME_ZONES := {
 	"factory": ["storage_bay", "assembly", "conveyor"],
 	"cemetery": ["gravel", "grave_lawn", "graves"],
 	"station": ["hall", "platform", "tracks"],
+	"island": ["sand", "palm_grove", "rocks"],
 }
 const FURNITURE := {
 	"living": ["sofa", "armchair", "coffee_table", "bookshelf", "tv", "floor_lamp", "plant", "cat_tree"],
@@ -65,8 +67,11 @@ const FURNITURE := {
 	"hall": ["bench", "ticket_machine", "station_lamp", "plant", "trash_bin"],
 	"platform": ["bench", "station_lamp", "luggage", "ticket_machine", "trash_bin", "station_lamp"],
 	"tracks": ["signal", "buffer_stop", "crates", "signal"],
+	"sand": ["palm", "beach_umbrella", "sandcastle", "campfire", "palm"],
+	"palm_grove": ["palm", "palm", "bush", "campfire", "palm"],
+	"rocks": ["rock", "rock", "wreck", "palm", "rock"],
 }
-const LAMPS := ["floor_lamp", "nightstand", "bulb", "garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp", "factory_lamp", "grave_candle", "station_lamp"]
+const LAMPS := ["floor_lamp", "nightstand", "bulb", "garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp", "factory_lamp", "grave_candle", "station_lamp", "campfire"]
 const LAMP_COLOR := Color(1.0, 0.82, 0.55)
 
 static var _light_texture: Texture2D
@@ -144,6 +149,12 @@ func _draw_ground() -> void:
 			_draw_path(size)
 		"hall":
 			_draw_tiles(size)
+		"sand":
+			_draw_beach(size)
+		"palm_grove":
+			_draw_grass(size, "palm_grove")
+		"rocks":
+			_draw_rocks(size)
 		"platform":
 			_draw_platform(size)
 		"tracks":
@@ -169,7 +180,7 @@ func _draw_ground() -> void:
 		_:
 			_draw_planks(area)
 	var strip := Color("3e2a1c")
-	if desc["zone"] in ["lawn", "flowerbed", "path", "grave_lawn", "graves", "gravel"]:
+	if desc["zone"] in ["lawn", "flowerbed", "path", "grave_lawn", "graves", "gravel", "palm_grove"]:
 		strip = Color(0.2, 0.3, 0.12, 0.35)
 	elif desc["zone"] in ["tar", "tiles", "deck", "platform", "tracks", "hall"]:
 		strip = Color("4a4a52")
@@ -177,7 +188,7 @@ func _draw_ground() -> void:
 		strip = Color("8a9096")
 	elif desc["zone"] in ["storage_bay", "assembly", "conveyor"]:
 		strip = Color("c9a24a")
-	elif desc["zone"] in ["beach", "dock", "pier"]:
+	elif desc["zone"] in ["beach", "dock", "pier", "sand", "rocks"]:
 		strip = Color(0.25, 0.3, 0.35, 0.35)
 	if desc["edge_right"]:
 		draw_rect(Rect2(size - 3, 0, 3, size), strip)
@@ -222,6 +233,21 @@ func _draw_tiles(size: float) -> void:
 	for i in n + 1:
 		draw_line(Vector2(i * TILE, 0), Vector2(i * TILE, size), grout, 1.0)
 		draw_line(Vector2(0, i * TILE), Vector2(size, i * TILE), grout, 1.0)
+
+
+## Island shore: dark wet stone with tide pools.
+func _draw_rocks(size: float) -> void:
+	draw_rect(Rect2(0, 0, size, size), Color("7a7470"))
+	var rng := RandomNumberGenerator.new()
+	rng.seed = desc["seed"]
+	for i in 14:
+		var p := Vector2(rng.randf_range(0, size), rng.randf_range(0, size))
+		var poly := Shapes.ellipse(p, rng.randf_range(14, 30), rng.randf_range(10, 22), 7)
+		draw_colored_polygon(poly, Color("6a6460").lightened(rng.randf_range(0.0, 0.15)))
+		draw_polyline(Shapes.closed(poly), Color("4a4440"), 1.0)
+	for i in 3:
+		var p := Vector2(rng.randf_range(30, size - 30), rng.randf_range(30, size - 30))
+		draw_colored_polygon(Shapes.ellipse(p, rng.randf_range(16, 28), rng.randf_range(8, 14), 12), Color(0.25, 0.55, 0.75, 0.55))
 
 
 ## Station platform: big concrete slabs with a yellow safety line.
@@ -313,11 +339,11 @@ func _draw_carpet(size: float) -> void:
 
 
 func _draw_grass(size: float, zone: String) -> void:
-	var base: Color = {"lawn": Color("5e9e4a"), "grave_lawn": Color("3f5e38"), "graves": Color("4a3a30")}.get(zone, Color("6b4a32"))
+	var base: Color = {"lawn": Color("5e9e4a"), "grave_lawn": Color("3f5e38"), "graves": Color("4a3a30"), "palm_grove": Color("6aa84a")}.get(zone, Color("6b4a32"))
 	draw_rect(Rect2(0, 0, size, size), base)
 	var rng := RandomNumberGenerator.new()
 	rng.seed = desc["seed"]
-	if zone == "lawn" or zone == "grave_lawn":
+	if zone == "lawn" or zone == "grave_lawn" or zone == "palm_grove":
 		# Mowing stripes in world space, then tufts.
 		var stripe := 40.0
 		var x0 := floori(position.x / stripe)
@@ -859,6 +885,38 @@ func _draw_furniture(f: Dictionary) -> void:
 			for x: float in [-38.0, -26.0, -14.0, -2.0, 10.0, 22.0]:
 				draw_line(Vector2(x + 11, -12), Vector2(x + 11, 12), WOOD_DARK, 1.0)
 			_box(Rect2(-40, -16, 80, 5), Color("3a3a40"))
+		"palm":
+			draw_circle(Vector2(8, 10), 26.0, Color(0, 0, 0, 0.18))
+			for k in 7:
+				var tip := Vector2.from_angle(TAU * k / 7.0 + 0.3) * 34.0
+				draw_line(Vector2.ZERO, tip, OUTLINE, 9.0)
+			for k in 7:
+				var tip := Vector2.from_angle(TAU * k / 7.0 + 0.3) * 33.0
+				draw_line(Vector2.ZERO, tip, Color("3f8a37"), 7.0)
+				draw_line(Vector2.ZERO, tip * 0.8, Color("5aa84a"), 3.0)
+			draw_circle(Vector2.ZERO, 7.0, OUTLINE)
+			draw_circle(Vector2.ZERO, 6.0, Color("8a6a3a"))
+			for c: Vector2 in [Vector2(-4, 3), Vector2(3, 4)]:
+				draw_circle(c, 3.0, Color("5a3a20"))
+		"rock":
+			var rock := Shapes.ellipse(Vector2.ZERO, 22.0, 16.0, 8)
+			draw_colored_polygon(Shapes.ellipse(Vector2(3, 4), 22.0, 16.0, 8), Color(0, 0, 0, 0.2))
+			draw_colored_polygon(rock, Color("8a8480"))
+			draw_polyline(Shapes.closed(rock), OUTLINE, 1.5)
+			draw_colored_polygon(Shapes.ellipse(Vector2(-6, -5), 9.0, 5.0, 6), Color("a8a29c"))
+		"wreck":
+			_box(Rect2(-40, -14, 70, 28), Color("6a4428"))
+			draw_colored_polygon(PackedVector2Array([Vector2(30, -14), Vector2(46, 0), Vector2(30, 14)]), Color("6a4428"))
+			for x: float in [-30.0, -14.0, 2.0, 18.0]:
+				draw_line(Vector2(x, -14), Vector2(x, 14), Color("4a2c18"), 2.0)
+			draw_rect(Rect2(-6, -30, 4, 22), OUTLINE)
+		"campfire":
+			for k in 6:
+				draw_circle(Vector2.from_angle(TAU * k / 6.0) * 11.0, 4.0, Color("6a6460"))
+			draw_line(Vector2(-8, -3), Vector2(8, 3), Color("5a3a20"), 3.0)
+			draw_line(Vector2(-8, 3), Vector2(8, -3), Color("5a3a20"), 3.0)
+			draw_circle(Vector2.ZERO, 5.0, Color("ff7a2a"))
+			draw_circle(Vector2(0, -1), 2.5, Color("ffe08a"))
 		"ticket_machine":
 			_box(Rect2(-14, -20, 28, 36), Color("c0392b"))
 			draw_rect(Rect2(-9, -15, 18, 10), Color("8fd0f0"))

@@ -2219,7 +2219,7 @@
     "challenge": 1.75
   },
   "ISLAND": {
-    "theme": "harbor",
+    "theme": "island",
     "terrain": "tide",
     "music": "music_harbor",
     "music_night": "music_harbor_night",

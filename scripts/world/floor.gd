@@ -167,7 +167,7 @@ func _dim(vp: SubViewport) -> void:
 
 
 ## Furniture that is never turned (it would stand on its head).
-const UPRIGHT := ["gravestone", "grave_cross", "dead_tree", "crypt", "grave_candle", "signal", "ticket_machine"]
+const UPRIGHT := ["gravestone", "grave_cross", "dead_tree", "crypt", "grave_candle", "signal", "ticket_machine", "wreck"]
 
 
 func _pick(rng: RandomNumberGenerator, list: Array) -> Variant:

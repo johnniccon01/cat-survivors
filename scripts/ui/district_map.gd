@@ -195,14 +195,35 @@ func _ready() -> void:
 	_mini.draw.connect(_draw_mini)
 	_mini.gui_input.connect(_on_mini_input)
 	add_child(_mini)
-	# A short hint in the bottom-right corner.
+	# A short hint in the bottom-right corner: closes with its cross and
+	# fades away by itself after a few seconds.
 	_hint = PanelContainer.new()
-	_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_hint.add_theme_stylebox_override("panel", UiStyle.box(Color(0.06, 0.05, 0.09, 0.8), Color("4a3f5c")))
-	_hint.add_child(UiStyle.label(tr("DISTRICT_HINT"), 13, Color("cfc3dc")))
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 8)
+	row.add_child(UiStyle.label(tr("DISTRICT_HINT"), 13, Color("cfc3dc")))
+	# The font has no cross: it is drawn.
+	var close := UiStyle.click_button("", 26, 13)
+	close.custom_minimum_size = Vector2(26, 22)
+	close.draw.connect(func() -> void:
+		var c := close.size * 0.5
+		close.draw_line(c + Vector2(-4, -4), c + Vector2(4, 4), UiStyle.GOLD, 2.0)
+		close.draw_line(c + Vector2(4, -4), c + Vector2(-4, 4), UiStyle.GOLD, 2.0))
+	close.pressed.connect(_hide_hint)
+	row.add_child(close)
+	_hint.add_child(row)
 	add_child(_hint)
+	get_tree().create_timer(5.0).timeout.connect(_hide_hint)
 	resized.connect(_place_controls)
 	_place_controls()
+
+
+func _hide_hint() -> void:
+	if not is_instance_valid(_hint) or not _hint.visible:
+		return
+	var tw := _hint.create_tween()
+	tw.tween_property(_hint, "modulate:a", 0.0, 0.4)
+	tw.tween_callback(_hint.hide)
 
 
 func _layer(fn: Callable) -> Control:

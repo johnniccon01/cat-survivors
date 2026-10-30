@@ -1236,5 +1236,28 @@
     "final_mode": "roar",
     "minion": "BAT",
     "music": "music_boss"
+  },
+  "CRAB_EMPEROR": {
+    "shape": "crab",
+    "boss": true,
+    "specials": [
+      "cage",
+      "rampage",
+      "rain"
+    ],
+    "scale": 4.4,
+    "color": "#c0503a",
+    "accent": "#f2c14e",
+    "hp": 40000,
+    "speed": 44,
+    "damage": 28,
+    "radius": 32,
+    "xp": 0,
+    "knockback_resist": 1.0,
+    "final": true,
+    "behavior": "final",
+    "final_mode": "roar",
+    "minion": "CRAB",
+    "music": "music_boss"
   }
 }

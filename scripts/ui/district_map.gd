@@ -43,11 +43,11 @@ const PLACES := {
 	"FACTORY": {"pos": Vector2(376, 46), "view": Rect2(318, 0, 122, 108)},
 	"PARK": {"pos": Vector2(520, 50), "view": Rect2(446, 0, 146, 118)},
 	"CEMETERY": {"pos": Vector2(660, 50), "view": Rect2(600, 0, 120, 118)},
-	"ISLAND": {"pos": Vector2(622, 190), "view": Rect2(570, 166, 104, 76), "future": true},
+	"ISLAND": {"pos": Vector2(622, 190), "view": Rect2(570, 166, 104, 76)},
 	"STATION": {"pos": Vector2(140, 276), "view": Rect2(56, 250, 170, 50), "future": true},
 }
 ## Paths from the open maps on to the future ones (still in fog).
-const FUTURE_LINKS := [["HARBOR", "ISLAND"], ["SUPERMARKET", "STATION"]]
+const FUTURE_LINKS := [["SUPERMARKET", "STATION"]]
 ## Fog over each place until it opens.
 const FOG := {
 	"FACTORY": Rect2(318, 0, 126, 110), "PARK": Rect2(446, 0, 146, 118), "CEMETERY": Rect2(600, 0, 120, 118),
@@ -59,6 +59,7 @@ const HOME_STATS := {
 	"might": ["BONUS_MIGHT", 100.0], "cooldown": ["BONUS_COOLDOWN", -100.0], "area": ["BONUS_AREA", 100.0],
 	"speed": ["BONUS_SPEED", 100.0], "max_hp": ["BONUS_MAX_HP", 1.0], "luck": ["BONUS_LUCK", 100.0],
 	"regen": ["BONUS_REGEN", 1.0], "growth": ["BONUS_GROWTH", 100.0], "magnet": ["BONUS_MAGNET", 1.0],
+	"proj_speed": ["BONUS_PROJ_SPEED", 100.0],
 }
 
 static var _image: Image

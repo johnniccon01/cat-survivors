@@ -402,7 +402,8 @@ Hotové (30. 10. 2026, značka `mapa-park`): nová mapa Park (téma záhrady, ho
 Hotové (30. 10. 2026, značka `krok-5-nocna-tura`): krok 5 – nočná túra ako nočná správa (»): v 7. a 14. minúte sa otvorí brána (ľavá/pravá) a noc pokračuje na inej otvorenej mape (podlaha, terén, nepriatelia, hudba aj finálny boss); výhra +200 zlata, cesta poslednej túry sa nakreslí na štvrť azúrovou. Test `night_trip`.
 Hotové (30. 10. 2026, značka `krok-8-dobyvanie`): krok 8 – dobývanie: na nedobytej mape stoja 3 vlajky bossa (šípky na okraji obrazovky); 6 s pri vlajke ju obsadí (+20 % zdravia, mince); všetky 3 + výhra noci = mapa dobytá navždy s bonusom v každej noci (`Profile.TERRITORY_BONUS`, napr. Byt +10 zdravie, Záhrada +0,3 regenerácia); dobyté mapy majú na štvrti zlatú vlajku a panel ukazuje bonus. Testy `territory_flags`, `territory_won`.
 Hotové (30. 10. 2026, značka `mapa-cintorin`): nová mapa Cintorín s vlastnou témou podlahy (tmavý trávnik, štrk, hroby, náhrobky, kríže, mŕtve stromy, hrobka, sviečky so svetlom), netopiere, pavúky, mole; finálny boss Gróf Netopier `BAT_COUNT`; odomkne sa po Parku. Testy `cemetery`, `final_bat`.
-Ďalej: Ostrov, Stanica ako nové mapy; prepínanie štvrtí cez stanicu. pri nočných správach ešte obyvatelia (unesený obyvateľ namiesto krádeže zlata).
+Hotové (30. 10. 2026, značka `mapa-ostrov`): nová mapa Ostrov (téma prístavu s prílivom, kraby, medúzy, čajky; finálny boss Krabí cisár `CRAB_EMPEROR`; odomkne sa po Prístave). Testy `island`, `final_crab_emperor`.
+Ďalej: Stanica ako nová mapa; prepínanie štvrtí cez stanicu. pri nočných správach ešte obyvatelia (unesený obyvateľ namiesto krádeže zlata).
 
 Cieľ: výber mapy vyzerá prémiovo, má význam a dáva dôvod vracať sa na staré miesta. Na mape sa rozhoduje do 15 sekúnd, všetko podstatné sa prejaví priamo v noci.
 

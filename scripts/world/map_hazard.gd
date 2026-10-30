@@ -5,6 +5,8 @@ extends Node2D
 ##   row, a bell rings and a train races through it. It runs over every
 ##   enemy on the tracks (bosses only get bruised) and hurts the cat too
 ##   (Station).
+## - "low_tide": when the sea goes out it leaves treasures glittering on the
+##   wet sand for a while: coins, sometimes a chest (Island).
 
 const TRAIN_FIRST := 35.0
 const TRAIN_EVERY := Vector2(30.0, 45.0)
@@ -17,6 +19,10 @@ const TRAIN_DAMAGE := 18.0
 const TRAIN_BOSS_HIT := 0.04
 const CAR_LEN := 118.0
 const CARS := 4
+const TREASURES := 3
+const TREASURE_TIME := 25.0
+const TREASURE_COINS := 6
+const TREASURE_CHEST := 0.3
 
 static var current: MapHazard
 
@@ -33,6 +39,12 @@ var _from := 0.0
 var _to := 0.0
 var _hit := {}
 var _cat_hit := false
+## Low tide: {"pos": Vector2, "t": seconds left}.
+var _treasures: Array[Dictionary] = []
+var _last_tide := ""
+var _forced := -1.0
+var _arrow: QuestArrow
+var _told := false
 
 
 func _init() -> void:
@@ -47,12 +59,26 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	if current == self:
 		current = null
+	if is_instance_valid(_arrow):
+		_arrow.queue_free()
 
 
 func setup(p_kind: String, p_main: Node) -> void:
 	kind = p_kind
 	main = p_main
 	_phase_t = float(GameData.arg("--hazard-at=", str(TRAIN_FIRST)))
+	_forced = float(GameData.arg("--hazard-at=", "-1"))
+	if kind == "low_tide":
+		z_index = -2
+
+
+## Where the test bot should go for this map's special, if anywhere.
+func bot_goal(from: Vector2) -> Vector2:
+	var best := Vector2.INF
+	for tr_ in _treasures:
+		if (tr_["pos"] as Vector2).distance_to(from) < best.distance_to(from):
+			best = tr_["pos"]
+	return best
 
 
 ## The state for tests and the HUD.
@@ -65,7 +91,67 @@ func _physics_process(delta: float) -> void:
 	match kind:
 		"train":
 			_tick_train(delta)
+		"low_tide":
+			_tick_low_tide(delta)
 	queue_redraw()
+
+
+func _tick_low_tide(delta: float) -> void:
+	var tide := Terrain.current.tide_phase() if Terrain.current != null else ""
+	if _forced >= 0.0:
+		_forced -= delta
+		if _forced < 0.0:
+			_spawn_treasures(main.player.position.y)
+	elif tide == "fall" and _last_tide != "fall":
+		_spawn_treasures(Terrain.current.tide_center())
+	_last_tide = tide
+	var cat: Vector2 = main.player.position
+	for i in range(_treasures.size() - 1, -1, -1):
+		var tr_: Dictionary = _treasures[i]
+		tr_["t"] -= delta
+		if (tr_["pos"] as Vector2).distance_to(cat) < 20.0 + Player.RADIUS:
+			_dig_up(tr_["pos"])
+			_treasures.remove_at(i)
+		elif tr_["t"] <= 0.0:
+			_treasures.remove_at(i)
+	# The arrow points to the nearest treasure.
+	if _treasures.is_empty():
+		if is_instance_valid(_arrow):
+			_arrow.queue_free()
+		return
+	var best: Vector2 = _treasures[0]["pos"]
+	for tr_ in _treasures:
+		if (tr_["pos"] as Vector2).distance_to(cat) < best.distance_to(cat):
+			best = tr_["pos"]
+	if not is_instance_valid(_arrow):
+		_arrow = QuestArrow.new()
+		_arrow.color = Color("f2c14e")
+		main.hud.add_child(_arrow)
+	_arrow.target = best
+
+
+## Treasures on the sand the sea just left, above and below the dry strip.
+func _spawn_treasures(center_y: float) -> void:
+	var cat: Vector2 = main.player.position
+	for i in TREASURES:
+		var side := 1.0 if i % 2 == 0 else -1.0
+		var pos := Vector2(cat.x + randf_range(-320.0, 320.0), center_y + side * randf_range(Terrain.TIDE_HALF + 30.0, Terrain.TIDE_HALF + 220.0))
+		_treasures.append({"pos": Terrain.fix(pos, 12.0), "t": TREASURE_TIME})
+	Audio.play("sparkle", 2.0)
+	if not _told:
+		_told = true
+		main.hud.show_banner(tr("TIDE_TREASURE"), 3.5)
+	BotLog.event("tide_treasures")
+
+
+func _dig_up(pos: Vector2) -> void:
+	for i in TREASURE_COINS:
+		main.pickups.spawn_named("coin", pos + Vector2.from_angle(TAU * i / TREASURE_COINS) * 14.0, 5.0)
+	if randf() < TREASURE_CHEST:
+		main.pickups.spawn_named("chest", pos, 0.0)
+	Audio.play("chest", -2.0)
+	Profile.add_stat("tide_treasures")
+	BotLog.event("tide_treasure_found")
 
 
 func _tick_train(delta: float) -> void:
@@ -138,6 +224,26 @@ func _draw() -> void:
 	match kind:
 		"train":
 			_draw_train()
+		"low_tide":
+			_draw_treasures()
+
+
+func _draw_treasures() -> void:
+	for tr_ in _treasures:
+		var p: Vector2 = tr_["pos"]
+		var fade := clampf(float(tr_["t"]) / 3.0, 0.0, 1.0)
+		var k := 0.5 + 0.5 * sin(_t * 5.0 + p.x)
+		# Wet sand, a half-buried shell and a glint.
+		draw_colored_polygon(Shapes.ellipse(p, 18.0, 11.0, 14), Color(0.55, 0.45, 0.3, 0.35 * fade))
+		draw_arc(p, 16.0 + k * 4.0, 0.0, TAU, 20, Color(1.0, 0.9, 0.4, (0.35 + 0.4 * k) * fade), 2.0)
+		draw_colored_polygon(Shapes.ellipse(p + Vector2(0, 2), 7.0, 5.0, 10), Color(0.17, 0.11, 0.08, fade))
+		draw_colored_polygon(Shapes.ellipse(p + Vector2(0, 2), 6.0, 4.0, 10), Color(0.95, 0.75, 0.6, fade))
+		for k2 in 4:
+			draw_line(p + Vector2(0, 5), p + Vector2(-4.5 + k2 * 3.0, -1), Color(0.8, 0.5, 0.4, fade), 1.0)
+		var g := p + Vector2(6, -8)
+		var s := 3.0 + 3.0 * k
+		draw_line(g - Vector2(s, 0), g + Vector2(s, 0), Color(1, 1, 0.85, fade), 1.5)
+		draw_line(g - Vector2(0, s), g + Vector2(0, s), Color(1, 1, 0.85, fade), 1.5)
 
 
 func _draw_train() -> void:

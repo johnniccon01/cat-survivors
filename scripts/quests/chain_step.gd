@@ -372,6 +372,25 @@ func draw_look(at: Vector2, look: String, alpha: float = 1.0) -> void:
 			draw_rect(Rect2(at + Vector2(-5, -7), Vector2(10, 12)), Color(OUTLINE, a))
 			draw_rect(Rect2(at + Vector2(-4, -6), Vector2(8, 10)), Color(1.0, 0.85, 0.4, a))
 			draw_arc(at + Vector2(0, -8), 4.0, PI, TAU, 8, Color(OUTLINE, a), 1.5)
+		"bottle":
+			draw_rect(Rect2(at + Vector2(-4, -6), Vector2(8, 13)), Color(OUTLINE, a))
+			draw_rect(Rect2(at + Vector2(-3, -5), Vector2(6, 11)), Color(0.45, 0.75, 0.55, 0.85 * a))
+			draw_rect(Rect2(at + Vector2(-2, -10), Vector2(4, 5)), Color(0.45, 0.75, 0.55, 0.85 * a))
+			draw_rect(Rect2(at + Vector2(-2, -11), Vector2(4, 2)), Color(0.6, 0.42, 0.25, a))
+			draw_rect(Rect2(at + Vector2(-2, -3), Vector2(4, 6)), Color(0.96, 0.92, 0.8, a))
+		"raft":
+			for i in 5:
+				draw_rect(Rect2(at + Vector2(-26 + i * 10.5, -18), Vector2(10, 36)), Color(OUTLINE, a))
+				draw_rect(Rect2(at + Vector2(-25 + i * 10.5, -17), Vector2(8, 34)), Color(0.62, 0.45, 0.27, a))
+			for y: float in [-10.0, 10.0]:
+				draw_line(at + Vector2(-27, y), at + Vector2(27, y), Color(0.85, 0.75, 0.5, a), 2.0)
+			draw_line(at + Vector2(0, 0), at + Vector2(0, -38), Color(OUTLINE, a), 3.0)
+			draw_colored_polygon(PackedVector2Array([at + Vector2(2, -36), at + Vector2(20, -24), at + Vector2(2, -12)]), Color(0.95, 0.93, 0.86, a))
+		"nest":
+			draw_colored_polygon(Shapes.ellipse(at, 16, 10), Color(0.72, 0.6, 0.4, 0.8 * a))
+			for p: Vector2 in [Vector2(-6, -1), Vector2(0, -3), Vector2(6, -1), Vector2(-3, 3), Vector2(3, 3)]:
+				draw_circle(at + p, 3.6, Color(OUTLINE, a))
+				draw_circle(at + p, 2.8, Color(0.97, 0.95, 0.88, a))
 		"suitcase":
 			draw_rect(Rect2(at + Vector2(-9, -6), Vector2(18, 13)), Color(OUTLINE, a))
 			draw_rect(Rect2(at + Vector2(-8, -5), Vector2(16, 11)), Color(0.54, 0.35, 0.2, a))

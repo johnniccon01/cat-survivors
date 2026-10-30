@@ -2226,9 +2226,9 @@
     "requires": "HARBOR",
     "cat_quests": [],
     "props": [
-      "BARREL",
-      "BARREL",
-      "CRATE"
+      "COCONUTS",
+      "DRIFTWOOD",
+      "COCONUTS"
     ],
     "max_props": 6,
     "prop_interval": 4.0,
@@ -2238,20 +2238,20 @@
       {
         "minute": 4.5,
         "type": "swarm",
-        "enemy": "JELLYFISH",
+        "enemy": "CRAB",
         "count": 60
       },
       {
         "minute": 6.0,
         "type": "ring",
-        "enemy": "CRAB",
-        "count": 48
+        "enemy": "TURTLE",
+        "count": 22
       },
       {
         "minute": 9.0,
         "type": "swarm",
-        "enemy": "EEL",
-        "count": 50
+        "enemy": "GULL",
+        "count": 60
       },
       {
         "minute": 12.0,
@@ -2268,14 +2268,14 @@
       {
         "minute": 18.0,
         "type": "ring",
-        "enemy": "EEL",
-        "count": 60
+        "enemy": "TURTLE",
+        "count": 36
       }
     ],
     "traps": [
-      "FISH_HOOK",
-      "TIDE_POOL",
-      "TIDE_POOL"
+      "COCONUT_PALM",
+      "SEA_URCHIN",
+      "COCONUT_PALM"
     ],
     "max_traps": 6,
     "intensity": [
@@ -2332,7 +2332,8 @@
         "enemies": [
           "CRAB",
           "GULL",
-          "JELLYFISH"
+          "JELLYFISH",
+          "TURTLE"
         ],
         "hp_mult": 1.65
       },
@@ -2344,7 +2345,8 @@
         "enemies": [
           "CRAB",
           "GULL",
-          "JELLYFISH"
+          "JELLYFISH",
+          "TURTLE"
         ],
         "hp_mult": 1.98,
         "bosses": [
@@ -2357,7 +2359,7 @@
         "interval": 0.7,
         "per_tick": 3,
         "enemies": [
-          "EEL",
+          "TURTLE",
           "CRAB",
           "GULL"
         ],
@@ -2371,7 +2373,8 @@
         "enemies": [
           "EEL",
           "CRAB",
-          "GULL"
+          "GULL",
+          "TURTLE"
         ],
         "hp_mult": 4.62,
         "bosses": [
@@ -2385,7 +2388,7 @@
         "per_tick": 4,
         "enemies": [
           "JELLYFISH",
-          "EEL",
+          "TURTLE",
           "DIVE_GULL",
           "CRAB"
         ],
@@ -2400,7 +2403,8 @@
           "JELLYFISH",
           "EEL",
           "DIVE_GULL",
-          "CRAB"
+          "CRAB",
+          "TURTLE"
         ],
         "hp_mult": 6.6,
         "bosses": [
@@ -2416,7 +2420,7 @@
           "PIRATE_RAT",
           "CRAB",
           "DIVE_GULL",
-          "EEL"
+          "TURTLE"
         ],
         "hp_mult": 7.92,
         "bosses": [
@@ -2432,7 +2436,8 @@
           "PIRATE_RAT",
           "CRAB",
           "DIVE_GULL",
-          "EEL"
+          "EEL",
+          "TURTLE"
         ],
         "hp_mult": 9.46,
         "bosses": [
@@ -2448,12 +2453,13 @@
           "PIRATE_RAT",
           "CRAB",
           "DIVE_GULL",
-          "EEL"
+          "TURTLE"
         ],
         "hp_mult": 11.0
       }
     ],
-    "challenge": 2.0
+    "challenge": 2.0,
+    "hazard": "low_tide"
   },
   "STATION": {
     "theme": "station",

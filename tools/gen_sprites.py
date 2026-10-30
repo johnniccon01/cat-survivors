@@ -831,6 +831,19 @@ def enemy_canvas(shape, frame, data):
         c.rect(7, 8 + drop, 14, 2, "top", only=("body",))
         c.set(11, 12 + drop, "eye"); c.set(16, 12 + drop, "eye")
         c.rect(3, 22, 22, 3, "accent")
+    elif shape == "turtle":
+        # A sea turtle from above, flippers paddling.
+        swim = frame
+        for side in (-1, 1):
+            c.ellipse(9 + swim, 14 + side * 8, 3.2, 2.0, "leg")
+            c.ellipse(19 - swim, 14 + side * 8, 3.2, 2.0, "leg")
+        c.ellipse(4, 14, 2.2, 1.4, "leg")
+        c.ellipse(23, 14, 3.6, 3.0, "skin")
+        c.set(24, 12, "pupil"); c.set(24, 16, "pupil")
+        c.ellipse(13, 14, 9, 7.5, "body")
+        c.ellipse(13, 14, 6.5, 5.2, "top", only=("body",))
+        for p in ((10, 12), (16, 12), (10, 16), (16, 16), (13, 14)):
+            c.ellipse(p[0], p[1], 1.6, 1.4, "accent", only=("body", "top"))
     elif shape == "suitcase":
         # Lost luggage that got up and walks: a case on little legs.
         step = frame

@@ -135,5 +135,21 @@
     "damage": 55,
     "player_damage": 12,
     "rearm": 3.5
+  },
+  "COCONUT_PALM": {
+    "type": "pulse",
+    "radius": 30,
+    "damage": 45,
+    "player_damage": 12,
+    "on": 0.35,
+    "off": 4.5,
+    "tick": 0.4
+  },
+  "SEA_URCHIN": {
+    "type": "snap",
+    "radius": 9,
+    "damage": 38,
+    "player_damage": 8,
+    "rearm": 3.0
   }
 }

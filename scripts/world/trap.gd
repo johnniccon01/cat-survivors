@@ -252,6 +252,31 @@ func _draw() -> void:
 				draw_line(Vector2(-9 + k * 6, -9), Vector2(-3 + k * 6, 9), Color("2b2b2b"), 2.0)
 			if _flash > 0.0:
 				Blit.disc(self, Vector2.ZERO, 14.0, Color(1, 1, 1, _flash * 2.0))
+		"COCONUT_PALM":
+			# Seen from above: a palm crown; a coconut's shadow grows before it drops.
+			var r := float(data["radius"])
+			if not _active and _timer < 0.8:
+				var k := 1.0 - _timer / 0.8
+				draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, r * k, r * 0.7 * k, 16), Color(0, 0, 0, 0.35 * k))
+			if _active:
+				draw_arc(Vector2.ZERO, r * 0.8, 0.0, TAU, 20, Color(1.0, 0.9, 0.6, 0.8), 3.0)
+				draw_circle(Vector2.ZERO, 7.0, OUTLINE)
+				draw_circle(Vector2.ZERO, 6.0, Color("6a4428"))
+			for k in 6:
+				var tip := Vector2.from_angle(TAU * k / 6.0 + 0.4) * (r + 6.0)
+				draw_line(Vector2.ZERO, tip, Color(0.24, 0.54, 0.22, 0.55), 6.0)
+			for p: Vector2 in [Vector2(-4, -3), Vector2(4, -2), Vector2(0, 4)]:
+				draw_circle(p, 3.0, Color("5a3a20"))
+		"SEA_URCHIN":
+			var col := Color("6a3a8a") if _active else Color("4a3a50")
+			for k in 12:
+				var tip := Vector2.from_angle(TAU * k / 12.0 + 0.2) * (10.0 if _active else 7.0)
+				draw_line(Vector2.ZERO, tip, OUTLINE, 2.5)
+				draw_line(Vector2.ZERO, tip * 0.9, col.lightened(0.3), 1.0)
+			draw_circle(Vector2.ZERO, 5.0, OUTLINE)
+			draw_circle(Vector2.ZERO, 4.0, col)
+			if _flash > 0.0:
+				Blit.disc(self, Vector2.ZERO, 12.0, Color(1, 1, 1, _flash * 2.0))
 		"RAIL_SPARK":
 			# A loose bit of live rail that sparks now and then.
 			for y: float in [-6.0, 6.0]:

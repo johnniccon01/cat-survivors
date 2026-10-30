@@ -1069,6 +1069,17 @@
       ],
       "frames": 2
     },
+    "TURTLE": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
     "BOX": {
       "cell": [
         28,
@@ -1202,6 +1213,28 @@
       "frames": 2
     },
     "NEWSPAPERS": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "COCONUTS": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "DRIFTWOOD": {
       "cell": [
         28,
         28

@@ -1350,5 +1350,22 @@
       {"type": "defend", "time": 35, "mode": "enemies", "enemy": "SUITCASE", "spawn_every": 3.0, "spawn_count": 4, "look": "locomotive", "distance": 300},
       {"type": "boss", "enemy": "SECURITY_BOT", "hp_mult": 2.5, "look": "locomotive", "distance": 240, "after_minute": 6}
     ]
+  },
+  "CASTAWAY": {
+    "stage": "ISLAND",
+    "reward": {"gold": 1000, "charm": "SALMON_SKIN"},
+    "steps": [
+      {"type": "trail", "count": 6, "spacing": [180, 240], "look": "pawprints"},
+      {"type": "collect", "items": ["bottle"], "item": "bottle", "count": 4, "capacity": 2, "spread": [220, 440], "deliver": true, "look_to": "raft"},
+      {"type": "defend", "time": 30, "mode": "enemies", "enemy": "CRAB", "spawn_every": 2.5, "spawn_count": 5, "look": "raft"}
+    ]
+  },
+  "TURTLE_NESTS": {
+    "stage": "ISLAND",
+    "reward": {"gold": 1200, "charm": "PIRATE_COIN"},
+    "steps": [
+      {"type": "zones", "count": 4, "hold": 5, "radius": 40, "spread": [200, 340], "look": "nest"},
+      {"type": "boss", "enemy": "GIANT_CRAB", "hp_mult": 2.5, "look": "nest", "distance": 240, "after_minute": 5}
+    ]
   }
 }

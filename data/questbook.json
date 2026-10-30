@@ -788,6 +788,49 @@
         }
       ]
     },
+    "ISLAND": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:ISLAND"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 500
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:ISLAND"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:ISLAND",
+          "target": 1,
+          "reward": {
+            "gold": 1500
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:ISLAND"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 2400
+          }
+        }
+      ]
+    },
     "OLD_DIARY": {
       "chapter": "story",
       "tiers": [

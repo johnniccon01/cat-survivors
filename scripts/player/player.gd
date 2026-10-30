@@ -558,6 +558,11 @@ func _bot_input(delta: float) -> Vector2:
 	if is_instance_valid(shrine) and not (shrine as Shrine).used and (shrine as Shrine).position.distance_to(position) < 700.0:
 		var to_shrine := (shrine as Shrine).position - position
 		return to_shrine.normalized() if to_shrine.length() > 12.0 else Vector2.ZERO
+	# So are treasures the map leaves out (low tide on the Island).
+	if MapHazard.current != null:
+		var spot := MapHazard.current.bot_goal(position)
+		if spot != Vector2.INF:
+			return (spot - position).normalized()
 	# A diary page on the map is worth a detour.
 	var page: Variant = get_parent().get("_page_item")
 	if is_instance_valid(page):

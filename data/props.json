@@ -90,6 +90,20 @@
       "radius": 7,
       "color": "#e8e2d0",
       "accent": "#5a5a60"
+    },
+    "COCONUTS": {
+      "shape": "sack",
+      "hp": 1,
+      "radius": 7,
+      "color": "#6a4428",
+      "accent": "#5aa84a"
+    },
+    "DRIFTWOOD": {
+      "shape": "box",
+      "hp": 1,
+      "radius": 8,
+      "color": "#b8a07a",
+      "accent": "#7a6a50"
     }
   },
   "loot": [

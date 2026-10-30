@@ -1295,5 +1295,17 @@
     "knockback_resist": 0.5,
     "cost": 2.5,
     "behavior": "dash"
+  },
+  "TURTLE": {
+    "shape": "turtle",
+    "color": "#5a8a4a",
+    "accent": "#3a5a2a",
+    "hp": 70,
+    "speed": 34,
+    "damage": 12,
+    "radius": 10,
+    "xp": 4,
+    "knockback_resist": 0.85,
+    "cost": 3.5
   }
 }

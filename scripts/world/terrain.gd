@@ -305,6 +305,11 @@ func tide_phase() -> String:
 	return _phase
 
 
+## The middle of the dry strip while the sea is in.
+func tide_center() -> float:
+	return _center_y
+
+
 func _view() -> Rect2:
 	var inv := get_viewport().get_canvas_transform().affine_inverse()
 	var rect := get_viewport_rect()

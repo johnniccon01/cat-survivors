@@ -126,6 +126,7 @@ func _ready() -> void:
 		weather_today = cfg.get_value("weather", "today", "")
 		materials = cfg.get_value("build", "materials", 0)
 		careers = cfg.get_value("careers", "cats", {})
+		soul_charge = cfg.get_value("soul", "charge", 0.0)
 		legacy = cfg.get_value("careers", "legacy", 0)
 		buildings = cfg.get_value("build", "levels", {})
 		weather_tomorrow = cfg.get_value("weather", "tomorrow", "")
@@ -211,6 +212,7 @@ func _ready() -> void:
 		if GameData.stages.has(id) and id not in cleared_stages:
 			cleared_stages.append(id)
 	ensure_weather()
+	_ensure_soul_bell()
 	# `-- --career=LIVES,RANK,TALENT...` sets the played cat's career (tests).
 	var forced_career := GameData.arg("--career=", "")
 	if forced_career != "":
@@ -820,6 +822,45 @@ func career_night(cat: String, kind: String, minutes: float, home: bool) -> Arra
 	return lines
 
 
+# --- the soul bell -----------------------------------------------------------------
+## A collar bell that swallows the strength of what you defeat: the more
+## souls in it, the stronger the cat (up to SOUL_FULL). The souls of a night
+## stay in it only if you win or slip out through the cat door; a death
+## empties it to zero. Wear it or leave it home (it is safe there). Curses
+## fill it faster.
+const SOUL_BELL := "SOUL_BELL"
+const SOUL_FULL := 2500.0
+const SOUL_KILL := 1.0
+const SOUL_ELITE := 10.0
+const SOUL_BOSS := 60.0
+const SOUL_MIGHT := 0.3
+const SOUL_GREED := 0.2
+const SOUL_STEP := 50.0
+## Souls kept in the bell between nights.
+var soul_charge := 0.0
+## Souls during a night when the bell is worn (-1 otherwise).
+var soul_live := -1.0
+
+
+static func soul_bonus(charge: float) -> Dictionary:
+	var k := clampf(charge / SOUL_FULL, 0.0, 1.0)
+	return {"might": SOUL_MIGHT * k, "greed": SOUL_GREED * k}
+
+
+func soul_worn() -> bool:
+	return worn_item("COLLAR").get("base", "") == SOUL_BELL
+
+
+## Everyone has the bell once (found at home); it goes in the collar slot.
+func _ensure_soul_bell() -> void:
+	if items.any(func(i: Dictionary) -> bool: return i["base"] == SOUL_BELL):
+		return
+	var bell := Items.legendary(SOUL_BELL)
+	bell["uid"] = next_item_uid
+	next_item_uid += 1
+	items.append(bell)
+
+
 # --- building materials ---------------------------------------------------------
 ## Earned at the end of a night (a win pays by far the most), spent on the
 ## houses of the neighbourhood: every place can be built up to level 3.
@@ -1163,6 +1204,8 @@ func item_bonus() -> Dictionary:
 		if item.is_empty():
 			continue
 		var stats: Dictionary = item["stats"]
+		if item["base"] == SOUL_BELL:
+			stats = soul_bonus(soul_live if soul_live >= 0.0 else soul_charge)
 		for key: String in stats:
 			if key in Items.TIMERS and bonus.has(key):
 				bonus[key] = minf(float(bonus[key]), float(stats[key]))
@@ -1317,6 +1360,7 @@ func save() -> void:
 	cfg.set_value("weather", "today", weather_today)
 	cfg.set_value("build", "materials", materials)
 	cfg.set_value("careers", "cats", careers)
+	cfg.set_value("soul", "charge", soul_charge)
 	cfg.set_value("careers", "legacy", legacy)
 	cfg.set_value("build", "levels", buildings)
 	cfg.set_value("weather", "tomorrow", weather_tomorrow)

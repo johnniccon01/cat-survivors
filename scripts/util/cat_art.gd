@@ -284,7 +284,7 @@ static func _draw_outfit(ci: CanvasItem, gear: Dictionary, s: float, col: int) -
 		ci.draw_polyline(band, OUTLINE, 2.6 * s)
 		ci.draw_polyline(band, c, 1.4 * s)
 		var tag: Vector2 = at.call(24.5, 18.0 - bob)
-		var bell := String(k["base"]) in ["BELL_COLLAR", "STATION_WHISTLE"]
+		var bell := String(k["base"]) in ["BELL_COLLAR", "STATION_WHISTLE", "SOUL_BELL"]
 		ci.draw_circle(tag, (1.5 if bell else 1.1) * s, OUTLINE)
 		ci.draw_circle(tag, (1.1 if bell else 0.75) * s, Color("f2c14e") if bell else c.lightened(0.45))
 

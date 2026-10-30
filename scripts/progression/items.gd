@@ -113,6 +113,9 @@ static func describe(item: Dictionary) -> String:
 	lines.append("%s · %s" % [TranslationServer.translate("RARITY_" + String(item["rarity"]).to_upper()), TranslationServer.translate("ITEM_SLOT_" + String(item["slot"]))])
 	if item["rarity"] == "legendary":
 		lines.append(TranslationServer.translate("ITEM_%s_DESC" % item["base"]))
+		if item["base"] == Profile.SOUL_BELL:
+			var b := Profile.soul_bonus(Profile.soul_charge)
+			lines.append(TranslationServer.translate("SOUL_BELL_CHARGE") % [roundi(Profile.soul_charge), roundi(Profile.SOUL_FULL), roundi(float(b["might"]) * 100.0), roundi(float(b["greed"]) * 100.0)])
 		return "\n".join(lines)
 	var stats: Dictionary = item["stats"]
 	var parts: Array[String] = []

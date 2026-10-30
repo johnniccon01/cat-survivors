@@ -56,7 +56,7 @@ func _check_legendaries() -> void:
 			BotLog.fail("final boss %s has no legendary item" % boss)
 	for id: String in GameData.items["legendaries"]:
 		var item := Items.legendary(id)
-		if not GameData.enemies.has(GameData.items["legendaries"][id]["boss"]):
+		if not GameData.items["legendaries"][id].get("special", false) and not GameData.enemies.has(GameData.items["legendaries"][id]["boss"]):
 			BotLog.fail("legendary %s comes from an unknown boss" % id)
 		for stat: String in item["stats"]:
 			if not Player.BASE_STATS.has(stat):

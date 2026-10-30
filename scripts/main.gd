@@ -301,6 +301,8 @@ func _ready() -> void:
 	_bot_time += spawner.elapsed
 	night.setup(spawner, player)
 	_start_weather()
+	Profile.soul_live = Profile.soul_charge if Profile.soul_worn() and not dev_test else -1.0
+	player._recalc_stats()
 	for m: float in FLAP_MINUTES:
 		_flap_times.append(m * 60.0 + randf_range(-30.0, 30.0))
 	quests = QuestDirector.new()
@@ -344,7 +346,8 @@ func _ready() -> void:
 	enemies.elite_killed.connect(func(pos: Vector2) -> void:
 		pickups.spawn_named("coin", pos + Vector2(8, 0), 10.0)
 		_maybe_drop_charm(pos + Vector2(-8, 0), CHARM_CHANCE_ELITE)
-		_maybe_find_item(ITEM_CHANCE_ELITE))
+		_maybe_find_item(ITEM_CHANCE_ELITE)
+		_add_souls(Profile.SOUL_ELITE))
 	pickups.charm_collected.connect(_on_charm_collected)
 	pickups.magnet_pulled.connect(func(count: int, xp: float) -> void:
 		if count > 0:
@@ -670,6 +673,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 	kills += 1
+	_feed_soul_bell(id)
 	Profile.add_stat("kills")
 	Profile.add_stat("kills:" + id)
 	pickups.spawn_xp(pos, xp)
@@ -1147,6 +1151,7 @@ func _end_run(kind: String) -> void:
 		else:
 			lines.append(tr("SUMMARY_PAGE_LOST"))
 	_bank_items(kind, lines)
+	_bank_soul_bell(kind, lines)
 	if kind != "death" and not run_charms.is_empty():
 		var upgraded: Array[String] = []
 		var refund := Profile.bank_charms(run_charms, run_charm_quality, upgraded)
@@ -1617,6 +1622,41 @@ func _setup_hazard() -> void:
 	var hazard := MapHazard.new()
 	hazard.setup(kind, self)
 	add_child(hazard)
+
+
+## The soul bell drinks in what the cat defeats (see Profile, soul bell).
+func _feed_soul_bell(id: String) -> void:
+	if Profile.soul_live < 0.0:
+		return
+	var data: Dictionary = GameData.enemies.get(id, {})
+	_add_souls(Profile.SOUL_BOSS if data.get("boss", false) or data.get("final", false) else Profile.SOUL_KILL)
+
+
+func _add_souls(gain: float) -> void:
+	if Profile.soul_live < 0.0:
+		return
+	var before := Profile.soul_live
+	Profile.soul_live = minf(Profile.soul_live + gain * Profile.challenge_materials(), Profile.SOUL_FULL)
+	# The cat grows stronger step by step, not on every kill.
+	if floori(before / Profile.SOUL_STEP) != floori(Profile.soul_live / Profile.SOUL_STEP):
+		player._recalc_stats()
+		hud.update_inventory(player)
+
+
+## A win or an escape keeps the night's souls in the bell; a death empties it.
+func _bank_soul_bell(kind: String, lines: Array[String]) -> void:
+	if Profile.soul_live < 0.0:
+		return
+	if kind == "death":
+		if Profile.soul_live > 0.0:
+			lines.append(tr("SUMMARY_SOUL_LOST") % roundi(Profile.soul_live))
+		Profile.soul_charge = 0.0
+		BotLog.event("soul_lost")
+	else:
+		Profile.soul_charge = Profile.soul_live
+		lines.append(tr("SUMMARY_SOUL_KEPT") % [roundi(Profile.soul_charge), roundi(float(Profile.soul_bonus(Profile.soul_charge)["might"]) * 100.0)])
+		BotLog.event("soul_kept")
+	Profile.soul_live = -1.0
 
 
 ## Tonight's weather over the map (none under a roof, in tests or endless).

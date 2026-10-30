@@ -3,7 +3,7 @@
 Živý zoznam toho, čo je hotové, čo robíme teraz a čo príde. Po každom kroku
 ho aktualizujeme: hotové odškrtneme `[x]`, nové nápady pridáme do Zásobníka.
 
-Naposledy aktualizované: 29. 10. 2026 (spätná väzba z hrania: Smrť, mraziaca zbraň, svätyne, questy)
+Naposledy aktualizované: 30. 10. 2026 (plán psích štvrtí; najprv dokončiť prvú štvrť)
 
 ---
 
@@ -418,7 +418,7 @@ Hotové (30. 10. 2026, značka `obrana-zriedkava`): obrana na mape už nie je da
 Hotové (30. 10. 2026, značka `mapa-jeden-klik`): klik na miesto na mape hneď ukáže aj jeho úlohu (obrana, zlato, lov…), tlačidlo „Vynechať, len hrať tu" ju vypne a „Prijať úlohu" vráti. Obyvatelia majú namiesto „$" cenovku s cenou a po prejdení myšou ukážu, akú službu ponúkajú. Opravené pokazené čísla v 6 textoch (služby obyvateľov, 3 predmety bossov) a kontrola textov teraz hlási riadiace znaky.
 
 Hotové (30. 10. 2026, značka `park-jazierka`): jazierka v Parku už nie sú len kresba. Brodenie spomalí mačku aj nepriateľov na polovicu (lietajúci – holuby, včely, netopiere, duchovia… – letia ponad), okolo labiek sú vlnky. `WorldFloor.in_water()` počíta tvar jazierka rovnako ako kresba (`FloorChunk.pond_shape`).
-Ďalej: prepínanie štvrtí cez stanicu (druhá štvrť s novými mapami). pri nočných správach ešte obyvatelia (unesený obyvateľ namiesto krádeže zlata).
+Ďalej: najprv dokončiť prvú štvrť (voľba „Pokojná štvrť" bez útokov, pravidlo najviac 2 hrozby naraz, doladenie podľa hrania, grafika a zvuk). Druhá štvrť až potom – pozri „Psie štvrte".
 
 Cieľ: výber mapy vyzerá prémiovo, má význam a dáva dôvod vracať sa na staré miesta. Na mape sa rozhoduje do 15 sekúnd, všetko podstatné sa prejaví priamo v noci.
 
@@ -432,6 +432,20 @@ Cieľ: výber mapy vyzerá prémiovo, má význam a dáva dôvod vracať sa na s
 8. **Dobývanie v noci.** Herná mapa rozdelená na tvoju a nepriateľskú časť, zabíjaním posúvaš hranicu; dobyté územie dá trvalý bonus a otvorí susedné.
 
 Pravidlá: hviezdy, odomknutia a príbehy sa nikdy nestratia; najviac 2 hrozby naraz; voľba „Pokojná štvrť" bez útokov. Vyhodené z návrhu: percentá hrozby, produkcia za noc, stráženie ako samostatné menu.
+
+## Psie štvrte (plán 30. 10. 2026, zatiaľ nerobíme – najprv dokončiť prvú štvrť)
+
+Príbeh v troch štvrtiach: psy sú najprv nepriatelia, potom spojenci. 2. a 3. štvrť sa robia ako samostatný balík (v dátach `pack: "dogs"`), aby sa pri vydaní dali dať do hry alebo predať ako DLC.
+
+1. **1. štvrť – Mačky doma (dnešná hra).** Domáce predmety, potkany, holuby… Dokončiť ako prvé.
+2. **2. štvrť – Psia štvrť (psy sú nepriatelia).** Prechod cez Stanicu. Mapy napr. Psí útulok, Mäsiareň, Výstavisko, Psí park, Kynologická stanica.
+   - [ ] Psí nepriatelia s vlastným správaním: svorky, ktoré obkľúčia; štekot privolá ďalších; útočníci, ktorí sa vrhnú; strážcovia územia. Pomocníci: blchy, poštár, psovod s kefou.
+   - [ ] Psí bossovia: buldog, ovčiak, chrt, jazvečík v norách, finále Vodca svorky – neporazíš ho navždy, získaš si ho (most do 3. štvrte).
+   - [ ] Jeden tajný hrateľný pes už v 2. štvrti (zachránené šteniatko), aby sa hráč tešil.
+3. **3. štvrť – Psy ako hrateľné postavy.**
+   - [ ] Psy sa hrajú inak ako mačky: viac zdravia, útoky zblízka, štekot (odtlačí), čuch (nájde poklady a questy), svorka (malí psí pomocníci). Mačky ostávajú rýchle, so šťastím, kritmi a uhýbaním.
+   - [ ] Nová hrozba pre mačky aj psy: psíčkari, pouliční zlodeji, odchytová služba.
+4. **Vydanie:** najprv itch.io (zadarmo/demo, spätná väzba), potom Steam so stránkou a wishlistami; psie štvrte ako súčasť hry alebo DLC – rozhodne sa pri vydaní.
 
 ## Ako pracujeme
 

@@ -94,6 +94,7 @@ var _arrows := {}
 var _reports: Array[Control] = []
 var _hover := ""
 var _hint: PanelContainer
+var _paths_btn: Button
 var _press_at := Vector2.ZERO
 ## The night report on show in the side panel, or -1.
 var selected_report := -1
@@ -168,6 +169,7 @@ func _ready() -> void:
 	add_child(_pins_layer)
 	_ring = Control.new()
 	_ring.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_ring.size = Vector2(WW, WH) * px
 	_ring.draw.connect(_draw_ring)
 	_pins_layer.add_child(_ring)
 	for id: String in PLACES:
@@ -195,6 +197,13 @@ func _ready() -> void:
 	_mini.draw.connect(_draw_mini)
 	_mini.gui_input.connect(_on_mini_input)
 	add_child(_mini)
+	# The paths between the places can be switched off.
+	_paths_btn = UiStyle.click_button(tr("DISTRICT_PATHS"), 120, 14)
+	_paths_btn.pressed.connect(func() -> void:
+		Settings.toggle_map_paths()
+		_style_paths_btn())
+	add_child(_paths_btn)
+	_style_paths_btn()
 	# A short hint in the bottom-right corner: closes with its cross and
 	# fades away by itself after a few seconds.
 	_hint = PanelContainer.new()
@@ -226,6 +235,10 @@ func _hide_hint() -> void:
 	tw.tween_callback(_hint.hide)
 
 
+func _style_paths_btn() -> void:
+	_paths_btn.modulate = Color.WHITE if Settings.map_paths else Color(1, 1, 1, 0.5)
+
+
 func _layer(fn: Callable) -> Control:
 	var c := Control.new()
 	c.size = Vector2(WW, WH)
@@ -253,6 +266,8 @@ func _place_controls() -> void:
 	_arrows["u"].position = Vector2(size.x * 0.5 - 20, 10)
 	_arrows["d"].position = Vector2(size.x * 0.5 - 20, size.y - 50)
 	_mini.position = Vector2(size.x - 192, 12)
+	_paths_btn.reset_size()
+	_paths_btn.position = Vector2(size.x - 12 - _paths_btn.size.x, 94)
 	_hint.reset_size()
 	_hint.position = Vector2(size.x - _hint.size.x - 10, size.y - _hint.size.y - 58)
 	# The real size is only known now: centre on the chosen place again.
@@ -341,6 +356,9 @@ func _set_px(new_px: float, focus: Vector2) -> void:
 	var town := cam + focus / px
 	px = new_px
 	_world.scale = Vector2(px, px)
+	# The paths layer must cover the whole town, or Godot hides it whenever
+	# its corner scrolls off screen.
+	_ring.size = Vector2(WW, WH) * px
 	cam = _clamp_cam(town - focus / px)
 	_cam_to = cam
 	for id: String in _pins:
@@ -524,8 +542,9 @@ func _style_pin(id: String) -> void:
 
 
 func _draw_ring() -> void:
-	_draw_paths()
-	_draw_last_trip()
+	if Settings.map_paths:
+		_draw_paths()
+		_draw_last_trip()
 	_draw_residents()
 	# The place under the mouse: its area outlined in gold.
 	if _hover != "" and _hover != selected:

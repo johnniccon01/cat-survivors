@@ -26,6 +26,8 @@ var music_volume := 0.7
 var sfx_volume := 0.8
 var fullscreen := false
 var vsync := true
+## Dotted paths between the places on the town map.
+var map_paths := true
 ## Rebound movement keys: action -> physical keycode (replaces WASD; the
 ## arrow keys and the gamepad keep working).
 var keys: Dictionary = {}
@@ -50,6 +52,7 @@ func _ready() -> void:
 		sfx_volume = cfg.get_value("audio", "sfx", sfx_volume)
 		fullscreen = cfg.get_value("display", "fullscreen", fullscreen)
 		vsync = cfg.get_value("display", "vsync", vsync)
+		map_paths = cfg.get_value("display", "map_paths", map_paths)
 		keys = cfg.get_value("controls", "keys", {})
 	for action: String in keys:
 		_apply_key(action, keys[action])
@@ -118,6 +121,11 @@ func set_fullscreen(on: bool) -> void:
 	_save()
 
 
+func toggle_map_paths() -> void:
+	map_paths = not map_paths
+	_save()
+
+
 func set_vsync(on: bool) -> void:
 	vsync = on
 	_apply_display()
@@ -175,6 +183,7 @@ func _save() -> void:
 	cfg.set_value("audio", "sfx", sfx_volume)
 	cfg.set_value("display", "fullscreen", fullscreen)
 	cfg.set_value("display", "vsync", vsync)
+	cfg.set_value("display", "map_paths", map_paths)
 	cfg.set_value("controls", "keys", keys)
 	cfg.save(PATH)
 

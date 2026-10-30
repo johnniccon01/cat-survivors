@@ -38,6 +38,24 @@ Hra je hrateľná od menu po koniec noci na 7 mapách:
 - [ ] Vyskúšať novú Smrť (F1 → „Death now“), Mrazenú rybku, nové svätyne a vyhadzovanie zbraní v pauze
 - [ ] Rozhodnúť: zlúčiť charmy, artefakty a výbavu do menej systémov? (otázka z 28. 10.)
 
+## Krátkodobý plán – časť 1 (zadané 31. 10. 2026, robí sa ako prvé)
+
+Pracuje sa samostatne, bez otázok, krok po kroku (commit + značka + push po každom). Keď session skončí, ďalšia pokračuje prvým neodškrtnutým bodom. Potom sa ide ďalej podľa dlhodobého plánu (všetko pod touto sekciou); neskôr môžu prísť časti 2, 3…
+
+1. [ ] **Inštinkty mačiek** (schopnosť bez tlačidla, spustí sa sama, nie príliš silná; `instinct` v `data/cats.json`, `scripts/player/instinct.gd`):
+   Mica – každý 25. zabitý nepriateľ: 4 s rýchlejšie útoky (+15 %). Luna – každých 30 s na 5 s +10 % kritická šanca. Snehulka – každých 20 s chladný dych spomalí blízkych nepriateľov. Mrňa – 12 % šanca vyhnúť sa zásahu. Tiger – pod 35 % zdravia raz za 45 s rev (odhodí nepriateľov, 6 s +25 % sila). Barón – zabitá elita alebo boss: 8 s +20 % sila. Ďatelinka – 3 % šanca, že zabitý nepriateľ pustí mincu navyše. Bruno – každých 15 s štít na jeden zásah. Tučko – pod 40 % zdravia raz za 60 s desiata (+25 % zdravia). Kapitán – voda ho nespomalí, v daždi +10 % plocha. Šrubka – každých 6 s iskra do najbližšieho nepriateľa. Túlavá – po zabití bossa +1 losovanie. Anjel – raz za noc prežije smrteľný zásah s 1 zdravím. Diabol – zabití nepriatelia s 4 % šancou vybuchnú.
+2. [ ] **Počasie a predpoveď** (jedno počasie pre celú štvrť na noc, ikona dnes + zajtra na mape štvrte; vnútorné mapy – Byt, Pivnica, Supermarket, Továreň – počasie nemajú; kreslenie lacné: jedna vrstva čiar/bodiek na obrazovke, žiadne tisíce uzlov):
+   Jasno – nič. Dážď – nepriatelia sú mokrí (blesk na nich preskakuje), oheň slabší. Búrka – dážď + občas udrie blesk (červený kruh varuje, zraní nepriateľov aj mačku). Vietor – po vetre rýchlejšie, proti vetru pomalšie, lístie. Hmla – menší dohľad, +15 % skúseností. Mráz – pomalší nepriatelia aj mačka, mokrý nepriateľ zamrzne.
+3. [ ] **Spojenia zbraní** (stavy: mokrý – Kropič, Vlna, Rozliate mlieko, dážď; prechladnutý – Mrazená rybka; ikonka aktívneho spojenia v HUD):
+   Vodivosť (Anténa + mokrý: blesk preskočí, +30 %), Námraza (mokrý + Mrazená rybka: zamrzne), Krehký ľad (Pískacie kladivko na prechladnutého: +60 %, črepiny), Rezonancia (Kladivko + Zvonček: úder zazvoní), Naháňačka (Laser + Myška: myšky +40 % na označených laserom), Zamotanie (Klbko + Pavučina: klbko spomalí), Signál (Dronček + Anténa: iskry z dronov), Ťažký chlpáč (Chlpáč + Kropič: mokrý chlpáč silnejší), Šantové opojenie (Šanta + Pierko: +30 % v šantovom oblaku), Riedke mlieko (Mlieko + Kropič: väčšie kaluže).
+4. [ ] **Prekliatia** (výzvy sa premenujú na prekliatia, dajú sa kombinovať; každé pridá násobok zlata, šancu na lepšiu korisť, viac surovín a rýchlejšie nabíjanie Zvončeka duší; nové: Tma, Rýchli bossovia, Menej granúl, Bez magnetu).
+5. [ ] **Suroviny** (jedna mena „Stavebný materiál" – klbká a dosky, bez desiatich druhov; za výhru 100, za útek dvierkami a prehru málo podľa minút, výhra sa musí oplatiť; za prekliatia a tmu viac; míňa sa na úrovne domčekov na mape štvrte 1–3: viac zlata na mape, silnejší domáci bonus mačiek, silnejšia služba obyvateľa, úroveň 3 sa ubráni obliehaniu sama).
+6. [ ] **Deväť životov a hodnosť mačky** (zlúčenie príveskov a artefaktov): každá mačka zbiera hodnosť za noci (výhra viac); za každú hodnosť si vyberie 1 z 3 talentov (talenty = doterajšie prívesky a artefakty, ktoré vlastníš), najviac 9. Smrť zoberie 1 život a posledný talent. Výhra na domácej mape vráti život. 0 životov = mačka odíde do dôchodku, nechá trvalý odkaz pre všetky mačky a vráti sa ako mladá (2. generácia) bez talentov. Obchod za zlato ostáva. Inventár ostáva, lepšie kreslený; čiapka, obojok a ďalšia výbava sa ukážu na mačke v hre.
+7. [ ] **Zvonček duší** (predmet do inventára, slot obojok): počas noci pohlcuje silu zabitých (boss viac), dáva rastúci bonus; smrť = spadne na 0; výhra alebo útek dvierkami = náboj sa uloží a ďalšiu noc si ho môžeš (nemusíš) vziať. Prekliatia ho nabíjajú rýchlejšie.
+8. [ ] **Grafika – skúšobná mapa Byt** celá v novom štýle (podlaha, nábytok, rekvizity, pasce, nepriatelia, bossovia, špeciality; sprity z `tools/gen_sprites.py`), potom podľa nej ďalšie mapy.
+
+Do dlhodobého plánu (nerobiť teraz): **Krotenie** – v tejto podobe sa nepáči, vymyslieť inak (bez ďalšej postavy na obrazovke).
+
 ## Spätná väzba 28. 10. 2026 (hotové)
 
 - [x] Krvavá stopa: nevracia sa sama cez seba, koniec pulzuje z diaľky, tajomstvo začne hneď (nedokončená vedľajšia úloha ustúpi)

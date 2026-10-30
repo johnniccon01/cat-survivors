@@ -519,7 +519,8 @@ func _draw_ring() -> void:
 		var q: Vector2 = PLACES[id]["pos"] * px + Vector2(0, 24)
 		_ring.draw_rect(Rect2(q, Vector2(2, 14)), Color("2a1c10"))
 		var wave := sin(_t * 5.0 + q.x) * 1.5
-		var col := Color("3fbf8a") if state == "yours" else Color("d24a3a")
+		# Conquered maps fly a gold flag.
+		var col := Color("f2c14e") if id in Profile.territories else (Color("3fbf8a") if state == "yours" else Color("d24a3a"))
 		_ring.draw_colored_polygon(PackedVector2Array([q + Vector2(2, 0), q + Vector2(15, wave), q + Vector2(11, 4.5), q + Vector2(15, 9 + wave), q + Vector2(2, 9)]), col)
 
 
@@ -668,8 +669,12 @@ static func place_stars(id: String) -> int:
 
 ## A cat's home bonus as text ("+15 % damage").
 static func home_text(cat_id: String) -> String:
+	return stats_text(GameData.cats[cat_id].get("home_bonus", {}))
+
+
+## Stat bonuses as text ("+15 % damage, +10 health").
+static func stats_text(bonus: Dictionary) -> String:
 	var parts: Array[String] = []
-	var bonus: Dictionary = GameData.cats[cat_id].get("home_bonus", {})
 	for key: String in bonus:
 		if HOME_STATS.has(key):
 			var v := float(bonus[key]) * float(HOME_STATS[key][1])

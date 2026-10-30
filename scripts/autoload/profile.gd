@@ -119,6 +119,8 @@ func _ready() -> void:
 		kidnapped = cfg.get_value("residents", "kidnapped", "")
 		for id: String in cfg.get_value("trip", "last", []):
 			last_trip.append(id)
+		for id: String in cfg.get_value("territory", "conquered", []):
+			territories.append(id)
 		moon_night = cfg.get_value("moon", "night", 0)
 		moon_traps = cfg.get_value("moon", "traps", 0)
 		for c: String in cfg.get_value("moon", "guards", []):
@@ -464,6 +466,35 @@ const RESIDENTS := {
 	"CLOVER": [{"luck": 0.2}, 60],
 }
 const RESCUE_GOLD := 120
+
+# --- conquered territory ------------------------------------------------------
+## Take every flag of a map in one night and win it: the map is conquered and
+## its bonus helps in every night after.
+const TERRITORY_FLAGS := 3
+const TERRITORY_BONUS := {
+	"LIVING_ROOM": {"max_hp": 10.0}, "BASEMENT": {"magnet": 15.0}, "GARDEN": {"regen": 0.3},
+	"ROOFTOP": {"speed": 0.05}, "SUPERMARKET": {"luck": 0.1}, "HARBOR": {"area": 0.05},
+	"FACTORY": {"might": 0.05}, "PARK": {"growth": 0.05},
+}
+var territories: Array[String] = []
+
+
+func territory_bonus() -> Dictionary:
+	var out := {}
+	for id in territories:
+		var b: Dictionary = TERRITORY_BONUS.get(id, {})
+		for key: String in b:
+			out[key] = float(out.get(key, 0.0)) + float(b[key])
+	return out
+
+
+func conquer(stage_id: String) -> bool:
+	if stage_id in territories:
+		return false
+	territories.append(stage_id)
+	save()
+	return true
+
 
 ## The maps of the last night trip, in order (drawn on the neighbourhood).
 var last_trip: Array[String] = []
@@ -971,6 +1002,7 @@ func save() -> void:
 	cfg.set_value("nemesis", "bosses", nemesis)
 	cfg.set_value("residents", "services", services)
 	cfg.set_value("trip", "last", last_trip)
+	cfg.set_value("territory", "conquered", territories)
 	cfg.set_value("residents", "kidnapped", kidnapped)
 	cfg.set_value("moon", "night", moon_night)
 	cfg.set_value("moon", "traps", moon_traps)

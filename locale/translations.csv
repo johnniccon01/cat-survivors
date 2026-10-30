@@ -1922,3 +1922,8 @@ TRIP_GATE_LEFT,Left gate: %s,Ľavá brána: %s,Levá brána: %s,Puerta izquierda
 TRIP_GATE_RIGHT,Right gate: %s,Pravá brána: %s,Pravá brána: %s,Puerta derecha: %s,Правые ворота: %s,右门：%s
 TRIP_ARRIVED,Through the gate: %s,Za bránou: %s,Za branou: %s,Tras la puerta: %s,За воротами: %s,穿过大门：%s
 SUMMARY_REPORT_TRIP,Night trip %s: +%d gold,Nočná túra %s: +%d zlata,Noční túra %s: +%d zlata,Excursión %s: +%d de oro,Ночной поход %s: +%d золота,夜间远行 %s：+%d 金币
+TERRITORY_FLAG,Flag taken: %d / %d,Vlajka obsadená: %d / %d,Vlajka obsazena: %d / %d,Bandera tomada: %d / %d,Флаг захвачен: %d / %d,夺取旗帜：%d / %d
+TERRITORY_ALL,Every flag is yours! Win the night and the map is conquered,Všetky vlajky sú tvoje! Vyhraj noc a mapa bude dobytá,Všechny vlajky jsou tvoje! Vyhraj noc a mapa bude dobytá,¡Todas las banderas son tuyas! Gana la noche y el mapa será conquistado,"Все флаги твои! Выиграй ночь, и карта будет завоёвана",所有旗帜都是你的了！赢下这一夜即可征服地图
+SUMMARY_TERRITORY,%s conquered for good: %s in every night,%s je dobytá navždy: %s v každej noci,%s je dobyta navždy: %s v každé noci,%s conquistado para siempre: %s en cada noche,%s завоёвано навсегда: %s в каждую ночь,%s已永久征服：每夜 %s
+TERRITORY_HOW,Conquest: take all %d boss flags in one night and win it: %s for good,Dobytie: obsaď všetky %d vlajky bossa v jednej noci a vyhraj: %s navždy,Dobytí: obsaď všechny %d vlajky bosse v jedné noci a vyhraj: %s navždy,Conquista: toma en una noche todas las banderas del jefe (%d) y gánala: %s para siempre,Завоевание: захвати все %d флага босса за одну ночь и победи: %s навсегда,征服：一夜之内夺取全部 %d 面首领旗帜并获胜：永久 %s
+TERRITORY_OWNED,Conquered: %s in every night,Dobyté: %s v každej noci,Dobyto: %s v každé noci,Conquistado: %s en cada noche,Завоёвано: %s в каждую ночь,已征服：每夜 %s

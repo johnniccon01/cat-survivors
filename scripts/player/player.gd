@@ -319,6 +319,10 @@ func _recalc_stats() -> void:
 			var home: Dictionary = GameData.cats[cat_id].get("home_bonus", {})
 			for key: String in home:
 				stats[key] += home[key]
+		# Conquered maps help in every night.
+		var land := Profile.territory_bonus()
+		for key: String in land:
+			stats[key] += land[key]
 		# Services bought from the neighbourhood's residents for tonight.
 		var service := Profile.service_bonus()
 		for key: String in service:

@@ -249,6 +249,10 @@ var _nemesis_lines: Array[String] = []
 var _nemesis_planned := false
 var _nemesis_boss: Enemy
 ## Full moon night: bosses still to come, and whether home is set up yet.
+## Territory flags of tonight's map, and how many are taken.
+var _flags: Array[TerritoryFlag] = []
+var _flags_taken := 0
+var _flags_placed := false
 ## Night trip: the gates still to come (seconds) and the maps passed so far.
 const TRIP_GATES := [420.0, 840.0]
 var _trip_gates: Array = []
@@ -1172,6 +1176,10 @@ func _end_run(kind: String) -> void:
 		gold += home_gold
 		lines.append(tr("SUMMARY_HOME") % home_gold)
 	gold += _report_reward(kind, gold, lines)
+	if kind == "victory" and _flags_taken >= Profile.TERRITORY_FLAGS and Profile.conquer(spawner.stage_id):
+		lines.append(tr("SUMMARY_TERRITORY") % [tr("STAGE_%s_NAME" % spawner.stage_id), DistrictMap.stats_text(Profile.TERRITORY_BONUS[spawner.stage_id])])
+		print("TERRITORY: %s conquered" % spawner.stage_id)
+		BotLog.event("territory_won")
 	if Profile.moon_on:
 		if kind == "victory":
 			gold += Profile.MOON_GOLD
@@ -1312,6 +1320,9 @@ func _track_run(delta: float) -> void:
 		hud.show_banner(tr("CHALLENGES_ON") % [", ".join(Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))), Profile.challenge_gold()], 4.0)
 	if Profile.moon_on and not _run_over:
 		_tick_moon()
+	if not _flags_placed and spawner.elapsed >= 1.0:
+		_flags_placed = true
+		_place_flags()
 	if not _trip_gates.is_empty() and spawner.elapsed >= float(_trip_gates[0]) and not _run_over and not get_tree().paused:
 		_trip_gates.pop_front()
 		_trip_gate()
@@ -1494,6 +1505,39 @@ func _tick_moon() -> void:
 	hud.show_banner(tr("MOON_BOSS") % tr("ENEMY_%s_NAME" % id), 3.5)
 	print("MOON: %s comes" % id)
 	BotLog.event("moon_boss")
+
+
+## On a map not yet conquered, the boss's flags stand around the start.
+func _place_flags() -> void:
+	var id := spawner.stage_id
+	if dev_test or _endless or Profile.moon_on or id in Profile.territories or not Profile.TERRITORY_BONUS.has(id):
+		return
+	if Profile.active_report().get("kind", "") == "trip":
+		return
+	var dist := float(_arg("--flag-dist=", "600"))
+	var turn := randf() * TAU
+	for i in Profile.TERRITORY_FLAGS:
+		var flag := TerritoryFlag.new()
+		flag.main = self
+		flag.capture_time = float(_arg("--flag-time=", str(TerritoryFlag.CAPTURE_TIME)))
+		flag.position = Terrain.fix(player.position + Vector2.from_angle(turn + TAU * i / Profile.TERRITORY_FLAGS) * dist * randf_range(0.9, 1.1), 40.0)
+		flag.captured.connect(_on_flag_taken.bind(flag))
+		add_child(flag)
+		move_child(flag, $Floor.get_index() + 1)
+		_flags.append(flag)
+	print("TERRITORY: %d flags on %s" % [_flags.size(), id])
+
+
+func _on_flag_taken(flag: TerritoryFlag) -> void:
+	_flags_taken += 1
+	player.heal(player.max_hp * 0.2)
+	for i in 8:
+		pickups.spawn_named("coin", flag.position + Vector2.from_angle(TAU * i / 8.0) * 24.0, 5.0)
+	Audio.play("sparkle", 0.0, 0.0)
+	var all := _flags_taken >= Profile.TERRITORY_FLAGS
+	hud.show_banner(tr("TERRITORY_ALL") if all else tr("TERRITORY_FLAG") % [_flags_taken, Profile.TERRITORY_FLAGS], 4.0)
+	print("TERRITORY: flag %d/%d" % [_flags_taken, Profile.TERRITORY_FLAGS])
+	BotLog.event("flag_taken")
 
 
 ## A night trip starts: two gates will come during the night.

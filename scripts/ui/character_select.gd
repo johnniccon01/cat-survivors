@@ -709,6 +709,9 @@ func _refresh_place() -> void:
 			story += "\n" + tr("REPORT_CHALLENGE") % tr("CHALLENGE_%s_NAME" % rep["challenge"])
 	if real and state == "locked" and tr("STAGE_%s_HINT" % id) != "":
 		story += "\n🔒 " + tr("STAGE_%s_HINT" % id)
+	if real and rep.is_empty() and Profile.TERRITORY_BONUS.has(id):
+		var bonus := DistrictMap.stats_text(Profile.TERRITORY_BONUS[id])
+		story += "\n" + (tr("TERRITORY_OWNED") % bonus if id in Profile.territories else tr("TERRITORY_HOW") % [Profile.TERRITORY_FLAGS, bonus])
 	_place_story.text = story
 	var boss: String = GameData.stages[id].get("final_boss", "") if real else ""
 	_boss_pic.id = boss

@@ -117,6 +117,8 @@ func _ready() -> void:
 		for c: String in cfg.get_value("residents", "services", []):
 			services.append(c)
 		kidnapped = cfg.get_value("residents", "kidnapped", "")
+		for id: String in cfg.get_value("trip", "last", []):
+			last_trip.append(id)
 		moon_night = cfg.get_value("moon", "night", 0)
 		moon_traps = cfg.get_value("moon", "traps", 0)
 		for c: String in cfg.get_value("moon", "guards", []):
@@ -194,6 +196,10 @@ func _ready() -> void:
 	var nem := GameData.arg("--nemesis=", "")
 	if nem != "" and GameData.enemies.has(nem):
 		nemesis[nem] = {"level": 1, "order": 1}
+	# `-- --cleared=LIVING_ROOM,BASEMENT` marks maps as won (tests).
+	for id in GameData.arg("--cleared=", "").split(",", false):
+		if GameData.stages.has(id) and id not in cleared_stages:
+			cleared_stages.append(id)
 	# `-- --report=defend` plays a night report of that kind (tests).
 	var kind := GameData.arg("--report=", "")
 	if kind != "":
@@ -364,6 +370,9 @@ func make_reports() -> void:
 	var rng := RandomNumberGenerator.new()
 	rng.randomize()
 	var kinds := ["defend", "hunt", "gold"]
+	# A night trip needs three open maps to wander through.
+	if open.size() >= 3:
+		kinds.append("trip")
 	if kidnapped != "":
 		kinds.push_front("rescue")
 	for kind: String in kinds:
@@ -455,6 +464,10 @@ const RESIDENTS := {
 	"CLOVER": [{"luck": 0.2}, 60],
 }
 const RESCUE_GOLD := 120
+
+## The maps of the last night trip, in order (drawn on the neighbourhood).
+var last_trip: Array[String] = []
+const TRIP_GOLD := 200
 
 ## Services bought for the next night.
 var services: Array[String] = []
@@ -957,6 +970,7 @@ func save() -> void:
 	cfg.set_value("reports", "news", report_news)
 	cfg.set_value("nemesis", "bosses", nemesis)
 	cfg.set_value("residents", "services", services)
+	cfg.set_value("trip", "last", last_trip)
 	cfg.set_value("residents", "kidnapped", kidnapped)
 	cfg.set_value("moon", "night", moon_night)
 	cfg.set_value("moon", "traps", moon_traps)

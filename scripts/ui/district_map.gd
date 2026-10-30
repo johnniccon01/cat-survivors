@@ -19,7 +19,7 @@ const RESIDENT_SPOTS := {
 }
 
 ## Night report kinds: sign letter and colour.
-const REPORT_LOOK := {"defend": ["!", Color("c0392b")], "hunt": ["★", Color("d4801c")], "gold": ["$", Color("2f8a6a")], "rescue": ["+", Color("3a6ad0")]}
+const REPORT_LOOK := {"trip": ["»", Color("8a4ad0")], "defend": ["!", Color("c0392b")], "hunt": ["★", Color("d4801c")], "gold": ["$", Color("2f8a6a")], "rescue": ["+", Color("3a6ad0")]}
 
 const WW := 720
 const WH := 300
@@ -496,6 +496,7 @@ func _style_pin(id: String) -> void:
 
 func _draw_ring() -> void:
 	_draw_paths()
+	_draw_last_trip()
 	_draw_residents()
 	# The place under the mouse: its area outlined in gold.
 	if _hover != "" and _hover != selected:
@@ -608,6 +609,14 @@ func _draw_residents() -> void:
 		_ring.draw_circle(sign_at, 8.5, OUTLINE)
 		_ring.draw_circle(sign_at, 7.0, Color("2f8a6a") if bought else UiStyle.GOLD)
 		_ring.draw_string(font, sign_at + Vector2(-8, 5), "✓" if bought else "$", HORIZONTAL_ALIGNMENT_CENTER, 16, 12, Color.WHITE if bought else Color("3a2600"))
+
+
+## The way your last night trip went, in cyan.
+func _draw_last_trip() -> void:
+	var route := Profile.last_trip
+	for i in range(1, route.size()):
+		if PLACES.has(route[i - 1]) and PLACES.has(route[i]):
+			_draw_path(_path_end(route[i - 1]) + Vector2(6, 6), _path_end(route[i]) + Vector2(6, 6), Color(0.4, 0.9, 1.0, 0.85), false, 2.0)
 
 
 ## A bouncing "next" arrow over the map to play next.

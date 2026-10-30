@@ -82,6 +82,7 @@ scenarios=(
   "nemesis_new|--bot --nemesis=RAT_KING --nemesis-at=3 --kill-cat-every=12 --bot-time=30 --expect=nemesis_hunt,nemesis_new"
   "resident_service|--bot --service=OLD_CAT --bot-time=10"
   "report_rescue|--bot --kidnapped=CLOVER --report=rescue --bot-time=20"
+  "night_trip|--bot --god --cleared=LIVING_ROOM,BASEMENT,GARDEN --report=trip --trip-at=20 --bot-time=60 --expect=trip_start,trip_gate"
   "moon_night|--bot --moon --god --bot-time=200 --expect=moon_start,moon_boss"
   "nemesis_revenge|--bot --god --stage=GARDEN --start-minute=12 --catch-up --nemesis=VACUUM_KING --nemesis-at=5 --bot-time=150 --expect=nemesis_beaten"
   "time_jump|--bot --dev-panel --dev-go-minute=15 --bot-time=60"

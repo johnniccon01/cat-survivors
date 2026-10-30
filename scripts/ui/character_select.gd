@@ -692,6 +692,10 @@ func _refresh_place() -> void:
 				story = tr("REPORT_HUNT_STORY") % place_name
 				_report_win.text = tr("REPORT_WIN_HUNT") % Profile.REPORT_HUNT_GOLD
 				_report_lose.text = tr("REPORT_LOSE_HUNT") % (Profile.REPORT_HUNT_NIGHTS - int(rep["nights"]))
+			"trip":
+				story = tr("REPORT_TRIP_STORY") % place_name
+				_report_win.text = tr("REPORT_WIN_TRIP") % Profile.TRIP_GOLD
+				_report_lose.text = tr("REPORT_LOSE_TRIP")
 			"rescue":
 				var who := tr("CAT_%s_NAME" % Profile.kidnapped)
 				story = tr("REPORT_RESCUE_STORY") % [who, place_name]

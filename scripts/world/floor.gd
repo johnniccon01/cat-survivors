@@ -56,6 +56,14 @@ func zone_at(c: Vector2i) -> String:
 	return zones[1]
 
 
+## Changes the look of the floor (a night trip passing a gate): every chunk is
+## made again in the new theme.
+func set_theme(new_theme: String) -> void:
+	theme = new_theme
+	for c: Vector2i in _chunks.keys():
+		_release(c)
+
+
 func _process(_delta: float) -> void:
 	var camera := get_viewport().get_camera_2d()
 	if camera == null:

@@ -112,6 +112,15 @@ func stage() -> Dictionary:
 	return _stage
 
 
+## A night trip passed a gate: from now on the night is on `id` (its waves,
+## enemies, traps and final boss), the clock keeps running.
+func change_stage(id: String) -> void:
+	if not GameData.stages.has(id):
+		return
+	stage_id = id
+	_stage = GameData.stages[id]
+
+
 func duration_minutes() -> float:
 	return float(_stage.get("duration_minutes", 30))
 

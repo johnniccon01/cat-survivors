@@ -249,6 +249,10 @@ var _nemesis_lines: Array[String] = []
 var _nemesis_planned := false
 var _nemesis_boss: Enemy
 ## Full moon night: bosses still to come, and whether home is set up yet.
+## Night trip: the gates still to come (seconds) and the maps passed so far.
+const TRIP_GATES := [420.0, 840.0]
+var _trip_gates: Array = []
+var _trip_route: Array[String] = []
 var _moon_bosses: Array[String] = []
 var _moon_ready := false
 var _moon_next := MOON_BOSS_EVERY
@@ -1015,6 +1019,8 @@ func _report_goal(rep: Dictionary) -> String:
 			return tr("REPORT_WIN_DEFEND") % [Profile.REPORT_DEFEND_MINUTES, Profile.REPORT_DEFEND_GOLD]
 		"hunt":
 			return tr("REPORT_WIN_HUNT") % Profile.REPORT_HUNT_GOLD
+		"trip":
+			return tr("REPORT_WIN_TRIP") % Profile.TRIP_GOLD
 		"rescue":
 			return tr("REPORT_WIN_RESCUE") % [Profile.REPORT_DEFEND_MINUTES, tr("CAT_%s_NAME" % Profile.kidnapped)]
 	return tr("REPORT_WIN_GOLD")
@@ -1039,6 +1045,12 @@ func _report_reward(kind: String, gold: int, lines: Array[String]) -> int:
 			var lost := gold_before - Profile.gold
 			Profile.gold = gold_before
 			return -lost
+		"trip":
+			if _trip_route.size() > 1:
+				Profile.last_trip = _trip_route.duplicate()
+			if kind == "victory":
+				lines.append(tr("SUMMARY_REPORT_TRIP") % [" – ".join(_trip_route.map(func(s: String) -> String: return tr("STAGE_%s_NAME" % s))), Profile.TRIP_GOLD])
+				return Profile.TRIP_GOLD
 		"rescue":
 			if kind == "victory" or spawner.elapsed >= Profile.REPORT_DEFEND_MINUTES * 60.0:
 				var cat := Profile.kidnapped
@@ -1300,7 +1312,12 @@ func _track_run(delta: float) -> void:
 		hud.show_banner(tr("CHALLENGES_ON") % [", ".join(Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))), Profile.challenge_gold()], 4.0)
 	if Profile.moon_on and not _run_over:
 		_tick_moon()
+	if not _trip_gates.is_empty() and spawner.elapsed >= float(_trip_gates[0]) and not _run_over and not get_tree().paused:
+		_trip_gates.pop_front()
+		_trip_gate()
 	if _nemesis_at < 0.0 and not _nemesis_planned:
+		if Profile.active_report().get("kind", "") == "trip":
+			_start_trip()
 		_nemesis_planned = true
 		_plan_nemesis_hunt()
 	if _nemesis_at >= 0.0 and spawner.elapsed >= _nemesis_at and not _run_over:
@@ -1477,6 +1494,55 @@ func _tick_moon() -> void:
 	hud.show_banner(tr("MOON_BOSS") % tr("ENEMY_%s_NAME" % id), 3.5)
 	print("MOON: %s comes" % id)
 	BotLog.event("moon_boss")
+
+
+## A night trip starts: two gates will come during the night.
+func _start_trip() -> void:
+	_trip_route.assign([spawner.stage_id])
+	var forced := GameData.arg("--trip-at=", "")
+	if forced != "":
+		_trip_gates = [float(forced), float(forced) * 2.0]
+	else:
+		_trip_gates = TRIP_GATES.duplicate()
+	BotLog.event("trip_start")
+
+
+## A gate: choose the left or the right way, and the night moves there.
+func _trip_gate() -> void:
+	var open: Array = GameData.stages.keys().filter(func(s: String) -> bool:
+		return Profile.is_stage_unlocked(s) and s not in _trip_route)
+	open.shuffle()
+	if open.is_empty():
+		return
+	var ways: Array = open.slice(0, 2)
+	var options: Array = []
+	for i in ways.size():
+		options.append(tr("TRIP_GATE_LEFT" if i == 0 else "TRIP_GATE_RIGHT") % tr("STAGE_%s_NAME" % ways[i]))
+	Audio.play("bell", -2.0, 0.0)
+	ask_choice(tr("TRIP_GATE_TITLE"), tr("TRIP_GATE_ASK"), options, func(index: int) -> void:
+		_go_through_gate(ways[clampi(index, 0, ways.size() - 1)]))
+
+
+## The night carries on in another map: its floor, terrain, enemies and music.
+func _go_through_gate(id: String) -> void:
+	_trip_route.append(id)
+	spawner.change_stage(id)
+	$Floor.set_theme(spawner.stage().get("theme", "apartment"))
+	if Terrain.current != null:
+		Terrain.current.queue_free()
+		Terrain.current = null
+	var kind: String = spawner.stage().get("terrain", "")
+	if kind != "":
+		var terrain := Terrain.new()
+		terrain.setup(kind, self)
+		add_child(terrain)
+		move_child(terrain, $Floor.get_index() + 1)
+	_day_music = ""
+	Audio.play_music(_map_music())
+	player.shake(4.0, 0.4)
+	hud.show_banner(tr("TRIP_ARRIVED") % tr("STAGE_%s_NAME" % id), 4.0)
+	print("TRIP: through the gate to %s" % id)
+	BotLog.event("trip_gate")
 
 
 ## Your nemesis may turn up to hunt you, some minutes into another night.

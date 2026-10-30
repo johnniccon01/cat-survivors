@@ -372,6 +372,25 @@ func draw_look(at: Vector2, look: String, alpha: float = 1.0) -> void:
 			draw_rect(Rect2(at + Vector2(-5, -7), Vector2(10, 12)), Color(OUTLINE, a))
 			draw_rect(Rect2(at + Vector2(-4, -6), Vector2(8, 10)), Color(1.0, 0.85, 0.4, a))
 			draw_arc(at + Vector2(0, -8), 4.0, PI, TAU, 8, Color(OUTLINE, a), 1.5)
+		"bread":
+			draw_colored_polygon(Shapes.ellipse(at, 9, 6), Color(OUTLINE, a))
+			draw_colored_polygon(Shapes.ellipse(at, 8, 5), Color(0.85, 0.62, 0.32, a))
+			for k in 3:
+				draw_line(at + Vector2(-4 + k * 4, -3), at + Vector2(-2 + k * 4, 3), Color(0.65, 0.42, 0.2, a), 1.0)
+		"pond":
+			draw_colored_polygon(Shapes.ellipse(at, 30, 18), Color(0.54, 0.48, 0.35, a))
+			draw_colored_polygon(Shapes.ellipse(at, 26, 15), Color(0.25, 0.5, 0.66, a))
+			for k in 3:
+				var p := at + Vector2(-12 + k * 12, (k % 2) * 5.0 - 2.0)
+				draw_colored_polygon(Shapes.ellipse(p, 4.0, 2.6), Color(0.96, 0.95, 0.9, a))
+				draw_circle(p + Vector2(4, -1.5), 1.8, Color(0.96, 0.95, 0.9, a))
+		"kite":
+			var sway := sin(_age * 2.0) * 3.0
+			var k := PackedVector2Array([at + Vector2(sway, -12), at + Vector2(8 + sway, -2), at + Vector2(sway, 10), at + Vector2(-8 + sway, -2)])
+			draw_colored_polygon(k, Color(0.9, 0.3, 0.3, a))
+			draw_line(k[0], k[2], Color(0.95, 0.85, 0.3, a), 1.0)
+			draw_line(k[1], k[3], Color(0.95, 0.85, 0.3, a), 1.0)
+			draw_polyline(PackedVector2Array([k[2], at + Vector2(-3, 16), at + Vector2(3, 22)]), Color(OUTLINE, a), 1.0)
 		"candle":
 			draw_rect(Rect2(at + Vector2(-4, -4), Vector2(8, 12)), Color(OUTLINE, a))
 			draw_rect(Rect2(at + Vector2(-3, -3), Vector2(6, 10)), Color(0.96, 0.93, 0.82, a))

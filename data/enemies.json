@@ -1319,5 +1319,32 @@
     "xp": 2,
     "knockback_resist": 0.3,
     "cost": 1.6
+  },
+  "SQUIRREL": {
+    "shape": "squirrel",
+    "color": "#c0602a",
+    "accent": "#e08a4a",
+    "hp": 14,
+    "speed": 70,
+    "damage": 6,
+    "radius": 7,
+    "xp": 1,
+    "knockback_resist": 0.1,
+    "cost": 1.2,
+    "behavior": "dash"
+  },
+  "PIGEON_THIEF": {
+    "shape": "pigeon",
+    "color": "#b8bcc8",
+    "accent": "#e0a020",
+    "hp": 180,
+    "speed": 78,
+    "damage": 0,
+    "radius": 9,
+    "xp": 10,
+    "knockback_resist": 0.6,
+    "cost": 0,
+    "behavior": "flee",
+    "flee_time": 22.0
   }
 }

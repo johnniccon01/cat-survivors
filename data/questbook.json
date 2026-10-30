@@ -874,6 +874,49 @@
         }
       ]
     },
+    "PARK": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:PARK"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:PARK"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 850
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:PARK",
+          "target": 1,
+          "reward": {
+            "gold": 1300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:PARK"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 2100
+          }
+        }
+      ]
+    },
     "OLD_DIARY": {
       "chapter": "story",
       "tiers": [

@@ -71,7 +71,8 @@ const FACTORY_KEYS := [
 ]
 
 const THEME_KEYS := {"basement": BASEMENT_KEYS, "garden": GARDEN_KEYS, "rooftop": ROOFTOP_KEYS,
-	"supermarket": SUPERMARKET_KEYS, "harbor": HARBOR_KEYS, "factory": FACTORY_KEYS}
+	"supermarket": SUPERMARKET_KEYS, "harbor": HARBOR_KEYS, "factory": FACTORY_KEYS,
+	"park": GARDEN_KEYS, "island": HARBOR_KEYS, "station": ROOFTOP_KEYS}
 
 var spawner: Spawner
 var _keys: Array = KEYS

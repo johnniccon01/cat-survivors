@@ -167,5 +167,21 @@
     "on": 1.6,
     "off": 3.0,
     "tick": 0.35
+  },
+  "LAWN_SPRINKLER": {
+    "type": "pulse",
+    "radius": 34,
+    "damage": 11,
+    "player_damage": 6,
+    "on": 2.5,
+    "off": 3.0,
+    "tick": 0.4
+  },
+  "GOOSE_NEST": {
+    "type": "snap",
+    "radius": 13,
+    "damage": 48,
+    "player_damage": 11,
+    "rearm": 3.0
   }
 }

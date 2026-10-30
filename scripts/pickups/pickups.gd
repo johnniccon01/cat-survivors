@@ -144,6 +144,21 @@ func pull_all_xp() -> void:
 	magnet_pulled.emit(count, xp)
 
 
+## Takes the kibbles lying within `r` of `at` (a thief swooping over them)
+## and returns how much XP they were worth.
+func steal_xp(at: Vector2, r: float) -> float:
+	var stolen := 0.0
+	for i in range(items.size() - 1, -1, -1):
+		var item := items[i]
+		if item.kind != Pickup.Kind.XP or item.attracted or item.position.distance_to(at) > r:
+			continue
+		stolen += item.value
+		_xp_count -= 1
+		item.queue_free()
+		items.remove_at(i)
+	return stolen
+
+
 func count_kind(kind: Pickup.Kind) -> int:
 	return items.reduce(func(n: int, it: Pickup) -> int: return n + int(it.kind == kind), 0)
 

@@ -23,9 +23,10 @@ const FACTORY_ITEMS: Array[String] = ["bolt", "bolt", "rag", "coin_small", "crum
 const CEMETERY_ITEMS: Array[String] = ["leaf", "twig", "pebble", "feather", "leaf"]
 const STATION_ITEMS: Array[String] = ["receipt", "coin_small", "bolt", "crumbs", "feather"]
 const ISLAND_ITEMS: Array[String] = ["shell", "starfish", "pebble", "shell", "leaf"]
+const PARK_ITEMS: Array[String] = ["leaf", "acorn", "feather", "flower", "crumbs"]
 const THEME_ITEMS := {"basement": BASEMENT_ITEMS, "garden": GARDEN_ITEMS, "rooftop": ROOFTOP_ITEMS,
 	"supermarket": SUPERMARKET_ITEMS, "harbor": HARBOR_ITEMS, "factory": FACTORY_ITEMS, "cemetery": CEMETERY_ITEMS,
-	"station": STATION_ITEMS, "island": ISLAND_ITEMS}
+	"station": STATION_ITEMS, "island": ISLAND_ITEMS, "park": PARK_ITEMS}
 ## Zones per theme, from low noise to high noise.
 const THEME_ZONES := {
 	"apartment": ["kitchen", "living", "bedroom"],
@@ -38,6 +39,7 @@ const THEME_ZONES := {
 	"cemetery": ["gravel", "grave_lawn", "graves"],
 	"station": ["hall", "platform", "tracks"],
 	"island": ["sand", "palm_grove", "rocks"],
+	"park": ["park_path", "meadow", "pond"],
 }
 const FURNITURE := {
 	"living": ["sofa", "armchair", "coffee_table", "bookshelf", "tv", "floor_lamp", "plant", "cat_tree"],
@@ -70,6 +72,9 @@ const FURNITURE := {
 	"sand": ["palm", "beach_umbrella", "sandcastle", "campfire", "palm"],
 	"palm_grove": ["palm", "palm", "bush", "campfire", "palm"],
 	"rocks": ["rock", "rock", "wreck", "palm", "rock"],
+	"park_path": ["bench", "garden_lamp", "fountain", "trash_bin", "bench", "garden_lamp"],
+	"meadow": ["tree", "picnic_blanket", "bush", "tree", "flowers", "garden_lamp"],
+	"pond": ["ducks", "bush", "bench", "tree", "garden_lamp"],
 }
 const LAMPS := ["floor_lamp", "nightstand", "bulb", "garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp", "factory_lamp", "grave_candle", "station_lamp", "campfire"]
 const LAMP_COLOR := Color(1.0, 0.82, 0.55)
@@ -145,8 +150,12 @@ func _draw_ground() -> void:
 			_draw_concrete(size, desc["zone"])
 		"lawn", "flowerbed", "grave_lawn", "graves":
 			_draw_grass(size, desc["zone"])
-		"path", "gravel":
+		"path", "gravel", "park_path":
 			_draw_path(size)
+		"meadow":
+			_draw_grass(size, "meadow")
+		"pond":
+			_draw_pond(size)
 		"hall":
 			_draw_tiles(size)
 		"sand":
@@ -180,7 +189,7 @@ func _draw_ground() -> void:
 		_:
 			_draw_planks(area)
 	var strip := Color("3e2a1c")
-	if desc["zone"] in ["lawn", "flowerbed", "path", "grave_lawn", "graves", "gravel", "palm_grove"]:
+	if desc["zone"] in ["lawn", "flowerbed", "path", "grave_lawn", "graves", "gravel", "palm_grove", "park_path", "meadow", "pond"]:
 		strip = Color(0.2, 0.3, 0.12, 0.35)
 	elif desc["zone"] in ["tar", "tiles", "deck", "platform", "tracks", "hall"]:
 		strip = Color("4a4a52")
@@ -339,11 +348,11 @@ func _draw_carpet(size: float) -> void:
 
 
 func _draw_grass(size: float, zone: String) -> void:
-	var base: Color = {"lawn": Color("5e9e4a"), "grave_lawn": Color("3f5e38"), "graves": Color("4a3a30"), "palm_grove": Color("6aa84a")}.get(zone, Color("6b4a32"))
+	var base: Color = {"lawn": Color("5e9e4a"), "grave_lawn": Color("3f5e38"), "graves": Color("4a3a30"), "palm_grove": Color("6aa84a"), "meadow": Color("74b456")}.get(zone, Color("6b4a32"))
 	draw_rect(Rect2(0, 0, size, size), base)
 	var rng := RandomNumberGenerator.new()
 	rng.seed = desc["seed"]
-	if zone == "lawn" or zone == "grave_lawn" or zone == "palm_grove":
+	if zone in ["lawn", "grave_lawn", "palm_grove", "meadow"]:
 		# Mowing stripes in world space, then tufts.
 		var stripe := 40.0
 		var x0 := floori(position.x / stripe)
@@ -366,6 +375,29 @@ func _draw_grass(size: float, zone: String) -> void:
 		for i in 40:
 			var p := Vector2(rng.randf_range(0, size), rng.randf_range(0, size))
 			draw_rect(Rect2(p, Vector2(1, 1)), base.darkened(0.35))
+
+
+## Park pond: a lawn with a pond in the middle, reeds and lily pads.
+func _draw_pond(size: float) -> void:
+	_draw_grass(size, "meadow")
+	var rng := RandomNumberGenerator.new()
+	rng.seed = desc["seed"]
+	var c := Vector2(size, size) * 0.5 + Vector2(rng.randf_range(-30, 30), rng.randf_range(-30, 30))
+	var rx := size * 0.36
+	var ry := size * 0.26
+	draw_colored_polygon(Shapes.ellipse(c, rx + 8.0, ry + 8.0, 28), Color("8a7a5a"))
+	draw_colored_polygon(Shapes.ellipse(c, rx, ry, 28), Color("3f7fa8"))
+	draw_colored_polygon(Shapes.ellipse(c + Vector2(-rx * 0.2, -ry * 0.25), rx * 0.6, ry * 0.45, 20), Color("4f92ba"))
+	for i in 5:
+		var p := c + Vector2(rng.randf_range(-rx, rx) * 0.7, rng.randf_range(-ry, ry) * 0.7)
+		draw_colored_polygon(Shapes.ellipse(p, 7.0, 5.0, 10), Color("4f9a48"))
+		draw_line(p, p + Vector2(5, -2), Color("3f7fa8"), 1.5)
+	for i in 8:
+		var a := rng.randf() * TAU
+		var p := c + Vector2(cos(a) * (rx + 4.0), sin(a) * (ry + 4.0))
+		for k in 3:
+			draw_line(p + Vector2(k * 2 - 2, 0), p + Vector2(k * 3 - 3, -10 - k * 2), Color("4a7a30"), 1.5)
+		draw_rect(Rect2(p + Vector2(-1, -12), Vector2(2, 4)), Color("6a4428"))
 
 
 func _draw_path(size: float) -> void:
@@ -975,6 +1007,32 @@ func _draw_furniture(f: Dictionary) -> void:
 			_box(Rect2(-10, -2, 20, 24), Color("2a2a30"))
 			draw_rect(Rect2(-2, -34, 4, 10), Color("9a9aa2"))
 			draw_rect(Rect2(-6, -31, 12, 3), Color("9a9aa2"))
+		"fountain":
+			draw_circle(Vector2(3, 4), 32.0, Color(0, 0, 0, 0.18))
+			draw_circle(Vector2.ZERO, 31.0, OUTLINE)
+			draw_circle(Vector2.ZERO, 30.0, Color("c9c4bc"))
+			draw_circle(Vector2.ZERO, 25.0, Color("5aa0d0"))
+			draw_circle(Vector2.ZERO, 9.0, Color("c9c4bc"))
+			draw_circle(Vector2.ZERO, 5.0, Color("bfe4f8"))
+			for k in 8:
+				draw_circle(Vector2.from_angle(TAU * k / 8.0) * 16.0, 1.5, Color(1, 1, 1, 0.6))
+		"picnic_blanket":
+			_box(Rect2(-30, -22, 60, 44), Color("d9534f"))
+			for k in 3:
+				draw_rect(Rect2(-30 + k * 20 + 5, -22, 8, 44), Color(1, 1, 1, 0.45))
+				draw_rect(Rect2(-30, -22 + k * 15 + 4, 60, 6), Color(1, 1, 1, 0.3))
+			_box(Rect2(4, -8, 18, 14), Color("c8955a"))
+			draw_line(Vector2(6, -8), Vector2(13, -14), OUTLINE, 1.5)
+			draw_line(Vector2(20, -8), Vector2(13, -14), OUTLINE, 1.5)
+			draw_circle(Vector2(-14, 4), 4.0, Color("e8c04a"))
+			draw_circle(Vector2(-6, 10), 3.0, Color("e24b4a"))
+		"ducks":
+			for k in 3:
+				var p := Vector2(-16 + k * 15, (k % 2) * 8.0 - 4.0)
+				draw_colored_polygon(Shapes.ellipse(p, 6.0, 4.0, 10), OUTLINE)
+				draw_colored_polygon(Shapes.ellipse(p, 5.0, 3.2, 10), Color("f4f1ea") if k else Color("8a6a3a"))
+				draw_circle(p + Vector2(5, -2), 2.6, Color("3f8a37") if k == 0 else Color("f4f1ea"))
+				draw_rect(Rect2(p + Vector2(7, -2), Vector2(3, 1.5)), Color("e8a040"))
 		"birdbath":
 			draw_circle(Vector2.ZERO, 17.0, OUTLINE)
 			draw_circle(Vector2.ZERO, 16.0, Color("c9c4bc"))

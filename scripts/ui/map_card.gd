@@ -11,6 +11,7 @@ const GROUNDS := {
 	"cemetery": [Color("3f5e38"), Color("6a6a72")],
 	"station": [Color("a8a49c"), Color("7a7268")],
 	"island": [Color("e2cc94"), Color("2e729e")],
+	"park": [Color("74b456"), Color("3f7fa8")],
 	"rooftop": [Color("a8503a"), Color("3e3e46")],
 	"supermarket": [Color("dcd8cc"), Color("b8c4cc")],
 	"harbor": [Color("e2cc94"), Color("1f4a6a")],

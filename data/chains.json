@@ -1383,5 +1383,22 @@
       {"type": "carry", "item": "shovel", "to_distance": [450, 600], "time": 60, "look_to": "grave", "guards": {"enemy": "GHOST", "count": 8}},
       {"type": "boss", "enemy": "SPIDER_QUEEN", "hp_mult": 2.0, "look": "grave", "distance": 240, "after_minute": 6}
     ]
+  },
+  "FEED_THE_DUCKS": {
+    "stage": "PARK",
+    "reward": {"gold": 900, "charm": "FISH_BONE"},
+    "steps": [
+      {"type": "collect", "items": ["bread"], "item": "bread", "count": 6, "capacity": 3, "spread": [200, 420], "deliver": true, "look_to": "pond"},
+      {"type": "defend", "time": 30, "mode": "enemies", "enemy": "PIGEON", "spawn_every": 2.0, "spawn_count": 6, "look": "pond"}
+    ]
+  },
+  "LOST_KITE": {
+    "stage": "PARK",
+    "reward": {"gold": 1200, "charm": "BIRD_BELL"},
+    "steps": [
+      {"type": "trail", "count": 6, "spacing": [180, 240], "look": "kite"},
+      {"type": "chase", "enemy": "PIGEON_THIEF", "times": 2, "hp_mult": 1.2},
+      {"type": "boss", "enemy": "PIGEON_EMPEROR", "hp_mult": 2.0, "look": "kite", "distance": 240, "after_minute": 6}
+    ]
   }
 }

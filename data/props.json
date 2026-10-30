@@ -118,6 +118,20 @@
       "radius": 7,
       "color": "#5a4a40",
       "accent": "#3f7a3a"
+    },
+    "PICNIC_BASKET": {
+      "shape": "box",
+      "hp": 1,
+      "radius": 8,
+      "color": "#c8955a",
+      "accent": "#d9534f"
+    },
+    "BREAD_BAG": {
+      "shape": "sack",
+      "hp": 1,
+      "radius": 7,
+      "color": "#e8d8b0",
+      "accent": "#c8955a"
     }
   },
   "loot": [

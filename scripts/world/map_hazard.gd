@@ -10,6 +10,9 @@ extends Node2D
 ## - "graves": fog drifts over the graves; now and then a few graves around
 ##   the cat start to glow and crack. Sit on one a moment to seal it (a burst
 ##   of XP); the ones left open let ghosts out (Cemetery).
+## - "pigeon_thief": now and then a fat pigeon swoops through, gobbling up
+##   the kibbles on the floor, then flies off with them. Catch it before it
+##   gets away and it drops everything it took, and more (Park).
 
 const TRAIN_FIRST := 35.0
 const TRAIN_EVERY := Vector2(30.0, 45.0)
@@ -35,6 +38,12 @@ const GRAVE_RADIUS := 22.0
 const GRAVE_GHOSTS := 4
 const GRAVE_XP := 12.0
 const FOG_PATCHES := 7
+const THIEF_FIRST := 45.0
+const THIEF_EVERY := Vector2(40.0, 55.0)
+const THIEF_REACH := 48.0
+## A caught thief gives back this much of what it took.
+const THIEF_BONUS := 1.5
+const THIEF_COINS := 8
 
 static var current: MapHazard
 
@@ -60,6 +69,9 @@ var _told := false
 ## Graves: {"pos": Vector2, "seal": 0..GRAVE_SEAL, "sealed": bool}.
 var _graves: Array[Dictionary] = []
 var _fog: Node2D
+var _thief: Enemy
+var _thief_out := false
+var _stolen := 0.0
 
 
 func _init() -> void:
@@ -85,6 +97,10 @@ func setup(p_kind: String, p_main: Node) -> void:
 	_forced = float(GameData.arg("--hazard-at=", "-1"))
 	if kind == "low_tide":
 		z_index = -2
+	elif kind == "pigeon_thief":
+		_phase_t = float(GameData.arg("--hazard-at=", str(THIEF_FIRST)))
+		main.enemies.enemy_killed.connect(_on_enemy_killed)
+		main.enemies.escaped.connect(_on_escaped)
 	elif kind == "graves":
 		z_index = -2
 		_phase_t = float(GameData.arg("--hazard-at=", str(GRAVE_FIRST)))
@@ -104,6 +120,8 @@ func bot_goal(from: Vector2) -> Vector2:
 	for g in _graves:
 		if not g["sealed"] and (g["pos"] as Vector2).distance_to(from) < best.distance_to(from):
 			best = g["pos"]
+	if is_instance_valid(_thief) and not _thief.dead and _thief.position.distance_to(from) < 400.0:
+		best = _thief.position
 	return best
 
 
@@ -122,7 +140,63 @@ func _physics_process(delta: float) -> void:
 		"graves":
 			_tick_graves(delta)
 			_fog.queue_redraw()
+		"pigeon_thief":
+			_tick_thief(delta)
 	queue_redraw()
+
+
+func _tick_thief(delta: float) -> void:
+	if is_instance_valid(_thief) and not _thief.dead:
+		var got: float = main.pickups.steal_xp(_thief.position, THIEF_REACH)
+		if got > 0.0:
+			_stolen += got
+			Audio.play("pop", -10.0)
+		return
+	if _thief_out:
+		# Gone without being caught (flew off, or too far away).
+		_on_escaped("PIGEON_THIEF", Vector2.ZERO)
+	_phase_t -= delta
+	if _phase_t > 0.0:
+		return
+	_phase_t = randf_range(THIEF_EVERY.x, THIEF_EVERY.y)
+	# It lands close to the cat, then flees, gobbling kibbles on its way.
+	var cat: Vector2 = main.player.position
+	_thief = main.spawner._spawn("PIGEON_THIEF", cat + Vector2.from_angle(randf() * TAU) * 130.0)
+	if _thief == null:
+		return
+	_thief_out = true
+	_stolen = 0.0
+	main.hud.show_banner(tr("PIGEON_THIEF_WARNING"), 3.0)
+	Audio.play("whoosh", 0.0)
+	BotLog.event("thief_came")
+
+
+func _on_enemy_killed(enemy_id: String, pos: Vector2, _xp: float) -> void:
+	if enemy_id != "PIGEON_THIEF" or not _thief_out:
+		return
+	var back := _stolen * THIEF_BONUS + 10.0
+	for i in 6:
+		main.pickups.spawn_xp(pos + Vector2.from_angle(TAU * i / 6.0) * 18.0, back / 6.0)
+	for i in THIEF_COINS:
+		main.pickups.spawn_named("coin", pos + Vector2.from_angle(TAU * i / THIEF_COINS + 0.3) * 30.0, 4.0)
+	_stolen = 0.0
+	_thief = null
+	_thief_out = false
+	Audio.play("chest", -2.0)
+	Profile.add_stat("pigeon_thieves")
+	main.hud.show_banner(tr("PIGEON_THIEF_CAUGHT"), 2.5)
+	BotLog.event("thief_caught")
+
+
+func _on_escaped(enemy_id: String, _pos: Vector2) -> void:
+	if enemy_id != "PIGEON_THIEF" or not _thief_out:
+		return
+	_thief = null
+	_thief_out = false
+	if _stolen > 0.0:
+		main.hud.show_banner(tr("PIGEON_THIEF_GONE") % roundi(_stolen), 2.5)
+	_stolen = 0.0
+	BotLog.event("thief_escaped")
 
 
 func _tick_graves(delta: float) -> void:
@@ -300,6 +374,21 @@ func _draw() -> void:
 			_draw_treasures()
 		"graves":
 			_draw_graves()
+		"pigeon_thief":
+			_draw_thief()
+
+
+## A bulging sack over the thief shows how much it carries.
+func _draw_thief() -> void:
+	if not is_instance_valid(_thief) or _thief.dead:
+		return
+	var p := _thief.position + Vector2(0, -26)
+	var r := 5.0 + minf(_stolen / 20.0, 6.0)
+	draw_circle(p, r + 1.0, Color("2b1d14"))
+	draw_circle(p, r, Color("d8c08a"))
+	draw_line(p + Vector2(-2, -r), p + Vector2(2, -r - 3), Color("2b1d14"), 1.5)
+	if _stolen > 0.0:
+		draw_circle(p, 2.0, Color("5ad1e6"))
 
 
 func _draw_graves() -> void:

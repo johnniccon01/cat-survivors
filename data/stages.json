@@ -1739,16 +1739,16 @@
     "challenge": 2.2
   },
   "PARK": {
-    "theme": "garden",
+    "theme": "park",
     "terrain": "trees",
     "music": "music_garden",
     "music_alt": "music_garden_alt",
     "requires": "ROOFTOP",
     "cat_quests": [],
     "props": [
-      "FLOWERPOT",
-      "FLOWERPOT",
-      "SEED_SACK"
+      "PICNIC_BASKET",
+      "BREAD_BAG",
+      "PICNIC_BASKET"
     ],
     "max_props": 6,
     "prop_interval": 4.0,
@@ -1758,20 +1758,20 @@
       {
         "minute": 4.0,
         "type": "swarm",
-        "enemy": "BEE",
-        "count": 50
+        "enemy": "PIGEON",
+        "count": 60
       },
       {
         "minute": 6.5,
         "type": "ring",
-        "enemy": "SNAIL",
-        "count": 36
+        "enemy": "SQUIRREL",
+        "count": 40
       },
       {
         "minute": 9.5,
         "type": "swarm",
-        "enemy": "MOLE",
-        "count": 50
+        "enemy": "BEE",
+        "count": 60
       },
       {
         "minute": 12.5,
@@ -1782,20 +1782,20 @@
       {
         "minute": 15.5,
         "type": "swarm",
-        "enemy": "BEE",
-        "count": 80
+        "enemy": "SQUIRREL",
+        "count": 90
       },
       {
         "minute": 18.0,
         "type": "ring",
-        "enemy": "GNOME",
-        "count": 44
+        "enemy": "PIGEON",
+        "count": 60
       }
     ],
     "traps": [
-      "RAKE",
-      "RAKE",
-      "SPRINKLER"
+      "LAWN_SPRINKLER",
+      "GOOSE_NEST",
+      "GOOSE_NEST"
     ],
     "max_traps": 6,
     "intensity": [
@@ -1841,7 +1841,8 @@
         "enemies": [
           "BEE",
           "PIGEON",
-          "SNAIL"
+          "SNAIL",
+          "SQUIRREL"
         ],
         "hp_mult": 1.32
       },
@@ -1852,7 +1853,7 @@
         "per_tick": 2,
         "enemies": [
           "PIGEON",
-          "SNAIL",
+          "SQUIRREL",
           "BEE"
         ],
         "hp_mult": 1.43
@@ -1864,7 +1865,7 @@
         "per_tick": 3,
         "enemies": [
           "PIGEON",
-          "SNAIL",
+          "SQUIRREL",
           "CROW"
         ],
         "hp_mult": 1.65,
@@ -1880,7 +1881,7 @@
         "enemies": [
           "BEE",
           "CROW",
-          "SNAIL",
+          "SQUIRREL",
           "FROG"
         ],
         "hp_mult": 2.2
@@ -1909,7 +1910,7 @@
         "enemies": [
           "BEE",
           "CROW",
-          "SNAIL",
+          "SQUIRREL",
           "FROG"
         ],
         "hp_mult": 3.3
@@ -1938,7 +1939,7 @@
         "enemies": [
           "BEE",
           "GNOME",
-          "SNAIL",
+          "SQUIRREL",
           "FROG"
         ],
         "hp_mult": 4.4,
@@ -1971,13 +1972,15 @@
           "GNOME",
           "CROW",
           "BEE",
-          "FROG"
+          "FROG",
+          "SQUIRREL"
         ],
         "hp_mult": 6.6
       }
     ],
     "music_night": "music_garden_night",
-    "challenge": 1.55
+    "challenge": 1.55,
+    "hazard": "pigeon_thief"
   },
   "CEMETERY": {
     "theme": "cemetery",

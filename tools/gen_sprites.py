@@ -831,6 +831,19 @@ def enemy_canvas(shape, frame, data):
         c.rect(7, 8 + drop, 14, 2, "top", only=("body",))
         c.set(11, 12 + drop, "eye"); c.set(16, 12 + drop, "eye")
         c.rect(3, 22, 22, 3, "accent")
+    elif shape == "squirrel":
+        # A red squirrel with a big curled tail.
+        hop = frame
+        c.ellipse(5, 11 - hop, 4.5, 6, "accent")
+        c.ellipse(6, 8 - hop, 3, 3.5, "accent")
+        c.ellipse(13, 16 - hop, 6, 4.5, "body")
+        c.ellipse(13, 18 - hop, 3.5, 2, "belly", only=("body",))
+        c.ellipse(19, 12 - hop, 3.6, 3.4, "body")
+        c.poly([(18, 9 - hop), (19, 6 - hop), (20, 9 - hop)], "body")
+        c.set(20, 11 - hop, "pupil")
+        c.set(23, 13 - hop, "nose")
+        for x in ((10, 16) if frame else (11, 15)):
+            c.rect(x, 20 - hop, 2, 3, "leg")
     elif shape == "ghost":
         # A little sheet ghost, its wavy hem flapping.
         flap = frame

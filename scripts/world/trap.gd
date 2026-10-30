@@ -252,6 +252,25 @@ func _draw() -> void:
 				draw_line(Vector2(-9 + k * 6, -9), Vector2(-3 + k * 6, 9), Color("2b2b2b"), 2.0)
 			if _flash > 0.0:
 				Blit.disc(self, Vector2.ZERO, 14.0, Color(1, 1, 1, _flash * 2.0))
+		"LAWN_SPRINKLER":
+			var r := float(data["radius"])
+			draw_circle(Vector2.ZERO, 5.0, OUTLINE)
+			draw_circle(Vector2.ZERO, 4.0, Color("3a6ac8"))
+			if _active:
+				for k in 10:
+					var a := _t * 5.0 + TAU * k / 10.0
+					var tip := Vector2.from_angle(a) * r * (0.6 + 0.4 * fposmod(_t * 2.0 + k * 0.3, 1.0))
+					Blit.disc(self, tip, 2.0, Color(0.7, 0.9, 1.0, 0.8))
+		"GOOSE_NEST":
+			# Step near the nest and the goose snaps at you.
+			draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, 12.0, 8.0, 12), Color("a08a5a"))
+			for p: Vector2 in [Vector2(-4, 0), Vector2(3, -1), Vector2(0, 3)]:
+				draw_circle(p, 2.6, Color("f4f1ea"))
+			if not _active:
+				draw_colored_polygon(Shapes.ellipse(Vector2(0, -10), 7.0, 5.0, 10), Color("f4f1ea"))
+				draw_rect(Rect2(5, -12, 4, 2), Color("e8a040"))
+			if _flash > 0.0:
+				Blit.disc(self, Vector2.ZERO, 14.0, Color(1, 1, 1, _flash * 2.0))
 		"GRAVE_HAND":
 			# Loose earth; when armed, bony fingers poke out and grab.
 			draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, 12.0, 8.0, 12), Color("4a3a30"))

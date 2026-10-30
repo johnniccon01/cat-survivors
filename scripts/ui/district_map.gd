@@ -26,6 +26,8 @@ const WH := 300
 ## One town pixel is at least this many screen pixels; a taller or wider map
 ## area zooms in further so the town always fills it.
 const MIN_PX := 2.0
+## How many steps the mouse wheel can zoom in past the fill level.
+const MAX_ZOOM := 2.0
 const SEA_B := 252.0
 const OUTLINE := Color("2b1d14")
 
@@ -39,13 +41,13 @@ const PLACES := {
 	"SUPERMARKET": {"pos": Vector2(260, 128), "view": Rect2(206, 134, 108, 100)},
 	"HARBOR": {"pos": Vector2(350, 166), "view": Rect2(300, 128, 140, 100)},
 	"FACTORY": {"pos": Vector2(376, 46), "view": Rect2(318, 0, 122, 108)},
-	"PARK": {"pos": Vector2(520, 50), "view": Rect2(446, 0, 146, 118), "future": true},
+	"PARK": {"pos": Vector2(520, 50), "view": Rect2(446, 0, 146, 118)},
 	"CEMETERY": {"pos": Vector2(660, 50), "view": Rect2(600, 0, 120, 118), "future": true},
 	"ISLAND": {"pos": Vector2(622, 190), "view": Rect2(570, 166, 104, 76), "future": true},
 	"STATION": {"pos": Vector2(140, 276), "view": Rect2(56, 250, 170, 50), "future": true},
 }
 ## Paths from the open maps on to the future ones (still in fog).
-const FUTURE_LINKS := [["ROOFTOP", "PARK"], ["PARK", "CEMETERY"], ["HARBOR", "ISLAND"], ["SUPERMARKET", "STATION"]]
+const FUTURE_LINKS := [["PARK", "CEMETERY"], ["HARBOR", "ISLAND"], ["SUPERMARKET", "STATION"]]
 ## Fog over each place until it opens.
 const FOG := {
 	"FACTORY": Rect2(318, 0, 126, 110), "PARK": Rect2(446, 0, 146, 118), "CEMETERY": Rect2(600, 0, 120, 118),
@@ -67,6 +69,8 @@ static var _lit: Array = []
 var selected := ""
 ## Screen pixels per town pixel right now (see MIN_PX).
 var px := MIN_PX
+## The zoom that just fills the map area (the wheel never goes below it).
+var _fill_px := MIN_PX
 var cam := Vector2.ZERO
 var _cam_to := Vector2.ZERO
 var _t := 0.0
@@ -212,14 +216,9 @@ func _clamp_cam(c: Vector2) -> Vector2:
 
 
 func _place_controls() -> void:
-	var fill := maxf(MIN_PX, ceilf(maxf(size.y / WH, size.x / WW)))
-	if fill != px and size.x > 0.0:
-		px = fill
-		_world.scale = Vector2(px, px)
-		for id: String in _pins:
-			_style_pin(id)
-		if not _reports.is_empty():
-			show_reports()
+	_fill_px = maxf(MIN_PX, ceilf(maxf(size.y / WH, size.x / WW)))
+	if px < _fill_px and size.x > 0.0:
+		_set_px(_fill_px, size * 0.5)
 	_arrows["l"].position = Vector2(10, size.y * 0.5 - 20)
 	_arrows["r"].position = Vector2(size.x - 50, size.y * 0.5 - 20)
 	_arrows["u"].position = Vector2(size.x * 0.5 - 20, 10)
@@ -307,7 +306,28 @@ func _hit(global: Vector2, local: Vector2) -> Array:
 	return ["place", best] if best != "" else []
 
 
+## Zooms to `new_px` screen pixels per town pixel, keeping the town point
+## under `focus` (map coordinates) where it is.
+func _set_px(new_px: float, focus: Vector2) -> void:
+	var town := cam + focus / px
+	px = new_px
+	_world.scale = Vector2(px, px)
+	cam = _clamp_cam(town - focus / px)
+	_cam_to = cam
+	for id: String in _pins:
+		_style_pin(id)
+	if not _reports.is_empty():
+		show_reports()
+
+
 func _gui_input(event: InputEvent) -> void:
+	# The mouse wheel zooms in (up to MAX_ZOOM more) and back out.
+	if event is InputEventMouseButton and event.pressed and event.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]:
+		var step := 1.0 if event.button_index == MOUSE_BUTTON_WHEEL_UP else -1.0
+		var target := clampf(px + step, _fill_px, _fill_px + MAX_ZOOM)
+		if target != px:
+			_set_px(target, event.position)
+		return
 	if event is InputEventMouseMotion and not _drag:
 		var hit := _hit(event.global_position, event.position)
 		var over: String = hit[1] if not hit.is_empty() and hit[0] == "place" else ""

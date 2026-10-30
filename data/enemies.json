@@ -1198,5 +1198,24 @@
     "cost": 0,
     "behavior": "flee",
     "flee_time": 40.0
+  },
+  "PIGEON_KING": {
+    "shape": "pigeon",
+    "boss": true,
+    "specials": ["whirl", "rain", "rampage"],
+    "scale": 4.2,
+    "color": "#6a5a92",
+    "accent": "#f2c14e",
+    "hp": 36000,
+    "speed": 46,
+    "damage": 26,
+    "radius": 30,
+    "xp": 0,
+    "knockback_resist": 1.0,
+    "final": true,
+    "behavior": "final",
+    "final_mode": "roar",
+    "minion": "PIGEON",
+    "music": "music_boss"
   }
 }

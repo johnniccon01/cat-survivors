@@ -1,6 +1,7 @@
 extends SceneTree
 ## Clicks on the neighbourhood map like a player would: a place's sign, and
-## a building right after dragging the map (the first click must count).
+## a building right after dragging the map (the first click must count), and
+## the mouse wheel zoom.
 ##   godot --path . -s res://tools/map_click_test.gd -- --ui-test
 
 var _screen: Node
@@ -72,6 +73,19 @@ func _run() -> void:
 	var at := map.get_global_rect().position + (view.get_center() - cam) * px
 	await _click(at)
 	_check("click on a building right after a drag", _chosen(), "SUPERMARKET")
+	# 3. The mouse wheel zooms in, and clicks still land.
+	var before: float = map.get("px")
+	var wheel := InputEventMouseButton.new()
+	wheel.button_index = MOUSE_BUTTON_WHEEL_UP
+	wheel.pressed = true
+	wheel.position = map.get_global_rect().get_center()
+	wheel.global_position = wheel.position
+	get_root().push_input(wheel, true)
+	for i in 4:
+		await process_frame
+	_check("wheel zooms in", str(float(map.get("px")) > before), "true")
+	await _click((pins["BASEMENT"] as Control).get_global_rect().get_center())
+	_check("click after zooming", _chosen(), "BASEMENT")
 	print("UI: done, %d failures" % _failures)
 	quit()
 

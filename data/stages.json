@@ -1737,5 +1737,246 @@
       }
     ],
     "challenge": 2.2
+  },
+  "PARK": {
+    "theme": "garden",
+    "terrain": "trees",
+    "music": "music_garden",
+    "music_alt": "music_garden_alt",
+    "requires": "ROOFTOP",
+    "cat_quests": [],
+    "props": [
+      "FLOWERPOT",
+      "FLOWERPOT",
+      "SEED_SACK"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "PIGEON_KING",
+    "events": [
+      {
+        "minute": 4.0,
+        "type": "swarm",
+        "enemy": "BEE",
+        "count": 50
+      },
+      {
+        "minute": 6.5,
+        "type": "ring",
+        "enemy": "SNAIL",
+        "count": 36
+      },
+      {
+        "minute": 9.5,
+        "type": "swarm",
+        "enemy": "MOLE",
+        "count": 50
+      },
+      {
+        "minute": 12.5,
+        "type": "ring",
+        "enemy": "CROW",
+        "count": 40
+      },
+      {
+        "minute": 15.5,
+        "type": "swarm",
+        "enemy": "BEE",
+        "count": 80
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "GNOME",
+        "count": 44
+      }
+    ],
+    "traps": [
+      "RAKE",
+      "RAKE",
+      "SPRINKLER"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.7,
+      0.9,
+      1.05,
+      0.85,
+      1.2,
+      0.6,
+      1.1,
+      1.25,
+      1.35,
+      0.9,
+      0.6,
+      1.25,
+      1.4,
+      0.95,
+      1.4,
+      0.65,
+      1.4,
+      1.55,
+      1.05,
+      1.5,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.5,
+        "per_tick": 1,
+        "enemies": [
+          "BEE",
+          "PIGEON"
+        ],
+        "hp_mult": 1.32
+      },
+      {
+        "minute": 1,
+        "minimum": 18,
+        "interval": 1.2,
+        "per_tick": 2,
+        "enemies": [
+          "BEE",
+          "PIGEON",
+          "SNAIL"
+        ],
+        "hp_mult": 1.32
+      },
+      {
+        "minute": 2,
+        "minimum": 30,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": [
+          "PIGEON",
+          "SNAIL",
+          "BEE"
+        ],
+        "hp_mult": 1.43
+      },
+      {
+        "minute": 3,
+        "minimum": 45,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "PIGEON",
+          "SNAIL",
+          "CROW"
+        ],
+        "hp_mult": 1.65,
+        "bosses": [
+          "PIGEON_EMPEROR"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.8,
+        "per_tick": 3,
+        "enemies": [
+          "BEE",
+          "CROW",
+          "SNAIL",
+          "FROG"
+        ],
+        "hp_mult": 2.2
+      },
+      {
+        "minute": 7,
+        "minimum": 100,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "CROW",
+          "PIGEON",
+          "GNOME",
+          "FROG"
+        ],
+        "hp_mult": 2.75,
+        "bosses": [
+          "SCARECROW"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 140,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "BEE",
+          "CROW",
+          "SNAIL",
+          "FROG"
+        ],
+        "hp_mult": 3.3
+      },
+      {
+        "minute": 11,
+        "minimum": 170,
+        "interval": 0.5,
+        "per_tick": 5,
+        "enemies": [
+          "GNOME",
+          "PIGEON",
+          "CROW",
+          "FROG"
+        ],
+        "hp_mult": 3.85,
+        "bosses": [
+          "HORNET_QUEEN"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 200,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "BEE",
+          "GNOME",
+          "SNAIL",
+          "FROG"
+        ],
+        "hp_mult": 4.4,
+        "bosses": [
+          "PIGEON_EMPEROR"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 240,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "CROW",
+          "GNOME",
+          "PIGEON",
+          "FROG"
+        ],
+        "hp_mult": 5.5,
+        "bosses": [
+          "GIANT_SNAIL"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 280,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "GNOME",
+          "CROW",
+          "BEE",
+          "FROG"
+        ],
+        "hp_mult": 6.6
+      }
+    ],
+    "music_night": "music_garden_night",
+    "challenge": 1.55
   }
 }

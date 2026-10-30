@@ -418,7 +418,7 @@ Hotové (30. 10. 2026, značka `obrana-zriedkava`): obrana na mape už nie je da
 Hotové (30. 10. 2026, značka `mapa-jeden-klik`): klik na miesto na mape hneď ukáže aj jeho úlohu (obrana, zlato, lov…), tlačidlo „Vynechať, len hrať tu" ju vypne a „Prijať úlohu" vráti. Obyvatelia majú namiesto „$" cenovku s cenou a po prejdení myšou ukážu, akú službu ponúkajú. Opravené pokazené čísla v 6 textoch (služby obyvateľov, 3 predmety bossov) a kontrola textov teraz hlási riadiace znaky.
 
 Hotové (30. 10. 2026, značka `park-jazierka`): jazierka v Parku už nie sú len kresba. Brodenie spomalí mačku aj nepriateľov na polovicu (lietajúci – holuby, včely, netopiere, duchovia… – letia ponad), okolo labiek sú vlnky. `WorldFloor.in_water()` počíta tvar jazierka rovnako ako kresba (`FloorChunk.pond_shape`).
-Ďalej: najprv dokončiť prvú štvrť (voľba „Pokojná štvrť" bez útokov, pravidlo najviac 2 hrozby naraz, doladenie podľa hrania, grafika a zvuk). Druhá štvrť až potom – pozri „Psie štvrte".
+Ďalej: najprv dokončiť prvú štvrť (pravidlo najviac 2 hrozby naraz, doladenie podľa hrania, grafika a zvuk). Druhá štvrť až potom – pozri „Psie štvrte".
 
 Cieľ: výber mapy vyzerá prémiovo, má význam a dáva dôvod vracať sa na staré miesta. Na mape sa rozhoduje do 15 sekúnd, všetko podstatné sa prejaví priamo v noci.
 
@@ -431,7 +431,7 @@ Cieľ: výber mapy vyzerá prémiovo, má význam a dáva dôvod vracať sa na s
 7. **Spln každých 7 nocí.** Všetci bossovia útočia naraz; príprava (pasce, hliadky, stráže z mačiek, obyvatelia) je priamo v obrannej noci. Domov sa nedá stratiť úplne.
 8. **Dobývanie v noci.** Herná mapa rozdelená na tvoju a nepriateľskú časť, zabíjaním posúvaš hranicu; dobyté územie dá trvalý bonus a otvorí susedné.
 
-Pravidlá: hviezdy, odomknutia a príbehy sa nikdy nestratia; najviac 2 hrozby naraz; voľba „Pokojná štvrť" bez útokov. Vyhodené z návrhu: percentá hrozby, produkcia za noc, stráženie ako samostatné menu.
+Pravidlá: hviezdy, odomknutia a príbehy sa nikdy nestratia; najviac 2 hrozby naraz. Voľba „Pokojná štvrť" vyhodená (30. 10. 2026) – obliehanie je už zriedkavé a mierne. Vyhodené z návrhu: percentá hrozby, produkcia za noc, stráženie ako samostatné menu.
 
 ## Psie štvrte (plán 30. 10. 2026, zatiaľ nerobíme – najprv dokončiť prvú štvrť)
 

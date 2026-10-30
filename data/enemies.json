@@ -1259,5 +1259,28 @@
     "final_mode": "roar",
     "minion": "CRAB",
     "music": "music_boss"
+  },
+  "STATIONMASTER": {
+    "shape": "raccoon",
+    "boss": true,
+    "specials": [
+      "chase",
+      "pounce",
+      "grid"
+    ],
+    "scale": 4.2,
+    "color": "#5a4a6a",
+    "accent": "#e0a020",
+    "hp": 39000,
+    "speed": 52,
+    "damage": 27,
+    "radius": 30,
+    "xp": 0,
+    "knockback_resist": 1.0,
+    "final": true,
+    "behavior": "final",
+    "final_mode": "roar",
+    "minion": "RACCOON",
+    "music": "music_boss"
   }
 }

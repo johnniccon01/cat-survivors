@@ -29,6 +29,8 @@ scenarios=(
   "garden|--bot --stage=GARDEN --cat=TIGER --bot-time=300"
   "park|--bot --stage=PARK --cat=TIGER --bot-time=300"
   "cemetery|--bot --stage=CEMETERY --cat=TIGER --bot-time=300"
+  "station|--bot --stage=STATION --cat=TIGER --bot-time=300"
+  "final_stationmaster|--bot --god --stage=STATION --start-minute=19.9 --catch-up --bot-time=60"
   "island|--bot --stage=ISLAND --cat=TIGER --bot-time=300"
   "final_crab_emperor|--bot --god --stage=ISLAND --start-minute=19.9 --catch-up --bot-time=60"
   "final_bat|--bot --god --stage=CEMETERY --start-minute=19.9 --catch-up --bot-time=60"

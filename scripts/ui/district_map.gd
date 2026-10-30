@@ -44,10 +44,10 @@ const PLACES := {
 	"PARK": {"pos": Vector2(520, 50), "view": Rect2(446, 0, 146, 118)},
 	"CEMETERY": {"pos": Vector2(660, 50), "view": Rect2(600, 0, 120, 118)},
 	"ISLAND": {"pos": Vector2(622, 190), "view": Rect2(570, 166, 104, 76)},
-	"STATION": {"pos": Vector2(140, 276), "view": Rect2(56, 250, 170, 50), "future": true},
+	"STATION": {"pos": Vector2(140, 276), "view": Rect2(56, 250, 170, 50)},
 }
 ## Paths from the open maps on to the future ones (still in fog).
-const FUTURE_LINKS := [["SUPERMARKET", "STATION"]]
+const FUTURE_LINKS := []
 ## Fog over each place until it opens.
 const FOG := {
 	"FACTORY": Rect2(318, 0, 126, 110), "PARK": Rect2(446, 0, 146, 118), "CEMETERY": Rect2(600, 0, 120, 118),

@@ -1167,6 +1167,17 @@
         15.0
       ],
       "frames": 2
+    },
+    "STATIONMASTER": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
     }
   }
 }

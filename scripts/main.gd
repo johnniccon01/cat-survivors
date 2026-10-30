@@ -1015,6 +1015,8 @@ func _report_goal(rep: Dictionary) -> String:
 			return tr("REPORT_WIN_DEFEND") % [Profile.REPORT_DEFEND_MINUTES, Profile.REPORT_DEFEND_GOLD]
 		"hunt":
 			return tr("REPORT_WIN_HUNT") % Profile.REPORT_HUNT_GOLD
+		"rescue":
+			return tr("REPORT_WIN_RESCUE") % [Profile.REPORT_DEFEND_MINUTES, tr("CAT_%s_NAME" % Profile.kidnapped)]
 	return tr("REPORT_WIN_GOLD")
 
 
@@ -1030,10 +1032,19 @@ func _report_reward(kind: String, gold: int, lines: Array[String]) -> int:
 			if kind == "victory" or spawner.elapsed >= Profile.REPORT_DEFEND_MINUTES * 60.0:
 				lines.append(tr("SUMMARY_REPORT_DEFEND") % [place, Profile.REPORT_DEFEND_GOLD])
 				return Profile.REPORT_DEFEND_GOLD
-			# Lost before the time was up: the map is robbed after all.
-			var theft := mini(floori(Profile.gold * Profile.REPORT_THEFT), Profile.REPORT_THEFT_MAX)
-			lines.append(tr("SUMMARY_REPORT_FAILED") % [place, theft])
-			return -theft
+			# Lost before the time was up: the map is raided after all.
+			var gold_before := Profile.gold
+			var news := Profile.raid(place)
+			lines.append(tr(news[0]) % news.slice(1))
+			var lost := gold_before - Profile.gold
+			Profile.gold = gold_before
+			return -lost
+		"rescue":
+			if kind == "victory" or spawner.elapsed >= Profile.REPORT_DEFEND_MINUTES * 60.0:
+				var cat := Profile.kidnapped
+				Profile.kidnapped = ""
+				lines.append(tr("SUMMARY_REPORT_RESCUE") % [tr("CAT_%s_NAME" % cat), Profile.RESCUE_GOLD])
+				return Profile.RESCUE_GOLD
 		"hunt":
 			if kind == "victory":
 				lines.append(tr("SUMMARY_REPORT_HUNT") % Profile.REPORT_HUNT_GOLD)

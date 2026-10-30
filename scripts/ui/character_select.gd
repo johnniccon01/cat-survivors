@@ -50,6 +50,11 @@ var _top_buttons: HBoxContainer
 const BOTTOM_HEIGHT := 178.0
 ## The full moon is on show in the side panel.
 var _moon_mode := false
+## A resident on show in the side panel ("" if none).
+var _resident := ""
+var _service_box: PanelContainer
+var _service_label: Label
+var _service_buy: Button
 var _moon_box: PanelContainer
 var _moon_traps: Label
 var _moon_guards: Label
@@ -195,6 +200,7 @@ func _build() -> void:
 	_district.place_chosen.connect(_on_place_chosen)
 	_district.report_chosen.connect(_on_report_chosen)
 	_district.moon_chosen.connect(_on_moon_chosen)
+	_district.resident_chosen.connect(_on_resident_chosen)
 	map_frame.add_child(_district)
 	# Badges in the map's top-left corner: the full moon and your nemesis.
 	var badges := MarginContainer.new()
@@ -341,6 +347,24 @@ func _build() -> void:
 			_moon_traps = info
 		else:
 			_moon_guards = info
+	# A resident's service for the next night.
+	_service_box = PanelContainer.new()
+	_service_box.add_theme_stylebox_override("panel", UiStyle.box(Color(0.06, 0.1, 0.08, 0.85), Color("3f7a5a")))
+	place.add_child(_service_box)
+	var srow := HBoxContainer.new()
+	srow.add_theme_constant_override("separation", 6)
+	_service_box.add_child(srow)
+	_service_label = _label(13, Color("d6f5c4"))
+	_service_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	_service_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_service_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	srow.add_child(_service_label)
+	_service_buy = UiStyle.click_button("", 0, 13)
+	_service_buy.pressed.connect(func() -> void:
+		var ok := Profile.buy_service(_resident)
+		Audio.play("chest" if ok else "hurt", -8.0, 0.0)
+		_refresh())
+	srow.add_child(_service_buy)
 	# Darkness of the chosen map: - and + (or the keys).
 	var dark_row := HBoxContainer.new()
 	dark_row.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -638,6 +662,7 @@ func _refresh_place() -> void:
 	var real := GameData.stages.has(id)
 	var state := DistrictMap.place_state(id)
 	_moon_box.visible = false
+	_service_box.visible = false
 	_boss_name.get_parent().get_parent().get_parent().visible = true
 	_place_stars.visible = true
 	var moon_n := Profile.nights_to_moon()
@@ -667,6 +692,11 @@ func _refresh_place() -> void:
 				story = tr("REPORT_HUNT_STORY") % place_name
 				_report_win.text = tr("REPORT_WIN_HUNT") % Profile.REPORT_HUNT_GOLD
 				_report_lose.text = tr("REPORT_LOSE_HUNT") % (Profile.REPORT_HUNT_NIGHTS - int(rep["nights"]))
+			"rescue":
+				var who := tr("CAT_%s_NAME" % Profile.kidnapped)
+				story = tr("REPORT_RESCUE_STORY") % [who, place_name]
+				_report_win.text = tr("REPORT_WIN_RESCUE") % [Profile.REPORT_DEFEND_MINUTES, who]
+				_report_lose.text = tr("REPORT_LOSE_RESCUE") % who
 			_:
 				story = tr("REPORT_GOLD_STORY") % place_name
 				_report_win.text = tr("REPORT_WIN_GOLD")
@@ -709,6 +739,42 @@ func _refresh_place() -> void:
 	_fill_home(id)
 	if _moon_mode:
 		_show_moon()
+	elif _resident != "":
+		_show_resident()
+
+
+## The side panel for a resident: who it is and what it offers tonight.
+func _show_resident() -> void:
+	var cat := _resident
+	_stage_label.text = tr("CAT_%s_NAME" % cat)
+	_place_badge.text = tr("RESIDENT_TITLE")
+	_place_badge.label_settings.font_color = Color("9fe1cb")
+	_place_stats[0].get_parent().get_parent().get_parent().visible = false
+	_boss_name.get_parent().get_parent().get_parent().visible = false
+	_dark_minus.get_parent().visible = false
+	_place_stars.visible = false
+	_report_box.visible = false
+	if cat == Profile.kidnapped:
+		_place_story.text = tr("RESIDENT_KIDNAPPED") % tr("CAT_%s_NAME" % cat)
+		return
+	_place_story.text = tr("RESIDENT_%s_DESC" % cat)
+	_service_box.visible = true
+	var price := int(Profile.RESIDENTS[cat][1])
+	_service_label.text = tr("RESIDENT_%s_SERVICE" % cat)
+	if cat in Profile.services:
+		_service_buy.text = tr("RESIDENT_BOUGHT")
+		_service_buy.disabled = true
+	else:
+		_service_buy.text = tr("MOON_BUY") % price
+		_service_buy.disabled = false
+
+
+func _on_resident_chosen(cat: String) -> void:
+	Audio.play("click", -6.0, 0.0)
+	_resident = cat
+	_moon_mode = false
+	_report = -1
+	_refresh()
 
 
 ## The side panel for the full moon: what comes, how ready home is, and
@@ -747,6 +813,7 @@ func _buy_moon(what: String) -> void:
 
 func _on_moon_chosen() -> void:
 	Audio.play("click", -6.0, 0.0)
+	_resident = ""
 	_moon_mode = true
 	_report = -1
 	_place = ""
@@ -768,6 +835,7 @@ func _fill_home(id: String) -> void:
 
 func _on_report_chosen(i: int) -> void:
 	Audio.play("click", -6.0, 0.0)
+	_resident = ""
 	_moon_mode = false
 	_report = i
 	_place = ""
@@ -777,6 +845,7 @@ func _on_report_chosen(i: int) -> void:
 
 func _on_place_chosen(id: String) -> void:
 	Audio.play("click", -6.0, 0.0)
+	_resident = ""
 	_moon_mode = false
 	_report = -1
 	if GameData.stages.has(id):
@@ -853,6 +922,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		_place = ""
 		_report = -1
 		_moon_mode = false
+		_resident = ""
 		_stage_index = (_stage_index - 1 + _stage_ids.size()) % _stage_ids.size()
 		Audio.play("click", -6.0, 0.0)
 		_refresh()
@@ -860,6 +930,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		_place = ""
 		_report = -1
 		_moon_mode = false
+		_resident = ""
 		_stage_index = (_stage_index + 1) % _stage_ids.size()
 		Audio.play("click", -6.0, 0.0)
 		_refresh()

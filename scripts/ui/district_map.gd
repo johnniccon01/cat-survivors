@@ -10,9 +10,16 @@ extends Control
 signal place_chosen(id: String)
 signal report_chosen(index: int)
 signal moon_chosen
+signal resident_chosen(cat: String)
+
+## Where each resident lives in the town.
+const RESIDENT_SPOTS := {
+	"OLD_CAT": Vector2(150, 47), "BOLT": Vector2(312, 66), "TUCKO": Vector2(300, 216),
+	"KAPITAN": Vector2(370, 226), "CLOVER": Vector2(126, 97),
+}
 
 ## Night report kinds: sign letter and colour.
-const REPORT_LOOK := {"defend": ["!", Color("c0392b")], "hunt": ["★", Color("d4801c")], "gold": ["$", Color("2f8a6a")]}
+const REPORT_LOOK := {"defend": ["!", Color("c0392b")], "hunt": ["★", Color("d4801c")], "gold": ["$", Color("2f8a6a")], "rescue": ["+", Color("3a6ad0")]}
 
 const WW := 720
 const WH := 300
@@ -283,6 +290,11 @@ func _hit(global: Vector2, local: Vector2) -> Array:
 	for id: String in _pins:
 		if (_pins[id] as Control).get_global_rect().grow(3).has_point(global):
 			return ["place", id]
+	# A resident (or the empty spot of a kidnapped one).
+	var town := cam + local / px
+	for cat: String in RESIDENT_SPOTS:
+		if (Profile.is_unlocked(cat)) and town.distance_to(RESIDENT_SPOTS[cat] - Vector2(0, 4)) < 9.0:
+			return ["resident", cat]
 	# A click on a building: the smallest place whose area holds the point.
 	var at := cam + local / px
 	var best := ""
@@ -315,6 +327,8 @@ func _gui_input(event: InputEvent) -> void:
 				return
 			if hit[0] == "place":
 				place_chosen.emit(hit[1])
+			elif hit[0] == "resident":
+				resident_chosen.emit(hit[1])
 			elif hit[1] < 0:
 				moon_chosen.emit()
 			else:
@@ -462,6 +476,7 @@ func _style_pin(id: String) -> void:
 
 func _draw_ring() -> void:
 	_draw_paths()
+	_draw_residents()
 	# The place under the mouse: its area outlined in gold.
 	if _hover != "" and _hover != selected:
 		var hr: Rect2 = PLACES[_hover]["view"]
@@ -551,6 +566,28 @@ func _draw_paths() -> void:
 			col = Color("fff0b0")
 			march = true
 		_draw_path(_path_end(req), _path_end(id), col, march)
+
+
+## The residents at their spots, each with a sign: a coin when its service
+## is for sale, a tick when bought; a kidnapped one leaves a red "?".
+func _draw_residents() -> void:
+	var font := ThemeDB.fallback_font
+	for cat: String in RESIDENT_SPOTS:
+		if not Profile.is_unlocked(cat):
+			continue
+		var at: Vector2 = RESIDENT_SPOTS[cat] * px
+		var sign_at := at + Vector2(0, -15.0 * px * 0.5 - 14.0 - absf(sin(_t * 3.0 + at.x)) * 3.0)
+		if cat == Profile.kidnapped:
+			_ring.draw_circle(sign_at, 9.0, OUTLINE)
+			_ring.draw_circle(sign_at, 7.5, Color("c0392b"))
+			_ring.draw_string(font, sign_at + Vector2(-8, 5), "?", HORIZONTAL_ALIGNMENT_CENTER, 16, 13, Color.WHITE)
+			continue
+		var lk := CatArt.look(cat)
+		CatArt.draw(_ring, lk, -1 if at.x > 400 else 1, _t * 2.0, false, false, "normal", at, px * 0.45, false)
+		var bought := cat in Profile.services
+		_ring.draw_circle(sign_at, 8.5, OUTLINE)
+		_ring.draw_circle(sign_at, 7.0, Color("2f8a6a") if bought else UiStyle.GOLD)
+		_ring.draw_string(font, sign_at + Vector2(-8, 5), "✓" if bought else "$", HORIZONTAL_ALIGNMENT_CENTER, 16, 12, Color.WHITE if bought else Color("3a2600"))
 
 
 ## A bouncing "next" arrow over the map to play next.

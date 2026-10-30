@@ -114,6 +114,9 @@ func _ready() -> void:
 			if GameData.stages.has(r.get("stage", "")):
 				reports.append(r)
 		report_news = cfg.get_value("reports", "news", [])
+		for c: String in cfg.get_value("residents", "services", []):
+			services.append(c)
+		kidnapped = cfg.get_value("residents", "kidnapped", "")
 		moon_night = cfg.get_value("moon", "night", 0)
 		moon_traps = cfg.get_value("moon", "traps", 0)
 		for c: String in cfg.get_value("moon", "guards", []):
@@ -179,6 +182,14 @@ func _ready() -> void:
 		moon_traps = 2
 		moon_guards.assign(["LUNA"])
 		start_moon()
+	# `-- --service=OLD_CAT` buys that service for free; `--kidnapped=CAT`
+	# and `--report=rescue` play a rescue night (tests).
+	var service := GameData.arg("--service=", "")
+	if RESIDENTS.has(service):
+		services.append(service)
+	var taken := GameData.arg("--kidnapped=", "")
+	if RESIDENTS.has(taken):
+		kidnapped = taken
 	# `-- --nemesis=RAT_KING` makes that boss a nemesis (tests).
 	var nem := GameData.arg("--nemesis=", "")
 	if nem != "" and GameData.enemies.has(nem):
@@ -352,7 +363,10 @@ func make_reports() -> void:
 		return
 	var rng := RandomNumberGenerator.new()
 	rng.randomize()
-	for kind: String in ["defend", "hunt", "gold"]:
+	var kinds := ["defend", "hunt", "gold"]
+	if kidnapped != "":
+		kinds.push_front("rescue")
+	for kind: String in kinds:
 		if reports.any(func(r: Dictionary) -> bool: return r["kind"] == kind):
 			continue
 		var used: Array = reports.map(func(r: Dictionary) -> String: return r["stage"])
@@ -365,7 +379,7 @@ func make_reports() -> void:
 			continue
 		var all: Array = GameData.challenges.keys()
 		reports.append({"kind": kind, "stage": pool[rng.randi() % pool.size()],
-			"challenge": all[rng.randi() % all.size()] if not all.is_empty() else "", "nights": 0})
+			"challenge": all[rng.randi() % all.size()] if not all.is_empty() and kind != "rescue" else "", "nights": 0})
 
 
 func active_report() -> Dictionary:
@@ -407,9 +421,11 @@ func pass_night() -> void:
 		var place := TranslationServer.translate("STAGE_%s_NAME" % r["stage"])
 		match r["kind"]:
 			"defend":
-				var theft := mini(floori(gold * REPORT_THEFT), REPORT_THEFT_MAX)
-				gold -= theft
-				report_news.append(["REPORT_NEWS_THEFT", place, theft])
+				report_news.append(raid(place))
+			"rescue":
+				# A kidnapped friend waits for you as long as it takes.
+				if kidnapped != "":
+					keep.append(r)
 			"gold":
 				report_news.append(["REPORT_NEWS_GONE", place])
 			_:
@@ -417,11 +433,73 @@ func pass_night() -> void:
 				if r["nights"] < REPORT_HUNT_NIGHTS:
 					keep.append(r)
 	reports = keep
+	services.clear()
 	make_reports()
 	_moon_night_passed()
 	# The played one is gone from the list now.
 	report = -1
 	save()
+
+
+# --- residents of the neighbourhood -------------------------------------------
+## Cats you have won over live in the neighbourhood and each offers a service
+## for the next night, for gold. An undefended map gets a resident kidnapped
+## (its service closes) until a rescue night brings it home.
+
+## cat -> [service stats for one night, price in gold].
+const RESIDENTS := {
+	"OLD_CAT": [{"max_hp": 30.0, "regen": 0.5}, 60],
+	"BOLT": [{"might": 0.15}, 100],
+	"TUCKO": [{"reroll": 1.0, "banish": 1.0}, 50],
+	"KAPITAN": [{"magnet": 50.0, "speed": 0.1}, 70],
+	"CLOVER": [{"luck": 0.2}, 60],
+}
+const RESCUE_GOLD := 120
+
+## Services bought for the next night.
+var services: Array[String] = []
+## The resident held by the enemies ("" if none).
+var kidnapped := ""
+
+
+## Residents at home: unlocked, not your cat tonight, not kidnapped.
+func residents() -> Array[String]:
+	var out: Array[String] = []
+	for cat: String in RESIDENTS:
+		if is_unlocked(cat) and cat != kidnapped:
+			out.append(cat)
+	return out
+
+
+func buy_service(cat: String) -> bool:
+	if cat not in residents() or cat in services or gold < int(RESIDENTS[cat][1]):
+		return false
+	gold -= int(RESIDENTS[cat][1])
+	services.append(cat)
+	save()
+	return true
+
+
+## Stats from tonight's bought services.
+func service_bonus() -> Dictionary:
+	var out := {}
+	for cat in services:
+		var stats: Dictionary = RESIDENTS.get(cat, [{}])[0]
+		for key: String in stats:
+			out[key] = float(out.get(key, 0.0)) + float(stats[key])
+	return out
+
+
+## A map was not held: a resident is taken if there is one to take, or else
+## you are robbed. Returns the news line ([key, args...]).
+func raid(place: String) -> Array:
+	var home := residents()
+	if kidnapped == "" and not home.is_empty():
+		kidnapped = home.pick_random()
+		return ["REPORT_NEWS_KIDNAP", place, TranslationServer.translate("CAT_%s_NAME" % kidnapped)]
+	var theft := mini(floori(gold * REPORT_THEFT), REPORT_THEFT_MAX)
+	gold -= theft
+	return ["REPORT_NEWS_THEFT", place, theft]
 
 
 # --- the full moon ------------------------------------------------------------
@@ -878,6 +956,8 @@ func save() -> void:
 	cfg.set_value("reports", "list", reports)
 	cfg.set_value("reports", "news", report_news)
 	cfg.set_value("nemesis", "bosses", nemesis)
+	cfg.set_value("residents", "services", services)
+	cfg.set_value("residents", "kidnapped", kidnapped)
 	cfg.set_value("moon", "night", moon_night)
 	cfg.set_value("moon", "traps", moon_traps)
 	cfg.set_value("moon", "guards", moon_guards)

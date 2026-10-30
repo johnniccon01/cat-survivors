@@ -93,6 +93,8 @@ var _mini: Control
 var _arrows := {}
 var _reports: Array[Control] = []
 var _hover := ""
+## The resident under the mouse: its service is shown beside it.
+var _hover_cat := ""
 var _hint: PanelContainer
 var _paths_btn: Button
 var _press_at := Vector2.ZERO
@@ -381,6 +383,7 @@ func _gui_input(event: InputEvent) -> void:
 		if over != _hover:
 			_hover = over
 			_ring.queue_redraw()
+		_hover_cat = hit[1] if not hit.is_empty() and hit[0] == "resident" else ""
 		mouse_default_cursor_shape = Control.CURSOR_ARROW if hit.is_empty() else Control.CURSOR_POINTING_HAND
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		_drag = event.pressed
@@ -664,9 +667,28 @@ func _draw_residents() -> void:
 		var lk := CatArt.look(cat)
 		CatArt.draw(_ring, lk, -1 if at.x > 400 else 1, _t * 2.0, false, false, "normal", at, px * 0.45, false)
 		var bought := cat in Profile.services
-		_ring.draw_circle(sign_at, 8.5, OUTLINE)
-		_ring.draw_circle(sign_at, 7.0, Color("2f8a6a") if bought else UiStyle.GOLD)
-		_ring.draw_string(font, sign_at + Vector2(-8, 5), "✓" if bought else "$", HORIZONTAL_ALIGNMENT_CENTER, 16, 12, Color.WHITE if bought else Color("3a2600"))
+		if bought:
+			_ring.draw_circle(sign_at, 8.5, OUTLINE)
+			_ring.draw_circle(sign_at, 7.0, Color("2f8a6a"))
+			_ring.draw_string(font, sign_at + Vector2(-8, 5), "✓", HORIZONTAL_ALIGNMENT_CENTER, 16, 12, Color.WHITE)
+		else:
+			# A price tag: the service costs this much gold.
+			var price := str(int(Profile.RESIDENTS[cat][1]))
+			var w := font.get_string_size(price, HORIZONTAL_ALIGNMENT_LEFT, -1, 11).x + 16.0
+			var tag := Rect2(sign_at - Vector2(w * 0.5, 8), Vector2(w, 16))
+			_ring.draw_rect(tag.grow(1.5), OUTLINE)
+			_ring.draw_rect(tag, UiStyle.GOLD)
+			_ring.draw_circle(tag.position + Vector2(7, 8), 4.0, Color("c98a10"))
+			_ring.draw_circle(tag.position + Vector2(7, 8), 2.5, Color("ffe27a"))
+			_ring.draw_string(font, tag.position + Vector2(12, 12), price, HORIZONTAL_ALIGNMENT_LEFT, -1, 11, Color("3a2600"))
+		if cat == _hover_cat:
+			# What the resident offers, right there under the mouse.
+			var text := tr("CAT_%s_NAME" % cat) + ": " + tr("RESIDENT_%s_SERVICE" % cat)
+			var tw := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, 12).x
+			var box := Rect2(sign_at + Vector2(-tw * 0.5 - 6, -32), Vector2(tw + 12, 18))
+			_ring.draw_rect(box, Color(OUTLINE, 0.92))
+			_ring.draw_rect(box, Color("3f7a5a"), false, 1.5)
+			_ring.draw_string(font, box.position + Vector2(6, 13), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color("d6f5c4"))
 
 
 ## The way your last night trip went, in cyan.

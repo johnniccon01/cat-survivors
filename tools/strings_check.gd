@@ -68,6 +68,12 @@ func _check_csv() -> Dictionary:
 			var got := _found(placeholder, text)
 			if got != want:
 				_fail("line %d: %s placeholders in %s are %s, English has %s" % [line, key, lang, got, want])
+			# A stray control character (a regex mishap once ate digits this way).
+			for ch in text:
+				if ch.unicode_at(0) < 32 and ch != "
+":
+					_fail("line %d: %s in %s has a control character (U+%04X)" % [line, key, lang, ch.unicode_at(0)])
+					break
 			# "8 %" must never break between the number and the % sign.
 			if space_pct.search(text) != null:
 				_fail("line %d: %s in %s has a plain space before %% (use a non-breaking space)" % [line, key, lang])

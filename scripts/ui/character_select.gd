@@ -41,6 +41,8 @@ var _district: DistrictMap
 var _place := ""
 ## The night report chosen on the town (index into Profile.reports), or -1.
 var _report := -1
+## Takes or leaves the offer waiting on the chosen place.
+var _report_toggle: Button
 var _report_box: PanelContainer
 var _report_win: Label
 var _report_lose: Label
@@ -324,6 +326,12 @@ func _build() -> void:
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		l.custom_minimum_size = Vector2(290, 0)
 		rv.add_child(l)
+	_report_toggle = UiStyle.click_button("", 0, 13)
+	_report_toggle.pressed.connect(func() -> void:
+		Audio.play("click", -6.0, 0.0)
+		_report = -1 if _report >= 0 else _report_on(_stage_ids[_stage_index])
+		_refresh())
+	place.add_child(_report_toggle)
 	# Getting home ready for the full moon: traps and guard cats.
 	_moon_box = PanelContainer.new()
 	_moon_box.add_theme_stylebox_override("panel", UiStyle.box(Color(0.12, 0.1, 0.05, 0.85), Color("8a6a2a")))
@@ -673,6 +681,13 @@ func _refresh_place() -> void:
 	_district.selected_report = _report
 	var rep: Dictionary = Profile.reports[_report] if _report >= 0 else {}
 	_report_box.visible = not rep.is_empty()
+	# A place with an offer shows it at once; this button leaves it (a
+	# plain night there) or takes it again.
+	var offer := _report_on(id)
+	_report_toggle.visible = offer >= 0
+	if offer >= 0:
+		var offer_name := tr("REPORT_%s_NAME" % Profile.reports[offer]["kind"].to_upper())
+		_report_toggle.text = tr("REPORT_SKIP") if _report >= 0 else tr("REPORT_TAKE") % offer_name
 	_place_stats[0].get_parent().get_parent().get_parent().visible = rep.is_empty()
 	_stage_label.text = DistrictMap.place_name(id)
 	var badge: Array = [["DISTRICT_NEW_MAP", Color("b8b0c8")], ["DISTRICT_LOCKED", Color("c9c2d4")], ["DISTRICT_YOURS", Color("7cf0b8")], ["DISTRICT_BOSS_LAND", Color("ff9a88")]][0 if not real else {"locked": 1, "yours": 2, "boss": 3}[state]]
@@ -765,6 +780,7 @@ func _show_resident() -> void:
 	_dark_minus.get_parent().visible = false
 	_place_stars.visible = false
 	_report_box.visible = false
+	_report_toggle.visible = false
 	if cat == Profile.kidnapped:
 		_place_story.text = tr("RESIDENT_KIDNAPPED") % tr("CAT_%s_NAME" % cat)
 		return
@@ -802,6 +818,7 @@ func _show_moon() -> void:
 	_place_story.text = (tr("MOON_STORY_TONIGHT") if n == 0 else tr("MOON_STORY_SOON") % n) + "\n" + tr("MOON_COMING") % (", ".join(bosses) if not bosses.is_empty() else tr("ENEMY_RAT_KING_NAME"))
 	_place_stats[0].get_parent().get_parent().get_parent().visible = false
 	_report_box.visible = true
+	_report_toggle.visible = false
 	_report_win.text = tr("MOON_WIN") % Profile.MOON_GOLD
 	_report_lose.text = tr("MOON_LOSE") % mini(floori(Profile.gold * Profile.MOON_THEFT), Profile.MOON_THEFT_MAX)
 	_moon_box.visible = true
@@ -854,11 +871,20 @@ func _on_report_chosen(i: int) -> void:
 	_refresh()
 
 
+## The offer waiting on place `id` (index into Profile.reports), or -1.
+func _report_on(id: String) -> int:
+	for i in Profile.reports.size():
+		if Profile.reports[i]["stage"] == id:
+			return i
+	return -1
+
+
 func _on_place_chosen(id: String) -> void:
 	Audio.play("click", -6.0, 0.0)
 	_resident = ""
 	_moon_mode = false
-	_report = -1
+	# Clicking a place shows its offer too: no second click on the sign.
+	_report = _report_on(id)
 	if GameData.stages.has(id):
 		_place = ""
 		_stage_index = _stage_ids.find(id)

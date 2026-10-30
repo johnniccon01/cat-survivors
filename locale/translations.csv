@@ -2137,3 +2137,11 @@ CHALLENGE_FEWER_GEMS_NAME,Lean Kibbles,Chudobné granuly,Chudé granule,Croqueta
 CHALLENGE_FEWER_GEMS_DESC,Kibbles give 25% less experience.,Granuly dávajú o 25 % menej skúseností.,Granule dávají o 25 % méně zkušeností.,Las croquetas dan un 25% menos de experiencia.,Корм даёт на 25% меньше опыта.,猫粮经验 -25%。
 CHALLENGE_NO_MAGNET_NAME,No Magnet,Bez magnetu,Bez magnetu,Sin imán,Без магнита,无磁力
 CHALLENGE_NO_MAGNET_DESC,You pick things up only from close by (pickup range -60%).,Veci zbieraš len zblízka (dosah zbierania −60 %).,Věci sbíráš jen zblízka (dosah sbírání −60 %).,Solo recoges cosas de cerca (alcance de recogida -60%).,Подбираешь вещи только вблизи (радиус сбора −60%).,只能近距离拾取物品（拾取范围 -60%）。
+SELECT_MATERIALS,Materials: %d,Materiál: %d,Materiál: %d,Materiales: %d,Материалы: %d,材料：%d
+SUMMARY_MATERIALS,Building materials: +%d (%d in all),Stavebný materiál: +%d (spolu %d),Stavební materiál: +%d (celkem %d),Materiales de construcción: +%d (%d en total),Стройматериалы: +%d (всего %d),建筑材料：+%d（共 %d）
+SUMMARY_BUILDING,House level %d here: +%d gold,Domček úrovne %d: +%d zlata,Domek úrovně %d: +%d zlata,Casa de nivel %d: +%d de oro,Дом %d-го уровня: +%d золота,%d 级房屋：+%d 金币
+BUILD_TITLE,House: level %d / %d,Domček: úroveň %d / %d,Domek: úroveň %d / %d,Casa: nivel %d / %d,Дом: уровень %d / %d,房屋：等级 %d / %d
+BUILD_LEVEL_1,1: +10% gold from nights here,1: +10 % zlata z nocí tu,1: +10 % zlata z nocí tady,1: +10% de oro de las noches aquí,1: +10% золота за ночи здесь,1：在此过夜金币 +10%
+BUILD_LEVEL_2,"2: +20% gold, home bonus of cats living here ×1.5","2: +20 % zlata, domáci bonus mačiek odtiaľto ×1,5","2: +20 % zlata, domácí bonus koček odsud ×1,5","2: +20% de oro, bonus de hogar de los gatos de aquí ×1,5","2: +20% золота, домашний бонус местных кошек ×1,5",2：金币 +20%，此地猫咪的家园加成 ×1.5
+BUILD_LEVEL_3,"3: +30% gold, nobody besieges it any more","3: +30 % zlata, už ho nikto neoblieha","3: +30 % zlata, už ho nikdo neobléhá","3: +30% de oro, ya nadie lo asedia","3: +30% золота, его больше никто не осаждает",3：金币 +30%，再也没人围攻此地
+BUILD_UPGRADE,Build up (%d materials),Vylepšiť (%d materiálu),Vylepšit (%d materiálu),Mejorar (%d materiales),Улучшить (%d материалов),升级（%d 材料）

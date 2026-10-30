@@ -124,6 +124,8 @@ func _ready() -> void:
 			territories.append(id)
 		moon_night = cfg.get_value("moon", "night", 0)
 		weather_today = cfg.get_value("weather", "today", "")
+		materials = cfg.get_value("build", "materials", 0)
+		buildings = cfg.get_value("build", "levels", {})
 		weather_tomorrow = cfg.get_value("weather", "tomorrow", "")
 		moon_traps = cfg.get_value("moon", "traps", 0)
 		for c: String in cfg.get_value("moon", "guards", []):
@@ -400,7 +402,7 @@ func make_reports() -> void:
 		if kind == "defend":
 			# Only the two maps won last, never a conquered one: nobody has to
 			# go all the way back to the first maps to guard them.
-			var held: Array = cleared_stages.filter(func(s: String) -> bool: return s in open and s not in territories)
+			var held: Array = cleared_stages.filter(func(s: String) -> bool: return s in open and s not in territories and building_level(s) < BUILD_MAX)
 			pool = held.slice(maxi(held.size() - 2, 0)).filter(func(s: String) -> bool: return s in pool)
 		elif kind == "hunt" and pool.any(func(s: String) -> bool: return s not in cleared_stages):
 			pool = pool.filter(func(s: String) -> bool: return s not in cleared_stages)
@@ -639,6 +641,59 @@ func buy_moon_guard() -> String:
 	moon_guards.append(cat)
 	save()
 	return cat
+
+
+# --- building materials ---------------------------------------------------------
+## Earned at the end of a night (a win pays by far the most), spent on the
+## houses of the neighbourhood: every place can be built up to level 3.
+## Level 1+: more gold on that map; 2+: the home bonus of cats living there
+## is half as strong again; 3: nobody dares to besiege it any more.
+const MATERIALS_WIN := 100
+const MATERIALS_EXTRACT_PER_MIN := 3
+const MATERIALS_EXTRACT_MAX := 45
+const MATERIALS_DEATH_PER_MIN := 2
+const MATERIALS_DEATH_MAX := 30
+const MATERIALS_DARKNESS := 0.2
+const BUILD_COST := [150, 300, 600]
+const BUILD_MAX := 3
+const BUILD_GOLD := 0.1
+const BUILD_HOME := 0.5
+var materials := 0
+var buildings: Dictionary = {}
+
+
+func building_level(stage_id: String) -> int:
+	return int(buildings.get(stage_id, 0))
+
+
+## Price of the next level, or -1 at the top.
+func building_cost(stage_id: String) -> int:
+	var lvl := building_level(stage_id)
+	return BUILD_COST[lvl] if lvl < BUILD_MAX else -1
+
+
+func upgrade_building(stage_id: String) -> bool:
+	var cost := building_cost(stage_id)
+	if cost < 0 or materials < cost:
+		return false
+	materials -= cost
+	buildings[stage_id] = building_level(stage_id) + 1
+	save()
+	return true
+
+
+## Materials for a night that ended `kind` ("victory", "extract", "death")
+## after `minutes`, with curses and darkness counted in.
+func night_materials(kind: String, minutes: float, darkness_level: int) -> int:
+	var base := 0
+	match kind:
+		"victory":
+			base = MATERIALS_WIN
+		"extract":
+			base = mini(floori(minutes * MATERIALS_EXTRACT_PER_MIN), MATERIALS_EXTRACT_MAX)
+		_:
+			base = mini(floori(minutes * MATERIALS_DEATH_PER_MIN), MATERIALS_DEATH_MAX)
+	return roundi(base * challenge_materials() * (1.0 + MATERIALS_DARKNESS * darkness_level))
 
 
 # --- weather ------------------------------------------------------------------
@@ -1077,6 +1132,8 @@ func save() -> void:
 	cfg.set_value("residents", "kidnapped", kidnapped)
 	cfg.set_value("moon", "night", moon_night)
 	cfg.set_value("weather", "today", weather_today)
+	cfg.set_value("build", "materials", materials)
+	cfg.set_value("build", "levels", buildings)
 	cfg.set_value("weather", "tomorrow", weather_tomorrow)
 	cfg.set_value("moon", "traps", moon_traps)
 	cfg.set_value("moon", "guards", moon_guards)

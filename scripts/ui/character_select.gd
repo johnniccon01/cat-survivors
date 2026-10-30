@@ -63,6 +63,9 @@ var _moon_guards: Label
 var _moon_chip: Label
 var _weather_chip: Label
 var _weather_next: Label
+var _build_box: PanelContainer
+var _build_label: Label
+var _build_button: Button
 var _place_pic: TextureRect
 var _place_badge: Label
 var _place_story: Label
@@ -350,6 +353,27 @@ func _build() -> void:
 		_report = -1 if _report >= 0 else _report_on(_stage_ids[_stage_index])
 		_refresh())
 	place.add_child(_report_toggle)
+	# The house on this place, built up with materials.
+	_build_box = PanelContainer.new()
+	_build_box.add_theme_stylebox_override("panel", UiStyle.box(Color(0.1, 0.08, 0.05, 0.85), Color("7a6040")))
+	place.add_child(_build_box)
+	var bv := VBoxContainer.new()
+	bv.add_theme_constant_override("separation", 4)
+	_build_box.add_child(bv)
+	_build_label = _label(13, Color("f0dcb8"))
+	_build_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	_build_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_build_label.custom_minimum_size = Vector2(290, 0)
+	bv.add_child(_build_label)
+	_build_button = UiStyle.click_button("", 0, 13)
+	_build_button.pressed.connect(func() -> void:
+		var id := _place if _place != "" else _stage_ids[_stage_index]
+		if Profile.upgrade_building(id):
+			Audio.play("chest", -6.0, 0.0)
+		else:
+			Audio.play("hurt", -10.0, 0.0)
+		_refresh())
+	bv.add_child(_build_button)
 	# Getting home ready for the full moon: traps and guard cats.
 	_moon_box = PanelContainer.new()
 	_moon_box.add_theme_stylebox_override("panel", UiStyle.box(Color(0.12, 0.1, 0.05, 0.85), Color("8a6a2a")))
@@ -673,7 +697,7 @@ func _refresh() -> void:
 	var plan := Profile.daily_plan()
 	var done := Profile.has_flag("daily_win:" + Profile.today())
 	_challenge_label.text += "      " + tr("SELECT_DAILY") % [tr("STAGE_%s_NAME" % plan["stage"]), ", ".join((plan["challenges"] as Array).map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c)))] + (" ✓" if done else "")
-	_gold.text = tr("SELECT_GOLD") % Profile.gold
+	_gold.text = tr("SELECT_GOLD") % Profile.gold + "   " + tr("SELECT_MATERIALS") % Profile.materials
 	if Profile.streak > 0 or Profile.best_streak > 0:
 		_challenge_label.text = tr("SELECT_STREAK") % [Profile.streak, Profile.best_streak, roundi((Profile.streak_multiplier() - 1.0) * 100.0)] + "      " + _challenge_label.text
 	_refresh_darkness(_stage_ids[_stage_index])
@@ -777,12 +801,14 @@ func _refresh_place() -> void:
 		_place_stats[1].text = minutes % int(GameData.stages[id].get("duration_minutes", 20))
 		_place_stats[2].text = "%d / %d" % [stories.x, stories.y]
 		_place_stats[3].text = minutes % Profile.get_stat("best_minutes:" + id) if state != "locked" else "—"
+		_fill_building(id, state != "locked")
 		var n := DistrictMap.place_stars(id)
 		_place_stars.text = "★".repeat(n) + "☆".repeat(3 - n) + "   " + tr("DISTRICT_STARS_HELP")
 	else:
 		for l in _place_stats:
 			l.text = "?"
 		_place_stars.text = ""
+		_build_box.visible = false
 	var open := real and state != "locked"
 	_play.text = (tr("REPORT_GO_%s" % rep["kind"].to_upper()) if not rep.is_empty() else tr("MENU_PLAY")) if open else "🔒"
 	_play.modulate = Color.WHITE if open else Color(0.6, 0.6, 0.7)
@@ -797,7 +823,27 @@ func _refresh_place() -> void:
 
 
 ## The side panel for a resident: who it is and what it offers tonight.
+## The house panel: level, what it gives, and the button for the next level.
+func _fill_building(id: String, open: bool) -> void:
+	_build_box.visible = open
+	if not open:
+		return
+	var lvl := Profile.building_level(id)
+	var parts: Array[String] = []
+	for i in Profile.BUILD_MAX:
+		parts.append(("✔ " if i < lvl else "· ") + tr("BUILD_LEVEL_%d" % (i + 1)))
+	_build_label.text = tr("BUILD_TITLE") % [lvl, Profile.BUILD_MAX] + "
+" + "
+".join(parts)
+	var cost := Profile.building_cost(id)
+	_build_button.visible = cost >= 0
+	if cost >= 0:
+		_build_button.text = tr("BUILD_UPGRADE") % cost
+		_build_button.disabled = Profile.materials < cost
+
+
 func _show_resident() -> void:
+	_build_box.visible = false
 	var cat := _resident
 	_stage_label.text = tr("CAT_%s_NAME" % cat)
 	_place_badge.text = tr("RESIDENT_TITLE")
@@ -834,6 +880,7 @@ func _on_resident_chosen(cat: String) -> void:
 ## The side panel for the full moon: what comes, how ready home is, and
 ## what winning or losing means.
 func _show_moon() -> void:
+	_build_box.visible = false
 	var n := Profile.nights_to_moon()
 	_place_badge.text = tr("MOON_NAME")
 	_place_badge.label_settings.font_color = Color("ffe08a")

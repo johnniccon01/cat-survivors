@@ -1170,6 +1170,16 @@ func _end_run(kind: String) -> void:
 		var bonus := floori(gold * (Profile.challenge_gold() - 1.0))
 		gold += bonus
 		lines.append(tr("SUMMARY_CHALLENGE") % [Profile.challenge_gold(), bonus])
+	var built := Profile.building_level(spawner.stage_id)
+	if built > 0 and gold > 0:
+		var house := floori(gold * Profile.BUILD_GOLD * built)
+		gold += house
+		lines.append(tr("SUMMARY_BUILDING") % [built, house])
+	var stuff := Profile.night_materials(kind, spawner.elapsed / 60.0, spawner.darkness)
+	if stuff > 0 and not dev_test:
+		Profile.materials += stuff
+		lines.append(tr("SUMMARY_MATERIALS") % [stuff, Profile.materials])
+		BotLog.event("materials:" + kind)
 	if Profile.daily and kind == "victory" and not Profile.has_flag("daily_win:" + Profile.today()):
 		Profile.set_flag("daily_win:" + Profile.today())
 		Profile.add_stat("daily_wins")

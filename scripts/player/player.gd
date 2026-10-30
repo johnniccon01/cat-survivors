@@ -346,8 +346,10 @@ func _recalc_stats() -> void:
 		# On its home map a cat gets its home bonus (data/cats.json).
 		if is_home():
 			var home: Dictionary = GameData.cats[cat_id].get("home_bonus", {})
+			# A built-up house (level 2+) makes the home bonus stronger.
+			var k := 1.0 + (Profile.BUILD_HOME if Profile.building_level(Profile.selected_stage) >= 2 else 0.0)
 			for key: String in home:
-				stats[key] += home[key]
+				stats[key] += home[key] * k
 		# Conquered maps help in every night.
 		var land := Profile.territory_bonus()
 		for key: String in land:

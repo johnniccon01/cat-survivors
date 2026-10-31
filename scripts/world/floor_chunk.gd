@@ -80,6 +80,14 @@ const LAMPS := ["floor_lamp", "nightstand", "bulb", "garden_lamp", "roof_lamp", 
 const LAMP_COLOR := Color(1.0, 0.82, 0.55)
 
 static var _light_texture: Texture2D
+## Pixel art from tools/gen_apartment.py (name -> texture, null if missing).
+static var _art: Dictionary = {}
+## Furniture drawn from that pixel art; fabric ones come in a picture per
+## rug colour (apt_<kind>_<i>).
+const ART_FURNITURE := ["bookshelf", "tv", "floor_lamp", "plant", "dining_table", "trash_bin", "counter", "nightstand", "wardrobe"]
+const ART_FABRIC := ["sofa", "armchair", "coffee_table", "cat_tree", "cat_bowls", "bed", "cat_bed"]
+## Apartment floors from pixel art: zone -> texture name.
+const ART_FLOORS := {"living": "floor_planks", "kitchen": "floor_tiles", "bedroom": "floor_carpet"}
 
 var layer := Layer.GROUND
 var desc: Dictionary
@@ -100,6 +108,13 @@ func _ready() -> void:
 			light.color = LAMP_COLOR
 			light.position = f["pos"]
 			(light_parent if light_parent != null else self).add_child(light)
+
+
+static func art(name: String) -> Texture2D:
+	if not _art.has(name):
+		var path := "res://assets/sprites/apt_%s.png" % name
+		_art[name] = load(path) if ResourceLoader.exists(path) else null
+	return _art[name]
 
 
 static func _get_light_texture() -> Texture2D:
@@ -143,6 +158,18 @@ func _draw() -> void:
 func _draw_ground() -> void:
 	var size: float = desc["size"]
 	var area := Rect2(Vector2.ZERO, Vector2(size, size))
+	var floor_art := art(ART_FLOORS.get(desc["zone"], "")) if ART_FLOORS.has(desc["zone"]) else null
+	if floor_art != null:
+		# Tiled in world coordinates, so the pattern runs on across chunks.
+		texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
+		var offset := Vector2(fposmod(position.x, floor_art.get_width()), fposmod(position.y, floor_art.get_height()))
+		draw_texture_rect_region(floor_art, area, Rect2(offset, area.size))
+	else:
+		_draw_floor(size, area)
+	_draw_floor_edges(size)
+
+
+func _draw_floor(size: float, area: Rect2) -> void:
 	match desc["zone"]:
 		"kitchen":
 			_draw_tiles(size)
@@ -188,6 +215,9 @@ func _draw_ground() -> void:
 			_draw_factory(size, desc["zone"])
 		_:
 			_draw_planks(area)
+
+
+func _draw_floor_edges(size: float) -> void:
 	var strip := Color("3e2a1c")
 	if desc["zone"] in ["lawn", "flowerbed", "path", "grave_lawn", "graves", "gravel", "palm_grove", "park_path", "meadow", "pond"]:
 		strip = Color(0.2, 0.3, 0.12, 0.35)
@@ -616,6 +646,15 @@ func _draw_rug(rug: Dictionary) -> void:
 		draw_line(Vector2(r.end.x, y), Vector2(r.end.x + 4, y), Color("e8dcc0"), 1.0)
 	draw_rect(r, color.darkened(0.25))
 	var inner := r.grow(-6)
+	var weave := art("rug_%d" % maxi(RUG_COLORS.find(color), 0))
+	if weave != null:
+		# The woven pixel pattern, with a border and the fringe round it.
+		texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
+		draw_texture_rect_region(weave, inner, Rect2(Vector2.ZERO, inner.size))
+		draw_rect(r, OUTLINE, false, 1.0)
+		draw_rect(inner, color.lightened(0.3), false, 1.0)
+		draw_rect(inner.grow(-3), color.darkened(0.15), false, 1.0)
+		return
 	draw_rect(inner, color)
 	draw_rect(inner, color.lightened(0.3), false, 1.0)
 	for i in range(1, 4):
@@ -736,6 +775,14 @@ func _draw_item(item: Dictionary) -> void:
 func _draw_furniture(f: Dictionary) -> void:
 	var color: Color = f["color"]
 	draw_set_transform(f["pos"], f["rot"])
+	var pic := _furniture_art(f)
+	if pic != null:
+		# The pixel art, over its own soft shadow.
+		var at := -(pic.get_size() * 0.5).floor()
+		draw_texture(pic, at + Vector2(2, 3), Color(0, 0, 0, 0.22))
+		draw_texture(pic, at)
+		draw_set_transform(Vector2.ZERO)
+		return
 	match f["kind"]:
 		"sofa":
 			_box(Rect2(-56, -22, 112, 44), color.darkened(0.2))
@@ -1295,6 +1342,15 @@ func _draw_furniture(f: Dictionary) -> void:
 			draw_circle(Vector2.ZERO, 11.0, color.lightened(0.35))
 			draw_circle(Vector2(-4, 3), 2.0, Color(1, 1, 1, 0.5))
 	draw_set_transform(Vector2.ZERO)
+
+
+func _furniture_art(f: Dictionary) -> Texture2D:
+	var kind: String = f["kind"]
+	if kind in ART_FURNITURE:
+		return art(kind)
+	if kind in ART_FABRIC:
+		return art("%s_%d" % [kind, maxi(RUG_COLORS.find(f["color"]), 0)])
+	return null
 
 
 ## Filled rectangle with an outline and a soft drop shadow.

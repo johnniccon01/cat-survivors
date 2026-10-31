@@ -233,6 +233,61 @@ class Canvas:
         return px
 
 
+def render_volume(canvas, palette, flash=False, translucent=()):
+    """Enemies: rounder than render(). Pixels near the top-left edge of a
+    shape catch the light, those near the bottom-right sit in shade (looking
+    a few pixels along the diagonal), and the outline takes a dark shade of
+    what it wraps, lighter on the lit side, like the cats."""
+    w, h = canvas.w, canvas.h
+    flat = ("eye", "pupil", "glint", "nose", "ink", "tear", "outline", "white", "led")
+    def solid(x, y):
+        return 0 <= x < w and 0 <= y < h and canvas.m[y * w + x] is not None
+    px = [(0, 0, 0, 0)] * (w * h)
+    for y in range(h):
+        for x in range(w):
+            mat = canvas.m[y * w + x]
+            if mat is None:
+                continue
+            if flash:
+                px[y * w + x] = (255, 255, 255, 255)
+                continue
+            c = palette[mat]
+            if mat not in flat:
+                lit = next((i for i in range(1, 5) if not solid(x - i, y - i) or not solid(x, y - i)), 5)
+                dark = next((i for i in range(1, 5) if not solid(x + i, y + i) or not solid(x, y + i)), 5)
+                k = {1: 0.26, 2: 0.12, 3: 0.04}.get(lit, 0.0)
+                k += {1: -0.32, 2: -0.17, 3: -0.07}.get(dark, 0.0)
+                # A touch of dither between the bands.
+                if lit == 3 and (x + y) % 2 == 0:
+                    k += 0.05
+                if dark == 3 and (x + y) % 2 == 1:
+                    k -= 0.06
+                if k:
+                    c = shade(c, max(-0.45, min(0.4, k)))
+            if mat in translucent:
+                c = (c[0], c[1], c[2], 150)
+            px[y * w + x] = c
+    out = list(px)
+    for y in range(h):
+        for x in range(w):
+            if px[y * w + x][3] != 0:
+                continue
+            for dx, dy in ((0, 1), (1, 0), (-1, 0), (0, -1)):
+                xx, yy = x + dx, y + dy
+                if 0 <= xx < w and 0 <= yy < h and px[yy * w + xx][3] != 0 and canvas.m[yy * w + xx] not in translucent:
+                    if flash:
+                        out[y * w + x] = (255, 255, 255, 255)
+                        break
+                    n = px[yy * w + xx]
+                    d = shade(n, -0.7)
+                    if dy == 1 or dx == 1:
+                        out[y * w + x] = tuple((a * 2 + b) // 3 for a, b in zip(d, OUTLINE))[:3] + (255,)
+                    else:
+                        out[y * w + x] = tuple((a + b * 2) // 3 for a, b in zip(d, OUTLINE))[:3] + (255,)
+                    break
+    return out
+
+
 def sheet(cells, cw, ch):
     """cells: rows of rendered frames -> one RGBA image."""
     rows, cols = len(cells), max(len(r) for r in cells)
@@ -928,8 +983,8 @@ def build_enemy(key, data):
     pal = enemy_palette(data)
     translucent = ("bubble", "wing")
     frames = [enemy_canvas(shape, f, data) for f in range(2)]
-    rows = [[fr.render(pal, translucent=translucent) for fr in frames],
-            [fr.render(pal, flash=True, translucent=translucent) for fr in frames]]
+    rows = [[render_volume(fr, pal, translucent=translucent) for fr in frames],
+            [render_volume(fr, pal, flash=True, translucent=translucent) for fr in frames]]
     w, h, img = sheet(rows, 28, 28)
     write_png(os.path.join(OUT, "enemy_%s.png" % key.lower()), w, h, img)
     return {"cell": [28, 28], "anchor": [14.0, 15.0], "frames": 2}

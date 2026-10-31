@@ -342,6 +342,11 @@ func _draw() -> void:
 			draw_circle(Vector2.ZERO, 2.5, OUTLINE)
 			if _flash > 0.0:
 				Blit.disc(self, Vector2.ZERO, 14.0, Color(1, 1, 1, _flash * 2.0))
+		"MOUSETRAP" when FloorChunk.art("trap_mousetrap_set") != null:
+			var pic := FloorChunk.art("trap_mousetrap_set" if _active else "trap_mousetrap_sprung")
+			draw_texture(pic, -(pic.get_size() * 0.5).floor())
+			if _flash > 0.0:
+				Blit.disc(self, Vector2.ZERO, 12.0, Color(1, 1, 1, _flash * 2.0))
 		"MOUSETRAP":
 			draw_rect(Rect2(-8, -5, 16, 10), OUTLINE)
 			draw_rect(Rect2(-7, -4, 14, 8), Color("c9a26a"))
@@ -355,8 +360,12 @@ func _draw() -> void:
 				Blit.disc(self, Vector2.ZERO, 12.0, Color(1, 1, 1, _flash * 2.0))
 		"STOVE":
 			var r := float(data["radius"])
-			draw_rect(Rect2(-r - 4, -r - 4, (r + 4) * 2, (r + 4) * 2), Color("3a3a40"))
-			draw_rect(Rect2(-r - 4, -r - 4, (r + 4) * 2, (r + 4) * 2), OUTLINE, false, 1.0)
+			var plate := FloorChunk.art("trap_stove")
+			if plate != null:
+				draw_texture_rect(plate, Rect2(-r - 4, -r - 4, (r + 4) * 2, (r + 4) * 2), false)
+			else:
+				draw_rect(Rect2(-r - 4, -r - 4, (r + 4) * 2, (r + 4) * 2), Color("3a3a40"))
+				draw_rect(Rect2(-r - 4, -r - 4, (r + 4) * 2, (r + 4) * 2), OUTLINE, false, 1.0)
 			var heat := Color("ff5a2a") if _active else Color("5a5a62")
 			for k in 3:
 				Blit.ring(self, Vector2.ZERO, r * (0.4 + k * 0.25) + 2.0 * 0.5, 2.0, heat)

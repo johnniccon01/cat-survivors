@@ -3,7 +3,7 @@
 Živý zoznam toho, čo je hotové, čo robíme teraz a čo príde. Po každom kroku
 ho aktualizujeme: hotové odškrtneme `[x]`, nové nápady pridáme do Zásobníka.
 
-Naposledy aktualizované: 30. 10. 2026 (plán psích štvrtí; najprv dokončiť prvú štvrť)
+Naposledy aktualizované: 31. 10. 2026 (krátkodobý plán – časť 1 hotový)
 
 ---
 
@@ -52,7 +52,7 @@ Pracuje sa samostatne, bez otázok, krok po kroku (commit + značka + push po ka
 5. [x] **Suroviny** (hotové 31. 10., značka `material`; `Profile.materials`, `night_materials`, úrovne domčekov `Profile.buildings` – panel „Domček" pri mieste; výhra 100, útek 3/min (max 45), smrť 2/min (max 30), × prekliatia, +20 % za stupeň tmy; testy `materials_*`) (jedna mena „Stavebný materiál" – klbká a dosky, bez desiatich druhov; za výhru 100, za útek dvierkami a prehru málo podľa minút, výhra sa musí oplatiť; za prekliatia a tmu viac; míňa sa na úrovne domčekov na mape štvrte 1–3: viac zlata na mape, silnejší domáci bonus mačiek, silnejšia služba obyvateľa, úroveň 3 sa ubráni obliehaniu sama).
 6. [x] **Deväť životov a hodnosť mačky** (hotové 31. 10., značka `devat-zivotov`; `Profile.careers`, `career_night`, panel `TalentPanel` (C), zbierky príveskov a artefaktov už len ukazujú, čo vlastníš; odkaz = +2 % sila, +3 % zlato za každú mačku na dôchodku, max 10; mačka s prvou kariérou dostane toľko hodností, koľko mala výhier (max 3); výbava sa kreslí na mačke celá – obojok, vesta, labky, chvost, čiapka; panel Výbava má mačku a ikonky; testy `career_*`, nástroj `tools/gear_shot.gd`) (zlúčenie príveskov a artefaktov): každá mačka zbiera hodnosť za noci (výhra viac); za každú hodnosť si vyberie 1 z 3 talentov (talenty = doterajšie prívesky a artefakty, ktoré vlastníš), najviac 9. Smrť zoberie 1 život a posledný talent. Výhra na domácej mape vráti život. 0 životov = mačka odíde do dôchodku, nechá trvalý odkaz pre všetky mačky a vráti sa ako mladá (2. generácia) bez talentov. Obchod za zlato ostáva. Inventár ostáva, lepšie kreslený; čiapka, obojok a ďalšia výbava sa ukážu na mačke v hre.
 7. [x] **Zvonček duší** (hotové 31. 10., značka `zvoncek-dusi`; legendárny obojok `SOUL_BELL`, každý ho má vo výbave; porazený 1 duša, elita 10, boss 60, × prekliatia; plný pri 2500 = +30 % sila, +20 % zlato; v HUD pod zbraňami; testy `soul_*`) (predmet do inventára, slot obojok): počas noci pohlcuje silu zabitých (boss viac), dáva rastúci bonus; smrť = spadne na 0; výhra alebo útek dvierkami = náboj sa uloží a ďalšiu noc si ho môžeš (nemusíš) vziať. Prekliatia ho nabíjajú rýchlejšie.
-8. [ ] **Grafika – skúšobná mapa Byt** celá v novom štýle (podlaha, nábytok, rekvizity, pasce, nepriatelia, bossovia, špeciality; sprity z `tools/gen_sprites.py`), potom podľa nej ďalšie mapy.
+8. [x] **Grafika – skúšobná mapa Byt** (hotové 31. 10., značka `grafika-byt`; `tools/gen_apartment.py` kreslí pixel-art parkiet, dlažby, koberca, 16 kusov nábytku v 5 farbách látky, koberčekov a pascí Pasca na myši a Sporák; `FloorChunk.art()`; všetci nepriatelia a rekvizity majú nové tieňovanie s objemom (`render_volume` v `tools/gen_sprites.py`); nástroje `tools/enemy_shot.gd` a `tools/gear_shot.gd` na kontrolu okom. Ďalej: drobnosti na zemi a bossovia vo väčšom rozlíšení, potom ostatné mapy podľa Bytu) celá v novom štýle (podlaha, nábytok, rekvizity, pasce, nepriatelia, bossovia, špeciality; sprity z `tools/gen_sprites.py`), potom podľa nej ďalšie mapy.
 
 Do dlhodobého plánu (nerobiť teraz): **Krotenie** – v tejto podobe sa nepáči, vymyslieť inak (bez ďalšej postavy na obrazovke).
 

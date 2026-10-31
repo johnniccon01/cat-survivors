@@ -728,6 +728,17 @@
       ],
       "frames": 2
     },
+    "SHADOW_HOUND": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
     "CRAB": {
       "cell": [
         28,

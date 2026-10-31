@@ -164,6 +164,7 @@ scenarios=(
   "materials_death|--bot --start-minute=6 --kill-cat-every=20 --bot-time=40 --expect=materials:death,career_life_lost"
   "soul_win|--bot --god --gear=SOUL_BELL --start-minute=19.9 --catch-up --bot-time=150 --expect=soul_kept"
   "soul_death|--bot --gear=SOUL_BELL --start-minute=3 --kill-cat-every=30 --bot-time=60 --expect=soul_lost"
+  "memorials|--bot --stage=CEMETERY --retired=MICA,LUNA,TIGER,PIP,BRUNO,TUCKO,CLOVER --memorial-walk --bot-time=40 --expect=memorials,memorial_heal"
   "career_retire|--bot --career=1,2,charm:FISH_BONE,art:GLASS_EYE --start-minute=6 --kill-cat-every=20 --bot-time=40 --expect=career_retired"
   "career_talents|--bot --god --career=9,3,charm:FISH_BONE,art:BOSS_TOOTH --start-minute=19.9 --catch-up --bot-time=150 --expect=career_rank_up"
   "daily|--bot --daily --challenges= --start-minute=19.9 --catch-up --god --levels=40 --bot-time=250"

@@ -11,6 +11,8 @@ signal place_chosen(id: String)
 signal report_chosen(index: int)
 signal moon_chosen
 signal resident_chosen(cat: String)
+## The memorial sign by the Cemetery: the stones of retired cats.
+signal memorial_chosen
 
 ## Where each resident lives in the town.
 const RESIDENT_SPOTS := {
@@ -399,6 +401,8 @@ func _gui_input(event: InputEvent) -> void:
 				place_chosen.emit(hit[1])
 			elif hit[0] == "resident":
 				resident_chosen.emit(hit[1])
+			elif hit[1] == -2:
+				memorial_chosen.emit()
 			elif hit[1] < 0:
 				moon_chosen.emit()
 			else:
@@ -437,6 +441,18 @@ func show_reports() -> void:
 	moon.draw.connect(func() -> void: draw_moon(moon, moon.size * 0.5, 15.0, Profile.nights_to_moon(), _t))
 	_pins_layer.add_child(moon)
 	_reports.append(moon)
+	if not Profile.retired.is_empty() or Profile.is_stage_unlocked("CEMETERY"):
+		var stone := Control.new()
+		stone.size = Vector2(36, 40)
+		stone.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		stone.set_meta("report", -2)
+		var yard: Vector2 = PLACES["CEMETERY"]["pos"] * px
+		stone.set_meta("at", Vector2(yard.x - 58, yard.y + 6))
+		stone.position = stone.get_meta("at")
+		stone.draw.connect(func() -> void: draw_memorial_sign(stone, Profile.retired.size()))
+		stone.tooltip_text = tr("MEMORIALS_SIGN") % Profile.retired.size()
+		_pins_layer.add_child(stone)
+		_reports.append(stone)
 	for i in Profile.reports.size():
 		var rep: Dictionary = Profile.reports[i]
 		if not PLACES.has(rep["stage"]):
@@ -468,6 +484,25 @@ static func draw_moon(ci: CanvasItem, c: Vector2, r: float, nights: int, t: floa
 		ci.draw_circle(c + Vector2(r * (2.0 - 1.4 * k), 0), r * 0.98, Color("2a2238"))
 		if number:
 			ci.draw_string(ThemeDB.fallback_font, c + Vector2(-r, r + 15), str(nights), HORIZONTAL_ALIGNMENT_CENTER, r * 2.0, 14, Color("f4ecd4"))
+
+
+## A little gravestone with the number of retired cats on it.
+static func draw_memorial_sign(ci: Control, count: int) -> void:
+	var c := ci.size * 0.5
+	var pts := PackedVector2Array()
+	for k in 9:
+		var a := PI + PI * k / 8.0
+		pts.append(c + Vector2(cos(a) * 12.0, -4.0 + sin(a) * 10.0))
+	pts.append(c + Vector2(12, 14))
+	pts.append(c + Vector2(-12, 14))
+	ci.draw_colored_polygon(Shapes.ellipse(c + Vector2(2, 16), 16.0, 4.0, 12), Color(0, 0, 0, 0.45))
+	ci.draw_colored_polygon(pts, Color("9a9aa4"))
+	ci.draw_line(c + Vector2(-11, -4), c + Vector2(-11, 13), Color("c0c0ca"), 1.0)
+	ci.draw_polyline(Shapes.closed(pts), Color("2b1d14"), 1.5)
+	var font := ThemeDB.fallback_font
+	ci.draw_string_outline(font, Vector2(0, c.y + 8), str(count), HORIZONTAL_ALIGNMENT_CENTER, ci.size.x, 17, 4, Color("2b1d14"))
+	ci.draw_string(font, Vector2(0, c.y + 8), str(count), HORIZONTAL_ALIGNMENT_CENTER, ci.size.x, 17, Color("fff3c0"))
+	ci.draw_circle(c + Vector2(13, 12), 2.0, Color("ffcf5a"))
 
 
 func _draw_report(sign: Control, i: int) -> void:

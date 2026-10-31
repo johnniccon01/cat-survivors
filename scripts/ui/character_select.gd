@@ -24,6 +24,8 @@ var _stage_ids: Array[String] = []
 var _stage_index := 0
 var _shop: ShopPanel
 var _charms: TalentPanel
+var _memorials: MemorialPanel
+var _memorial_button: Button
 var _items: ItemPanel
 var _artifacts: ArtifactPanel
 var _artifact_label: Label
@@ -99,7 +101,7 @@ const BONUS_TEXT := {
 
 func _ready() -> void:
 	for arg: String in GameData.args():
-		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--artifacts", "--goals", "--journal", "--challenges", "--ui-test"]:
+		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--artifacts", "--goals", "--journal", "--challenges", "--ui-test"] and not arg.begins_with("--retired="):
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
 			return
 	for id: String in GameData.cats:
@@ -208,6 +210,7 @@ func _build() -> void:
 	_district.report_chosen.connect(_on_report_chosen)
 	_district.moon_chosen.connect(_on_moon_chosen)
 	_district.resident_chosen.connect(_on_resident_chosen)
+	_district.memorial_chosen.connect(_open_memorials)
 	map_frame.add_child(_district)
 	# Badges in the map's top-left corner: the full moon and your nemesis.
 	var badges := MarginContainer.new()
@@ -374,6 +377,10 @@ func _build() -> void:
 			Audio.play("hurt", -10.0, 0.0)
 		_refresh())
 	bv.add_child(_build_button)
+	# The Cemetery also shows the memorial stones of retired cats.
+	_memorial_button = UiStyle.click_button("", 0, 13)
+	_memorial_button.pressed.connect(_open_memorials)
+	place.add_child(_memorial_button)
 	# Getting home ready for the full moon: traps and guard cats.
 	_moon_box = PanelContainer.new()
 	_moon_box.add_theme_stylebox_override("panel", UiStyle.box(Color(0.12, 0.1, 0.05, 0.85), Color("8a6a2a")))
@@ -559,6 +566,9 @@ func _build() -> void:
 	_artifacts = ArtifactPanel.new()
 	add_child(_artifacts)
 	_artifacts.closed.connect(_refresh)
+	_memorials = MemorialPanel.new()
+	add_child(_memorials)
+	_memorials.closed.connect(_refresh)
 	_journal = JournalPanel.new()
 	add_child(_journal)
 	_journal.closed.connect(_refresh)
@@ -694,7 +704,7 @@ func _refresh() -> void:
 		_worn.text = tr("SELECT_CAREER") % [int(career["lives"]), Profile.LIVES, int(career["rank"]), Profile.MAX_RANK, (career["talents"] as Array).size()] + ("  " + tr("SELECT_CAREER_PICK") % picks if picks > 0 else "")
 	else:
 		_worn.text = ""
-	_artifact_label.text = tr("SELECT_LEGACY") % Profile.legacy if Profile.legacy > 0 else ""
+	_artifact_label.text = tr("SELECT_LEGACY") % Profile.retired.size() if not Profile.retired.is_empty() else ""
 	var ch: Array = Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))
 	_challenge_label.text = tr("SELECT_CHALLENGES") % ["—" if ch.is_empty() else ", ".join(ch), Profile.challenge_gold()]
 	var plan := Profile.daily_plan()
@@ -812,6 +822,7 @@ func _refresh_place() -> void:
 			l.text = "?"
 		_place_stars.text = ""
 		_build_box.visible = false
+		_memorial_button.visible = false
 	var open := real and state != "locked"
 	_play.text = (tr("REPORT_GO_%s" % rep["kind"].to_upper()) if not rep.is_empty() else tr("MENU_PLAY")) if open else "🔒"
 	_play.modulate = Color.WHITE if open else Color(0.6, 0.6, 0.7)
@@ -826,8 +837,15 @@ func _refresh_place() -> void:
 
 
 ## The side panel for a resident: who it is and what it offers tonight.
+func _open_memorials() -> void:
+	Audio.play("click", -6.0, 0.0)
+	_memorials.open()
+
+
 ## The house panel: level, what it gives, and the button for the next level.
 func _fill_building(id: String, open: bool) -> void:
+	_memorial_button.visible = id == "CEMETERY"
+	_memorial_button.text = tr("MEMORIALS_SIGN") % Profile.retired.size()
 	_build_box.visible = open
 	if not open:
 		return
@@ -847,6 +865,7 @@ func _fill_building(id: String, open: bool) -> void:
 
 func _show_resident() -> void:
 	_build_box.visible = false
+	_memorial_button.visible = false
 	var cat := _resident
 	_stage_label.text = tr("CAT_%s_NAME" % cat)
 	_place_badge.text = tr("RESIDENT_TITLE")
@@ -884,6 +903,7 @@ func _on_resident_chosen(cat: String) -> void:
 ## what winning or losing means.
 func _show_moon() -> void:
 	_build_box.visible = false
+	_memorial_button.visible = false
 	var n := Profile.nights_to_moon()
 	_place_badge.text = tr("MOON_NAME")
 	_place_badge.label_settings.font_color = Color("ffe08a")

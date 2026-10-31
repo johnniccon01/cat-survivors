@@ -128,6 +128,7 @@ func _ready() -> void:
 		careers = cfg.get_value("careers", "cats", {})
 		soul_charge = cfg.get_value("soul", "charge", 0.0)
 		legacy = cfg.get_value("careers", "legacy", 0)
+		retired = cfg.get_value("careers", "retired", [])
 		buildings = cfg.get_value("build", "levels", {})
 		weather_tomorrow = cfg.get_value("weather", "tomorrow", "")
 		moon_traps = cfg.get_value("moon", "traps", 0)
@@ -213,6 +214,9 @@ func _ready() -> void:
 			cleared_stages.append(id)
 	ensure_weather()
 	_ensure_soul_bell()
+	# `-- --retired=MICA,LUNA` puts those cats on the Cemetery (tests).
+	for cat in GameData.arg("--retired=", "").split(",", false):
+		retired.append({"cat": cat, "gen": 1, "wins": 7, "nights": 30, "best_rank": 5, "date": today()})
 	# `-- --career=LIVES,RANK,TALENT...` sets the played cat's career (tests).
 	var forced_career := GameData.arg("--career=", "")
 	if forced_career != "":
@@ -662,8 +666,8 @@ func buy_moon_guard() -> String:
 ## one talent out of three (talents = the charms and artifacts you own).
 ## A death costs one of the nine lives, the last rank and its talent; a win
 ## on the cat's home map gives a life back. With no lives left the cat
-## retires: it leaves a small legacy for all cats and starts over as a young
-## cat of the next generation.
+## retires: a memorial stone with its name goes up on the Cemetery map (see
+## Memorials) and it starts over as a young cat of the next generation.
 const LIVES := 9
 const MAX_RANK := 9
 const RANK_XP := 100
@@ -672,12 +676,13 @@ const RANK_XP_EXTRACT := 45
 const RANK_XP_DEATH_PER_MIN := 2
 const RANK_XP_DEATH_MAX := 30
 const TALENT_OFFERS := 3
-## Legacy of every retired cat (up to LEGACY_MAX) for all cats.
-const LEGACY_MAX := 10
-const LEGACY_STATS := {"might": 0.02, "greed": 0.03}
-## cat -> {"rank", "xp", "lives", "talents", "picks", "offers", "gen"}
+## cat -> {"rank", "xp", "lives", "talents", "picks", "offers", "gen",
+## "wins", "nights"} (wins and nights of this generation)
 var careers: Dictionary = {}
+## How many cats have retired (kept for old profiles; `retired` has them).
 var legacy := 0
+## Every retired cat, oldest first: {"cat", "gen", "wins", "nights", "best_rank", "date"}.
+var retired: Array = []
 var _hand_worn := false
 
 
@@ -753,22 +758,12 @@ static func talent_desc(talent: String) -> String:
 func talent_bonus(cat: String) -> Dictionary:
 	var total := {}
 	if not careers.has(cat):
-		return legacy_bonus()
+		return total
 	for t: String in careers[cat]["talents"]:
 		var bonus := talent_stats(t)
 		for key: String in bonus:
 			total[key] = float(total.get(key, 0.0)) + float(bonus[key])
-	var old := legacy_bonus()
-	for key: String in old:
-		total[key] = float(total.get(key, 0.0)) + float(old[key])
 	return total
-
-
-func legacy_bonus() -> Dictionary:
-	var out := {}
-	for key: String in LEGACY_STATS:
-		out[key] = float(LEGACY_STATS[key]) * mini(legacy, LEGACY_MAX)
-	return out
 
 
 ## The night is over for `cat`: rank, lives, retirement. Returns summary
@@ -785,6 +780,10 @@ func career_night(cat: String, kind: String, minutes: float, home: bool) -> Arra
 		_:
 			xp = mini(floori(minutes * RANK_XP_DEATH_PER_MIN), RANK_XP_DEATH_MAX)
 	c["xp"] = int(c["xp"]) + xp
+	c["nights"] = int(c.get("nights", 0)) + 1
+	if kind == "victory":
+		c["wins"] = int(c.get("wins", 0)) + 1
+	c["best_rank"] = maxi(int(c.get("best_rank", 0)), int(c["rank"]))
 	while int(c["xp"]) >= RANK_XP and int(c["rank"]) < MAX_RANK:
 		c["xp"] = int(c["xp"]) - RANK_XP
 		c["rank"] = int(c["rank"]) + 1
@@ -805,6 +804,11 @@ func career_night(cat: String, kind: String, minutes: float, home: bool) -> Arra
 		c["offers"] = []
 		if int(c["lives"]) <= 0:
 			legacy += 1
+			retired.append({"cat": cat, "gen": int(c["gen"]), "wins": int(c.get("wins", 0)), "nights": int(c.get("nights", 0)),
+				"best_rank": maxi(int(c.get("best_rank", 0)), 1), "date": today()})
+			c["wins"] = 0
+			c["nights"] = 0
+			c["best_rank"] = 0
 			c["gen"] = int(c["gen"]) + 1
 			c["rank"] = 0
 			c["xp"] = 0
@@ -1362,6 +1366,7 @@ func save() -> void:
 	cfg.set_value("careers", "cats", careers)
 	cfg.set_value("soul", "charge", soul_charge)
 	cfg.set_value("careers", "legacy", legacy)
+	cfg.set_value("careers", "retired", retired)
 	cfg.set_value("build", "levels", buildings)
 	cfg.set_value("weather", "tomorrow", weather_tomorrow)
 	cfg.set_value("moon", "traps", moon_traps)

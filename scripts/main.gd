@@ -301,6 +301,7 @@ func _ready() -> void:
 	_bot_time += spawner.elapsed
 	night.setup(spawner, player)
 	_start_weather()
+	_place_memorials()
 	Profile.soul_live = Profile.soul_charge if Profile.soul_worn() and not dev_test else -1.0
 	player._recalc_stats()
 	for m: float in FLAP_MINUTES:
@@ -1657,6 +1658,18 @@ func _bank_soul_bell(kind: String, lines: Array[String]) -> void:
 		lines.append(tr("SUMMARY_SOUL_KEPT") % [roundi(Profile.soul_charge), roundi(float(Profile.soul_bonus(Profile.soul_charge)["might"]) * 100.0)])
 		BotLog.event("soul_kept")
 	Profile.soul_live = -1.0
+
+
+## The stones of retired cats stand on the Cemetery, north of the start.
+func _place_memorials() -> void:
+	if spawner.stage_id != "CEMETERY" or Profile.retired.is_empty():
+		return
+	var stones := Memorials.new()
+	stones.main = self
+	stones.player = player
+	stones.position = Terrain.fix(player.position + Vector2(0, -170), 40.0)
+	add_child(stones)
+	BotLog.event("memorials")
 
 
 ## Tonight's weather over the map (none under a roof, in tests or endless).

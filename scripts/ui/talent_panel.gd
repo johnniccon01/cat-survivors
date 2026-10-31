@@ -107,7 +107,7 @@ func _refresh() -> void:
 	if int(c["picks"]) > 0 and _offers.is_empty():
 		_pick_title.visible = true
 		_pick_title.text = tr("TALENTS_NONE_LEFT")
-	_legacy.text = tr("TALENTS_LEGACY") % [Profile.legacy, roundi(float(Profile.legacy_bonus()["might"]) * 100.0), roundi(float(Profile.legacy_bonus()["greed"]) * 100.0)] if Profile.legacy > 0 else tr("TALENTS_NO_LEGACY")
+	_legacy.text = tr("TALENTS_LEGACY") % Profile.retired.size() if not Profile.retired.is_empty() else tr("TALENTS_NO_LEGACY")
 	_style_buttons()
 	_lives.queue_redraw()
 

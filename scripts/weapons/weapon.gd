@@ -81,6 +81,11 @@ const CONDUCT_JUMP := 0.5
 const CONDUCT_RANGE := 90.0
 
 
+## Damage dealt per weapon id this run (bot summary: does every weapon pull
+## its weight?).
+static var damage_log := {}
+
+
 ## Hits an enemy with this weapon, then applies the branch's on-hit effect.
 func strike(enemy: Enemy, amount_hit: float, dir: Vector2, knockback: float) -> void:
 	if not enemy.dead and not enemy.is_prop:
@@ -104,6 +109,8 @@ func strike(enemy: Enemy, amount_hit: float, dir: Vector2, knockback: float) -> 
 		amount_hit *= 1.0 + Combos.CATNIP_BONUS
 		BotLog.event("combo:CATNIP_HIGH")
 	var was_wet := real and enemy.is_wet()
+	if real and not enemy.dead:
+		damage_log[id] = damage_log.get(id, 0.0) + minf(amount_hit, enemy.hp)
 	enemy.hit(amount_hit, dir, knockback)
 	if base in WET_SOURCES and not enemy.dead and real:
 		enemy.make_wet(WET_SECONDS)

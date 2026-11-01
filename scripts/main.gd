@@ -14,6 +14,7 @@ extends Node2D
 ##   --start-minute=N   start the run at minute N
 ##   --all-weapons      start with every base weapon
 ##   --show-levelup     the bot leaves the level-up screen open
+##   --no-new-weapons   the bot never picks a new weapon (weapon tests)
 ##   --show-choice      the bot leaves story and shrine choices open
 ##   --test-evolution   maxes the starting weapon + its partner passive, opens a chest, prints, quits
 ##   --quest=ID         starts quest ID next to the cat (LUNA, TIGER, RED_DOT...)
@@ -32,6 +33,8 @@ extends Node2D
 ##   --endless-now      start straight in the endless night (tests)
 ##   --dev-endless      the dev panel's "Endless night now" (skips the night, tests)
 ##   --god              the cat can't be hurt (performance checks)
+##   --revive           the bot's cat gets up again at full health when it dies
+##                      (campaign tests: the run goes on, revives are counted)
 ##   --perf             print frame timings every 2 s
 ##   --bot-speed=N      game speed while the bot plays (default 4)
 ##   --drop-charm       drop a random charm next to the cat at the start
@@ -41,6 +44,7 @@ extends Node2D
 ##   --daily            play today's daily night (map and challenges by date)
 ##   --seed=N           fixed random seed (same map layout; performance checks)
 ##   --no-vsync         frame rate not capped by the monitor (performance checks)
+##   --end-shots=NAME   save every page of the end screen to user://end_shots
 ##   --shot=SECONDS     save a screenshot to user://shot_N.png every SECONDS
 ##   --strong           dev panel: every weapon that fits and 40 level-ups
 ##   --dev-boss=ID      dev panel: clear the field and fight boss ID (progress not saved)
@@ -171,6 +175,8 @@ const SLOW_FOR := 4.0
 const FAST_FPS := 56
 const FAST_FOR := 30.0
 var _bot_time := float(_arg("--bot-time=", "300"))
+## --revive: how often the bot's cat was raised again.
+var _bot_revives := 0
 var _modals: Array[String] = []
 var _in_modal := false
 var _run_over := false
@@ -605,7 +611,7 @@ func _process(delta: float) -> void:
 		_open_extraction(true)
 	hud.update_extraction(extraction)
 	hud.update_boss(final_boss if is_instance_valid(final_boss) and not final_boss.dead else null)
-	if _bot and (spawner.elapsed >= _bot_time or (_run_over and not ("--endless" in _args and _last_end == "victory" and not _endless))):
+	if _bot and not _bot_quitting and (spawner.elapsed >= _bot_time or (_run_over and not ("--endless" in _args and _last_end == "victory" and not _endless))):
 		var weapons: Array[String] = []
 		for w: Weapon in player.weapons.get_children():
 			weapons.append("%s:%d%s" % [w.id, w.level, "" if w.branch == "" else "[%s%d]" % [w.branch, w.branch_rank]])
@@ -623,6 +629,11 @@ func _process(delta: float) -> void:
 			weapons, player.passives, props_broken, bosses_killed, chests_opened, _run_over and not player.is_dead])
 		print("BOT: damage numbers on screen=%d" % enemies.numbers._numbers.size())
 		print("BOT: most enemies alive at once=%d, budget per minute (avg used/cap): %s" % [_max_alive, _budget_log])
+		print("BOT: revives=%d end=%s" % [_bot_revives, _last_end])
+		var dealt: Array[String] = []
+		for wid: String in Weapon.damage_log:
+			dealt.append("%s:%d" % [wid, roundi(Weapon.damage_log[wid])])
+		print("BOT: damage by weapon=%s" % " ".join(dealt))
 		print("BOT: gold=%d streak=%d extraction_open=%s charms=%s owned=%s" % [floori(run_gold), Profile.streak, extraction != null, run_charms, Profile.charms])
 		print("BOT: run items=%s owned items=%d worn=%s" % [run_items.map(func(i: Dictionary) -> String: return "%s:%s" % [i["base"], i["rarity"]]), Profile.items.size(), Profile.equipped_items])
 		var per_minute: Array[String] = []
@@ -644,7 +655,31 @@ func _process(delta: float) -> void:
 		var q := quests.active
 		if q != null:
 			print("BOT: active quest %s started=%s objective=%s" % [q.quest_id, q.started, q.objective()])
-		get_tree().quit()
+		_bot_quit()
+
+
+## The bot's run is over: quits, after saving every page of the end screen
+## to user://end_shots/<name>_<page>.png with --end-shots=NAME (needs a
+## window, not --headless).
+var _bot_quitting := false
+
+
+func _bot_quit() -> void:
+	_bot_quitting = true
+	var name := _arg("--end-shots=", "")
+	if name != "" and hud.end_showing():
+		var dir := OS.get_user_data_dir().path_join("end_shots")
+		DirAccess.make_dir_recursive_absolute(dir)
+		var page := 1
+		while true:
+			for i in 10:
+				await get_tree().process_frame
+			get_viewport().get_texture().get_image().save_png(dir.path_join("%s_%d.png" % [name, page]))
+			print("BOT: end screen page %d saved" % page)
+			if not hud.next_end_page():
+				break
+			page += 1
+	get_tree().quit()
 
 
 func _exit_tree() -> void:
@@ -897,6 +932,10 @@ func _next_modal() -> void:
 			player.banished.append(Upgrades.banish_key(offers[0]))
 			print("BOT: banished %s" % player.banished[-1])
 			offers = Upgrades.roll(player, 3)
+		# --no-new-weapons: the bot keeps to the weapons it has (weapon tests).
+		if "--no-new-weapons" in _args:
+			offers.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+				return int(a["kind"] == "weapon" and not a.get("owned", false)) < int(b["kind"] == "weapon" and not b.get("owned", false)))
 		if int(offers[0].get("grade", 0)) > 0:
 			print("BOT: grade %d %s:%s" % [offers[0]["grade"], offers[0]["kind"], offers[0]["id"]])
 		_on_offer_chosen(offers[0])
@@ -1127,6 +1166,12 @@ func _clock(t: float) -> String:
 	return "%02d:%02d" % [floori(t / 60.0), int(t) % 60]
 
 
+## "+N gold", with the streak bonus only when there is one.
+func _gold_line(gold: int, mult: float) -> String:
+	var bonus := roundi((mult - 1.0) * 100.0)
+	return tr("SUMMARY_GOLD") % [gold, bonus] if bonus > 0 else tr("SUMMARY_GOLD_PLAIN") % gold
+
+
 func _end_run(kind: String) -> void:
 	if _run_over:
 		return
@@ -1178,7 +1223,7 @@ func _end_run(kind: String) -> void:
 		"extract":
 			gold = floori(run_gold * mult)
 			Profile.add_streak(1)
-			lines.append(tr("SUMMARY_GOLD") % [gold, roundi((mult - 1.0) * 100.0)])
+			lines.append(_gold_line(gold, mult))
 			lines.append(tr("SUMMARY_STREAK") % [Profile.streak, Profile.best_streak])
 			Audio.play("victory", -2.0, 0.0)
 			end_title = tr("EXTRACT_TITLE")
@@ -1188,7 +1233,7 @@ func _end_run(kind: String) -> void:
 				deeds.append(tr("SUMMARY_CAT_UNLOCKED") % tr("CAT_%s_NAME" % cat))
 			gold = floori((run_gold + VICTORY_GOLD) * mult)
 			Profile.add_streak(2)
-			lines.append(tr("SUMMARY_GOLD") % [gold, roundi((mult - 1.0) * 100.0)])
+			lines.append(_gold_line(gold, mult))
 			lines.append(tr("SUMMARY_STREAK") % [Profile.streak, Profile.best_streak])
 			Audio.play("victory", -2.0, 0.0)
 			end_title = tr("VICTORY_TITLE")
@@ -1518,6 +1563,11 @@ func _charm_names() -> String:
 
 
 func _on_player_died() -> void:
+	if _bot and "--revive" in _args:
+		_bot_revives += 1
+		print("BOT: died at %.1f min, revived (%d)" % [spawner.elapsed / 60.0, _bot_revives])
+		player.revive(1.0, 3.0)
+		return
 	if _angel_saves() or _dev_revive_asks():
 		return
 	_remember_killer()

@@ -56,6 +56,8 @@ func _ready() -> void:
 		keys = cfg.get_value("controls", "keys", {})
 	for action: String in keys:
 		_apply_key(action, keys[action])
+	# --lang=sk (tests): play in this language for this start only.
+	language = GameData.arg("--lang=", language)
 	if language not in LANGUAGES:
 		language = LANGUAGES[0]
 	TranslationServer.set_locale(language)

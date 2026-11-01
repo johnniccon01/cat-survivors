@@ -503,14 +503,17 @@ func _show_end_page() -> void:
 	list.add_theme_constant_override("separation", 6)
 	scroll.add_child(list)
 	var height := 0.0
+	var font_size := 24 if page.get("big", false) else 20
 	for text: String in page["lines"]:
-		var line := _label(24 if page.get("big", false) else 20, HORIZONTAL_ALIGNMENT_CENTER)
+		var line := _label(font_size, HORIZONTAL_ALIGNMENT_CENTER)
 		line.text = text
 		line.label_settings.font_color = Color.WHITE if page.get("big", false) else Color("f2c14e")
 		line.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		line.custom_minimum_size = Vector2(width, 0)
 		list.add_child(line)
-		height += 32.0 * (1 + floori(text.length() * 11.0 / width))
+		# Room for every line as the font draws it (a short page shows no
+		# scroll bar).
+		height += font_size * 1.5 * (1 + floori(text.length() * font_size * 0.55 / width)) + 6.0
 	scroll.custom_minimum_size = Vector2(width + 16.0, minf(height, get_viewport().get_visible_rect().size.y * 0.5))
 	box.add_child(scroll)
 	_summary_scroll = scroll

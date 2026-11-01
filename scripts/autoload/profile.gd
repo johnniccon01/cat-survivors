@@ -75,7 +75,11 @@ func _ready() -> void:
 	var args := GameData.args()
 	var fresh := "--bot" in args or "--ui-test" in args
 	var loaded := false
-	if not fresh:
+	if test_path() != "":
+		# --profile=PATH: a test profile kept apart from the player's, so a
+		# campaign test can carry its progress from one night to the next.
+		loaded = cfg.load(test_path()) == OK
+	elif not fresh:
 		loaded = cfg.load(PATH) == OK
 		if not loaded and FileAccess.file_exists(BACKUP):
 			# The profile is missing or broken: fall back to the last good one.
@@ -1332,10 +1336,27 @@ func set_flag(flag: String) -> void:
 		save()
 
 
+## --profile=PATH (tests): the profile file used instead of the player's.
+static func test_path() -> String:
+	return GameData.arg("--profile=", "")
+
+
 func save() -> void:
 	# Automated test runs must never touch the real profile.
 	if GameData.no_save():
+		if test_path() != "":
+			_config().save(test_path())
 		return
+	var cfg := _config()
+	# Keep the last good save before writing the new one.
+	if FileAccess.file_exists(PATH):
+		var previous := ConfigFile.new()
+		if previous.load(PATH) == OK:
+			DirAccess.copy_absolute(ProjectSettings.globalize_path(PATH), ProjectSettings.globalize_path(BACKUP))
+	cfg.save(PATH)
+
+
+func _config() -> ConfigFile:
 	var cfg := ConfigFile.new()
 	cfg.set_value("cats", "unlocked", unlocked)
 	cfg.set_value("cats", "selected", selected_cat)
@@ -1382,9 +1403,4 @@ func save() -> void:
 	cfg.set_value("items", "owned", items)
 	cfg.set_value("items", "equipped", equipped_items)
 	cfg.set_value("items", "next_uid", next_item_uid)
-	# Keep the last good save before writing the new one.
-	if FileAccess.file_exists(PATH):
-		var previous := ConfigFile.new()
-		if previous.load(PATH) == OK:
-			DirAccess.copy_absolute(ProjectSettings.globalize_path(PATH), ProjectSettings.globalize_path(BACKUP))
-	cfg.save(PATH)
+	return cfg

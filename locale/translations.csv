@@ -206,6 +206,7 @@ EXTRACT_NO,Stay and fight,Zostať a bojovať,Zůstat a bojovat,Quedarse a luchar
 EXTRACT_TITLE,You slipped out!,Mačka ušla!,Kočka utekla!,¡Te escabulliste!,Ты улизнул!,你溜走了！
 EXTRACT_STATS,You escaped after %s with %d enemies defeated.,"Útek po %s, porazených nepriateľov: %d.","Útěk po %s, poražených nepřátel: %d.",Escapaste tras %s con %d enemigos derrotados.,"Ты сбежал через %s, победив врагов: %d.",你在 %s 后逃脱，击败了 %d 个敌人。
 SUMMARY_GOLD,+%d gold (streak bonus +%d %%),+%d zlata (bonus série +%d %%),+%d zlata (bonus série +%d %%),+%d de oro (bono de racha +%d %%),+%d золота (бонус серии +%d %%),+%d 金币（连胜加成 +%d %%）
+SUMMARY_GOLD_PLAIN,+%d gold,+%d zlata,+%d zlata,+%d de oro,+%d золота,+%d 金币
 SUMMARY_GOLD_DEATH,+%d gold (half of %d – the rest is lost),+%d zlata (polovica z %d – zvyšok prepadol),+%d zlata (polovina z %d – zbytek propadl),+%d de oro (la mitad de %d – el resto se pierde),+%d золота (половина от %d – остальное потеряно),+%d 金币（%d 的一半，其余丢失）
 SUMMARY_STREAK,Streak: %d (best %d),Séria: %d (rekord %d),Série: %d (rekord %d),Racha: %d (mejor %d),Серия: %d (лучшая %d),连胜：%d（最佳 %d）
 SUMMARY_STREAK_LOST,Streak of %d lost!,Séria %d je preč!,Série %d je pryč!,¡Racha de %d perdida!,Серия из %d прервана!,%d 连胜中断了！

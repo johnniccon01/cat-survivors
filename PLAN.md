@@ -506,6 +506,14 @@ Príbeh v troch štvrtiach: psy sú najprv nepriatelia, potom spojenci. 2. a 3. 
    - [ ] Nová hrozba pre mačky aj psy: psíčkari, pouliční zlodeji, odchytová služba.
 4. **Vydanie:** najprv itch.io (zadarmo/demo, spätná väzba), potom Steam so stránkou a wishlistami; psie štvrte ako súčasť hry alebo DLC – rozhodne sa pri vydaní.
 
+## 1. 11. 2026: kompletný test hry od začiatku do konca
+
+- `bash tools/campaign.sh` – jedna mačka (Ginger) hrá všetky mapy v poradí odomykania na vlastnom testovacom profile (`--profile=`), pri smrti sa oživí (`--revive`), po noci nakúpi vylepšenia (`--shop`), dvierka odmieta (`--no-flap`). Výsledok: všetkých 11 máp vyhraných, finálni bossovia porazení, 0 chýb skriptov.
+- `bash tools/weapons_test.sh` – každá z 36 zbraní sama (`--no-new-weapons`), bot vypisuje poškodenie podľa zbrane. `EXTRA="--start-minute=10 --catch-up"` pre neskorú hru.
+- `--end-shots=NAZOV` uloží všetky strany konečnej obrazovky, `--lang=sk` jazyk na jedno spustenie.
+- Opravené: posuvník na krátkej konečnej obrazovke, „bonus série +0 %", Úroveň/úr. v SK/CS, „Cooldown" v obchode, značka ponuky prekrývala „5 · Supermarket", odrezané názvy výbavy v slotoch, riadok dvierok sa prekrýval s questom/požehnaním v HUD, kombo Naháňačka (myšky teraz idú po cieli z lasera), Šantová záhrada a Tsunami silnejšie, testy kombá Signál a Naháňačka už nezávisia od náhody.
+- Na zváženie (balans podľa bota, nie hráča): smrti v 10.–19. min – Byt 3, Pivnica 20, Strecha 27, Supermarket 1; bez nákupov v obchode bot Továreň nevyhrá (R3000 má 90k HP). Melee/aura zbrane (Tigrie pazúry, Šantová záhrada, Kostený kolotoč, Monzún) dávajú v neskorej hre zlomok poškodenia ostatných evolúcií.
+
 ## Ako pracujeme
 
 - Každý väčší krok = commit; na GitHub pushujeme, keď povieš.

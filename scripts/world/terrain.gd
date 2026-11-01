@@ -495,6 +495,28 @@ func _wall_rects(c: Vector2i) -> Array:
 	return rects
 
 
+## Where something stopped by a wall at `pos` should slide to while chasing
+## `chase`: at a room wall, the middle of that wall's door (sliding towards
+## the cat would leave it stuck across from it); anywhere else the cat.
+func slide_goal(pos: Vector2, chase: Vector2) -> Vector2:
+	if kind != "rooms" or WorldFloor.current == null:
+		return chase
+	var size := WorldFloor.CHUNK
+	var reach := ROOM_WALL + 40.0
+	var gy := roundf(pos.y / size) * size
+	var gx := roundf(pos.x / size) * size
+	var c := Vector2i(floori(pos.x / size), floori(pos.y / size))
+	if absf(pos.y - gy) < reach and absf(pos.y - gy) <= absf(pos.x - gx):
+		var edge := Vector2i(c.x, roundi(pos.y / size))
+		if WorldFloor.current.wall_on(edge, "top"):
+			return Vector2((edge.x + WorldFloor.current.door_at(edge, "top") + WorldFloor.DOOR * 0.5) * size, gy)
+	if absf(pos.x - gx) < reach:
+		var edge := Vector2i(roundi(pos.x / size), c.y)
+		if WorldFloor.current.wall_on(edge, "left"):
+			return Vector2(gx, (edge.y + WorldFloor.current.door_at(edge, "left") + WorldFloor.DOOR * 0.5) * size)
+	return chase
+
+
 ## The room walls on a chunk's top and left edges, each in two pieces with
 ## the door between them, the same every time.
 func _room_rects(c: Vector2i) -> Array:

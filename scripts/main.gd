@@ -50,6 +50,7 @@ extends Node2D
 ##   --items-test       check the gear system (tools/items_check.gd)
 ##   --item-chance=F    a boss or elite drops gear with this chance
 ##   --legendary-chance=F  a final boss drops its legendary with this chance
+##   --soul-drop=F      a boss drops the Soul Bell (if not owned) with this chance
 ##   --gear=ID,rare     own and wear these legendaries / random items of a rarity
 ##   --drop-item=ID     start the run with this legendary (or a random item of a rarity) in the bag
 ##   --expect=a,b       test runs: fail unless these BotLog events happen (--expect-not=)
@@ -740,6 +741,7 @@ func _on_enemy_killed(id: String, pos: Vector2, xp: float) -> void:
 		pickups.spawn_named("chest", pos, 2.0 if great else 1.0)
 		pickups.spawn_named("coin", pos + Vector2(14, 6), 60.0 if great else 25.0)
 		_maybe_drop_charm(pos + Vector2(-14, 6), CHARM_CHANCE_BOSS)
+		_maybe_drop_soul_bell(GameData.enemies[id].get("final", false))
 		var legend := Items.legendary_of(id)
 		if legend != "":
 			_final_boss_loot(legend)
@@ -971,6 +973,18 @@ func _final_boss_loot(legend: String) -> void:
 		_find_item(Items.legendary(legend))
 	else:
 		_find_item(Items.roll(player.stat("luck"), "rare"))
+
+
+## Any boss may leave the Soul Bell if you don't have it yet (a final boss
+## likelier); luck helps.
+func _maybe_drop_soul_bell(final: bool) -> void:
+	if Profile.owns_soul_bell() or run_items.any(func(i: Dictionary) -> bool: return i["base"] == Profile.SOUL_BELL):
+		return
+	var forced := _arg("--soul-drop=", "")
+	var chance := float(forced) if forced != "" else (Profile.SOUL_DROP_FINAL if final else Profile.SOUL_DROP_BOSS) * player.stat("luck")
+	if randf() < chance:
+		_find_item(Items.legendary(Profile.SOUL_BELL))
+		BotLog.event("soul_bell_found")
 
 
 func _maybe_find_item(chance: float) -> void:
@@ -1785,11 +1799,12 @@ func _add_souls(gain: float) -> void:
 		hud.update_inventory(player)
 
 
-## A win or an escape keeps the night's souls in the bell; a death empties it.
+## A win, an escape or giving up keeps the night's souls in the bell; only
+## a real death empties it.
 func _bank_soul_bell(kind: String, lines: Array[String]) -> void:
 	if Profile.soul_live < 0.0:
 		return
-	if kind == "death":
+	if kind == "death" and not _gave_up:
 		if Profile.soul_live > 0.0:
 			lines.append(tr("SUMMARY_SOUL_LOST") % roundi(Profile.soul_live))
 		Profile.soul_charge = 0.0

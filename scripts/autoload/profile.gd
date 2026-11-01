@@ -213,7 +213,6 @@ func _ready() -> void:
 		if GameData.stages.has(id) and id not in cleared_stages:
 			cleared_stages.append(id)
 	ensure_weather()
-	_ensure_soul_bell()
 	# `-- --retired=MICA,LUNA` puts those cats on the Cemetery (tests).
 	for cat in GameData.arg("--retired=", "").split(",", false):
 		retired.append({"cat": cat, "gen": 1, "wins": 7, "nights": 30, "best_rank": 5, "date": today()})
@@ -859,14 +858,15 @@ func soul_worn() -> bool:
 	return worn_item("COLLAR").get("base", "") == SOUL_BELL
 
 
-## Everyone has the bell once (found at home); it goes in the collar slot.
-func _ensure_soul_bell() -> void:
-	if items.any(func(i: Dictionary) -> bool: return i["base"] == SOUL_BELL):
-		return
-	var bell := Items.legendary(SOUL_BELL)
-	bell["uid"] = next_item_uid
-	next_item_uid += 1
-	items.append(bell)
+## The bell is earned, not given: any boss may drop it (SOUL_DROP_BOSS,
+## a final boss SOUL_DROP_FINAL), and like all loot it only comes home
+## with a win or through the cat door. Profiles that already have it keep it.
+const SOUL_DROP_BOSS := 0.04
+const SOUL_DROP_FINAL := 0.1
+
+
+func owns_soul_bell() -> bool:
+	return items.any(func(i: Dictionary) -> bool: return i["base"] == SOUL_BELL)
 
 
 # --- building materials ---------------------------------------------------------

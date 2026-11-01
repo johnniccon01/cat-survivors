@@ -164,6 +164,8 @@ scenarios=(
   "materials_win|--bot --god --start-minute=19.9 --catch-up --bot-time=80 --expect=materials:victory,career_rank_up"
   "materials_death|--bot --start-minute=6 --kill-cat-every=20 --bot-time=40 --expect=materials:death,career_life_lost"
   "soul_win|--bot --god --gear=SOUL_BELL --start-minute=19.9 --catch-up --bot-time=150 --expect=soul_kept"
+  "soul_drop|--bot --god --boss-rush --soul-drop=1 --start-minute=19.9 --catch-up --bot-time=150 --expect=soul_bell_found"
+  "soul_give_up|--bot --god --gear=SOUL_BELL --start-minute=3 --give-up-at=200 --bot-time=40 --expect=soul_kept --expect-not=soul_lost"
   "soul_death|--bot --gear=SOUL_BELL --start-minute=3 --kill-cat-every=30 --bot-time=60 --expect=soul_lost"
   "memorials|--bot --stage=CEMETERY --retired=MICA,LUNA,TIGER,PIP,BRUNO,TUCKO,CLOVER --memorial-walk --bot-time=40 --expect=memorials,memorial_heal"
   "career_give_up|--bot --god --start-minute=6 --give-up-at=380 --bot-time=40 --expect=career_gave_up --expect-not=career_life_lost"

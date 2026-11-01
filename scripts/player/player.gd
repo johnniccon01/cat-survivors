@@ -427,7 +427,16 @@ func _physics_process(delta: float) -> void:
 		velocity *= WorldFloor.WATER_SLOW
 	position += (velocity + pull) * delta
 	pull = Vector2.ZERO
-	position = Terrain.fix(position + Terrain.flow(position) * delta, RADIUS)
+	var moved := position + Terrain.flow(position) * delta
+	position = Terrain.fix(moved, RADIUS)
+	# Cats the game steers (the test bot, companions, an escorted cat) slide
+	# along a room wall to its door instead of pushing into it.
+	if position != moved and controller != "input" and Terrain.current != null and input != Vector2.ZERO:
+		var along := (position - moved).orthogonal().normalized()
+		var goal := Terrain.current.slide_goal(position, position + input * 400.0)
+		if along.dot(goal - position) < 0.0:
+			along = -along
+		position = Terrain.fix(position + along * BASE_SPEED * paws * delta, RADIUS)
 	var manager: EnemyManager = get_tree().get_first_node_in_group("enemy_manager")
 	if manager != null and not manager.arena.is_empty():
 		var center: Vector2 = manager.arena["center"]

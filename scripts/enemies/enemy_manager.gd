@@ -344,7 +344,8 @@ func _physics_process(delta: float) -> void:
 				# Pushed back by a wall or tree: slide along it towards the cat
 				# instead of standing stuck against it.
 				var along := (fixed - moved).orthogonal().normalized()
-				if along.dot(chase - fixed) < 0.0:
+				var goal := Terrain.current.slide_goal(fixed, chase) if Terrain.current != null else chase
+				if along.dot(goal - fixed) < 0.0:
 					along = -along
 				fixed = Terrain.fix(fixed + along * enemy.speed * delta, enemy.radius)
 			enemy.position = fixed

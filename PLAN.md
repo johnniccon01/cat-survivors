@@ -80,7 +80,7 @@ Doplnok (31. 10. 2026, značka `pomniky`): dôchodok už nedáva percentá. Kaž
 18. [x] Legenda na mape schovaná za „?“ – rozbalí sa po kliknutí (hotové, `znacky-mapy`).
 19. [x] V pravom paneli pri úlohe miesta rovnaká ikona ako na mape – pri názve na obrázku aj pri „Ako vyhrať“ (hotové, `znacky-mapy`; všetky značky kreslí jedna funkcia `DistrictMap.draw_sign`).
 20. [x] Minimapu vpravo hore odstrániť, tlačidlo Cesty zmenšiť (hotové, značka `bez-minimapy`: minimapa skrytá, Cesty malé v pravom hornom rohu).
-21. [ ] Popis mačky dole: väčšie meno a popis, menšie bonusy, nič sa neorezáva (Túlavec bez zbrane).
+21. [x] Popis mačky dole: väčšie meno a popis, menšie bonusy, nič sa neorezáva (hotové, značka `popis-macky`: zbraň je malá ikonka pri mene s tooltipom, text „bez zbrane“ už nezaberá miesto štítkom).
 
 Do dlhodobého plánu (nerobiť teraz): **Krotenie** – v tejto podobe sa nepáči, vymyslieť inak (bez ďalšej postavy na obrazovke).
 

@@ -520,27 +520,31 @@ func _build() -> void:
 	_big.gear = true
 	_big.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	info.add_child(_big)
-	_name = _label(21, Color.WHITE)
+	_name = _label(27, Color.WHITE)
 	info.add_child(_name)
+	# The starting weapon as a small icon by the name (its name is in the
+	# tooltip and in the description), so the bonus chips get the room.
+	_weapon_icon = IconView.new("weapon", "SCRATCH", 24.0)
+	_weapon_icon.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	info.add_child(_weapon_icon)
 	# The bonus chips sit in a clipped strip: however many there are, the
 	# bar never grows or pushes Play off the screen.
 	var chips_clip := Control.new()
 	chips_clip.clip_contents = true
 	chips_clip.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	chips_clip.size_flags_stretch_ratio = 1.6
-	chips_clip.custom_minimum_size = Vector2(0, 30)
+	chips_clip.custom_minimum_size = Vector2(0, 34)
 	chips_clip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	info.add_child(chips_clip)
 	_chips = HBoxContainer.new()
 	_chips.add_theme_constant_override("separation", 6)
-	_chips.position = Vector2(0, 2)
+	_chips.position = Vector2(0, 6)
 	chips_clip.add_child(_chips)
-	_weapon_icon = IconView.new("weapon", "SCRATCH", 28.0)
-	info.add_child(_weapon_icon)
 	_weapon_label = _label(14, GOLD)
 	_weapon_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_weapon_label.visible = false
 	info.add_child(_weapon_label)
-	_desc = _label(13, Color("cfc3dc"))
+	_desc = _label(15, Color("ddd3e8"))
 	left.add_child(_desc)
 	# Two full-width lines: the cat's record and what you take along, then
 	# challenges, streak and the daily night.
@@ -756,13 +760,13 @@ func _fill_chips(id: String, unlocked: bool) -> void:
 func _chip(text: String, color: Color) -> PanelContainer:
 	var chip := PanelContainer.new()
 	var sb := UiStyle.box(Color(color, 0.16), Color(color, 0.8))
-	sb.set_corner_radius_all(9)
-	sb.content_margin_left = 8
-	sb.content_margin_right = 8
-	sb.content_margin_top = 1
-	sb.content_margin_bottom = 1
+	sb.set_corner_radius_all(8)
+	sb.content_margin_left = 6
+	sb.content_margin_right = 6
+	sb.content_margin_top = 0
+	sb.content_margin_bottom = 0
 	chip.add_theme_stylebox_override("panel", sb)
-	var l := _label(14, color.lightened(0.3))
+	var l := _label(12, color.lightened(0.3))
 	l.text = text
 	chip.add_child(l)
 	return chip
@@ -789,6 +793,7 @@ func _refresh() -> void:
 			_desc.text += "
 " + tr("SELECT_INSTINCT") % [tr("INSTINCT_%s_NAME" % id), tr("INSTINCT_%s_DESC" % id)]
 		_weapon_label.text = tr("SELECT_START_WEAPON") % tr("WEAPON_%s_NAME" % weapon) if weapon != "" else tr("SELECT_NO_WEAPON")
+		_weapon_icon.tooltip_text = _weapon_label.text
 		_cat_stats.text = tr("SELECT_CAT_STATS") % [Profile.get_stat("wins_cat:" + id), Profile.get_stat("best_level_cat:" + id), Profile.get_stat("bosses_cat:" + id)]
 	else:
 		_name.text = tr("SELECT_LOCKED")

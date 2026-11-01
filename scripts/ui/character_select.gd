@@ -50,6 +50,8 @@ var _report_win: Label
 var _report_lose: Label
 var _home_marks: Array[Control] = []
 var _top_buttons: HBoxContainer
+var _cat_buttons: HBoxContainer
+var _night_buttons: HBoxContainer
 ## The cat bar's fixed height: choosing a cat never resizes the map.
 const BOTTOM_HEIGHT := 178.0
 ## The full moon is on show in the side panel.
@@ -181,12 +183,9 @@ func _build() -> void:
 	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
 	buttons.add_theme_constant_override("separation", 6)
 	top.add_child(buttons)
+	# Only what is about the whole game sits up here; the cat's own panels
+	# are by the cat, the night's options by Play.
 	for entry: Array in [["MENU_UPGRADES", "U", func() -> void: _shop.open()],
-			["MENU_TALENTS", "C", func() -> void: _charms.open()],
-			["MENU_ITEMS", "I", func() -> void: _items.open()],
-			["ARTIFACTS_TITLE", "V", func() -> void: _artifacts.open()],
-			["CHALLENGES_TITLE", "X", func() -> void: _challenges.open()],
-			["SELECT_BTN_DAILY", "T", _start_daily],
 			["MENU_JOURNAL", "J", func() -> void: _journal.open("quests")],
 			["SET_BACK", "Esc", func() -> void: get_tree().change_scene_to_file("res://scenes/main_menu.tscn")]]:
 		var b := UiStyle.click_button("%s (%s)" % [tr(entry[0]), entry[1]], 0, 15)
@@ -532,6 +531,13 @@ func _build() -> void:
 	loadout.add_child(_worn)
 	_artifact_label = _label(13, Color("8fd3ff"))
 	loadout.add_child(_artifact_label)
+	_cat_buttons = HBoxContainer.new()
+	_cat_buttons.add_theme_constant_override("separation", 4)
+	loadout.add_child(_cat_buttons)
+	for entry: Array in [["MENU_TALENTS", "C", func() -> void: _charms.open()],
+			["MENU_ITEMS", "I", func() -> void: _items.open()],
+			["ARTIFACTS_TITLE", "V", func() -> void: _artifacts.open()]]:
+		_cat_buttons.add_child(_small_button(entry))
 	_challenge_label = _label(13, Color("ff7a6a"))
 	left.add_child(_challenge_label)
 	# Never cut off: these lines shrink their font to fit (see _fit_lines).
@@ -541,8 +547,20 @@ func _build() -> void:
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		l.set_meta("base_size", l.label_settings.font_size)
+	var play_col := VBoxContainer.new()
+	play_col.add_theme_constant_override("separation", 4)
+	bottom.add_child(play_col)
+	_night_buttons = HBoxContainer.new()
+	_night_buttons.add_theme_constant_override("separation", 4)
+	play_col.add_child(_night_buttons)
+	for entry: Array in [["CHALLENGES_TITLE", "X", func() -> void: _challenges.open()],
+			["SELECT_BTN_DAILY", "T", _start_daily]]:
+		var b := _small_button(entry)
+		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		_night_buttons.add_child(b)
 	var play := Button.new()
-	play.custom_minimum_size = Vector2(210, 0)
+	play.custom_minimum_size = Vector2(230, 0)
+	play.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	play.focus_mode = Control.FOCUS_NONE
 	play.add_theme_font_size_override("font_size", 30)
 	for state: String in ["font_color", "font_hover_color", "font_pressed_color"]:
@@ -551,7 +569,7 @@ func _build() -> void:
 	play.add_theme_stylebox_override("hover", UiStyle.gold_button(true))
 	play.add_theme_stylebox_override("pressed", UiStyle.gold_button(true))
 	play.pressed.connect(_start)
-	bottom.add_child(play)
+	play_col.add_child(play)
 	_play = play
 
 	_shop = ShopPanel.new()
@@ -594,6 +612,14 @@ func _badge(fill: Color, edge: Color) -> PanelContainer:
 	return chip
 
 
+## A small button with its key: [text key, key name, action].
+func _small_button(entry: Array) -> Button:
+	var b := UiStyle.click_button("%s (%s)" % [tr(entry[0]), entry[1]], 0, 13)
+	b.custom_minimum_size.y = 28
+	b.pressed.connect(entry[2])
+	return b
+
+
 ## The bottom lines shrink their font until all of their text fits.
 func _fit_lines() -> void:
 	for l: Label in [_weapon_label, _cat_stats, _worn, _artifact_label, _challenge_label, _desc]:
@@ -606,6 +632,8 @@ func _fit_lines() -> void:
 func _fit_top() -> void:
 	var room := get_viewport_rect().size.x - 28.0 - 20.0 - 28.0 * 2.0 - 260.0
 	UiStyle.fit_row(_top_buttons, maxf(room, 400.0))
+	UiStyle.fit_row(_night_buttons, 230.0, 9)
+	UiStyle.fit_row(_cat_buttons, 330.0, 9)
 
 
 func _process(delta: float) -> void:

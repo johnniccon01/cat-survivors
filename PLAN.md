@@ -62,7 +62,7 @@ Doplnok (31. 10. 2026, značka `pomniky`): dôchodok už nedáva percentá. Kaž
 2. [ ] Mapa štvrte je malá oproti výberu mačiek a infu o mape vpravo – zväčšiť.
 3. [ ] Čas a počasie vľavo hore zaberajú veľa miesta a zakrývajú lokácie – presunúť nad mapu / mimo nej.
 4. [ ] Panel výbavy: pri výbere predmetu s dlhším popisom obrazovka poskakuje – pevné rozmery.
-5. [ ] Tlačidlá Upgrades / Talents / Gear / Artifacts / Curses / Daily / Journal – je ich veľa, zlúčiť alebo presunúť.
+5. [x] Tlačidlá Upgrades / Talents / Gear / Artifacts / Curses / Daily / Journal – je ich veľa, zlúčiť alebo presunúť (hotové, značka `tlacidla-stvrte`: hore len Vylepšenia, Denník, Späť; Talenty, Výbava, Artefakty pri mačke; Prekliatia a Denná noc nad Hrať; klávesy ostali).
 6. [ ] Byt v novej grafike: nie je vidno zmenu a hra akoby sekala – overiť, či sa nová grafika naozaj kreslí, a výkon.
 7. [ ] Quest s 3 vlajkami: bez popisu, vlajky naraz na začiatku, obrana = celá noc – prerobiť (vlajky postupne, popis, kratšia obrana s bossom na konci).
 8. [ ] „Vzdať sa“ sa počíta ako smrť a berie život – život sa má stratiť len pri skutočnej smrti.

@@ -200,9 +200,13 @@ func _ready() -> void:
 	_mini.mouse_filter = Control.MOUSE_FILTER_STOP
 	_mini.draw.connect(_draw_mini)
 	_mini.gui_input.connect(_on_mini_input)
+	# Hidden: it covered the top-right corner of the map (dragging and the
+	# arrows move the view just as well).
+	_mini.visible = false
 	add_child(_mini)
 	# The paths between the places can be switched off.
-	_paths_btn = UiStyle.click_button(tr("DISTRICT_PATHS"), 120, 14)
+	_paths_btn = UiStyle.click_button(tr("DISTRICT_PATHS"), 0, 12)
+	_paths_btn.custom_minimum_size.y = 24
 	_paths_btn.pressed.connect(func() -> void:
 		Settings.toggle_map_paths()
 		_style_paths_btn())
@@ -271,7 +275,7 @@ func _place_controls() -> void:
 	_arrows["d"].position = Vector2(size.x * 0.5 - 20, size.y - 50)
 	_mini.position = Vector2(size.x - 192, 12)
 	_paths_btn.reset_size()
-	_paths_btn.position = Vector2(size.x - 12 - _paths_btn.size.x, 94)
+	_paths_btn.position = Vector2(size.x - 10 - _paths_btn.size.x, 10)
 	_hint.reset_size()
 	_hint.position = Vector2(size.x - _hint.size.x - 10, size.y - _hint.size.y - 58)
 	# The real size is only known now: centre on the chosen place again.

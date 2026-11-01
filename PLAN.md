@@ -79,7 +79,7 @@ Doplnok (31. 10. 2026, značka `pomniky`): dôchodok už nedáva percentá. Kaž
 17. [ ] Pomoc (H): skutočné ikony z mapy, pekne v odrážkach.
 18. [ ] Legenda na mape schovaná za „?“ – rozbalí sa po kliknutí.
 19. [ ] V pravom paneli pri úlohe miesta (zlatá noc, obrana…) rovnaká ikona ako na mape.
-20. [ ] Minimapu vpravo hore odstrániť, tlačidlo Cesty zmenšiť.
+20. [x] Minimapu vpravo hore odstrániť, tlačidlo Cesty zmenšiť (hotové, značka `bez-minimapy`: minimapa skrytá, Cesty malé v pravom hornom rohu).
 21. [ ] Popis mačky dole: väčšie meno a popis, menšie bonusy, nič sa neorezáva (Túlavec bez zbrane).
 
 Do dlhodobého plánu (nerobiť teraz): **Krotenie** – v tejto podobe sa nepáči, vymyslieť inak (bez ďalšej postavy na obrazovke).

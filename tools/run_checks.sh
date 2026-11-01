@@ -38,7 +38,7 @@ scenarios=(
   "weather_wind_fog|--bot --stage=PARK --weather=WIND --bot-time=40 --expect=weather:WIND"
   "weather_fog|--bot --stage=ROOFTOP --weather=FOG --bot-time=40 --expect=weather:FOG"
   "weather_frost|--bot --stage=HARBOR --weather=FROST --start-weapon=SPRINKLER --bot-time=60 --expect=weather:FROST"
-  "combo_ice|--bot --god --start-weapon=FROST_FISH,SPRINKLER --bot-time=60 --expect=combo_on:ICE,combo:ICE"
+  "combo_ice|--bot --god --start-weapon=FROST_FISH,SPRINKLER --stage=GARDEN --weather=RAIN --bot-time=60 --expect=combo_on:ICE,combo:ICE"
   "combo_shatter|--bot --god --start-minute=10 --catch-up --start-weapon=SQUEAKY_HAMMER,FROST_FISH --bot-time=60 --expect=combo:SHATTER"
   "combo_resonance|--bot --god --start-weapon=SQUEAKY_HAMMER,BELL --bot-time=60 --expect=combo:RESONANCE"
   "combo_chase|--bot --god --start-weapon=LASER,MOUSE_TOY --bot-time=60 --expect=combo:CHASE"

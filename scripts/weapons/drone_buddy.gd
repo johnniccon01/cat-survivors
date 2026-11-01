@@ -16,6 +16,7 @@ func shots() -> int:
 ## In physics ticks like the cat it circles (physics interpolation draws
 ## both smoothly in between).
 func _physics_process(delta: float) -> void:
+	super(delta)
 	_t += delta
 	var n := maxi(amount(), 1)
 	while _drones.size() < n:

@@ -17,6 +17,8 @@ var pierce := 1
 var lifetime := 2.0
 var scale_k := 1.0
 var robo := false
+## Chase combo: steers towards enemies the laser dot marked.
+var chase := false
 var blast_radius := 34.0
 
 var _hit: Dictionary = {}
@@ -36,11 +38,12 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 		return
 	_t += delta
-	if robo:
-		var target := enemies.nearest(position, 220.0)
-		if target != null:
-			var want := (target.position - position).normalized() * velocity.length()
-			velocity = velocity.lerp(want, minf(STEER * delta, 1.0))
+	var target: Enemy = _marked() if chase else null
+	if target == null and robo:
+		target = enemies.nearest(position, 220.0)
+	if target != null:
+		var want := (target.position - position).normalized() * velocity.length()
+		velocity = velocity.lerp(want, minf(STEER * delta, 1.0))
 	var wobble := velocity.orthogonal().normalized() * sin(_t * 14.0) * 30.0
 	position += (velocity + wobble) * delta
 	for enemy in enemies.query_radius(position, 5.0 * scale_k):
@@ -93,3 +96,14 @@ func _draw() -> void:
 	if robo:
 		Blit.disc(self, Vector2.ZERO, 7.0, Color(1.0, 0.3, 0.2, 0.15))
 	draw_set_transform(Vector2.ZERO)
+
+
+## The nearest laser-marked enemy within reach, if any.
+func _marked() -> Enemy:
+	var best: Enemy = null
+	var best_d2 := 220.0 * 220.0
+	for e in enemies.query_radius(position, 220.0):
+		if e.mark_t > 0.0 and not e.dead and not _hit.has(e.get_instance_id()) and e.position.distance_squared_to(position) < best_d2:
+			best = e
+			best_d2 = e.position.distance_squared_to(position)
+	return best

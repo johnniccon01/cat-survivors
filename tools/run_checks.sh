@@ -41,7 +41,7 @@ scenarios=(
   "combo_ice|--bot --god --start-weapon=FROST_FISH,SPRINKLER --stage=GARDEN --weather=RAIN --bot-time=60 --expect=combo_on:ICE,combo:ICE"
   "combo_shatter|--bot --god --start-minute=10 --catch-up --start-weapon=SQUEAKY_HAMMER,FROST_FISH --bot-time=60 --expect=combo:SHATTER"
   "combo_resonance|--bot --god --start-weapon=SQUEAKY_HAMMER,BELL --bot-time=60 --expect=combo:RESONANCE"
-  "combo_chase|--bot --god --start-weapon=LASER,MOUSE_TOY --bot-time=60 --expect=combo:CHASE"
+  "combo_chase|--bot --god --start-minute=10 --catch-up --start-weapon=LASER,MOUSE_TOY --bot-time=60 --expect=combo:CHASE"
   "combo_tangle|--bot --god --start-minute=10 --catch-up --start-weapon=YARN,COBWEB --bot-time=60 --expect=combo:TANGLE"
   "combo_signal|--bot --god --start-minute=10 --catch-up --start-weapon=DRONE_BUDDY,ANTENNA --bot-time=60 --expect=combo:SIGNAL"
   "combo_catnip|--bot --god --start-weapon=CATNIP,FEATHER --bot-time=60 --expect=combo:CATNIP_HIGH"

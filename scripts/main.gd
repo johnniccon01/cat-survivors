@@ -33,6 +33,7 @@ extends Node2D
 ##   --endless-now      start straight in the endless night (tests)
 ##   --dev-endless      the dev panel's "Endless night now" (skips the night, tests)
 ##   --god              the cat can't be hurt (performance checks)
+##   --shop             after the run the bot spends its gold on upgrades
 ##   --revive           the bot's cat gets up again at full health when it dies
 ##                      (campaign tests: the run goes on, revives are counted)
 ##   --perf             print frame timings every 2 s
@@ -666,6 +667,19 @@ var _bot_quitting := false
 
 func _bot_quit() -> void:
 	_bot_quitting = true
+	# --shop (campaign tests): spend the gold on upgrades for the next night
+	# like a player would, cheapest first (never the curse).
+	if "--shop" in _args:
+		var bought: Array[String] = []
+		while true:
+			var best := ""
+			for id: String in GameData.powerups:
+				if id != "CURSE" and Profile.powerup_rank(id) < int(GameData.powerups[id]["max_rank"]) and (best == "" or Profile.powerup_cost(id) < Profile.powerup_cost(best)):
+					best = id
+			if best == "" or not Profile.buy_powerup(best):
+				break
+			bought.append(best)
+		print("BOT: shop bought %s, gold left %d" % [bought, Profile.gold])
 	var name := _arg("--end-shots=", "")
 	if name != "" and hud.end_showing():
 		var dir := OS.get_user_data_dir().path_join("end_shots")

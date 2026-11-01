@@ -225,12 +225,13 @@ void fragment() {
 	_page_arrow.color = Color("efe2c0")
 	add_child(_page_arrow)
 	move_child(_page_arrow, 0)
+	# In the right column, so a long quest or blessing line pushes it down
+	# instead of running under it.
 	_extract_label = _label(18, HORIZONTAL_ALIGNMENT_RIGHT)
-	_extract_label.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
-	_extract_label.offset_top = 136
-	_extract_label.offset_right = -20
 	_extract_label.label_settings.font_color = Color("6cd48a")
-	add_child(_extract_label)
+	_extract_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_extract_label.visible = false
+	column.add_child(_extract_label)
 
 	_boss_bar = ColorRect.new()
 	_boss_bar.color = Color("2b1d14")
@@ -559,6 +560,7 @@ func update_page(pos: Variant) -> void:
 
 ## Countdown and arrow for an open cat flap (null hides them).
 func update_extraction(flap: Extraction) -> void:
+	_extract_label.visible = flap != null
 	if flap == null:
 		_extract_label.text = ""
 		_extract_arrow.target = null

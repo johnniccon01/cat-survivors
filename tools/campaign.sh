@@ -3,6 +3,7 @@
 # (final boss included), on its own test profile so progress, gold, gear and
 # unlocks carry from night to night like for a new player. The bot is raised
 # again when it dies (--revive), so the run always reaches the final boss.
+# After each night it spends its gold on upgrades (--shop) like a player.
 #   bash tools/campaign.sh [path-to-godot-console-exe]
 #   CAT=TIGER SPEED=8 STAGES="LIVING_ROOM BASEMENT" bash tools/campaign.sh
 # Exit code is the number of maps that were not won or printed errors.
@@ -20,13 +21,13 @@ for stage in $STAGES; do
   start=$(date +%s)
   out=$(timeout 900 "$GODOT" --headless --log-file "$OUT/$stage.log" --path . -- \
     --bot --revive --cat="$CAT" --stage="$stage" --bot-time=1700 --bot-speed="$SPEED" \
-    --profile="$PROFILE" $EXTRA 2>&1)
+    --profile="$PROFILE" --shop $EXTRA 2>&1)
   echo "$out" > "$OUT/$stage.out"
   errors=$(echo "$out" | grep -E "SCRIPT ERROR|Parse Error|ERROR: |TEST: FAIL" | grep -vE "resources still in use|ObjectDB instances leaked" | sort | uniq -c | head -5)
   line=$(echo "$out" | grep -E "^BOT: time=" | head -1)
   won=$(echo "$out" | grep -oE "won=(true|false)" | head -1)
   rev=$(echo "$out" | grep -oE "revives=[0-9]+ end=[a-z]*" | head -1)
-  weapons=$(echo "$out" | grep -oE "weapons=\[[^]]*\]" | head -1)
+  weapons=$(echo "$out" | grep -oE "^BOT: weapons=.*passives" | head -1 | sed 's/^BOT: //; s/ passives$//')
   quests=$(echo "$out" | grep -oE "quests_done=[0-9]+" | head -1)
   bosses=$(echo "$out" | grep -oE "bosses_killed=[0-9]+" | head -1)
   status=ok

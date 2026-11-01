@@ -260,7 +260,7 @@
     "evolved": true,
     "levels": [
       {
-        "damage": 18,
+        "damage": 30,
         "interval": 0.6,
         "area": 2.0,
         "knockback": 0.5,
@@ -938,7 +938,7 @@
     "tsunami": true,
     "levels": [
       {
-        "damage": 28,
+        "damage": 36,
         "interval": 1.8,
         "repeat_interval": 0.2,
         "amount": 2,

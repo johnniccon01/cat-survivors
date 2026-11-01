@@ -54,6 +54,30 @@ func _apply_contrast() -> void:
 		_dim(nodes[0])
 
 
+## Room walls (terrain "rooms"): a wall stands on a chunk's top or left edge
+## where the room changes, with a door DOOR (share of the edge) wide in it.
+const DOOR := 0.36
+
+
+## True when chunk `c` has a wall on its "top" or "left" edge. Never on the
+## edges that meet where the night starts.
+func wall_on(c: Vector2i, side: String) -> bool:
+	if side == "top":
+		if c.y == 0 and (c.x == 0 or c.x == -1):
+			return false
+		return zone_at(c + Vector2i.UP) != zone_at(c)
+	if c.x == 0 and (c.y == 0 or c.y == -1):
+		return false
+	return zone_at(c + Vector2i.LEFT) != zone_at(c)
+
+
+## Where the door in that wall starts (share of the edge), the same every time.
+func door_at(c: Vector2i, side: String) -> float:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = hash([c.x, c.y, side, _seed])
+	return rng.randf_range(0.14, 0.86 - DOOR)
+
+
 func zone_at(c: Vector2i) -> String:
 	var n := _noise.get_noise_2d(c.x, c.y)
 	var zones: Array = FloorChunk.THEME_ZONES.get(theme, FloorChunk.THEME_ZONES["apartment"])
@@ -229,6 +253,13 @@ func _generate(c: Vector2i) -> Dictionary:
 		"edge_bottom": zone_at(c + Vector2i.DOWN) != zone,
 		"edge_left": zone_at(c + Vector2i.LEFT) != zone,
 		"edge_top": zone_at(c + Vector2i.UP) != zone,
+		# Doors on the four edges (start share, or -1 with no wall there).
+		"doors": {
+			"top": door_at(c, "top") if wall_on(c, "top") else -1.0,
+			"left": door_at(c, "left") if wall_on(c, "left") else -1.0,
+			"bottom": door_at(c + Vector2i.DOWN, "top") if wall_on(c + Vector2i.DOWN, "top") else -1.0,
+			"right": door_at(c + Vector2i.RIGHT, "left") if wall_on(c + Vector2i.RIGHT, "left") else -1.0,
+		},
 		"furniture": [],
 		"items": [],
 	}
@@ -295,15 +326,12 @@ func _apartment_sets(rng: RandomNumberGenerator, desc: Dictionary) -> Array[Vect
 		var at := Vector2(rng.randf_range(70, CHUNK - 70), rng.randf_range(70, CHUNK - 70))
 		desc["furniture"].append({"kind": "dining_table", "pos": at, "rot": 0.0, "color": color})
 		free = [Vector2(0.15, 0.15) if at.y > CHUNK * 0.5 else Vector2(0.85, 0.85)]
-	# A doormat on this side of a doorway to the next room.
-	for side: Array in [["edge_top", Vector2(0.5, 0.0), Vector2(0, 18)], ["edge_left", Vector2(0.0, 0.5), Vector2(26, 0)]]:
-		if desc[side[0]] and rng.randf() < 0.35:
-			var along := rng.randf_range(0.3, 0.7)
-			var pos: Vector2 = (side[1] as Vector2) * CHUNK + side[2]
-			if side[0] == "edge_top":
-				pos.x = along * CHUNK
-			else:
-				pos.y = along * CHUNK
-			desc["furniture"].append({"kind": "doormat", "pos": pos, "rot": 0.0 if side[0] == "edge_top" else PI * 0.5, "color": color})
+	# A doormat in front of a door to the next room.
+	var doors: Dictionary = desc["doors"]
+	for side: String in ["top", "left"]:
+		if float(doors[side]) >= 0.0 and rng.randf() < 0.5:
+			var along := (float(doors[side]) + DOOR * 0.5) * CHUNK
+			var pos := Vector2(along, 28) if side == "top" else Vector2(30, along)
+			desc["furniture"].append({"kind": "doormat", "pos": pos, "rot": 0.0 if side == "top" else PI * 0.5, "color": color})
 			break
 	return free

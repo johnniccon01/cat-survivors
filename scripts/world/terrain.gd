@@ -7,6 +7,8 @@ extends Node2D
 ##   through (Rooftop: parapets between the roofs).
 ## - "aisles": tall shelves everywhere except a wide aisle that winds left and
 ##   right and turns up and down like a road (Supermarket).
+## - "rooms": the apartment's rooms get walls where one room meets the next
+##   (WorldFloor.wall_on), each wall with a door (WorldFloor.door_at).
 ## - "tide": every now and then the sea comes in from above and below and
 ##   squeezes everyone into a strip of dry land, then goes out again.
 ## - "belts": conveyor belts across the hall push everyone sideways and
@@ -31,6 +33,9 @@ const WALL_CHANCE := 0.65
 const WALL_THICK := 22.0
 ## The gap in a wall (share of its length), so every room stays open.
 const WALL_GAP := [0.36, 0.64]
+## Room walls: thickness, and how tall the plastered face below one looks.
+const ROOM_WALL := 16.0
+const ROOM_FACE := 10.0
 ## Tide: calm for a while, then a warning, the water rises, stays, goes out.
 const TIDE_FIRST := 60.0
 const TIDE_CALM := 45.0
@@ -195,6 +200,12 @@ func resolve(pos: Vector2, r: float) -> Vector2:
 			for dy in range(-1, 2):
 				for rect: Rect2 in _wall_rects(Vector2i(wc.x + dx, wc.y + dy)):
 					pos = _push_out_of(rect, pos, r)
+	if kind == "rooms":
+		var rc := Vector2i(floori(pos.x / WorldFloor.CHUNK), floori(pos.y / WorldFloor.CHUNK))
+		for dx in range(-1, 2):
+			for dy in range(-1, 2):
+				for rect: Rect2 in _room_rects(Vector2i(rc.x + dx, rc.y + dy)):
+					pos = _push_out_of(rect, pos, r)
 	if kind == "trees":
 		var c := Vector2i(floori(pos.x / TREE_CELL), floori(pos.y / TREE_CELL))
 		for dx in range(-1, 2):
@@ -323,6 +334,8 @@ func _draw() -> void:
 			_draw_trees(view)
 		"walls":
 			_draw_walls(view)
+		"rooms":
+			_draw_rooms(view)
 		"belts":
 			_draw_belts(view)
 		"aisles":
@@ -480,6 +493,110 @@ func _wall_rects(c: Vector2i) -> Array:
 	if _walls.size() > 4000:
 		_walls.clear()
 	return rects
+
+
+## The room walls on a chunk's top and left edges, each in two pieces with
+## the door between them, the same every time.
+func _room_rects(c: Vector2i) -> Array:
+	if _walls.has(c):
+		return _walls[c]
+	var rects: Array = []
+	var floor_node := WorldFloor.current
+	if floor_node != null:
+		var size := WorldFloor.CHUNK
+		var o := Vector2(c) * size
+		var half := ROOM_WALL * 0.5
+		if floor_node.wall_on(c, "top"):
+			var a := floor_node.door_at(c, "top") * size
+			var b := a + WorldFloor.DOOR * size
+			rects.append(Rect2(o.x - half, o.y - half, a + half, ROOM_WALL))
+			rects.append(Rect2(o.x + b, o.y - half, size - b + half, ROOM_WALL))
+		if floor_node.wall_on(c, "left"):
+			var a := floor_node.door_at(c, "left") * size
+			var b := a + WorldFloor.DOOR * size
+			rects.append(Rect2(o.x - half, o.y - half, ROOM_WALL, a + half))
+			rects.append(Rect2(o.x - half, o.y + b, ROOM_WALL, size - b + half))
+	_walls[c] = rects
+	if _walls.size() > 4000:
+		_walls.clear()
+	return rects
+
+
+## Apartment walls seen from above and a little from the front: a plaster
+## top, below a horizontal wall its painted face with a wooden skirting
+## board, a soft shadow, and wooden door frames at every doorway.
+func _draw_rooms(view: Rect2) -> void:
+	var size := WorldFloor.CHUNK
+	var c0 := Vector2i(floori(view.position.x / size), floori(view.position.y / size))
+	var c1 := Vector2i(floori(view.end.x / size) + 1, floori(view.end.y / size) + 1)
+	var cap := Color("efe5d3")
+	var face := Color("cdbb9f")
+	var skirting := Color("6b4630")
+	var outline := Color("2b1d14")
+	var frame := Color("9a6a42")
+	var pieces: Array[Rect2] = []
+	for cx in range(c0.x, c1.x + 1):
+		for cy in range(c0.y, c1.y + 1):
+			for rect: Rect2 in _room_rects(Vector2i(cx, cy)):
+				if rect.intersects(view):
+					pieces.append(rect)
+	# Shadows and faces first, so a crossing wall's top covers them.
+	for rect in pieces:
+		if rect.size.x > rect.size.y:
+			var below := Rect2(rect.position.x, rect.end.y, rect.size.x, ROOM_FACE)
+			for k in 8:
+				draw_rect(Rect2(below.position.x, below.end.y + k, below.size.x, 1), Color(0, 0, 0, 0.22 * (1.0 - k / 8.0)))
+			draw_rect(below, face)
+			draw_rect(Rect2(below.position.x, below.position.y, below.size.x, 1), face.darkened(0.25))
+			draw_rect(Rect2(below.position.x, below.end.y - 3, below.size.x, 3), skirting)
+			draw_rect(Rect2(below.position.x, below.end.y - 3, below.size.x, 1), skirting.lightened(0.25))
+			draw_rect(Rect2(below.position.x, below.end.y, below.size.x, 1), outline)
+		else:
+			for k in 7:
+				draw_rect(Rect2(rect.end.x + k, rect.position.y + 4, 1, rect.size.y + ROOM_FACE - 4), Color(0, 0, 0, 0.2 * (1.0 - k / 7.0)))
+	for rect in pieces:
+		draw_rect(rect, cap)
+		var horizontal := rect.size.x > rect.size.y
+		# A lit top edge and a little plaster grain.
+		if horizontal:
+			draw_rect(Rect2(rect.position, Vector2(rect.size.x, 2)), cap.lightened(0.4))
+		else:
+			draw_rect(Rect2(rect.position, Vector2(2, rect.size.y)), cap.lightened(0.4))
+		var grain := int(absf(rect.position.x * 7.0 + rect.position.y * 13.0))
+		for i in int((rect.size.x + rect.size.y) / 9.0):
+			var t := fposmod(float(grain + i * 37), 1000.0) / 1000.0
+			var p := rect.position + Vector2(rect.size.x * t, rect.size.y * fposmod(t * 7.3, 1.0)) if horizontal else rect.position + Vector2(rect.size.x * fposmod(t * 7.3, 1.0), rect.size.y * t)
+			draw_rect(Rect2(p.floor(), Vector2.ONE), cap.darkened(0.08))
+		draw_rect(rect, outline, false, 1.0)
+	# Door frames: a wooden jamb on the end of a wall piece that faces a door.
+	for rect in pieces:
+		var horizontal := rect.size.x > rect.size.y
+		for at_start: bool in [true, false]:
+			var end_pos := rect.position if at_start else rect.end
+			var edge := (end_pos.x if horizontal else end_pos.y)
+			if not _is_door_edge(rect, at_start, horizontal):
+				continue
+			if horizontal:
+				var x := edge if at_start else edge - 5.0
+				draw_rect(Rect2(x, rect.position.y - 2, 5, rect.size.y + ROOM_FACE + 2), frame)
+				draw_rect(Rect2(x, rect.position.y - 2, 1, rect.size.y + ROOM_FACE + 2), frame.lightened(0.3))
+				draw_rect(Rect2(x, rect.position.y - 2, 5, rect.size.y + ROOM_FACE + 2), outline, false, 1.0)
+			else:
+				var y := edge if at_start else edge - 5.0
+				draw_rect(Rect2(rect.position.x - 2, y, rect.size.x + 4, 5), frame)
+				draw_rect(Rect2(rect.position.x - 2, y, rect.size.x + 4, 1), frame.lightened(0.3))
+				draw_rect(Rect2(rect.position.x - 2, y, rect.size.x + 4, 5), outline, false, 1.0)
+
+
+## True when that end of a wall piece borders its door (not a chunk corner).
+func _is_door_edge(rect: Rect2, at_start: bool, horizontal: bool) -> bool:
+	var size := WorldFloor.CHUNK
+	var half := ROOM_WALL * 0.5
+	if horizontal:
+		var x := rect.position.x if at_start else rect.end.x
+		return absf(fposmod(x + (0.0 if at_start else 0.0), size)) > half + 0.5 and absf(fposmod(x, size) - size) > half + 0.5
+	var y := rect.position.y if at_start else rect.end.y
+	return absf(fposmod(y, size)) > half + 0.5 and absf(fposmod(y, size) - size) > half + 0.5
 
 
 ## `pos` moved just outside `rect` if something `r` big would overlap it.

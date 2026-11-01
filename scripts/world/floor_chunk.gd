@@ -322,21 +322,34 @@ func _draw_room_edges(size: float) -> void:
 			var a := 0.2 * pow(1.0 - k / 14.0, 2.0)
 			var p := start + inward * (k + (6 if side[0] in ["edge_right", "edge_bottom"] else 0))
 			draw_line(p, p + along, Color(0.08, 0.05, 0.04, a), 1.0)
+	# Under a room wall the strip only shows in the doorway (the wall covers
+	# the rest); an open edge without a wall gets it all along.
 	var strip := Color("b08a5a")
+	var doors: Dictionary = desc.get("doors", {})
 	if desc["edge_right"]:
-		draw_rect(Rect2(size - 6, 0, 6, size), strip)
-		draw_rect(Rect2(size - 6, 0, 1, size), strip.lightened(0.3))
-		draw_rect(Rect2(size - 1, 0, 1, size), strip.darkened(0.45))
-		for y in range(20, int(size), 64):
+		var span := _door_span(float(doors.get("right", -1.0)), size)
+		draw_rect(Rect2(size - 6, span.x, 6, span.y), strip)
+		draw_rect(Rect2(size - 6, span.x, 1, span.y), strip.lightened(0.3))
+		draw_rect(Rect2(size - 1, span.x, 1, span.y), strip.darkened(0.45))
+		for y in range(int(span.x) + 14, int(span.x + span.y) - 4, 48):
 			draw_rect(Rect2(size - 4, y, 2, 2), Color("8a6a2a"))
 			draw_rect(Rect2(size - 4, y, 1, 1), Color("f2d88a"))
 	if desc["edge_bottom"]:
-		draw_rect(Rect2(0, size - 6, size, 6), strip)
-		draw_rect(Rect2(0, size - 6, size, 1), strip.lightened(0.3))
-		draw_rect(Rect2(0, size - 1, size, 1), strip.darkened(0.45))
-		for x in range(20, int(size), 64):
+		var span := _door_span(float(doors.get("bottom", -1.0)), size)
+		draw_rect(Rect2(span.x, size - 6, span.y, 6), strip)
+		draw_rect(Rect2(span.x, size - 6, span.y, 1), strip.lightened(0.3))
+		draw_rect(Rect2(span.x, size - 1, span.y, 1), strip.darkened(0.45))
+		for x in range(int(span.x) + 14, int(span.x + span.y) - 4, 48):
 			draw_rect(Rect2(x, size - 4, 2, 2), Color("8a6a2a"))
 			draw_rect(Rect2(x, size - 4, 1, 1), Color("f2d88a"))
+
+
+## Start and length along an edge of the threshold strip: the door, or the
+## whole edge when there is no wall (`door` < 0).
+func _door_span(door: float, size: float) -> Vector2:
+	if door < 0.0:
+		return Vector2(0, size)
+	return Vector2(door * size, WorldFloor.DOOR * size)
 
 
 func _draw_planks(area: Rect2) -> void:

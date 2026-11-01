@@ -652,7 +652,7 @@ func _tick_quest_cycle(delta: float) -> void:
 
 ## Tries the next kind of terrain on this map (none → trees → walls → ...).
 func _next_terrain() -> void:
-	var kinds := ["", "trees", "walls", "aisles", "tide", "belts"]
+	var kinds := ["", "trees", "walls", "rooms", "aisles", "tide", "belts"]
 	var now: String = Terrain.current.kind if Terrain.current != null else ""
 	var next: String = kinds[(kinds.find(now) + 1) % kinds.size()]
 	if Terrain.current != null:

@@ -1,5 +1,6 @@
 {
   "LIVING_ROOM": {
+    "terrain": "rooms",
     "props": [
       "BOX",
       "BOX",

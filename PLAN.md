@@ -69,6 +69,9 @@ Doplnok (31. 10. 2026, značka `pomniky`): dôchodok už nedáva percentá. Kaž
 9. [x] Ukázať starú vs novú grafiku Bytu (1. 11.: rozdiel je naozaj malý – rovnaké farby, len jemnejšia textúra parkiet a dlažby, vzor koberca a kvetináč; ak má byť viditeľný, treba výraznejší štýl).
 10. [x] Vysvetliť brániť / dobyť / ako vyhrať (hotové, značka `ako-vyhrat`: v pravom paneli hneď pod obrázkom blok „Ako vyhrať túto noc" – výhra noci alebo podmienky prijatej úlohy a dobytie; tlačidlo Pomoc (H) s vysvetlením všetkých tabuliek na mape, dobytia a splnu).
 11. [ ] Byt prepracovať, aby nevyzeral prázdny a lacný (zadané 1. 11.; potom vonkajšie mapy s cestičkami). Krok 1 hotový (značka `byt-detaily`): drevené prahy s mosadznými skrutkami a tieň na hranici izieb, rohožky pri prechodoch, 10 druhov pixel-art drobností na zemi (ponožky, klbká, papuče, knihy, noviny, hračková myš, papierová guľa, granule, srsť), 3–6 na kus podlahy, škrabance na parketách, škvrny v kuchyni, vychodená cestička na koberci, mäkšie tiene nábytku, zostavy (gauč + stolík na koberci, posteľ + nočný stolík, stôl v kuchyni), pixel-art nábytok sa už neotáča. Ďalej: steny izieb s dverami (potrebujú kolíziu), lepšie svetlo, väčší a detailnejší nábytok.
+    - Krok 2 hotový (značka `byt-steny`): steny izieb s dverami (terén `rooms` – omietka, natretá stena so soklom, tieň, drevené zárubne; kolízia pre mačku aj nepriateľov; pri štarte noci nič), prah a rohožka presne v dverách.
+12. [ ] Legenda ikon na mape štvrte (hviezdička = lov na bossa, šípky = nočná túra, spln…) priamo vedľa mapy, aby to pochopil každý.
+13. [ ] Mačka pri pohybe vyzerá rozmazane (od novej grafiky) – opraviť.
 
 Do dlhodobého plánu (nerobiť teraz): **Krotenie** – v tejto podobe sa nepáči, vymyslieť inak (bez ďalšej postavy na obrazovke).
 

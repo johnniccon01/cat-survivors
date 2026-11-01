@@ -66,6 +66,8 @@ Doplnok (31. 10. 2026, značka `pomniky`): dôchodok už nedáva percentá. Kaž
 6. [x] Byt v novej grafike: nie je vidno zmenu a hra akoby sekala – overiť, či sa nová grafika naozaj kreslí, a výkon (overené 1. 11., značka `byt-prednacitanie`: nová podlaha a nábytok sa kreslia; na PC john.niccon má Byt rovnaký výkon ako Pivnica (~2000 FPS bez vsync, bez záškubov po štarte). Obrázky Bytu sa načítavali až pri prvom zobrazení – teraz sa načítajú na začiatku noci. Ak to stále seká: poslať `perf.log` z toho PC.)
 7. [x] Quest s 3 vlajkami: bez popisu, vlajky naraz na začiatku, obrana = celá noc – prerobiť (hotové, značka `dobytie-vlajky`: vlajky prídu po jednej v 3., 6. a 9. minúte, každá s hláškou a šípkou; v HUD je riadok dobytia (ďalšia vlajka o…, postoj pri vlajke, poraz strážcu); po tretej príde strážca vlajok – boss mapy; keď ho porazíš, mapa je dobytá hneď a ostane tvoja, nech noc skončí akokoľvek; testy `territory_flags`, `territory_won`).
 8. [x] „Vzdať sa“ sa počíta ako smrť a berie život – život sa má stratiť len pri skutočnej smrti (hotové, značka `vzdat-bez-zivota`: odmeny ako pri smrti, ale život, hodnosť ani talent sa nestratí; test `career_give_up`).
+9. [x] Ukázať starú vs novú grafiku Bytu (1. 11.: rozdiel je naozaj malý – rovnaké farby, len jemnejšia textúra parkiet a dlažby, vzor koberca a kvetináč; ak má byť viditeľný, treba výraznejší štýl).
+10. [x] Vysvetliť brániť / dobyť / ako vyhrať (hotové, značka `ako-vyhrat`: v pravom paneli hneď pod obrázkom blok „Ako vyhrať túto noc" – výhra noci alebo podmienky prijatej úlohy a dobytie; tlačidlo Pomoc (H) s vysvetlením všetkých tabuliek na mape, dobytia a splnu).
 
 Do dlhodobého plánu (nerobiť teraz): **Krotenie** – v tejto podobe sa nepáči, vymyslieť inak (bez ďalšej postavy na obrazovke).
 

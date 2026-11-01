@@ -2181,3 +2181,50 @@ MEMORIALS_GEN,generation %d · %s,%d. generácia · %s,%d. generace · %s,genera
 MEMORIALS_STATS,wins: %d · nights: %d · best rank: %d,výhry: %d · noci: %d · najvyššia hodnosť: %d,výhry: %d · noci: %d · nejvyšší hodnost: %d,victorias: %d · noches: %d · mejor rango: %d,победы: %d · ночи: %d · лучший ранг: %d,胜利：%d · 夜晚：%d · 最高等级：%d
 MEMORIALS_SIGN,Memorial stones: %d,Pomníky: %d,Pomníky: %d,Lápidas: %d,Памятники: %d,纪念碑：%d
 MEMORIAL_BLESS,%s's stone gives you strength (+30%% health),Pomník mačky %s ťa posilnil (+30 %% zdravia),Pomník kočky %s tě posílil (+30 %% zdraví),La lápida de %s te da fuerzas (+30%% de salud),Памятник %s придаёт сил (+30%% здоровья),%s 的纪念碑给了你力量（生命 +30%%）
+GOAL_TITLE,How to win tonight,Ako vyhrať túto noc,Jak vyhrát tuto noc,Cómo ganar esta noche,Как победить этой ночью,今晚如何获胜
+GOAL_NIGHT,Win: survive %d minutes and defeat the final boss. The cat door lets you leave early and keep what you found.,"Výhra: prežiť %d minút a poraziť finálneho bossa. Mačacie dvierka ťa pustia domov skôr aj s tým, čo si našiel.","Výhra: přežít %d minut a porazit finálního bosse. Kočičí dvířka tě pustí domů dřív i s tím, co jsi našel.",Victoria: sobrevive %d minutos y derrota al jefe final. La gatera te deja salir antes con lo que hayas encontrado.,Победа: продержись %d минут и победи финального босса. Кошачья дверца выпустит тебя раньше вместе с находками.,胜利：坚持 %d 分钟并击败最终首领。猫门可以让你提前带着收获离开。
+HELP_BUTTON,Help,Pomoc,Nápověda,Ayuda,Помощь,帮助
+HELP_TITLE,What the map means,Čo znamená mapa,Co znamená mapa,Qué significa el mapa,Что значит карта,地图说明
+HELP_TEXT,"Winning a night: survive to the end and defeat the final boss. The cat door lets you leave early with what you found. A death costs the cat one of its nine lives; giving up from the pause menu does not.
+! Defence (red sign): enemies besiege the place. Go there and hold out 10 minutes for gold. Ignore it for 2 nights and they steal gold. A level 3 house holds out on its own.
+★ Boss hunt: win the night on that map for a bounty.
+$ Golden night: all the night's gold counts twice.
++ Rescue: a kidnapped cat is held there; hold out 10 minutes and it comes home.
+» Night trip: at minutes 7 and 14 a gate opens and you pick the next map; win on the last one.
+Conquest (boss maps): a boss flag comes at minutes 3, 6 and 9 – stay by each to take it. Then their keeper comes: defeat it and the map is yours for good, with a bonus and no more sieges.
+Full moon: every boss comes to your home that night.","Výhra noci: prežiť do konca a poraziť finálneho bossa. Mačacie dvierka ťa pustia domov skôr aj s tým, čo si našiel. Smrť stojí mačku jeden z deviatich životov; vzdať sa v pauze život nestojí.
+! Obrana (červená tabuľka): nepriatelia obliehajú miesto. Choď tam a vydrž 10 minút – dostaneš zlato. Ak 2 noci nepôjdeš, ukradnú ti zlato. Domček na úrovni 3 sa ubráni sám.
+★ Lov na bossa: vyhraj noc na tej mape a dostaneš odmenu.
+$ Zlatá noc: všetko zlato z noci sa počíta dvakrát.
++ Záchrana: je tam väznená unesená mačka; vydrž 10 minút a vráti sa domov.
+» Nočná túra: v 7. a 14. minúte sa otvorí brána a vyberieš ďalšiu mapu; vyhraj na poslednej.
+Dobytie (mapy bossov): vlajka bossa príde v 3., 6. a 9. minúte – postoj pri každej a obsadíš ju. Potom príde ich strážca: poraz ho a mapa je navždy tvoja, s bonusom a bez obliehania.
+Spln: v tú noc prídu k tvojmu domu všetci bossovia.","Výhra noci: přežít do konce a porazit finálního bosse. Kočičí dvířka tě pustí domů dřív i s tím, co jsi našel. Smrt stojí kočku jeden z devíti životů; vzdát se v pauze život nestojí.
+! Obrana (červená cedule): nepřátelé obléhají místo. Jdi tam a vydrž 10 minut – dostaneš zlato. Když 2 noci nepůjdeš, ukradnou ti zlato. Domek na úrovni 3 se ubrání sám.
+★ Lov na bosse: vyhraj noc na té mapě a dostaneš odměnu.
+$ Zlatá noc: všechno zlato z noci se počítá dvakrát.
++ Záchrana: je tam vězněná unesená kočka; vydrž 10 minut a vrátí se domů.
+» Noční túra: v 7. a 14. minutě se otevře brána a vybereš další mapu; vyhraj na poslední.
+Dobytí (mapy bossů): vlajka bosse přijde ve 3., 6. a 9. minutě – postůj u každé a obsadíš ji. Pak přijde jejich strážce: poraz ho a mapa je navždy tvoje, s bonusem a bez obléhání.
+Úplněk: tu noc přijdou k tvému domu všichni bossové.","Ganar una noche: sobrevive hasta el final y derrota al jefe final. La gatera te deja salir antes con lo que hayas encontrado. Morir le cuesta al gato una de sus nueve vidas; rendirse desde la pausa no.
+! Defensa (cartel rojo): los enemigos asedian el lugar. Ve y aguanta 10 minutos para ganar oro. Si lo ignoras 2 noches, te roban oro. Una casa de nivel 3 se defiende sola.
+★ Caza del jefe: gana la noche en ese mapa y cobra la recompensa.
+$ Noche dorada: todo el oro de la noche cuenta doble.
++ Rescate: allí está un gato secuestrado; aguanta 10 minutos y volverá a casa.
+» Excursión nocturna: en los minutos 7 y 14 se abre una puerta y eliges el siguiente mapa; gana en el último.
+Conquista (mapas de jefes): una bandera del jefe llega en los minutos 3, 6 y 9; quédate junto a cada una para tomarla. Luego llega su guardián: derrótalo y el mapa es tuyo para siempre, con bonificación y sin asedios.
+Luna llena: esa noche todos los jefes vienen a tu casa.","Победа в ночи: продержись до конца и победи финального босса. Кошачья дверца выпустит тебя раньше вместе с находками. Смерть отнимает у кошки одну из девяти жизней; сдаться в паузе – нет.
+! Оборона (красная табличка): враги осаждают место. Иди туда и продержись 10 минут – получишь золото. Если не пойдёшь 2 ночи, украдут золото. Домик 3-го уровня отобьётся сам.
+★ Охота на босса: выиграй ночь на этой карте и получи награду.
+$ Золотая ночь: всё золото за ночь считается дважды.
++ Спасение: там держат похищенную кошку; продержись 10 минут, и она вернётся домой.
+» Ночной поход: на 7-й и 14-й минуте открываются ворота, и ты выбираешь следующую карту; победи на последней.
+Захват (карты боссов): флаг босса появляется на 3-й, 6-й и 9-й минуте – постой у каждого, чтобы захватить. Потом приходит их хранитель: победи его, и карта твоя навсегда, с бонусом и без осад.
+Полнолуние: в эту ночь все боссы приходят к твоему дому.","赢下一夜：坚持到最后并击败最终首领。猫门可以让你提前带着收获离开。死亡会让猫失去九条命中的一条；在暂停菜单放弃则不会。
+! 防守（红色标牌）：敌人正在围攻此地。前往那里坚持 10 分钟即可获得金币。连续 2 夜不去，他们会偷走金币。3 级小屋可以自己守住。
+★ 猎杀首领：在那张地图赢下这一夜即可获得赏金。
+$ 黄金之夜：这一夜的所有金币翻倍。
++ 救援：被绑架的猫被关在那里；坚持 10 分钟，它就会回家。
+» 夜间远行：第 7 和第 14 分钟会打开一道门，你选择下一张地图；在最后一张地图获胜。
+征服（首领地图）：首领旗帜会在第 3、6、9 分钟出现——站在旁边即可夺取。随后旗帜守卫到来：击败它，这张地图就永远归你，附带加成且不再被围攻。
+满月：这一夜所有首领都会来到你家。"

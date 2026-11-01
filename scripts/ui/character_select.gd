@@ -45,6 +45,9 @@ var _report := -1
 ## Takes or leaves the offer waiting on the chosen place.
 var _report_toggle: Button
 var _report_box: PanelContainer
+var _goal_title: Label
+var _goal_extra: Label
+var _help: HelpPanel
 var _report_win: Label
 var _report_lose: Label
 var _home_marks: Array[Control] = []
@@ -184,6 +187,7 @@ func _build() -> void:
 	# are by the cat, the night's options by Play.
 	for entry: Array in [["MENU_UPGRADES", "U", func() -> void: _shop.open()],
 			["MENU_JOURNAL", "J", func() -> void: _journal.open("quests")],
+			["HELP_BUTTON", "H", func() -> void: _help.open()],
 			["SET_BACK", "Esc", func() -> void: get_tree().change_scene_to_file("res://scenes/main_menu.tscn")]]:
 		var b := UiStyle.click_button("%s (%s)" % [tr(entry[0]), entry[1]], 0, 15)
 		b.pressed.connect(entry[2])
@@ -284,6 +288,26 @@ func _build() -> void:
 	_stage_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_stage_label.position = Vector2(10, 58)
 	pic_box.add_child(_stage_label)
+	# How to win tonight, right under the picture: a plain night's goal, or
+	# the taken offer's win and what happens if you don't go, and conquest.
+	_report_box = PanelContainer.new()
+	_report_box.add_theme_stylebox_override("panel", UiStyle.box(Color(0.07, 0.05, 0.1, 0.8), Color("3a3148")))
+	place.add_child(_report_box)
+	var rv := VBoxContainer.new()
+	rv.add_theme_constant_override("separation", 4)
+	_report_box.add_child(rv)
+	_goal_title = _label(15, GOLD)
+	_goal_title.text = "GOAL_TITLE"
+	_goal_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	rv.add_child(_goal_title)
+	_report_win = _label(14, Color("b8f0a0"))
+	_report_lose = _label(14, Color("ffb0a0"))
+	_goal_extra = _label(14, Color("ff9a8a"))
+	for l: Label in [_report_win, _report_lose, _goal_extra]:
+		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		l.custom_minimum_size = Vector2(262, 0)
+		rv.add_child(l)
 	_place_story = _label(14, Color("ddd3e8"))
 	_place_story.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_place_story.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -329,20 +353,6 @@ func _build() -> void:
 		v.add_child(val)
 		_place_stats.append(val)
 		stats.add_child(cell)
-	# A night report: what you win, and what happens if you don't go.
-	_report_box = PanelContainer.new()
-	_report_box.add_theme_stylebox_override("panel", UiStyle.box(Color(0.07, 0.05, 0.1, 0.8), Color("3a3148")))
-	place.add_child(_report_box)
-	var rv := VBoxContainer.new()
-	rv.add_theme_constant_override("separation", 4)
-	_report_box.add_child(rv)
-	_report_win = _label(14, Color("b8f0a0"))
-	_report_lose = _label(14, Color("ffb0a0"))
-	for l: Label in [_report_win, _report_lose]:
-		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
-		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		l.custom_minimum_size = Vector2(262, 0)
-		rv.add_child(l)
 	_report_toggle = UiStyle.click_button("", 0, 13)
 	_report_toggle.pressed.connect(func() -> void:
 		Audio.play("click", -6.0, 0.0)
@@ -576,6 +586,8 @@ func _build() -> void:
 	_artifacts = ArtifactPanel.new()
 	add_child(_artifacts)
 	_artifacts.closed.connect(_refresh)
+	_help = HelpPanel.new()
+	add_child(_help)
 	_memorials = MemorialPanel.new()
 	add_child(_memorials)
 	_memorials.closed.connect(_refresh)
@@ -771,7 +783,10 @@ func _refresh_place() -> void:
 		_report = -1
 	_district.selected_report = _report
 	var rep: Dictionary = Profile.reports[_report] if _report >= 0 else {}
-	_report_box.visible = not rep.is_empty()
+	_report_box.visible = not rep.is_empty() or real
+	_report_win.text = tr("GOAL_NIGHT") % int(GameData.stages[id].get("duration_minutes", 20)) if real else ""
+	_report_lose.text = ""
+	_goal_extra.text = ""
 	# A place with an offer shows it at once; this button leaves it (a
 	# plain night there) or takes it again.
 	var offer := _report_on(id)
@@ -818,9 +833,14 @@ func _refresh_place() -> void:
 			story += "\n" + tr("REPORT_CHALLENGE") % tr("CHALLENGE_%s_NAME" % rep["challenge"])
 	if real and state == "locked" and tr("STAGE_%s_HINT" % id) != "":
 		story += "\n🔒 " + tr("STAGE_%s_HINT" % id)
-	if real and rep.is_empty() and Profile.TERRITORY_BONUS.has(id):
+	if real and Profile.TERRITORY_BONUS.has(id):
 		var bonus := DistrictMap.stats_text(Profile.TERRITORY_BONUS[id])
-		story += "\n" + (tr("TERRITORY_OWNED") % bonus if id in Profile.territories else tr("TERRITORY_HOW") % [Profile.TERRITORY_FLAGS, bonus])
+		if id in Profile.territories:
+			story += "\n" + tr("TERRITORY_OWNED") % bonus
+		elif rep.get("kind", "") != "trip":
+			_goal_extra.text = tr("TERRITORY_HOW") % [Profile.TERRITORY_FLAGS, bonus]
+	_report_lose.visible = _report_lose.text != ""
+	_goal_extra.visible = _goal_extra.text != ""
 	_place_story.text = story
 	var boss: String = GameData.stages[id].get("final_boss", "") if real else ""
 	_boss_pic.id = boss
@@ -945,6 +965,8 @@ func _show_moon() -> void:
 	_report_toggle.visible = false
 	_report_win.text = tr("MOON_WIN") % Profile.MOON_GOLD
 	_report_lose.text = tr("MOON_LOSE") % mini(floori(Profile.gold * Profile.MOON_THEFT), Profile.MOON_THEFT_MAX)
+	_report_lose.visible = true
+	_goal_extra.visible = false
 	_moon_box.visible = true
 	# The home's own boss, darkness and stars don't matter on the full moon.
 	_boss_name.get_parent().get_parent().get_parent().visible = false
@@ -1042,7 +1064,11 @@ func _refresh_darkness(stage_id: String) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _shop.visible or _charms.visible or _items.visible or _journal.visible or _challenges.visible or _artifacts.visible:
+	if _shop.visible or _charms.visible or _items.visible or _journal.visible or _challenges.visible or _artifacts.visible or _help.visible:
+		return
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_H:
+		Audio.play("click", -6.0, 0.0)
+		_help.open()
 		return
 	if event.is_action_pressed("challenges"):
 		Audio.play("click", -6.0, 0.0)

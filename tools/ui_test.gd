@@ -140,6 +140,15 @@ func _character_select() -> void:
 		await _press(KEY_ESCAPE)
 		_expect(not panel.visible, "select: %s closes on Esc" % entry[1])
 		_expect(current_scene == sel, "select: Esc in %s stays on character select" % entry[1])
+	# Gear: walking through slots and items never moves the panel around.
+	var items_panel: Control = sel.get("_items")
+	await _press(KEY_I)
+	var desc: Label = items_panel.get("_desc")
+	var at := desc.global_position
+	for key: Key in [KEY_DOWN, KEY_DOWN, KEY_RIGHT, KEY_DOWN, KEY_RIGHT, KEY_RIGHT, KEY_DOWN, KEY_RIGHT]:
+		await _press(key)
+		_expect(desc.global_position == at, "gear panel stays put after %s (desc %s -> %s)" % [OS.get_keycode_string(key), at, desc.global_position])
+	await _press(KEY_ESCAPE)
 	# Make sure an unlocked cat on an open stage is picked, then start.
 	var profile := root.get_node("Profile")
 	var ids: Array = sel.get("_ids")

@@ -61,7 +61,7 @@ Doplnok (31. 10. 2026, značka `pomniky`): dôchodok už nedáva percentá. Kaž
 1. [x] Charmy ostali na hlavnej obrazovke menu – odstrániť (hotové, značka `menu-bez-charmov`).
 2. [x] Mapa štvrte je malá oproti výberu mačiek a infu o mape vpravo – zväčšiť (hotové, značka `vacsia-mapa`: užší pravý panel, nižší spodný pruh, menšie kartičky mačiek; riadok prekliatí a dennej noci je na ich tlačidlách – text a tooltip).
 3. [x] Čas a počasie vľavo hore zaberajú veľa miesta a zakrývajú lokácie – presunúť nad mapu / mimo nej (hotové, značka `pocasie-hore`: mesiac, počasie a nemesis sú v hornom pruhu namiesto nadpisu).
-4. [ ] Panel výbavy: pri výbere predmetu s dlhším popisom obrazovka poskakuje – pevné rozmery.
+4. [x] Panel výbavy: pri výbere predmetu s dlhším popisom obrazovka poskakuje – pevné rozmery (hotové, značka `vybava-pevna`: popis má pevnú výšku 4 riadky a zmenší písmo, sloty max. 2 riadky, zoznam 7 riadkov, aby sa panel zmestil aj na 720p; test v `ui_test.gd`).
 5. [x] Tlačidlá Upgrades / Talents / Gear / Artifacts / Curses / Daily / Journal – je ich veľa, zlúčiť alebo presunúť (hotové, značka `tlacidla-stvrte`: hore len Vylepšenia, Denník, Späť; Talenty, Výbava, Artefakty pri mačke; Prekliatia a Denná noc nad Hrať; klávesy ostali).
 6. [ ] Byt v novej grafike: nie je vidno zmenu a hra akoby sekala – overiť, či sa nová grafika naozaj kreslí, a výkon.
 7. [ ] Quest s 3 vlajkami: bez popisu, vlajky naraz na začiatku, obrana = celá noc – prerobiť (vlajky postupne, popis, kratšia obrana s bossom na konci).

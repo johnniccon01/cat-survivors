@@ -10,7 +10,8 @@ signal closed
 
 const GOLD := Color("f2c14e")
 const OUTLINE := Color("2b1d14")
-const ROWS := 8
+const ROWS := 7
+const DESC_LINES := 4
 
 var _slot := 0
 var _index := 0
@@ -71,7 +72,9 @@ func _ready() -> void:
 		_slot_icons.append(icon)
 		var label := _label(14, Color.WHITE)
 		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		label.custom_minimum_size.x = 104
+		label.custom_minimum_size = Vector2(104, 40)
+		label.max_lines_visible = 2
+		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		inner.add_child(label)
 		slot_box.mouse_filter = Control.MOUSE_FILTER_STOP
 		slot_box.gui_input.connect(_on_slot_input.bind(i))
@@ -102,10 +105,17 @@ func _ready() -> void:
 		_rows.append(row)
 
 	_desc = _label(17, Color("d9cce6"))
-	_desc.custom_minimum_size = Vector2(860, 64)
+	# Fixed size: a long description shrinks its font instead of pushing
+	# the whole panel around.
+	_desc.custom_minimum_size = Vector2(860, DESC_LINES * 27)
+	_desc.clip_text = true
+	_desc.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_desc.max_lines_visible = DESC_LINES
+	_desc.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	box.add_child(_desc)
 	_note = _label(16, GOLD)
+	_note.custom_minimum_size.y = 22
 	box.add_child(_note)
 	var hint := _label(15, Color("8f7ea3"))
 	hint.text = "ITEMS_HINT"
@@ -173,6 +183,9 @@ func _refresh() -> void:
 		_desc.text = tr("ITEMS_EMPTY")
 	else:
 		_desc.text = Items.describe(list[_index])
+	_desc.label_settings.font_size = 17
+	while _desc.label_settings.font_size > 11 and _desc.get_line_count() > DESC_LINES:
+		_desc.label_settings.font_size -= 1
 
 
 func _box(selected: bool, highlight: bool) -> StyleBoxFlat:

@@ -792,6 +792,10 @@ func career_night(cat: String, kind: String, minutes: float, home: bool) -> Arra
 		BotLog.event("career_rank_up")
 	if int(c["rank"]) >= MAX_RANK:
 		c["xp"] = mini(int(c["xp"]), RANK_XP)
+	# Giving up from the pause menu earns like a death but costs no life:
+	# only a real death takes one.
+	if kind == "give_up":
+		BotLog.event("career_gave_up")
 	if kind == "death":
 		c["lives"] = int(c["lives"]) - 1
 		if int(c["rank"]) > 0:

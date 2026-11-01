@@ -313,7 +313,7 @@ SET_SHAKE,Screen shake,Otrasy obrazovky,Otřesy obrazovky,Temblor de pantalla,Т
 SET_LANGUAGE,Language,Jazyk,Jazyk,Idioma,Язык,语言
 SET_BACK,Back,Späť,Zpět,Volver,Назад,返回
 PAUSE_RESUME,Resume,Pokračovať,Pokračovat,Continuar,Продолжить,继续
-PAUSE_GIVE_UP,Give up (counts as death),Vzdať sa (ako smrť),Vzdát se (jako smrt),Rendirse (cuenta como muerte),Сдаться (считается смертью),放弃（视为死亡）
+PAUSE_GIVE_UP,Give up (no life lost),Vzdať sa (bez straty života),Vzdát se (bez ztráty života),Rendirse (sin perder una vida),Сдаться (без потери жизни),放弃（不失去生命）
 PAUSE_GIVE_UP_SURE,Really give up? Click again,Naozaj sa vzdať? Klikni znova,Opravdu se vzdát? Klikni znovu,¿Rendirse de verdad? Pulsa otra vez,Точно сдаться? Нажми ещё раз,真的放弃？再点一次
 SET_SOUND,Sound,Zvuk,Zvuk,Sonido,Звук,声音
 STAGE_GARDEN_NAME,The Garden,Záhrada,Zahrada,El jardín,Сад,花园

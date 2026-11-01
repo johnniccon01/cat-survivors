@@ -185,6 +185,8 @@ var _devil_mortal_at := INF
 var _rescuing := false
 ## Test hook: --kill-cat-every=SECONDS knocks the cat out on a timer.
 var _kill_every := float(_arg("--kill-cat-every=", "0"))
+## Test hook: --give-up-at=SECONDS presses Give up once the night's clock gets there.
+var _give_up_at := float(_arg("--give-up-at=", "0"))
 var _next_kill := INF
 ## Cats unlocked by beating a cat final boss, listed on the summary.
 var _run_unlocks: Array[String] = []
@@ -239,6 +241,8 @@ var _base_time_scale := 1.0
 var _endless := false
 var _banked_gold := 0.0
 var _last_end := ""
+## The night ended from the pause menu: rewards as a death, but the cat keeps its life.
+var _gave_up := false
 var _champion_seen := false
 var _challenge_shown := false
 var _report_shown := false
@@ -402,6 +406,7 @@ func _ready() -> void:
 	hud.discard_pressed.connect(_ask_discard)
 	hud.give_up_pressed.connect(func() -> void:
 		hud.show_pause(false)
+		_gave_up = true
 		_end_run("death"))
 	hud.update_xp(player)
 	hud.update_inventory(player)
@@ -548,6 +553,8 @@ func _process(delta: float) -> void:
 		elif spawner.elapsed >= _next_kill:
 			_next_kill = spawner.elapsed + _kill_every
 			player.take_damage(player.hp + 9999.0)
+	if _give_up_at > 0.0 and not _gave_up and _last_end == "" and spawner.elapsed >= _give_up_at:
+		hud.give_up_pressed.emit()
 	# The devil is always a bit faster than the cat: it can't be outrun.
 	if is_instance_valid(devil):
 		devil.speed = maxf(float(GameData.enemies[DEVIL_ID]["speed"]), Player.BASE_SPEED * player.stat("speed") * DEVIL_SPEED_OVER_CAT)
@@ -1210,7 +1217,7 @@ func _end_run(kind: String) -> void:
 			lines.append(tr("SUMMARY_MOON_LOST") % theft)
 	Profile.add_gold(gold)
 	if not dev_test:
-		lines.append_array(Profile.career_night(player.cat_id, kind, spawner.elapsed / 60.0, player.is_home()))
+		lines.append_array(Profile.career_night(player.cat_id, "give_up" if _gave_up else kind, spawner.elapsed / 60.0, player.is_home()))
 	# The night has passed for the whole neighbourhood.
 	Profile.pass_night()
 	for news: Array in Profile.report_news:

@@ -21,7 +21,7 @@ for stage in $STAGES; do
   start=$(date +%s)
   out=$(timeout 900 "$GODOT" --headless --log-file "$OUT/$stage.log" --path . -- \
     --bot --revive --cat="$CAT" --stage="$stage" --bot-time=1700 --bot-speed="$SPEED" \
-    --profile="$PROFILE" --shop $EXTRA 2>&1)
+    --profile="$PROFILE" --shop --no-flap $EXTRA 2>&1)
   echo "$out" > "$OUT/$stage.out"
   errors=$(echo "$out" | grep -E "SCRIPT ERROR|Parse Error|ERROR: |TEST: FAIL" | grep -vE "resources still in use|ObjectDB instances leaked" | sort | uniq -c | head -5)
   line=$(echo "$out" | grep -E "^BOT: time=" | head -1)
@@ -31,7 +31,7 @@ for stage in $STAGES; do
   quests=$(echo "$out" | grep -oE "quests_done=[0-9]+" | head -1)
   bosses=$(echo "$out" | grep -oE "bosses_killed=[0-9]+" | head -1)
   status=ok
-  if [ "$won" != "won=true" ] || [ -n "$errors" ]; then status=FAIL; fail=$((fail + 1)); fi
+  if [ "$won" != "won=true" ] || [[ "$rev" != *end=victory ]] || [ -n "$errors" ]; then status=FAIL; fail=$((fail + 1)); fi
   printf '%-4s %-12s %3ss %s %s %s %s %s\n     %s\n' "$status" "$stage" "$(( $(date +%s) - start ))" "$won" "$rev" "$bosses" "$quests" "$line" "$weapons"
   [ -n "$errors" ] && echo "$errors" | sed 's/^/     /'
 done

@@ -33,6 +33,7 @@ extends Node2D
 ##   --endless-now      start straight in the endless night (tests)
 ##   --dev-endless      the dev panel's "Endless night now" (skips the night, tests)
 ##   --god              the cat can't be hurt (performance checks)
+##   --no-flap          the bot says no when a cat flap asks to go home
 ##   --shop             after the run the bot spends its gold on upgrades
 ##   --revive           the bot's cat gets up again at full health when it dies
 ##                      (campaign tests: the run goes on, revives are counted)
@@ -901,7 +902,11 @@ func _next_modal() -> void:
 		_choice = _choices.pop_front()
 		if _bot and not "--show-choice" in _args:
 			var callback: Callable = _choice["callback"]
-			callback.call(int(_arg("--choice=", "0")))
+			# --no-flap: the bot stays for the whole night (campaign tests).
+			if "--no-flap" in _args and _choice["title"] == tr("EXTRACT_ASK_TITLE"):
+				callback.call(1)
+			else:
+				callback.call(int(_arg("--choice=", "0")))
 			_next_modal.call_deferred()
 		else:
 			hud.choice.open(_choice["title"], _choice["prompt"], _choice["options"], _choice.get("cancel", false))

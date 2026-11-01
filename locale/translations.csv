@@ -8,7 +8,7 @@ PAUSE_LANGUAGE,L – language: %s,L – jazyk: %s,L – jazyk: %s,L – idioma: 
 GAME_OVER_TITLE,%s gave up!,Mačka %s to zabalila!,Kočka %s to zabalila!,¡%s se rindió!,%s сдаётся!,%s 倒下了！
 GAME_OVER_STATS,You survived %s and defeated %d enemies.,"Prežitý čas %s, porazených nepriateľov: %d.","Přežitý čas %s, poražených nepřátel: %d.",Sobreviviste %s y derrotaste a %d enemigos.,Ты продержался %s и победил врагов: %d.,你坚持了 %s，击败了 %d 个敌人。
 GAME_OVER_HINT,R / Enter – try again,R / Enter – skúsiť znova,R / Enter – zkusit znovu,R / Enter – intentar de nuevo,R / Enter – ещё раз,R / Enter – 再试一次
-LEVEL_UP_TITLE,Level %d!,Level %d!,Level %d!,¡Nivel %d!,Уровень %d!,等级 %d！
+LEVEL_UP_TITLE,Level %d!,Úroveň %d!,Úroveň %d!,¡Nivel %d!,Уровень %d!,等级 %d！
 TAG_NEW,NEW!,NOVÉ!,NOVÉ!,¡NUEVO!,НОВОЕ!,新！
 TAG_LEVEL,Level %d,Úroveň %d,Úroveň %d,Nivel %d,Уровень %d,等级 %d
 KIND_WEAPON,Weapon,Zbraň,Zbraň,Arma,Оружие,武器
@@ -71,9 +71,9 @@ WEAPON_CATNIP_GARDEN_DESC,Evolved Catnip: a huge aura that also heals the cat.,"
 WEAPON_BONE_CAROUSEL_NAME,Bone Carousel,Kostený kolotoč,Kostěný kolotoč,Carrusel de espinas,Карусель косточек,鱼骨旋转木马
 WEAPON_BONE_CAROUSEL_DESC,Evolved Fish Bones: six bones that never stop spinning.,"Evolúcia Rybích kostí: šesť kostí, ktoré sa točia bez prestávky.","Evoluce Rybích kostí: šest kostí, které se točí bez přestávky.",Espinas evolucionadas: seis espinas que nunca dejan de girar.,"Эволюция Косточек: шесть косточек, которые вращаются без остановки.",鱼骨的进化：六根永不停转的鱼骨。
 EVOLVE_HINT,Evolves with %s + a boss chest.,S pasívkou %s a truhlicou z bossa sa vyvinie.,S pasivkou %s a truhlou z bosse se vyvine.,Evoluciona con %s + un cofre de jefe.,Эволюционирует с %s + сундук босса.,搭配 %s + Boss 宝箱即可进化。
-CARD_OWNED,You have it: Lv %d/%d,Už máš: Lv %d/%d,Už máš: Lv %d/%d,Lo tienes: Nv %d/%d,Есть: ур. %d/%d,已拥有：等级 %d/%d
+CARD_OWNED,You have it: Lv %d/%d,Už máš: úr. %d/%d,Už máš: úr. %d/%d,Lo tienes: Nv %d/%d,Есть: ур. %d/%d,已拥有：等级 %d/%d
 CARD_NOT_OWNED,You don't have it yet,Ešte nemáš,Ještě nemáš,Aún no lo tienes,Ещё нет,尚未拥有
-CARD_EVOLVES_HAVE,Evolves %s – you have it (Lv %d/%d),Vyvinie %s – máš (Lv %d/%d),Vyvine %s – máš (Lv %d/%d),Evoluciona %s – lo tienes (Nv %d/%d),Эволюционирует %s – есть (ур. %d/%d),可进化 %s – 已拥有（等级 %d/%d）
+CARD_EVOLVES_HAVE,Evolves %s – you have it (Lv %d/%d),Vyvinie %s – máš (úr. %d/%d),Vyvine %s – máš (úr. %d/%d),Evoluciona %s – lo tienes (Nv %d/%d),Эволюционирует %s – есть (ур. %d/%d),可进化 %s – 已拥有（等级 %d/%d）
 CARD_EVOLVES_MISSING,Evolves %s – you don't have it,Vyvinie %s – nemáš,Vyvine %s – nemáš,Evoluciona %s – no lo tienes,Эволюционирует %s – нет,可进化 %s – 未拥有
 INV_EVOLVE_HAVE,Evolves at max level: you have %s,Evolúcia na max. leveli: %s už máš,Evoluce na max. levelu: %s už máš,Evoluciona al nivel máximo: tienes %s,Эволюция на макс. уровне: есть %s,满级时进化：已拥有 %s
 INV_EVOLVE_NEED,Evolves with the passive %s,Evolúcia s pasívkou %s,Evoluce s pasivkou %s,Evoluciona con la mejora %s,Эволюция с улучшением %s,需要强化 %s 才能进化
@@ -174,7 +174,7 @@ POWERUP_MAX_HEALTH_NAME,Max Health,Zdravie,Zdraví,Salud máxima,Макс. зд�
 POWERUP_MAX_HEALTH_DESC,+10 max health per rank.,+10 maximálne zdravie za stupeň.,+10 maximální zdraví za stupeň.,+10 de salud máxima por rango.,+10 к макс. здоровью за ранг.,每级最大生命 +10。
 POWERUP_RECOVERY_NAME,Recovery,Regenerácia,Regenerace,Recuperación,Восстановление,恢复
 POWERUP_RECOVERY_DESC,Recover 0.1 HP per second per rank.,"Obnova 0,1 HP za sekundu za stupeň.","Obnova 0,1 HP za sekundu za stupeň.","Recupera 0,1 de salud por segundo por rango.","+0,1 здоровья в секунду за ранг.",每级每秒恢复 0.1 点生命。
-POWERUP_COOLDOWN_NAME,Cooldown,Cooldown,Cooldown,Recarga,Перезарядка,冷却
+POWERUP_COOLDOWN_NAME,Cooldown,Nabíjanie,Nabíjení,Recarga,Перезарядка,冷却
 POWERUP_COOLDOWN_DESC,Weapons attack 2.5% faster per rank.,"Zbrane útočia o 2,5 % rýchlejšie za stupeň.","Zbraně útočí o 2,5 % rychleji za stupeň.","Las armas atacan un 2,5% más rápido por rango.","Оружие атакует на 2,5% быстрее за ранг.",每级武器攻击速度 +2.5%。
 POWERUP_AREA_NAME,Area,Plocha,Plocha,Área,Площадь,范围
 POWERUP_AREA_DESC,+5% attack area per rank.,+5 % plocha útokov za stupeň.,+5 % plocha útoků za stupeň.,+5% de área de ataque por rango.,+5% площади атаки за ранг.,每级攻击范围 +5%。

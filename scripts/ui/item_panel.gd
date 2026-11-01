@@ -70,10 +70,13 @@ func _ready() -> void:
 		icon.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		inner.add_child(icon)
 		_slot_icons.append(icon)
-		var label := _label(14, Color.WHITE)
+		# The slot and the worn item's whole name (three lines, "…" if even
+		# that is too short).
+		var label := _label(12, Color.WHITE)
 		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		label.custom_minimum_size = Vector2(104, 40)
-		label.max_lines_visible = 2
+		label.custom_minimum_size = Vector2(104, 54)
+		label.max_lines_visible = 3
+		label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		inner.add_child(label)
 		slot_box.mouse_filter = Control.MOUSE_FILTER_STOP

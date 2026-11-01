@@ -466,7 +466,8 @@ func show_reports() -> void:
 		sign.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		sign.set_meta("report", i)
 		var p: Vector2 = PLACES[rep["stage"]]["pos"] * px
-		sign.set_meta("at", Vector2(p.x + 34, p.y - 30))
+		# Above the pin's label, so a long name ("5 · Supermarket") stays whole.
+		sign.set_meta("at", Vector2(p.x + 24, p.y - 52))
 		sign.position = sign.get_meta("at")
 		sign.draw.connect(_draw_report.bind(sign, i))
 		_pins_layer.add_child(sign)

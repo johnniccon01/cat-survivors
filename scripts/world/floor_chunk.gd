@@ -14,6 +14,11 @@ const PLANK := Vector2(96, 16)
 const TILE := 32.0
 const RUG_COLORS: Array[Color] = [Color("8e3b46"), Color("2f6f73"), Color("c9a24a"), Color("5b4a8a"), Color("3f6b3a")]
 const ITEM_KINDS: Array[String] = ["mouse", "book", "ball", "feather", "crumbs"]
+## The apartment's floor clutter, pixel art (apt_item_*.png, the fabric ones
+## per rug colour).
+const APARTMENT_ITEMS: Array[String] = ["toy_mouse", "book", "yarn", "feather", "crumbs", "sock", "paper_ball", "slipper", "newspaper", "kibble", "hair", "hair", "kibble", "sock"]
+const ART_ITEMS := ["toy_mouse", "paper_ball", "newspaper", "kibble", "hair"]
+const ART_FABRIC_ITEMS := ["sock", "yarn", "slipper", "book"]
 const BASEMENT_ITEMS: Array[String] = ["cobweb", "bolt", "rag", "crumbs", "jar"]
 const GARDEN_ITEMS: Array[String] = ["leaf", "leaf", "pebble", "flower", "acorn", "twig"]
 const ROOFTOP_ITEMS: Array[String] = ["leaf", "pebble", "feather", "bottle_cap", "bolt"]
@@ -24,7 +29,7 @@ const CEMETERY_ITEMS: Array[String] = ["leaf", "twig", "pebble", "feather", "lea
 const STATION_ITEMS: Array[String] = ["receipt", "coin_small", "bolt", "crumbs", "feather"]
 const ISLAND_ITEMS: Array[String] = ["shell", "starfish", "pebble", "shell", "leaf"]
 const PARK_ITEMS: Array[String] = ["leaf", "acorn", "feather", "flower", "crumbs"]
-const THEME_ITEMS := {"basement": BASEMENT_ITEMS, "garden": GARDEN_ITEMS, "rooftop": ROOFTOP_ITEMS,
+const THEME_ITEMS := {"apartment": APARTMENT_ITEMS, "basement": BASEMENT_ITEMS, "garden": GARDEN_ITEMS, "rooftop": ROOFTOP_ITEMS,
 	"supermarket": SUPERMARKET_ITEMS, "harbor": HARBOR_ITEMS, "factory": FACTORY_ITEMS, "cemetery": CEMETERY_ITEMS,
 	"station": STATION_ITEMS, "island": ISLAND_ITEMS, "park": PARK_ITEMS}
 ## Zones per theme, from low noise to high noise.
@@ -43,7 +48,7 @@ const THEME_ZONES := {
 }
 const FURNITURE := {
 	"living": ["sofa", "armchair", "coffee_table", "bookshelf", "tv", "floor_lamp", "plant", "cat_tree"],
-	"kitchen": ["dining_table", "cat_bowls", "trash_bin", "counter", "dining_table"],
+	"kitchen": ["cat_bowls", "trash_bin", "counter", "plant", "cat_bowls", "counter"],
 	"bedroom": ["bed", "nightstand", "wardrobe", "cat_bed", "bed", "floor_lamp"],
 	"concrete": ["boiler", "pipes", "bike", "bulb", "paint_cans", "pipes"],
 	"storage": ["shelf", "crates", "covered_sofa", "bulb", "crates", "shelf"],
@@ -85,7 +90,7 @@ static var _art: Dictionary = {}
 ## Furniture drawn from that pixel art; fabric ones come in a picture per
 ## rug colour (apt_<kind>_<i>).
 const ART_FURNITURE := ["bookshelf", "tv", "floor_lamp", "plant", "dining_table", "trash_bin", "counter", "nightstand", "wardrobe"]
-const ART_FABRIC := ["sofa", "armchair", "coffee_table", "cat_tree", "cat_bowls", "bed", "cat_bed"]
+const ART_FABRIC := ["sofa", "armchair", "coffee_table", "cat_tree", "cat_bowls", "bed", "cat_bed", "doormat"]
 ## Apartment floors from pixel art: zone -> texture name.
 const ART_FLOORS := {"living": "floor_planks", "kitchen": "floor_tiles", "bedroom": "floor_carpet"}
 
@@ -117,6 +122,12 @@ static func warm_art() -> void:
 		var plain := file.trim_suffix(".import").trim_suffix(".remap")
 		if plain.begins_with("apt_") and plain.ends_with(".png"):
 			art(plain.trim_prefix("apt_").trim_suffix(".png"))
+
+
+## True for furniture drawn from pixel art (it is never turned: the light
+## is painted in from the top left).
+static func has_art(kind: String) -> bool:
+	return kind in ART_FURNITURE or kind in ART_FABRIC
 
 
 static func art(name: String) -> Texture2D:
@@ -175,7 +186,11 @@ func _draw_ground() -> void:
 		draw_texture_rect_region(floor_art, area, Rect2(offset, area.size))
 	else:
 		_draw_floor(size, area)
-	_draw_floor_edges(size)
+	if floor_art != null:
+		_draw_wear(size)
+		_draw_room_edges(size)
+	else:
+		_draw_floor_edges(size)
 
 
 func _draw_floor(size: float, area: Rect2) -> void:
@@ -242,6 +257,86 @@ func _draw_floor_edges(size: float) -> void:
 		draw_rect(Rect2(size - 3, 0, 3, size), strip)
 	if desc["edge_bottom"]:
 		draw_rect(Rect2(0, size - 3, size, 3), strip)
+
+
+## Apartment floors are lived on: big soft patches of light and shade break
+## up the tiling, and each room has its own marks (claw scratches and dust on
+## the parquet, spills and dirty grout in the kitchen, lint and a worn path
+## on the carpet). Seeded per chunk, so it stays put.
+func _draw_wear(size: float) -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = int(desc["seed"]) ^ 0x5a17
+	for i in 2:
+		var c := Vector2(rng.randf_range(0, size), rng.randf_range(0, size))
+		var r := rng.randf_range(70, 140)
+		var tone := Color(0, 0, 0, 0.018) if i % 2 == 0 else Color(1, 0.95, 0.85, 0.018)
+		for k in 3:
+			draw_colored_polygon(Shapes.ellipse(c, r * (1.0 - k * 0.3), r * 0.7 * (1.0 - k * 0.3), 20), tone)
+	match desc["zone"]:
+		"living":
+			for i in rng.randi_range(2, 4):
+				# Claw scratches: three short light strokes side by side.
+				var p := Vector2(rng.randf_range(20, size - 20), rng.randf_range(20, size - 20))
+				var dir := Vector2.from_angle(rng.randf_range(-0.5, 0.5) + (PI * 0.5 if rng.randf() < 0.5 else 0.0))
+				var side := dir.orthogonal() * 2.0
+				var length := rng.randf_range(6, 12)
+				for k in 3:
+					var q := p + side * (k - 1)
+					draw_line(q, q + dir * length * (0.8 + 0.2 * k), Color(1, 0.9, 0.75, 0.22), 1.0)
+			for i in rng.randi_range(6, 12):
+				draw_rect(Rect2(Vector2(rng.randf_range(0, size), rng.randf_range(0, size)).floor(), Vector2.ONE), Color(0.2, 0.12, 0.08, 0.35))
+		"kitchen":
+			if rng.randf() < 0.5:
+				# A dried spill with a ring at its edge.
+				var c := Vector2(rng.randf_range(40, size - 40), rng.randf_range(40, size - 40))
+				var rx := rng.randf_range(9, 18)
+				draw_colored_polygon(Shapes.ellipse(c, rx, rx * 0.7, 16), Color(0.55, 0.38, 0.2, 0.14))
+				draw_polyline(Shapes.closed(Shapes.ellipse(c, rx, rx * 0.7, 16)), Color(0.45, 0.3, 0.15, 0.22), 1.0)
+			for i in rng.randi_range(2, 5):
+				# Grout gone dark in places.
+				var x := floorf(rng.randf_range(0, size) / TILE) * TILE - fposmod(position.x, TILE)
+				var y := floorf(rng.randf_range(0, size) / TILE) * TILE - fposmod(position.y, TILE)
+				draw_rect(Rect2(x, y, TILE, 1), Color(0.25, 0.25, 0.22, 0.25))
+		"bedroom":
+			# A worn path across the carpet, then lint.
+			var a := Vector2(0, rng.randf_range(60, size - 60))
+			var b := Vector2(size, a.y + rng.randf_range(-60, 60))
+			draw_line(a, b, Color(1, 1, 1, 0.035), 26.0)
+			draw_line(a, b, Color(1, 1, 1, 0.03), 14.0)
+			for i in rng.randi_range(8, 14):
+				draw_rect(Rect2(Vector2(rng.randf_range(0, size), rng.randf_range(0, size)).floor(), Vector2(1, 1)), Color(0.95, 0.9, 1.0, 0.3))
+
+
+## Where one apartment room meets another: a wooden threshold strip with
+## brass screws on this chunk's right and bottom edges, and on every side
+## that borders another room a soft shade, as if a door frame stood there.
+func _draw_room_edges(size: float) -> void:
+	for side: Array in [["edge_left", Vector2(0, 0), Vector2(1, 0)], ["edge_top", Vector2(0, 0), Vector2(0, 1)],
+			["edge_right", Vector2(size, 0), Vector2(-1, 0)], ["edge_bottom", Vector2(0, size), Vector2(0, -1)]]:
+		if not desc.get(side[0], false):
+			continue
+		var start: Vector2 = side[1]
+		var inward: Vector2 = side[2]
+		var along := Vector2(absf(inward.y), absf(inward.x)) * size
+		for k in 14:
+			var a := 0.2 * pow(1.0 - k / 14.0, 2.0)
+			var p := start + inward * (k + (6 if side[0] in ["edge_right", "edge_bottom"] else 0))
+			draw_line(p, p + along, Color(0.08, 0.05, 0.04, a), 1.0)
+	var strip := Color("b08a5a")
+	if desc["edge_right"]:
+		draw_rect(Rect2(size - 6, 0, 6, size), strip)
+		draw_rect(Rect2(size - 6, 0, 1, size), strip.lightened(0.3))
+		draw_rect(Rect2(size - 1, 0, 1, size), strip.darkened(0.45))
+		for y in range(20, int(size), 64):
+			draw_rect(Rect2(size - 4, y, 2, 2), Color("8a6a2a"))
+			draw_rect(Rect2(size - 4, y, 1, 1), Color("f2d88a"))
+	if desc["edge_bottom"]:
+		draw_rect(Rect2(0, size - 6, size, 6), strip)
+		draw_rect(Rect2(0, size - 6, size, 1), strip.lightened(0.3))
+		draw_rect(Rect2(0, size - 1, size, 1), strip.darkened(0.45))
+		for x in range(20, int(size), 64):
+			draw_rect(Rect2(x, size - 4, 2, 2), Color("8a6a2a"))
+			draw_rect(Rect2(x, size - 4, 1, 1), Color("f2d88a"))
 
 
 func _draw_planks(area: Rect2) -> void:
@@ -693,6 +788,21 @@ func _draw_moon(moon: Dictionary) -> void:
 
 func _draw_item(item: Dictionary) -> void:
 	var color: Color = item["color"]
+	var kind: String = item["kind"]
+	var pic: Texture2D = null
+	if kind in ART_ITEMS:
+		pic = art("item_" + kind)
+	elif kind in ART_FABRIC_ITEMS:
+		pic = art("item_%s_%d" % [kind, maxi(RUG_COLORS.find(color), 0)])
+	if pic != null:
+		var at := -(pic.get_size() * 0.5).floor()
+		# A shadow offset in the world (down right), then the thing turned.
+		draw_set_transform(item["pos"] + Vector2(1, 2), item["rot"])
+		draw_texture(pic, at, Color(0, 0, 0, 0.25))
+		draw_set_transform(item["pos"], item["rot"])
+		draw_texture(pic, at)
+		draw_set_transform(Vector2.ZERO)
+		return
 	draw_set_transform(item["pos"], item["rot"])
 	match item["kind"]:
 		"mouse":
@@ -786,9 +896,14 @@ func _draw_furniture(f: Dictionary) -> void:
 	draw_set_transform(f["pos"], f["rot"])
 	var pic := _furniture_art(f)
 	if pic != null:
-		# The pixel art, over its own soft shadow.
+		# The pixel art over a soft shadow cast down to the right: a wide
+		# faint one and a tighter darker one (in the world, whatever the turn).
 		var at := -(pic.get_size() * 0.5).floor()
-		draw_texture(pic, at + Vector2(2, 3), Color(0, 0, 0, 0.22))
+		draw_set_transform(f["pos"] + Vector2(4, 6), f["rot"])
+		draw_texture(pic, at, Color(0, 0, 0, 0.12))
+		draw_set_transform(f["pos"] + Vector2(2, 3), f["rot"])
+		draw_texture(pic, at, Color(0, 0, 0, 0.2))
+		draw_set_transform(f["pos"], f["rot"])
 		draw_texture(pic, at)
 		draw_set_transform(Vector2.ZERO)
 		return

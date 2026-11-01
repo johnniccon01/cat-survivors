@@ -223,9 +223,12 @@ func _generate(c: Vector2i) -> Dictionary:
 		"zone": zone,
 		"size": CHUNK,
 		"seed": rng.randi(),
-		# Draw a threshold strip where the room changes.
+		# Draw a threshold strip where the room changes (and its shade on
+		# the other side).
 		"edge_right": zone_at(c + Vector2i.RIGHT) != zone,
 		"edge_bottom": zone_at(c + Vector2i.DOWN) != zone,
+		"edge_left": zone_at(c + Vector2i.LEFT) != zone,
+		"edge_top": zone_at(c + Vector2i.UP) != zone,
 		"furniture": [],
 		"items": [],
 	}
@@ -237,9 +240,12 @@ func _generate(c: Vector2i) -> Dictionary:
 			"oval": rng.randf() < 0.4,
 		}
 	var pool: Array = FloorChunk.FURNITURE[zone]
+	var slots: Array[Vector2] = [Vector2(0.28, 0.3), Vector2(0.72, 0.72)]
+	if theme == "apartment":
+		slots = _apartment_sets(rng, desc)
 	# Two loose slots per chunk, in opposite corners, so pieces don't overlap.
-	for slot: Vector2 in [Vector2(0.28, 0.3), Vector2(0.72, 0.72)]:
-		if rng.randf() < 0.55:
+	for slot: Vector2 in slots:
+		if rng.randf() < (0.7 if theme == "apartment" else 0.55):
 			var kind: String = pool[rng.randi() % pool.size()]
 			var pos := slot * CHUNK + Vector2(rng.randf_range(-25, 25), rng.randf_range(-25, 25))
 			var turn: float = [0.0, PI * 0.5, PI, PI * 1.5][rng.randi() % 4]
@@ -247,10 +253,11 @@ func _generate(c: Vector2i) -> Dictionary:
 				"kind": kind,
 				"pos": pos,
 				# Gravestones and crosses always stand upright.
-				"rot": 0.0 if kind in UPRIGHT else turn,
+				# Pixel-art furniture keeps its light from the top left.
+				"rot": 0.0 if kind in UPRIGHT or FloorChunk.has_art(kind) else turn,
 				"color": FloorChunk.RUG_COLORS[rng.randi() % FloorChunk.RUG_COLORS.size()],
 			})
-	for i in rng.randi_range(1, 4):
+	for i in (rng.randi_range(3, 6) if theme == "apartment" else rng.randi_range(1, 4)):
 		desc["items"].append({
 			"kind": _pick(rng, FloorChunk.THEME_ITEMS.get(theme, FloorChunk.ITEM_KINDS)),
 			"pos": Vector2(rng.randf_range(10, CHUNK - 10), rng.randf_range(10, CHUNK - 10)),
@@ -263,3 +270,40 @@ func _generate(c: Vector2i) -> Dictionary:
 			"size": Vector2(rng.randf_range(70, 110), rng.randf_range(55, 80)),
 		}
 	return desc
+
+
+## Apartment rooms look lived in: a sofa and coffee table round the rug, a
+## bed with its nightstand, a doormat by a doorway. Adds those pieces to
+## `desc` and returns the loose slots still free (chunk fractions).
+func _apartment_sets(rng: RandomNumberGenerator, desc: Dictionary) -> Array[Vector2]:
+	var free: Array[Vector2] = [Vector2(0.28, 0.3), Vector2(0.72, 0.72)]
+	var color: Color = FloorChunk.RUG_COLORS[rng.randi() % FloorChunk.RUG_COLORS.size()]
+	var zone: String = desc["zone"]
+	if zone == "living" and desc.has("rug") and rng.randf() < 0.6:
+		var r: Rect2 = desc["rug"]["rect"]
+		var c := r.get_center()
+		desc["furniture"].append({"kind": "coffee_table", "pos": c, "rot": 0.0, "color": color})
+		if r.position.y - 26.0 > 26.0:
+			desc["furniture"].append({"kind": "sofa", "pos": Vector2(c.x, r.position.y - 4.0), "rot": 0.0, "color": color})
+		free = [Vector2(0.15, 0.85) if c.x > CHUNK * 0.5 else Vector2(0.85, 0.85)]
+	elif zone == "bedroom" and rng.randf() < 0.45:
+		var at := Vector2(rng.randf_range(80, CHUNK - 110), rng.randf_range(80, CHUNK - 80))
+		desc["furniture"].append({"kind": "bed", "pos": at, "rot": 0.0, "color": color})
+		desc["furniture"].append({"kind": "nightstand", "pos": at + Vector2(66, -44), "rot": 0.0, "color": color})
+		free = [Vector2(0.15, 0.15) if at.y > CHUNK * 0.5 else Vector2(0.15, 0.85)]
+	elif zone == "kitchen" and rng.randf() < 0.3:
+		var at := Vector2(rng.randf_range(70, CHUNK - 70), rng.randf_range(70, CHUNK - 70))
+		desc["furniture"].append({"kind": "dining_table", "pos": at, "rot": 0.0, "color": color})
+		free = [Vector2(0.15, 0.15) if at.y > CHUNK * 0.5 else Vector2(0.85, 0.85)]
+	# A doormat on this side of a doorway to the next room.
+	for side: Array in [["edge_top", Vector2(0.5, 0.0), Vector2(0, 18)], ["edge_left", Vector2(0.0, 0.5), Vector2(26, 0)]]:
+		if desc[side[0]] and rng.randf() < 0.35:
+			var along := rng.randf_range(0.3, 0.7)
+			var pos: Vector2 = (side[1] as Vector2) * CHUNK + side[2]
+			if side[0] == "edge_top":
+				pos.x = along * CHUNK
+			else:
+				pos.y = along * CHUNK
+			desc["furniture"].append({"kind": "doormat", "pos": pos, "rot": 0.0 if side[0] == "edge_top" else PI * 0.5, "color": color})
+			break
+	return free

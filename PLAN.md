@@ -68,6 +68,7 @@ Doplnok (31. 10. 2026, značka `pomniky`): dôchodok už nedáva percentá. Kaž
 8. [x] „Vzdať sa“ sa počíta ako smrť a berie život – život sa má stratiť len pri skutočnej smrti (hotové, značka `vzdat-bez-zivota`: odmeny ako pri smrti, ale život, hodnosť ani talent sa nestratí; test `career_give_up`).
 9. [x] Ukázať starú vs novú grafiku Bytu (1. 11.: rozdiel je naozaj malý – rovnaké farby, len jemnejšia textúra parkiet a dlažby, vzor koberca a kvetináč; ak má byť viditeľný, treba výraznejší štýl).
 10. [x] Vysvetliť brániť / dobyť / ako vyhrať (hotové, značka `ako-vyhrat`: v pravom paneli hneď pod obrázkom blok „Ako vyhrať túto noc" – výhra noci alebo podmienky prijatej úlohy a dobytie; tlačidlo Pomoc (H) s vysvetlením všetkých tabuliek na mape, dobytia a splnu).
+11. [ ] Byt prepracovať, aby nevyzeral prázdny a lacný (zadané 1. 11.; potom vonkajšie mapy s cestičkami). Krok 1 hotový (značka `byt-detaily`): drevené prahy s mosadznými skrutkami a tieň na hranici izieb, rohožky pri prechodoch, 10 druhov pixel-art drobností na zemi (ponožky, klbká, papuče, knihy, noviny, hračková myš, papierová guľa, granule, srsť), 3–6 na kus podlahy, škrabance na parketách, škvrny v kuchyni, vychodená cestička na koberci, mäkšie tiene nábytku, zostavy (gauč + stolík na koberci, posteľ + nočný stolík, stôl v kuchyni), pixel-art nábytok sa už neotáča. Ďalej: steny izieb s dverami (potrebujú kolíziu), lepšie svetlo, väčší a detailnejší nábytok.
 
 Do dlhodobého plánu (nerobiť teraz): **Krotenie** – v tejto podobe sa nepáči, vymyslieť inak (bez ďalšej postavy na obrazovke).
 

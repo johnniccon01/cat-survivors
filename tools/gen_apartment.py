@@ -570,8 +570,166 @@ def stove():
     img.save("apt_trap_stove.png")
 
 
+# --- things left on the floor --------------------------------------------------
+# Small, drawn at 1 px = 1 world unit like the rest; the ones made of fabric
+# come per rug colour (apt_item_<kind>_<i>.png).
+
+def item_sock(fabric, n):
+    img = framed(14, 18)
+    o = 1
+    stripe = shade(fabric, 0.45)
+    # Leg (top) bending into the foot (bottom right).
+    img.rect(o + 1, o, 7, 11, fabric)
+    img.poly([(o + 1, o + 10), (o + 8, o + 10), (o + 13, o + 13), (o + 13, o + 17), (o + 5, o + 17), (o + 1, o + 14)], fabric)
+    for y in (o + 1, o + 4, o + 7):
+        img.rect(o + 1, y, 7, 1, stripe)
+    img.rect(o + 1, o, 7, 1, shade(fabric, 0.6))
+    img.circle(o + 11, o + 15, 2, shade(fabric, -0.2))
+    img.bevel(o + 1, o, 7, 11, 0.15)
+    img.outline()
+    img.save("apt_item_sock_%d.png" % n)
+
+
+def item_yarn(fabric, n):
+    img = framed(22, 14)
+    o = 1
+    c = (o + 6, o + 6)
+    img.circle(c[0], c[1], 6, fabric)
+    img.round_shade(c[0], c[1], 6, 0.3)
+    for i in range(4):
+        a = 0.6 + i * 0.7
+        img.line(c[0] - math.cos(a) * 5, c[1] - math.sin(a) * 5, c[0] + math.cos(a) * 5, c[1] + math.sin(a) * 5, shade(fabric, 0.3))
+    img.outline()
+    # A loose thread wandering off to the right (no outline).
+    for x in range(o + 12, o + 22):
+        img.set(x, o + 7 + round(math.sin((x - o) * 0.9) * 2), shade(fabric, 0.15))
+    img.save("apt_item_yarn_%d.png" % n)
+
+
+def item_paper_ball():
+    rng = random.Random(21)
+    img = framed(10, 10)
+    o = 1
+    img.circle(o + 5, o + 5, 5, hexc("ecebe4"))
+    for _ in range(9):
+        x, y = o + rng.randint(1, 8), o + rng.randint(1, 8)
+        img._shade(x, y, -0.18)
+        img._shade(x + 1, y, -0.1)
+    img.round_shade(o + 5, o + 5, 5, 0.25)
+    img.outline()
+    img.save("apt_item_paper_ball.png")
+
+
+def item_toy_mouse():
+    img = framed(16, 9)
+    o = 1
+    body = hexc("9a9aa2")
+    img.circle(o + 7, o + 4.5, 5.5, body, 3.5)
+    img.round_shade(o + 7, o + 4.5, 5, 0.3)
+    img.circle(o + 4, o + 1.5, 1.6, hexc("e0a8b0"))
+    img.circle(o + 4, o + 7.5, 1.6, hexc("e0a8b0"))
+    img.set(o + 2, o + 4, OUTLINE)
+    img.set(o + 1, o + 4, hexc("e07080"))
+    img.outline()
+    for x in range(o + 12, o + 16):
+        img.set(x, o + 4 + (1 if x % 3 == 0 else 0), hexc("d9a0a8"))
+    img.save("apt_item_toy_mouse.png")
+
+
+def item_slipper(fabric, n):
+    img = framed(12, 22)
+    o = 1
+    sole = hexc("e8dcc0")
+    img.circle(o + 6, o + 11, 6, sole, 11)
+    img.circle(o + 6, o + 8, 5, fabric, 6)
+    img.round_shade(o + 6, o + 8, 5, 0.3)
+    img.circle(o + 6, o + 4, 2, hexc("f4f1ea"))
+    img.outline()
+    img.save("apt_item_slipper_%d.png" % n)
+
+
+def item_newspaper():
+    rng = random.Random(22)
+    img = framed(24, 17)
+    o = 1
+    paper = hexc("e4e0d4")
+    img.poly([(o, o + 2), (o + 22, o), (o + 24, o + 15), (o + 2, o + 17)], paper)
+    img.rect(o + 3, o + 3, 8, 6, hexc("9aa0a6"))
+    for y in range(o + 4, o + 15, 2):
+        for x in range(o + 13 if y < o + 10 else o + 3, o + 21):
+            if rng.random() < 0.8:
+                img.set(x, y, hexc("8a8a90"))
+    img.line(o + 12, o + 1, o + 13, o + 16, shade(paper, -0.15))
+    img.outline()
+    img.save("apt_item_newspaper.png")
+
+
+def item_kibble():
+    rng = random.Random(23)
+    img = Img(14, 10)
+    for _ in range(7):
+        x, y = rng.randint(1, 11), rng.randint(1, 7)
+        img.rect(x, y, 2, 2, hexc("9a6a3a"))
+        img.set(x, y, hexc("c08a4a"))
+        img.set(x + 1, y + 1, hexc("6b4630"))
+    img.save("apt_item_kibble.png")
+
+
+def item_hair():
+    rng = random.Random(24)
+    img = Img(12, 9)
+    for _ in range(14):
+        x, y = rng.uniform(2, 9), rng.uniform(2, 6)
+        a = rng.uniform(0, math.pi)
+        img.line(x, y, x + math.cos(a) * 3, y + math.sin(a) * 2, (232, 224, 210, 200))
+    img.save("apt_item_hair.png")
+
+
+def item_book(fabric, n):
+    img = framed(16, 12)
+    o = 1
+    img.rect(o, o, 16, 12, fabric)
+    img.rect(o + 1, o + 9, 15, 2, hexc("efe6d0"))
+    img.rect(o, o, 2, 12, shade(fabric, -0.25))
+    img.rect(o + 6, o + 3, 6, 1, shade(fabric, 0.45))
+    img.bevel(o, o, 16, 12, 0.18)
+    img.outline()
+    img.save("apt_item_book_%d.png" % n)
+
+
+def doormat(fabric, n):
+    rng = random.Random(25 + n)
+    img = framed(42, 26)
+    o = 1
+    coir = hexc("a8824a")
+    img.rect(o, o, 42, 26, shade(fabric, -0.1))
+    img.rect(o + 3, o + 3, 36, 20, speckle(rng, coir, 0.12, 0.7))
+    for x in range(o + 3, o + 39, 3):
+        for y in range(o + 3, o + 23):
+            img._shade(x, y, -0.08)
+    # A paw print in the middle.
+    img.circle(o + 21, o + 15, 3.5, shade(fabric, 0.1))
+    for dx, dy in ((-4, -4), (0, -6), (4, -4)):
+        img.circle(o + 21 + dx, o + 14 + dy, 1.6, shade(fabric, 0.1))
+    img.bevel(o, o, 42, 26, 0.15)
+    img.outline()
+    img.save("apt_doormat_%d.png" % n)
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
+    for n, hexcode in enumerate(FABRICS):
+        fabric = hexc(hexcode)
+        item_sock(fabric, n)
+        item_yarn(fabric, n)
+        item_slipper(fabric, n)
+        item_book(fabric, n)
+        doormat(fabric, n)
+    item_paper_ball()
+    item_toy_mouse()
+    item_newspaper()
+    item_kibble()
+    item_hair()
     floor_planks()
     floor_tiles()
     floor_carpet()

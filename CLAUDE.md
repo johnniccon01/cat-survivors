@@ -28,6 +28,7 @@ Ak cesta neexistuje, nájdi ju rovnako ako `hrat.bat` (Downloads, priečinok `go
 - Rýchly test jedného scenára: `ONLY="nazov|nazov2" bash tools/run_checks.sh "$G"` (názvy scenárov v `tools/run_checks.sh`).
 - Rýchla sada: `QUICK=1 bash tools/run_checks.sh "$G"`. Celá sada (~150 scenárov) len na požiadanie.
 - Kontrola textov (všetky jazyky, zástupné znaky, písmo): `"$G" --headless --path . -s res://tools/strings_check.gd` (beží aj na konci `run_checks.sh`). Preklady: `tools/translations_tool.gd` (dump / merge / missing).
+- Celá hra od začiatku (len na požiadanie, ~35 min): `bash tools/campaign.sh "$G"` – jedna mačka, všetky mapy v poradí, testovací profil, oživovanie, nákupy. Zbrane jednotlivo: `bash tools/weapons_test.sh "$G"`.
 - Spustenie hry s logom: `--log-file C:\Users\AndrejNikolaj\cat-survivors-logs\play.log`.
 
 ## Git a dva počítače

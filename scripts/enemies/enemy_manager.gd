@@ -325,6 +325,8 @@ func _physics_process(delta: float) -> void:
 		var offset := enemy.position - target
 		if offset.length_squared() > relocate_distance * relocate_distance and not enemy.is_charging():
 			enemy.position = Terrain.fix_spawn(target - offset.normalized() * spawn_radius, target, enemy.radius)
+			# A jump, not a walk: no smoothing across the screen.
+			enemy.reset_physics_interpolation()
 		var chase := target
 		if cats.size() > 1:
 			for c in cats:

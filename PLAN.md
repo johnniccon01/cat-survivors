@@ -71,7 +71,7 @@ Doplnok (31. 10. 2026, značka `pomniky`): dôchodok už nedáva percentá. Kaž
 11. [ ] Byt prepracovať, aby nevyzeral prázdny a lacný (zadané 1. 11.; potom vonkajšie mapy s cestičkami). Krok 1 hotový (značka `byt-detaily`): drevené prahy s mosadznými skrutkami a tieň na hranici izieb, rohožky pri prechodoch, 10 druhov pixel-art drobností na zemi (ponožky, klbká, papuče, knihy, noviny, hračková myš, papierová guľa, granule, srsť), 3–6 na kus podlahy, škrabance na parketách, škvrny v kuchyni, vychodená cestička na koberci, mäkšie tiene nábytku, zostavy (gauč + stolík na koberci, posteľ + nočný stolík, stôl v kuchyni), pixel-art nábytok sa už neotáča. Ďalej: steny izieb s dverami (potrebujú kolíziu), lepšie svetlo, väčší a detailnejší nábytok.
     - Krok 2 hotový (značka `byt-steny`): steny izieb s dverami (terén `rooms` – omietka, natretá stena so soklom, tieň, drevené zárubne; kolízia pre mačku aj nepriateľov; pri štarte noci nič), prah a rohožka presne v dverách.
 12. [ ] Legenda ikon na mape štvrte (hviezdička = lov na bossa, šípky = nočná túra, spln…) priamo vedľa mapy, aby to pochopil každý.
-13. [ ] Mačka pri pohybe vyzerá rozmazane (od novej grafiky) – opraviť.
+13. [x] Mačka pri pohybe vyzerá rozmazane – opravené (značka `plynuly-pohyb`): pohyb sa počítal 60× za sekundu, ale kreslil sa na 144 Hz monitore a kamera sa vyhladzovala medzi tým, takže mačka, nepriatelia aj strely išli po skokoch. Zapnutá interpolácia fyziky (`physics/common/physics_interpolation`), kamera ide vo fyzikálnych ťikoch, drony tiež; pri skoku nepriateľa na druhú stranu sa interpolácia resetuje. Overiť okom v hre.
 
 Do dlhodobého plánu (nerobiť teraz): **Krotenie** – v tejto podobe sa nepáči, vymyslieť inak (bez ďalšej postavy na obrazovke).
 

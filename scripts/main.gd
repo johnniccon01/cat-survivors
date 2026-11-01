@@ -352,6 +352,7 @@ func _ready() -> void:
 	if teleport != "":
 		var to: Vector2 = quests.trail_end() if teleport == "trail" else Vector2(teleport.get_slice(",", 0).to_float(), teleport.get_slice(",", 1).to_float())
 		player.position = to
+		player.reset_physics_interpolation()
 	enemies.enemy_killed.connect(_on_enemy_killed)
 	enemies.prop_broken.connect(_on_prop_broken)
 	enemies.champion_killed.connect(_on_champion_killed)

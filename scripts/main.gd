@@ -253,9 +253,18 @@ var _nemesis_lines: Array[String] = []
 var _nemesis_planned := false
 var _nemesis_boss: Enemy
 ## Full moon night: bosses still to come, and whether home is set up yet.
-## Territory flags of tonight's map, and how many are taken.
+## Conquest of tonight's map: the boss's flags come one at a time
+## (CONQUEST_FLAG_EVERY apart), and once all are taken their keeper, one of
+## the map's bosses, comes for them. Defeat it and the map is yours, however
+## the night ends.
+const CONQUEST_FLAG_EVERY := 180.0
+var _conquest := false
 var _flags: Array[TerritoryFlag] = []
 var _flags_taken := 0
+var _keeper: Enemy
+var _keeper_id := ""
+var _conquered := false
+var _conquest_text := ""
 var _flags_placed := false
 ## Night trip: the gates still to come (seconds) and the maps passed so far.
 const TRIP_GATES := [420.0, 840.0]
@@ -1203,7 +1212,7 @@ func _end_run(kind: String) -> void:
 		gold += home_gold
 		lines.append(tr("SUMMARY_HOME") % home_gold)
 	gold += _report_reward(kind, gold, lines)
-	if kind == "victory" and _flags_taken >= Profile.TERRITORY_FLAGS and Profile.conquer(spawner.stage_id):
+	if _conquered and Profile.conquer(spawner.stage_id):
 		lines.append(tr("SUMMARY_TERRITORY") % [tr("STAGE_%s_NAME" % spawner.stage_id), DistrictMap.stats_text(Profile.TERRITORY_BONUS[spawner.stage_id])])
 		print("TERRITORY: %s conquered" % spawner.stage_id)
 		BotLog.event("territory_won")
@@ -1351,7 +1360,9 @@ func _track_run(delta: float) -> void:
 		_tick_moon()
 	if not _flags_placed and spawner.elapsed >= 1.0:
 		_flags_placed = true
-		_place_flags()
+		_start_conquest()
+	if _conquest and not _run_over:
+		_tick_conquest()
 	if not _trip_gates.is_empty() and spawner.elapsed >= float(_trip_gates[0]) and not _run_over and not get_tree().paused:
 		_trip_gates.pop_front()
 		_trip_gate()
@@ -1536,25 +1547,65 @@ func _tick_moon() -> void:
 	BotLog.event("moon_boss")
 
 
-## On a map not yet conquered, the boss's flags stand around the start.
-func _place_flags() -> void:
+## On a map not yet conquered, tonight is a chance to take it.
+func _start_conquest() -> void:
 	var id := spawner.stage_id
 	if dev_test or _endless or Profile.moon_on or id in Profile.territories or not Profile.TERRITORY_BONUS.has(id):
 		return
 	if Profile.active_report().get("kind", "") == "trip":
 		return
+	_conquest = true
+	print("TERRITORY: conquest on %s" % id)
+
+
+## When the next flag comes (night clock, seconds).
+func _next_flag_at() -> float:
+	return float(_arg("--flag-every=", str(CONQUEST_FLAG_EVERY))) * (_flags.size() + 1)
+
+
+func _tick_conquest() -> void:
+	var total := Profile.TERRITORY_FLAGS
+	var standing := _flags.size() > _flags_taken
+	# One flag at a time: the next one only once the last is taken.
+	if not standing and _flags.size() < total and spawner.elapsed >= _next_flag_at():
+		_place_flag()
+	elif _flags_taken >= total and _keeper_id == "" and not _conquered:
+		_send_keeper()
+	elif _keeper_id != "" and not _conquered and (not is_instance_valid(_keeper) or _keeper.dead):
+		_conquered = true
+		hud.show_banner(tr("TERRITORY_CONQUERED") % tr("STAGE_%s_NAME" % spawner.stage_id), 5.0)
+		Audio.play("sparkle", 0.0, 0.0)
+		print("TERRITORY: keeper %s defeated" % _keeper_id)
+		BotLog.event("territory_keeper_down")
+	var text := ""
+	if _conquered:
+		text = ""
+	elif _keeper_id != "":
+		text = tr("CONQUEST_KEEPER") % tr("ENEMY_%s_NAME" % _keeper_id)
+	elif _flags.size() > _flags_taken:
+		text = tr("CONQUEST_TAKE") % [_flags_taken + 1, total]
+	elif _flags.size() < total:
+		var at := _next_flag_at()
+		text = tr("CONQUEST_NEXT") % [_flags.size() + 1, total, "%d:%02d" % [int(at) / 60, int(at) % 60]]
+	if text != _conquest_text:
+		_conquest_text = text
+		hud.set_conquest(text)
+
+
+func _place_flag() -> void:
 	var dist := float(_arg("--flag-dist=", "600"))
-	var turn := randf() * TAU
-	for i in Profile.TERRITORY_FLAGS:
-		var flag := TerritoryFlag.new()
-		flag.main = self
-		flag.capture_time = float(_arg("--flag-time=", str(TerritoryFlag.CAPTURE_TIME)))
-		flag.position = Terrain.fix(player.position + Vector2.from_angle(turn + TAU * i / Profile.TERRITORY_FLAGS) * dist * randf_range(0.9, 1.1), 40.0)
-		flag.captured.connect(_on_flag_taken.bind(flag))
-		add_child(flag)
-		move_child(flag, $Floor.get_index() + 1)
-		_flags.append(flag)
-	print("TERRITORY: %d flags on %s" % [_flags.size(), id])
+	var flag := TerritoryFlag.new()
+	flag.main = self
+	flag.capture_time = float(_arg("--flag-time=", str(TerritoryFlag.CAPTURE_TIME)))
+	flag.position = Terrain.fix(player.position + Vector2.from_angle(randf() * TAU) * dist * randf_range(0.9, 1.1), 40.0)
+	flag.captured.connect(_on_flag_taken.bind(flag))
+	add_child(flag)
+	move_child(flag, $Floor.get_index() + 1)
+	_flags.append(flag)
+	hud.show_banner(tr("TERRITORY_FLAG_UP") % [_flags.size(), Profile.TERRITORY_FLAGS], 4.5)
+	Audio.play("bell", 0.0, 0.0)
+	print("TERRITORY: flag %d placed on %s" % [_flags.size(), spawner.stage_id])
+	BotLog.event("flag_placed")
 
 
 func _on_flag_taken(flag: TerritoryFlag) -> void:
@@ -1563,10 +1614,28 @@ func _on_flag_taken(flag: TerritoryFlag) -> void:
 	for i in 8:
 		pickups.spawn_named("coin", flag.position + Vector2.from_angle(TAU * i / 8.0) * 24.0, 5.0)
 	Audio.play("sparkle", 0.0, 0.0)
-	var all := _flags_taken >= Profile.TERRITORY_FLAGS
-	hud.show_banner(tr("TERRITORY_ALL") if all else tr("TERRITORY_FLAG") % [_flags_taken, Profile.TERRITORY_FLAGS], 4.0)
+	hud.show_banner(tr("TERRITORY_FLAG") % [_flags_taken, Profile.TERRITORY_FLAGS], 4.0)
 	print("TERRITORY: flag %d/%d" % [_flags_taken, Profile.TERRITORY_FLAGS])
 	BotLog.event("flag_taken")
+
+
+## All flags taken: one of the map's bosses comes to win them back.
+func _send_keeper() -> void:
+	var bosses: Array = spawner._stage_bosses()
+	if bosses.is_empty():
+		_conquered = true
+		return
+	_keeper_id = bosses.pick_random()
+	_keeper = spawner.spawn_boss_as_in_run(_keeper_id, Terrain.fix(player.position + Vector2.from_angle(randf() * TAU) * 420.0, 40.0))
+	if _keeper == null:
+		_keeper_id = ""
+		_conquered = true
+		return
+	player.shake(5.0, 0.5)
+	Audio.play("roar", 0.0, 0.0)
+	hud.show_banner(tr("TERRITORY_KEEPER") % tr("ENEMY_%s_NAME" % _keeper_id), 5.0)
+	print("TERRITORY: keeper %s comes" % _keeper_id)
+	BotLog.event("territory_keeper")
 
 
 ## A night trip starts: two gates will come during the night.

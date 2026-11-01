@@ -64,7 +64,7 @@ Doplnok (31. 10. 2026, značka `pomniky`): dôchodok už nedáva percentá. Kaž
 4. [x] Panel výbavy: pri výbere predmetu s dlhším popisom obrazovka poskakuje – pevné rozmery (hotové, značka `vybava-pevna`: popis má pevnú výšku 4 riadky a zmenší písmo, sloty max. 2 riadky, zoznam 7 riadkov, aby sa panel zmestil aj na 720p; test v `ui_test.gd`).
 5. [x] Tlačidlá Upgrades / Talents / Gear / Artifacts / Curses / Daily / Journal – je ich veľa, zlúčiť alebo presunúť (hotové, značka `tlacidla-stvrte`: hore len Vylepšenia, Denník, Späť; Talenty, Výbava, Artefakty pri mačke; Prekliatia a Denná noc nad Hrať; klávesy ostali).
 6. [ ] Byt v novej grafike: nie je vidno zmenu a hra akoby sekala – overiť, či sa nová grafika naozaj kreslí, a výkon.
-7. [ ] Quest s 3 vlajkami: bez popisu, vlajky naraz na začiatku, obrana = celá noc – prerobiť (vlajky postupne, popis, kratšia obrana s bossom na konci).
+7. [x] Quest s 3 vlajkami: bez popisu, vlajky naraz na začiatku, obrana = celá noc – prerobiť (hotové, značka `dobytie-vlajky`: vlajky prídu po jednej v 3., 6. a 9. minúte, každá s hláškou a šípkou; v HUD je riadok dobytia (ďalšia vlajka o…, postoj pri vlajke, poraz strážcu); po tretej príde strážca vlajok – boss mapy; keď ho porazíš, mapa je dobytá hneď a ostane tvoja, nech noc skončí akokoľvek; testy `territory_flags`, `territory_won`).
 8. [x] „Vzdať sa“ sa počíta ako smrť a berie život – život sa má stratiť len pri skutočnej smrti (hotové, značka `vzdat-bez-zivota`: odmeny ako pri smrti, ale život, hodnosť ani talent sa nestratí; test `career_give_up`).
 
 Do dlhodobého plánu (nerobiť teraz): **Krotenie** – v tejto podobe sa nepáči, vymyslieť inak (bez ďalšej postavy na obrazovke).

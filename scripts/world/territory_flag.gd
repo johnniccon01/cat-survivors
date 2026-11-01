@@ -1,8 +1,9 @@
 class_name TerritoryFlag
 extends Node2D
 ## A boss's flag on a map you have not conquered yet. Stay next to it for a
-## few seconds and it turns to your colour; take all of a night's flags and
-## win the night, and the map is yours for good (Profile.TERRITORY_BONUS).
+## few seconds and it turns to your colour. The flags come one at a time;
+## take them all and defeat their keeper, and the map is yours for good
+## (Profile.TERRITORY_BONUS, see Main._tick_conquest).
 ## An arrow at the screen edge shows the way while the flag still stands.
 
 signal captured

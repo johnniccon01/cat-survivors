@@ -209,47 +209,87 @@ def framed(w, h):
     return Img(w + 2, h + 2)
 
 
+def fabric_fill(rng, base, y0, h, tex=0.05, light=0.14):
+    """Upholstery: lit at the top, shaded at the bottom, a fine weave."""
+    def f(x, y):
+        t = (y - y0) / max(h - 1, 1)
+        k = light - 2 * light * t + rng.uniform(-tex, tex)
+        if (x + y) % 4 == 0:
+            k -= 0.03
+        return shade(base, k)
+    return f
+
+
 def sofa(fabric, n):
-    img = framed(112, 44)
+    rng = random.Random(30 + n)
+    img = framed(116, 48)
     o = 1
-    dark, darker, light = shade(fabric, -0.18), shade(fabric, -0.32), shade(fabric, 0.18)
-    img.rect(o, o, 112, 44, dark)
-    img.rect(o, o, 112, 12, darker)
-    img.bevel(o, o, 112, 12, 0.15)
-    for x0 in (o, o + 102):
-        img.rect(x0, o, 10, 44, darker)
-        img.bevel(x0, o, 10, 44, 0.18)
+    dark, darker = shade(fabric, -0.2), shade(fabric, -0.34)
+    # Back rest with tufted buttons.
+    img.rect(o, o, 116, 14, fabric_fill(rng, darker, o, 14))
+    img.bevel(o, o, 116, 14, 0.16)
+    for x in range(o + 18, o + 100, 14):
+        img.set(x, o + 6, shade(darker, -0.35))
+        img.set(x + 1, o + 6, shade(darker, 0.15))
+        img.line(x - 4, o + 3, x, o + 6, shade(darker, -0.15))
+        img.line(x + 4, o + 3, x, o + 6, shade(darker, -0.15))
+    # Arms, rolled: a light ridge along the top.
+    for x0 in (o, o + 105):
+        img.rect(x0, o + 2, 11, 46, fabric_fill(rng, darker, o + 2, 46))
+        img.bevel(x0, o + 2, 11, 46, 0.2)
+        img.rect(x0 + 4, o + 4, 2, 42, shade(darker, 0.22))
+    # Seat cushions with piping and a sag in the middle.
     for i in range(3):
-        x0 = o + 12 + i * 30
-        img.rect(x0, o + 12, 28, 30, fabric)
-        img.bevel(x0, o + 12, 28, 30, 0.2)
-        # Stitching and a dimple in the middle of the cushion.
-        for x in range(x0 + 3, x0 + 25, 2):
-            img.set(x, o + 15, light)
-        img.set(x0 + 14, o + 27, shade(fabric, -0.2))
-        img.set(x0 + 13, o + 27, shade(fabric, -0.1))
-    # A throw pillow in the corner.
-    p = hexc("efe0b8")
-    img.rect(o + 14, o + 7, 14, 10, p)
-    img.bevel(o + 14, o + 7, 14, 10, 0.2)
+        x0 = o + 12 + i * 31
+        img.rect(x0, o + 14, 30, 32, fabric_fill(rng, fabric, o + 14, 32))
+        img.bevel(x0, o + 14, 30, 32, 0.18)
+        for x in range(x0 + 2, x0 + 28):
+            img.set(x, o + 44, shade(fabric, 0.3))
+        img.circle(x0 + 15, o + 30, 6, lambda x, y: shade(img.get(x, y), -0.06), 4)
+        img.rect(x0 + 29, o + 14, 1, 32, shade(fabric, -0.4))
+    # Two throw pillows, a cream striped one and a contrasting one.
+    cream = hexc("efe0b8")
+    img.poly([(o + 15, o + 8), (o + 31, o + 5), (o + 34, o + 19), (o + 18, o + 22)], cream)
+    for k in range(3):
+        img.line(o + 17 + k * 5, o + 8 - k, o + 20 + k * 5, o + 21 - k, shade(cream, -0.18))
+    img.bevel(o + 15, o + 6, 18, 15, 0.12)
+    other = hexc(FABRICS[(n + 2) % len(FABRICS)])
+    img.poly([(o + 84, o + 6), (o + 99, o + 8), (o + 97, o + 22), (o + 82, o + 20)], other)
+    img.round_shade(o + 90, o + 14, 8, 0.25)
+    img.set(o + 90, o + 14, shade(other, -0.3))
+    # A knitted throw hanging over the right arm.
+    throw = hexc("e8dcc0")
+    img.rect(o + 101, o + 16, 15, 24, throw)
+    for y in range(o + 17, o + 40, 3):
+        img.rect(o + 101, y, 15, 1, shade(throw, -0.1))
+    img.rect(o + 101, o + 24, 15, 2, shade(fabric, 0.1))
+    for x in range(o + 102, o + 116, 2):
+        img.set(x, o + 40, shade(throw, -0.2))
     img.outline()
     img.save("apt_sofa_%d.png" % n)
 
 
 def armchair(fabric, n):
-    img = framed(44, 44)
+    rng = random.Random(40 + n)
+    img = framed(46, 46)
     o = 1
-    dark, darker = shade(fabric, -0.18), shade(fabric, -0.32)
-    img.rect(o, o, 44, 44, dark)
-    img.rect(o, o, 44, 11, darker)
-    img.bevel(o, o, 44, 11, 0.15)
-    for x0 in (o, o + 36):
-        img.rect(x0, o, 8, 44, darker)
-        img.bevel(x0, o, 8, 44, 0.18)
-    img.rect(o + 8, o + 11, 28, 30, fabric)
-    img.bevel(o + 8, o + 11, 28, 30, 0.2)
-    for x in range(o + 11, o + 33, 2):
-        img.set(x, o + 14, shade(fabric, 0.18))
+    darker = shade(fabric, -0.34)
+    img.rect(o, o, 46, 13, fabric_fill(rng, darker, o, 13))
+    img.bevel(o, o, 46, 13, 0.16)
+    img.set(o + 23, o + 6, shade(darker, -0.35))
+    for x0 in (o, o + 37):
+        img.rect(x0, o + 2, 9, 44, fabric_fill(rng, darker, o + 2, 44))
+        img.bevel(x0, o + 2, 9, 44, 0.2)
+        img.rect(x0 + 3, o + 4, 2, 40, shade(darker, 0.22))
+    img.rect(o + 9, o + 13, 28, 31, fabric_fill(rng, fabric, o + 13, 31))
+    img.bevel(o + 9, o + 13, 28, 31, 0.18)
+    for x in range(o + 11, o + 35):
+        img.set(x, o + 42, shade(fabric, 0.3))
+    img.circle(o + 23, o + 28, 6, lambda x, y: shade(img.get(x, y), -0.06), 4)
+    cream = hexc("efe0b8")
+    img.poly([(o + 13, o + 7), (o + 27, o + 5), (o + 29, o + 17), (o + 15, o + 19)], cream)
+    img.bevel(o + 13, o + 5, 16, 14, 0.12)
+    img.set(o + 21, o + 12, shade(cream, -0.25))
     img.outline()
     img.save("apt_armchair_%d.png" % n)
 
@@ -275,39 +315,67 @@ def coffee_table(fabric, n):
 
 def bookshelf():
     rng = random.Random(4)
-    img = framed(110, 22)
+    img = framed(112, 26)
     o = 1
-    img.rect(o, o, 110, 22, WOOD_DARK)
-    img.bevel(o, o, 110, 22, 0.2)
+    img.rect(o, o, 112, 26, wood_fill(rng, WOOD_DARK))
+    img.bevel(o, o, 112, 26, 0.22)
+    img.rect(o + 2, o + 2, 108, 22, shade(WOOD_DARK, -0.35))
     x = o + 3
-    colors = [hexc(c) for c in FABRICS + ["e8dcc0", "4a6a9a", "a04a3a"]]
-    while x < o + 106:
+    colors = [hexc(c) for c in FABRICS + ["e8dcc0", "4a6a9a", "a04a3a", "d07a3a"]]
+    while x < o + 107:
+        roll = rng.random()
+        if roll < 0.07 and x < o + 95:
+            # A little potted plant between the books.
+            img.circle(x + 5, o + 13, 4, hexc("b5603a"))
+            img.circle(x + 5, o + 10, 5, hexc("5ea84a"))
+            img.set(x + 4, o + 8, hexc("8fd06a"))
+            x += 11
+            continue
+        if roll < 0.12 and x < o + 95:
+            # A framed photo.
+            img.rect(x, o + 5, 10, 14, hexc("c9a24a"))
+            img.rect(x + 2, o + 7, 6, 10, hexc("8ab0d0"))
+            img.rect(x + 3, o + 12, 4, 5, hexc("e0a060"))
+            x += 12
+            continue
         w = rng.randint(3, 6)
         c = rng.choice(colors)
-        top = o + 3 + rng.randint(0, 3)
-        img.rect(x, top, w - 1, o + 19 - top, c)
-        img.rect(x, top, w - 1, 1, shade(c, 0.3))
-        img.rect(x + w - 2, top + 1, 1, o + 18 - top, shade(c, -0.25))
-        if rng.random() < 0.4:
+        top = o + 3 + rng.randint(0, 5)
+        img.rect(x, top, w - 1, o + 23 - top, c)
+        img.rect(x, top, w - 1, 1, shade(c, 0.35))
+        img.rect(x + w - 2, top + 1, 1, o + 22 - top, shade(c, -0.3))
+        if rng.random() < 0.45:
             img.rect(x, top + 4, w - 1, 1, hexc("f2c14e"))
-        x += w + (1 if rng.random() < 0.2 else 0)
+        if rng.random() < 0.25:
+            img.rect(x, o + 18, w - 1, 1, shade(c, 0.25))
+        x += w + (1 if rng.random() < 0.15 else 0)
     img.outline()
     img.save("apt_bookshelf.png")
 
 
 def tv():
-    img = framed(90, 22)
+    img = framed(94, 26)
     o = 1
     rng = random.Random(5)
-    img.rect(o, o + 3, 90, 19, wood_fill(rng, WOOD_DARK))
-    img.bevel(o, o + 3, 90, 19, 0.2)
-    img.rect(o + 9, o, 72, 7, hexc("1d1d24"))
-    img.rect(o + 10, o + 1, 70, 1, hexc("4a5a7a"))
-    img.rect(o + 12, o + 2, 18, 1, hexc("6a7a9a"))
-    img.circle(o + 75, o + 15, 3, hexc("2a2a30"))
-    img.circle(o + 15, o + 15, 3, hexc("2a2a30"))
-    img.rect(o + 36, o + 13, 18, 4, hexc("3a3a44"))
-    img.set(o + 52, o + 14, hexc("d94848"))
+    img.rect(o, o + 4, 94, 22, wood_fill(rng, WOOD_DARK))
+    img.bevel(o, o + 4, 94, 22, 0.2)
+    # Drawer fronts with small handles.
+    for x0 in (o + 4, o + 50):
+        img.rect(x0, o + 15, 40, 9, shade(WOOD_DARK, 0.05))
+        img.bevel(x0, o + 15, 40, 9, -0.15)
+        img.rect(x0 + 18, o + 19, 4, 1, hexc("f2c14e"))
+    # The screen from above: thin, with a cool glint, on a stand.
+    img.rect(o + 38, o + 7, 18, 4, hexc("3a3a44"))
+    img.rect(o + 8, o, 78, 8, hexc("1d1d24"))
+    img.rect(o + 9, o + 1, 76, 1, hexc("4a5a7a"))
+    img.rect(o + 12, o + 2, 22, 1, hexc("8aa0c8"))
+    img.rect(o + 9, o + 6, 76, 1, hexc("2a3a5a"))
+    # A game console with a green light and a remote.
+    img.rect(o + 62, o + 9, 16, 5, hexc("e8e8ee"))
+    img.bevel(o + 62, o + 9, 16, 5, 0.15)
+    img.set(o + 75, o + 11, hexc("4ad86a"))
+    img.rect(o + 16, o + 9, 3, 6, hexc("2a2a30"))
+    img.set(o + 17, o + 10, hexc("d94848"))
     img.outline()
     img.save("apt_tv.png")
 
@@ -429,73 +497,135 @@ def trash_bin():
 
 def counter():
     rng = random.Random(11)
-    img = framed(112, 36)
+    img = framed(116, 40)
     o = 1
-    img.rect(o, o, 112, 36, speckle(rng, hexc("c9ced2"), 0.05, 0.35))
-    img.bevel(o, o, 112, 36, 0.2)
-    img.rect(o + 10, o + 7, 30, 22, hexc("9fb2bf"))
-    img.bevel(o + 10, o + 7, 30, 22, -0.2)
-    img.circle(o + 25, o + 18, 2, hexc("6a7a85"))
-    img.rect(o + 23, o + 2, 4, 6, hexc("e0e4e8"))
-    for (px, py) in ((70, 11), (90, 11), (70, 25), (90, 25)):
-        img.circle(o + px, o + py, 6, hexc("2a2a30"))
-        for i in range(12):
-            a = i * math.tau / 12
-            img.set(o + px + math.cos(a) * 4, o + py + math.sin(a) * 4, hexc("5a5a64"))
+    top = hexc("d4d8dc")
+    img.rect(o, o, 116, 40, speckle(rng, top, 0.06, 0.45))
+    # Marble veins.
+    for _ in range(4):
+        x, y = rng.randint(o, o + 110), rng.randint(o, o + 36)
+        for k in range(rng.randint(8, 18)):
+            x += rng.choice((1, 1, 2))
+            y += rng.choice((-1, 0, 1))
+            img._shade(x, y, -0.1)
+    img.bevel(o, o, 116, 40, 0.2)
+    img.rect(o, o + 36, 116, 4, shade(top, -0.2))
+    # Sink with a faucet, water drop and a glint.
+    img.rect(o + 8, o + 7, 32, 24, hexc("aebcc6"))
+    img.bevel(o + 8, o + 7, 32, 24, -0.25)
+    img.rect(o + 11, o + 10, 26, 18, hexc("9fb0bc"))
+    img.circle(o + 24, o + 20, 2, hexc("5a6a75"))
+    img.rect(o + 22, o + 2, 4, 9, hexc("e8ecf0"))
+    img.rect(o + 22, o + 2, 1, 9, hexc("ffffff"))
+    img.set(o + 24, o + 13, hexc("8ac8f0"))
+    img.rect(o + 14, o + 12, 6, 1, hexc("d4e0e8"))
+    # Cutting board with carrot slices.
+    board = hexc("c9a26a")
+    img.rect(o + 46, o + 9, 20, 15, wood_fill(rng, board))
+    img.bevel(o + 46, o + 9, 20, 15, 0.15)
+    for cx, cy in ((51, 14), (55, 17), (59, 13)):
+        img.circle(o + cx, o + cy, 2, hexc("e8822a"))
+        img.set(o + cx, o + cy, hexc("f4b060"))
+    # Hob: four rings, a pot with a lid on one.
+    for (px, py) in ((80, 12), (100, 12), (80, 28), (100, 28)):
+        img.circle(o + px, o + py, 7, hexc("2a2a30"))
+        for i in range(14):
+            a = i * math.tau / 14
+            img.set(o + px + math.cos(a) * 5, o + py + math.sin(a) * 5, hexc("6a5a64"))
+    img.circle(o + 100, o + 12, 8, hexc("b8bcc4"))
+    img.round_shade(o + 100, o + 12, 8, 0.3)
+    img.circle(o + 100, o + 12, 2, hexc("2a2a30"))
+    img.rect(o + 107, o + 11, 5, 2, hexc("2a2a30"))
     img.outline()
     img.save("apt_counter.png")
 
 
 def bed(fabric, n):
-    rng = random.Random(12)
-    img = framed(92, 124)
+    rng = random.Random(12 + n)
+    img = framed(96, 128)
     o = 1
-    img.rect(o, o, 92, 124, wood_fill(rng, WOOD_DARK, False))
-    img.bevel(o, o, 92, 124, 0.2)
-    img.rect(o + 4, o + 4, 84, 116, hexc("f1ece2"))
-    for px in (o + 8, o + 50):
-        img.rect(px, o + 8, 34, 20, hexc("ffffff"))
-        img.bevel(px, o + 8, 34, 20, -0.12)
-        img.set(px + 17, o + 18, hexc("e6e0d4"))
-    img.rect(o + 4, o + 38, 84, 82, fabric)
-    img.bevel(o + 4, o + 38, 84, 82, 0.15)
-    # The blanket's fold and a checked pattern.
-    img.rect(o + 4, o + 38, 84, 6, shade(fabric, 0.25))
-    for y in range(o + 50, o + 118, 10):
-        for x in range(o + 6, o + 86):
-            img.set(x, y, shade(fabric, -0.12))
-    for x in range(o + 14, o + 86, 12):
-        for y in range(o + 46, o + 118):
-            img.set(x, y, shade(fabric, -0.12))
+    img.rect(o, o, 96, 128, wood_fill(rng, WOOD_DARK, False))
+    img.bevel(o, o, 96, 128, 0.2)
+    # Headboard.
+    img.rect(o, o, 96, 8, wood_fill(rng, shade(WOOD_DARK, 0.08)))
+    img.bevel(o, o, 96, 8, 0.22)
+    sheet = hexc("f1ece2")
+    img.rect(o + 4, o + 8, 88, 116, sheet)
+    # Pillows with a crease and a soft dent.
+    for px in (o + 8, o + 52):
+        img.rect(px, o + 12, 36, 22, hexc("fbf8f2"))
+        img.bevel(px, o + 12, 36, 22, -0.12)
+        img.line(px + 4, o + 23, px + 31, o + 22, hexc("e6e0d4"))
+        img.circle(px + 18, o + 22, 6, lambda x, y: shade(img.get(x, y), -0.05), 4)
+    # The duvet: turned-down sheet, soft folds, a quilted pattern.
+    img.rect(o + 4, o + 40, 88, 84, fabric_fill(rng, fabric, o + 40, 84, 0.03, 0.1))
+    for y in range(o + 46, o + 124):
+        wave = math.sin((y - o) * 0.18) * 0.06
+        for x in range(o + 4, o + 92):
+            if ((x - o) // 11 + (y - o) // 11) % 2 == 0:
+                img.set(x, y, shade(img.get(x, y), wave - 0.04))
+            else:
+                img.set(x, y, shade(img.get(x, y), wave))
+    img.rect(o + 4, o + 40, 88, 7, sheet)
+    img.rect(o + 4, o + 46, 88, 1, shade(sheet, -0.2))
+    img.bevel(o + 4, o + 40, 88, 84, 0.12)
+    # A book left open on the blanket.
+    img.poly([(o + 58, o + 78), (o + 72, o + 74), (o + 76, o + 88), (o + 62, o + 92)], hexc("f4efe4"))
+    img.line(o + 67, o + 76, o + 69, o + 90, hexc("9a8a7a"))
     img.outline()
     img.save("apt_bed_%d.png" % n)
 
 
 def nightstand():
     rng = random.Random(13)
-    img = framed(28, 28)
+    img = framed(30, 30)
     o = 1
-    img.rect(o, o, 28, 28, wood_fill(rng, WOOD))
-    img.bevel(o, o, 28, 28, 0.22)
-    img.circle(o + 14, o + 14, 8, hexc("f3e3b8"))
-    img.round_shade(o + 14, o + 14, 8, 0.15)
-    img.circle(o + 14, o + 14, 3, hexc("fff6d8"))
+    img.rect(o, o, 30, 30, wood_fill(rng, WOOD))
+    img.bevel(o, o, 30, 30, 0.22)
+    img.rect(o, o + 25, 30, 5, shade(WOOD, -0.2))
+    img.rect(o + 12, o + 27, 6, 1, hexc("f2c14e"))
+    # A lamp with a pleated shade, a little book and glasses.
+    img.circle(o + 11, o + 11, 8, hexc("f3e3b8"))
+    for i in range(10):
+        a = i * math.tau / 10
+        img.line(o + 11, o + 11, o + 11 + math.cos(a) * 8, o + 11 + math.sin(a) * 8, hexc("e6d2a4"))
+    img.round_shade(o + 11, o + 11, 8, 0.15)
+    img.circle(o + 11, o + 11, 3, hexc("fff6d8"))
+    img.rect(o + 20, o + 14, 8, 10, hexc("5b4a8a"))
+    img.rect(o + 20, o + 22, 8, 1, hexc("efe6d0"))
+    img.circle(o + 22, o + 7, 2, hexc("3a3a44"))
+    img.circle(o + 27, o + 7, 2, hexc("3a3a44"))
+    img.set(o + 22, o + 7, hexc("bfe0ff"))
+    img.set(o + 27, o + 7, hexc("bfe0ff"))
     img.outline()
     img.save("apt_nightstand.png")
 
 
 def wardrobe():
     rng = random.Random(14)
-    img = framed(110, 32)
+    img = framed(112, 34)
     o = 1
-    img.rect(o, o, 110, 32, wood_fill(rng, WOOD_DARK))
-    img.bevel(o, o, 110, 32, 0.22)
-    for x0 in (o + 4, o + 57):
-        img.rect(x0, o + 4, 49, 24, wood_fill(rng, shade(WOOD_DARK, 0.06)))
-        img.bevel(x0, o + 4, 49, 24, -0.15)
-    img.rect(o + 55, o, 1, 32, OUTLINE)
-    img.rect(o + 50, o + 13, 2, 6, hexc("f2c14e"))
-    img.rect(o + 59, o + 13, 2, 6, hexc("f2c14e"))
+    img.rect(o, o, 112, 34, wood_fill(rng, WOOD_DARK))
+    img.bevel(o, o, 112, 34, 0.22)
+    # The top seen from above: a crown moulding and things stored up there.
+    img.rect(o + 2, o + 2, 108, 2, shade(WOOD_DARK, 0.2))
+    for x0 in (o + 4, o + 58):
+        img.rect(x0, o + 6, 50, 24, wood_fill(rng, shade(WOOD_DARK, 0.08)))
+        img.bevel(x0, o + 6, 50, 24, -0.15)
+        img.rect(x0 + 4, o + 9, 42, 18, wood_fill(rng, shade(WOOD_DARK, 0.03)))
+        img.bevel(x0 + 4, o + 9, 42, 18, 0.1)
+    img.rect(o + 56, o + 2, 1, 32, OUTLINE)
+    img.rect(o + 51, o + 15, 2, 6, hexc("f2c14e"))
+    img.rect(o + 60, o + 15, 2, 6, hexc("f2c14e"))
+    img.set(o + 51, o + 15, hexc("fff0b0"))
+    img.set(o + 60, o + 15, hexc("fff0b0"))
+    # A hat box and a folded jumper on top.
+    img.circle(o + 22, o + 17, 8, hexc("d98aa0"))
+    img.round_shade(o + 22, o + 17, 8, 0.25)
+    img.rect(o + 14, o + 16, 16, 1, hexc("f4efe4"))
+    img.rect(o + 78, o + 12, 20, 12, hexc(FABRICS[1]))
+    img.rect(o + 78, o + 15, 20, 1, shade(hexc(FABRICS[1]), 0.3))
+    img.bevel(o + 78, o + 12, 20, 12, 0.15)
     img.outline()
     img.save("apt_wardrobe.png")
 

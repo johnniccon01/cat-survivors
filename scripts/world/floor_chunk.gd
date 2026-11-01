@@ -165,12 +165,17 @@ func _draw() -> void:
 			for f: Dictionary in desc["furniture"]:
 				_draw_furniture(f)
 		Layer.OVERLAY:
+			if desc.has("ceiling"):
+				# Soft rings, brightest under the lamp.
+				for i in 7:
+					var r := 150.0 - i * 20.0
+					draw_colored_polygon(Shapes.ellipse(desc["ceiling"], r, r * 0.85, 32), Color(1.0, 0.86, 0.6, 0.022))
 			if desc.has("moon"):
 				_draw_moon(desc["moon"])
 			for f: Dictionary in desc["furniture"]:
 				if f["kind"] in LAMPS:
-					for i in 4:
-						draw_circle(f["pos"], 18.0 + i * 14.0, Color(LAMP_COLOR, 0.05))
+					for i in 6:
+						draw_circle(f["pos"], 14.0 + i * 13.0, Color(LAMP_COLOR, 0.045))
 
 
 # --- Ground -----------------------------------------------------------------

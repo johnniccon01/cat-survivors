@@ -39,6 +39,9 @@ var _spare: Array[SubViewport] = []
 
 func _ready() -> void:
 	current = self
+	# The floor never moves, and its chunks are baked once: interpolated,
+	# a bake would catch them half way and draw them in the wrong place.
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	_noise.seed = _seed
 	_noise.frequency = 0.22
 	_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
@@ -192,15 +195,18 @@ func _bake(layers: Array[FloorChunk]) -> SubViewport:
 ## costs a few milliseconds, so they are kept and reused (see _release).
 func _new_viewport() -> SubViewport:
 	var vp := SubViewport.new()
+	vp.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	vp.size = Vector2i(int(CHUNK * BAKE_SCALE), int(CHUNK * BAKE_SCALE))
 	vp.disable_3d = true
 	vp.transparent_bg = true
 	var shift := Node2D.new()
 	shift.scale = Vector2(BAKE_SCALE, BAKE_SCALE)
+	shift.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	vp.add_child(shift)
 	add_child(vp)
 	var sprite := Sprite2D.new()
 	sprite.texture = vp.get_texture()
+	sprite.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	sprite.centered = false
 	sprite.scale = Vector2.ONE / BAKE_SCALE
 	sprite.visible = false
@@ -295,6 +301,9 @@ func _generate(c: Vector2i) -> Dictionary:
 			"rot": rng.randf_range(-0.6, 0.6),
 			"color": FloorChunk.RUG_COLORS[rng.randi() % FloorChunk.RUG_COLORS.size()],
 		})
+	# A ceiling light: a warm pool on the floor, darker towards the walls.
+	if theme == "apartment" and rng.randf() < 0.4:
+		desc["ceiling"] = Vector2(rng.randf_range(90, CHUNK - 90), rng.randf_range(90, CHUNK - 90))
 	if theme == "apartment" and rng.randf() < 0.3:
 		desc["moon"] = {
 			"pos": Vector2(rng.randf_range(0, CHUNK - 120), rng.randf_range(0, CHUNK - 90)),

@@ -474,6 +474,34 @@ func show_reports() -> void:
 
 
 ## A moon `nights` nights from full (0 = full, glowing), on any canvas item.
+## A sign as the map shows it, `r` its radius: an offer's round sign
+## (REPORT_LOOK), a kidnapped resident's red "?", the full moon or a boss
+## flag. The legend, the help and the place panel all draw it this way.
+static func draw_sign(ci: CanvasItem, c: Vector2, kind: String, r: float = 14.0) -> void:
+	var font := ThemeDB.fallback_font
+	if kind == "moon":
+		draw_moon(ci, c, r * 0.8, 0, 0.0, false)
+		return
+	if kind == "flag":
+		var k := r / 10.0
+		ci.draw_line(c + Vector2(-4, 9) * k, c + Vector2(-4, -9) * k, OUTLINE, maxf(2.0 * k, 1.5))
+		ci.draw_colored_polygon(PackedVector2Array([c + Vector2(-3, -9) * k, c + Vector2(8, -5) * k, c + Vector2(-3, -1) * k]), Color("d24a3a"))
+		ci.draw_polyline(PackedVector2Array([c + Vector2(-3, -9) * k, c + Vector2(8, -5) * k, c + Vector2(-3, -1) * k]), OUTLINE, 1.0)
+		return
+	var glyph := "?"
+	var col := Color("c0392b")
+	var ring := OUTLINE
+	if REPORT_LOOK.has(kind):
+		glyph = REPORT_LOOK[kind][0]
+		col = REPORT_LOOK[kind][1]
+		ring = Color.WHITE
+	ci.draw_circle(c + Vector2(0, r * 0.2), r + 1.0, Color(0, 0, 0, 0.35))
+	ci.draw_circle(c, r + r / 7.0, ring)
+	ci.draw_circle(c, r, col)
+	var size := int(round(r * 1.4))
+	ci.draw_string(font, Vector2(c.x - r * 2.0, c.y + size * 0.36), glyph, HORIZONTAL_ALIGNMENT_CENTER, r * 4.0, size, Color.WHITE)
+
+
 static func draw_moon(ci: CanvasItem, c: Vector2, r: float, nights: int, t: float, number: bool = true) -> void:
 	if nights == 0:
 		ci.draw_circle(c, r + 6.0 + sin(t * 3.0) * 2.0, Color(1, 0.9, 0.5, 0.35))
@@ -512,16 +540,11 @@ static func draw_memorial_sign(ci: Control, count: int) -> void:
 func _draw_report(sign: Control, i: int) -> void:
 	if i >= Profile.reports.size():
 		return
-	var look: Array = REPORT_LOOK.get(Profile.reports[i]["kind"], ["?", Color.GRAY])
 	var c := sign.size * 0.5
-	var col: Color = look[1]
-	sign.draw_circle(c + Vector2(0, 3), 16.0, Color(0, 0, 0, 0.45))
 	if i == selected_report:
 		sign.draw_circle(c, 19.0, Color(UiStyle.GOLD, 0.5))
-	sign.draw_circle(c, 16.0, Color.WHITE)
-	sign.draw_circle(c, 14.0, col)
+	draw_sign(sign, c, Profile.reports[i]["kind"], 14.0)
 	var font := ThemeDB.fallback_font
-	sign.draw_string(font, Vector2(0, c.y + 7), look[0], HORIZONTAL_ALIGNMENT_CENTER, sign.size.x, 20, Color.WHITE)
 	# A siege counts down the nights it still waits; the last one pulses.
 	var rep: Dictionary = Profile.reports[i]
 	if rep["kind"] == "defend":
@@ -699,9 +722,7 @@ func _draw_residents() -> void:
 		var at: Vector2 = RESIDENT_SPOTS[cat] * px
 		var sign_at := at + Vector2(0, -15.0 * px * 0.5 - 14.0 - absf(sin(_t * 3.0 + at.x)) * 3.0)
 		if cat == Profile.kidnapped:
-			_ring.draw_circle(sign_at, 9.0, OUTLINE)
-			_ring.draw_circle(sign_at, 7.5, Color("c0392b"))
-			_ring.draw_string(font, sign_at + Vector2(-8, 5), "?", HORIZONTAL_ALIGNMENT_CENTER, 16, 13, Color.WHITE)
+			draw_sign(_ring, sign_at, "kidnapped", 8.0)
 			continue
 		var lk := CatArt.look(cat)
 		CatArt.draw(_ring, lk, -1 if at.x > 400 else 1, _t * 2.0, false, false, "normal", at, px * 0.45, false)

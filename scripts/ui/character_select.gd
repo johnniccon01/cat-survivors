@@ -45,6 +45,14 @@ var _report := -1
 ## Takes or leaves the offer waiting on the chosen place.
 var _report_toggle: Button
 var _report_box: PanelContainer
+var _legend_panel: Control
+## The sign of the place's offer, by its name on the picture and by the goal.
+var _badge_icon: SignIcon
+var _goal_icon: SignIcon
+## Every sign on the map: [kind for DistrictMap.draw_sign, its name].
+const LEGEND := [["defend", "REPORT_DEFEND_NAME"], ["hunt", "REPORT_HUNT_NAME"], ["gold", "REPORT_GOLD_NAME"],
+	["rescue", "REPORT_RESCUE_NAME"], ["trip", "REPORT_TRIP_NAME"], ["moon", "MOON_NAME"], ["flag", "LEGEND_FLAGS"],
+	["kidnapped", "LEGEND_KIDNAPPED"]]
 var _goal_title: Label
 var _goal_extra: Label
 var _help: HelpPanel
@@ -282,6 +290,9 @@ func _build() -> void:
 	_place_pic.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	_place_pic.modulate = Color(0.62, 0.66, 0.98)
 	pic_box.add_child(_place_pic)
+	_badge_icon = SignIcon.new("", 9.0)
+	_badge_icon.position = Vector2(4, 2)
+	pic_box.add_child(_badge_icon)
 	_place_badge = _label(14, Color.WHITE)
 	_place_badge.position = Vector2(8, 6)
 	pic_box.add_child(_place_badge)
@@ -297,10 +308,16 @@ func _build() -> void:
 	var rv := VBoxContainer.new()
 	rv.add_theme_constant_override("separation", 4)
 	_report_box.add_child(rv)
+	var goal_row := HBoxContainer.new()
+	goal_row.add_theme_constant_override("separation", 6)
+	rv.add_child(goal_row)
+	_goal_icon = SignIcon.new("", 9.0)
+	goal_row.add_child(_goal_icon)
 	_goal_title = _label(15, GOLD)
 	_goal_title.text = "GOAL_TITLE"
 	_goal_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
-	rv.add_child(_goal_title)
+	_goal_title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	goal_row.add_child(_goal_title)
 	_report_win = _label(14, Color("b8f0a0"))
 	_report_lose = _label(14, Color("ffb0a0"))
 	_goal_extra = _label(14, Color("ff9a8a"))
@@ -617,77 +634,51 @@ func _badge(fill: Color, edge: Color) -> PanelContainer:
 	return chip
 
 
-## What the signs on the map mean, in the map's bottom-left corner: every
-## kind of night offer, the full moon and the boss flags, each with its
-## icon as on the map.
+## What the signs on the map mean: a round "?" in the map's bottom-left
+## corner opens a list of every sign (each drawn as on the map) with its
+## name; another click closes it.
 func _legend() -> Control:
 	var margin := MarginContainer.new()
 	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	margin.add_theme_constant_override("margin_left", 8)
 	margin.add_theme_constant_override("margin_bottom", 8)
-	margin.add_theme_constant_override("margin_right", 8)
-	var panel := PanelContainer.new()
-	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	panel.size_flags_vertical = Control.SIZE_SHRINK_END
-	panel.add_theme_stylebox_override("panel", UiStyle.box(Color(0.08, 0.06, 0.12, 0.86), Color("5a4a6e")))
-	margin.add_child(panel)
-	# A flow: it wraps to a second line instead of widening the map.
-	var col := HFlowContainer.new()
+	var col := VBoxContainer.new()
 	col.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	col.add_theme_constant_override("h_separation", 10)
-	col.add_theme_constant_override("v_separation", 2)
-	panel.add_child(col)
-	var head := _label(12, GOLD)
+	col.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	col.size_flags_vertical = Control.SIZE_SHRINK_END
+	col.add_theme_constant_override("separation", 6)
+	margin.add_child(col)
+	var panel := PanelContainer.new()
+	panel.visible = false
+	panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	panel.add_theme_stylebox_override("panel", UiStyle.box(Color(0.08, 0.06, 0.12, 0.94), Color("5a4a6e")))
+	col.add_child(panel)
+	var list := VBoxContainer.new()
+	list.add_theme_constant_override("separation", 3)
+	panel.add_child(list)
+	var head := _label(13, GOLD)
 	head.text = "LEGEND_TITLE"
 	head.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
-	head.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	col.add_child(head)
-	var grid := col
-	var entries: Array = []
-	for kind: String in ["defend", "hunt", "gold", "rescue", "trip"]:
-		entries.append([kind, "REPORT_%s_NAME" % kind.to_upper()])
-	entries.append(["moon", "MOON_NAME"])
-	entries.append(["flag", "LEGEND_FLAGS"])
-	entries.append(["kidnapped", "LEGEND_KIDNAPPED"])
-	for entry: Array in entries:
+	list.add_child(head)
+	for entry: Array in LEGEND:
 		var row := HBoxContainer.new()
-		row.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		row.add_theme_constant_override("separation", 5)
-		var icon := Control.new()
-		icon.custom_minimum_size = Vector2(18, 18)
-		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		var kind: String = entry[0]
-		icon.draw.connect(func() -> void: _draw_legend_icon(icon, kind))
-		row.add_child(icon)
-		var name := _label(12, Color("e4dcef"))
+		row.add_theme_constant_override("separation", 8)
+		row.add_child(SignIcon.new(entry[0], 9.0))
+		var name := _label(13, Color("e4dcef"))
 		name.text = entry[1]
 		name.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		row.add_child(name)
-		grid.add_child(row)
+		list.add_child(row)
+	var button := UiStyle.click_button("?", 34, 18)
+	button.custom_minimum_size = Vector2(34, 34)
+	button.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	button.tooltip_text = tr("LEGEND_TITLE")
+	button.pressed.connect(func() -> void:
+		Audio.play("click", -6.0, 0.0)
+		panel.visible = not panel.visible)
+	col.add_child(button)
+	_legend_panel = panel
 	return margin
-
-
-func _draw_legend_icon(ci: Control, kind: String) -> void:
-	var c := ci.size * 0.5
-	if kind == "moon":
-		DistrictMap.draw_moon(ci, c, 7.0, 0, 0.0, false)
-		return
-	if kind == "kidnapped":
-		ci.draw_circle(c, 9.0, Color("2b1d14"))
-		ci.draw_circle(c, 7.5, Color("c0392b"))
-		ci.draw_string(ci.get_theme_default_font(), Vector2(0, c.y + 5), "?", HORIZONTAL_ALIGNMENT_CENTER, ci.size.x, 13, Color.WHITE)
-		return
-	if kind == "flag":
-		ci.draw_line(c + Vector2(-4, 8), c + Vector2(-4, -8), Color("2b1d14"), 2.0)
-		ci.draw_colored_polygon(PackedVector2Array([c + Vector2(-3, -8), c + Vector2(7, -5), c + Vector2(-3, -1)]), Color("d24a3a"))
-		return
-	# The same round sign as on the map.
-	var look: Array = DistrictMap.REPORT_LOOK[kind]
-	ci.draw_circle(c, 9.0, Color("f4ecd4"))
-	ci.draw_circle(c, 7.5, look[1])
-	var font := ci.get_theme_default_font()
-	ci.draw_string(font, Vector2(0, c.y + 5), look[0], HORIZONTAL_ALIGNMENT_CENTER, ci.size.x, 13, Color.WHITE)
 
 
 ## A small button with its key: [text key, key name, action].
@@ -874,6 +865,12 @@ func _refresh_place() -> void:
 	_place_badge.text = tr(badge[0])
 	_place_badge.label_settings.font_color = badge[1]
 	var story := tr("DISTRICT_%s_STORY" % id)
+	# The offer's own sign, as on the map, by its name and by the goal.
+	var sign_kind: String = rep.get("kind", "")
+	_badge_icon.set_kind(sign_kind)
+	_goal_icon.set_kind(sign_kind)
+	_goal_icon.visible = sign_kind != ""
+	_place_badge.position.x = 30.0 if sign_kind != "" else 8.0
 	if not rep.is_empty():
 		var kind: String = rep["kind"]
 		_place_badge.text = tr("REPORT_%s_NAME" % kind.to_upper())
@@ -1041,6 +1038,8 @@ func _show_moon() -> void:
 	_report_lose.text = tr("MOON_LOSE") % mini(floori(Profile.gold * Profile.MOON_THEFT), Profile.MOON_THEFT_MAX)
 	_report_lose.visible = true
 	_goal_extra.visible = false
+	_goal_icon.set_kind("moon")
+	_goal_icon.visible = true
 	_moon_box.visible = true
 	# The home's own boss, darkness and stars don't matter on the full moon.
 	_boss_name.get_parent().get_parent().get_parent().visible = false

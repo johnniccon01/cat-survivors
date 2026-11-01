@@ -76,9 +76,9 @@ Doplnok (31. 10. 2026, značka `pomniky`): dôchodok už nedáva percentá. Kaž
 14. [x] HUD vpravo hore: cieľ prijatej úlohy (hotové, značka `hud-uloha`: riadok pod questom – obrana/záchrana „vydrž do 10:00“, po splnení zelené „✓ – môžeš odísť dvierkami“ s hláškou; lov, túra, zlatá noc, spln; dobytie má vlastný riadok; test `mission_rescue`). Legenda mapy má aj červený „?“ = unesený obyvateľ.
 15. [x] Záverečná obrazovka po krokoch (hotové, značka `koniec-noci`: strana 1 „Nastalo ráno!“ + štatistika, strana 2 „Čo si dnes v noci dokázal“ – questy, úloha, dobytie, odomknuté mapy a zbrane, ciele, hodnosť, správy zo štvrte, strana 3 „Čo si si odniesol domov“ – zlato, výbava, materiál, súčet; Enter/Esc listuje, na konci späť do štvrte, R hrá znova; bannery sa už nekreslia cez obrazovku).
 16. [ ] Zvonček duší je priveľmi silný na štart: nové hry ho nemajú, padne s malou šancou z bossa (alebo z questu); náboj sa stratí len pri smrti (nie pri vzdaní ani dvierkach). Hráčovi súčasný ostáva na testovanie.
-17. [ ] Pomoc (H): skutočné ikony z mapy, pekne v odrážkach.
-18. [ ] Legenda na mape schovaná za „?“ – rozbalí sa po kliknutí.
-19. [ ] V pravom paneli pri úlohe miesta (zlatá noc, obrana…) rovnaká ikona ako na mape.
+17. [x] Pomoc (H): skutočné ikony z mapy v odrážkach (hotové, značka `znacky-mapy`).
+18. [x] Legenda na mape schovaná za „?“ – rozbalí sa po kliknutí (hotové, `znacky-mapy`).
+19. [x] V pravom paneli pri úlohe miesta rovnaká ikona ako na mape – pri názve na obrázku aj pri „Ako vyhrať“ (hotové, `znacky-mapy`; všetky značky kreslí jedna funkcia `DistrictMap.draw_sign`).
 20. [x] Minimapu vpravo hore odstrániť, tlačidlo Cesty zmenšiť (hotové, značka `bez-minimapy`: minimapa skrytá, Cesty malé v pravom hornom rohu).
 21. [ ] Popis mačky dole: väčšie meno a popis, menšie bonusy, nič sa neorezáva (Túlavec bez zbrane).
 

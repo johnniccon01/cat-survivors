@@ -20,12 +20,35 @@ func _ready() -> void:
 	box.add_theme_constant_override("separation", 12)
 	UiStyle.board(self, box)
 	box.add_child(UiStyle.label("HELP_TITLE", 34, UiStyle.GOLD))
-	var text := UiStyle.label("HELP_TEXT", 16, UiStyle.TEXT, HORIZONTAL_ALIGNMENT_LEFT)
-	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	text.custom_minimum_size = Vector2(980, 0)
-	text.label_settings.line_spacing = 4
-	box.add_child(text)
+	# HELP_TEXT: first how a night is won, then one line per sign in this
+	# order; each line gets the sign as the map draws it.
+	var lines := tr("HELP_TEXT").split("\n")
+	var kinds := ["", "defend", "hunt", "gold", "rescue", "trip", "flag", "moon"]
+	for i in lines.size():
+		var kind: String = kinds[i] if i < kinds.size() else ""
+		var text := lines[i]
+		# The old text starts the offer lines with their glyph: the icon says it.
+		if kind != "" and text.length() > 2 and text[1] == " ":
+			text = text.substr(2)
+		box.add_child(_row(kind, text, i == 0))
+	box.add_child(_row("kidnapped", tr("LEGEND_KIDNAPPED"), false))
 	box.add_child(UiStyle.label("NEWS_HINT", 15, UiStyle.MUTED))
+
+
+## One line of the help: the sign (or a gold bullet) and its text.
+func _row(kind: String, text: String, lead: bool) -> Control:
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 12)
+	var icon := SignIcon.new(kind, 11.0)
+	icon.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	if kind == "":
+		icon.custom_minimum_size = Vector2(28, 0)
+	row.add_child(icon)
+	var label := UiStyle.label(text, 17 if lead else 16, UiStyle.GOLD if lead else UiStyle.TEXT, HORIZONTAL_ALIGNMENT_LEFT)
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	label.custom_minimum_size = Vector2(940, 0)
+	row.add_child(label)
+	return row
 
 
 func open() -> void:

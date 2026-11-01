@@ -212,6 +212,7 @@ func _build() -> void:
 	_district.resident_chosen.connect(_on_resident_chosen)
 	_district.memorial_chosen.connect(_open_memorials)
 	map_frame.add_child(_district)
+	map_frame.add_child(_legend())
 	# The full moon, the forecast and your nemesis sit in the top bar, so
 	# nothing covers the places on the map.
 	var badge_col := HBoxContainer.new()
@@ -614,6 +615,73 @@ func _badge(fill: Color, edge: Color) -> PanelContainer:
 	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	chip.add_child(row)
 	return chip
+
+
+## What the signs on the map mean, in the map's bottom-left corner: every
+## kind of night offer, the full moon and the boss flags, each with its
+## icon as on the map.
+func _legend() -> Control:
+	var margin := MarginContainer.new()
+	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	margin.add_theme_constant_override("margin_left", 8)
+	margin.add_theme_constant_override("margin_bottom", 8)
+	margin.add_theme_constant_override("margin_right", 8)
+	var panel := PanelContainer.new()
+	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	panel.size_flags_vertical = Control.SIZE_SHRINK_END
+	panel.add_theme_stylebox_override("panel", UiStyle.box(Color(0.08, 0.06, 0.12, 0.86), Color("5a4a6e")))
+	margin.add_child(panel)
+	# A flow: it wraps to a second line instead of widening the map.
+	var col := HFlowContainer.new()
+	col.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	col.add_theme_constant_override("h_separation", 10)
+	col.add_theme_constant_override("v_separation", 2)
+	panel.add_child(col)
+	var head := _label(12, GOLD)
+	head.text = "LEGEND_TITLE"
+	head.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	head.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	col.add_child(head)
+	var grid := col
+	var entries: Array = []
+	for kind: String in ["defend", "hunt", "gold", "rescue", "trip"]:
+		entries.append([kind, "REPORT_%s_NAME" % kind.to_upper()])
+	entries.append(["moon", "MOON_NAME"])
+	entries.append(["flag", "LEGEND_FLAGS"])
+	for entry: Array in entries:
+		var row := HBoxContainer.new()
+		row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		row.add_theme_constant_override("separation", 5)
+		var icon := Control.new()
+		icon.custom_minimum_size = Vector2(18, 18)
+		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var kind: String = entry[0]
+		icon.draw.connect(func() -> void: _draw_legend_icon(icon, kind))
+		row.add_child(icon)
+		var name := _label(12, Color("e4dcef"))
+		name.text = entry[1]
+		name.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		row.add_child(name)
+		grid.add_child(row)
+	return margin
+
+
+func _draw_legend_icon(ci: Control, kind: String) -> void:
+	var c := ci.size * 0.5
+	if kind == "moon":
+		DistrictMap.draw_moon(ci, c, 7.0, 0, 0.0, false)
+		return
+	if kind == "flag":
+		ci.draw_line(c + Vector2(-4, 8), c + Vector2(-4, -8), Color("2b1d14"), 2.0)
+		ci.draw_colored_polygon(PackedVector2Array([c + Vector2(-3, -8), c + Vector2(7, -5), c + Vector2(-3, -1)]), Color("d24a3a"))
+		return
+	# The same round sign as on the map.
+	var look: Array = DistrictMap.REPORT_LOOK[kind]
+	ci.draw_circle(c, 9.0, Color("f4ecd4"))
+	ci.draw_circle(c, 7.5, look[1])
+	var font := ci.get_theme_default_font()
+	ci.draw_string(font, Vector2(0, c.y + 5), look[0], HORIZONTAL_ALIGNMENT_CENTER, ci.size.x, 13, Color.WHITE)
 
 
 ## A small button with its key: [text key, key name, action].

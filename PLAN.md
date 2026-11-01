@@ -56,6 +56,17 @@ Pracuje sa samostatne, bez otázok, krok po kroku (commit + značka + push po ka
 
 Doplnok (31. 10. 2026, značka `pomniky`): dôchodok už nedáva percentá. Každá mačka na dôchodku má na Cintoríne pomník (meno, generácia, labka vo farbe srsti, sviečka); keď pri ňom v noci chvíľu postojíš, raz ťa vylieči o 30 % zdravia. Na mape štvrte je pri Cintoríne kameň s počtom pomníkov, klik ho otvorí (`MemorialPanel`), tlačidlo je aj v paneli Cintorína. `Profile.retired`, test `memorials`.
 
+## Krátkodobý plán – časť 2 (spätná väzba 1. 11. 2026, robí sa ako prvé)
+
+1. [x] Charmy ostali na hlavnej obrazovke menu – odstrániť (hotové, značka `menu-bez-charmov`).
+2. [ ] Mapa štvrte je malá oproti výberu mačiek a infu o mape vpravo – zväčšiť.
+3. [ ] Čas a počasie vľavo hore zaberajú veľa miesta a zakrývajú lokácie – presunúť nad mapu / mimo nej.
+4. [ ] Panel výbavy: pri výbere predmetu s dlhším popisom obrazovka poskakuje – pevné rozmery.
+5. [ ] Tlačidlá Upgrades / Talents / Gear / Artifacts / Curses / Daily / Journal – je ich veľa, zlúčiť alebo presunúť.
+6. [ ] Byt v novej grafike: nie je vidno zmenu a hra akoby sekala – overiť, či sa nová grafika naozaj kreslí, a výkon.
+7. [ ] Quest s 3 vlajkami: bez popisu, vlajky naraz na začiatku, obrana = celá noc – prerobiť (vlajky postupne, popis, kratšia obrana s bossom na konci).
+8. [ ] „Vzdať sa“ sa počíta ako smrť a berie život – život sa má stratiť len pri skutočnej smrti.
+
 Do dlhodobého plánu (nerobiť teraz): **Krotenie** – v tejto podobe sa nepáči, vymyslieť inak (bez ďalšej postavy na obrazovke).
 
 ## Spätná väzba 28. 10. 2026 (hotové)

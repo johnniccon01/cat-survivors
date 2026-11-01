@@ -53,7 +53,7 @@ func _main_menu() -> void:
 	await _press(KEY_W)
 	_expect(_focus_text() == "MENU_PLAY", "W moves up (got %s)" % _focus_text())
 	# Each panel: walk down to its button, open it, mash keys, close it.
-	for entry: Array in [[1, "_shop"], [2, "_charms"], [3, "_journal"]]:
+	for entry: Array in [[1, "_shop"], [2, "_journal"]]:
 		for i in entry[0]:
 			await _press(KEY_DOWN)
 		var panel: Control = current_scene.get(entry[1])
@@ -68,7 +68,7 @@ func _main_menu() -> void:
 		_expect(_focus_text() == "MENU_PLAY", "%s: focus back on Play (got %s)" % [entry[1], _focus_text()])
 
 	# Journal: left/right switch tabs (wrapping), up/down scroll.
-	for i in 3:
+	for i in 2:
 		await _press(KEY_DOWN)
 	var journal: Control = current_scene.get("_journal")
 	await _press(KEY_ENTER)
@@ -87,7 +87,7 @@ func _main_menu() -> void:
 	_expect(not journal.visible and _focus_text() == "MENU_PLAY", "journal closes on Esc")
 
 	# Settings: focus has to stay inside the panel whichever way you go.
-	for i in 4:
+	for i in 3:
 		await _press(KEY_DOWN)
 	var settings: Control = current_scene.get("_settings")
 	await _press(KEY_ENTER)

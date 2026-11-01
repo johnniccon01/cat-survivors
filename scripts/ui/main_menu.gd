@@ -1,14 +1,13 @@
 extends Control
-## Title screen: play, upgrades shop, charms, goals, settings, quit.
+## Title screen: play, upgrades shop, goals, settings, quit.
 ## Any debug flag on the command line skips straight into a run.
 
 const SELECT_SCENE := "res://scenes/character_select.tscn"
 const MAIN_SCENE := "res://scenes/main.tscn"
 ## Flags that keep the menu up instead of jumping into a run.
-const PANEL_FLAGS := ["--shop", "--charms", "--goals", "--questbook", "--journal", "--settings", "--ui-test", "--no-save"]
+const PANEL_FLAGS := ["--shop", "--goals", "--questbook", "--journal", "--settings", "--ui-test", "--no-save"]
 
 var _shop: ShopPanel
-var _charms: CharmPanel
 var _journal: JournalPanel
 var _settings: SettingsPanel
 var _buttons: VBoxContainer
@@ -31,8 +30,6 @@ func _ready() -> void:
 	Audio.play_music("music_menu")
 	if "--shop" in args:
 		_open(_shop)
-	elif "--charms" in args:
-		_open(_charms)
 	elif "--goals" in args:
 		_open(_journal, "goals")
 	elif "--questbook" in args:
@@ -130,11 +127,9 @@ func _build() -> void:
 		Audio.play("select", -4.0, 0.0)
 		get_tree().change_scene_to_file(SELECT_SCENE))
 	_shop = ShopPanel.new()
-	_charms = CharmPanel.new()
 	_journal = JournalPanel.new()
 	_settings = SettingsPanel.new()
 	_add_button("MENU_UPGRADES", func() -> void: _open(_shop))
-	_add_button("MENU_CHARMS", func() -> void: _open(_charms))
 	_add_button("MENU_JOURNAL", func() -> void: _open(_journal))
 	_add_button("MENU_SETTINGS", func() -> void: _open(_settings))
 	_add_button("MENU_QUIT", func() -> void: get_tree().quit())
@@ -148,7 +143,7 @@ func _build() -> void:
 		Settings.cycle_language()
 		get_tree().reload_current_scene())
 	add_child(lang)
-	for panel: Control in [_shop, _charms, _journal, _settings]:
+	for panel: Control in [_shop, _journal, _settings]:
 		add_child(panel)
 		panel.closed.connect(_on_panel_closed)
 	_refresh()

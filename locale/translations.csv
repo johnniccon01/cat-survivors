@@ -2239,3 +2239,9 @@ MISSION_TRIP,"Night trip: gates at 7:00 and 14:00, win on the last map","Nočná
 MISSION_GOLD,"Golden night: all gold ×2, the cat door too ✓","Zlatá noc: všetko zlato ×2, aj cez dvierka ✓","Zlatá noc: všechno zlato ×2, i přes dvířka ✓","Noche dorada: todo el oro ×2, también por la gatera ✓","Золотая ночь: всё золото ×2, даже через дверцу ✓",黄金之夜：所有金币 ×2，走猫门也算 ✓
 MISSION_MOON,Full moon: win the night to keep your home safe,Spln: vyhraj noc a ubrániš domov,Úplněk: vyhraj noc a ubráníš domov,Luna llena: gana la noche para salvar tu casa,"Полнолуние: выиграй ночь, чтобы защитить дом",满月：赢下这一夜才能保住家
 LEGEND_KIDNAPPED,Kidnapped resident (rescue them),Unesený obyvateľ (zachráň ho),Unesený obyvatel (zachraň ho),Vecino secuestrado (rescátalo),Похищенный житель (спаси его),被绑架的居民（去救援）
+END_DEEDS,What you did tonight,Čo si dnes v noci dokázal,Co jsi dnes v noci dokázal,Lo que lograste esta noche,Что ты сделал этой ночью,今晚的成就
+END_LOOT,What you take home,Čo si si odniesol domov,Co sis odnesl domů,Lo que te llevas a casa,Что ты унёс домой,带回家的东西
+END_CONTINUE,Enter / Esc – continue,Enter / Esc – pokračovať,Enter / Esc – pokračovat,Enter / Esc – continuar,Enter / Esc – дальше,Enter / Esc – 继续
+END_BACK,Enter / Esc – back to the neighbourhood,Enter / Esc – späť do štvrte,Enter / Esc – zpět do čtvrti,Enter / Esc – volver al barrio,Enter / Esc – назад в район,Enter / Esc – 返回街区
+END_AGAIN,R – play this night again,R – hrať túto noc znova,R – hrát tuto noc znovu,R – jugar esta noche otra vez,R – сыграть эту ночь снова,R – 再玩一次这一夜
+SUMMARY_QUESTS_DONE,Quests completed tonight: %d,Splnené questy dnes v noci: %d,Splněné questy dnes v noci: %d,Misiones completadas esta noche: %d,Выполнено заданий за ночь: %d,今晚完成的任务：%d

@@ -74,8 +74,13 @@ Doplnok (31. 10. 2026, značka `pomniky`): dôchodok už nedáva percentá. Kaž
 13. [x] Mačka pri pohybe vyzerá rozmazane – opravené (značka `plynuly-pohyb`): pohyb sa počítal 60× za sekundu, ale kreslil sa na 144 Hz monitore a kamera sa vyhladzovala medzi tým, takže mačka, nepriatelia aj strely išli po skokoch. Zapnutá interpolácia fyziky (`physics/common/physics_interpolation`), kamera ide vo fyzikálnych ťikoch, drony tiež; pri skoku nepriateľa na druhú stranu sa interpolácia resetuje. Overiť okom v hre.
     - Doplnok (značka `byt-nabytok-svetlo`): podlaha sa pri interpolácii kreslila s dierami – opravené; detailnejší nábytok a teplé svetlo stropných lámp.
 14. [x] HUD vpravo hore: cieľ prijatej úlohy (hotové, značka `hud-uloha`: riadok pod questom – obrana/záchrana „vydrž do 10:00“, po splnení zelené „✓ – môžeš odísť dvierkami“ s hláškou; lov, túra, zlatá noc, spln; dobytie má vlastný riadok; test `mission_rescue`). Legenda mapy má aj červený „?“ = unesený obyvateľ.
-15. [ ] Záverečná obrazovka po noci prerobiť na kroky: „Ráno je tu“ → splnené questy a hlavná úloha → čo si si odniesol (súhrn) → Pokračovať späť. Nie všetko naraz cez seba.
+15. [x] Záverečná obrazovka po krokoch (hotové, značka `koniec-noci`: strana 1 „Nastalo ráno!“ + štatistika, strana 2 „Čo si dnes v noci dokázal“ – questy, úloha, dobytie, odomknuté mapy a zbrane, ciele, hodnosť, správy zo štvrte, strana 3 „Čo si si odniesol domov“ – zlato, výbava, materiál, súčet; Enter/Esc listuje, na konci späť do štvrte, R hrá znova; bannery sa už nekreslia cez obrazovku).
 16. [ ] Zvonček duší je priveľmi silný na štart: nové hry ho nemajú, padne s malou šancou z bossa (alebo z questu); náboj sa stratí len pri smrti (nie pri vzdaní ani dvierkach). Hráčovi súčasný ostáva na testovanie.
+17. [ ] Pomoc (H): skutočné ikony z mapy, pekne v odrážkach.
+18. [ ] Legenda na mape schovaná za „?“ – rozbalí sa po kliknutí.
+19. [ ] V pravom paneli pri úlohe miesta (zlatá noc, obrana…) rovnaká ikona ako na mape.
+20. [ ] Minimapu vpravo hore odstrániť, tlačidlo Cesty zmenšiť.
+21. [ ] Popis mačky dole: väčšie meno a popis, menšie bonusy, nič sa neorezáva (Túlavec bez zbrane).
 
 Do dlhodobého plánu (nerobiť teraz): **Krotenie** – v tejto podobe sa nepáči, vymyslieť inak (bez ďalšej postavy na obrazovke).
 

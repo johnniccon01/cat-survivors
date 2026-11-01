@@ -664,6 +664,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.is_action_pressed("endless") and _last_end == "victory" and not _endless:
 			_start_endless()
 			return
+		# The paged end screen: Enter / Esc turn the page, then lead back to
+		# the neighbourhood; R plays again at once.
+		var again := event is InputEventKey and (event as InputEventKey).keycode == KEY_R
+		if hud.end_showing() and not again and (event.is_action_pressed("restart") or event.is_action_pressed("pause")):
+			if not hud.next_end_page():
+				get_tree().paused = false
+				get_tree().change_scene_to_file("res://scenes/character_select.tscn")
+			return
 		if event.is_action_pressed("restart"):
 			get_tree().paused = false
 			get_tree().reload_current_scene()
@@ -1100,6 +1108,11 @@ func _report_reward(kind: String, gold: int, lines: Array[String]) -> int:
 	return 0
 
 
+## mm:ss of the night clock.
+func _clock(t: float) -> String:
+	return "%02d:%02d" % [floori(t / 60.0), int(t) % 60]
+
+
 func _end_run(kind: String) -> void:
 	if _run_over:
 		return
@@ -1111,7 +1124,12 @@ func _end_run(kind: String) -> void:
 		_end_endless(kind)
 		return
 	var mult := Profile.streak_multiplier()
+	# What you take home (gold, items, materials) and, apart, what you did
+	# (offers, conquest, unlocks, goals): two pages of the end screen.
 	var lines: Array[String] = []
+	var deeds: Array[String] = []
+	var end_title := ""
+	var end_stats := ""
 	Profile.add_stat("runs")
 	if _tutorial:
 		Profile.set_flag("tutorial_done")
@@ -1141,30 +1159,33 @@ func _end_run(kind: String) -> void:
 			Profile.reset_streak()
 			Audio.play("gameover", -2.0, 0.0)
 			var cat_name := tr("CAT_%s_NAME" % player.cat_id)
-			hud.show_game_over(spawner.elapsed, kills, tr("DEVIL_TOOK") % cat_name if player.killed_by_fatal else tr("GAME_OVER_TITLE") % cat_name)
+			end_title = tr("DEVIL_TOOK") % cat_name if player.killed_by_fatal else tr("GAME_OVER_TITLE") % cat_name
+			end_stats = tr("GAME_OVER_STATS") % [_clock(spawner.elapsed), kills]
 		"extract":
 			gold = floori(run_gold * mult)
 			Profile.add_streak(1)
 			lines.append(tr("SUMMARY_GOLD") % [gold, roundi((mult - 1.0) * 100.0)])
 			lines.append(tr("SUMMARY_STREAK") % [Profile.streak, Profile.best_streak])
 			Audio.play("victory", -2.0, 0.0)
-			hud.show_extracted(spawner.elapsed, kills)
+			end_title = tr("EXTRACT_TITLE")
+			end_stats = tr("EXTRACT_STATS") % [_clock(spawner.elapsed), kills]
 		"victory":
 			for cat in _run_unlocks:
-				lines.append(tr("SUMMARY_CAT_UNLOCKED") % tr("CAT_%s_NAME" % cat))
+				deeds.append(tr("SUMMARY_CAT_UNLOCKED") % tr("CAT_%s_NAME" % cat))
 			gold = floori((run_gold + VICTORY_GOLD) * mult)
 			Profile.add_streak(2)
 			lines.append(tr("SUMMARY_GOLD") % [gold, roundi((mult - 1.0) * 100.0)])
 			lines.append(tr("SUMMARY_STREAK") % [Profile.streak, Profile.best_streak])
 			Audio.play("victory", -2.0, 0.0)
-			hud.show_victory(kills, tr("CAT_%s_NAME" % player.cat_id))
+			end_title = tr("VICTORY_TITLE")
+			end_stats = tr("VICTORY_STATS") % [tr("CAT_%s_NAME" % player.cat_id), kills]
 			if Profile.clear_stage(spawner.stage_id):
 				for wid: String in GameData.weapons:
 					if GameData.weapons[wid].get("requires_stage", "") == spawner.stage_id:
-						lines.append(tr("SUMMARY_WEAPON_UNLOCKED") % tr("WEAPON_%s_NAME" % wid))
+						deeds.append(tr("SUMMARY_WEAPON_UNLOCKED") % tr("WEAPON_%s_NAME" % wid))
 				for id: String in GameData.stages:
 					if GameData.stages[id].get("requires", "") == spawner.stage_id:
-						hud.show_banner(tr("STAGE_UNLOCKED") % tr("STAGE_%s_NAME" % id), 6.0)
+						deeds.append(tr("STAGE_UNLOCKED") % tr("STAGE_%s_NAME" % id))
 	if _has_page:
 		if kind != "death":
 			Profile.set_flag("page:" + spawner.stage_id)
@@ -1189,9 +1210,9 @@ func _end_run(kind: String) -> void:
 			Profile.add_stat("darkness_wins")
 			Profile.set_stat_max("best_darkness", spawner.darkness)
 			if Profile.win_darkness(spawner.stage_id, spawner.darkness):
-				lines.append(tr("SUMMARY_DARKNESS_WON") % spawner.darkness)
+				deeds.append(tr("SUMMARY_DARKNESS_WON") % spawner.darkness)
 	elif kind == "victory" and Profile.max_darkness(spawner.stage_id) > 0 and int(Profile.darkness_best.get(spawner.stage_id, 0)) == 0:
-		lines.append(tr("SUMMARY_DARKNESS_OPEN"))
+		deeds.append(tr("SUMMARY_DARKNESS_OPEN"))
 	if not Profile.challenges.is_empty():
 		var bonus := floori(gold * (Profile.challenge_gold() - 1.0))
 		gold += bonus
@@ -1215,37 +1236,38 @@ func _end_run(kind: String) -> void:
 		var home_gold := floori(gold * HOME_WIN_GOLD)
 		gold += home_gold
 		lines.append(tr("SUMMARY_HOME") % home_gold)
-	gold += _report_reward(kind, gold, lines)
+	if quests_done > 0:
+		deeds.push_front(tr("SUMMARY_QUESTS_DONE") % quests_done)
+	gold += _report_reward(kind, gold, deeds)
 	if _conquered and Profile.conquer(spawner.stage_id):
-		lines.append(tr("SUMMARY_TERRITORY") % [tr("STAGE_%s_NAME" % spawner.stage_id), DistrictMap.stats_text(Profile.TERRITORY_BONUS[spawner.stage_id])])
+		deeds.append(tr("SUMMARY_TERRITORY") % [tr("STAGE_%s_NAME" % spawner.stage_id), DistrictMap.stats_text(Profile.TERRITORY_BONUS[spawner.stage_id])])
 		print("TERRITORY: %s conquered" % spawner.stage_id)
 		BotLog.event("territory_won")
 	if Profile.moon_on:
 		if kind == "victory":
 			gold += Profile.MOON_GOLD
-			lines.append(tr("SUMMARY_MOON_WON") % Profile.MOON_GOLD)
+			deeds.append(tr("SUMMARY_MOON_WON") % Profile.MOON_GOLD)
 		else:
 			var theft := mini(floori(Profile.gold * Profile.MOON_THEFT), Profile.MOON_THEFT_MAX)
 			gold -= theft
-			lines.append(tr("SUMMARY_MOON_LOST") % theft)
+			deeds.append(tr("SUMMARY_MOON_LOST") % theft)
 	Profile.add_gold(gold)
 	if not dev_test:
-		lines.append_array(Profile.career_night(player.cat_id, "give_up" if _gave_up else kind, spawner.elapsed / 60.0, player.is_home()))
+		deeds.append_array(Profile.career_night(player.cat_id, "give_up" if _gave_up else kind, spawner.elapsed / 60.0, player.is_home()))
 	# The night has passed for the whole neighbourhood.
 	Profile.pass_night()
 	for news: Array in Profile.report_news:
-		lines.append(tr(news[0]) % news.slice(1) if news.size() > 1 else tr(news[0]))
+		deeds.append(tr(news[0]) % news.slice(1) if news.size() > 1 else tr(news[0]))
 	Profile.report_news.clear()
-	lines.append_array(_nemesis_lines)
+	deeds.append_array(_nemesis_lines)
 	Achievements.check()
-	if _bot:
-		print("BOT: summary %s" % " | ".join(lines))
 	for id in Goals.check():
-		lines.append(tr("GOAL_DONE") % [tr("GOAL_%s_NAME" % id), Goals.reward_text(id)])
+		deeds.append(tr("GOAL_DONE") % [tr("GOAL_%s_NAME" % id), Goals.reward_text(id)])
 	for entry in QuestBook.check():
-		lines.append(QuestBook.completed_text(entry))
-	lines.append(tr("SUMMARY_TOTAL") % Profile.gold)
-	hud.show_summary(lines)
+		deeds.append(QuestBook.completed_text(entry))
+	if _bot:
+		print("BOT: summary %s" % " | ".join(deeds + lines))
+	hud.show_end(end_title, end_stats, deeds, lines, tr("SUMMARY_TOTAL") % Profile.gold, kind == "victory")
 
 
 func _catch_up(seconds: float) -> void:

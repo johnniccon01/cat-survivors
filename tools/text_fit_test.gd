@@ -93,10 +93,12 @@ func _in_game(tag: String) -> void:
 	var lines: Array[String] = []
 	for key in ["SUMMARY_GOLD_DEATH", "SUMMARY_STREAK", "SUMMARY_ITEMS_KEPT", "SUMMARY_ITEM_WELL", "SUMMARY_CHARMS_LOST", "SUMMARY_DARKNESS_OPEN"]:
 		lines.append(_filled(TranslationServer.translate(key)))
-	hud.call("show_game_over", 754.0, 1234, TranslationServer.translate("GAME_OVER_TITLE") % TranslationServer.translate("CAT_KAPITAN_NAME"))
-	hud.call("show_summary", lines)
-	await _frames(3)
-	_check(hud, tag + " summary")
+	var deeds: Array[String] = [_filled(TranslationServer.translate("SUMMARY_QUESTS_DONE")), _filled(TranslationServer.translate("STAGE_UNLOCKED"))]
+	hud.call("show_end", TranslationServer.translate("GAME_OVER_TITLE") % TranslationServer.translate("CAT_KAPITAN_NAME"), _filled(TranslationServer.translate("GAME_OVER_STATS")), deeds, lines, _filled(TranslationServer.translate("SUMMARY_TOTAL")), false)
+	for page in 3:
+		await _frames(3)
+		_check(hud, tag + " summary page %d" % (page + 1))
+		hud.call("next_end_page")
 	paused = false
 
 

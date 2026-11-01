@@ -286,7 +286,12 @@ func _in_game() -> void:
 	_expect(_focus_text() == "PAUSE_GIVE_UP_SURE", "Give up now asks to confirm (got %s)" % _focus_text())
 	await _press(KEY_ENTER)
 	_expect(main.get("_run_over"), "Give up ends the run")
-	await _press(KEY_ESCAPE)
+	# The end screen has pages: Esc turns them, the last one leads back.
+	_expect(main.get("hud").call("end_showing"), "the end screen shows")
+	for i in 4:
+		if current_scene == null or current_scene.name != "Main":
+			break
+		await _press(KEY_ESCAPE)
 	await _until(func() -> bool: return current_scene != null and current_scene.name == "CharacterSelect")
 	await _frames(10)
 	_expect(current_scene.name == "CharacterSelect", "Esc after the run goes to character select (got %s)" % current_scene.name)

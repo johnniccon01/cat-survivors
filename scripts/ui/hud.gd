@@ -431,6 +431,110 @@ func show_summary(lines: Array[String]) -> void:
 ## The end screen's summary box, scrolled with up/down or the wheel.
 var _summary_scroll: ScrollContainer
 
+## The end of a night, one page at a time: the title and the night's numbers,
+## then what you achieved, then what you take home. Each page is
+## {"title", "lines", "total", "color"}.
+var _end: ColorRect
+var _end_pages: Array = []
+var _end_page := 0
+var _end_endless := false
+
+
+## Shows the end of the night from its first page (see _end_pages).
+func show_end(title: String, stats: String, deeds: Array[String], loot: Array[String], total: String, endless: bool) -> void:
+	_banner_time = 0.0
+	_banner.visible = false
+	_end_endless = endless
+	_end_pages = [{"title": title, "lines": [stats], "total": "", "big": true}]
+	if not deeds.is_empty():
+		_end_pages.append({"title": tr("END_DEEDS"), "lines": deeds, "total": ""})
+	_end_pages.append({"title": tr("END_LOOT"), "lines": loot, "total": total})
+	_end_page = 0
+	if _end == null:
+		_end = ColorRect.new()
+		_end.color = Color(0.08, 0.05, 0.1, 0.92)
+		_end.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		_end.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(_end)
+	_end.visible = true
+	_show_end_page()
+
+
+func end_showing() -> bool:
+	return _end != null and _end.visible
+
+
+## Turns to the next page; false when this already is the last one.
+func next_end_page() -> bool:
+	if not end_showing() or _end_page >= _end_pages.size() - 1:
+		return false
+	_end_page += 1
+	_show_end_page()
+	return true
+
+
+func end_page() -> int:
+	return _end_page
+
+
+func _show_end_page() -> void:
+	for child in _end.get_children():
+		child.queue_free()
+	var page: Dictionary = _end_pages[_end_page]
+	var box := VBoxContainer.new()
+	box.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	box.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	box.grow_vertical = Control.GROW_DIRECTION_BOTH
+	box.add_theme_constant_override("separation", 12)
+	_end.add_child(box)
+	var dots := _label(16, HORIZONTAL_ALIGNMENT_CENTER)
+	dots.text = "  ".join(range(_end_pages.size()).map(func(i: int) -> String: return "●" if i == _end_page else "○"))
+	dots.label_settings.font_color = Color("8f7ea3")
+	box.add_child(dots)
+	var title := _label(48 if page.get("big", false) else 36, HORIZONTAL_ALIGNMENT_CENTER)
+	title.text = page["title"]
+	title.label_settings.font_color = Color("f2c14e") if page.get("big", false) else Color.WHITE
+	box.add_child(title)
+	var width := minf(get_viewport().get_visible_rect().size.x - 80.0, 1000.0)
+	var scroll := ScrollContainer.new()
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	var list := VBoxContainer.new()
+	list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	list.add_theme_constant_override("separation", 6)
+	scroll.add_child(list)
+	var height := 0.0
+	for text: String in page["lines"]:
+		var line := _label(24 if page.get("big", false) else 20, HORIZONTAL_ALIGNMENT_CENTER)
+		line.text = text
+		line.label_settings.font_color = Color.WHITE if page.get("big", false) else Color("f2c14e")
+		line.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		line.custom_minimum_size = Vector2(width, 0)
+		list.add_child(line)
+		height += 32.0 * (1 + floori(text.length() * 11.0 / width))
+	scroll.custom_minimum_size = Vector2(width + 16.0, minf(height, get_viewport().get_visible_rect().size.y * 0.5))
+	box.add_child(scroll)
+	_summary_scroll = scroll
+	if page["total"] != "":
+		var total := _label(26, HORIZONTAL_ALIGNMENT_CENTER)
+		total.text = page["total"]
+		total.label_settings.font_color = Color("f2c14e")
+		box.add_child(total)
+	var hints: Array[String] = []
+	if _end_page == 0 and _end_endless:
+		hints.append(tr("ENDLESS_HINT"))
+	if _end_page < _end_pages.size() - 1:
+		hints.append(tr("END_CONTINUE"))
+	else:
+		hints.append(tr("END_BACK"))
+		hints.append(tr("END_AGAIN"))
+	for text in hints:
+		var hint := _label(20, HORIZONTAL_ALIGNMENT_CENTER)
+		hint.text = text
+		hint.label_settings.font_color = Color("cfc3dc")
+		hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		hint.custom_minimum_size = Vector2(width, 0)
+		box.add_child(hint)
+
 
 func _scroll_summary(delta: float) -> void:
 	if not is_instance_valid(_summary_scroll) or not _summary_scroll.is_visible_in_tree():

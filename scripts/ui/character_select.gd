@@ -51,6 +51,7 @@ var _report_lose: Label
 var _home_marks: Array[Control] = []
 var _top_buttons: HBoxContainer
 var _cat_buttons: HBoxContainer
+var _badges: HBoxContainer
 var _night_buttons: HBoxContainer
 ## The cat bar's fixed height: choosing a cat never resizes the map.
 const BOTTOM_HEIGHT := 178.0
@@ -175,9 +176,6 @@ func _build() -> void:
 	var top := HBoxContainer.new()
 	top.add_theme_constant_override("separation", 14)
 	top_bar.add_child(top)
-	var title := _label(28, GOLD)
-	title.text = "DISTRICT_TITLE"
-	top.add_child(title)
 	var buttons := HBoxContainer.new()
 	buttons.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -211,18 +209,15 @@ func _build() -> void:
 	_district.resident_chosen.connect(_on_resident_chosen)
 	_district.memorial_chosen.connect(_open_memorials)
 	map_frame.add_child(_district)
-	# Badges in the map's top-left corner: the full moon and your nemesis.
-	var badges := MarginContainer.new()
-	badges.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	for side_name: String in ["margin_left", "margin_top"]:
-		badges.add_theme_constant_override(side_name, 10)
-	map_frame.add_child(badges)
-	var badge_col := VBoxContainer.new()
+	# The full moon, the forecast and your nemesis sit in the top bar, so
+	# nothing covers the places on the map.
+	var badge_col := HBoxContainer.new()
 	badge_col.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	badge_col.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	badge_col.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	badge_col.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	badge_col.add_theme_constant_override("separation", 6)
-	badges.add_child(badge_col)
+	top.add_child(badge_col)
+	top.move_child(badge_col, 0)
+	_badges = badge_col
 	var moon_chip := _badge(Color(0.08, 0.06, 0.12, 0.88), Color("6a5a7e"))
 	badge_col.add_child(moon_chip)
 	var moon_icon := Control.new()
@@ -630,7 +625,7 @@ func _fit_lines() -> void:
 
 ## Shrinks the top buttons until the bar fits the screen's real width.
 func _fit_top() -> void:
-	var room := get_viewport_rect().size.x - 28.0 - 20.0 - 28.0 * 2.0 - 260.0
+	var room := get_viewport_rect().size.x - 28.0 - 20.0 - 14.0 * 2.0 - _badges.get_combined_minimum_size().x - _gold.get_combined_minimum_size().x
 	UiStyle.fit_row(_top_buttons, maxf(room, 400.0))
 	UiStyle.fit_row(_night_buttons, 230.0, 9)
 	UiStyle.fit_row(_cat_buttons, 330.0, 9)

@@ -110,6 +110,15 @@ func _ready() -> void:
 			(light_parent if light_parent != null else self).add_child(light)
 
 
+## Loads every apartment picture up front, so a new room scrolling into view
+## never waits for the disk mid-night (that showed as a hitch).
+static func warm_art() -> void:
+	for file: String in DirAccess.get_files_at("res://assets/sprites"):
+		var plain := file.trim_suffix(".import").trim_suffix(".remap")
+		if plain.begins_with("apt_") and plain.ends_with(".png"):
+			art(plain.trim_prefix("apt_").trim_suffix(".png"))
+
+
 static func art(name: String) -> Texture2D:
 	if not _art.has(name):
 		var path := "res://assets/sprites/apt_%s.png" % name

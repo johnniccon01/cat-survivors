@@ -288,6 +288,7 @@ var _tips_shown: Dictionary = {}
 
 func _ready() -> void:
 	Sprites.warm()
+	FloorChunk.warm_art()
 	enemies.player = player
 	pickups.player = player
 	enemies.numbers = DamageNumbers.new()

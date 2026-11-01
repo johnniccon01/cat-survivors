@@ -274,6 +274,7 @@
   },
   "BASEMENT": {
     "theme": "basement",
+    "terrain": "rooms",
     "requires": "LIVING_ROOM",
     "cat_quests": [
       "LUNA",

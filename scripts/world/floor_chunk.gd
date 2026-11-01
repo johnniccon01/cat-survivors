@@ -17,8 +17,8 @@ const ITEM_KINDS: Array[String] = ["mouse", "book", "ball", "feather", "crumbs"]
 ## The apartment's floor clutter, pixel art (apt_item_*.png, the fabric ones
 ## per rug colour).
 const APARTMENT_ITEMS: Array[String] = ["toy_mouse", "book", "yarn", "feather", "crumbs", "sock", "paper_ball", "slipper", "newspaper", "kibble", "hair", "hair", "kibble", "sock"]
-const ART_ITEMS := ["toy_mouse", "paper_ball", "newspaper", "kibble", "hair"]
-const ART_FABRIC_ITEMS := ["sock", "yarn", "slipper", "book"]
+const ART_ITEMS := ["toy_mouse", "paper_ball", "newspaper", "kibble", "hair", "bolt", "jar"]
+const ART_FABRIC_ITEMS := ["sock", "yarn", "slipper", "book", "rag"]
 const BASEMENT_ITEMS: Array[String] = ["cobweb", "bolt", "rag", "crumbs", "jar"]
 const GARDEN_ITEMS: Array[String] = ["leaf", "leaf", "pebble", "flower", "acorn", "twig"]
 const ROOFTOP_ITEMS: Array[String] = ["leaf", "pebble", "feather", "bottle_cap", "bolt"]
@@ -89,10 +89,12 @@ static var _light_texture: Texture2D
 static var _art: Dictionary = {}
 ## Furniture drawn from that pixel art; fabric ones come in a picture per
 ## rug colour (apt_<kind>_<i>).
-const ART_FURNITURE := ["bookshelf", "tv", "floor_lamp", "plant", "dining_table", "trash_bin", "counter", "nightstand", "wardrobe"]
-const ART_FABRIC := ["sofa", "armchair", "coffee_table", "cat_tree", "cat_bowls", "bed", "cat_bed", "doormat"]
+const ART_FURNITURE := ["bookshelf", "tv", "floor_lamp", "plant", "dining_table", "trash_bin", "counter", "nightstand", "wardrobe",
+	"boiler", "pipes", "shelf", "crates", "covered_sofa", "washer", "drying_rack", "laundry_pile", "paint_cans"]
+const ART_FABRIC := ["sofa", "armchair", "coffee_table", "cat_tree", "cat_bowls", "bed", "cat_bed", "doormat", "bike"]
 ## Apartment floors from pixel art: zone -> texture name.
-const ART_FLOORS := {"living": "floor_planks", "kitchen": "floor_tiles", "bedroom": "floor_carpet"}
+const ART_FLOORS := {"living": "floor_planks", "kitchen": "floor_tiles", "bedroom": "floor_carpet",
+	"concrete": "floor_concrete", "laundry": "floor_laundry", "storage": "floor_boards"}
 
 var layer := Layer.GROUND
 var desc: Dictionary
@@ -302,6 +304,27 @@ func _draw_wear(size: float) -> void:
 				var x := floorf(rng.randf_range(0, size) / TILE) * TILE - fposmod(position.x, TILE)
 				var y := floorf(rng.randf_range(0, size) / TILE) * TILE - fposmod(position.y, TILE)
 				draw_rect(Rect2(x, y, TILE, 1), Color(0.25, 0.25, 0.22, 0.25))
+		"concrete":
+			# An oil stain and a few chips out of the concrete.
+			if rng.randf() < 0.5:
+				var c := Vector2(rng.randf_range(40, size - 40), rng.randf_range(40, size - 40))
+				for k in 3:
+					draw_colored_polygon(Shapes.ellipse(c, 16.0 - k * 4.0, 10.0 - k * 2.5, 16), Color(0.05, 0.05, 0.08, 0.12))
+			for i in rng.randi_range(5, 10):
+				draw_rect(Rect2(Vector2(rng.randf_range(0, size), rng.randf_range(0, size)).floor(), Vector2(2, 1)), Color(0.15, 0.14, 0.13, 0.4))
+		"laundry":
+			# A puddle by the washers with a glint.
+			if rng.randf() < 0.6:
+				var c := Vector2(rng.randf_range(40, size - 40), rng.randf_range(40, size - 40))
+				var rx := rng.randf_range(14, 26)
+				draw_colored_polygon(Shapes.ellipse(c, rx, rx * 0.6, 18), Color(0.55, 0.75, 0.95, 0.22))
+				draw_line(c + Vector2(-rx * 0.4, -3), c + Vector2(rx * 0.1, -4), Color(1, 1, 1, 0.45), 1.0)
+		"storage":
+			# Sawdust and dust bunnies.
+			for i in rng.randi_range(10, 18):
+				draw_rect(Rect2(Vector2(rng.randf_range(0, size), rng.randf_range(0, size)).floor(), Vector2.ONE), Color(0.9, 0.8, 0.6, 0.35))
+			for i in rng.randi_range(1, 3):
+				draw_circle(Vector2(rng.randf_range(10, size - 10), rng.randf_range(10, size - 10)), rng.randf_range(2, 4), Color(0.75, 0.72, 0.7, 0.5))
 		"bedroom":
 			# A worn path across the carpet, then lint.
 			var a := Vector2(0, rng.randf_range(60, size - 60))
@@ -329,7 +352,7 @@ func _draw_room_edges(size: float) -> void:
 			draw_line(p, p + along, Color(0.08, 0.05, 0.04, a), 1.0)
 	# Under a room wall the strip only shows in the doorway (the wall covers
 	# the rest); an open edge without a wall gets it all along.
-	var strip := Color("b08a5a")
+	var strip := Color("8a9096") if desc["zone"] in ["concrete", "laundry", "storage"] else Color("b08a5a")
 	var doors: Dictionary = desc.get("doors", {})
 	if desc["edge_right"]:
 		var span := _door_span(float(doors.get("right", -1.0)), size)

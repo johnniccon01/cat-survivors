@@ -554,6 +554,10 @@ func _draw_rooms(view: Rect2) -> void:
 	var cap := Color("efe5d3")
 	var face := Color("cdbb9f")
 	var skirting := Color("6b4630")
+	if WorldFloor.current != null and WorldFloor.current.theme == "basement":
+		cap = Color("a8a49c")
+		face = Color("8a857c")
+		skirting = Color("5a5650")
 	var outline := Color("2b1d14")
 	var frame := Color("9a6a42")
 	var pieces: Array[Rect2] = []

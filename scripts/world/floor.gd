@@ -282,7 +282,7 @@ func _generate(c: Vector2i) -> Dictionary:
 		slots = _apartment_sets(rng, desc)
 	# Two loose slots per chunk, in opposite corners, so pieces don't overlap.
 	for slot: Vector2 in slots:
-		if rng.randf() < (0.7 if theme == "apartment" else 0.55):
+		if rng.randf() < (0.7 if theme in ["apartment", "basement"] else 0.55):
 			var kind: String = pool[rng.randi() % pool.size()]
 			var pos := slot * CHUNK + Vector2(rng.randf_range(-25, 25), rng.randf_range(-25, 25))
 			var turn: float = [0.0, PI * 0.5, PI, PI * 1.5][rng.randi() % 4]
@@ -294,7 +294,7 @@ func _generate(c: Vector2i) -> Dictionary:
 				"rot": 0.0 if kind in UPRIGHT or FloorChunk.has_art(kind) else turn,
 				"color": FloorChunk.RUG_COLORS[rng.randi() % FloorChunk.RUG_COLORS.size()],
 			})
-	for i in (rng.randi_range(3, 6) if theme == "apartment" else rng.randi_range(1, 4)):
+	for i in (rng.randi_range(3, 6) if theme in ["apartment", "basement"] else rng.randi_range(1, 4)):
 		desc["items"].append({
 			"kind": _pick(rng, FloorChunk.THEME_ITEMS.get(theme, FloorChunk.ITEM_KINDS)),
 			"pos": Vector2(rng.randf_range(10, CHUNK - 10), rng.randf_range(10, CHUNK - 10)),

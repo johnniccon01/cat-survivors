@@ -46,6 +46,8 @@ var _quest_title: Label
 var _quest_text: Label
 ## Tonight's conquest: the next flag, the one to take, or its keeper.
 var _conquest: Label
+## The night offer you took (defence, rescue...) and whether it is done.
+var _mission: Label
 var _quest_arrow: QuestArrow
 var _extract_arrow: QuestArrow
 var _page_arrow: QuestArrow
@@ -100,13 +102,14 @@ func _ready() -> void:
 	_quest_title = _label(20, HORIZONTAL_ALIGNMENT_RIGHT)
 	_quest_title.label_settings.font_color = Color("f2c14e")
 	_quest_text = _label(16, HORIZONTAL_ALIGNMENT_RIGHT)
+	_mission = _label(16, HORIZONTAL_ALIGNMENT_RIGHT)
 	_conquest = _label(16, HORIZONTAL_ALIGNMENT_RIGHT)
 	_conquest.label_settings.font_color = Color("ff9a8a")
 	_gold_label = _label(18, HORIZONTAL_ALIGNMENT_RIGHT)
 	_gold_label.label_settings.font_color = Color("f2c14e")
 	# Shrine blessings still running, with the seconds left.
 	_bless_label = _label(16, HORIZONTAL_ALIGNMENT_RIGHT)
-	for line: Label in [_quest_title, _quest_text, _conquest, _gold_label, _bless_label]:
+	for line: Label in [_quest_title, _quest_text, _mission, _conquest, _gold_label, _bless_label]:
 		line.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		line.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		line.visible = false
@@ -297,6 +300,14 @@ func update_quest(quest: Quest) -> void:
 	_quest_title.visible = _quest_title.text != ""
 	_quest_text.visible = _quest_text.text != ""
 	_quest_arrow.target = quest.target_position()
+
+
+## The night offer's line ("" hides it): gold while it is still to do,
+## green once it is done.
+func set_mission(text: String, done: bool) -> void:
+	_mission.text = text
+	_mission.visible = text != ""
+	_mission.label_settings.font_color = Color("8fe08a") if done else Color("f2c14e")
 
 
 ## The conquest line under the quest ("" hides it).

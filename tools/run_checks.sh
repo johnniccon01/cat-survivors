@@ -120,6 +120,7 @@ scenarios=(
   "nemesis_new|--bot --nemesis=RAT_KING --nemesis-at=3 --kill-cat-every=12 --bot-time=30 --expect=nemesis_hunt,nemesis_new"
   "resident_service|--bot --service=OLD_CAT --bot-time=10"
   "report_rescue|--bot --kidnapped=CLOVER --report=rescue --bot-time=20"
+  "mission_rescue|--bot --god --kidnapped=CLOVER --report=rescue --start-minute=9.8 --catch-up --bot-time=30 --expect=mission_done"
   "night_trip|--bot --god --cleared=LIVING_ROOM,BASEMENT,GARDEN --report=trip --trip-at=20 --bot-time=60 --expect=trip_start,trip_gate"
   "territory_flags|--bot --god --stage=GARDEN --flag-every=4 --flag-dist=0 --flag-time=0.3 --bot-time=30 --expect=flag_placed,flag_taken,territory_keeper"
   "territory_won|--bot --god --strong --stage=LIVING_ROOM --flag-every=3 --flag-dist=0 --flag-time=0.3 --bot-time=150 --give-up-at=140 --expect=territory_keeper_down,territory_won"

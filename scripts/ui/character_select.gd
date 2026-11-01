@@ -649,6 +649,7 @@ func _legend() -> Control:
 		entries.append([kind, "REPORT_%s_NAME" % kind.to_upper()])
 	entries.append(["moon", "MOON_NAME"])
 	entries.append(["flag", "LEGEND_FLAGS"])
+	entries.append(["kidnapped", "LEGEND_KIDNAPPED"])
 	for entry: Array in entries:
 		var row := HBoxContainer.new()
 		row.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -671,6 +672,11 @@ func _draw_legend_icon(ci: Control, kind: String) -> void:
 	var c := ci.size * 0.5
 	if kind == "moon":
 		DistrictMap.draw_moon(ci, c, 7.0, 0, 0.0, false)
+		return
+	if kind == "kidnapped":
+		ci.draw_circle(c, 9.0, Color("2b1d14"))
+		ci.draw_circle(c, 7.5, Color("c0392b"))
+		ci.draw_string(ci.get_theme_default_font(), Vector2(0, c.y + 5), "?", HORIZONTAL_ALIGNMENT_CENTER, ci.size.x, 13, Color.WHITE)
 		return
 	if kind == "flag":
 		ci.draw_line(c + Vector2(-4, 8), c + Vector2(-4, -8), Color("2b1d14"), 2.0)

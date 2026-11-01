@@ -265,6 +265,8 @@ var _keeper: Enemy
 var _keeper_id := ""
 var _conquered := false
 var _conquest_text := ""
+var _mission_text := ""
+var _mission_done := false
 var _flags_placed := false
 ## Night trip: the gates still to come (seconds) and the maps passed so far.
 const TRIP_GATES := [420.0, 840.0]
@@ -1365,6 +1367,8 @@ func _track_run(delta: float) -> void:
 		_start_conquest()
 	if _conquest and not _run_over:
 		_tick_conquest()
+	if not _run_over:
+		_tick_mission()
 	if not _trip_gates.is_empty() and spawner.elapsed >= float(_trip_gates[0]) and not _run_over and not get_tree().paused:
 		_trip_gates.pop_front()
 		_trip_gate()
@@ -1558,6 +1562,43 @@ func _start_conquest() -> void:
 		return
 	_conquest = true
 	print("TERRITORY: conquest on %s" % id)
+
+
+## The HUD line for the night offer you took: what to do, and once it is
+## done (defence and rescue after REPORT_DEFEND_MINUTES) a banner and a
+## green tick, so you know the cat door may take you home.
+func _tick_mission() -> void:
+	var rep := Profile.active_report()
+	var text := ""
+	var done := false
+	var hold := Profile.REPORT_DEFEND_MINUTES * 60.0
+	var until := "%d:%02d" % [int(hold) / 60, int(hold) % 60]
+	if Profile.moon_on:
+		text = tr("MISSION_MOON")
+	elif not rep.is_empty():
+		match rep["kind"]:
+			"defend":
+				done = spawner.elapsed >= hold
+				text = tr("MISSION_DEFEND_DONE") if done else tr("MISSION_DEFEND") % until
+			"rescue":
+				var who := tr("CAT_%s_NAME" % Profile.kidnapped) if Profile.kidnapped != "" else ""
+				done = spawner.elapsed >= hold
+				text = tr("MISSION_RESCUE_DONE") % who if done else tr("MISSION_RESCUE") % [who, until]
+			"hunt":
+				text = tr("MISSION_HUNT")
+			"trip":
+				text = tr("MISSION_TRIP")
+			"gold":
+				text = tr("MISSION_GOLD")
+				done = true
+	if done and not _mission_done and rep.get("kind", "") in ["defend", "rescue"]:
+		hud.show_banner(text, 5.0)
+		Audio.play("quest_done", 0.0, 0.0)
+		BotLog.event("mission_done")
+	_mission_done = done
+	if text != _mission_text:
+		_mission_text = text
+		hud.set_mission(text, done)
 
 
 ## When the next flag comes (night clock, seconds).

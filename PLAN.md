@@ -73,7 +73,7 @@ Doplnok (31. 10. 2026, značka `pomniky`): dôchodok už nedáva percentá. Kaž
 12. [x] Legenda ikon na mape štvrte (hotové, značka `legenda-mapy`: pás dole na mape – „klikni na značku“ a každá ikona s názvom: Obrana, Lov na bossa, Zlatá noc, Záchrana, Nočná túra, Spln, Vlajky bossa).
 13. [x] Mačka pri pohybe vyzerá rozmazane – opravené (značka `plynuly-pohyb`): pohyb sa počítal 60× za sekundu, ale kreslil sa na 144 Hz monitore a kamera sa vyhladzovala medzi tým, takže mačka, nepriatelia aj strely išli po skokoch. Zapnutá interpolácia fyziky (`physics/common/physics_interpolation`), kamera ide vo fyzikálnych ťikoch, drony tiež; pri skoku nepriateľa na druhú stranu sa interpolácia resetuje. Overiť okom v hre.
     - Doplnok (značka `byt-nabytok-svetlo`): podlaha sa pri interpolácii kreslila s dierami – opravené; detailnejší nábytok a teplé svetlo stropných lámp.
-14. [ ] HUD vpravo hore: stále ukazovať cieľ prijatej úlohy (obrana, lov, záchrana, túra, zlatá noc, dobytie) a či je splnená, a kedy už môžem odísť dvierkami.
+14. [x] HUD vpravo hore: cieľ prijatej úlohy (hotové, značka `hud-uloha`: riadok pod questom – obrana/záchrana „vydrž do 10:00“, po splnení zelené „✓ – môžeš odísť dvierkami“ s hláškou; lov, túra, zlatá noc, spln; dobytie má vlastný riadok; test `mission_rescue`). Legenda mapy má aj červený „?“ = unesený obyvateľ.
 15. [ ] Záverečná obrazovka po noci prerobiť na kroky: „Ráno je tu“ → splnené questy a hlavná úloha → čo si si odniesol (súhrn) → Pokračovať späť. Nie všetko naraz cez seba.
 16. [ ] Zvonček duší je priveľmi silný na štart: nové hry ho nemajú, padne s malou šancou z bossa (alebo z questu); náboj sa stratí len pri smrti (nie pri vzdaní ani dvierkach). Hráčovi súčasný ostáva na testovanie.
 

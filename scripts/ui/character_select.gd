@@ -31,7 +31,6 @@ var _artifacts: ArtifactPanel
 var _artifact_label: Label
 var _journal: JournalPanel
 var _challenges: ChallengePanel
-var _challenge_label: Label
 var _worn: Label
 var _gold: Label
 var _big: CatPreview
@@ -54,7 +53,7 @@ var _cat_buttons: HBoxContainer
 var _badges: HBoxContainer
 var _night_buttons: HBoxContainer
 ## The cat bar's fixed height: choosing a cat never resizes the map.
-const BOTTOM_HEIGHT := 178.0
+const BOTTOM_HEIGHT := 150.0
 ## The full moon is on show in the side panel.
 var _moon_mode := false
 ## A resident on show in the side panel ("" if none).
@@ -257,7 +256,7 @@ func _build() -> void:
 		nl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		chip.get_child(0).add_child(nl)
 	var side := PanelContainer.new()
-	side.custom_minimum_size = Vector2(340, 0)
+	side.custom_minimum_size = Vector2(310, 0)
 	side.add_theme_stylebox_override("panel", UiStyle.frame())
 	middle.add_child(side)
 	var side_scroll := ScrollContainer.new()
@@ -288,7 +287,7 @@ func _build() -> void:
 	_place_story = _label(14, Color("ddd3e8"))
 	_place_story.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_place_story.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_place_story.custom_minimum_size = Vector2(296, 0)
+	_place_story.custom_minimum_size = Vector2(266, 0)
 	place.add_child(_place_story)
 	var boss_row := PanelContainer.new()
 	boss_row.add_theme_stylebox_override("panel", UiStyle.box(Color(0.07, 0.05, 0.1, 0.8), Color("3a3148")))
@@ -316,7 +315,7 @@ func _build() -> void:
 	_place_stats.clear()
 	for key: String in ["DISTRICT_DIFFICULTY", "DISTRICT_LENGTH", "DISTRICT_STORIES", "DISTRICT_RECORD"]:
 		var cell := PanelContainer.new()
-		cell.custom_minimum_size = Vector2(146, 0)
+		cell.custom_minimum_size = Vector2(131, 0)
 		cell.add_theme_stylebox_override("panel", UiStyle.box(Color(0.07, 0.05, 0.1, 0.8), Color("3a3148")))
 		var v := VBoxContainer.new()
 		v.add_theme_constant_override("separation", -2)
@@ -342,7 +341,7 @@ func _build() -> void:
 	for l: Label in [_report_win, _report_lose]:
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		l.custom_minimum_size = Vector2(290, 0)
+		l.custom_minimum_size = Vector2(262, 0)
 		rv.add_child(l)
 	_report_toggle = UiStyle.click_button("", 0, 13)
 	_report_toggle.pressed.connect(func() -> void:
@@ -360,7 +359,7 @@ func _build() -> void:
 	_build_label = _label(13, Color("f0dcb8"))
 	_build_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_build_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_build_label.custom_minimum_size = Vector2(290, 0)
+	_build_label.custom_minimum_size = Vector2(262, 0)
 	bv.add_child(_build_label)
 	_build_button = UiStyle.click_button("", 0, 13)
 	_build_button.pressed.connect(func() -> void:
@@ -433,7 +432,7 @@ func _build() -> void:
 	dark_row.add_child(_dark_plus)
 	_place_stars = _label(11, GOLD)
 	_place_stars.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_place_stars.custom_minimum_size = Vector2(296, 0)
+	_place_stars.custom_minimum_size = Vector2(266, 0)
 	place.add_child(_place_stars)
 
 	# Bottom: the cats, the chosen one's details, what you take along, and Play.
@@ -450,14 +449,14 @@ func _build() -> void:
 	bottom.add_child(left)
 	var scroll := ScrollContainer.new()
 	scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	scroll.custom_minimum_size = Vector2(0, 70)
+	scroll.custom_minimum_size = Vector2(0, 60)
 	left.add_child(scroll)
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 5)
 	scroll.add_child(row)
 	for i in _ids.size():
 		var card := PanelContainer.new()
-		card.custom_minimum_size = Vector2(58, 66)
+		card.custom_minimum_size = Vector2(52, 56)
 		card.mouse_filter = Control.MOUSE_FILTER_STOP
 		card.gui_input.connect(_on_card_input.bind(i))
 		card.mouse_entered.connect(_on_card_hover.bind(i, true))
@@ -465,7 +464,7 @@ func _build() -> void:
 		var preview := CatPreview.new()
 		preview.cat_id = _ids[i]
 		preview.locked = not Profile.is_unlocked(_ids[i])
-		preview.zoom = 1.6
+		preview.zoom = 1.4
 		preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		card.add_child(preview)
 		# A little gold house on the cats whose home is the chosen map.
@@ -533,10 +532,8 @@ func _build() -> void:
 			["MENU_ITEMS", "I", func() -> void: _items.open()],
 			["ARTIFACTS_TITLE", "V", func() -> void: _artifacts.open()]]:
 		_cat_buttons.add_child(_small_button(entry))
-	_challenge_label = _label(13, Color("ff7a6a"))
-	left.add_child(_challenge_label)
 	# Never cut off: these lines shrink their font to fit (see _fit_lines).
-	for l: Label in [_weapon_label, _cat_stats, _worn, _artifact_label, _challenge_label, _desc]:
+	for l: Label in [_weapon_label, _cat_stats, _worn, _artifact_label, _desc]:
 		l.clip_text = true
 		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
@@ -617,7 +614,7 @@ func _small_button(entry: Array) -> Button:
 
 ## The bottom lines shrink their font until all of their text fits.
 func _fit_lines() -> void:
-	for l: Label in [_weapon_label, _cat_stats, _worn, _artifact_label, _challenge_label, _desc]:
+	for l: Label in [_weapon_label, _cat_stats, _worn, _artifact_label, _desc]:
 		var base: int = l.get_meta("base_size", 13)
 		var font := l.get_theme_font("font")
 		l.label_settings.font_size = UiStyle.fit_size(font, l.text, maxf(l.size.x - 2.0, 40.0), base, 9)
@@ -728,14 +725,21 @@ func _refresh() -> void:
 	else:
 		_worn.text = ""
 	_artifact_label.text = tr("SELECT_LEGACY") % Profile.retired.size() if not Profile.retired.is_empty() else ""
+	if Profile.streak > 0 or Profile.best_streak > 0:
+		_artifact_label.text = tr("SELECT_STREAK") % [Profile.streak, Profile.best_streak, roundi((Profile.streak_multiplier() - 1.0) * 100.0)] + ("   " + _artifact_label.text if _artifact_label.text != "" else "")
+	# The curses and the daily night tell their state on their own buttons.
 	var ch: Array = Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))
-	_challenge_label.text = tr("SELECT_CHALLENGES") % ["—" if ch.is_empty() else ", ".join(ch), Profile.challenge_gold()]
+	var curses: Button = _night_buttons.get_child(0)
+	curses.text = "%s (X)" % tr("CHALLENGES_TITLE") + ("" if ch.is_empty() else " ×%.2f" % Profile.challenge_gold())
+	curses.tooltip_text = tr("SELECT_CHALLENGES") % ["—" if ch.is_empty() else ", ".join(ch), Profile.challenge_gold()]
+	curses.add_theme_color_override("font_color", UiStyle.TEXT if ch.is_empty() else Color("ff7a6a"))
 	var plan := Profile.daily_plan()
 	var done := Profile.has_flag("daily_win:" + Profile.today())
-	_challenge_label.text += "      " + tr("SELECT_DAILY") % [tr("STAGE_%s_NAME" % plan["stage"]), ", ".join((plan["challenges"] as Array).map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c)))] + (" ✓" if done else "")
+	var daily: Button = _night_buttons.get_child(1)
+	daily.text = "%s (T)" % tr("SELECT_BTN_DAILY") + (" ✓" if done else "")
+	daily.tooltip_text = tr("SELECT_DAILY") % [tr("STAGE_%s_NAME" % plan["stage"]), ", ".join((plan["challenges"] as Array).map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c)))]
+	_fit_top.call_deferred()
 	_gold.text = tr("SELECT_GOLD") % Profile.gold + "   " + tr("SELECT_MATERIALS") % Profile.materials
-	if Profile.streak > 0 or Profile.best_streak > 0:
-		_challenge_label.text = tr("SELECT_STREAK") % [Profile.streak, Profile.best_streak, roundi((Profile.streak_multiplier() - 1.0) * 100.0)] + "      " + _challenge_label.text
 	_refresh_darkness(_stage_ids[_stage_index])
 	_refresh_place()
 

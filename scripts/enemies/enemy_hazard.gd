@@ -30,6 +30,19 @@ var _struck := -1.0
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	z_index = -2
+	add_to_group("enemy_hazard")
+
+
+## Bot tests: which way leads out of this zone from `at` (zero when `at` is
+## clear of it or it can no longer hurt).
+func escape_from(at: Vector2, margin: float) -> Vector2:
+	if damage <= 0.0 or (mode != "steam" and _struck >= 0.0) or _distance(at) > radius + margin:
+		return Vector2.ZERO
+	var from := position if mode != "beam" else Geometry2D.get_closest_point_to_segment(at, position, position + beam)
+	var d := at - from
+	if d.length() < 1.0:
+		d = beam.orthogonal() if mode == "beam" else Vector2.RIGHT
+	return d.normalized()
 
 
 func _physics_process(delta: float) -> void:

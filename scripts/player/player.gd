@@ -591,6 +591,17 @@ func _bot_input(delta: float) -> Vector2:
 		if best != null:
 			var goal := best.position + Vector2.from_angle(_bot_t * 1.5) * 45.0
 			return (goal - position).normalized()
+	# Step out of a boss's marked strike before it lands, as a player would.
+	var out := Vector2.ZERO
+	for h in get_tree().get_nodes_in_group("enemy_hazard"):
+		out += (h as EnemyHazard).escape_from(position, RADIUS + 6.0)
+	if out != Vector2.ZERO:
+		# ...without running into the crowd on the way.
+		var crowd := Vector2.ZERO
+		for enemy in manager.query_radius(position, 60.0):
+			var d := position - enemy.position
+			crowd += d / maxf(d.length_squared(), 1.0) * (1.0 + enemy.radius / 10.0)
+		return (out.normalized() + crowd.normalized() * 0.8).normalized() if crowd != Vector2.ZERO else out.normalized()
 	# Standing in a quest zone matters more than dodging (while healthy).
 	var quest_here: Quest = get_parent().quests.active if get_parent().get("quests") else null
 	if quest_here != null and quest_here.started and hp > max_hp * 0.5 and quest_here.target_position().distance_to(position) < 40.0:

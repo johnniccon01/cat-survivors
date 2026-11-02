@@ -14,8 +14,6 @@ const ROWS := 7
 const DESC_LINES := 4
 
 var _slot := 0
-## The cat shown wearing the gear (the gear itself is shared by all cats).
-var _cat_id := ""
 var _index := 0
 ## First list row shown (the list scrolls when there are more than ROWS).
 var _top := 0
@@ -24,8 +22,9 @@ var _melt_uid := 0
 var _slot_boxes: Array[PanelContainer] = []
 var _rows: Array[PanelContainer] = []
 var _slot_icons: Array[ItemIcon] = []
+## How many items you own for each slot, big by the slot's name.
+var _slot_counts: Array[Label] = []
 var _row_icons: Array[ItemIcon] = []
-var _cat: CatPreview
 var _header: Label
 var _desc: Label
 var _note: Label
@@ -47,17 +46,11 @@ func _ready() -> void:
 	_header = _label(18, Color("d9cce6"))
 	box.add_child(_header)
 
-	# The cat wearing it all, beside the five slots.
+	# The five slots.
 	var top := HBoxContainer.new()
 	top.alignment = BoxContainer.ALIGNMENT_CENTER
 	top.add_theme_constant_override("separation", 10)
 	box.add_child(top)
-	_cat = CatPreview.new()
-	_cat.gear = true
-	_cat.zoom = 3.2
-	_cat.walking = true
-	_cat.custom_minimum_size = Vector2(150, 110)
-	top.add_child(_cat)
 	var slots := HBoxContainer.new()
 	slots.alignment = BoxContainer.ALIGNMENT_CENTER
 	slots.add_theme_constant_override("separation", 6)
@@ -81,6 +74,11 @@ func _ready() -> void:
 		label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		inner.add_child(label)
+		var count := _label(22, GOLD)
+		count.custom_minimum_size = Vector2(30, 0)
+		count.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		inner.add_child(count)
+		_slot_counts.append(count)
 		slot_box.mouse_filter = Control.MOUSE_FILTER_STOP
 		slot_box.gui_input.connect(_on_slot_input.bind(i))
 		slots.add_child(slot_box)
@@ -88,11 +86,11 @@ func _ready() -> void:
 
 	var list := VBoxContainer.new()
 	list.add_theme_constant_override("separation", 4)
-	list.custom_minimum_size = Vector2(700, ROWS * 32)
+	list.custom_minimum_size = Vector2(700, ROWS * 40 - 4)
 	box.add_child(list)
 	for i in ROWS:
 		var row := PanelContainer.new()
-		row.custom_minimum_size = Vector2(700, 28)
+		row.custom_minimum_size = Vector2(700, 36)
 		var inner := HBoxContainer.new()
 		inner.add_theme_constant_override("separation", 6)
 		row.add_child(inner)
@@ -133,8 +131,7 @@ func _ready() -> void:
 	box.add_child(back)
 
 
-func open(cat_id: String = Profile.selected_cat) -> void:
-	_cat_id = cat_id
+func open() -> void:
 	visible = true
 	_index = 0
 	_top = 0
@@ -164,8 +161,10 @@ func _refresh() -> void:
 		var owned := Profile.items.filter(func(item: Dictionary) -> bool: return item["slot"] == slot).size()
 		_slot_icons[i].show_item(worn, slot)
 		var label := _slot_boxes[i].get_child(0).get_child(1) as Label
-		label.text = "%s (%d)\n%s" % [tr("ITEM_SLOT_" + slot), owned, Items.item_name(worn) if not worn.is_empty() else tr("ITEMS_EMPTY_SLOT")]
+		label.text = "%s\n%s" % [tr("ITEM_SLOT_" + slot),Items.item_name(worn) if not worn.is_empty() else tr("ITEMS_EMPTY_SLOT")]
 		label.label_settings.font_color = Items.rarity_color(worn) if not worn.is_empty() else Color("8f7ea3")
+		_slot_counts[i].text = str(owned)
+		_slot_counts[i].modulate = Color.WHITE if owned > 0 else Color(1, 1, 1, 0.3)
 		_slot_boxes[i].add_theme_stylebox_override("panel", _box(i == _slot, not worn.is_empty()))
 	var list := _list()
 	_index = clampi(_index, 0, maxi(list.size() - 1, 0))
@@ -175,8 +174,11 @@ func _refresh() -> void:
 		var n := _top + i
 		var row := _rows[i]
 		var label := row.get_child(0).get_child(1) as Label
-		row.visible = n < list.size()
-		if n >= list.size():
+		# An empty row stays in place (just faded out), so the panel never moves.
+		var on := n < list.size()
+		row.modulate.a = 1.0 if on else 0.0
+		row.mouse_filter = Control.MOUSE_FILTER_STOP if on else Control.MOUSE_FILTER_IGNORE
+		if not on:
 			continue
 		var item: Dictionary = list[n]
 		var worn := int(item["uid"]) == worn_uid
@@ -184,8 +186,6 @@ func _refresh() -> void:
 		label.text = "  %s %s%s" % ["◆" if worn else "◇", Items.item_name(item), "   (%s)" % tr("ITEMS_WORN") if worn else ""]
 		label.label_settings.font_color = Items.rarity_color(item)
 		row.add_theme_stylebox_override("panel", _box(n == _index, worn))
-	_cat.cat_id = _cat_id
-	_cat.queue_redraw()
 	if list.is_empty():
 		_desc.text = tr("ITEMS_EMPTY")
 	else:

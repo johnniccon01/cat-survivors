@@ -46,11 +46,17 @@ func _ready() -> void:
 	prev.pressed.connect(_switch.bind(-1))
 	head_row.add_child(prev)
 	_header = _label(19, Color("f4ecd4"))
+	_header.custom_minimum_size.x = 640
+	_header.clip_text = true
+	_header.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	head_row.add_child(_header)
 	var next := UiStyle.click_button("▶", 44, 18)
 	next.pressed.connect(_switch.bind(1))
 	head_row.add_child(next)
 	_others = _label(15, GOLD)
+	_others.custom_minimum_size = Vector2(760, 22)
+	_others.clip_text = true
+	_others.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	box.add_child(_others)
 	_lives = Control.new()
 	_lives.custom_minimum_size = Vector2(9 * 34, 34)
@@ -59,16 +65,26 @@ func _ready() -> void:
 	box.add_child(_lives)
 	_list = _label(16, Color("d9cce6"))
 	_list.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
-	_list.custom_minimum_size = Vector2(760, 0)
-	_list.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	# Everything below keeps its size whatever the cat has, so the panel
+	# never moves: one line per rank ("…" if too long), the pick lines are
+	# always there and only fade out when there is nothing to pick.
+	_list.custom_minimum_size = Vector2(760, Profile.MAX_RANK * 23)
+	_list.clip_text = true
+	_list.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	_list.vertical_alignment = VERTICAL_ALIGNMENT_TOP
 	box.add_child(_list)
 	_pick_title = _label(20, GOLD)
+	_pick_title.custom_minimum_size.y = 30
 	box.add_child(_pick_title)
 	_pick_box = VBoxContainer.new()
 	_pick_box.add_theme_constant_override("separation", 6)
 	box.add_child(_pick_box)
 	for i in Profile.TALENT_OFFERS:
 		var b := UiStyle.click_button("", 760, 16)
+		b.clip_text = true
+		b.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		b.custom_minimum_size.x = 760
+		b.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		b.pressed.connect(_pick.bind(i))
 		b.mouse_entered.connect(func() -> void:
 			_index = i
@@ -76,7 +92,7 @@ func _ready() -> void:
 		_pick_box.add_child(b)
 		_buttons.append(b)
 	_legacy = _label(15, Color("b8b0c8"))
-	_legacy.custom_minimum_size = Vector2(760, 0)
+	_legacy.custom_minimum_size = Vector2(760, 44)
 	_legacy.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	box.add_child(_legacy)
 	var hint := _label(14, Color("8f7ea3"))
@@ -114,16 +130,16 @@ func _refresh() -> void:
 			lines.append("%d. %s" % [i + 1, tr("TALENTS_LOCKED") % (i + 1)])
 	_list.text = "\n".join(lines)
 	_offers = Profile.talent_offers(cat)
-	_pick_title.visible = not _offers.is_empty()
-	_pick_title.text = tr("TALENTS_PICK") % int(c["picks"])
+	_pick_title.text = tr("TALENTS_PICK") % int(c["picks"]) if not _offers.is_empty() else ""
 	for i in _buttons.size():
 		var b := _buttons[i]
-		b.visible = i < _offers.size()
-		if b.visible:
-			var t: String = _offers[i]
-			b.text = "%s – %s" % [Profile.talent_name(t), Profile.talent_desc(t)]
+		var on := i < _offers.size()
+		b.modulate.a = 1.0 if on else 0.0
+		b.disabled = not on
+		b.mouse_filter = Control.MOUSE_FILTER_STOP if on else Control.MOUSE_FILTER_IGNORE
+		b.text = "%s – %s" % [Profile.talent_name(_offers[i]), Profile.talent_desc(_offers[i])] if on else ""
+		b.tooltip_text = b.text
 	if int(c["picks"]) > 0 and _offers.is_empty():
-		_pick_title.visible = true
 		_pick_title.text = tr("TALENTS_NONE_LEFT")
 	var waiting: Array = _cats.filter(func(id: String) -> bool: return id != cat and int(Profile.career(id)["picks"]) > 0)
 	var names: Array = waiting.map(func(id: String) -> String: return tr("CAT_%s_NAME" % id))

@@ -529,7 +529,6 @@ func _build() -> void:
 	_big = CatPreview.new()
 	_big.custom_minimum_size = Vector2(44, 34)
 	_big.zoom = 1.3
-	_big.gear = true
 	_big.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	info.add_child(_big)
 	_name = _label(27, Color.WHITE)
@@ -577,7 +576,7 @@ func _build() -> void:
 	_cat_buttons.add_theme_constant_override("separation", 4)
 	loadout.add_child(_cat_buttons)
 	for entry: Array in [["MENU_TALENTS", "C", func() -> void: _open_talents()],
-			["MENU_ITEMS", "I", func() -> void: _items.open(_ids[_index])],
+			["MENU_ITEMS", "I", func() -> void: _items.open()],
 			["ARTIFACTS_TITLE", "V", func() -> void: _artifacts.open()]]:
 		_cat_buttons.add_child(_small_button(entry))
 	# Never cut off: these lines shrink their font to fit (see _fit_lines).
@@ -1198,7 +1197,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		_shop.open()
 	elif event.is_action_pressed("items"):
 		Audio.play("click", -6.0, 0.0)
-		_items.open(_ids[_index])
+		_items.open()
 	elif event.is_action_pressed("charms"):
 		Audio.play("click", -6.0, 0.0)
 		_open_talents()

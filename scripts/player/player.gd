@@ -114,8 +114,6 @@ func _ready() -> void:
 	if controller == "input" or controller == "bot":
 		cat_id = Profile.selected_cat
 	_look = CatArt.look(cat_id)
-	if controller == "input" or controller == "bot":
-		_look = CatArt.with_gear(_look)
 	if controller == "follow" or controller == "escort":
 		camera.queue_free()
 		camera = null

@@ -554,8 +554,10 @@ func _build() -> void:
 	chips_clip.add_child(_chips)
 	_weapon_label = _label(14, GOLD)
 	_weapon_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_weapon_label.visible = false
+	_weapon_label.mouse_filter = Control.MOUSE_FILTER_PASS
+	# The weapon's name right by its icon (the whole line in the tooltip).
 	info.add_child(_weapon_label)
+	info.move_child(_weapon_label, _weapon_icon.get_index() + 1)
 	_desc = _label(15, Color("ddd3e8"))
 	left.add_child(_desc)
 	# Two full-width lines: the cat's record and what you take along, then
@@ -579,7 +581,7 @@ func _build() -> void:
 			["ARTIFACTS_TITLE", "V", func() -> void: _artifacts.open()]]:
 		_cat_buttons.add_child(_small_button(entry))
 	# Never cut off: these lines shrink their font to fit (see _fit_lines).
-	for l: Label in [_weapon_label, _cat_stats, _worn, _artifact_label, _desc]:
+	for l: Label in [_cat_stats, _worn, _artifact_label, _desc]:
 		l.clip_text = true
 		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
@@ -720,7 +722,7 @@ func _small_button(entry: Array) -> Button:
 
 ## The bottom lines shrink their font until all of their text fits.
 func _fit_lines() -> void:
-	for l: Label in [_weapon_label, _cat_stats, _worn, _artifact_label, _desc]:
+	for l: Label in [_cat_stats, _worn, _artifact_label, _desc]:
 		var base: int = l.get_meta("base_size", 13)
 		var font := l.get_theme_font("font")
 		l.label_settings.font_size = UiStyle.fit_size(font, l.text, maxf(l.size.x - 2.0, 40.0), base, 9)
@@ -817,8 +819,9 @@ func _refresh() -> void:
 		if Instinct.has(id):
 			_desc.text += "
 " + tr("SELECT_INSTINCT") % [tr("INSTINCT_%s_NAME" % id), tr("INSTINCT_%s_DESC" % id)]
-		_weapon_label.text = tr("SELECT_START_WEAPON") % tr("WEAPON_%s_NAME" % weapon) if weapon != "" else tr("SELECT_NO_WEAPON")
-		_weapon_icon.tooltip_text = _weapon_label.text
+		_weapon_icon.tooltip_text = tr("SELECT_START_WEAPON") % tr("WEAPON_%s_NAME" % weapon) if weapon != "" else tr("SELECT_NO_WEAPON")
+		_weapon_label.text = tr("WEAPON_%s_NAME" % weapon) if weapon != "" else ""
+		_weapon_label.tooltip_text = _weapon_icon.tooltip_text
 		_cat_stats.text = tr("SELECT_CAT_STATS") % [Profile.get_stat("wins_cat:" + id), Profile.get_stat("best_level_cat:" + id), Profile.get_stat("bosses_cat:" + id)]
 	else:
 		_name.text = tr("SELECT_LOCKED")

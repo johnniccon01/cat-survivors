@@ -18,8 +18,8 @@ const DATA := {
 	"KAPITAN": {"rain_area": 0.1},
 	"BOLT": {"every": 6.0, "range": 170.0, "damage": 16.0},
 	"STRAY": {"reroll": 1},
-	"ANGEL": {},
-	"DEVIL": {"chance": 0.04, "radius": 48.0, "damage": 25.0},
+	"ANGEL": {"heal": 0.5, "invuln": 3.0},
+	"DEVIL": {"chance": 0.08, "radius": 56.0, "damage": 25.0, "per_level": 3.0},
 }
 
 var player: Player
@@ -163,7 +163,7 @@ func _on_kill(id: String, pos: Vector2, _xp: float) -> void:
 		"DEVIL":
 			if randf() < value("chance"):
 				for e in enemies.query_radius(pos, value("radius")):
-					e.hit(value("damage") * player.stat("might"), e.position - pos, 0.5, false)
+					e.hit((value("damage") + value("per_level") * (player.level - 1)) * player.stat("might"), e.position - pos, 0.5, false)
 				var ring := RingWave.new()
 				ring.enemies = enemies
 				ring.position = pos

@@ -215,7 +215,9 @@
     "hidden": true,
     "weapon": "MILK",
     "bonus": {
-      "regen": 1.0
+      "regen": 1.5,
+      "max_hp": 30,
+      "luck": 0.15
     },
     "home": "ROOFTOP",
     "home_bonus": {
@@ -231,9 +233,10 @@
     "horns": true,
     "size": 1.2,
     "hidden": true,
-    "weapon": "LASER",
+    "weapon": "TIN_CAN_TOSS",
     "bonus": {
-      "might": 0.5
+      "might": 0.5,
+      "cooldown": -0.1
     },
     "home": "FACTORY",
     "home_bonus": {

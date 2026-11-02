@@ -30,6 +30,8 @@ scenarios=(
   "garden|--bot --stage=GARDEN --cat=TIGER --bot-time=300"
   "instinct_mica|--bot --bot-time=90 --expect=instinct:MICA"
   "instinct_luna|--bot --cat=LUNA --bot-time=40 --expect=instinct:LUNA"
+  "instinct_devil|--bot --cat=DEVIL --bot-time=60 --expect=instinct:DEVIL"
+  "instinct_angel|--bot --cat=ANGEL --kill-cat-every=20 --angel-chance=0 --bot-time=30 --expect=instinct:ANGEL"
   "instinct_snow|--bot --cat=SNOWBALL --bot-time=60 --expect=instinct:SNOWBALL"
   "instinct_bruno|--bot --cat=BRUNO --bot-time=150 --expect=instinct:BRUNO"
   "instinct_bolt|--bot --cat=BOLT --bot-time=40 --expect=instinct:BOLT"

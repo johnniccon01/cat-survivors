@@ -468,7 +468,9 @@ func take_damage(amount: float, fatal: bool = false) -> void:
 			return
 	var saved := instinct != null and not fatal and hp - dealt <= 0.0 and instinct.cheat_death()
 	if saved:
-		dealt = hp - 1.0
+		# The angel gets up with half its health (or keeps what it had).
+		dealt = 0.0
+		hp = maxf(hp, max_hp * instinct.value("heal"))
 	hp -= dealt
 	damage_taken += dealt
 	if controller == "bot" and hp <= 0.0:
@@ -483,7 +485,7 @@ func take_damage(amount: float, fatal: bool = false) -> void:
 		Audio.play("hurt", -6.0)
 		shake(2.5, 0.18)
 		hurt.emit()
-	_invuln = 2.0 if saved else HIT_INVULN
+	_invuln = instinct.value("invuln") if saved else HIT_INVULN
 	_hurt_flash = 0.12
 	if hp <= 0.0 and revivals_left > 0 and not fatal:
 		revivals_left -= 1

@@ -59,6 +59,8 @@ var _help: HelpPanel
 var _report_win: Label
 var _report_lose: Label
 var _home_marks: Array[Control] = []
+## A gold star on the cats with a talent waiting to be picked.
+var _pick_marks: Array[Control] = []
 var _top_buttons: HBoxContainer
 var _cat_buttons: HBoxContainer
 var _badges: HBoxContainer
@@ -138,7 +140,7 @@ func _ready() -> void:
 	if "--shop" in GameData.args():
 		_shop.open()
 	if "--charms" in GameData.args():
-		_charms.open()
+		_open_talents()
 	if "--artifacts" in GameData.args():
 		_artifacts.open()
 	if "--goals" in GameData.args():
@@ -507,6 +509,16 @@ func _build() -> void:
 			home.draw_rect(Rect2(at + Vector2(-1, 2), Vector2(2, 4)), OUTLINE))
 		card.add_child(home)
 		_home_marks.append(home)
+		var star := Control.new()
+		star.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		star.draw.connect(func() -> void:
+			var pts := PackedVector2Array()
+			for k in 10:
+				pts.append(Vector2(10, 10) + Vector2.from_angle(-PI / 2.0 + k * PI / 5.0) * (7.5 if k % 2 == 0 else 3.2))
+			star.draw_colored_polygon(pts, GOLD)
+			star.draw_polyline(pts + PackedVector2Array([pts[0]]), OUTLINE, 1.5))
+		card.add_child(star)
+		_pick_marks.append(star)
 		row.add_child(card)
 		_cards.append(card)
 		_previews.append(preview)
@@ -550,6 +562,8 @@ func _build() -> void:
 	# challenges, streak and the daily night.
 	var loadout := HBoxContainer.new()
 	loadout.add_theme_constant_override("separation", 22)
+	# Taller than any of its lines or buttons (★ included), so it never grows.
+	loadout.custom_minimum_size.y = 34
 	left.add_child(loadout)
 	_cat_stats = _label(13, Color("8f7ea3"))
 	loadout.add_child(_cat_stats)
@@ -560,8 +574,8 @@ func _build() -> void:
 	_cat_buttons = HBoxContainer.new()
 	_cat_buttons.add_theme_constant_override("separation", 4)
 	loadout.add_child(_cat_buttons)
-	for entry: Array in [["MENU_TALENTS", "C", func() -> void: _charms.open()],
-			["MENU_ITEMS", "I", func() -> void: _items.open()],
+	for entry: Array in [["MENU_TALENTS", "C", func() -> void: _open_talents()],
+			["MENU_ITEMS", "I", func() -> void: _items.open(_ids[_index])],
 			["ARTIFACTS_TITLE", "V", func() -> void: _artifacts.open()]]:
 		_cat_buttons.add_child(_small_button(entry))
 	# Never cut off: these lines shrink their font to fit (see _fit_lines).
@@ -571,6 +585,10 @@ func _build() -> void:
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		l.set_meta("base_size", l.label_settings.font_size)
+		# A fixed height (two lines for the description and instinct), so a
+		# shorter text or a shrunk font never resizes the bar and the map.
+		var line := l.get_theme_font("font").get_height(l.label_settings.font_size) + l.label_settings.line_spacing
+		l.custom_minimum_size.y = ceilf(line * (2.0 if l == _desc else 1.0)) + 1.0
 	var play_col := VBoxContainer.new()
 	play_col.add_theme_constant_override("separation", 4)
 	bottom.add_child(play_col)
@@ -601,7 +619,9 @@ func _build() -> void:
 	_shop.closed.connect(_refresh)
 	_charms = TalentPanel.new()
 	add_child(_charms)
-	_charms.closed.connect(_refresh)
+	_charms.closed.connect(func() -> void:
+		_index = maxi(_ids.find(_charms.cat), 0)
+		_refresh())
 	_items = ItemPanel.new()
 	add_child(_items)
 	_items.closed.connect(_refresh)
@@ -686,6 +706,11 @@ func _legend() -> Control:
 
 
 ## A small button with its key: [text key, key name, action].
+## Talents of the chosen cat; ← → in the panel go through the unlocked cats.
+func _open_talents() -> void:
+	_charms.open(_ids[_index], _ids.filter(func(id: String) -> bool: return Profile.is_unlocked(id)))
+
+
 func _small_button(entry: Array) -> Button:
 	var b := UiStyle.click_button("%s (%s)" % [tr(entry[0]), entry[1]], 0, 13)
 	b.custom_minimum_size.y = 28
@@ -806,6 +831,14 @@ func _refresh() -> void:
 		_worn.text = tr("SELECT_CAREER") % [int(career["lives"]), Profile.LIVES, int(career["rank"]), Profile.MAX_RANK, (career["talents"] as Array).size()] + ("  " + tr("SELECT_CAREER_PICK") % picks if picks > 0 else "")
 	else:
 		_worn.text = ""
+	# The Talents button and the cards tell which cats have a talent to pick.
+	for i in _pick_marks.size():
+		_pick_marks[i].visible = Profile.is_unlocked(_ids[i]) and int(Profile.career(_ids[i])["picks"]) > 0
+		_pick_marks[i].queue_redraw()
+	var talents: Button = _cat_buttons.get_child(0)
+	var waiting := unlocked and int(career["picks"]) > 0
+	talents.text = "%s (C)" % tr("MENU_TALENTS") + (" ★" if waiting else "")
+	talents.add_theme_color_override("font_color", GOLD if waiting else UiStyle.TEXT)
 	_artifact_label.text = tr("SELECT_LEGACY") % Profile.retired.size() if not Profile.retired.is_empty() else ""
 	if Profile.streak > 0 or Profile.best_streak > 0:
 		_artifact_label.text = tr("SELECT_STREAK") % [Profile.streak, Profile.best_streak, roundi((Profile.streak_multiplier() - 1.0) * 100.0)] + ("   " + _artifact_label.text if _artifact_label.text != "" else "")
@@ -1162,10 +1195,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		_shop.open()
 	elif event.is_action_pressed("items"):
 		Audio.play("click", -6.0, 0.0)
-		_items.open()
+		_items.open(_ids[_index])
 	elif event.is_action_pressed("charms"):
 		Audio.play("click", -6.0, 0.0)
-		_charms.open()
+		_open_talents()
 	elif event.is_action_pressed("artifacts"):
 		Audio.play("click", -6.0, 0.0)
 		_artifacts.open()

@@ -11,6 +11,10 @@ const GOLD := Color("f2c14e")
 const OUTLINE := Color("2b1d14")
 
 var _header: Label
+## The cat shown; ← → (or the arrows by its name) go through the unlocked cats.
+var cat := ""
+var _cats: Array = []
+var _others: Label
 var _lives: Control
 var _list: Label
 var _pick_title: Label
@@ -34,8 +38,20 @@ func _ready() -> void:
 	var title := _label(36, GOLD)
 	title.text = "TALENTS_TITLE"
 	box.add_child(title)
+	var head_row := HBoxContainer.new()
+	head_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	head_row.add_theme_constant_override("separation", 12)
+	box.add_child(head_row)
+	var prev := UiStyle.click_button("◀", 44, 18)
+	prev.pressed.connect(_switch.bind(-1))
+	head_row.add_child(prev)
 	_header = _label(19, Color("f4ecd4"))
-	box.add_child(_header)
+	head_row.add_child(_header)
+	var next := UiStyle.click_button("▶", 44, 18)
+	next.pressed.connect(_switch.bind(1))
+	head_row.add_child(next)
+	_others = _label(15, GOLD)
+	box.add_child(_others)
 	_lives = Control.new()
 	_lives.custom_minimum_size = Vector2(9 * 34, 34)
 	_lives.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
@@ -74,14 +90,16 @@ func _ready() -> void:
 	box.add_child(back)
 
 
-func open() -> void:
+## Opens on cat_id; cats are the ones ← → may go through.
+func open(cat_id: String = Profile.selected_cat, cats: Array = []) -> void:
+	cat = cat_id
+	_cats = cats if not cats.is_empty() else [cat_id]
 	visible = true
 	_index = 0
 	_refresh()
 
 
 func _refresh() -> void:
-	var cat := Profile.selected_cat
 	var c := Profile.career(cat)
 	_header.text = tr("TALENTS_HEADER") % [tr("CAT_%s_NAME" % cat), int(c["gen"]), int(c["rank"]), Profile.MAX_RANK, int(c["xp"]), Profile.RANK_XP]
 	var lines: Array[String] = []
@@ -107,6 +125,9 @@ func _refresh() -> void:
 	if int(c["picks"]) > 0 and _offers.is_empty():
 		_pick_title.visible = true
 		_pick_title.text = tr("TALENTS_NONE_LEFT")
+	var waiting: Array = _cats.filter(func(id: String) -> bool: return id != cat and int(Profile.career(id)["picks"]) > 0)
+	var names: Array = waiting.map(func(id: String) -> String: return tr("CAT_%s_NAME" % id))
+	_others.text = (tr("TALENTS_SWITCH") if _cats.size() > 1 else "") + ("   " + tr("TALENTS_OTHERS") % ", ".join(names) if not names.is_empty() else "")
 	_legacy.text = tr("TALENTS_LEGACY") % Profile.retired.size() if not Profile.retired.is_empty() else tr("TALENTS_NO_LEGACY")
 	_style_buttons()
 	_lives.queue_redraw()
@@ -120,7 +141,7 @@ func _style_buttons() -> void:
 func _pick(i: int) -> void:
 	if i >= _offers.size():
 		return
-	if Profile.pick_talent(Profile.selected_cat, _offers[i]):
+	if Profile.pick_talent(cat, _offers[i]):
 		Audio.play("levelup", -6.0, 0.0)
 	_index = 0
 	_refresh()
@@ -128,7 +149,7 @@ func _pick(i: int) -> void:
 
 ## Nine paws: filled for lives left, faint for lives lost.
 func _draw_lives() -> void:
-	var lives := int(Profile.career(Profile.selected_cat)["lives"])
+	var lives := int(Profile.career(cat)["lives"])
 	for i in Profile.LIVES:
 		var c := Vector2(17 + i * 34, 18)
 		var on := i < lives
@@ -153,6 +174,12 @@ func _input(event: InputEvent) -> void:
 		_index = (_index - 1 + n) % n
 	elif event.is_action_pressed("move_down") or event.is_action_pressed("ui_down"):
 		_index = (_index + 1) % n
+	elif event.is_action_pressed("move_left") or event.is_action_pressed("ui_left"):
+		_switch(-1)
+		return
+	elif event.is_action_pressed("move_right") or event.is_action_pressed("ui_right"):
+		_switch(1)
+		return
 	elif event.is_action_pressed("restart") or event.is_action_pressed("ui_accept"):
 		_pick(_index)
 		return
@@ -163,6 +190,16 @@ func _input(event: InputEvent) -> void:
 		return
 	Audio.play("click", -10.0, 0.0)
 	_style_buttons()
+
+
+## The next or previous cat in the list.
+func _switch(step: int) -> void:
+	if _cats.size() < 2:
+		return
+	cat = _cats[(_cats.find(cat) + step + _cats.size()) % _cats.size()]
+	_index = 0
+	Audio.play("click", -10.0, 0.0)
+	_refresh()
 
 
 func _close() -> void:

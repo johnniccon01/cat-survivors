@@ -14,6 +14,8 @@ const ROWS := 7
 const DESC_LINES := 4
 
 var _slot := 0
+## The cat shown wearing the gear (the gear itself is shared by all cats).
+var _cat_id := ""
 var _index := 0
 ## First list row shown (the list scrolls when there are more than ROWS).
 var _top := 0
@@ -131,7 +133,8 @@ func _ready() -> void:
 	box.add_child(back)
 
 
-func open() -> void:
+func open(cat_id: String = Profile.selected_cat) -> void:
+	_cat_id = cat_id
 	visible = true
 	_index = 0
 	_top = 0
@@ -158,9 +161,10 @@ func _refresh() -> void:
 	for i in _slot_boxes.size():
 		var slot: String = Items.slots()[i]
 		var worn := Profile.worn_item(slot)
+		var owned := Profile.items.filter(func(item: Dictionary) -> bool: return item["slot"] == slot).size()
 		_slot_icons[i].show_item(worn, slot)
 		var label := _slot_boxes[i].get_child(0).get_child(1) as Label
-		label.text = "%s\n%s" % [tr("ITEM_SLOT_" + slot), Items.item_name(worn) if not worn.is_empty() else tr("ITEMS_EMPTY_SLOT")]
+		label.text = "%s (%d)\n%s" % [tr("ITEM_SLOT_" + slot), owned, Items.item_name(worn) if not worn.is_empty() else tr("ITEMS_EMPTY_SLOT")]
 		label.label_settings.font_color = Items.rarity_color(worn) if not worn.is_empty() else Color("8f7ea3")
 		_slot_boxes[i].add_theme_stylebox_override("panel", _box(i == _slot, not worn.is_empty()))
 	var list := _list()
@@ -180,7 +184,7 @@ func _refresh() -> void:
 		label.text = "  %s %s%s" % ["◆" if worn else "◇", Items.item_name(item), "   (%s)" % tr("ITEMS_WORN") if worn else ""]
 		label.label_settings.font_color = Items.rarity_color(item)
 		row.add_theme_stylebox_override("panel", _box(n == _index, worn))
-	_cat.cat_id = Profile.selected_cat
+	_cat.cat_id = _cat_id
 	_cat.queue_redraw()
 	if list.is_empty():
 		_desc.text = tr("ITEMS_EMPTY")

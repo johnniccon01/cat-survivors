@@ -63,6 +63,7 @@ func _ready() -> void:
 	TranslationServer.set_locale(language)
 	_apply_display()
 	_apply_render.call_deferred()
+	get_tree().scene_changed.connect(_apply_render)
 
 
 func cycle_language() -> void:
@@ -162,10 +163,13 @@ func _apply_display() -> void:
 
 
 
-## The saver also draws the game at its base size (1280x720) and scales it
-## up: on big laptop screens that takes most of the load off the GPU.
+## The saver also draws the night at its base size (1280x720) and scales it
+## up: on big laptop screens that takes most of the load off the GPU. The
+## menus have little to draw, so they always stay sharp.
 func _apply_render() -> void:
-	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT if low_effects else Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
+	var scene := get_tree().current_scene
+	var in_night := scene != null and scene.scene_file_path == "res://scenes/main.tscn"
+	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT if low_effects and in_night else Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
 
 
 func _save() -> void:

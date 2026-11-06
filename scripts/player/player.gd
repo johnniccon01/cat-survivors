@@ -430,10 +430,7 @@ func _physics_process(delta: float) -> void:
 	# Cats the game steers (the test bot, companions, an escorted cat) slide
 	# along a room wall to its door instead of pushing into it.
 	if position != moved and controller != "input" and Terrain.current != null and input != Vector2.ZERO:
-		var along := (position - moved).orthogonal().normalized()
-		var goal := Terrain.current.slide_goal(position, position + input * 400.0)
-		if along.dot(goal - position) < 0.0:
-			along = -along
+		var along := Terrain.current.slide_dir(position, position + input * 400.0, position - moved, RADIUS)
 		position = Terrain.fix(position + along * BASE_SPEED * paws * delta, RADIUS)
 	var manager: EnemyManager = get_tree().get_first_node_in_group("enemy_manager")
 	if manager != null and not manager.arena.is_empty():

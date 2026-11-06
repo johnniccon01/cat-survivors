@@ -495,26 +495,67 @@ func _wall_rects(c: Vector2i) -> Array:
 	return rects
 
 
+## Which way something stopped by a wall at `pos` (pushed back by `push`)
+## should slide while chasing `chase`. Along a room wall it goes along that
+## wall to its door: the wall is the one it actually touches (at wall ends
+## and corners the chunk it stands in may not own it), preferring the one
+## between it and the cat. Anywhere else along the obstacle towards the cat.
+func slide_dir(pos: Vector2, chase: Vector2, push: Vector2, r: float) -> Vector2:
+	if kind == "rooms" and WorldFloor.current != null:
+		var goal := slide_goal(pos, chase, r)
+		if goal != chase:
+			var to_goal := goal - pos
+			# Along the wall towards its door; once in line with the door,
+			# straight through it.
+			if absf(to_goal.x) > 2.0 and _wall_horizontal:
+				return Vector2(signf(to_goal.x), 0.0)
+			if absf(to_goal.y) > 2.0 and not _wall_horizontal:
+				return Vector2(0.0, signf(to_goal.y))
+			return to_goal.normalized() if to_goal != Vector2.ZERO else Vector2.ZERO
+	var along := push.orthogonal().normalized()
+	if along.dot(chase - pos) < 0.0:
+		along = -along
+	return along
+
+
+## Set by slide_goal: whether the wall it picked runs left to right.
+var _wall_horizontal := true
+
+
 ## Where something stopped by a wall at `pos` should slide to while chasing
-## `chase`: at a room wall, the middle of that wall's door (sliding towards
-## the cat would leave it stuck across from it); anywhere else the cat.
-func slide_goal(pos: Vector2, chase: Vector2) -> Vector2:
+## `chase`: at a room wall it touches, the middle of that wall's door
+## (sliding towards the cat would leave it stuck across from it); anywhere
+## else the cat.
+func slide_goal(pos: Vector2, chase: Vector2, r: float = 12.0) -> Vector2:
 	if kind != "rooms" or WorldFloor.current == null:
 		return chase
 	var size := WorldFloor.CHUNK
-	var reach := ROOM_WALL + 40.0
-	var gy := roundf(pos.y / size) * size
-	var gx := roundf(pos.x / size) * size
-	var c := Vector2i(floori(pos.x / size), floori(pos.y / size))
-	if absf(pos.y - gy) < reach and absf(pos.y - gy) <= absf(pos.x - gx):
-		var edge := Vector2i(c.x, roundi(pos.y / size))
-		if WorldFloor.current.wall_on(edge, "top"):
-			return Vector2((edge.x + WorldFloor.current.door_at(edge, "top") + WorldFloor.DOOR * 0.5) * size, gy)
-	if absf(pos.x - gx) < reach:
-		var edge := Vector2i(roundi(pos.x / size), c.y)
-		if WorldFloor.current.wall_on(edge, "left"):
-			return Vector2(gx, (edge.y + WorldFloor.current.door_at(edge, "left") + WorldFloor.DOOR * 0.5) * size)
-	return chase
+	var rc := Vector2i(floori(pos.x / size), floori(pos.y / size))
+	var best := Rect2()
+	var best_score := INF
+	for dx in range(-1, 2):
+		for dy in range(-1, 2):
+			for rect: Rect2 in _room_rects(Vector2i(rc.x + dx, rc.y + dy)):
+				var closest := Vector2(clampf(pos.x, rect.position.x, rect.end.x), clampf(pos.y, rect.position.y, rect.end.y))
+				var d := closest.distance_to(pos)
+				if d > r + 2.0:
+					continue
+				var mid := rect.get_center()
+				# A wall with the cat behind it comes first.
+				var across := signf(pos.y - mid.y) != signf(chase.y - mid.y) if rect.size.x > rect.size.y else signf(pos.x - mid.x) != signf(chase.x - mid.x)
+				var score := d - (1000.0 if across else 0.0)
+				if score < best_score:
+					best_score = score
+					best = rect
+	if best_score == INF:
+		return chase
+	var mid := best.get_center()
+	_wall_horizontal = best.size.x > best.size.y
+	if _wall_horizontal:
+		var edge := Vector2i(floori(mid.x / size), roundi(mid.y / size))
+		return Vector2((edge.x + WorldFloor.current.door_at(edge, "top") + WorldFloor.DOOR * 0.5) * size, edge.y * size)
+	var edge := Vector2i(roundi(mid.x / size), floori(mid.y / size))
+	return Vector2(edge.x * size, (edge.y + WorldFloor.current.door_at(edge, "left") + WorldFloor.DOOR * 0.5) * size)
 
 
 ## The room walls on a chunk's top and left edges, each in two pieces with

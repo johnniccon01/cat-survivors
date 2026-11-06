@@ -402,12 +402,17 @@ func _draw_graves() -> void:
 		# A cracked mound glowing green, brighter as it gets ready to open.
 		draw_colored_polygon(Shapes.ellipse(p, GRAVE_RADIUS, GRAVE_RADIUS * 0.6, 16), Color(0.29, 0.23, 0.19, 0.9))
 		draw_colored_polygon(Shapes.ellipse(p, GRAVE_RADIUS * 0.8, GRAVE_RADIUS * 0.45, 16), Color(0.4, 1.0, 0.55, (0.15 + 0.35 * k) * (1.2 - left)))
+		var mound := FloorChunk.art("grave_mound")
+		if mound != null:
+			draw_texture(mound, p - Vector2(25, 41))
+			draw_colored_polygon(Shapes.ellipse(p, GRAVE_RADIUS * 0.8, GRAVE_RADIUS * 0.45, 16), Color(0.4, 1.0, 0.55, (0.1 + 0.25 * k) * (1.2 - left)))
+		else:
+			var stone := Rect2(p + Vector2(-7, -26), Vector2(14, 16))
+			draw_rect(stone.grow(1.0), Color("2b1d14"))
+			draw_rect(stone, Color("8a8a92"))
+			draw_line(p + Vector2(0, -23), p + Vector2(0, -14), Color("5a5a62"), 1.5)
+			draw_line(p + Vector2(-3, -20), p + Vector2(3, -20), Color("5a5a62"), 1.5)
 		draw_polyline(PackedVector2Array([p + Vector2(-10, -3), p + Vector2(-3, 1), p + Vector2(2, -4), p + Vector2(9, 2)]), Color(0.75, 1.0, 0.8, 0.9), 1.5)
-		var stone := Rect2(p + Vector2(-7, -26), Vector2(14, 16))
-		draw_rect(stone.grow(1.0), Color("2b1d14"))
-		draw_rect(stone, Color("8a8a92"))
-		draw_line(p + Vector2(0, -23), p + Vector2(0, -14), Color("5a5a62"), 1.5)
-		draw_line(p + Vector2(-3, -20), p + Vector2(3, -20), Color("5a5a62"), 1.5)
 		# How long until it opens, and how far the seal has come.
 		draw_arc(p, GRAVE_RADIUS + 4.0, -PI * 0.5, -PI * 0.5 + TAU * left, 24, Color(1.0, 0.45, 0.35, 0.8), 2.0)
 		if g["seal"] > 0.0:
@@ -474,6 +479,15 @@ func _draw_train() -> void:
 			continue
 		var r := Rect2(x0, y0, CAR_LEN - 6.0, h)
 		draw_rect(Rect2(r.position + Vector2(4, 6), r.size), Color(0, 0, 0, 0.3))
+		var pic := FloorChunk.art("train_loco" if i == 0 else "train_car")
+		if pic != null:
+			# Drawn heading right; mirrored when the train comes the other way.
+			var size := r.size + Vector2(2, 2)
+			if _dir > 0.0:
+				draw_texture_rect(pic, Rect2(r.position - Vector2.ONE, size), false)
+			else:
+				draw_texture_rect(pic, Rect2(r.position.x + r.size.x + 1.0, r.position.y - 1.0, -size.x, size.y), false)
+			continue
 		draw_rect(r, Color("2b1d14"))
 		var body := Color("c0392b") if i == 0 else Color("3a5a8a")
 		draw_rect(r.grow(-2.0), body)

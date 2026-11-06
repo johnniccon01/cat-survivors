@@ -269,6 +269,11 @@ func _draw() -> void:
 		draw_arc(Vector2.ZERO, RADIUS, 0.0, TAU, 40, Color(c, 0.35 + 0.25 * sin(_t * 8.0)), 3.0)
 	# Stone plinth with a little cat statue and a glowing gem.
 	draw_colored_polygon(Shapes.ellipse(Vector2(0, 14), 20, 6), Color(0, 0, 0, 0.4))
+	var statue := FloorChunk.art("shrine_used" if used else "shrine_awake")
+	if statue != null:
+		draw_texture(statue, Vector2(-18, -41))
+		_draw_gem(c)
+		return
 	draw_rect(Rect2(-15, -2, 30, 16), OUTLINE)
 	draw_rect(Rect2(-14, -1, 28, 14), Color("8c8478"))
 	draw_rect(Rect2(-14, -1, 28, 3), Color("a8a094"))
@@ -291,6 +296,10 @@ func _draw() -> void:
 	draw_line(Vector2(1.5, -23.5), Vector2(4, -24), OUTLINE, 1.0)
 	draw_line(Vector2(-3, 0), Vector2(-3, -5), shade, 1.5)
 	draw_line(Vector2(3, 0), Vector2(3, -5), shade, 1.5)
+	_draw_gem(c)
+
+
+func _draw_gem(c: Color) -> void:
 	var glow := 0.5 + 0.5 * sin(_t * 4.0)
 	if not used:
 		draw_circle(Vector2(0, -12), 6.0 + glow * 3.0, Color(c, 0.25))

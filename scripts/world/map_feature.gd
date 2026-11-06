@@ -118,6 +118,25 @@ func _draw() -> void:
 		draw_circle(Vector2.ZERO, r, Color(1.0, 0.85, 0.35, 0.12 * _burst))
 	if kind != "heal_spot" and reach() > 0.0:
 		draw_arc(Vector2.ZERO, reach(), 0.0, TAU, 48, Color(1.0, 0.95, 0.7, 0.07), 2.0)
+	var pic := FloorChunk.art("feature_" + kind)
+	if pic != null:
+		# Pixel art (tools/gen_specials.py); the fire, zaps and beam on top.
+		match kind:
+			"heal_spot":
+				draw_circle(Vector2.ZERO, HEAL_RADIUS, Color(1.0, 0.6, 0.3, 0.08 + 0.04 * sin(_t * 2.0)))
+				draw_texture(pic, Vector2(-16, -33))
+				draw_rect(Rect2(-7, 2, 14, 6), Color(1.0, 0.5 + 0.2 * sin(_t * 6.0), 0.2))
+			"turret":
+				draw_texture(pic, Vector2(-17, -35))
+				draw_circle(Vector2(0, -30), 2.0 + sin(_t * 8.0), Color("9ae0ff"))
+				_draw_zap()
+			"lighthouse":
+				var beam := _t * 0.8
+				draw_colored_polygon(PackedVector2Array([Vector2(0, -30), Vector2(0, -30) + Vector2.from_angle(beam - 0.15) * 380.0, Vector2(0, -30) + Vector2.from_angle(beam + 0.15) * 380.0]), Color(1.0, 0.95, 0.6, 0.12))
+				draw_texture(pic, Vector2(-15, -35))
+			_:
+				draw_texture(pic, -(pic.get_size() * 0.5).floor() + Vector2(0, -8))
+		return
 	match kind:
 		"heal_spot":
 			draw_circle(Vector2.ZERO, HEAL_RADIUS, Color(1.0, 0.6, 0.3, 0.08 + 0.04 * sin(_t * 2.0)))
@@ -132,12 +151,7 @@ func _draw() -> void:
 			for k in 3:
 				draw_line(Vector2(-14 + k * 3, -22 + k * 9), Vector2(14 - k * 3, -22 + k * 9), Color("9aa0a6"), 1.0)
 			draw_circle(Vector2(0, -30), 3.0 + sin(_t * 8.0), Color("9ae0ff"))
-			if _zap_show > 0.0 and _zap_at != Vector2.INF:
-				var pts := PackedVector2Array([Vector2(0, -30)])
-				for i in 5:
-					pts.append(Vector2(0, -30).lerp(_zap_at, (i + 1) / 6.0) + Vector2(randf_range(-6, 6), randf_range(-6, 6)))
-				pts.append(_zap_at)
-				draw_polyline(pts, Color("9ae0ff"), 2.0)
+			_draw_zap()
 		"lighthouse":
 			var beam := _t * 0.8
 			draw_colored_polygon(PackedVector2Array([Vector2(0, -30), Vector2(0, -30) + Vector2.from_angle(beam - 0.15) * 380.0, Vector2(0, -30) + Vector2.from_angle(beam + 0.15) * 380.0]), Color(1.0, 0.95, 0.6, 0.12))
@@ -154,3 +168,12 @@ func _draw() -> void:
 			draw_circle(Vector2(0, -20), 7.0, Color("e8902a"))
 			draw_rect(Rect2(-9, -30, 18, 3), Color("5a4234"))
 			draw_rect(Rect2(-5, -36, 10, 6), Color("5a4234"))
+
+
+func _draw_zap() -> void:
+	if _zap_show > 0.0 and _zap_at != Vector2.INF:
+		var pts := PackedVector2Array([Vector2(0, -30)])
+		for i in 5:
+			pts.append(Vector2(0, -30).lerp(_zap_at, (i + 1) / 6.0) + Vector2(randf_range(-6, 6), randf_range(-6, 6)))
+		pts.append(_zap_at)
+		draw_polyline(pts, Color("9ae0ff"), 2.0)

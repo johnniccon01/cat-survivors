@@ -168,6 +168,11 @@ func random_point(from: Vector2, dist: Array) -> Vector2:
 ## Draws one of the quest things (`look`) centred on `at` (local position).
 func draw_look(at: Vector2, look: String, alpha: float = 1.0) -> void:
 	var a := alpha
+	var pic := FloorChunk.art("look_" + look)
+	if pic != null:
+		# Pixel art from tools/gen_looks.py, centred like the drawing below.
+		draw_texture(pic, at - (pic.get_size() * 0.5).floor(), Color(1, 1, 1, a))
+		return
 	match look:
 		"crumbs":
 			for p: Vector2 in [Vector2(-5, 1), Vector2(-1, -3), Vector2(3, 2), Vector2(6, -2), Vector2(0, 4)]:

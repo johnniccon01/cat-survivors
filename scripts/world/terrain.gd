@@ -74,6 +74,8 @@ var _belt_shift := 0.0
 func _ready() -> void:
 	current = self
 	z_index = -5
+	# The pixel-art walls, shelves, water and belts tile along the world.
+	texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	_seed = randi()
 
@@ -424,6 +426,11 @@ func _draw_shelves(area: Rect2, view: Rect2) -> void:
 	area = area.intersection(view)
 	if not area.has_area():
 		return
+	var pic := FloorChunk.art("terrain_shelves")
+	if pic != null:
+		draw_texture_rect_region(pic, area, area)
+		draw_rect(area, Color("2b2f36"), false, 6.0)
+		return
 	draw_rect(area, Color("6d7480"))
 	var row := 64.0
 	var x0 := floori(area.position.x / 40.0)
@@ -465,7 +472,13 @@ func _draw_tide(view: Rect2) -> void:
 			continue
 		var y0 := minf(edge, far)
 		var y1 := maxf(edge, far)
-		draw_rect(Rect2(view.position.x, y0, view.size.x, y1 - y0), Color(0.16, 0.42, 0.66, 0.88))
+		var sea := Rect2(view.position.x, y0, view.size.x, y1 - y0)
+		var water := FloorChunk.art("terrain_water")
+		if water != null:
+			# The water drifts slowly so it looks alive.
+			draw_texture_rect_region(water, sea, Rect2(sea.position + Vector2(_t * 9.0, sin(_t * 0.7) * 6.0), sea.size))
+		else:
+			draw_rect(sea, Color(0.16, 0.42, 0.66, 0.88))
 		# Foam along the shore and a few waves.
 		var pts := PackedVector2Array()
 		var step := 24.0
@@ -710,12 +723,23 @@ func _draw_walls(view: Rect2) -> void:
 	var c0 := Vector2i(floori(view.position.x / WALL_CELL) - 1, floori(view.position.y / WALL_CELL) - 1)
 	var c1 := Vector2i(floori(view.end.x / WALL_CELL) + 1, floori(view.end.y / WALL_CELL) + 1)
 	var brick := Color("b3aa9c")
+	var look := "station_wall" if WorldFloor.current != null and WorldFloor.current.theme == "station" else "parapet"
+	var art_h := FloorChunk.art("terrain_%s_h" % look)
+	var art_v := FloorChunk.art("terrain_%s_v" % look)
 	for cx in range(c0.x, c1.x + 1):
 		for cy in range(c0.y, c1.y + 1):
 			for rect: Rect2 in _wall_rects(Vector2i(cx, cy)):
 				if not rect.intersects(view):
 					continue
 				draw_rect(Rect2(rect.position + Vector2(5, 8), rect.size), Color(0, 0, 0, 0.3))
+				if art_h != null and art_v != null:
+					# Pixel art tiled along the wall, in world coordinates.
+					if rect.size.x > rect.size.y:
+						draw_texture_rect_region(art_h, rect, Rect2(rect.position.x, 0, rect.size.x, WALL_THICK))
+					else:
+						draw_texture_rect_region(art_v, rect, Rect2(0, rect.position.y, WALL_THICK, rect.size.y))
+					draw_rect(rect, Color("2b2520"), false, 2.0)
+					continue
 				draw_rect(rect, brick)
 				# Brick rows and a lighter top.
 				var horizontal := rect.size.x > rect.size.y
@@ -742,6 +766,13 @@ func _draw_belts(view: Rect2) -> void:
 		if absf(y + BELT_WIDTH * 0.5) < BELT_EVERY * 0.5:
 			continue
 		var dir := _belt_dir * (1.0 if posmod(row, 2) == 0 else -1.0)
+		var pic := FloorChunk.art("terrain_belt_r" if dir > 0.0 else "terrain_belt_l")
+		if pic != null:
+			# The belt's ribs and chevrons ride along with it.
+			var moved := _belt_shift * (1.0 if posmod(row, 2) == 0 else -1.0)
+			var band := Rect2(view.position.x, y, view.size.x, BELT_WIDTH)
+			draw_texture_rect_region(pic, band, Rect2(view.position.x - moved, 0, view.size.x, BELT_WIDTH))
+			continue
 		draw_rect(Rect2(view.position.x, y, view.size.x, BELT_WIDTH), Color("3a3d44"))
 		draw_rect(Rect2(view.position.x, y, view.size.x, 6.0), Color("e0b53a"))
 		draw_rect(Rect2(view.position.x, y + BELT_WIDTH - 6.0, view.size.x, 6.0), Color("e0b53a"))

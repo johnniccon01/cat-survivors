@@ -142,23 +142,49 @@ func _draw_danger() -> void:
 	Blit.disc(self, top + Vector2(0, 3), 0.8, OUTLINE)
 
 
+## The trap's own pixel art in its current state (tools/gen_traps.py), or
+## null where it is drawn by hand.
+func _body_art() -> Texture2D:
+	var name: String = id.to_lower()
+	match id:
+		"RAKE", "PRESS_PLATE", "SEA_URCHIN", "GRAVE_HAND":
+			name += "_on" if _active else "_off"
+		"GOOSE_NEST":
+			name += "_eggs" if _active else "_goose"
+		"MOUSETRAP", "STOVE", "WILL_O_WISP":
+			return null
+	return FloorChunk.art("trap_" + name)
+
+
 func _draw() -> void:
 	_draw_danger()
+	var body := _body_art()
+	if body != null:
+		var at := -(body.get_size() * 0.5).floor()
+		if id == "STEAM_PIPE":
+			# The pipe end is drawn pointing right; turn it to where it blows.
+			draw_set_transform(Vector2.ZERO, _dir.angle())
+			draw_texture(body, at + Vector2(-1, 0))
+			draw_set_transform(Vector2.ZERO)
+		else:
+			draw_texture(body, at)
 	match id:
 		"RAKE":
 			# Tines down, handle up: steps on it and the handle swings.
 			var handle := Vector2(0, -16) if _active else Vector2(-14, -4)
-			Blit.line(self, Vector2.ZERO, handle, OUTLINE, 3.0)
-			Blit.line(self, Vector2.ZERO, handle, Color("a47a50"), 1.5)
-			draw_rect(Rect2(-8, -1, 16, 3), Color("6a6e72"))
-			for x in range(-7, 9, 3):
-				draw_line(Vector2(x, 2), Vector2(x, 5), Color("9aa0a6"), 1.0)
+			if body == null:
+				Blit.line(self, Vector2.ZERO, handle, OUTLINE, 3.0)
+				Blit.line(self, Vector2.ZERO, handle, Color("a47a50"), 1.5)
+				draw_rect(Rect2(-8, -1, 16, 3), Color("6a6e72"))
+				for x in range(-7, 9, 3):
+					draw_line(Vector2(x, 2), Vector2(x, 5), Color("9aa0a6"), 1.0)
 			if _flash > 0.0:
 				Blit.disc(self, Vector2.ZERO, 12.0, Color(1, 1, 1, _flash * 2.0))
 		"SPRINKLER":
 			var r := float(data["radius"])
-			Blit.disc(self, Vector2.ZERO, 5.0, OUTLINE)
-			Blit.disc(self, Vector2.ZERO, 4.0, Color("4a8a4a"))
+			if body == null:
+				Blit.disc(self, Vector2.ZERO, 5.0, OUTLINE)
+				Blit.disc(self, Vector2.ZERO, 4.0, Color("4a8a4a"))
 			if _active:
 				for k in 8:
 					var a := _t * 5.0 + k * TAU / 8.0
@@ -167,10 +193,11 @@ func _draw() -> void:
 				draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, r, r * 0.8, 16), Color(0.5, 0.75, 1.0, 0.12))
 		"VENT":
 			var side := _dir.orthogonal()
-			draw_rect(Rect2(-8, -8, 16, 16), OUTLINE)
-			draw_rect(Rect2(-7, -7, 14, 14), Color("8a9096"))
-			for k in 3:
-				draw_line(Vector2(-5, -4 + k * 4), Vector2(5, -4 + k * 4), Color("4a4e52"), 1.0)
+			if body == null:
+				draw_rect(Rect2(-8, -8, 16, 16), OUTLINE)
+				draw_rect(Rect2(-7, -7, 14, 14), Color("8a9096"))
+				for k in 3:
+					draw_line(Vector2(-5, -4 + k * 4), Vector2(5, -4 + k * 4), Color("4a4e52"), 1.0)
 			if _active:
 				var length := float(data["length"])
 				for k in 6:
@@ -181,9 +208,10 @@ func _draw() -> void:
 				Blit.disc(self, _dir * 8.0, 2.0, Color(1, 0.8, 0.6, 0.6))
 		"LIVE_WIRE":
 			var r := float(data["radius"])
-			draw_polyline(PackedVector2Array([Vector2(-r, -4), Vector2(-r * 0.3, 3), Vector2(r * 0.2, -3), Vector2(r, 4)]), OUTLINE, 3.0)
-			draw_polyline(PackedVector2Array([Vector2(-r, -4), Vector2(-r * 0.3, 3), Vector2(r * 0.2, -3), Vector2(r, 4)]), Color("2a2a30"), 1.5)
-			Blit.disc(self, Vector2(r, 4), 2.5, Color("c9a24a"))
+			if body == null:
+				draw_polyline(PackedVector2Array([Vector2(-r, -4), Vector2(-r * 0.3, 3), Vector2(r * 0.2, -3), Vector2(r, 4)]), OUTLINE, 3.0)
+				draw_polyline(PackedVector2Array([Vector2(-r, -4), Vector2(-r * 0.3, 3), Vector2(r * 0.2, -3), Vector2(r, 4)]), Color("2a2a30"), 1.5)
+				Blit.disc(self, Vector2(r, 4), 2.5, Color("c9a24a"))
 			if _active:
 				for k in 6:
 					var a := _t * 11.0 + k * 1.1
@@ -192,10 +220,11 @@ func _draw() -> void:
 				Blit.disc(self, Vector2.ZERO, r, Color(0.6, 0.9, 1.0, 0.14))
 		"FREEZER":
 			var side := _dir.orthogonal()
-			draw_rect(Rect2(-9, -9, 18, 18), OUTLINE)
-			draw_rect(Rect2(-8, -8, 16, 16), Color("e8f0f4"))
-			for k in 3:
-				draw_line(Vector2(-6, -4 + k * 4), Vector2(6, -4 + k * 4), Color("8ab4d0"), 1.0)
+			if body == null:
+				draw_rect(Rect2(-9, -9, 18, 18), OUTLINE)
+				draw_rect(Rect2(-8, -8, 16, 16), Color("e8f0f4"))
+				for k in 3:
+					draw_line(Vector2(-6, -4 + k * 4), Vector2(6, -4 + k * 4), Color("8ab4d0"), 1.0)
 			if _active:
 				var length := float(data["length"])
 				for k in 7:
@@ -206,10 +235,11 @@ func _draw() -> void:
 				Blit.disc(self, _dir * 9.0, 2.0, Color(0.8, 0.95, 1.0, 0.6))
 		"BROKEN_LIGHT":
 			var r := float(data["radius"])
-			Blit.line(self, Vector2(-r, -2), Vector2(r * 0.8, 3), OUTLINE, 5.0)
-			draw_line(Vector2(-r, -2), Vector2(r * 0.8, 3), Color("f4f1ea"), 3.0)
-			for k in 3:
-				draw_line(Vector2(r * 0.8 + k * 3, 3 + k), Vector2(r * 0.8 + k * 3 + 2, 1 + k), Color("c9d4dc"), 1.0)
+			if body == null:
+				Blit.line(self, Vector2(-r, -2), Vector2(r * 0.8, 3), OUTLINE, 5.0)
+				draw_line(Vector2(-r, -2), Vector2(r * 0.8, 3), Color("f4f1ea"), 3.0)
+				for k in 3:
+					draw_line(Vector2(r * 0.8 + k * 3, 3 + k), Vector2(r * 0.8 + k * 3 + 2, 1 + k), Color("c9d4dc"), 1.0)
 			if _active:
 				for k in 6:
 					var a := _t * 13.0 + k * 1.1
@@ -218,17 +248,19 @@ func _draw() -> void:
 				Blit.disc(self, Vector2.ZERO, r, Color(1.0, 0.95, 0.6, 0.14))
 		"FISH_HOOK":
 			var hook := PackedVector2Array([Vector2(0, -12), Vector2(0, 2), Vector2(-3, 6), Vector2(-7, 4), Vector2(-7, 0)])
-			draw_line(Vector2(0, -12), Vector2(0, -26), Color(0.9, 0.9, 0.9, 0.5), 1.0)
-			draw_polyline(hook, OUTLINE, 3.0)
-			draw_polyline(hook, Color("c9ced2"), 1.5)
+			if body == null:
+				draw_line(Vector2(0, -12), Vector2(0, -26), Color(0.9, 0.9, 0.9, 0.5), 1.0)
+				draw_polyline(hook, OUTLINE, 3.0)
+				draw_polyline(hook, Color("c9ced2"), 1.5)
 			if _active:
 				draw_colored_polygon(Shapes.ellipse(Vector2(-6, -2), 3, 2, 8), Color("e07a7a"))
 			if _flash > 0.0:
 				Blit.disc(self, Vector2.ZERO, 12.0, Color(1, 1, 1, _flash * 2.0))
 		"TIDE_POOL":
 			var r := float(data["radius"])
-			draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, r, r * 0.7, 20), Color(0.25, 0.5, 0.7, 0.45))
-			draw_polyline(Shapes.closed(Shapes.ellipse(Vector2.ZERO, r, r * 0.7, 20)), Color(0.15, 0.3, 0.45, 0.6), 1.0)
+			if body == null:
+				draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, r, r * 0.7, 20), Color(0.25, 0.5, 0.7, 0.45))
+				draw_polyline(Shapes.closed(Shapes.ellipse(Vector2.ZERO, r, r * 0.7, 20)), Color(0.15, 0.3, 0.45, 0.6), 1.0)
 			if _active:
 				for k in 3:
 					var f := fposmod(_t * 0.8 + k / 3.0, 1.0)
@@ -237,25 +269,28 @@ func _draw() -> void:
 					Blit.disc(self, Vector2.from_angle(_t * 1.5 + k * TAU / 4.0) * r * 0.5, 3.0, Color(0.8, 0.5, 1.0, 0.6))
 		"ELECTRIC_FLOOR":
 			var r := float(data["radius"])
-			draw_rect(Rect2(-r, -r * 0.7, r * 2, r * 1.4), Color("3a3e44"))
-			for k in 4:
-				draw_line(Vector2(-r + 4, -r * 0.7 + 4 + k * r * 0.4), Vector2(r - 4, -r * 0.7 + 4 + k * r * 0.4), Color("6a6e72"), 1.0)
+			if body == null:
+				draw_rect(Rect2(-r, -r * 0.7, r * 2, r * 1.4), Color("3a3e44"))
+				for k in 4:
+					draw_line(Vector2(-r + 4, -r * 0.7 + 4 + k * r * 0.4), Vector2(r - 4, -r * 0.7 + 4 + k * r * 0.4), Color("6a6e72"), 1.0)
 			if _active:
 				for k in 6:
 					var p1 := Vector2(randf_range(-r, r) * 0.8, randf_range(-r, r) * 0.5)
 					Blit.line(self, p1, p1 + Vector2.from_angle(_t * 12.0 + k) * 7.0, Color("9ae0ff"), 1.5)
 				draw_rect(Rect2(-r, -r * 0.7, r * 2, r * 1.4), Color(0.6, 0.9, 1.0, 0.18))
 		"PRESS_PLATE":
-			draw_rect(Rect2(-10, -10, 20, 20), OUTLINE)
-			draw_rect(Rect2(-9, -9, 18, 18), Color("c9a24a") if _active else Color("6a6e72"))
-			for k in 3:
-				draw_line(Vector2(-9 + k * 6, -9), Vector2(-3 + k * 6, 9), Color("2b2b2b"), 2.0)
+			if body == null:
+				draw_rect(Rect2(-10, -10, 20, 20), OUTLINE)
+				draw_rect(Rect2(-9, -9, 18, 18), Color("c9a24a") if _active else Color("6a6e72"))
+				for k in 3:
+					draw_line(Vector2(-9 + k * 6, -9), Vector2(-3 + k * 6, 9), Color("2b2b2b"), 2.0)
 			if _flash > 0.0:
 				Blit.disc(self, Vector2.ZERO, 14.0, Color(1, 1, 1, _flash * 2.0))
 		"LAWN_SPRINKLER":
 			var r := float(data["radius"])
-			draw_circle(Vector2.ZERO, 5.0, OUTLINE)
-			draw_circle(Vector2.ZERO, 4.0, Color("3a6ac8"))
+			if body == null:
+				draw_circle(Vector2.ZERO, 5.0, OUTLINE)
+				draw_circle(Vector2.ZERO, 4.0, Color("3a6ac8"))
 			if _active:
 				for k in 10:
 					var a := _t * 5.0 + TAU * k / 10.0
@@ -263,22 +298,24 @@ func _draw() -> void:
 					Blit.disc(self, tip, 2.0, Color(0.7, 0.9, 1.0, 0.8))
 		"GOOSE_NEST":
 			# Step near the nest and the goose snaps at you.
-			draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, 12.0, 8.0, 12), Color("a08a5a"))
-			for p: Vector2 in [Vector2(-4, 0), Vector2(3, -1), Vector2(0, 3)]:
-				draw_circle(p, 2.6, Color("f4f1ea"))
-			if not _active:
-				draw_colored_polygon(Shapes.ellipse(Vector2(0, -10), 7.0, 5.0, 10), Color("f4f1ea"))
-				draw_rect(Rect2(5, -12, 4, 2), Color("e8a040"))
+			if body == null:
+				draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, 12.0, 8.0, 12), Color("a08a5a"))
+				for p: Vector2 in [Vector2(-4, 0), Vector2(3, -1), Vector2(0, 3)]:
+					draw_circle(p, 2.6, Color("f4f1ea"))
+				if not _active:
+					draw_colored_polygon(Shapes.ellipse(Vector2(0, -10), 7.0, 5.0, 10), Color("f4f1ea"))
+					draw_rect(Rect2(5, -12, 4, 2), Color("e8a040"))
 			if _flash > 0.0:
 				Blit.disc(self, Vector2.ZERO, 14.0, Color(1, 1, 1, _flash * 2.0))
 		"GRAVE_HAND":
 			# Loose earth; when armed, bony fingers poke out and grab.
-			draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, 12.0, 8.0, 12), Color("4a3a30"))
-			if _active:
-				for k in 4:
-					var x := -6.0 + k * 4.0
-					draw_line(Vector2(x, 2), Vector2(x + 1, -6 - (k % 2) * 2), OUTLINE, 3.0)
-					draw_line(Vector2(x, 2), Vector2(x + 1, -6 - (k % 2) * 2), Color("e8e2d0"), 1.5)
+			if body == null:
+				draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, 12.0, 8.0, 12), Color("4a3a30"))
+				if _active:
+					for k in 4:
+						var x := -6.0 + k * 4.0
+						draw_line(Vector2(x, 2), Vector2(x + 1, -6 - (k % 2) * 2), OUTLINE, 3.0)
+						draw_line(Vector2(x, 2), Vector2(x + 1, -6 - (k % 2) * 2), Color("e8e2d0"), 1.5)
 			if _flash > 0.0:
 				Blit.disc(self, Vector2.ZERO, 14.0, Color(0.6, 1.0, 0.7, _flash * 2.0))
 		"WILL_O_WISP":
@@ -301,28 +338,31 @@ func _draw() -> void:
 				draw_arc(Vector2.ZERO, r * 0.8, 0.0, TAU, 20, Color(1.0, 0.9, 0.6, 0.8), 3.0)
 				draw_circle(Vector2.ZERO, 7.0, OUTLINE)
 				draw_circle(Vector2.ZERO, 6.0, Color("6a4428"))
-			for k in 6:
-				var tip := Vector2.from_angle(TAU * k / 6.0 + 0.4) * (r + 6.0)
-				draw_line(Vector2.ZERO, tip, Color(0.24, 0.54, 0.22, 0.55), 6.0)
-			for p: Vector2 in [Vector2(-4, -3), Vector2(4, -2), Vector2(0, 4)]:
-				draw_circle(p, 3.0, Color("5a3a20"))
+			if body == null:
+				for k in 6:
+					var tip := Vector2.from_angle(TAU * k / 6.0 + 0.4) * (r + 6.0)
+					draw_line(Vector2.ZERO, tip, Color(0.24, 0.54, 0.22, 0.55), 6.0)
+				for p: Vector2 in [Vector2(-4, -3), Vector2(4, -2), Vector2(0, 4)]:
+					draw_circle(p, 3.0, Color("5a3a20"))
 		"SEA_URCHIN":
 			var col := Color("6a3a8a") if _active else Color("4a3a50")
-			for k in 12:
-				var tip := Vector2.from_angle(TAU * k / 12.0 + 0.2) * (10.0 if _active else 7.0)
-				draw_line(Vector2.ZERO, tip, OUTLINE, 2.5)
-				draw_line(Vector2.ZERO, tip * 0.9, col.lightened(0.3), 1.0)
-			draw_circle(Vector2.ZERO, 5.0, OUTLINE)
-			draw_circle(Vector2.ZERO, 4.0, col)
+			if body == null:
+				for k in 12:
+					var tip := Vector2.from_angle(TAU * k / 12.0 + 0.2) * (10.0 if _active else 7.0)
+					draw_line(Vector2.ZERO, tip, OUTLINE, 2.5)
+					draw_line(Vector2.ZERO, tip * 0.9, col.lightened(0.3), 1.0)
+				draw_circle(Vector2.ZERO, 5.0, OUTLINE)
+				draw_circle(Vector2.ZERO, 4.0, col)
 			if _flash > 0.0:
 				Blit.disc(self, Vector2.ZERO, 12.0, Color(1, 1, 1, _flash * 2.0))
 		"RAIL_SPARK":
 			# A loose bit of live rail that sparks now and then.
-			for y: float in [-6.0, 6.0]:
-				draw_rect(Rect2(-22, y - 2, 44, 4), Color("6a6a72"))
-				draw_rect(Rect2(-22, y - 2, 44, 2), Color("c8c8d0"))
-			for x: float in [-16.0, 0.0, 16.0]:
-				draw_rect(Rect2(x - 3, -10, 6, 20), Color("5a3a24"))
+			if body == null:
+				for y: float in [-6.0, 6.0]:
+					draw_rect(Rect2(-22, y - 2, 44, 4), Color("6a6a72"))
+					draw_rect(Rect2(-22, y - 2, 44, 2), Color("c8c8d0"))
+				for x: float in [-16.0, 0.0, 16.0]:
+					draw_rect(Rect2(x - 3, -10, 6, 20), Color("5a3a24"))
 			if _active:
 				for k in 7:
 					var p1 := Vector2(randf_range(-20, 20), randf_range(-8, 8))
@@ -330,10 +370,11 @@ func _draw() -> void:
 				Blit.disc(self, Vector2.ZERO, float(data["radius"]), Color(1.0, 0.9, 0.4, 0.12))
 		"TICKET_GATE":
 			# A turnstile: its arms snap round on whoever pushes through.
-			draw_rect(Rect2(-12, -9, 6, 18), OUTLINE)
-			draw_rect(Rect2(-11, -8, 4, 16), Color("9aa0a6"))
-			draw_rect(Rect2(6, -9, 6, 18), OUTLINE)
-			draw_rect(Rect2(7, -8, 4, 16), Color("9aa0a6"))
+			if body == null:
+				draw_rect(Rect2(-12, -9, 6, 18), OUTLINE)
+				draw_rect(Rect2(-11, -8, 4, 16), Color("9aa0a6"))
+				draw_rect(Rect2(6, -9, 6, 18), OUTLINE)
+				draw_rect(Rect2(7, -8, 4, 16), Color("9aa0a6"))
 			var spin := 0.0 if _active else _t * 12.0
 			for k in 3:
 				var tip := Vector2.from_angle(spin + TAU * k / 3.0) * 9.0
@@ -373,7 +414,8 @@ func _draw() -> void:
 				Blit.disc(self, Vector2.ZERO, r, Color(1.0, 0.35, 0.1, 0.18 + 0.08 * sin(_t * 12.0)))
 		"SPARK_PUDDLE":
 			var r := float(data["radius"])
-			draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, r, r * 0.7, 16), Color(0.35, 0.55, 0.75, 0.6))
+			if body == null:
+				draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, r, r * 0.7, 16), Color(0.35, 0.55, 0.75, 0.6))
 			if _active:
 				for k in 5:
 					var a := _t * 9.0 + k * 1.3
@@ -383,9 +425,10 @@ func _draw() -> void:
 				draw_colored_polygon(Shapes.ellipse(Vector2.ZERO, r, r * 0.7, 16), Color(1, 1, 0.5, 0.15))
 		"STEAM_PIPE":
 			var side := _dir.orthogonal()
-			Blit.line(self, -_dir * 10.0, Vector2.ZERO, OUTLINE, 9.0)
-			Blit.line(self, -_dir * 10.0, Vector2.ZERO, Color("8a9096"), 6.0)
-			Blit.disc(self, Vector2.ZERO, 4.0, Color("5a5e62"))
+			if body == null:
+				Blit.line(self, -_dir * 10.0, Vector2.ZERO, OUTLINE, 9.0)
+				Blit.line(self, -_dir * 10.0, Vector2.ZERO, Color("8a9096"), 6.0)
+				Blit.disc(self, Vector2.ZERO, 4.0, Color("5a5e62"))
 			if _active:
 				var length := float(data["length"])
 				for k in 6:

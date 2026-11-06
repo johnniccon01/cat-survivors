@@ -356,6 +356,13 @@ func _draw_trees(view: Rect2) -> void:
 			var r: float = tree["r"]
 			var tint: float = tree["tint"]
 			draw_circle(at + Vector2(6, 10), r * 1.08, Color(0, 0, 0, 0.25))
+			var pic := _tree_art(tree)
+			if pic != null:
+				# Pixel art from tools/gen_outdoor.py, in the size nearest
+				# this tree's and stretched only a little to fit it.
+				var side := r * 2.24 * pic.get_width() / (pic.get_width() - 8.0)
+				draw_texture_rect(pic, Rect2(at - Vector2(side, side) * 0.5, Vector2(side, side)), false)
+				continue
 			if tree["bush"]:
 				var leaf := Color("4f8a3a").lerp(Color("6b9a2f"), tint)
 				for i in 5:
@@ -370,6 +377,17 @@ func _draw_trees(view: Rect2) -> void:
 				draw_circle(at, r, leaf)
 				draw_circle(at + Vector2(-r * 0.25, -r * 0.3), r * 0.55, leaf.lightened(0.15))
 				draw_circle(at + Vector2(-r * 0.35, -r * 0.4), r * 0.22, leaf.lightened(0.3))
+
+
+## A tree's or bush's picture: the size nearest its own, one of two greens.
+func _tree_art(tree: Dictionary) -> Texture2D:
+	var r: float = tree["r"] * 1.12
+	var best := 30
+	for size: int in [30, 42, 56]:
+		if absf(size - r) < absf(best - r):
+			best = size
+	var name := "terrain_%s_%d_%d" % ["bush" if tree["bush"] else "tree", best, 1 if tree["tint"] > 0.5 else 0]
+	return FloorChunk.art(name)
 
 
 func _draw_aisles(view: Rect2) -> void:

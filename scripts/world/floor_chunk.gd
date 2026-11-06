@@ -17,7 +17,8 @@ const ITEM_KINDS: Array[String] = ["mouse", "book", "ball", "feather", "crumbs"]
 ## The apartment's floor clutter, pixel art (apt_item_*.png, the fabric ones
 ## per rug colour).
 const APARTMENT_ITEMS: Array[String] = ["toy_mouse", "book", "yarn", "feather", "crumbs", "sock", "paper_ball", "slipper", "newspaper", "kibble", "hair", "hair", "kibble", "sock"]
-const ART_ITEMS := ["toy_mouse", "paper_ball", "newspaper", "kibble", "hair", "bolt", "jar"]
+const ART_ITEMS := ["toy_mouse", "paper_ball", "newspaper", "kibble", "hair", "bolt", "jar", "leaf", "pebble", "flower", "acorn",
+	"twig", "bottle_cap", "receipt", "grape", "price_tag", "coin_small", "shell", "starfish", "rope_bit"]
 const ART_FABRIC_ITEMS := ["sock", "yarn", "slipper", "book", "rag"]
 const BASEMENT_ITEMS: Array[String] = ["cobweb", "bolt", "rag", "crumbs", "jar"]
 const GARDEN_ITEMS: Array[String] = ["leaf", "leaf", "pebble", "flower", "acorn", "twig"]
@@ -90,11 +91,32 @@ static var _art: Dictionary = {}
 ## Furniture drawn from that pixel art; fabric ones come in a picture per
 ## rug colour (apt_<kind>_<i>).
 const ART_FURNITURE := ["bookshelf", "tv", "floor_lamp", "plant", "dining_table", "trash_bin", "counter", "nightstand", "wardrobe",
-	"boiler", "pipes", "shelf", "crates", "covered_sofa", "washer", "drying_rack", "laundry_pile", "paint_cans"]
-const ART_FABRIC := ["sofa", "armchair", "coffee_table", "cat_tree", "cat_bowls", "bed", "cat_bed", "doormat", "bike"]
+	"boiler", "pipes", "shelf", "crates", "covered_sofa", "washer", "drying_rack", "laundry_pile", "paint_cans",
+	# Outdoor maps and the rest (tools/gen_outdoor.py).
+	"tree", "bush", "bench", "birdbath", "wheelbarrow", "watering_can", "flowers", "veggies", "compost", "garden_lamp",
+	"ac_unit", "vent_box", "antenna", "water_tank", "solar_panel", "chimney", "skylight", "potted_tree", "clothesline", "roof_lamp",
+	"store_shelf", "price_sign", "cart_row", "fruit_stand", "melon_bin", "freezer_chest", "ice_block", "shop_lamp",
+	"beach_umbrella", "sandcastle", "lifebuoy", "bollard", "barrels", "rope_coil", "fish_crate", "fish_net", "harbor_lamp",
+	"pallet_stack", "machine", "robot_arm", "control_panel", "gear_pile", "factory_lamp",
+	"gravestone", "grave_cross", "dead_tree", "grave_candle", "crypt",
+	"ticket_machine", "luggage", "signal", "buffer_stop", "station_lamp",
+	"palm", "campfire", "rock", "wreck", "fountain", "picnic_blanket", "ducks"]
+const ART_FABRIC := ["sofa", "armchair", "coffee_table", "cat_tree", "cat_bowls", "bed", "cat_bed", "doormat", "bike",
+	"scarecrow", "deck_chair", "towel"]
 ## Apartment floors from pixel art: zone -> texture name.
 const ART_FLOORS := {"living": "floor_planks", "kitchen": "floor_tiles", "bedroom": "floor_carpet",
-	"concrete": "floor_concrete", "laundry": "floor_laundry", "storage": "floor_boards"}
+	"concrete": "floor_concrete", "laundry": "floor_laundry", "storage": "floor_boards",
+	"lawn": "floor_lawn", "flowerbed": "floor_flowerbed", "path": "floor_path",
+	"deck": "floor_deck", "tar": "floor_tar", "tiles": "floor_roof_tiles",
+	"aisle": "floor_aisle", "produce": "floor_produce", "freezer": "floor_freezer",
+	"beach": "floor_beach", "dock": "floor_dock", "pier": "floor_pier",
+	"storage_bay": "floor_storage_bay", "assembly": "floor_assembly", "conveyor": "floor_conveyor",
+	"gravel": "floor_gravel", "grave_lawn": "floor_grave_lawn", "graves": "floor_graves",
+	"hall": "floor_hall", "platform": "floor_platform", "tracks": "floor_tracks",
+	"sand": "floor_sand", "palm_grove": "floor_palm_grove", "rocks": "floor_rocks",
+	"park_path": "floor_park_path", "meadow": "floor_meadow", "pond": "floor_meadow"}
+## Zones with rooms (thresholds and door frames between them).
+const ROOM_ZONES := ["living", "kitchen", "bedroom", "concrete", "laundry", "storage"]
 
 var layer := Layer.GROUND
 var desc: Dictionary
@@ -195,9 +217,15 @@ func _draw_ground() -> void:
 		_draw_floor(size, area)
 	if floor_art != null:
 		_draw_wear(size)
-		_draw_room_edges(size)
-	else:
+		match desc["zone"]:
+			"pond":
+				_draw_pond_water(size)
+			"platform":
+				_draw_safety_line(size)
+	if floor_art == null:
 		_draw_floor_edges(size)
+	elif desc["zone"] in ROOM_ZONES:
+		_draw_room_edges(size)
 
 
 func _draw_floor(size: float, area: Rect2) -> void:
@@ -446,7 +474,11 @@ func _draw_platform(size: float) -> void:
 	rng.seed = desc["seed"]
 	for i in 60:
 		draw_rect(Rect2(Vector2(rng.randf_range(0, size), rng.randf_range(0, size)), Vector2(1, 1)), Color("948f87"))
-	# The safety line runs along the world, every few chunks.
+	_draw_safety_line(size)
+
+
+## The platform's safety line runs along the world, every few chunks.
+func _draw_safety_line(size: float) -> void:
 	var y := fmod(-position.y, 512.0)
 	if y < 0.0:
 		y += 512.0
@@ -564,6 +596,10 @@ static func pond_shape(seed: int, size: float) -> Array:
 ## Park pond: a lawn with a pond in the middle, reeds and lily pads.
 func _draw_pond(size: float) -> void:
 	_draw_grass(size, "meadow")
+	_draw_pond_water(size)
+
+
+func _draw_pond_water(size: float) -> void:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = desc["seed"]
 	var shape := pond_shape(desc["seed"], size)

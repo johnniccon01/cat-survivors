@@ -38,6 +38,18 @@ Hra je hrateľná od menu po koniec noci na 7 mapách:
 - [ ] Vyskúšať novú Smrť (F1 → „Death now“), Mrazenú rybku, nové svätyne a vyhadzovanie zbraní v pauze
 - [ ] Rozhodnúť: zlúčiť charmy, artefakty a výbavu do menej systémov? (otázka z 28. 10.)
 
+## Krátkodobý plán – časť 3 (zadané 7. 11. 2026, robí sa ako prvé)
+
+Pracuje sa samostatne bod po bode, cez viac sessions (ďalšia pokračuje prvým neodškrtnutým bodom). Po každom kroku testy, commit, značka a push. Všetko nové sa kreslí v novom pixel-art štýle; texty vo všetkých jazykoch, nič sa nesmie posúvať ani orezávať (kontrola `strings_check`, `ui_test`, `text_fit_test`).
+
+1. [ ] **Dokončiť grafiku všetkých 11 máp**: terén (steny Strechy a Stanice, regály Supermarketu, príliv Prístavu, pásy Továrne, prekážky ostatných máp), pasce, špeciality máp a stavby z questov v pixel-arte; nové mapy už len v tomto štýle.
+2. [ ] **Dokončiť prvú štvrť: 15 máp** (4 nové, mapy 12–15), každá s vlastnou podlahou, nábytkom, terénom/špecialitou, nepriateľmi, bossmi a finálnym bossom, pascami, hudbou, 3 príbehmi + tajomstvom a miestom na mape štvrte. Príbehy cez všetky mapy (reťazce, ktoré idú cez celú štvrť) rozšíriť aj na nové mapy. Posledná mapa štvrte uzavrie jej príbeh.
+3. [ ] **Pripraviť druhú štvrť – Psie štvrte** (zatiaľ bez hrateľných nocí): vlastná mapa štvrte s 15+ miestami (zamknuté, s názvami a popisom), cesta tam vlakom zo Stanice, návrh každého miesta (prostredie, špecialita, psí boss), noví nepriatelia (väčšina nových + pár starých, napr. krtkovia), pes ako hrateľná postava odomknutá porazením psieho bossa na 3.–5. mape. Návrh zapísať do `PSIE_STVRTE.md`.
+4. [ ] **Príbeh, ktorý vedie do druhej štvrte**: prečo mačky idú k psom a čo tam budú robiť; začína v prvej štvrti (najneskôr na nových mapách), končí odchodom vlakom a pokračuje v druhej štvrti.
+5. [ ] **Zbrane a pasívky: cieľ 30 zbraní** (dnes 16 základných, každá nová s evolúciou) **a viac pasív** (dnes 12 → 20), vrátane spojení zbraní; vyvážiť botom (`tools/weapons_test.sh`) tak, aby žiadna nebola výrazne slabšia ani silnejšia.
+6. [ ] **Nové postavy**: ku každej novej mape prvej štvrte jedna nová mačka (4) s inštinktom; pre druhú štvrť pripraviť 1 psa, 1 mývala a 2 mačky (návrh, hrateľné až s druhou štvrťou, pes podľa bodu 3).
+7. [ ] **Testy celého**: nové scenáre pre mapy, bossov, zbrane, postavy a mapu druhej štvrte; kampaň celej štvrte (`tools/campaign.sh`); kontrola textov a rozloženia vo všetkých jazykoch a rozlíšeniach (nič sa neposúva ani neorezáva).
+
 ## Krátkodobý plán – časť 1 (zadané 31. 10. 2026, robí sa ako prvé)
 
 Pracuje sa samostatne, bez otázok, krok po kroku (commit + značka + push po každom). Keď session skončí, ďalšia pokračuje prvým neodškrtnutým bodom. Potom sa ide ďalej podľa dlhodobého plánu (všetko pod touto sekciou); neskôr môžu prísť časti 2, 3…

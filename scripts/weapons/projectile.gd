@@ -24,6 +24,7 @@ var return_accel := 0.0
 
 var _hit: Dictionary = {}
 var _returning := false
+var _launch_dir := Vector2.ZERO
 ## Recent positions, for the motion trail.
 var _trail: PackedVector2Array = []
 const TRAIL := 6
@@ -43,8 +44,12 @@ func _physics_process(delta: float) -> void:
 	velocity.y += gravity * delta
 	if is_instance_valid(return_to):
 		var to_owner := return_to.position - position
+		if _launch_dir == Vector2.ZERO:
+			_launch_dir = velocity.normalized()
 		velocity += to_owner.normalized() * return_accel * delta
-		if not _returning and velocity.dot(to_owner) > 0.0:
+		# It turns back once the pull has reversed its flight (judging by the
+		# cat's position instead made throws towards the cat vanish at once).
+		if not _returning and velocity.dot(_launch_dir) < 0.0:
 			_returning = true
 			_hit.clear()
 		if _returning and to_owner.length() < 10.0:

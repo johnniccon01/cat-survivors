@@ -342,6 +342,8 @@ func show_banner(text: String, seconds: float = 3.0) -> void:
 
 ## Hides the end screens (and their summary lines) when the night goes on.
 func hide_end_screens() -> void:
+	if _end != null:
+		_end.visible = false
 	for overlay: Control in [_over_overlay, _win_overlay, _extract_overlay]:
 		overlay.visible = false
 		var box := overlay.get_node("Box")

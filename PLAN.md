@@ -38,6 +38,20 @@ Hra je hrateľná od menu po koniec noci na 7 mapách:
 - [ ] Vyskúšať novú Smrť (F1 → „Death now“), Mrazenú rybku, nové svätyne a vyhadzovanie zbraní v pauze
 - [ ] Rozhodnúť: zlúčiť charmy, artefakty a výbavu do menej systémov? (otázka z 28. 10.)
 
+## Krátkodobý plán – časť 5 (zadané 8. 11. 2026: Divočina a Firma, robí sa po časti 4)
+
+Návrh je v `TRETIA_STVRT.md`. Každý krok s testami, commitom, značkou a pushom; texty vo všetkých jazykoch.
+
+1. [ ] **Základ tretej a štvrtej štvrte**: mapy štvrtí (Divočina 12 miest, Firma 4), cesta tam (príbeh po mieri), príbeh Divé zvieratá utekajú.
+2. [ ] **Psí parťák**: výber psa pred nocou, spolubojovník s vlastnou schopnosťou.
+3. [ ] **Nepriatelia Divočiny** a pixel art.
+4. [ ] **Divočina mapy 1–4** (+ Vlk).
+5. [ ] **Divočina mapy 5–8**.
+6. [ ] **Divočina mapy 9–12** (+ Medveď, stopy k Firme).
+7. [ ] **Firma mapy 1–3** (papagáj, Lev).
+8. [ ] **Finále**: Riaditeľ v obrom buldozéri, spojenci vo finále, vtipný koniec, záverečná scéna a titulky.
+9. [ ] **Testy na koniec** (zrýchlene): zaseknutí nepriatelia na každej mape, kampaň všetkých štvrtí, balans.
+
 ## Krátkodobý plán – časť 4 (zadané 7. 11. 2026: dokončiť Psie štvrte, robí sa po časti 3)
 
 Návrh je v `PSIE_STVRTE.md`. Postup po krokoch, každý s testami, commitom, značkou a pushom; všetko v novom pixel-art štýle, texty vo všetkých jazykoch, nič sa neposúva. Každý boss má vlastný hlavný útok (ako finálni bossovia prvej štvrte).

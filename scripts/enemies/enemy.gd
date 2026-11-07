@@ -663,7 +663,11 @@ func _tick_fight(delta: float, target: Vector2) -> void:
 ## (a spiral of junk lands round it, then bursts), "perfume" (clouds of
 ## perfume bloom round the cat like petals), "biscuits" (a tray of marks
 ## lands row by row), "sprint" (it dashes four times straight through the
-## cat's spot), "hosebeam" (a water jet turns once round it).
+## cat's spot), "hosebeam" (a water jet turns once round it), "lineup" (bands
+## march in from far to near, one row after another), "injection" (quick
+## small jabs exactly where the cat is), "wave" (a broad wave rolls out from
+## it in three surges), "blizzard" (snow spirals in from every side while the
+## cat is slowed).
 func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 	var hurt := damage * 0.8
 	match _special:
@@ -721,6 +725,42 @@ func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 				for side in [-1.0, 1.0]:
 					manager.spawn_bullet(position, _special_dir.orthogonal() * side, shot, "hair", 110.0)
 			return _special_dir * speed * MOW_SPEED
+		"lineup":
+			if _special_step == 0:
+				_special_dir = (target - position).normalized()
+			if _special_step < 6 and t >= _special_step * 0.3:
+				var mid := _special_at + _special_dir * (150.0 - _special_step * 60.0)
+				manager.spawn_beam(mid - _special_dir.orthogonal() * 260.0, mid + _special_dir.orthogonal() * 260.0, 34.0, 0.9, hurt, "laser")
+				_special_step += 1
+			if t > 2.8:
+				return _end_special()
+			return Vector2.ZERO
+		"injection":
+			if _special_step < 7 and t >= _special_step * 0.3:
+				manager.spawn_hazard(target, "strike", 22.0, 0.45, hurt)
+				_special_step += 1
+			if t > 2.6:
+				return _end_special()
+			return Vector2.ZERO
+		"wave":
+			if _special_step == 0:
+				_special_dir = (target - position).normalized()
+			if _special_step < 3 and t >= _special_step * 0.6:
+				var d := _special_dir.rotated((_special_step - 1) * 0.35)
+				manager.spawn_beam(position, position + d * 440.0, 110.0, 0.9, hurt, "tentacle")
+				_special_step += 1
+			if t > 2.4:
+				return _end_special()
+			return Vector2.ZERO
+		"blizzard":
+			if t < 2.4:
+				manager.player.pull = (position - target).normalized() * 25.0
+				if t >= _special_step * 0.1:
+					_special_step += 1
+					var from := target + Vector2.from_angle(_special_step * 0.9) * 320.0
+					manager.spawn_bullet(from, (target - from).normalized().rotated(0.4), shot, "hair", 110.0)
+				return Vector2.ZERO
+			return _end_special()
 		"perfume":
 			if _special_step == 0:
 				_special_step = 1

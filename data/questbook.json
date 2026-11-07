@@ -1433,6 +1433,178 @@
         }
       ]
     },
+    "POLICE_K9": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:POLICE_K9"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 800
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:POLICE_K9"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1300
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:POLICE_K9",
+          "target": 1,
+          "reward": {
+            "gold": 1800
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:POLICE_K9"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3000
+          }
+        }
+      ]
+    },
+    "VET_CLINIC": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:VET_CLINIC"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 800
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:VET_CLINIC"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1300
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:VET_CLINIC",
+          "target": 1,
+          "reward": {
+            "gold": 1800
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:VET_CLINIC"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3000
+          }
+        }
+      ]
+    },
+    "RIVER_DAM": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:RIVER_DAM"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 800
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:RIVER_DAM"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1300
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:RIVER_DAM",
+          "target": 1,
+          "reward": {
+            "gold": 1800
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:RIVER_DAM"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3000
+          }
+        }
+      ]
+    },
+    "SNOW_HILL": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:SNOW_HILL"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 800
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:SNOW_HILL"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1300
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:SNOW_HILL",
+          "target": 1,
+          "reward": {
+            "gold": 1800
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:SNOW_HILL"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3000
+          }
+        }
+      ]
+    },
     "OLD_DIARY": {
       "chapter": "story",
       "tiers": [

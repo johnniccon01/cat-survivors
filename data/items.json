@@ -88,6 +88,10 @@
     "BAKERS_APRON": { "slot": "VEST", "boss": "BAKER_DACHSHUND", "color": "#f4f1ea", "stats": { "max_hp": 40.0, "regen": 0.3 } },
     "RACING_BIB": { "slot": "VEST", "boss": "FLASH_GREYHOUND", "color": "#3a6ac8", "stats": { "speed": 0.15, "cooldown": -0.05 } },
     "FIRE_HELMET": { "slot": "HAT", "boss": "FIRE_CHIEF", "color": "#c0392b", "stats": { "armor": 3.0, "duration": 0.1 } },
+    "POLICE_BADGE": { "slot": "COLLAR", "boss": "INSPECTOR_SHEPHERD", "color": "#f2c14e", "stats": { "crit_chance": 0.08, "boss_damage": 0.15 } },
+    "NURSE_CAP": { "slot": "HAT", "boss": "NURSE_CHIHUAHUA", "color": "#f4f1ea", "stats": { "regen": 0.6, "heal_power": 0.2 } },
+    "LIFE_VEST": { "slot": "VEST", "boss": "NEWFOUNDLAND", "color": "#f08a2a", "stats": { "max_hp": 50.0, "armor": 1.0 } },
+    "SLED_HARNESS": { "slot": "PAWS", "boss": "HUSKY_LEADER", "color": "#3a6ac8", "stats": { "speed": 0.12, "might": 0.08 } },
     "SOUL_BELL": { "slot": "COLLAR", "boss": "", "special": true, "color": "#9a7aff", "stats": {} }
   }
 }

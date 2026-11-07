@@ -85,7 +85,8 @@ const THEME_KEYS := {"basement": BASEMENT_KEYS, "garden": GARDEN_KEYS, "rooftop"
 	"park": GARDEN_KEYS, "island": HARBOR_KEYS, "station": ROOFTOP_KEYS,
 	"sewer": BASEMENT_KEYS, "forest": FOREST_KEYS, "construction": ROOFTOP_KEYS, "railyard": FACTORY_KEYS,
 	"freight": FACTORY_KEYS, "shelter": BASEMENT_KEYS, "dogpark": GARDEN_KEYS, "junkyard": ROOFTOP_KEYS,
-	"salon": SUPERMARKET_KEYS, "bakery": FACTORY_KEYS, "racetrack": GARDEN_KEYS, "firestation": FACTORY_KEYS}
+	"salon": SUPERMARKET_KEYS, "bakery": FACTORY_KEYS, "racetrack": GARDEN_KEYS, "firestation": FACTORY_KEYS,
+	"police": FACTORY_KEYS, "vet": SUPERMARKET_KEYS, "dam": HARBOR_KEYS, "snow": FOREST_KEYS}
 
 var spawner: Spawner
 var _keys: Array = KEYS

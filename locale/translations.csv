@@ -2993,3 +2993,137 @@ CHAIN_BELL_TOWER_1,Hold the tower,Ubráň vežu,Ubraň věž,Defiende la torre,�
 CHAIN_BELL_TOWER_1_DONE,The hydrant king rises from the puddles.,Z mlák sa dvíha kráľ hydrantov.,Z louží se zvedá král hydrantů.,El rey hidrante surge de los charcos.,Из луж поднимается король гидрантов.,消防栓之王从水坑里站了起来。
 CHAIN_BELL_TOWER_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
 CHAIN_BELL_TOWER_2_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+STAGE_POLICE_K9_NAME,The K9 Station,Policajná stanica,Policejní stanice,La comisaría canina,Полицейский участок,警犬站
+STAGE_POLICE_K9_HINT,Defeat the Fire Chief at the Fire Station,Poraz Veliteľa hasičov na Hasičskej stanici,Poraz Velitele hasičů na Hasičské stanici,Derrota al jefe de bomberos en el parque,Победи Начальника пожарных в Пожарной части,在消防站击败消防队长
+STORY_POLICE_K9_INTRO,Search lights sweep the yard and patrols run in lines. Don't get caught!,Svetlomety prečesávajú dvor a hliadky behajú v radoch. Nedaj sa chytiť!,Světlomety pročesávají dvůr a hlídky běhají v řadách. Nenech se chytit!,Los focos barren el patio y las patrullas corren en fila. ¡Que no te atrapen!,"Прожекторы обшаривают двор, патрули бегают шеренгами. Не попадись!",探照灯扫过院子，巡逻队排成一列奔跑。别被抓住！
+QB_POLICE_K9_NAME,The K9 Station,Policajná stanica,Policejní stanice,La comisaría canina,Полицейский участок,警犬站
+QB_POLICE_K9_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_POLICE_K9_2,Defeat its dog boss.,Poraziť jeho psieho bossa.,Porazit jeho psího bosse.,Derrota a su jefe perruno.,Победи его собачьего босса.,击败那里的狗狗首领。
+QB_POLICE_K9_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_POLICE_K9_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_VET_CLINIC_NAME,The Vet Clinic,Veterinárna klinika,Veterinární klinika,La clínica veterinaria,Ветклиника,宠物医院
+STAGE_VET_CLINIC_HINT,Defeat the Inspector at the K9 Station,Poraz Inšpektora na Policajnej stanici,Poraz Inspektora na Policejní stanici,Derrota al inspector en la comisaría,Победи Инспектора в Полицейском участке,在警犬站击败督察
+STORY_VET_CLINIC_INTRO,It smells of soap and medicine. Nobody here likes injections – and they fall from the ceiling.,Vonia to mydlom a liekmi. Nikto tu nemá rád injekcie – a tie padajú zo stropu.,Voní to mýdlem a léky. Nikdo tu nemá rád injekce – a ty padají ze stropu.,"Huele a jabón y medicinas. Aquí nadie quiere inyecciones, y caen del techo.",Пахнет мылом и лекарствами. Никто здесь не любит уколы – а они падают с потолка.,这里有肥皂和药的味道。没人喜欢打针——针还会从天花板上掉下来。
+QB_VET_CLINIC_NAME,The Vet Clinic,Veterinárna klinika,Veterinární klinika,La clínica veterinaria,Ветклиника,宠物医院
+QB_VET_CLINIC_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_VET_CLINIC_2,Defeat its dog boss.,Poraziť jeho psieho bossa.,Porazit jeho psího bosse.,Derrota a su jefe perruno.,Победи его собачьего босса.,击败那里的狗狗首领。
+QB_VET_CLINIC_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_VET_CLINIC_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_RIVER_DAM_NAME,The River Dam,Hrádza,Hráz,La presa,Плотина,河坝
+STAGE_RIVER_DAM_HINT,Defeat the Nurse at the Vet Clinic,Poraz Čivavu sestričku na Veterinárnej klinike,Poraz Čivavu sestřičku na Veterinární klinice,Derrota a la enfermera en la clínica,Победи Чихуахуа-медсестру в Ветклинике,在宠物医院击败吉娃娃护士
+STORY_RIVER_DAM_INTRO,"The river rises and falls, waves rush down the weir and toads croak in the reeds.","Rieka stúpa a klesá, cez hať sa valia vlny a v tŕstí kvákajú ropuchy.","Řeka stoupá a klesá, přes jez se valí vlny a v rákosí kvákají ropuchy.","El río sube y baja, las olas bajan por la presa y croan los sapos en los juncos.","Река поднимается и опускается, волны катятся через плотину, в камышах квакают жабы.",河水涨了又落，浪涌过堰坝，蟾蜍在芦苇里呱呱叫。
+QB_RIVER_DAM_NAME,The River Dam,Hrádza,Hráz,La presa,Плотина,河坝
+QB_RIVER_DAM_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_RIVER_DAM_2,Defeat its dog boss.,Poraziť jeho psieho bossa.,Porazit jeho psího bosse.,Derrota a su jefe perruno.,Победи его собачьего босса.,击败那里的狗狗首领。
+QB_RIVER_DAM_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_RIVER_DAM_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_SNOW_HILL_NAME,The Snowy Hill,Zasnežený kopec,Zasněžený kopec,La colina nevada,Снежный холм,雪坡
+STAGE_SNOW_HILL_HINT,Defeat the Newfoundland at the Dam,Poraz Novofundlanďana na Hrádzi,Poraz Novofundlanďana na Hrázi,Derrota al terranova en la presa,Победи Ньюфаундленда на Плотине,在河坝击败纽芬兰犬
+STORY_SNOW_HILL_INTRO,"Snow to your belly, ice under your paws and avalanches thundering down the slope.","Sneh po brucho, ľad pod labkami a lavíny hrmiace dolu svahom.","Sníh po břicho, led pod tlapkami a laviny hřmící dolů svahem.","Nieve hasta la tripa, hielo bajo las patas y aludes rugiendo ladera abajo.","Снег по брюхо, лёд под лапами и лавины, грохочущие по склону.",雪没到肚子，爪下是冰，雪崩从坡上轰隆而下。
+QB_SNOW_HILL_NAME,The Snowy Hill,Zasnežený kopec,Zasněžený kopec,La colina nevada,Снежный холм,雪坡
+QB_SNOW_HILL_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_SNOW_HILL_2,Defeat its dog boss.,Poraziť jeho psieho bossa.,Porazit jeho psího bosse.,Derrota a su jefe perruno.,Победи его собачьего босса.,击败那里的狗狗首领。
+QB_SNOW_HILL_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_SNOW_HILL_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+ENEMY_K9_DRONE_NAME,K9 Drone,Dron K9,Dron K9,Dron K9,Дрон K9,K9 无人机
+ENEMY_K9_DRONE_DESC,"Blinks from spot to spot, firing in a cross.",Preskakuje z miesta na miesto a strieľa do kríža.,Přeskakuje z místa na místo a střílí do kříže.,Salta de un sitio a otro disparando en cruz.,Прыгает с места на место и стреляет крестом.,在各处闪现，十字射击。
+ENEMY_SERGEANT_CATCHER_NAME,Sergeant Catcher,Seržant lapač,Seržant lapač,El sargento cazador,Сержант-ловец,捕猫中士
+ENEMY_SERGEANT_CATCHER_DESC,Pulls you into his cage.,Vtiahne ťa do svojej klietky.,Vtáhne tě do své klece.,Te arrastra a su jaula.,Затягивает тебя в свою клетку.,把你拉进他的笼子。
+ENEMY_INSPECTOR_SHEPHERD_NAME,Inspector Shepherd,Inšpektor ovčiak,Inspektor ovčák,El inspector pastor,Инспектор овчарка,牧羊犬督察
+ENEMY_INSPECTOR_SHEPHERD_DESC,Lines up rows of lasers that march in on you.,"Postaví rady laserov, ktoré k tebe pochodujú.","Postaví řady laserů, které k tobě pochodují.",Alinea filas de láseres que marchan hacia ti.,"Выстраивает ряды лазеров, марширующих к тебе.",排出一列列激光向你逼近。
+ENEMY_PILL_BOTTLE_NAME,Pill Bottle,Fľaštička liekov,Lahvička léků,Bote de pastillas,Пузырёк таблеток,药瓶
+ENEMY_PILL_BOTTLE_DESC,Rattles and spills fleas everywhere.,Hrká a sype všade blchy.,Chrastí a sype všude blechy.,Traquetea y esparce pulgas por todas partes.,Гремит и рассыпает блох повсюду.,哗啦作响，到处撒跳蚤。
+ENEMY_CONE_DOG_NAME,Cone Dog,Pes s golierom,Pes s límcem,El perro del cono,Пёс в воротнике,戴伊丽莎白圈的狗
+ENEMY_CONE_DOG_DESC,Grumpy about his cone – barks at everyone.,Mrzutý kvôli golieru – šteká na každého.,Mrzutý kvůli límci – štěká na každého.,Enfadado por su cono: le ladra a todos.,Злой из-за воротника – лает на всех.,因为伊丽莎白圈而暴躁——对谁都叫。
+ENEMY_NURSE_CHIHUAHUA_NAME,Nurse Chihuahua,Čivava sestrička,Čivava sestřička,La enfermera chihuahua,Чихуахуа-медсестра,吉娃娃护士
+ENEMY_NURSE_CHIHUAHUA_DESC,Tiny and fast: quick jabs exactly where you stand.,"Malá a rýchla: rýchle pichnutia presne tam, kde stojíš.","Malá a rychlá: rychlá píchnutí přesně tam, kde stojíš.",Pequeña y rápida: pinchazos justo donde estás.,"Маленькая и быстрая: уколы точно туда, где ты стоишь.",小巧迅速：精准地扎向你站的位置。
+ENEMY_GIANT_BEAVER_NAME,Giant Beaver,Obrí bobor,Obří bobr,Castor gigante,Огромный бобр,巨型河狸
+ENEMY_GIANT_BEAVER_DESC,Builds walls of logs and drops them on you.,Stavia steny z klád a zhadzuje ich na teba.,Staví stěny z klád a shazuje je na tebe.,Construye muros de troncos y te los tira.,Строит стены из брёвен и роняет их на тебя.,用原木筑墙，还往你身上砸。
+ENEMY_RIVER_TOAD_NAME,River Toad,Riečna ropucha,Říční ropucha,Sapo de río,Речная жаба,河蟾蜍
+ENEMY_RIVER_TOAD_DESC,Leaves puddles and chases you with lightning.,Necháva mláky a naháňa ťa bleskami.,Nechává louže a honí tě blesky.,Deja charcos y te persigue con rayos.,Оставляет лужи и гоняет тебя молниями.,留下水坑，用闪电追你。
+ENEMY_NEWFOUNDLAND_NAME,The Newfoundland,Novofundlanďan,Novofundlanďan,El terranova,Ньюфаундленд,纽芬兰犬
+ENEMY_NEWFOUNDLAND_DESC,The dam keeper. Sends broad waves rolling out in three surges.,Hrádzny. Posiela široké vlny v troch nárazoch.,Hrázný. Posílá široké vlny ve třech nárazech.,El guardián de la presa. Lanza anchas olas en tres oleadas.,Смотритель плотины. Гонит широкие волны тремя ударами.,守坝人。分三波推出宽阔的浪。
+ENEMY_SNOWMAN_KING_NAME,Snowman King,Kráľ snehuliakov,Král sněhuláků,Rey de los muñecos de nieve,Король снеговиков,雪人之王
+ENEMY_SNOWMAN_KING_DESC,Throws huge snowballs from above.,Hádže zhora obrie snehové gule.,Hází shora obří sněhové koule.,Lanza enormes bolas de nieve desde arriba.,Бросает сверху огромные снежки.,从上方扔巨大的雪球。
+ENEMY_SLED_DOG_NAME,Sled Dog,Záprahový pes,Spřežní pes,Perro de trineo,Ездовая собака,雪橇犬
+ENEMY_SLED_DOG_DESC,Charges down the slope in wide sweeps.,Rúti sa dolu svahom širokými oblúkmi.,Řítí se dolů svahem širokými oblouky.,Baja la ladera en amplios barridos.,Несётся по склону широкими дугами.,以大弧线冲下山坡。
+ENEMY_HUSKY_LEADER_NAME,The Husky Leader,Vodca huskyov,Vůdce huskyů,El líder de los huskies,Вожак хаски,哈士奇头领
+ENEMY_HUSKY_LEADER_DESC,Calls a blizzard: snow spirals in from every side.,Privolá fujavicu: sneh víri zo všetkých strán.,Přivolá vánici: sníh víří ze všech stran.,Invoca una ventisca: la nieve gira desde todos lados.,Вызывает метель: снег кружит со всех сторон.,召唤暴风雪：雪从四面八方旋转而来。
+ITEM_POLICE_BADGE_NAME,Police Badge,Policajný odznak,Policejní odznak,Placa de policía,Полицейский значок,警徽
+ITEM_POLICE_BADGE_DESC,"From the Inspector. +8% critical chance, +15% damage to bosses.","Od Inšpektora. +8 % kritická šanca, +15 % poškodenie bossom.","Od Inspektora. +8 % kritická šance, +15 % poškození bossům.","Del inspector. +8 % de probabilidad crítica, +15 % de daño a jefes.","От Инспектора. +8 % шанса крита, +15 % урона боссам.",来自督察。+8% 暴击率，+15% 首领伤害。
+ITEM_NURSE_CAP_NAME,Nurse's Cap,Čiapka sestričky,Čepice sestřičky,Cofia de enfermera,Шапочка медсестры,护士帽
+ITEM_NURSE_CAP_DESC,"From the Nurse. +0.6 regeneration, +20% healing.","Od Sestričky. +0,6 regenerácie, +20 % liečenie.","Od Sestřičky. +0,6 regenerace, +20 % léčení.","De la enfermera. +0,6 de regeneración, +20 % de curación.","От Медсестры. +0,6 регенерации, +20 % лечения.",来自护士。+0.6 生命恢复，+20% 治疗。
+ITEM_LIFE_VEST_NAME,Life Vest,Záchranná vesta,Záchranná vesta,Chaleco salvavidas,Спасательный жилет,救生衣
+ITEM_LIFE_VEST_DESC,"From the Newfoundland. +50 health, +1 armour.","Od Novofundlanďana. +50 zdravia, +1 brnenie.","Od Novofundlanďana. +50 zdraví, +1 brnění.","Del terranova. +50 de salud, +1 de armadura.","От Ньюфаундленда. +50 здоровья, +1 брони.",来自纽芬兰犬。+50 生命，+1 护甲。
+ITEM_SLED_HARNESS_NAME,Sled Harness,Záprahový postroj,Spřežní postroj,Arnés de trineo,Ездовая упряжь,雪橇挽具
+ITEM_SLED_HARNESS_DESC,"From the Husky Leader. +12% speed, +8% might.","Od Vodcu huskyov. +12 % rýchlosť, +8 % sila.","Od Vůdce huskyů. +12 % rychlost, +8 % síla.","Del líder huskie. +12 % de velocidad, +8 % de poder.","От Вожака хаски. +12 % скорости, +8 % силы.",来自哈士奇头领。+12% 速度，+8% 力量。
+PATROL_WARNING,A police patrol runs down the lane – step aside!,Pruhom beží policajná hliadka – uhni!,Pruhem běží policejní hlídka – uhni!,"¡Una patrulla corre por el carril, apártate!",По полосе бежит полицейский патруль – отойди!,警察巡逻队沿着这条线跑来——快让开！
+AVALANCHE_WARNING,Avalanche! Get out of its way!,Lavína! Uhni jej z cesty!,Lavina! Uhni jí z cesty!,¡Alud! ¡Apártate!,Лавина! Уйди с её пути!,雪崩！快躲开！
+CHAIN_MOST_WANTED_NAME,Most Wanted,Najhľadanejší,Nejhledanější,Los más buscados,Особо разыскиваемый,头号通缉
+CHAIN_MOST_WANTED_DESC,Wanted posters with your face hang all over the station.,Po celej stanici visia plagáty s tvojou tvárou.,Po celé stanici visí plakáty s tvou tváří.,Carteles con tu cara cuelgan por toda la comisaría.,По всему участку висят плакаты с твоей мордой.,警局里到处贴着你的通缉令。
+CHAIN_MOST_WANTED_1,Tear down the posters,Strhni plagáty,Strhni plakáty,Arranca los carteles,Сорви плакаты,撕掉通缉令
+CHAIN_MOST_WANTED_1_DONE,The sergeant noticed – and he is angry.,Seržant si to všimol – a zúri.,Seržant si toho všiml – a zuří.,"El sargento se dio cuenta, y está furioso.",Сержант заметил – и он в ярости.,警长发现了——他很生气。
+CHAIN_MOST_WANTED_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_MOST_WANTED_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_JAMMED_RADIO_NAME,Jammed Radio,Rušené vysielačky,Rušené vysílačky,Radio interferida,Глушилка,干扰电台
+CHAIN_JAMMED_RADIO_DESC,Jam the police radios so the patrols lose track of you.,"Zaruš policajné vysielačky, nech ťa hliadky stratia.","Zaruš policejní vysílačky, ať tě hlídky ztratí.",Interfiere las radios para que las patrullas te pierdan.,"Заглуши рации, чтобы патрули потеряли тебя.",干扰警用电台，让巡逻队跟丢你。
+CHAIN_JAMMED_RADIO_1,Hold the three antennas,Podrž tri antény,Podrž tři antény,Mantén las tres antenas,Удержи три антенны,守住三根天线
+CHAIN_JAMMED_RADIO_1_DONE,Static! The drones come to look.,Šum! Drony sa idú pozrieť.,Šum! Drony se jdou podívat.,¡Estática! Los drones vienen a mirar.,Помехи! Дроны летят проверить.,全是杂音！无人机过来查看了。
+CHAIN_JAMMED_RADIO_2,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_JAMMED_RADIO_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_EVIDENCE_ROOM_NAME,The Evidence Room,Sklad dôkazov,Sklad důkazů,La sala de pruebas,Комната улик,证物室
+CHAIN_EVIDENCE_ROOM_DESC,"Far in the dark, behind the cells, an old drone guards the evidence.",Ďaleko v tme za celami stráži starý dron dôkazy.,Daleko ve tmě za celami hlídá starý dron důkazy.,"Lejos en la oscuridad, tras las celdas, un viejo dron guarda las pruebas.",Далеко в темноте за камерами старый дрон охраняет улики.,牢房后面的黑暗深处，一架旧无人机守着证物。
+CHAIN_EVIDENCE_ROOM_1,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_EVIDENCE_ROOM_1_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_MEDICINE_RUN_NAME,Medicine Run,Lieky na cestu,Léky na cestu,Carrera de medicinas,Доставка лекарств,送药
+CHAIN_MEDICINE_RUN_DESC,"A sick puppy needs its medicine, fast.","Choré šteniatko potrebuje lieky, a rýchlo.","Nemocné štěňátko potřebuje léky, a rychle.","Un cachorro enfermo necesita su medicina, rápido.",Больному щенку срочно нужно лекарство.,一只生病的小狗急需吃药。
+CHAIN_MEDICINE_RUN_1,Bring the medicine to the bowl,Dones lieky k miske,Přines léky k misce,Lleva la medicina al cuenco,Отнеси лекарство к миске,把药送到碗边
+CHAIN_MEDICINE_RUN_1_DONE,The fleas smell the sweet syrup.,Blchy zacítili sladký sirup.,Blechy ucítily sladký sirup.,Las pulgas huelen el jarabe dulce.,Блохи учуяли сладкий сироп.,跳蚤闻到了甜糖浆。
+CHAIN_MEDICINE_RUN_2,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_MEDICINE_RUN_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_ESCAPED_PATIENTS_NAME,Escaped Patients,Utečení pacienti,Uprchlí pacienti,Pacientes fugados,Сбежавшие пациенты,逃跑的病号
+CHAIN_ESCAPED_PATIENTS_DESC,Three dachshunds fled before their check-up.,Traja jazvečíci ušli pred prehliadkou.,Tři jezevčíci utekli před prohlídkou.,Tres teckels huyeron antes de su revisión.,Три таксы сбежали от осмотра.,三只腊肠狗在体检前溜了。
+CHAIN_ESCAPED_PATIENTS_1,Follow the paw prints,Choď po stopách,Jdi po stopách,Sigue las huellas,Иди по следам,跟着爪印走
+CHAIN_ESCAPED_PATIENTS_1_DONE,There they are!,Tam sú!,Tam jsou!,¡Ahí están!,Вот они!,在那儿！
+CHAIN_ESCAPED_PATIENTS_2,Catch the dachshunds,Chyť jazvečíkov,Chyť jezevčíky,Atrapa a los teckels,Поймай такс,抓住腊肠狗
+CHAIN_ESCAPED_PATIENTS_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_NIGHT_SHIFT_NAME,The Night Shift,Nočná služba,Noční služba,El turno de noche,Ночная смена,夜班
+CHAIN_NIGHT_SHIFT_DESC,A trail of spilled pills leads through the dark clinic.,Stopa vysypaných tabletiek vedie tmavou klinikou.,Stopa vysypaných pilulek vede tmavou klinikou.,Un rastro de pastillas lleva por la clínica oscura.,Дорожка рассыпанных таблеток ведёт через тёмную клинику.,一路撒落的药片穿过漆黑的诊所。
+CHAIN_NIGHT_SHIFT_1,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_NIGHT_SHIFT_1_DONE,The giant bottle rolls out.,Vykotúľa sa obrovská fľaštička.,Vykutálí se obrovská lahvička.,Sale rodando el frasco gigante.,Выкатывается огромный пузырёк.,巨大的药瓶滚了出来。
+CHAIN_NIGHT_SHIFT_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_NIGHT_SHIFT_2_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_LEAKY_DAM_NAME,The Leaky Dam,Deravá hrádza,Děravá hráz,La presa con fugas,Дырявая плотина,漏水的水坝
+CHAIN_LEAKY_DAM_DESC,Someone has been chewing holes in the dam.,Niekto ohrýza do hrádze diery.,Někdo okusuje do hráze díry.,Alguien ha roído agujeros en la presa.,Кто-то прогрыз в плотине дыры.,有谁在水坝上啃出了洞。
+CHAIN_LEAKY_DAM_1,Plug the four leaks,Zapchaj štyri diery,Ucpi čtyři díry,Tapa las cuatro fugas,Заткни четыре течи,堵住四个漏洞
+CHAIN_LEAKY_DAM_1_DONE,The beaver is not pleased.,Bobor nie je nadšený.,Bobr není nadšený.,Al castor no le gusta.,Бобр недоволен.,海狸不高兴了。
+CHAIN_LEAKY_DAM_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_LEAKY_DAM_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_DRIFTING_RAFT_NAME,The Drifting Raft,Unášaná plť,Unášený vor,La balsa a la deriva,Уплывающий плот,漂走的木筏
+CHAIN_DRIFTING_RAFT_DESC,Tie the raft before the river takes it.,"Priviaž plť, kým ju neodnesie rieka.","Přivaž vor, než ho odnese řeka.",Ata la balsa antes de que se la lleve el río.,"Привяжи плот, пока его не унесла река.",趁河水还没把木筏冲走，把它拴好。
+CHAIN_DRIFTING_RAFT_1,Gather the ropes,Pozbieraj laná,Posbírej lana,Recoge las cuerdas,Собери верёвки,收集绳子
+CHAIN_DRIFTING_RAFT_1_DONE,Toads hopped off with the knots.,Ropuchy odskákali s uzlami.,Ropuchy odskákaly s uzly.,Los sapos se fueron saltando con los nudos.,Жабы ускакали с узлами.,蟾蜍带着绳结跳走了。
+CHAIN_DRIFTING_RAFT_2,Catch the toads,Chyť ropuchy,Chyť ropuchy,Atrapa los sapos,Поймай жаб,抓住蟾蜍
+CHAIN_DRIFTING_RAFT_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_SUNKEN_MILL_NAME,The Sunken Mill,Potopený mlyn,Potopený mlýn,El molino hundido,Затонувшая мельница,沉没的磨坊
+CHAIN_SUNKEN_MILL_DESC,"Far down the river, in the dark, an old mill croaks.",Ďaleko dolu riekou v tme kváka starý mlyn.,Daleko po řece v temnotě kváká starý mlýn.,"Lejos río abajo, en la oscuridad, croa un viejo molino.","Далеко вниз по реке, в темноте, квакает старая мельница.",顺流而下的黑暗深处，一座旧磨坊在呱呱叫。
+CHAIN_SUNKEN_MILL_1,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_SUNKEN_MILL_1_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_SLED_RACE_NAME,The Sled Race,Sánkarské preteky,Sáňkařský závod,La carrera de trineos,Гонка на санях,雪橇比赛
+CHAIN_SLED_RACE_DESC,The sled dogs dared you to race down the hill.,Záprahové psy ťa vyzvali na preteky z kopca.,Spřežení tě vyzvalo na závod z kopce.,Los perros de trineo te retaron a bajar la colina.,Ездовые собаки вызвали тебя на гонку с горы.,雪橇犬向你下了战书，比赛冲下山坡。
+CHAIN_SLED_RACE_1,Follow the track,Choď po trati,Jdi po trati,Sigue la pista,Следуй по трассе,沿着赛道走
+CHAIN_SLED_RACE_1_DONE,The lead sled dog is waiting at the finish.,Vodca záprahu čaká v cieli.,Vůdce spřežení čeká v cíli.,El perro guía espera en la meta.,Вожак упряжки ждёт на финише.,领头的雪橇犬在终点等着。
+CHAIN_SLED_RACE_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_SLED_RACE_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_WARM_COCOA_NAME,Warm Cocoa,Teplé kakao,Teplé kakao,Cacao caliente,Тёплое какао,热可可
+CHAIN_WARM_COCOA_DESC,The puppies in the hut are freezing.,Šteniatka v chatke mrznú.,Štěňátka v chatce mrznou.,Los cachorros de la cabaña se congelan.,Щенки в домике замерзают.,小屋里的小狗们冻坏了。
+CHAIN_WARM_COCOA_1,Bring warm milk to the hut,Dones teplé mlieko do chatky,Přines teplé mléko do chatky,Lleva leche caliente a la cabaña,Отнеси тёплое молоко в домик,把热牛奶送到小屋
+CHAIN_WARM_COCOA_1_DONE,Snowmen want to put the fire out.,Snehuliaci chcú uhasiť oheň.,Sněhuláci chtějí uhasit oheň.,Los muñecos de nieve quieren apagar el fuego.,Снеговики хотят потушить огонь.,雪人想把火扑灭。
+CHAIN_WARM_COCOA_2,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_WARM_COCOA_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_ICE_CAVE_NAME,The Ice Cave,Ľadová jaskyňa,Ledová jeskyně,La cueva de hielo,Ледяная пещера,冰洞
+CHAIN_ICE_CAVE_DESC,Lanterns in the snow lead to a cave where a king of ice sits.,"Lampáše v snehu vedú k jaskyni, kde sedí ľadový kráľ.","Lucerny ve sněhu vedou k jeskyni, kde sedí ledový král.",Faroles en la nieve llevan a una cueva donde reina un rey de hielo.,"Фонари в снегу ведут к пещере, где сидит ледяной король.",雪中的灯笼通向一个冰洞，冰之王坐在里面。
+CHAIN_ICE_CAVE_1,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_ICE_CAVE_1_DONE,The Snowman King rises.,Snehuliačí kráľ vstáva.,Sněhulácký král vstává.,Se alza el Rey de las Nieves.,Снежный король поднимается.,雪人王站起来了。
+CHAIN_ICE_CAVE_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_ICE_CAVE_2_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。

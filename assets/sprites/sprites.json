@@ -1905,6 +1905,138 @@
       ],
       "frames": 2
     },
+    "K9_DRONE": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "SERGEANT_CATCHER": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "INSPECTOR_SHEPHERD": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "PILL_BOTTLE": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "CONE_DOG": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "NURSE_CHIHUAHUA": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "GIANT_BEAVER": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "RIVER_TOAD": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "NEWFOUNDLAND": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "SNOWMAN_KING": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "SLED_DOG": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "HUSKY_LEADER": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
     "BOX": {
       "cell": [
         28,

@@ -350,6 +350,31 @@ def main58():
         fn()
 
 
+
+# --- maps 9-12: snow and ice for the Snowy Hill ---
+
+def snow():
+    sand("snow", hexc("eef4f8"), 360, ripples=False)
+
+
+def ice():
+    rng = random.Random(361)
+    S = 128
+    img = Tile(S, S)
+    img.rect(0, 0, S, S, speckle(rng, hexc("b8d8ec"), 0.04, 0.5))
+    for _ in range(12):
+        x, y = rng.randrange(S), rng.randrange(S)
+        for i in range(rng.randint(8, 24)):
+            img.set(x + i, y + i // 3, hexc("e8f4ff"))
+    img.save("apt_floor_ice.png")
+
+
+def main912():
+    snow()
+    ice()
+
+
 if __name__ == "__main__":
     main()
     main58()
+    main912()

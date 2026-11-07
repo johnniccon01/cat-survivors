@@ -2543,3 +2543,69 @@ DOGS_DOG_SHELTER_FRIEND,"Shadow, a black cat","Tieň, čierna mačka","Stín, č
 DOGS_DOG_PARK_FRIEND,"Ruby, the first dog on your side","Ruby, prvý pes na tvojej strane","Ruby, první pes na tvé straně","Ruby, el primer perro de tu lado","Руби, первая собака на твоей стороне",露比，第一只站在你这边的狗
 DOGS_JUNKYARD_FRIEND,"Rascal, the raccoon","Lotor, mýval","Lotr, mýval","Pillo, el mapache","Плут, енот",捣蛋鬼，浣熊
 DOGS_FIRE_STATION_FRIEND,"Sparky, the fire station cat","Iskra, hasičská mačka","Jiskra, hasičská kočka","Chispa, la gata bombera","Искра, пожарная кошка",火花，消防站的猫
+STAT_BOUNCES,+%s bounces,+%s odrazy,+%s odrazy,+%s rebotes,+%s отскока,+%s 次弹跳
+STAT_HEAL,+%s healing,+%s liečenie,+%s léčení,+%s de curación,+%s лечения,+%s 治疗
+WEAPON_PAW_STOMP_NAME,Paw Stomp,Labka,Tlapka,Pisotón,Топот лапы,跺爪
+WEAPON_PAW_STOMP_DESC,Stamps the ground: a short heavy shockwave knocks the crowd back.,Dupne o zem: krátka ťažká vlna odhodí dav.,Dupne o zem: krátká těžká vlna odhodí dav.,Pisa fuerte: una onda corta y pesada empuja a la multitud.,Топает: короткая тяжёлая волна отбрасывает толпу.,猛跺地面：一道短而重的冲击波把敌群震开。
+WEAPON_QUAKE_PAW_NAME,Quake Paw,Zemetrasná labka,Zemětřesná tlapka,Pata sísmica,Лапа-землетрясение,地震之爪
+WEAPON_QUAKE_PAW_DESC,Evolved Paw Stomp: double quakes that stun for a moment.,"Evolúcia labky: dvojité otrasy, ktoré na chvíľu omráčia.","Evoluce tlapky: dvojité otřesy, které na chvíli omráčí.",Pisotón evolucionado: dobles temblores que aturden un momento.,"Эволюция Топота: двойные толчки, ненадолго оглушающие.",跺爪进化：双重震动，短暂眩晕敌人。
+WEAPON_FISHING_ROD_NAME,Fishing Rod,Udica,Udice,Caña de pescar,Удочка,鱼竿
+WEAPON_FISHING_ROD_DESC,"Hooks an enemy and reels it in, right to your claws.",Zasekne nepriateľa a pritiahne ho rovno k pazúrom.,Zasekne nepřítele a přitáhne ho rovnou k drápům.,Engancha a un enemigo y lo arrastra hasta tus garras.,Цепляет врага и подтягивает прямо к когтям.,钩住敌人，直接拉到你的爪子前。
+WEAPON_GOLDEN_ROD_NAME,Golden Rod,Zlatá udica,Zlatá udice,Caña dorada,Золотая удочка,黄金鱼竿
+WEAPON_GOLDEN_ROD_DESC,Evolved Fishing Rod: four golden hooks that go through.,"Evolúcia udice: štyri zlaté háčiky, ktoré prerazia.","Evoluce udice: čtyři zlaté háčky, které prorazí.",Caña evolucionada: cuatro anzuelos dorados que atraviesan.,Эволюция Удочки: четыре золотых крючка насквозь.,鱼竿进化：四个能穿透的金鱼钩。
+WEAPON_CARDBOARD_BOX_NAME,Cardboard Box,Krabica,Krabice,Caja de cartón,Картонная коробка,纸箱
+WEAPON_CARDBOARD_BOX_DESC,"Drops a box nobody can resist; it scratches who bumps in, then bursts.","Položí krabicu, ktorej nikto neodolá; poškriabe, kto do nej narazí, a potom praskne.","Položí krabici, které nikdo neodolá; poškrábe, kdo do ní narazí, a pak praskne.",Deja una caja irresistible; araña a quien choca y luego revienta.,"Ставит неотразимую коробку: царапает тех, кто врезается, потом лопается.",放下一个谁都无法抗拒的箱子；撞上来的会被抓伤，然后它会爆开。
+WEAPON_FORTRESS_BOX_NAME,Box Fortress,Krabicová pevnosť,Krabicová pevnost,Fortaleza de cajas,Коробочная крепость,纸箱堡垒
+WEAPON_FORTRESS_BOX_DESC,Evolved Cardboard Box: four big boxes with huge bursts.,Evolúcia krabice: štyri veľké krabice s mohutným výbuchom.,Evoluce krabice: čtyři velké krabice s mohutným výbuchem.,Caja evolucionada: cuatro cajas grandes con explosiones enormes.,Эволюция Коробки: четыре большие коробки с мощным взрывом.,纸箱进化：四个大箱子，爆炸威力巨大。
+WEAPON_TAIL_WHIP_NAME,Tail Whip,Chvost,Ocas,Latigazo de cola,Удар хвостом,甩尾
+WEAPON_TAIL_WHIP_DESC,"Sweeps behind the cat, where the claws don't reach.","Zametie za mačkou, kam pazúry nedosiahnu.","Zamete za kočkou, kam drápy nedosáhnou.","Barre detrás del gato, donde no llegan las garras.","Сметает позади кошки, куда не достают когти.",横扫猫咪身后，爪子够不着的地方。
+WEAPON_TWIN_TAILS_NAME,Twin Tails,Dvojchvost,Dvojocas,Colas gemelas,Двойной хвост,双尾
+WEAPON_TWIN_TAILS_DESC,Evolved Tail Whip: whips both ways at once.,Evolúcia chvosta: šľahá na obe strany naraz.,Evoluce ocasu: šlehá na obě strany naráz.,Latigazo evolucionado: azota a ambos lados a la vez.,Эволюция Хвоста: хлещет в обе стороны сразу.,甩尾进化：同时向两边抽打。
+WEAPON_SARDINE_RAIN_NAME,Sardine Rain,Sardinkový dážď,Sardinkový déšť,Lluvia de sardinas,Дождь из сардин,沙丁鱼雨
+WEAPON_SARDINE_RAIN_DESC,Sardines fall from the sky onto nearby enemies; watch the shadows.,Na nepriateľov padajú zhora sardinky; sleduj tiene.,Na nepřátele padají shora sardinky; sleduj stíny.,Caen sardinas del cielo sobre los enemigos; mira las sombras.,Сардины падают с неба на врагов; следи за тенями.,沙丁鱼从天而降砸向敌人；注意影子。
+WEAPON_FISH_STORM_NAME,Fish Storm,Rybia búrka,Rybí bouře,Tormenta de peces,Рыбная буря,鱼群风暴
+WEAPON_FISH_STORM_DESC,Evolved Sardine Rain: a storm of ten fish at once.,Evolúcia sardinkového dažďa: búrka desiatich rýb naraz.,Evoluce sardinkového deště: bouře deseti ryb naráz.,Lluvia evolucionada: una tormenta de diez peces a la vez.,Эволюция Дождя: буря из десяти рыб сразу.,沙丁鱼雨进化：一次落下十条鱼的风暴。
+WEAPON_PURR_NAME,Purr,Pradenie,Předení,Ronroneo,Мурчание,呼噜
+WEAPON_PURR_DESC,A soft wave that hurts the enemies around and heals the cat a little.,"Jemná vlna, ktorá zraní nepriateľov okolo a trochu vylieči mačku.","Jemná vlna, která zraní nepřátele kolem a trochu vyléčí kočku.",Una onda suave que daña a los enemigos cercanos y cura un poco al gato.,Мягкая волна ранит врагов вокруг и немного лечит кошку.,一圈柔和的波，伤害周围敌人并稍微治疗猫咪。
+WEAPON_LION_PURR_NAME,Lion's Purr,Levie pradenie,Lví předení,Ronroneo de león,Львиное мурчание,狮子呼噜
+WEAPON_LION_PURR_DESC,Evolved Purr: a roar that heals much more.,"Evolúcia pradenia: rev, ktorý lieči oveľa viac.","Evoluce předení: řev, který léčí mnohem víc.",Ronroneo evolucionado: un rugido que cura mucho más.,"Эволюция Мурчания: рёв, лечащий гораздо сильнее.",呼噜进化：一声治疗更多的吼叫。
+WEAPON_SEWING_NEEDLE_NAME,Sewing Needle,Ihla s niťou,Jehla s nití,Aguja de coser,Швейная игла,缝衣针
+WEAPON_SEWING_NEEDLE_DESC,Shoots at the nearest enemy and goes through every enemy on its way.,Vystrelí na najbližšieho nepriateľa a prejde každým v ceste.,Vystřelí na nejbližšího nepřítele a projde každým v cestě.,Dispara al enemigo más cercano y atraviesa a todos en su camino.,"Летит в ближайшего врага и пронзает всех на пути.",射向最近的敌人，穿透路上所有敌人。
+WEAPON_EMBROIDERY_NAME,Embroidery,Výšivka,Výšivka,Bordado,Вышивка,刺绣
+WEAPON_EMBROIDERY_DESC,Evolved Needle: needles fly in four directions.,Evolúcia ihly: ihly letia do štyroch strán.,Evoluce jehly: jehly letí do čtyř stran.,Aguja evolucionada: agujas en cuatro direcciones.,Эволюция Иглы: иглы летят в четыре стороны.,缝衣针进化：针朝四个方向飞。
+WEAPON_FLASHLIGHT_NAME,Flashlight,Baterka,Baterka,Linterna,Фонарик,手电筒
+WEAPON_FLASHLIGHT_DESC,A cone of light ahead of the cat burns whoever stands in it.,"Kužeľ svetla pred mačkou páli každého, kto v ňom stojí.","Kužel světla před kočkou pálí každého, kdo v něm stojí.",Un cono de luz delante del gato quema a quien esté dentro.,"Конус света перед кошкой жжёт всех, кто в нём стоит.",猫咪前方的光锥灼烧站在里面的敌人。
+WEAPON_LIGHTHOUSE_BEAM_NAME,Lighthouse Beam,Maják,Maják,Haz de faro,Луч маяка,灯塔光束
+WEAPON_LIGHTHOUSE_BEAM_DESC,Evolved Flashlight: the beam sweeps round and round.,Evolúcia baterky: lúč sa točí dookola.,Evoluce baterky: paprsek se točí dokola.,Linterna evolucionada: el haz gira sin parar.,Эволюция Фонарика: луч вращается по кругу.,手电筒进化：光束不停旋转。
+WEAPON_BOTTLE_CAPS_NAME,Bottle Caps,Vrchnáky,Víčka,Chapas,Крышечки,瓶盖
+WEAPON_BOTTLE_CAPS_DESC,Flicked caps ricochet from enemy to enemy.,Odpálené vrchnáky sa odrážajú od nepriateľa k nepriateľovi.,Odpálená víčka se odrážejí od nepřítele k nepříteli.,Las chapas rebotan de enemigo en enemigo.,Крышечки рикошетят от врага к врагу.,弹出的瓶盖在敌人之间来回反弹。
+WEAPON_CAP_CANNON_NAME,Cap Cannon,Vrchnákový kanón,Víčkový kanón,Cañón de chapas,Пушка крышечек,瓶盖大炮
+WEAPON_CAP_CANNON_DESC,Evolved Bottle Caps: golden caps with ten bounces.,Evolúcia vrchnákov: zlaté vrchnáky s desiatimi odrazmi.,Evoluce víček: zlatá víčka s deseti odrazy.,Chapas evolucionadas: chapas doradas con diez rebotes.,Эволюция Крышечек: золотые крышечки с десятью отскоками.,瓶盖进化：能弹十次的金瓶盖。
+WEAPON_SOAP_BUBBLES_NAME,Soap Bubbles,Mydlové bubliny,Mýdlové bubliny,Pompas de jabón,Мыльные пузыри,肥皂泡
+WEAPON_SOAP_BUBBLES_DESC,"Slow bubbles pop on the first enemy, hurting and slowing everyone close.","Pomalé bubliny prasknú na prvom nepriateľovi, zrania a spomalia všetkých okolo.","Pomalé bubliny prasknou na prvním nepříteli, zraní a zpomalí všechny kolem.","Pompas lentas que estallan en el primer enemigo, dañando y frenando a los cercanos.","Медленные пузыри лопаются о первого врага, раня и замедляя всех рядом.",缓慢的泡泡碰到第一个敌人就会破裂，伤害并减速周围的敌人。
+WEAPON_BUBBLE_BATH_NAME,Bubble Bath,Bublinkový kúpeľ,Bublinková koupel,Baño de espuma,Пенная ванна,泡泡浴
+WEAPON_BUBBLE_BATH_DESC,"Evolved Soap Bubbles: seven big bubbles, longer slow.","Evolúcia bublín: sedem veľkých bublín, dlhšie spomalenie.","Evoluce bublin: sedm velkých bublin, delší zpomalení.","Pompas evolucionadas: siete pompas grandes, frenan más.","Эволюция Пузырей: семь больших пузырей, дольше замедляют.",肥皂泡进化：七个大泡泡，减速更久。
+WEAPON_PAPER_PLANE_NAME,Paper Plane,Papierové lietadielko,Papírové letadélko,Avión de papel,Бумажный самолётик,纸飞机
+WEAPON_PAPER_PLANE_DESC,Steers itself towards the nearest enemy.,Samo sa navedie na najbližšieho nepriateľa.,Samo se navede na nejbližšího nepřítele.,Se dirige solo hacia el enemigo más cercano.,Само наводится на ближайшего врага.,自动飞向最近的敌人。
+WEAPON_ORIGAMI_SQUADRON_NAME,Origami Squadron,Origami letka,Origami letka,Escuadrilla de origami,Эскадрилья оригами,折纸飞行队
+WEAPON_ORIGAMI_SQUADRON_DESC,Evolved Paper Plane: five golden planes that turn and strike again.,"Evolúcia lietadielka: päť zlatých lietadielok, ktoré sa otočia a zaútočia znova.","Evoluce letadélka: pět zlatých letadélek, která se otočí a zaútočí znovu.",Avión evolucionado: cinco aviones dorados que giran y vuelven a atacar.,Эволюция Самолётика: пять золотых самолётиков разворачиваются и бьют снова.,纸飞机进化：五架金色纸飞机，会转回来再次攻击。
+WEAPON_KITTY_LITTER_NAME,Kitty Litter,Stelivo,Stelivo,Arena para gatos,Наполнитель,猫砂
+WEAPON_KITTY_LITTER_DESC,Kicks up a cloud of litter where the cat stands; enemies in it choke.,"Rozvíri oblak steliva, kde mačka stojí; nepriatelia v ňom sa dusia.","Rozvíří oblak steliva, kde kočka stojí; nepřátelé v něm se dusí.",Levanta una nube de arena donde está el gato; los enemigos se ahogan.,"Поднимает облако наполнителя, где стоит кошка; враги в нём задыхаются.",在猫咪站的地方扬起一团猫砂；里面的敌人会呛到。
+WEAPON_SANDSTORM_NAME,Sandstorm,Piesočná búrka,Písečná bouře,Tormenta de arena,Песчаная буря,沙尘暴
+WEAPON_SANDSTORM_DESC,Evolved Kitty Litter: big clouds that slow everyone in them.,"Evolúcia steliva: veľké oblaky, ktoré spomalia všetkých v nich.","Evoluce steliva: velké oblaky, které zpomalí všechny v nich.",Arena evolucionada: nubes grandes que frenan a todos.,Эволюция Наполнителя: большие облака замедляют всех внутри.,猫砂进化：大片沙云，让里面的敌人减速。
+PASSIVE_GROWTH_NAME,Quick Learner,Učenlivosť,Učenlivost,Aprendiz rápido,Сообразительность,学得快
+PASSIVE_GROWTH_DESC,+8% experience.,+8 % skúsenosti.,+8 % zkušeností.,+8% de experiencia.,+8% опыта.,经验 +8%。
+PASSIVE_GREED_NAME,Shiny Collar,Blýskavý obojok,Blýskavý obojek,Collar brillante,Блестящий ошейник,闪亮项圈
+PASSIVE_GREED_DESC,+10% gold.,+10 % zlata.,+10 % zlata.,+10% de oro.,+10% золота.,金币 +10%。
+PASSIVE_CRIT_NAME,Keen Eyes,Bystré oči,Bystré oči,Ojos agudos,Зоркие глаза,锐利双眼
+PASSIVE_CRIT_DESC,+3% critical chance.,+3 % kritická šanca.,+3 % kritická šance.,+3% de probabilidad crítica.,+3% шанса крита.,暴击率 +3%。
+PASSIVE_CRIT_MULT_NAME,Deadly Pounce,Smrtiaci skok,Smrtící skok,Salto letal,Смертельный прыжок,致命一扑
+PASSIVE_CRIT_MULT_DESC,+20% critical damage.,+20 % kritické poškodenie.,+20 % kritické poškození.,+20% de daño crítico.,+20% критического урона.,暴击伤害 +20%。
+PASSIVE_BOSS_DAMAGE_NAME,Boss Hunter,Lovec bossov,Lovec bossů,Cazajefes,Охотник на боссов,首领猎手
+PASSIVE_BOSS_DAMAGE_DESC,+10% damage to bosses.,+10 % poškodenie bossom.,+10 % poškození bossům.,+10% de daño a jefes.,+10% урона боссам.,对首领伤害 +10%。
+PASSIVE_THORNS_NAME,Thistle Fur,Bodliakový kožuch,Bodlákový kožich,Pelaje de cardo,Колючая шерсть,蓟刺皮毛
+PASSIVE_THORNS_DESC,Getting hurt pricks every enemy close to the cat.,"Keď ťa zrania, pichne každého nepriateľa blízko mačky.","Když tě zraní, píchne každého nepřítele blízko kočky.",Al recibir daño pinchas a los enemigos cercanos.,"Получая урон, колешь всех врагов рядом.",受伤时刺伤猫咪身边的每个敌人。
+PASSIVE_HEAL_POWER_NAME,Warm Milk,Teplé mlieko,Teplé mléko,Leche tibia,Тёплое молоко,温牛奶
+PASSIVE_HEAL_POWER_DESC,+15% healing from everything.,+15 % liečenie zo všetkého.,+15 % léčení ze všeho.,+15% de curación de todo.,+15% лечения от всего.,所有治疗 +15%。
+PASSIVE_LEVEL_HEAL_NAME,Catnap,Šlofík,Šlofík,Siestecita,Кошачий сон,猫咪小睡
+PASSIVE_LEVEL_HEAL_DESC,Every level-up heals 3% of your health.,Každý level vylieči 3 % zdravia.,Každý level vyléčí 3 % zdraví.,Cada nivel cura un 3% de tu salud.,Каждый уровень лечит 3% здоровья.,每次升级恢复 3% 生命。

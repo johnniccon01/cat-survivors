@@ -143,6 +143,52 @@ static func _weapon(ci: CanvasItem, id: String) -> void:
 			for d: Vector2 in [Vector2(4, 5), Vector2(12, 5), Vector2(4, 13), Vector2(12, 13)]:
 				ci.draw_line(Vector2(8, 9), d, Color("9aa0a6"), 1.0)
 				ci.draw_line(d + Vector2(-2, 0), d + Vector2(2, 0), Color("e8f4ff"), 1.0)
+		"PAW_STOMP":
+			ci.draw_circle(Vector2(8, 10), 3.5, Color("f4f1ea"))
+			for t: Vector2 in [Vector2(4, 6), Vector2(7, 4), Vector2(10, 4), Vector2(13, 6)]:
+				ci.draw_circle(t, 1.6, Color("f4f1ea"))
+			ci.draw_arc(Vector2(8, 10), 6.5, PI * 0.1, PI * 0.9, 8, Color("c89a6a"), 1.0)
+		"FISHING_ROD":
+			ci.draw_line(Vector2(2, 14), Vector2(12, 2), Color("8a5a34"), 1.5)
+			ci.draw_line(Vector2(12, 2), Vector2(13, 10), Color(1, 1, 1, 0.7), 1.0)
+			ci.draw_polyline(PackedVector2Array([Vector2(13, 10), Vector2(13, 13), Vector2(11, 13), Vector2(11, 12)]), Color("c9ced2"), 1.0)
+		"CARDBOARD_BOX":
+			ci.draw_rect(Rect2(3, 5, 10, 8), Color("c8a070"))
+			ci.draw_rect(Rect2(3, 8, 10, 1), Color("e8d8a8"))
+			ci.draw_colored_polygon(PackedVector2Array([Vector2(3, 5), Vector2(1, 2), Vector2(6, 4)]), Color("b08a5a"))
+			ci.draw_colored_polygon(PackedVector2Array([Vector2(13, 5), Vector2(15, 2), Vector2(10, 4)]), Color("b08a5a"))
+		"TAIL_WHIP":
+			ci.draw_polyline(PackedVector2Array([Vector2(3, 13), Vector2(5, 8), Vector2(9, 5), Vector2(13, 5), Vector2(14, 8)]), Color("e8a050"), 2.5)
+			ci.draw_arc(Vector2(8, 8), 6.5, PI * 1.1, PI * 1.6, 6, Color(1, 1, 1, 0.6), 1.0)
+		"SARDINE_RAIN":
+			for p: Vector2 in [Vector2(5, 5), Vector2(11, 8), Vector2(6, 12)]:
+				ci.draw_colored_polygon(Shapes.ellipse(p, 2.8, 1.3, 8), Color("aab4be"))
+				ci.draw_colored_polygon(PackedVector2Array([p + Vector2(2, 0), p + Vector2(4, -1.5), p + Vector2(4, 1.5)]), Color("8c96a0"))
+		"PURR":
+			ci.draw_arc(Vector2(8, 8), 3.0, 0.0, TAU, 10, Color("f0a0c8"), 1.0)
+			ci.draw_arc(Vector2(8, 8), 5.5, 0.0, TAU, 14, Color("f0a0c8"), 1.0)
+			ci.draw_circle(Vector2(8, 8), 1.5, Color("f4f1ea"))
+		"SEWING_NEEDLE":
+			ci.draw_line(Vector2(3, 13), Vector2(13, 3), Color("dfe4e8"), 1.5)
+			ci.draw_arc(Vector2(5, 9), 3.0, PI * 0.5, PI * 1.6, 8, Color("e0628f"), 1.0)
+		"FLASHLIGHT":
+			ci.draw_rect(Rect2(2, 7, 5, 3), Color("4a4e54"))
+			ci.draw_colored_polygon(PackedVector2Array([Vector2(7, 8), Vector2(14, 4), Vector2(14, 12)]), Color(1.0, 0.95, 0.6, 0.8))
+		"BOTTLE_CAPS":
+			ci.draw_circle(Vector2(6, 9), 3.5, Color("d9534f"))
+			ci.draw_circle(Vector2(6, 9), 1.8, Color("f4f1ea"))
+			ci.draw_arc(Vector2(10, 6), 4.0, -PI * 0.8, 0.0, 6, Color(1, 1, 1, 0.7), 1.0)
+		"SOAP_BUBBLES":
+			for b: Array in [[Vector2(6, 9), 3.5], [Vector2(11, 6), 2.5], [Vector2(11, 12), 2.0]]:
+				ci.draw_arc(b[0], b[1], 0.0, TAU, 12, Color(0.85, 0.95, 1.0), 1.0)
+				ci.draw_circle(b[0] - Vector2(1, 1), 0.7, Color.WHITE)
+		"PAPER_PLANE":
+			ci.draw_colored_polygon(PackedVector2Array([Vector2(14, 4), Vector2(2, 8), Vector2(7, 9), Vector2(9, 14)]), Color("f4f1ea"))
+			ci.draw_line(Vector2(14, 4), Vector2(7, 9), Color("c8c0b0"), 1.0)
+		"KITTY_LITTER":
+			for i in 7:
+				ci.draw_circle(Vector2(4 + (i * 5) % 9, 6 + (i * 3) % 7), 1.6, Color("d8ccb0"))
+			ci.draw_rect(Rect2(2, 12, 12, 2), Color("8a7a5a"))
 		_:
 			ci.draw_circle(Vector2(8, 8), 4.0, Color.WHITE)
 
@@ -205,6 +251,41 @@ static func _passive(ci: CanvasItem, id: String) -> void:
 			ci.draw_circle(Vector2(11.5, 3), 1.8, Color("f4f1ea"))
 			ci.draw_circle(Vector2(8, 11), 2.5, Color("f2c14e"))
 			ci.draw_arc(Vector2(8, 10), 4.5, 0.0, TAU, 12, Color("e04646"), 1.0)
+		"GROWTH":
+			ci.draw_line(Vector2(8, 14), Vector2(8, 6), Color("5ea84a"), 1.5)
+			ci.draw_colored_polygon(Shapes.ellipse(Vector2(5, 7), 3.0, 1.6, 8), Color("6fb85a"))
+			ci.draw_colored_polygon(Shapes.ellipse(Vector2(11, 5), 3.0, 1.6, 8), Color("6fb85a"))
+			ci.draw_circle(Vector2(8, 4), 1.3, Color("8fd3ff"))
+		"GREED":
+			ci.draw_arc(Vector2(8, 7), 5.0, 0.2, PI - 0.2, 10, Color("d94848"), 2.0)
+			ci.draw_circle(Vector2(8, 12), 2.5, Color("f2c14e"))
+			ci.draw_circle(Vector2(7.3, 11.3), 0.8, Color("fff3c8"))
+		"CRIT":
+			ci.draw_circle(Vector2(8, 8), 5.0, Color("f2c14e"))
+			ci.draw_circle(Vector2(8, 8), 3.5, Color("2b1d14"))
+			ci.draw_line(Vector2(8, 4.5), Vector2(8, 11.5), Color("f2c14e"), 1.0)
+		"CRIT_MULT":
+			for i in 3:
+				ci.draw_line(Vector2(4 + i * 3, 3), Vector2(2 + i * 3, 13), Color("ff7a5a"), 1.5)
+			ci.draw_circle(Vector2(13, 4), 1.5, Color("f2c14e"))
+		"BOSS_DAMAGE":
+			ci.draw_colored_polygon(PackedVector2Array([Vector2(3, 6), Vector2(5, 3), Vector2(8, 6), Vector2(11, 3), Vector2(13, 6), Vector2(13, 9), Vector2(3, 9)]), Color("f2c14e"))
+			ci.draw_line(Vector2(3, 12), Vector2(13, 12), Color("e04646"), 2.0)
+		"THORNS":
+			ci.draw_circle(Vector2(8, 8), 3.5, Color("7a5a3a"))
+			for k in 8:
+				var a := TAU * k / 8.0
+				ci.draw_line(Vector2(8, 8) + Vector2.from_angle(a) * 3.5, Vector2(8, 8) + Vector2.from_angle(a) * 6.5, Color("e8d0a8"), 1.0)
+		"HEAL_POWER":
+			ci.draw_rect(Rect2(4, 5, 8, 9), Color("f4f4f0"))
+			ci.draw_rect(Rect2(5, 3, 6, 2), Color("d8d8d0"))
+			ci.draw_rect(Rect2(7, 7, 2, 5), Color("e04646"))
+			ci.draw_rect(Rect2(5.5, 8.5, 5, 2), Color("e04646"))
+		"LEVEL_HEAL":
+			ci.draw_arc(Vector2(7, 8), 5.0, PI * 0.5, PI * 1.6, 10, Color("f2d14e"), 2.0)
+			ci.draw_line(Vector2(10, 4), Vector2(13, 4), Color("e8f4ff"), 1.0)
+			ci.draw_line(Vector2(13, 4), Vector2(10, 7), Color("e8f4ff"), 1.0)
+			ci.draw_line(Vector2(10, 7), Vector2(13, 7), Color("e8f4ff"), 1.0)
 		"HEAL":
 			ci.draw_colored_polygon(Shapes.ellipse(Vector2(9, 8), 5, 2.5, 12), Color("b8cfdc"))
 			ci.draw_colored_polygon(PackedVector2Array([Vector2(4, 8), Vector2(1, 5), Vector2(1, 11)]), Color("8fa9b8"))

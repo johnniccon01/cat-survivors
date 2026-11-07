@@ -998,5 +998,684 @@
         "area": 1.3
       }
     ]
+  },
+  "PAW_STOMP": {
+    "script": "res://scripts/weapons/paw_stomp.gd",
+    "rarity": 90,
+    "levels": [
+      {
+        "damage": 18,
+        "interval": 2.4,
+        "repeat_interval": 0.25,
+        "amount": 1,
+        "area": 1.0,
+        "knockback": 2.5
+      },
+      {
+        "damage": 6
+      },
+      {
+        "area": 0.15
+      },
+      {
+        "interval": -0.3
+      },
+      {
+        "damage": 8
+      },
+      {
+        "amount": 1
+      },
+      {
+        "area": 0.15
+      },
+      {
+        "damage": 10
+      }
+    ],
+    "evolve": {
+      "with": "THORNS",
+      "into": "QUAKE_PAW"
+    }
+  },
+  "QUAKE_PAW": {
+    "script": "res://scripts/weapons/paw_stomp.gd",
+    "evolved": true,
+    "quake": true,
+    "levels": [
+      {
+        "damage": 85,
+        "interval": 1.8,
+        "repeat_interval": 0.3,
+        "amount": 2,
+        "area": 1.6,
+        "knockback": 3.0
+      }
+    ]
+  },
+  "FISHING_ROD": {
+    "script": "res://scripts/weapons/fishing_rod.gd",
+    "rarity": 80,
+    "requires_stage": "ISLAND",
+    "levels": [
+      {
+        "damage": 14,
+        "interval": 1.6,
+        "repeat_interval": 0.15,
+        "amount": 1,
+        "area": 1.0,
+        "knockback": 1.6,
+        "pierce": 1,
+        "speed": 1.0,
+        "duration": 0.9
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 6
+      },
+      {
+        "interval": -0.2
+      },
+      {
+        "damage": 6
+      },
+      {
+        "amount": 1
+      },
+      {
+        "pierce": 1
+      },
+      {
+        "damage": 8
+      }
+    ],
+    "evolve": {
+      "with": "GREED",
+      "into": "GOLDEN_ROD"
+    }
+  },
+  "GOLDEN_ROD": {
+    "script": "res://scripts/weapons/fishing_rod.gd",
+    "evolved": true,
+    "golden": true,
+    "levels": [
+      {
+        "damage": 45,
+        "interval": 1.1,
+        "repeat_interval": 0.1,
+        "amount": 4,
+        "area": 1.4,
+        "knockback": 2.0,
+        "pierce": 4,
+        "speed": 1.3,
+        "duration": 1.1
+      }
+    ]
+  },
+  "CARDBOARD_BOX": {
+    "script": "res://scripts/weapons/cardboard_box.gd",
+    "rarity": 80,
+    "requires_stage": "CONSTRUCTION",
+    "levels": [
+      {
+        "damage": 14,
+        "interval": 3.5,
+        "repeat_interval": 0.3,
+        "amount": 1,
+        "area": 1.0,
+        "duration": 3.0,
+        "knockback": 1.5
+      },
+      {
+        "damage": 4
+      },
+      {
+        "amount": 1
+      },
+      {
+        "area": 0.2
+      },
+      {
+        "damage": 5
+      },
+      {
+        "interval": -0.5
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 6
+      }
+    ],
+    "evolve": {
+      "with": "MAGNET",
+      "into": "FORTRESS_BOX"
+    }
+  },
+  "FORTRESS_BOX": {
+    "script": "res://scripts/weapons/cardboard_box.gd",
+    "evolved": true,
+    "levels": [
+      {
+        "damage": 34,
+        "interval": 2.4,
+        "repeat_interval": 0.2,
+        "amount": 4,
+        "area": 1.8,
+        "duration": 3.0,
+        "knockback": 2.5
+      }
+    ]
+  },
+  "TAIL_WHIP": {
+    "script": "res://scripts/weapons/tail_whip.gd",
+    "rarity": 90,
+    "levels": [
+      {
+        "damage": 12,
+        "interval": 1.4,
+        "repeat_interval": 0.15,
+        "amount": 1,
+        "area": 1.0,
+        "knockback": 1.2
+      },
+      {
+        "damage": 5
+      },
+      {
+        "area": 0.15
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 6
+      },
+      {
+        "interval": -0.2
+      },
+      {
+        "area": 0.15
+      },
+      {
+        "damage": 8
+      }
+    ],
+    "evolve": {
+      "with": "CRIT",
+      "into": "TWIN_TAILS"
+    }
+  },
+  "TWIN_TAILS": {
+    "script": "res://scripts/weapons/tail_whip.gd",
+    "evolved": true,
+    "twin": true,
+    "levels": [
+      {
+        "damage": 40,
+        "interval": 0.9,
+        "repeat_interval": 0.1,
+        "amount": 2,
+        "area": 1.5,
+        "knockback": 1.8
+      }
+    ]
+  },
+  "SARDINE_RAIN": {
+    "script": "res://scripts/weapons/sardine_rain.gd",
+    "rarity": 80,
+    "requires_stage": "PARK",
+    "levels": [
+      {
+        "damage": 16,
+        "interval": 2.2,
+        "repeat_interval": 0.18,
+        "amount": 2,
+        "area": 1.0,
+        "knockback": 0.8
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 6
+      },
+      {
+        "area": 0.15
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 6
+      },
+      {
+        "interval": -0.3
+      },
+      {
+        "amount": 2
+      }
+    ],
+    "evolve": {
+      "with": "GROWTH",
+      "into": "FISH_STORM"
+    }
+  },
+  "FISH_STORM": {
+    "script": "res://scripts/weapons/sardine_rain.gd",
+    "evolved": true,
+    "levels": [
+      {
+        "damage": 34,
+        "interval": 1.5,
+        "repeat_interval": 0.08,
+        "amount": 8,
+        "area": 1.5,
+        "knockback": 1.2
+      }
+    ]
+  },
+  "PURR": {
+    "script": "res://scripts/weapons/purr.gd",
+    "rarity": 80,
+    "levels": [
+      {
+        "damage": 8,
+        "interval": 3.0,
+        "repeat_interval": 0.3,
+        "amount": 1,
+        "area": 1.0,
+        "knockback": 0.4,
+        "heal": 1.0
+      },
+      {
+        "damage": 3
+      },
+      {
+        "area": 0.15
+      },
+      {
+        "heal": 0.5
+      },
+      {
+        "damage": 4
+      },
+      {
+        "interval": -0.4
+      },
+      {
+        "area": 0.15
+      },
+      {
+        "damage": 5,
+        "heal": 0.5
+      }
+    ],
+    "evolve": {
+      "with": "HEAL_POWER",
+      "into": "LION_PURR"
+    }
+  },
+  "LION_PURR": {
+    "script": "res://scripts/weapons/purr.gd",
+    "evolved": true,
+    "lion": true,
+    "levels": [
+      {
+        "damage": 30,
+        "interval": 2.0,
+        "repeat_interval": 0.3,
+        "amount": 1,
+        "area": 1.8,
+        "knockback": 1.5,
+        "heal": 4.0
+      }
+    ]
+  },
+  "SEWING_NEEDLE": {
+    "script": "res://scripts/weapons/needle.gd",
+    "rarity": 85,
+    "requires_stage": "STATION",
+    "levels": [
+      {
+        "damage": 9,
+        "interval": 1.1,
+        "repeat_interval": 0.08,
+        "amount": 1,
+        "area": 1.0,
+        "knockback": 0.2,
+        "speed": 1.0,
+        "duration": 0.8
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 4
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 4
+      },
+      {
+        "interval": -0.15
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 6
+      }
+    ],
+    "evolve": {
+      "with": "CRIT_MULT",
+      "into": "EMBROIDERY"
+    }
+  },
+  "EMBROIDERY": {
+    "script": "res://scripts/weapons/needle.gd",
+    "evolved": true,
+    "embroidery": true,
+    "levels": [
+      {
+        "damage": 40,
+        "interval": 0.6,
+        "repeat_interval": 0.05,
+        "amount": 2,
+        "area": 1.3,
+        "knockback": 0.3,
+        "speed": 1.3,
+        "duration": 1.0
+      }
+    ]
+  },
+  "FLASHLIGHT": {
+    "script": "res://scripts/weapons/flashlight.gd",
+    "rarity": 80,
+    "requires_stage": "CEMETERY",
+    "levels": [
+      {
+        "damage": 4,
+        "interval": 4.0,
+        "repeat_interval": 0.2,
+        "amount": 1,
+        "area": 1.0,
+        "duration": 2.0
+      },
+      {
+        "damage": 1.5
+      },
+      {
+        "duration": 0.5
+      },
+      {
+        "area": 0.15
+      },
+      {
+        "damage": 2
+      },
+      {
+        "interval": -0.5
+      },
+      {
+        "duration": 0.5
+      },
+      {
+        "damage": 2
+      }
+    ],
+    "evolve": {
+      "with": "DURATION",
+      "into": "LIGHTHOUSE_BEAM"
+    }
+  },
+  "LIGHTHOUSE_BEAM": {
+    "script": "res://scripts/weapons/flashlight.gd",
+    "evolved": true,
+    "lighthouse": true,
+    "levels": [
+      {
+        "damage": 12,
+        "interval": 2.5,
+        "repeat_interval": 0.2,
+        "amount": 1,
+        "area": 1.5,
+        "duration": 3.0
+      }
+    ]
+  },
+  "BOTTLE_CAPS": {
+    "script": "res://scripts/weapons/bottle_caps.gd",
+    "rarity": 80,
+    "requires_stage": "RAILYARD",
+    "levels": [
+      {
+        "damage": 9,
+        "interval": 1.5,
+        "repeat_interval": 0.12,
+        "amount": 1,
+        "area": 1.0,
+        "knockback": 0.4,
+        "speed": 1.0,
+        "duration": 2.0,
+        "bounces": 3
+      },
+      {
+        "bounces": 1
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 4
+      },
+      {
+        "bounces": 1
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 5
+      },
+      {
+        "bounces": 2
+      }
+    ],
+    "evolve": {
+      "with": "LUCK",
+      "into": "CAP_CANNON"
+    }
+  },
+  "CAP_CANNON": {
+    "script": "res://scripts/weapons/bottle_caps.gd",
+    "evolved": true,
+    "levels": [
+      {
+        "damage": 26,
+        "interval": 0.9,
+        "repeat_interval": 0.08,
+        "amount": 4,
+        "area": 1.4,
+        "knockback": 0.6,
+        "speed": 1.3,
+        "duration": 2.5,
+        "bounces": 10
+      }
+    ]
+  },
+  "SOAP_BUBBLES": {
+    "script": "res://scripts/weapons/soap_bubbles.gd",
+    "rarity": 80,
+    "requires_stage": "SEWER",
+    "levels": [
+      {
+        "damage": 12,
+        "interval": 1.8,
+        "repeat_interval": 0.2,
+        "amount": 2,
+        "area": 1.0,
+        "knockback": 0.3,
+        "speed": 1.0,
+        "duration": 3.0
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 5
+      },
+      {
+        "area": 0.15
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 6
+      },
+      {
+        "duration": 1.0
+      },
+      {
+        "amount": 1
+      }
+    ],
+    "evolve": {
+      "with": "LEVEL_HEAL",
+      "into": "BUBBLE_BATH"
+    }
+  },
+  "BUBBLE_BATH": {
+    "script": "res://scripts/weapons/soap_bubbles.gd",
+    "evolved": true,
+    "levels": [
+      {
+        "damage": 34,
+        "interval": 1.2,
+        "repeat_interval": 0.1,
+        "amount": 7,
+        "area": 1.6,
+        "knockback": 0.5,
+        "speed": 1.1,
+        "duration": 4.0
+      }
+    ]
+  },
+  "PAPER_PLANE": {
+    "script": "res://scripts/weapons/paper_plane.gd",
+    "rarity": 85,
+    "levels": [
+      {
+        "damage": 11,
+        "interval": 1.6,
+        "repeat_interval": 0.15,
+        "amount": 1,
+        "area": 1.0,
+        "knockback": 0.5,
+        "speed": 1.0,
+        "duration": 2.5
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 5
+      },
+      {
+        "interval": -0.2
+      },
+      {
+        "amount": 1
+      },
+      {
+        "damage": 5
+      },
+      {
+        "duration": 0.5
+      },
+      {
+        "damage": 6
+      }
+    ],
+    "evolve": {
+      "with": "BOSS_DAMAGE",
+      "into": "ORIGAMI_SQUADRON"
+    }
+  },
+  "ORIGAMI_SQUADRON": {
+    "script": "res://scripts/weapons/paper_plane.gd",
+    "evolved": true,
+    "levels": [
+      {
+        "damage": 11,
+        "interval": 1.3,
+        "repeat_interval": 0.08,
+        "amount": 4,
+        "area": 1.3,
+        "knockback": 0.7,
+        "speed": 1.2,
+        "duration": 3.5
+      }
+    ]
+  },
+  "KITTY_LITTER": {
+    "script": "res://scripts/weapons/kitty_litter.gd",
+    "rarity": 80,
+    "requires_stage": "FOREST",
+    "levels": [
+      {
+        "damage": 5,
+        "interval": 2.5,
+        "repeat_interval": 0.3,
+        "amount": 1,
+        "area": 1.0,
+        "duration": 3.0
+      },
+      {
+        "damage": 2
+      },
+      {
+        "duration": 1.0
+      },
+      {
+        "area": 0.15
+      },
+      {
+        "damage": 2
+      },
+      {
+        "amount": 1
+      },
+      {
+        "area": 0.15
+      },
+      {
+        "damage": 3
+      }
+    ],
+    "evolve": {
+      "with": "SPEED",
+      "into": "SANDSTORM"
+    }
+  },
+  "SANDSTORM": {
+    "script": "res://scripts/weapons/kitty_litter.gd",
+    "evolved": true,
+    "levels": [
+      {
+        "damage": 14,
+        "interval": 1.6,
+        "repeat_interval": 0.2,
+        "amount": 2,
+        "area": 1.8,
+        "duration": 4.5
+      }
+    ]
   }
 }

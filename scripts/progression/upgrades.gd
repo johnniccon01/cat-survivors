@@ -18,6 +18,8 @@ const STAT_TEXT := {
 	"interval": "STAT_INTERVAL",
 	"freeze": "STAT_FREEZE",
 	"stun": "STAT_STUN",
+	"bounces": "STAT_BOUNCES",
+	"heal": "STAT_HEAL",
 }
 const PERCENT_STATS := ["area", "speed", "duration"]
 ## Upgrades of what you already have come up more often than new things, so

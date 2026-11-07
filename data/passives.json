@@ -229,5 +229,165 @@
         "proj_speed": 0.1
       }
     ]
+  },
+  "GROWTH": {
+    "rarity": 70,
+    "levels": [
+      {
+        "growth": 0.08
+      },
+      {
+        "growth": 0.08
+      },
+      {
+        "growth": 0.08
+      },
+      {
+        "growth": 0.08
+      },
+      {
+        "growth": 0.08
+      }
+    ]
+  },
+  "GREED": {
+    "rarity": 70,
+    "levels": [
+      {
+        "greed": 0.1
+      },
+      {
+        "greed": 0.1
+      },
+      {
+        "greed": 0.1
+      },
+      {
+        "greed": 0.1
+      },
+      {
+        "greed": 0.1
+      }
+    ]
+  },
+  "CRIT": {
+    "rarity": 70,
+    "levels": [
+      {
+        "crit_chance": 0.03
+      },
+      {
+        "crit_chance": 0.03
+      },
+      {
+        "crit_chance": 0.03
+      },
+      {
+        "crit_chance": 0.03
+      },
+      {
+        "crit_chance": 0.03
+      }
+    ]
+  },
+  "CRIT_MULT": {
+    "rarity": 60,
+    "levels": [
+      {
+        "crit_mult": 0.2
+      },
+      {
+        "crit_mult": 0.2
+      },
+      {
+        "crit_mult": 0.2
+      },
+      {
+        "crit_mult": 0.2
+      },
+      {
+        "crit_mult": 0.2
+      }
+    ]
+  },
+  "BOSS_DAMAGE": {
+    "rarity": 60,
+    "levels": [
+      {
+        "boss_damage": 0.1
+      },
+      {
+        "boss_damage": 0.1
+      },
+      {
+        "boss_damage": 0.1
+      },
+      {
+        "boss_damage": 0.1
+      },
+      {
+        "boss_damage": 0.1
+      }
+    ]
+  },
+  "THORNS": {
+    "rarity": 60,
+    "levels": [
+      {
+        "thorns": 0.5
+      },
+      {
+        "thorns": 0.5
+      },
+      {
+        "thorns": 0.5
+      },
+      {
+        "thorns": 0.5
+      },
+      {
+        "thorns": 0.5
+      }
+    ]
+  },
+  "HEAL_POWER": {
+    "rarity": 70,
+    "levels": [
+      {
+        "heal_power": 0.15
+      },
+      {
+        "heal_power": 0.15
+      },
+      {
+        "heal_power": 0.15
+      },
+      {
+        "heal_power": 0.15
+      },
+      {
+        "heal_power": 0.15
+      }
+    ]
+  },
+  "LEVEL_HEAL": {
+    "rarity": 60,
+    "levels": [
+      {
+        "level_heal": 0.03
+      },
+      {
+        "level_heal": 0.03
+      },
+      {
+        "level_heal": 0.03
+      },
+      {
+        "level_heal": 0.03
+      },
+      {
+        "level_heal": 0.03
+      }
+    ]
   }
 }

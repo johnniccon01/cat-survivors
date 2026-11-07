@@ -28,7 +28,8 @@ var _launch_dir := Vector2.ZERO
 ## Recent positions, for the motion trail.
 var _trail: PackedVector2Array = []
 const TRAIL := 6
-const TRAIL_COLORS := {"feather": Color("6fc2ff"), "phoenix": Color("ff8a3d"), "hairball": Color("a8774f")}
+const TRAIL_COLORS := {"feather": Color("6fc2ff"), "phoenix": Color("ff8a3d"), "hairball": Color("a8774f"),
+	"hook": Color("c9ced2"), "golden_hook": Color("f2c14e"), "needle": Color("dfe4e8")}
 
 
 func _init() -> void:
@@ -91,6 +92,18 @@ func _draw() -> void:
 			Blit.disc(self, Vector2(radius * 0.6, 0), radius * 0.3, tip)
 			if style == "phoenix":
 				Blit.disc(self, Vector2.ZERO, radius * 1.4, Color(1.0, 0.5, 0.1, 0.25))
+		"hook", "golden_hook":
+			# A hook on its line, the line trailing back the way it came.
+			var metal := Color("f2c14e") if style == "golden_hook" else Color("c9ced2")
+			var back := -velocity.normalized().rotated(-rotation) * radius * 5.0
+			Blit.line(self, Vector2.ZERO, back, Color(0.9, 0.9, 0.9, 0.6), 1.0)
+			var hook := PackedVector2Array([Vector2(0, -radius), Vector2(0, radius * 0.4), Vector2(-radius * 0.5, radius), Vector2(-radius, radius * 0.6)])
+			draw_polyline(hook, OUTLINE, 3.0)
+			draw_polyline(hook, metal, 1.5)
+		"needle":
+			Blit.line(self, Vector2(-radius * 3.0, 0), Vector2(radius * 3.0, 0), OUTLINE, 2.5)
+			Blit.line(self, Vector2(-radius * 3.0, 0), Vector2(radius * 3.0, 0), Color("dfe4e8"), 1.2)
+			Blit.line(self, Vector2(-radius * 3.0, 0), Vector2(-radius * 6.0, 2), Color("e0628f"), 1.0)
 		"hairball":
 			var pts := PackedVector2Array()
 			for i in 12:

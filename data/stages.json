@@ -3780,7 +3780,7 @@
           "PUPPY",
           "RAT"
         ],
-        "hp_mult": 1.48
+        "hp_mult": 1.45
       },
       {
         "minute": 1,
@@ -3791,7 +3791,7 @@
           "PUPPY",
           "RAT"
         ],
-        "hp_mult": 1.61
+        "hp_mult": 1.58
       },
       {
         "minute": 2,
@@ -3803,7 +3803,7 @@
           "RAT",
           "STRAY_DOG"
         ],
-        "hp_mult": 1.76
+        "hp_mult": 1.73
       },
       {
         "minute": 3,
@@ -3816,7 +3816,7 @@
           "STRAY_DOG",
           "DOG_DRONE"
         ],
-        "hp_mult": 2.02,
+        "hp_mult": 1.99,
         "bosses": [
           "PACK_LEADER"
         ]
@@ -3830,7 +3830,7 @@
           "STRAY_DOG",
           "DOG_DRONE"
         ],
-        "hp_mult": 2.7
+        "hp_mult": 2.65
       },
       {
         "minute": 7,
@@ -3842,7 +3842,7 @@
           "DOG_DRONE",
           "PUPPY"
         ],
-        "hp_mult": 4.05,
+        "hp_mult": 3.97,
         "bosses": [
           "YARD_DRONE"
         ]
@@ -3859,7 +3859,7 @@
           "DOG_DRONE",
           "DOBERMAN"
         ],
-        "hp_mult": 4.72
+        "hp_mult": 4.63
       },
       {
         "minute": 11,
@@ -3871,7 +3871,7 @@
           "DOG_DRONE",
           "DOBERMAN"
         ],
-        "hp_mult": 5.4,
+        "hp_mult": 5.3,
         "bosses": [
           "PACK_LEADER"
         ]
@@ -3888,7 +3888,7 @@
           "DOG_DRONE",
           "DOBERMAN"
         ],
-        "hp_mult": 6.75,
+        "hp_mult": 6.62,
         "bosses": [
           "YARD_DRONE"
         ]
@@ -3903,7 +3903,7 @@
           "DOG_DRONE",
           "DOBERMAN"
         ],
-        "hp_mult": 8.1,
+        "hp_mult": 7.94,
         "bosses": [
           "PACK_LEADER",
           "YARD_DRONE"
@@ -3921,11 +3921,11 @@
           "DOG_DRONE",
           "DOBERMAN"
         ],
-        "hp_mult": 9.45
+        "hp_mult": 9.27
       }
     ],
     "music_night": "music_rooftop_night",
-    "challenge": 2.64,
+    "challenge": 2.59,
     "hazard": "shunting",
     "requires_flag": "train_east"
   },
@@ -4025,7 +4025,7 @@
           "PUPPY",
           "FLEA"
         ],
-        "hp_mult": 1.52
+        "hp_mult": 1.48
       },
       {
         "minute": 1,
@@ -4036,7 +4036,7 @@
           "PUPPY",
           "FLEA"
         ],
-        "hp_mult": 1.65
+        "hp_mult": 1.61
       },
       {
         "minute": 2,
@@ -4048,7 +4048,7 @@
           "FLEA",
           "CHEW_BONE"
         ],
-        "hp_mult": 1.8
+        "hp_mult": 1.75
       },
       {
         "minute": 3,
@@ -4061,7 +4061,7 @@
           "CHEW_BONE",
           "DACHSHUND"
         ],
-        "hp_mult": 2.07,
+        "hp_mult": 2.02,
         "bosses": [
           "FLEA_QUEEN"
         ]
@@ -4075,7 +4075,7 @@
           "CHEW_BONE",
           "DACHSHUND"
         ],
-        "hp_mult": 2.76
+        "hp_mult": 2.69
       },
       {
         "minute": 7,
@@ -4087,7 +4087,7 @@
           "DACHSHUND",
           "PUPPY"
         ],
-        "hp_mult": 4.14,
+        "hp_mult": 4.03,
         "bosses": [
           "WARDEN_CATCHER"
         ]
@@ -4104,7 +4104,7 @@
           "DACHSHUND",
           "DOG_CATCHER"
         ],
-        "hp_mult": 4.83
+        "hp_mult": 4.7
       },
       {
         "minute": 11,
@@ -4116,7 +4116,7 @@
           "DACHSHUND",
           "DOG_CATCHER"
         ],
-        "hp_mult": 5.52,
+        "hp_mult": 5.38,
         "bosses": [
           "FLEA_QUEEN"
         ]
@@ -4133,7 +4133,7 @@
           "DACHSHUND",
           "DOG_CATCHER"
         ],
-        "hp_mult": 6.9,
+        "hp_mult": 6.72,
         "bosses": [
           "WARDEN_CATCHER"
         ]
@@ -4148,7 +4148,7 @@
           "DACHSHUND",
           "DOG_CATCHER"
         ],
-        "hp_mult": 8.28,
+        "hp_mult": 8.07,
         "bosses": [
           "FLEA_QUEEN",
           "WARDEN_CATCHER"
@@ -4166,11 +4166,11 @@
           "DACHSHUND",
           "DOG_CATCHER"
         ],
-        "hp_mult": 9.66
+        "hp_mult": 9.41
       }
     ],
     "music_night": "music_basement_night",
-    "challenge": 2.7,
+    "challenge": 2.63,
     "hazard": "kennels"
   },
   "DOG_PARK": {
@@ -4269,7 +4269,7 @@
           "PUPPY",
           "TENNIS_BALL"
         ],
-        "hp_mult": 1.54
+        "hp_mult": 1.5
       },
       {
         "minute": 1,
@@ -4280,7 +4280,7 @@
           "PUPPY",
           "TENNIS_BALL"
         ],
-        "hp_mult": 1.68
+        "hp_mult": 1.63
       },
       {
         "minute": 2,
@@ -4292,7 +4292,7 @@
           "TENNIS_BALL",
           "FRISBEE"
         ],
-        "hp_mult": 1.83
+        "hp_mult": 1.78
       },
       {
         "minute": 3,
@@ -4305,7 +4305,7 @@
           "FRISBEE",
           "SQUEAKY_TOY"
         ],
-        "hp_mult": 2.11,
+        "hp_mult": 2.05,
         "bosses": [
           "GIANT_BALL"
         ]
@@ -4319,7 +4319,7 @@
           "FRISBEE",
           "SQUEAKY_TOY"
         ],
-        "hp_mult": 2.81
+        "hp_mult": 2.73
       },
       {
         "minute": 7,
@@ -4331,7 +4331,7 @@
           "SQUEAKY_TOY",
           "PUPPY"
         ],
-        "hp_mult": 4.22,
+        "hp_mult": 4.09,
         "bosses": [
           "FRISBEE_ACE"
         ]
@@ -4348,7 +4348,7 @@
           "SQUEAKY_TOY",
           "GREYHOUND"
         ],
-        "hp_mult": 4.92
+        "hp_mult": 4.78
       },
       {
         "minute": 11,
@@ -4360,7 +4360,7 @@
           "SQUEAKY_TOY",
           "GREYHOUND"
         ],
-        "hp_mult": 5.62,
+        "hp_mult": 5.46,
         "bosses": [
           "GIANT_BALL"
         ]
@@ -4377,7 +4377,7 @@
           "SQUEAKY_TOY",
           "GREYHOUND"
         ],
-        "hp_mult": 7.03,
+        "hp_mult": 6.82,
         "bosses": [
           "FRISBEE_ACE"
         ]
@@ -4392,7 +4392,7 @@
           "SQUEAKY_TOY",
           "GREYHOUND"
         ],
-        "hp_mult": 8.43,
+        "hp_mult": 8.19,
         "bosses": [
           "GIANT_BALL",
           "FRISBEE_ACE"
@@ -4410,11 +4410,11 @@
           "SQUEAKY_TOY",
           "GREYHOUND"
         ],
-        "hp_mult": 9.84
+        "hp_mult": 9.55
       }
     ],
     "music_night": "music_garden_night",
-    "challenge": 2.75,
+    "challenge": 2.67,
     "hazard": "ball_launcher",
     "tree_chance": 0.45
   },
@@ -4514,7 +4514,7 @@
           "RAT",
           "PUPPY"
         ],
-        "hp_mult": 1.57
+        "hp_mult": 1.52
       },
       {
         "minute": 1,
@@ -4525,7 +4525,7 @@
           "RAT",
           "PUPPY"
         ],
-        "hp_mult": 1.71
+        "hp_mult": 1.66
       },
       {
         "minute": 2,
@@ -4537,7 +4537,7 @@
           "PUPPY",
           "CHEW_BONE"
         ],
-        "hp_mult": 1.87
+        "hp_mult": 1.81
       },
       {
         "minute": 3,
@@ -4550,7 +4550,7 @@
           "CHEW_BONE",
           "RACCOON"
         ],
-        "hp_mult": 2.15,
+        "hp_mult": 2.08,
         "bosses": [
           "BONE_GIANT"
         ]
@@ -4564,7 +4564,7 @@
           "CHEW_BONE",
           "RACCOON"
         ],
-        "hp_mult": 2.86
+        "hp_mult": 2.77
       },
       {
         "minute": 7,
@@ -4576,7 +4576,7 @@
           "RACCOON",
           "RAT"
         ],
-        "hp_mult": 4.29,
+        "hp_mult": 4.16,
         "bosses": [
           "JUNK_RACCOON"
         ]
@@ -4594,7 +4594,7 @@
           "STRAY_DOG",
           "CROW"
         ],
-        "hp_mult": 5.01
+        "hp_mult": 4.85
       },
       {
         "minute": 11,
@@ -4607,7 +4607,7 @@
           "STRAY_DOG",
           "CROW"
         ],
-        "hp_mult": 5.72,
+        "hp_mult": 5.54,
         "bosses": [
           "BONE_GIANT"
         ]
@@ -4625,7 +4625,7 @@
           "STRAY_DOG",
           "CROW"
         ],
-        "hp_mult": 7.16,
+        "hp_mult": 6.93,
         "bosses": [
           "JUNK_RACCOON"
         ]
@@ -4641,7 +4641,7 @@
           "STRAY_DOG",
           "CROW"
         ],
-        "hp_mult": 8.59,
+        "hp_mult": 8.31,
         "bosses": [
           "BONE_GIANT",
           "JUNK_RACCOON"
@@ -4660,11 +4660,11 @@
           "STRAY_DOG",
           "CROW"
         ],
-        "hp_mult": 10.02
+        "hp_mult": 9.7
       }
     ],
     "music_night": "music_factory_night",
-    "challenge": 2.8,
+    "challenge": 2.71,
     "hazard": "crane"
   },
   "GROOMING_SALON": {
@@ -4761,7 +4761,7 @@
           "PUPPY",
           "FLEA"
         ],
-        "hp_mult": 1.6
+        "hp_mult": 1.54
       },
       {
         "minute": 1,
@@ -4772,7 +4772,7 @@
           "PUPPY",
           "FLEA"
         ],
-        "hp_mult": 1.74
+        "hp_mult": 1.68
       },
       {
         "minute": 2,
@@ -4784,7 +4784,7 @@
           "FLEA",
           "POMPOM"
         ],
-        "hp_mult": 1.9
+        "hp_mult": 1.83
       },
       {
         "minute": 3,
@@ -4797,7 +4797,7 @@
           "POMPOM",
           "SQUEAKY_TOY"
         ],
-        "hp_mult": 2.19,
+        "hp_mult": 2.11,
         "bosses": [
           "DRYER_BOT"
         ]
@@ -4811,7 +4811,7 @@
           "POMPOM",
           "SQUEAKY_TOY"
         ],
-        "hp_mult": 2.91
+        "hp_mult": 2.81
       },
       {
         "minute": 7,
@@ -4823,7 +4823,7 @@
           "SQUEAKY_TOY",
           "PUPPY"
         ],
-        "hp_mult": 4.37,
+        "hp_mult": 4.22,
         "bosses": [
           "POMPOM_GIANT"
         ]
@@ -4840,7 +4840,7 @@
           "SQUEAKY_TOY",
           "DACHSHUND"
         ],
-        "hp_mult": 5.1
+        "hp_mult": 4.92
       },
       {
         "minute": 11,
@@ -4852,7 +4852,7 @@
           "SQUEAKY_TOY",
           "DACHSHUND"
         ],
-        "hp_mult": 5.83,
+        "hp_mult": 5.62,
         "bosses": [
           "DRYER_BOT"
         ]
@@ -4869,7 +4869,7 @@
           "SQUEAKY_TOY",
           "DACHSHUND"
         ],
-        "hp_mult": 7.28,
+        "hp_mult": 7.03,
         "bosses": [
           "POMPOM_GIANT"
         ]
@@ -4884,7 +4884,7 @@
           "SQUEAKY_TOY",
           "DACHSHUND"
         ],
-        "hp_mult": 8.74,
+        "hp_mult": 8.43,
         "bosses": [
           "DRYER_BOT",
           "POMPOM_GIANT"
@@ -4902,11 +4902,11 @@
           "SQUEAKY_TOY",
           "DACHSHUND"
         ],
-        "hp_mult": 10.2
+        "hp_mult": 9.84
       }
     ],
     "music_night": "music_supermarket_night",
-    "challenge": 2.85,
+    "challenge": 2.75,
     "hazard": "blowdry"
   },
   "BONE_BAKERY": {
@@ -5003,7 +5003,7 @@
           "RAT",
           "CHEW_BONE"
         ],
-        "hp_mult": 1.63
+        "hp_mult": 1.56
       },
       {
         "minute": 1,
@@ -5014,7 +5014,7 @@
           "RAT",
           "CHEW_BONE"
         ],
-        "hp_mult": 1.77
+        "hp_mult": 1.7
       },
       {
         "minute": 2,
@@ -5026,7 +5026,7 @@
           "CHEW_BONE",
           "DACHSHUND"
         ],
-        "hp_mult": 1.93
+        "hp_mult": 1.85
       },
       {
         "minute": 3,
@@ -5039,7 +5039,7 @@
           "DACHSHUND",
           "SQUEAKY_TOY"
         ],
-        "hp_mult": 2.22,
+        "hp_mult": 2.13,
         "bosses": [
           "DOUGH_BLOB"
         ]
@@ -5053,7 +5053,7 @@
           "DACHSHUND",
           "SQUEAKY_TOY"
         ],
-        "hp_mult": 2.96
+        "hp_mult": 2.84
       },
       {
         "minute": 7,
@@ -5065,7 +5065,7 @@
           "SQUEAKY_TOY",
           "RAT"
         ],
-        "hp_mult": 4.45,
+        "hp_mult": 4.26,
         "bosses": [
           "BISCUIT_GOLEM"
         ]
@@ -5082,7 +5082,7 @@
           "SQUEAKY_TOY",
           "POMPOM"
         ],
-        "hp_mult": 5.19
+        "hp_mult": 4.97
       },
       {
         "minute": 11,
@@ -5094,7 +5094,7 @@
           "SQUEAKY_TOY",
           "POMPOM"
         ],
-        "hp_mult": 5.93,
+        "hp_mult": 5.68,
         "bosses": [
           "DOUGH_BLOB"
         ]
@@ -5111,7 +5111,7 @@
           "SQUEAKY_TOY",
           "POMPOM"
         ],
-        "hp_mult": 7.41,
+        "hp_mult": 7.1,
         "bosses": [
           "BISCUIT_GOLEM"
         ]
@@ -5126,7 +5126,7 @@
           "SQUEAKY_TOY",
           "POMPOM"
         ],
-        "hp_mult": 8.89,
+        "hp_mult": 8.53,
         "bosses": [
           "DOUGH_BLOB",
           "BISCUIT_GOLEM"
@@ -5144,11 +5144,11 @@
           "SQUEAKY_TOY",
           "POMPOM"
         ],
-        "hp_mult": 10.38
+        "hp_mult": 9.95
       }
     ],
     "music_night": "music_factory_night",
-    "challenge": 2.9,
+    "challenge": 2.78,
     "hazard": "crane"
   },
   "RACETRACK": {
@@ -5245,7 +5245,7 @@
           "PUPPY",
           "TENNIS_BALL"
         ],
-        "hp_mult": 1.65
+        "hp_mult": 1.58
       },
       {
         "minute": 1,
@@ -5256,7 +5256,7 @@
           "PUPPY",
           "TENNIS_BALL"
         ],
-        "hp_mult": 1.8
+        "hp_mult": 1.72
       },
       {
         "minute": 2,
@@ -5268,7 +5268,7 @@
           "TENNIS_BALL",
           "GREYHOUND"
         ],
-        "hp_mult": 1.96
+        "hp_mult": 1.88
       },
       {
         "minute": 3,
@@ -5281,7 +5281,7 @@
           "GREYHOUND",
           "FRISBEE"
         ],
-        "hp_mult": 2.25,
+        "hp_mult": 2.16,
         "bosses": [
           "STARTER"
         ]
@@ -5295,7 +5295,7 @@
           "GREYHOUND",
           "FRISBEE"
         ],
-        "hp_mult": 3.01
+        "hp_mult": 2.88
       },
       {
         "minute": 7,
@@ -5307,7 +5307,7 @@
           "FRISBEE",
           "PUPPY"
         ],
-        "hp_mult": 4.51,
+        "hp_mult": 4.32,
         "bosses": [
           "GREY_PACK"
         ]
@@ -5324,7 +5324,7 @@
           "FRISBEE",
           "STRAY_DOG"
         ],
-        "hp_mult": 5.26
+        "hp_mult": 5.04
       },
       {
         "minute": 11,
@@ -5336,7 +5336,7 @@
           "FRISBEE",
           "STRAY_DOG"
         ],
-        "hp_mult": 6.01,
+        "hp_mult": 5.77,
         "bosses": [
           "STARTER"
         ]
@@ -5353,7 +5353,7 @@
           "FRISBEE",
           "STRAY_DOG"
         ],
-        "hp_mult": 7.51,
+        "hp_mult": 7.21,
         "bosses": [
           "GREY_PACK"
         ]
@@ -5368,7 +5368,7 @@
           "FRISBEE",
           "STRAY_DOG"
         ],
-        "hp_mult": 9.02,
+        "hp_mult": 8.65,
         "bosses": [
           "STARTER",
           "GREY_PACK"
@@ -5386,11 +5386,11 @@
           "FRISBEE",
           "STRAY_DOG"
         ],
-        "hp_mult": 10.52
+        "hp_mult": 10.09
       }
     ],
     "music_night": "music_garden_night",
-    "challenge": 2.94,
+    "challenge": 2.82,
     "hazard": "race"
   },
   "FIRE_STATION": {
@@ -5489,7 +5489,7 @@
           "PUPPY",
           "DOG_DRONE"
         ],
-        "hp_mult": 1.68
+        "hp_mult": 1.6
       },
       {
         "minute": 1,
@@ -5500,7 +5500,7 @@
           "PUPPY",
           "DOG_DRONE"
         ],
-        "hp_mult": 1.83
+        "hp_mult": 1.75
       },
       {
         "minute": 2,
@@ -5512,7 +5512,7 @@
           "DOG_DRONE",
           "HYDRANT"
         ],
-        "hp_mult": 1.99
+        "hp_mult": 1.91
       },
       {
         "minute": 3,
@@ -5525,7 +5525,7 @@
           "HYDRANT",
           "DOG_CATCHER"
         ],
-        "hp_mult": 2.29,
+        "hp_mult": 2.19,
         "bosses": [
           "HYDRANT_KING"
         ]
@@ -5539,7 +5539,7 @@
           "HYDRANT",
           "DOG_CATCHER"
         ],
-        "hp_mult": 3.06
+        "hp_mult": 2.92
       },
       {
         "minute": 7,
@@ -5551,7 +5551,7 @@
           "DOG_CATCHER",
           "PUPPY"
         ],
-        "hp_mult": 4.58,
+        "hp_mult": 4.39,
         "bosses": [
           "SMOKE_CLOUD"
         ]
@@ -5568,7 +5568,7 @@
           "DOG_CATCHER",
           "DOBERMAN"
         ],
-        "hp_mult": 5.35
+        "hp_mult": 5.12
       },
       {
         "minute": 11,
@@ -5580,7 +5580,7 @@
           "DOG_CATCHER",
           "DOBERMAN"
         ],
-        "hp_mult": 6.11,
+        "hp_mult": 5.85,
         "bosses": [
           "HYDRANT_KING"
         ]
@@ -5597,7 +5597,7 @@
           "DOG_CATCHER",
           "DOBERMAN"
         ],
-        "hp_mult": 7.64,
+        "hp_mult": 7.31,
         "bosses": [
           "SMOKE_CLOUD"
         ]
@@ -5612,7 +5612,7 @@
           "DOG_CATCHER",
           "DOBERMAN"
         ],
-        "hp_mult": 9.17,
+        "hp_mult": 8.77,
         "bosses": [
           "HYDRANT_KING",
           "SMOKE_CLOUD"
@@ -5630,11 +5630,11 @@
           "DOG_CATCHER",
           "DOBERMAN"
         ],
-        "hp_mult": 10.7
+        "hp_mult": 10.23
       }
     ],
     "music_night": "music_factory_night",
-    "challenge": 2.99,
+    "challenge": 2.86,
     "hazard": "hose"
   },
   "POLICE_K9": {
@@ -5728,7 +5728,7 @@
         "interval": 1.4,
         "per_tick": 1,
         "enemies": ["PUPPY", "RAT"],
-        "hp_mult": 1.71
+        "hp_mult": 1.63
       },
       {
         "minute": 1,
@@ -5736,7 +5736,7 @@
         "interval": 1.1,
         "per_tick": 2,
         "enemies": ["PUPPY", "RAT"],
-        "hp_mult": 1.86
+        "hp_mult": 1.77
       },
       {
         "minute": 2,
@@ -5744,7 +5744,7 @@
         "interval": 1.0,
         "per_tick": 2,
         "enemies": ["PUPPY", "RAT", "DOBERMAN"],
-        "hp_mult": 2.03
+        "hp_mult": 1.93
       },
       {
         "minute": 3,
@@ -5757,7 +5757,7 @@
           "DOBERMAN",
           "DOG_CATCHER"
         ],
-        "hp_mult": 2.33,
+        "hp_mult": 2.22,
         "bosses": [
           "K9_DRONE"
         ]
@@ -5771,7 +5771,7 @@
           "DOBERMAN",
           "DOG_CATCHER"
         ],
-        "hp_mult": 3.11
+        "hp_mult": 2.96
       },
       {
         "minute": 7,
@@ -5783,7 +5783,7 @@
           "DOG_CATCHER",
           "PUPPY"
         ],
-        "hp_mult": 4.66,
+        "hp_mult": 4.45,
         "bosses": [
           "SERGEANT_CATCHER"
         ]
@@ -5800,7 +5800,7 @@
           "DOG_CATCHER",
           "STRAY_DOG"
         ],
-        "hp_mult": 5.44
+        "hp_mult": 5.19
       },
       {
         "minute": 11,
@@ -5812,7 +5812,7 @@
           "DOG_CATCHER",
           "STRAY_DOG"
         ],
-        "hp_mult": 6.22,
+        "hp_mult": 5.93,
         "bosses": [
           "K9_DRONE"
         ]
@@ -5829,7 +5829,7 @@
           "DOG_CATCHER",
           "STRAY_DOG"
         ],
-        "hp_mult": 7.77,
+        "hp_mult": 7.41,
         "bosses": [
           "SERGEANT_CATCHER"
         ]
@@ -5844,7 +5844,7 @@
           "DOG_CATCHER",
           "STRAY_DOG"
         ],
-        "hp_mult": 9.32,
+        "hp_mult": 8.89,
         "bosses": [
           "K9_DRONE",
           "SERGEANT_CATCHER"
@@ -5862,11 +5862,11 @@
           "DOG_CATCHER",
           "STRAY_DOG"
         ],
-        "hp_mult": 10.88
+        "hp_mult": 10.38
       }
     ],
     "music_night": "music_factory_night",
-    "challenge": 3.04,
+    "challenge": 2.9,
     "hazard": "patrol"
   },
   "VET_CLINIC": {
@@ -5963,7 +5963,7 @@
           "PUPPY",
           "FLEA"
         ],
-        "hp_mult": 1.73
+        "hp_mult": 1.64
       },
       {
         "minute": 1,
@@ -5974,7 +5974,7 @@
           "PUPPY",
           "FLEA"
         ],
-        "hp_mult": 1.88
+        "hp_mult": 1.79
       },
       {
         "minute": 2,
@@ -5986,7 +5986,7 @@
           "FLEA",
           "SQUEAKY_TOY"
         ],
-        "hp_mult": 2.05
+        "hp_mult": 1.95
       },
       {
         "minute": 3,
@@ -5999,7 +5999,7 @@
           "SQUEAKY_TOY",
           "DACHSHUND"
         ],
-        "hp_mult": 2.36,
+        "hp_mult": 2.25,
         "bosses": [
           "PILL_BOTTLE"
         ]
@@ -6013,7 +6013,7 @@
           "SQUEAKY_TOY",
           "DACHSHUND"
         ],
-        "hp_mult": 3.15
+        "hp_mult": 3.0
       },
       {
         "minute": 7,
@@ -6025,7 +6025,7 @@
           "DACHSHUND",
           "PUPPY"
         ],
-        "hp_mult": 4.72,
+        "hp_mult": 4.49,
         "bosses": [
           "CONE_DOG"
         ]
@@ -6042,7 +6042,7 @@
           "DACHSHUND",
           "POMPOM"
         ],
-        "hp_mult": 5.51
+        "hp_mult": 5.24
       },
       {
         "minute": 11,
@@ -6054,7 +6054,7 @@
           "DACHSHUND",
           "POMPOM"
         ],
-        "hp_mult": 6.3,
+        "hp_mult": 5.99,
         "bosses": [
           "PILL_BOTTLE"
         ]
@@ -6071,7 +6071,7 @@
           "DACHSHUND",
           "POMPOM"
         ],
-        "hp_mult": 7.87,
+        "hp_mult": 7.49,
         "bosses": [
           "CONE_DOG"
         ]
@@ -6086,7 +6086,7 @@
           "DACHSHUND",
           "POMPOM"
         ],
-        "hp_mult": 9.45,
+        "hp_mult": 8.99,
         "bosses": [
           "PILL_BOTTLE",
           "CONE_DOG"
@@ -6104,11 +6104,11 @@
           "DACHSHUND",
           "POMPOM"
         ],
-        "hp_mult": 11.02
+        "hp_mult": 10.48
       }
     ],
     "music_night": "music_supermarket_night",
-    "challenge": 3.08,
+    "challenge": 2.93,
     "hazard": "crane"
   },
   "RIVER_DAM": {
@@ -6205,7 +6205,7 @@
           "TOAD",
           "PUPPY"
         ],
-        "hp_mult": 1.76
+        "hp_mult": 1.67
       },
       {
         "minute": 1,
@@ -6216,7 +6216,7 @@
           "TOAD",
           "PUPPY"
         ],
-        "hp_mult": 1.91
+        "hp_mult": 1.82
       },
       {
         "minute": 2,
@@ -6228,7 +6228,7 @@
           "PUPPY",
           "STRAY_DOG"
         ],
-        "hp_mult": 2.09
+        "hp_mult": 1.98
       },
       {
         "minute": 3,
@@ -6241,7 +6241,7 @@
           "STRAY_DOG",
           "FRISBEE"
         ],
-        "hp_mult": 2.4,
+        "hp_mult": 2.28,
         "bosses": [
           "RIVER_TOAD"
         ]
@@ -6255,7 +6255,7 @@
           "STRAY_DOG",
           "FRISBEE"
         ],
-        "hp_mult": 3.2
+        "hp_mult": 3.04
       },
       {
         "minute": 7,
@@ -6267,7 +6267,7 @@
           "FRISBEE",
           "TOAD"
         ],
-        "hp_mult": 4.8,
+        "hp_mult": 4.55,
         "bosses": [
           "GIANT_BEAVER"
         ]
@@ -6284,7 +6284,7 @@
           "FRISBEE",
           "DACHSHUND"
         ],
-        "hp_mult": 5.6
+        "hp_mult": 5.31
       },
       {
         "minute": 11,
@@ -6296,7 +6296,7 @@
           "FRISBEE",
           "DACHSHUND"
         ],
-        "hp_mult": 6.4,
+        "hp_mult": 6.07,
         "bosses": [
           "RIVER_TOAD"
         ]
@@ -6313,7 +6313,7 @@
           "FRISBEE",
           "DACHSHUND"
         ],
-        "hp_mult": 8.0,
+        "hp_mult": 7.59,
         "bosses": [
           "GIANT_BEAVER"
         ]
@@ -6328,7 +6328,7 @@
           "FRISBEE",
           "DACHSHUND"
         ],
-        "hp_mult": 9.6,
+        "hp_mult": 9.11,
         "bosses": [
           "RIVER_TOAD",
           "GIANT_BEAVER"
@@ -6346,11 +6346,11 @@
           "FRISBEE",
           "DACHSHUND"
         ],
-        "hp_mult": 11.2
+        "hp_mult": 10.63
       }
     ],
     "music_night": "music_harbor_night",
-    "challenge": 3.13,
+    "challenge": 2.97,
     "hazard": "flood"
   },
   "SNOW_HILL": {
@@ -6444,7 +6444,7 @@
         "interval": 1.4,
         "per_tick": 1,
         "enemies": ["PUPPY", "FLEA"],
-        "hp_mult": 1.78
+        "hp_mult": 1.68
       },
       {
         "minute": 1,
@@ -6452,7 +6452,7 @@
         "interval": 1.1,
         "per_tick": 2,
         "enemies": ["PUPPY", "FLEA"],
-        "hp_mult": 1.94
+        "hp_mult": 1.83
       },
       {
         "minute": 2,
@@ -6460,7 +6460,7 @@
         "interval": 1.0,
         "per_tick": 2,
         "enemies": ["PUPPY", "FLEA", "STRAY_DOG"],
-        "hp_mult": 2.11
+        "hp_mult": 2.0
       },
       {
         "minute": 3,
@@ -6473,7 +6473,7 @@
           "STRAY_DOG",
           "TENNIS_BALL"
         ],
-        "hp_mult": 2.43,
+        "hp_mult": 2.3,
         "bosses": [
           "SNOWMAN_KING"
         ]
@@ -6487,7 +6487,7 @@
           "STRAY_DOG",
           "TENNIS_BALL"
         ],
-        "hp_mult": 3.24
+        "hp_mult": 3.07
       },
       {
         "minute": 7,
@@ -6499,7 +6499,7 @@
           "TENNIS_BALL",
           "PUPPY"
         ],
-        "hp_mult": 4.86,
+        "hp_mult": 4.6,
         "bosses": [
           "SLED_DOG"
         ]
@@ -6516,7 +6516,7 @@
           "TENNIS_BALL",
           "GREYHOUND"
         ],
-        "hp_mult": 5.67
+        "hp_mult": 5.37
       },
       {
         "minute": 11,
@@ -6528,7 +6528,7 @@
           "TENNIS_BALL",
           "GREYHOUND"
         ],
-        "hp_mult": 6.48,
+        "hp_mult": 6.13,
         "bosses": [
           "SNOWMAN_KING"
         ]
@@ -6545,7 +6545,7 @@
           "TENNIS_BALL",
           "GREYHOUND"
         ],
-        "hp_mult": 8.1,
+        "hp_mult": 7.67,
         "bosses": [
           "SLED_DOG"
         ]
@@ -6560,7 +6560,7 @@
           "TENNIS_BALL",
           "GREYHOUND"
         ],
-        "hp_mult": 9.72,
+        "hp_mult": 9.2,
         "bosses": [
           "SNOWMAN_KING",
           "SLED_DOG"
@@ -6578,11 +6578,11 @@
           "TENNIS_BALL",
           "GREYHOUND"
         ],
-        "hp_mult": 11.34
+        "hp_mult": 10.73
       }
     ],
     "music_night": "music_garden_night",
-    "challenge": 3.17,
+    "challenge": 3.0,
     "hazard": "avalanche",
     "tree_chance": 0.35
   },
@@ -6677,7 +6677,7 @@
         "interval": 1.4,
         "per_tick": 1,
         "enemies": ["PUPPY", "FLEA"],
-        "hp_mult": 1.81
+        "hp_mult": 1.71
       },
       {
         "minute": 1,
@@ -6685,7 +6685,7 @@
         "interval": 1.1,
         "per_tick": 2,
         "enemies": ["PUPPY", "FLEA"],
-        "hp_mult": 1.97
+        "hp_mult": 1.86
       },
       {
         "minute": 2,
@@ -6693,7 +6693,7 @@
         "interval": 1.0,
         "per_tick": 2,
         "enemies": ["PUPPY", "FLEA", "STRAY_DOG"],
-        "hp_mult": 2.15
+        "hp_mult": 2.03
       },
       {
         "minute": 3,
@@ -6706,7 +6706,7 @@
           "GREYHOUND",
           "TENNIS_BALL"
         ],
-        "hp_mult": 2.47,
+        "hp_mult": 2.33,
         "bosses": [
           "WHISTLE_COACH"
         ]
@@ -6720,7 +6720,7 @@
           "GREYHOUND",
           "TENNIS_BALL"
         ],
-        "hp_mult": 3.29
+        "hp_mult": 3.11
       },
       {
         "minute": 7,
@@ -6732,7 +6732,7 @@
           "TENNIS_BALL",
           "PUPPY"
         ],
-        "hp_mult": 4.94,
+        "hp_mult": 4.66,
         "bosses": [
           "HURDLE_BOT"
         ]
@@ -6749,7 +6749,7 @@
           "TENNIS_BALL",
           "DOBERMAN"
         ],
-        "hp_mult": 5.76
+        "hp_mult": 5.44
       },
       {
         "minute": 11,
@@ -6761,7 +6761,7 @@
           "TENNIS_BALL",
           "DOBERMAN"
         ],
-        "hp_mult": 6.58,
+        "hp_mult": 6.22,
         "bosses": [
           "WHISTLE_COACH"
         ]
@@ -6778,7 +6778,7 @@
           "TENNIS_BALL",
           "DOBERMAN"
         ],
-        "hp_mult": 8.23,
+        "hp_mult": 7.77,
         "bosses": [
           "HURDLE_BOT"
         ]
@@ -6793,7 +6793,7 @@
           "TENNIS_BALL",
           "DOBERMAN"
         ],
-        "hp_mult": 9.87,
+        "hp_mult": 9.32,
         "bosses": [
           "WHISTLE_COACH",
           "HURDLE_BOT"
@@ -6811,11 +6811,11 @@
           "TENNIS_BALL",
           "DOBERMAN"
         ],
-        "hp_mult": 11.52
+        "hp_mult": 10.88
       }
     ],
     "music_night": "music_garden_night",
-    "challenge": 3.22,
+    "challenge": 3.04,
     "hazard": "agility"
   },
   "DOG_SHOW": {
@@ -6912,7 +6912,7 @@
           "PUPPY",
           "FLEA"
         ],
-        "hp_mult": 1.83
+        "hp_mult": 1.72
       },
       {
         "minute": 1,
@@ -6923,7 +6923,7 @@
           "PUPPY",
           "FLEA"
         ],
-        "hp_mult": 1.99
+        "hp_mult": 1.88
       },
       {
         "minute": 2,
@@ -6935,7 +6935,7 @@
           "FLEA",
           "POMPOM"
         ],
-        "hp_mult": 2.17
+        "hp_mult": 2.05
       },
       {
         "minute": 3,
@@ -6948,7 +6948,7 @@
           "POMPOM",
           "SQUEAKY_TOY"
         ],
-        "hp_mult": 2.5,
+        "hp_mult": 2.35,
         "bosses": [
           "JUDGE_BASSET"
         ]
@@ -6962,7 +6962,7 @@
           "POMPOM",
           "SQUEAKY_TOY"
         ],
-        "hp_mult": 3.33
+        "hp_mult": 3.14
       },
       {
         "minute": 7,
@@ -6974,7 +6974,7 @@
           "SQUEAKY_TOY",
           "PUPPY"
         ],
-        "hp_mult": 5.0,
+        "hp_mult": 4.71,
         "bosses": [
           "TROPHY_GOLEM"
         ]
@@ -6991,7 +6991,7 @@
           "SQUEAKY_TOY",
           "DACHSHUND"
         ],
-        "hp_mult": 5.83
+        "hp_mult": 5.49
       },
       {
         "minute": 11,
@@ -7003,7 +7003,7 @@
           "SQUEAKY_TOY",
           "DACHSHUND"
         ],
-        "hp_mult": 6.66,
+        "hp_mult": 6.28,
         "bosses": [
           "JUDGE_BASSET"
         ]
@@ -7020,7 +7020,7 @@
           "SQUEAKY_TOY",
           "DACHSHUND"
         ],
-        "hp_mult": 8.33,
+        "hp_mult": 7.85,
         "bosses": [
           "TROPHY_GOLEM"
         ]
@@ -7035,7 +7035,7 @@
           "SQUEAKY_TOY",
           "DACHSHUND"
         ],
-        "hp_mult": 10.0,
+        "hp_mult": 9.41,
         "bosses": [
           "JUDGE_BASSET",
           "TROPHY_GOLEM"
@@ -7053,11 +7053,11 @@
           "SQUEAKY_TOY",
           "DACHSHUND"
         ],
-        "hp_mult": 11.66
+        "hp_mult": 10.98
       }
     ],
     "music_night": "music_supermarket_night",
-    "challenge": 3.26,
+    "challenge": 3.07,
     "hazard": "spotlight"
   },
   "BARRACKS": {
@@ -7151,7 +7151,7 @@
         "interval": 1.4,
         "per_tick": 1,
         "enemies": ["PUPPY", "FLEA"],
-        "hp_mult": 1.85
+        "hp_mult": 1.75
       },
       {
         "minute": 1,
@@ -7159,7 +7159,7 @@
         "interval": 1.1,
         "per_tick": 2,
         "enemies": ["PUPPY", "FLEA"],
-        "hp_mult": 2.02
+        "hp_mult": 1.9
       },
       {
         "minute": 2,
@@ -7167,7 +7167,7 @@
         "interval": 1.0,
         "per_tick": 2,
         "enemies": ["PUPPY", "FLEA", "STRAY_DOG"],
-        "hp_mult": 2.2
+        "hp_mult": 2.07
       },
       {
         "minute": 3,
@@ -7180,7 +7180,7 @@
           "PATROL_DOG",
           "DRUM"
         ],
-        "hp_mult": 2.53,
+        "hp_mult": 2.38,
         "bosses": [
           "DRUM_MAJOR"
         ]
@@ -7194,7 +7194,7 @@
           "PATROL_DOG",
           "DRUM"
         ],
-        "hp_mult": 3.37
+        "hp_mult": 3.18
       },
       {
         "minute": 7,
@@ -7206,7 +7206,7 @@
           "DRUM",
           "PUPPY"
         ],
-        "hp_mult": 5.06,
+        "hp_mult": 4.77,
         "bosses": [
           "TENNIS_TANK"
         ]
@@ -7224,7 +7224,7 @@
           "DOBERMAN",
           "DOG_CATCHER"
         ],
-        "hp_mult": 5.9
+        "hp_mult": 5.56
       },
       {
         "minute": 11,
@@ -7237,7 +7237,7 @@
           "DOBERMAN",
           "DOG_CATCHER"
         ],
-        "hp_mult": 6.75,
+        "hp_mult": 6.36,
         "bosses": [
           "DRUM_MAJOR"
         ]
@@ -7255,7 +7255,7 @@
           "DOBERMAN",
           "DOG_CATCHER"
         ],
-        "hp_mult": 8.43,
+        "hp_mult": 7.95,
         "bosses": [
           "TENNIS_TANK"
         ]
@@ -7271,7 +7271,7 @@
           "DOBERMAN",
           "DOG_CATCHER"
         ],
-        "hp_mult": 10.12,
+        "hp_mult": 9.54,
         "bosses": [
           "DRUM_MAJOR",
           "TENNIS_TANK"
@@ -7290,11 +7290,11 @@
           "DOBERMAN",
           "DOG_CATCHER"
         ],
-        "hp_mult": 11.81
+        "hp_mult": 11.13
       }
     ],
     "music_night": "music_factory_night",
-    "challenge": 3.3,
+    "challenge": 3.11,
     "hazard": "march"
   },
   "GENERAL_KENNEL": {
@@ -7388,7 +7388,7 @@
         "interval": 1.4,
         "per_tick": 1,
         "enemies": ["PUPPY", "FLEA"],
-        "hp_mult": 1.87
+        "hp_mult": 1.76
       },
       {
         "minute": 1,
@@ -7396,7 +7396,7 @@
         "interval": 1.1,
         "per_tick": 2,
         "enemies": ["PUPPY", "FLEA"],
-        "hp_mult": 2.04
+        "hp_mult": 1.92
       },
       {
         "minute": 2,
@@ -7404,7 +7404,7 @@
         "interval": 1.0,
         "per_tick": 2,
         "enemies": ["PUPPY", "FLEA", "STRAY_DOG"],
-        "hp_mult": 2.23
+        "hp_mult": 2.09
       },
       {
         "minute": 3,
@@ -7417,7 +7417,7 @@
           "DOBERMAN",
           "PATROL_DOG"
         ],
-        "hp_mult": 2.56,
+        "hp_mult": 2.41,
         "bosses": [
           "GENERAL_GUARD"
         ]
@@ -7431,7 +7431,7 @@
           "DOBERMAN",
           "PATROL_DOG"
         ],
-        "hp_mult": 3.41
+        "hp_mult": 3.21
       },
       {
         "minute": 7,
@@ -7443,7 +7443,7 @@
           "PATROL_DOG",
           "PUPPY"
         ],
-        "hp_mult": 5.12,
+        "hp_mult": 4.81,
         "bosses": [
           "WAR_DRONE"
         ]
@@ -7462,7 +7462,7 @@
           "DRUM",
           "DOG_CATCHER"
         ],
-        "hp_mult": 5.97
+        "hp_mult": 5.62
       },
       {
         "minute": 11,
@@ -7476,7 +7476,7 @@
           "DRUM",
           "DOG_CATCHER"
         ],
-        "hp_mult": 6.83,
+        "hp_mult": 6.42,
         "bosses": [
           "GENERAL_GUARD"
         ]
@@ -7495,7 +7495,7 @@
           "DRUM",
           "DOG_CATCHER"
         ],
-        "hp_mult": 8.54,
+        "hp_mult": 8.02,
         "bosses": [
           "WAR_DRONE"
         ]
@@ -7512,7 +7512,7 @@
           "DRUM",
           "DOG_CATCHER"
         ],
-        "hp_mult": 10.24,
+        "hp_mult": 9.63,
         "bosses": [
           "GENERAL_GUARD",
           "WAR_DRONE"
@@ -7532,11 +7532,11 @@
           "DRUM",
           "DOG_CATCHER"
         ],
-        "hp_mult": 11.95
+        "hp_mult": 11.23
       }
     ],
     "music_night": "music_factory_night",
-    "challenge": 3.34,
+    "challenge": 3.14,
     "hazard": "kennels"
   }
 }

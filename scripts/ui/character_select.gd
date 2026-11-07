@@ -25,7 +25,6 @@ var _stage_index := 0
 var _shop: ShopPanel
 var _charms: TalentPanel
 var _memorials: MemorialPanel
-var _dogs: DogDistrictPanel
 var _memorial_button: Button
 var _items: ItemPanel
 var _artifacts: ArtifactPanel
@@ -129,11 +128,18 @@ func _ready() -> void:
 	_index = maxi(_ids.find(Profile.selected_cat), 0)
 	for id: String in GameData.stages:
 		_stage_ids.append(id)
+	DistrictMap.use_district(Profile.district)
+	# Coming back by train: the map to play in this district.
+	if DistrictMap.stage_district(Profile.selected_stage) != Profile.district and DistrictMap.next_place() != "":
+		Profile.selected_stage = DistrictMap.next_place()
 	_stage_index = maxi(_stage_ids.find(Profile.selected_stage), 0)
 	# New night reports come in whenever some are missing.
 	Profile.make_reports()
 	Profile.save()
 	_build()
+	if DistrictMap.stage_district(_stage_ids[_stage_index]) != Profile.district:
+		# No night opened here yet: show the station the train arrives at.
+		_on_place_chosen.call_deferred(DistrictMap.stage_order()[0] if not DistrictMap.stage_order().is_empty() else "FREIGHT_YARD")
 	_district.show_reports()
 	_fit_top()
 	_refresh()
@@ -222,7 +228,7 @@ func _build() -> void:
 	_district.moon_chosen.connect(_on_moon_chosen)
 	_district.resident_chosen.connect(_on_resident_chosen)
 	_district.memorial_chosen.connect(_open_memorials)
-	_district.dogs_chosen.connect(func() -> void: _dogs.open())
+	_district.dogs_chosen.connect(_take_train)
 	map_frame.add_child(_district)
 	map_frame.add_child(_legend())
 	# The full moon, the forecast and your nemesis sit in the top bar, so
@@ -636,9 +642,6 @@ func _build() -> void:
 	_memorials = MemorialPanel.new()
 	add_child(_memorials)
 	_memorials.closed.connect(_refresh)
-	_dogs = DogDistrictPanel.new()
-	add_child(_dogs)
-	_dogs.closed.connect(_refresh)
 	_journal = JournalPanel.new()
 	add_child(_journal)
 	_journal.closed.connect(_refresh)
@@ -1141,6 +1144,15 @@ func _report_on(id: String) -> int:
 		if Profile.reports[i]["stage"] == id:
 			return i
 	return -1
+
+
+## The train between the cat town and the Dog District: the screen opens
+## again in the other district.
+func _take_train() -> void:
+	Audio.play("bell", -4.0, 0.0)
+	Profile.district = "dogs" if Profile.district == "cats" else "cats"
+	Profile.save()
+	get_tree().reload_current_scene()
 
 
 func _on_place_chosen(id: String) -> void:

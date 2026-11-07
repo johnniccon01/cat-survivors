@@ -35,9 +35,9 @@ const MAX_ZOOM := 2.0
 const SEA_B := 252.0
 const OUTLINE := Color("2b1d14")
 
-## Where every map sits in the town, and the part of the town its picture
-## in the side panel shows.
-const PLACES := {
+## Where every map sits in the cat town, and the part of the town its
+## picture in the side panel shows (the Dog District's: DogTown.PLACES).
+const CAT_PLACES := {
 	"LIVING_ROOM": {"pos": Vector2(70, 142), "view": Rect2(30, 140, 120, 95)},
 	"BASEMENT": {"pos": Vector2(56, 224), "view": Rect2(30, 176, 120, 74)},
 	"GARDEN": {"pos": Vector2(96, 40), "view": Rect2(10, 8, 172, 98)},
@@ -57,7 +57,7 @@ const PLACES := {
 ## Paths from the open maps on to the future ones (still in fog).
 const FUTURE_LINKS := []
 ## Fog over each place until it opens.
-const FOG := {
+const CAT_FOG := {
 	"FACTORY": Rect2(318, 0, 126, 110), "PARK": Rect2(446, 0, 146, 118), "CEMETERY": Rect2(600, 0, 120, 118),
 	"ISLAND": Rect2(576, 178, 92, 56), "STATION": Rect2(56, 274, 170, 26),
 	"SEWER": Rect2(222, 298, 116, 82), "FOREST": Rect2(0, 302, 186, 98), "CONSTRUCTION": Rect2(338, 294, 170, 106),
@@ -72,6 +72,12 @@ const HOME_STATS := {
 	"proj_speed": ["BONUS_PROJ_SPEED", 100.0],
 }
 
+## The district on show ("cats" or "dogs") and its places and fog.
+static var district := "cats"
+static var PLACES: Dictionary = CAT_PLACES
+static var FOG: Dictionary = CAT_FOG
+## Each district's picture with its lamps, candles and lit windows.
+static var _towns := {}
 static var _image: Image
 static var _lamps: Array[Vector2] = []
 static var _candles: Array[Vector2] = []
@@ -116,8 +122,7 @@ var selected_report := -1
 func _ready() -> void:
 	clip_contents = true
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	if _image == null:
-		_build_town()
+	use_district(Profile.district)
 	_texture = ImageTexture.create_from_image(_image)
 	var g := Gradient.new()
 	g.set_color(0, Color(1, 1, 1, 1))
@@ -129,10 +134,11 @@ func _ready() -> void:
 	_glow.fill_to = Vector2(1.0, 0.5)
 	_glow.width = 64
 	_glow.height = 64
-	for y in range(140, int(SEA_B), 3):
-		for x in range(0, WW, 4):
-			if _is_water(x, y) and _is_water(x - 4, y):
-				_water.append(Vector2(x, y))
+	if district == "cats":
+		for y in range(140, int(SEA_B), 3):
+			for x in range(0, WW, 4):
+				if _is_water(x, y) and _is_water(x - 4, y):
+					_water.append(Vector2(x, y))
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 11
 	for id: String in FOG:
@@ -222,7 +228,7 @@ func _ready() -> void:
 	add_child(_paths_btn)
 	_style_paths_btn()
 	# The train to the dog district, once its story is done.
-	_dogs_btn = UiStyle.click_button("DOGS_BUTTON", 0, 12)
+	_dogs_btn = UiStyle.click_button("DOGS_BUTTON" if district == "cats" else "CATS_BUTTON", 0, 12)
 	_dogs_btn.custom_minimum_size.y = 24
 	_dogs_btn.add_theme_color_override("font_color", UiStyle.GOLD)
 	_dogs_btn.pressed.connect(func() -> void: dogs_chosen.emit())
@@ -305,6 +311,9 @@ func _place_controls() -> void:
 
 ## Chooses a place: its sign lights up and the town glides to it.
 func select(id: String, instant: bool = false) -> void:
+	# A map of the other district (just after the train) is not on this one.
+	if not PLACES.has(id):
+		return
 	selected = id
 	for pid: String in _pins:
 		_style_pin(pid)
@@ -318,7 +327,7 @@ func select(id: String, instant: bool = false) -> void:
 
 
 func view_rect(id: String) -> Rect2:
-	return PLACES[id]["view"]
+	return PLACES[id]["view"] if PLACES.has(id) else Rect2(0, 0, 120, 80)
 
 
 func town_texture() -> Texture2D:
@@ -361,7 +370,7 @@ func _hit(global: Vector2, local: Vector2) -> Array:
 			return ["place", id]
 	# A resident (or the empty spot of a kidnapped one).
 	var town := cam + local / px
-	for cat: String in RESIDENT_SPOTS:
+	for cat: String in RESIDENT_SPOTS if district == "cats" else {}:
 		if (Profile.is_unlocked(cat)) and town.distance_to(RESIDENT_SPOTS[cat] - Vector2(0, 4)) < 9.0:
 			return ["resident", cat]
 	# A click on a building: the smallest place whose area holds the point.
@@ -453,6 +462,9 @@ func show_reports() -> void:
 	for r in _reports:
 		r.queue_free()
 	_reports.clear()
+	# The full moon and the memorials belong to the cat town.
+	if district != "cats":
+		return
 	var moon := Control.new()
 	moon.size = Vector2(40, 40)
 	moon.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -611,7 +623,7 @@ func _style_pin(id: String) -> void:
 	var edge: Color = {"yours": Color("3f9a78"), "boss": Color("9a4a3a"), "locked": Color("55505e")}[state]
 	title.label_settings.font_color = {"yours": Color("bff0dc"), "boss": Color("ffd0c4"), "locked": Color("c9c2d4")}[state]
 	if state == "locked":
-		stars.text = "🔒 " + tr("DISTRICT_SOON" if PLACES[id].get("future", false) else "DISTRICT_LOCKED")
+		stars.text = "🔒 " + tr("DISTRICT_SOON" if not GameData.stages.has(id) else "DISTRICT_LOCKED")
 		stars.label_settings.font_color = Color("b0a8c0")
 		stars.label_settings.font_size = 11
 	else:
@@ -668,12 +680,13 @@ func _draw_ring() -> void:
 ## The maps in the order they open (each one "requires" the one before).
 static func stage_order() -> Array[String]:
 	var order: Array[String] = []
-	var left: Array = GameData.stages.keys()
+	var left: Array = GameData.stages.keys().filter(func(id: String) -> bool: return stage_district(id) == district)
 	while not left.is_empty():
 		var added := false
 		for id: String in left.duplicate():
 			var req: String = GameData.stages[id].get("requires", "")
-			if req == "" or req in order:
+			# A map that opens from the other district counts as a first one.
+			if req == "" or req in order or stage_district(req) != district:
 				order.append(id)
 				left.erase(id)
 				added = true
@@ -681,6 +694,33 @@ static func stage_order() -> Array[String]:
 			order.append_array(left)
 			break
 	return order
+
+
+## Which district a map belongs to.
+static func stage_district(id: String) -> String:
+	return GameData.stages.get(id, {}).get("district", "cats")
+
+
+## Shows `d`'s places, fog and picture (drawn the first time).
+static func use_district(d: String) -> void:
+	if district == d and _image != null:
+		return
+	if _image != null:
+		_towns[district] = [_image, _lamps.duplicate(), _candles.duplicate(), _lit.duplicate()]
+	district = d
+	PLACES = CAT_PLACES if d == "cats" else DogTown.PLACES
+	FOG = CAT_FOG if d == "cats" else DogTown.PLACES.keys().reduce(func(acc: Dictionary, id: String) -> Dictionary:
+		acc[id] = DogTown.PLACES[id]["view"]
+		return acc, {})
+	if _towns.has(d):
+		_image = _towns[d][0]
+		_lamps.assign(_towns[d][1])
+		_candles.assign(_towns[d][2])
+		_lit = _towns[d][3]
+	elif d == "cats":
+		_build_town()
+	else:
+		_build_dog_town()
 
 
 ## The map to play next: the first open one you have not won yet.
@@ -735,7 +775,7 @@ func _draw_paths() -> void:
 ## is for sale, a tick when bought; a kidnapped one leaves a red "?".
 func _draw_residents() -> void:
 	var font := ThemeDB.fallback_font
-	for cat: String in RESIDENT_SPOTS:
+	for cat: String in RESIDENT_SPOTS if district == "cats" else {}:
 		if not Profile.is_unlocked(cat):
 			continue
 		var at: Vector2 = RESIDENT_SPOTS[cat] * px
@@ -1098,6 +1138,16 @@ static func _build_town() -> void:
 	_construction()
 	_railyard()
 	_scatter()
+	_image = _img
+
+
+static func _build_dog_town() -> void:
+	_img = Image.create(WW, WH, false, Image.FORMAT_RGBA8)
+	_rng.seed = 23
+	_lamps.clear()
+	_candles.clear()
+	_lit.clear()
+	DogTown.build()
 	_image = _img
 
 

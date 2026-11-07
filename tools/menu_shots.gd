@@ -34,8 +34,14 @@ func _run() -> void:
 		change_scene_to_file("res://scenes/character_select.tscn")
 		await _frames(12)
 		await _shot(locale, "select")
-		for panel in ["_charms", "_items", "_artifacts", "_challenges", "_memorials", "_help", "_dogs"]:
+		for panel in ["_charms", "_items", "_artifacts", "_challenges", "_memorials", "_help"]:
 			await _panel(locale, "select", panel)
+		# The Dog District, reached by the train.
+		root.get_node("Profile").district = "dogs"
+		change_scene_to_file("res://scenes/character_select.tscn")
+		await _frames(12)
+		await _shot(locale, "select_dogs")
+		root.get_node("Profile").district = "cats"
 		await _game(locale)
 	print("SHOTS: saved to ", _out)
 	quit()

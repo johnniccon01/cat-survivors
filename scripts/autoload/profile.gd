@@ -10,6 +10,9 @@ const BACKUP := "user://profile.bak.cfg"
 var unlocked: Array[String] = []
 var selected_cat := "MICA"
 var selected_stage := "LIVING_ROOM"
+## The district on show on the town map: "cats" or, once the train east
+## runs, "dogs".
+var district := "cats"
 var cleared_stages: Array[String] = []
 var flags: Array[String] = []
 var gold := 0
@@ -91,6 +94,7 @@ func _ready() -> void:
 			unlocked.append(id)
 		selected_cat = cfg.get_value("cats", "selected", selected_cat)
 		selected_stage = cfg.get_value("stages", "selected", selected_stage)
+		district = cfg.get_value("stages", "district", district)
 		for id: String in cfg.get_value("stages", "cleared", []):
 			cleared_stages.append(id)
 		darkness = cfg.get_value("darkness", "selected", {})
@@ -301,6 +305,8 @@ func is_stage_unlocked(stage_id: String) -> bool:
 	for also: String in stage.get("requires_also", []):
 		if also not in cleared_stages:
 			return false
+	if stage.has("requires_flag") and not has_flag(stage["requires_flag"]):
+		return false
 	return required == "" or required in cleared_stages
 
 
@@ -1365,6 +1371,7 @@ func _config() -> ConfigFile:
 	cfg.set_value("cats", "unlocked", unlocked)
 	cfg.set_value("cats", "selected", selected_cat)
 	cfg.set_value("stages", "selected", selected_stage)
+	cfg.set_value("stages", "district", district)
 	cfg.set_value("stages", "cleared", cleared_stages)
 	cfg.set_value("darkness", "selected", darkness)
 	cfg.set_value("darkness", "best", darkness_best)

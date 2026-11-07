@@ -13,18 +13,23 @@ extends Node2D
 ## - "pigeon_thief": now and then a fat pigeon swoops through, gobbling up
 ##   the kibbles on the floor, then flies off with them. Catch it before it
 ##   gets away and it drops everything it took, and more (Park).
+## - "flood": like the train, but a wave of sewer water rushes down a lane:
+##   it washes away the small fry and knocks the cat aside (Sewer).
+## - "shunting": like the train, but a slow row of freight wagons pushed
+##   along the yard (Railyard).
+## - "crane": the crane drops loads on marked spots around the cat; whatever
+##   stands there gets squashed (Construction site).
+## - "fireflies": swarms of fireflies light up the dark forest; catch them
+##   for experience and a little health, all of a swarm for coins (Forest).
 
 const TRAIN_FIRST := 35.0
 const TRAIN_EVERY := Vector2(30.0, 45.0)
 const TRAIN_WARN := 3.0
-const TRAIN_PASS := 3.2
 ## Half the height of the lane the train runs in.
 const TRAIN_HALF := 34.0
-const TRAIN_DAMAGE := 18.0
 ## Share of a boss's health a train takes.
 const TRAIN_BOSS_HIT := 0.04
 const CAR_LEN := 118.0
-const CARS := 4
 const TREASURES := 3
 const TREASURE_TIME := 25.0
 const TREASURE_COINS := 6
@@ -44,6 +49,27 @@ const THIEF_REACH := 48.0
 ## A caught thief gives back this much of what it took.
 const THIEF_BONUS := 1.5
 const THIEF_COINS := 8
+## Lane hazards that work like the train: kind -> [pass seconds, carriages,
+## cat damage, warning text].
+const LANES := {
+	"train": [3.2, 4, 18.0, "TRAIN_WARNING"],
+	"flood": [2.6, 5, 12.0, "FLOOD_WARNING"],
+	"shunting": [6.0, 3, 22.0, "SHUNTING_WARNING"],
+}
+const CRANE_FIRST := 30.0
+const CRANE_EVERY := Vector2(18.0, 28.0)
+const CRANE_WARN := 2.6
+const CRANE_SPOTS := 3
+const CRANE_RADIUS := 38.0
+const CRANE_DAMAGE := 16.0
+const CRANE_BOSS_HIT := 0.03
+const FIREFLY_FIRST := 25.0
+const FIREFLY_EVERY := Vector2(28.0, 38.0)
+const FIREFLY_COUNT := 5
+const FIREFLY_TIME := 22.0
+const FIREFLY_XP := 10.0
+const FIREFLY_HEAL := 2.0
+const FIREFLY_COINS := 6
 
 static var current: MapHazard
 
@@ -72,6 +98,14 @@ var _fog: Node2D
 var _thief: Enemy
 var _thief_out := false
 var _stolen := 0.0
+## Crane: {"pos": Vector2, "t": seconds until it drops}; dropped loads lie a
+## moment as {"pos", "left", "look"}.
+var _drops: Array[Dictionary] = []
+var _debris: Array[Dictionary] = []
+## Fireflies: {"pos": Vector2, "base": Vector2}, and the swarm's time left.
+var _flies: Array[Dictionary] = []
+var _flies_t := 0.0
+var _flies_caught := 0
 
 
 func _init() -> void:
@@ -101,6 +135,10 @@ func setup(p_kind: String, p_main: Node) -> void:
 		_phase_t = float(GameData.arg("--hazard-at=", str(THIEF_FIRST)))
 		main.enemies.enemy_killed.connect(_on_enemy_killed)
 		main.enemies.escaped.connect(_on_escaped)
+	elif kind == "crane":
+		_phase_t = float(GameData.arg("--hazard-at=", str(CRANE_FIRST)))
+	elif kind == "fireflies":
+		_phase_t = float(GameData.arg("--hazard-at=", str(FIREFLY_FIRST)))
 	elif kind == "graves":
 		z_index = -2
 		_phase_t = float(GameData.arg("--hazard-at=", str(GRAVE_FIRST)))
@@ -122,6 +160,9 @@ func bot_goal(from: Vector2) -> Vector2:
 			best = g["pos"]
 	if is_instance_valid(_thief) and not _thief.dead and _thief.position.distance_to(from) < 400.0:
 		best = _thief.position
+	for f in _flies:
+		if (f["pos"] as Vector2).distance_to(from) < best.distance_to(from):
+			best = f["pos"]
 	return best
 
 
@@ -133,8 +174,12 @@ func phase() -> String:
 func _physics_process(delta: float) -> void:
 	_t += delta
 	match kind:
-		"train":
+		"train", "flood", "shunting":
 			_tick_train(delta)
+		"crane":
+			_tick_crane(delta)
+		"fireflies":
+			_tick_fireflies(delta)
 		"low_tide":
 			_tick_low_tide(delta)
 		"graves":
@@ -303,7 +348,7 @@ func _dig_up(pos: Vector2) -> void:
 func _tick_train(delta: float) -> void:
 	_phase_t -= delta
 	if _phase == "pass":
-		_front = lerpf(_from, _to, clampf(1.0 - _phase_t / TRAIN_PASS, 0.0, 1.0))
+		_front = lerpf(_from, _to, clampf(1.0 - _phase_t / _pass_time(), 0.0, 1.0))
 		_run_over()
 	if _phase_t > 0.0:
 		return
@@ -313,21 +358,21 @@ func _tick_train(delta: float) -> void:
 			_phase_t = TRAIN_WARN
 			_lane_y = main.player.position.y + randf_range(-20.0, 20.0)
 			_dir = 1.0 if randf() < 0.5 else -1.0
-			Audio.play("bell", 2.0, 0.0)
-			main.hud.show_banner(tr("TRAIN_WARNING"), 2.5)
+			Audio.play("bell" if kind != "flood" else "whoosh", 2.0, 0.0)
+			main.hud.show_banner(tr(LANES[kind][3]), 2.5)
 			BotLog.event("train_warn")
 		"warn":
 			_phase = "pass"
-			_phase_t = TRAIN_PASS
+			_phase_t = _pass_time()
 			var view := _view()
-			var length := CAR_LEN * (CARS + 1)
+			var length := CAR_LEN * (_cars() + 1)
 			_from = (view.position.x - 40.0) if _dir > 0.0 else (view.end.x + 40.0)
 			_to = (view.end.x + length + 40.0) if _dir > 0.0 else (view.position.x - length - 40.0)
 			_front = _from
 			_hit.clear()
 			_cat_hit = false
 			Audio.play("whoosh", 4.0)
-			main.player.shake(3.0, TRAIN_PASS)
+			main.player.shake(3.0, _pass_time())
 		"pass":
 			_phase = "wait"
 			_phase_t = randf_range(TRAIN_EVERY.x, TRAIN_EVERY.y)
@@ -335,8 +380,17 @@ func _tick_train(delta: float) -> void:
 
 
 ## Everything between the train's front and its tail, inside the lane.
+func _pass_time() -> float:
+	return float(LANES.get(kind, LANES["train"])[0])
+
+
+## Carriages behind the front one.
+func _cars() -> int:
+	return int(LANES.get(kind, LANES["train"])[1])
+
+
 func _run_over() -> void:
-	var tail := _front - _dir * CAR_LEN * (CARS + 1)
+	var tail := _front - _dir * CAR_LEN * (_cars() + 1)
 	var rect := Rect2(minf(_front, tail), _lane_y - TRAIN_HALF, absf(_front - tail), TRAIN_HALF * 2.0)
 	var push := Vector2(_dir, 0.0)
 	for e: Enemy in main.enemies.query_rect(rect):
@@ -352,7 +406,7 @@ func _run_over() -> void:
 	var cat: Player = main.player
 	if not _cat_hit and rect.grow(Player.RADIUS).has_point(cat.position):
 		_cat_hit = true
-		cat.take_damage(TRAIN_DAMAGE)
+		cat.take_damage(float(LANES.get(kind, LANES["train"])[2]))
 		# Thrown off the tracks to the nearer side.
 		var side := 1.0 if cat.position.y >= _lane_y else -1.0
 		cat.position.y = _lane_y + side * (TRAIN_HALF + Player.RADIUS + 4.0)
@@ -368,8 +422,12 @@ func _view() -> Rect2:
 
 func _draw() -> void:
 	match kind:
-		"train":
+		"train", "flood", "shunting":
 			_draw_train()
+		"crane":
+			_draw_crane()
+		"fireflies":
+			_draw_fireflies()
 		"low_tide":
 			_draw_treasures()
 		"graves":
@@ -469,17 +527,20 @@ func _draw_train() -> void:
 			var p := at + Vector2(_dir * i * 22.0, 0.0)
 			draw_colored_polygon(PackedVector2Array([p + Vector2(-_dir * 8.0, -10.0), p + Vector2(_dir * 8.0, 0.0), p + Vector2(-_dir * 8.0, 10.0)]), Color(1.0, 0.3, 0.2, 0.4 + 0.6 * k))
 		return
+	if kind == "flood":
+		_draw_wave(view)
+		return
 	# The train: a locomotive and its carriages.
 	var y0 := _lane_y - TRAIN_HALF + 2.0
 	var h := TRAIN_HALF * 2.0 - 4.0
-	for i in CARS + 1:
+	for i in _cars() + 1:
 		var back := _front - _dir * CAR_LEN * i
 		var x0 := minf(back, back - _dir * (CAR_LEN - 6.0))
 		if x0 > view.end.x or x0 + CAR_LEN < view.position.x:
 			continue
 		var r := Rect2(x0, y0, CAR_LEN - 6.0, h)
 		draw_rect(Rect2(r.position + Vector2(4, 6), r.size), Color(0, 0, 0, 0.3))
-		var pic := FloorChunk.art("train_loco" if i == 0 else "train_car")
+		var pic := FloorChunk.art("train_freight" if kind == "shunting" else ("train_loco" if i == 0 else "train_car"))
 		if pic != null:
 			# Drawn heading right; mirrored when the train comes the other way.
 			var size := r.size + Vector2(2, 2)
@@ -507,5 +568,161 @@ func _draw_train() -> void:
 	# Speed lines behind it.
 	for i in 5:
 		var y := y0 + 8.0 + i * (h - 16.0) / 4.0
-		var tail := _front - _dir * CAR_LEN * (CARS + 1)
+		var tail := _front - _dir * CAR_LEN * (_cars() + 1)
 		draw_line(Vector2(tail, y), Vector2(tail - _dir * 60.0, y), Color(1, 1, 1, 0.35), 2.0)
+
+
+## Where the test bot should keep out of (a crane's marked spots).
+func danger_spots() -> Array[Vector2]:
+	var out: Array[Vector2] = []
+	for d in _drops:
+		out.append(d["pos"])
+	return out
+
+
+## The sewer wave: a long band of brown water with a foaming front.
+func _draw_wave(view: Rect2) -> void:
+	var tail := _front - _dir * CAR_LEN * (_cars() + 1)
+	var x0 := maxf(minf(_front, tail), view.position.x)
+	var x1 := minf(maxf(_front, tail), view.end.x)
+	if x1 <= x0:
+		return
+	var band := Rect2(x0, _lane_y - TRAIN_HALF, x1 - x0, TRAIN_HALF * 2.0)
+	var water := FloorChunk.art("terrain_sewage")
+	if water != null:
+		texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
+		draw_texture_rect_region(water, band, Rect2(band.position + Vector2(-_t * 140.0 * _dir, 0), band.size), Color(1, 1, 1, 0.92))
+	else:
+		draw_rect(band, Color(0.35, 0.42, 0.28, 0.9))
+	# Foam where it breaks, and spray.
+	for k in 9:
+		var y := _lane_y - TRAIN_HALF + k * TRAIN_HALF * 2.0 / 8.0
+		var fx := _front + _dir * (4.0 + 6.0 * sin(_t * 18.0 + k))
+		draw_circle(Vector2(fx, y), 7.0 + 2.0 * sin(_t * 11.0 + k * 2.0), Color(0.92, 0.95, 0.85, 0.85))
+	for k in 6:
+		var p := Vector2(_front + _dir * randf_range(-30.0, 8.0), _lane_y + randf_range(-TRAIN_HALF, TRAIN_HALF))
+		draw_circle(p, randf_range(1.5, 3.0), Color(0.85, 0.9, 0.8, 0.7))
+
+
+func _tick_crane(delta: float) -> void:
+	_phase_t -= delta
+	for i in range(_debris.size() - 1, -1, -1):
+		_debris[i]["left"] -= delta
+		if _debris[i]["left"] <= 0.0:
+			_debris.remove_at(i)
+	for i in range(_drops.size() - 1, -1, -1):
+		var d: Dictionary = _drops[i]
+		d["t"] -= delta
+		if d["t"] <= 0.0:
+			_crane_drop(d["pos"])
+			_drops.remove_at(i)
+	if _phase_t > 0.0:
+		return
+	_phase_t = randf_range(CRANE_EVERY.x, CRANE_EVERY.y)
+	var cat: Vector2 = main.player.position
+	for i in CRANE_SPOTS:
+		# One where the cat is heading, the others round about.
+		var pos: Vector2 = cat + main.player.velocity * 0.6 if i == 0 else cat + Vector2.from_angle(randf() * TAU) * randf_range(90.0, 200.0)
+		_drops.append({"pos": Terrain.fix(pos, 20.0), "t": CRANE_WARN + i * 0.35})
+	Audio.play("warning", -4.0)
+	if not _told:
+		_told = true
+		main.hud.show_banner(tr("CRANE_WARNING"), 3.0)
+	BotLog.event("crane_warn")
+
+
+## A load lands: everything under it is squashed, bosses only bruised.
+func _crane_drop(pos: Vector2) -> void:
+	for e: Enemy in main.enemies.query_radius(pos, CRANE_RADIUS):
+		if e.dead:
+			continue
+		if e.is_boss:
+			e.hit(e.max_hp * CRANE_BOSS_HIT, Vector2.ZERO, 0.0, false)
+		else:
+			e.hit(e.hp * 10.0 + 1000.0, (e.position - pos).normalized(), 1.5, false)
+			if e.dead:
+				Profile.add_stat("crane_kills")
+	var cat: Player = main.player
+	if cat.position.distance_to(pos) < CRANE_RADIUS + Player.RADIUS:
+		cat.take_damage(CRANE_DAMAGE)
+		BotLog.event("crane_hit_cat")
+	cat.shake(4.0, 0.25)
+	Audio.play("break", 0.0)
+	_debris.append({"pos": pos, "left": 1.2, "look": randi() % 3})
+	BotLog.event("crane_drop")
+
+
+func _draw_crane() -> void:
+	for d in _drops:
+		var p: Vector2 = d["pos"]
+		var k := 1.0 - clampf(float(d["t"]) / CRANE_WARN, 0.0, 1.0)
+		# The load's shadow grows as it comes down, with a warning ring.
+		draw_colored_polygon(Shapes.ellipse(p, maxf(CRANE_RADIUS * k, 1.0), maxf(CRANE_RADIUS * 0.7 * k, 1.0), 20), Color(0, 0, 0, 0.35 * k))
+		draw_arc(p, CRANE_RADIUS, 0.0, TAU, 32, Color(1.0, 0.75, 0.2, 0.5 + 0.4 * sin(_t * 14.0)), 3.0)
+		draw_line(p + Vector2(0, -400), p + Vector2(0, -CRANE_RADIUS * (1.0 - k) - 10.0), Color(0.2, 0.2, 0.22, 0.5), 1.5)
+	for d in _debris:
+		var pic := FloorChunk.art(["crane_load_bricks", "crane_load_pipes", "crane_load_crate"][int(d["look"])])
+		var fade := clampf(float(d["left"]) / 0.4, 0.0, 1.0)
+		if pic != null:
+			draw_texture(pic, (d["pos"] as Vector2) - (pic.get_size() * 0.5).floor(), Color(1, 1, 1, fade))
+		draw_arc(d["pos"], CRANE_RADIUS * (1.6 - float(d["left"]) * 0.5), 0.0, TAU, 28, Color(0.85, 0.75, 0.6, 0.4 * fade), 4.0)
+
+
+func _tick_fireflies(delta: float) -> void:
+	var cat: Vector2 = main.player.position
+	if not _flies.is_empty():
+		_flies_t -= delta
+		for i in range(_flies.size() - 1, -1, -1):
+			var f: Dictionary = _flies[i]
+			# Curious: once the cat is near they drift towards it.
+			var base: Vector2 = f["base"]
+			if base.distance_to(cat) < 160.0:
+				f["base"] = base.move_toward(cat, 35.0 * delta)
+			f["pos"] = (f["base"] as Vector2) + Vector2(sin(_t * 1.3 + i * 2.0) * 20.0, cos(_t * 1.7 + i) * 14.0)
+			if (f["pos"] as Vector2).distance_to(cat) < 24.0 + Player.RADIUS:
+				_catch_firefly(f["pos"])
+				_flies.remove_at(i)
+		if _flies.is_empty() and _flies_caught >= FIREFLY_COUNT:
+			for i in FIREFLY_COINS:
+				main.pickups.spawn_named("coin", cat + Vector2.from_angle(TAU * i / FIREFLY_COINS) * 30.0, 4.0)
+			Audio.play("chest", -2.0)
+			main.hud.show_banner(tr("FIREFLIES_ALL"), 2.5)
+			BotLog.event("fireflies_all")
+		if _flies_t <= 0.0:
+			_flies.clear()
+		return
+	_phase_t -= delta
+	if _phase_t > 0.0:
+		return
+	_phase_t = randf_range(FIREFLY_EVERY.x, FIREFLY_EVERY.y)
+	_flies_t = FIREFLY_TIME
+	_flies_caught = 0
+	var around := Vector2.from_angle(randf() * TAU)
+	for i in FIREFLY_COUNT:
+		var base := Terrain.fix(cat + around.rotated(randf_range(-1.2, 1.2)) * randf_range(110.0, 220.0), 12.0)
+		_flies.append({"pos": base, "base": base})
+	Audio.play("sparkle", 0.0)
+	if not _told:
+		_told = true
+		main.hud.show_banner(tr("FIREFLIES_COME"), 3.0)
+	BotLog.event("fireflies_come")
+
+
+func _catch_firefly(pos: Vector2) -> void:
+	_flies_caught += 1
+	main.pickups.spawn_xp(pos, FIREFLY_XP)
+	main.player.heal(FIREFLY_HEAL)
+	Audio.play("pop", -6.0)
+	Profile.add_stat("fireflies")
+	BotLog.event("firefly_caught")
+
+
+func _draw_fireflies() -> void:
+	for i in _flies.size():
+		var p: Vector2 = _flies[i]["pos"]
+		var blink := 0.6 + 0.4 * sin(_t * 6.0 + i * 1.7)
+		draw_circle(p, 22.0, Color(0.9, 1.0, 0.4, 0.08 * blink))
+		draw_circle(p, 10.0, Color(0.9, 1.0, 0.45, 0.22 * blink))
+		draw_circle(p, 3.0, Color(1.0, 1.0, 0.7, blink))
+		draw_circle(p + Vector2(-3, -2), 2.0, Color(0.8, 0.9, 1.0, 0.5))
+		draw_circle(p + Vector2(3, -2), 2.0, Color(0.8, 0.9, 1.0, 0.5))

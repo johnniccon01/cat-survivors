@@ -298,6 +298,9 @@ func win_darkness(stage_id: String, level: int) -> bool:
 func is_stage_unlocked(stage_id: String) -> bool:
 	var stage: Dictionary = GameData.stages.get(stage_id, {})
 	var required: String = stage.get("requires", "")
+	for also: String in stage.get("requires_also", []):
+		if also not in cleared_stages:
+			return false
 	return required == "" or required in cleared_stages
 
 
@@ -527,6 +530,7 @@ const TERRITORY_BONUS := {
 	"LIVING_ROOM": {"max_hp": 10.0}, "BASEMENT": {"magnet": 15.0}, "GARDEN": {"regen": 0.3},
 	"ROOFTOP": {"speed": 0.05}, "SUPERMARKET": {"luck": 0.1}, "HARBOR": {"area": 0.05},
 	"FACTORY": {"might": 0.05}, "PARK": {"growth": 0.05}, "CEMETERY": {"cooldown": -0.03}, "STATION": {"magnet": 15.0}, "ISLAND": {"proj_speed": 0.05},
+	"SEWER": {"max_hp": 10.0}, "FOREST": {"luck": 0.05}, "CONSTRUCTION": {"area": 0.05}, "RAILYARD": {"speed": 0.05},
 }
 var territories: Array[String] = []
 

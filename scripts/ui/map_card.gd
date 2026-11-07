@@ -16,6 +16,10 @@ const GROUNDS := {
 	"supermarket": [Color("dcd8cc"), Color("b8c4cc")],
 	"harbor": [Color("e2cc94"), Color("1f4a6a")],
 	"factory": [Color("5a5650"), Color("8a6a2a")],
+	"sewer": [Color("4a4a3a"), Color("3a5a4a")],
+	"forest": [Color("3f5a2e"), Color("5a4a32")],
+	"construction": [Color("8a6a48"), Color("e8c02a")],
+	"railyard": [Color("6e665c"), Color("8a3a2a")],
 }
 
 var stage_id := ""

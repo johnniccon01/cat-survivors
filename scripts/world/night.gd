@@ -70,9 +70,20 @@ const FACTORY_KEYS := [
 	[1.0, Color(1.0, 0.93, 0.84)],
 ]
 
+## Forest: dusk under the trees, then a deep green dark.
+const FOREST_KEYS := [
+	[0.0, Color(0.95, 0.85, 0.72)],
+	[0.2, Color(0.66, 0.72, 0.7)],
+	[0.4, Color(0.48, 0.56, 0.6)],
+	[0.85, Color(0.48, 0.56, 0.6)],
+	[0.95, Color(0.85, 0.8, 0.72)],
+	[1.0, Color(1.0, 0.93, 0.84)],
+]
+
 const THEME_KEYS := {"basement": BASEMENT_KEYS, "garden": GARDEN_KEYS, "rooftop": ROOFTOP_KEYS,
 	"supermarket": SUPERMARKET_KEYS, "harbor": HARBOR_KEYS, "factory": FACTORY_KEYS,
-	"park": GARDEN_KEYS, "island": HARBOR_KEYS, "station": ROOFTOP_KEYS}
+	"park": GARDEN_KEYS, "island": HARBOR_KEYS, "station": ROOFTOP_KEYS,
+	"sewer": BASEMENT_KEYS, "forest": FOREST_KEYS, "construction": ROOFTOP_KEYS, "railyard": FACTORY_KEYS}
 
 var spawner: Spawner
 var _keys: Array = KEYS

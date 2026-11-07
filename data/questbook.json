@@ -917,6 +917,178 @@
         }
       ]
     },
+    "SEWER": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:SEWER"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 500
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:SEWER"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:SEWER",
+          "target": 1,
+          "reward": {
+            "gold": 1500
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:SEWER"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 2400
+          }
+        }
+      ]
+    },
+    "FOREST": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:FOREST"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 500
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:FOREST"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:FOREST",
+          "target": 1,
+          "reward": {
+            "gold": 1500
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:FOREST"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 2400
+          }
+        }
+      ]
+    },
+    "CONSTRUCTION": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:CONSTRUCTION"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 500
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:CONSTRUCTION"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:CONSTRUCTION",
+          "target": 1,
+          "reward": {
+            "gold": 1500
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:CONSTRUCTION"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 2400
+          }
+        }
+      ]
+    },
+    "RAILYARD": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:RAILYARD"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 500
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:RAILYARD"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:RAILYARD",
+          "target": 1,
+          "reward": {
+            "gold": 1500
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:RAILYARD"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 2400
+          }
+        }
+      ]
+    },
     "OLD_DIARY": {
       "chapter": "story",
       "tiers": [

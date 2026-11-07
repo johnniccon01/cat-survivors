@@ -592,6 +592,12 @@ func _bot_input(delta: float) -> Vector2:
 	var out := Vector2.ZERO
 	for h in get_tree().get_nodes_in_group("enemy_hazard"):
 		out += (h as EnemyHazard).escape_from(position, RADIUS + 6.0)
+	if MapHazard.current != null:
+		# And from under the crane's loads.
+		for spot in MapHazard.current.danger_spots():
+			var d := position - spot
+			if d.length() < MapHazard.CRANE_RADIUS + RADIUS + 8.0:
+				out += d.normalized() if d != Vector2.ZERO else Vector2.RIGHT
 	if out != Vector2.ZERO:
 		# ...without running into the crowd on the way.
 		var crowd := Vector2.ZERO

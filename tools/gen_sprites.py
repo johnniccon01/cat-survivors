@@ -530,6 +530,9 @@ def enemy_canvas(shape, frame, data):
         c.ellipse(13, 19, 5, 2, "belly", only=("body",))
         for x in ((9, 12) if frame else (11, 14)):
             c.rect(x, 21, 2, 2, "accent")
+        if data.get("hat"):
+            c.ellipse(16, 10, 4, 2.6, "led")
+            c.rect(12, 11, 9, 1, "led")
     elif shape == "spider":
         step = [1, -1][frame]
         for side in (-1, 1):
@@ -924,6 +927,132 @@ def enemy_canvas(shape, frame, data):
         c.ellipse(13, 14, 6.5, 5.2, "top", only=("body",))
         for p in ((10, 12), (16, 12), (10, 16), (16, 16), (13, 14)):
             c.ellipse(p[0], p[1], 1.6, 1.4, "accent", only=("body", "top"))
+    elif shape == "cockroach":
+        step = frame
+        for side in (-1, 1):
+            for i in range(3):
+                c.thick_line([(11 + i * 4, 15), (9 + i * 5, 15 + side * (6 + (step if i % 2 else -step)))], 0.45, "leg")
+        c.ellipse(13, 15, 8, 4.5, "body")
+        c.ellipse(13, 15, 6.5, 3.2, "top", only=("body",))
+        c.rect(6, 15, 14, 1, "accent", only=("body", "top"))
+        c.ellipse(21, 15, 2.6, 2.4, "accent")
+        c.thick_line([(22, 13), (26, 9 + step)], 0.35, "ink")
+        c.thick_line([(22, 17), (26, 21 - step)], 0.35, "ink")
+        c.set(22, 14, "white"); c.set(22, 16, "white")
+    elif shape == "slime":
+        squash = frame
+        c.ellipse(14, 17 + squash * 0.5, 9 + squash, 7 - squash, "bubble")
+        c.ellipse(14, 19, 6, 3, "accent", only=("bubble",))
+        c.ellipse(11, 13, 2.2, 1.6, "glint", only=("bubble",))
+        for x in (11, 17):
+            c.ellipse(x, 16, 1.6, 2.0, "white")
+            c.set(x, 16 + squash, "pupil")
+        c.set(13, 20, "ink"); c.set(14, 21, "ink"); c.set(15, 20, "ink")
+    elif shape == "gator":
+        sway = frame
+        c.thick_line([(2, 15 + sway), (6, 15), (10, 15)], 2.0, "body")
+        c.ellipse(13, 15, 7, 5, "body")
+        c.poly([(17, 11), (27, 13), (27, 17), (17, 19)], "body")
+        c.rect(19, 15, 8, 1, "ink")
+        for x in range(20, 27, 2):
+            c.set(x, 14, "white"); c.set(x + 1, 16, "white")
+        c.ellipse(18, 11, 1.8, 1.6, "accent")
+        c.set(18, 11, "eye")
+        for x in range(6, 18, 3):
+            c.set(x, 11, "accent"); c.set(x + 1, 12, "accent")
+        c.ellipse(13, 17, 5, 2.2, "belly", only=("body",))
+        for x in ((8, 15) if frame else (10, 17)):
+            c.rect(x, 19, 3, 3, "body")
+            c.rect(x, 9, 3, 3, "body")
+    elif shape == "hedgehog":
+        wob = frame
+        for i in range(11):
+            a = 3.6 + i * 0.26
+            c.thick_line([(12, 15), (12 + math.cos(a) * 10, 15 + math.sin(a) * 9)], 0.6, "accent")
+        c.ellipse(12, 15, 8, 6.5, "body")
+        for i in range(6):
+            c.set(7 + i * 2, 11 + (i % 2), "accent")
+        c.ellipse(19, 17, 4, 3, "belly")
+        c.ellipse(23, 17, 1.3, 1.1, "ink")
+        c.set(19, 15, "pupil")
+        for x in ((9, 15) if wob else (11, 17)):
+            c.rect(x, 21, 2, 2, "ink")
+    elif shape == "fox":
+        sway = frame
+        c.thick_line([(2, 13 + sway), (5, 15), (8, 16)], 2.2, "body")
+        c.ellipse(2, 12 + sway, 2.0, 1.8, "white")
+        c.ellipse(13, 16, 7, 4.5, "body")
+        c.ellipse(13, 18, 4.5, 2, "white", only=("body",))
+        c.ellipse(20, 12, 4.2, 3.8, "body")
+        c.poly([(22, 12), (27, 13), (22, 15)], "body")
+        c.ellipse(21, 14, 2.5, 1.5, "white", only=("body",))
+        c.set(27, 13, "ink")
+        c.poly([(17, 9), (17, 4), (20, 8)], "body")
+        c.poly([(21, 8), (23, 4), (24, 9)], "body")
+        c.set(18, 7, "ink"); c.set(22, 7, "ink")
+        c.set(21, 11, "pupil")
+        for x in ((9, 15) if frame else (11, 17)):
+            c.rect(x, 19, 2, 4, "ink")
+    elif shape == "owl":
+        flap = frame * 2
+        for side in (-1, 1):
+            c.ellipse(14 + side * (8 + flap * 0.5), 15 + flap * 0.5, 4, 7 - flap, "wing_dark")
+        c.ellipse(14, 15, 7.5, 9, "body")
+        c.ellipse(14, 18, 5, 5, "belly", only=("body",))
+        for x in (11, 17):
+            c.ellipse(x, 12, 3, 3, "white")
+            c.ellipse(x, 12, 1.6, 1.6, "accent")
+            c.set(x, 12, "pupil")
+        c.poly([(13, 14), (15, 14), (14, 16)], "beak")
+        c.poly([(8, 7), (9, 3), (11, 6)], "body")
+        c.poly([(17, 6), (19, 3), (20, 7)], "body")
+        for i in range(4):
+            c.set(12 + i, 20 + (i % 2), "accent")
+    elif shape == "brick":
+        step = frame
+        c.rect(5, 7, 18, 14, "body")
+        c.rect(5, 7, 18, 2, "top", only=("body",))
+        c.rect(5, 13, 18, 1, "accent", only=("body", "top"))
+        c.rect(13, 7, 1, 6, "accent", only=("body", "top"))
+        c.rect(9, 14, 1, 7, "accent", only=("body",))
+        c.rect(18, 14, 1, 7, "accent", only=("body",))
+        for x in (10, 17):
+            c.set(x, 10, "white"); c.set(x, 11, "pupil")
+        c.rect(12, 17, 4, 1, "ink")
+        c.rect(7 - step, 21, 3, 3, "body"); c.rect(18 + step, 21, 3, 3, "body")
+        c.rect(2, 11 + step, 3, 3, "body"); c.rect(23, 11 - step, 3, 3, "body")
+    elif shape == "mixer":
+        spin = frame
+        c.rect(5, 19, 18, 4, "accent")
+        c.ellipse(8, 24, 2, 2, "ink"); c.ellipse(20, 24, 2, 2, "ink")
+        c.ellipse(14, 12, 9, 8, "body")
+        for i in range(4):
+            x = 8 + i * 4 + spin * 2
+            c.thick_line([(x, 5), (x - 2, 19)], 0.4, "top")
+        c.ellipse(19, 7, 2.8, 2.2, "ink")
+        for x in (11, 16):
+            c.set(x, 12, "white"); c.set(x, 13, "pupil")
+    elif shape == "excavator":
+        arm = frame
+        c.rect(3, 18, 20, 6, "ink")
+        for x in range(4, 23, 3):
+            c.set(x, 19, "accent"); c.set(x, 22, "accent")
+        c.rect(5, 9, 15, 10, "body")
+        c.rect(14, 6, 6, 7, "top")
+        c.rect(15, 7, 4, 4, "white")
+        c.set(16, 9, "pupil"); c.set(18, 9, "pupil")
+        c.thick_line([(18, 11), (24, 5 + arm), (27, 11 + arm)], 1.2, "accent")
+        c.poly([(24, 11 + arm), (28, 11 + arm), (27, 16 + arm), (23, 15 + arm)], "body")
+        c.set(24, 16 + arm, "ink"); c.set(26, 16 + arm, "ink")
+    elif shape == "coal":
+        glow = frame
+        c.ellipse(14, 15, 8, 7, "body", jag=0.25)
+        c.ellipse(14, 15, 5, 4, "top", only=("body",), jag=0.3)
+        for (x, y) in ((10, 12), (17, 17), (13, 19)):
+            c.set(x, y, "accent"); c.set(x + 1, y, "led" if glow else "accent")
+        for x in (11, 16):
+            c.set(x, 13, "led"); c.set(x, 14, "accent")
+        c.rect(12, 17, 3, 1, "led" if glow else "accent")
     elif shape == "suitcase":
         # Lost luggage that got up and walks: a case on little legs.
         step = frame

@@ -2,7 +2,8 @@ class_name Terrain
 extends Node2D
 ## Obstacles a map can have (stage "terrain"): nobody walks through them,
 ## shots fly over. Kinds:
-## - "trees": bushes and trees scattered over the endless lawn.
+## - "trees": bushes and trees scattered over the endless lawn (a stage's
+##   "tree_chance" makes them denser, as in the Forest).
 ## - "walls": brick walls in a grid of rooms, each wall with a gap to walk
 ##   through (Rooftop: parapets between the roofs).
 ## - "aisles": tall shelves everywhere except a wide aisle that winds left and
@@ -12,7 +13,10 @@ extends Node2D
 ## - "tide": every now and then the sea comes in from above and below and
 ##   squeezes everyone into a strip of dry land, then goes out again.
 ## - "belts": conveyor belts across the hall push everyone sideways and
-##   switch direction every now and then (Factory).
+##   switch direction every now and then (Factory; in the Sewer they are
+##   canals whose current turns).
+## Walls, shelves and belts take their look from the floor theme: fences on
+## the Construction site, parked wagons in the Railyard.
 ## Everything that moves or gets placed asks fix() for the nearest free spot.
 
 const TREE_CELL := 250.0
@@ -48,6 +52,10 @@ const TIDE_HALF := 115.0
 
 ## The terrain of the running night (null on open maps).
 static var current: Terrain
+## Share of tree cells that hold a tree or bush, and how big a cell is
+## (smaller cells: more, smaller trees, as in the Forest).
+var tree_chance := TREE_CHANCE
+var tree_cell := TREE_CELL
 ## Walls that come and go on any map (the Lawnmower's hedges, HedgeWall).
 static var blockers: Array[Rect2] = []
 
@@ -209,7 +217,7 @@ func resolve(pos: Vector2, r: float) -> Vector2:
 				for rect: Rect2 in _room_rects(Vector2i(rc.x + dx, rc.y + dy)):
 					pos = _push_out_of(rect, pos, r)
 	if kind == "trees":
-		var c := Vector2i(floori(pos.x / TREE_CELL), floori(pos.y / TREE_CELL))
+		var c := Vector2i(floori(pos.x / tree_cell), floori(pos.y / tree_cell))
 		for dx in range(-1, 2):
 			for dy in range(-1, 2):
 				var tree := _tree(Vector2i(c.x + dx, c.y + dy))
@@ -247,9 +255,9 @@ func _tree(c: Vector2i) -> Dictionary:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = hash([c.x, c.y, _seed])
 	var tree := {}
-	if rng.randf() < TREE_CHANCE:
-		var r := rng.randf_range(24.0, 52.0)
-		var at := Vector2((c.x + rng.randf_range(0.2, 0.8)) * TREE_CELL, (c.y + rng.randf_range(0.2, 0.8)) * TREE_CELL)
+	if rng.randf() < tree_chance:
+		var r := rng.randf_range(24.0, 52.0) * tree_cell / TREE_CELL
+		var at := Vector2((c.x + rng.randf_range(0.2, 0.8)) * tree_cell, (c.y + rng.randf_range(0.2, 0.8)) * tree_cell)
 		if at.length() > TREE_CLEAR + r:
 			tree = {"at": at, "r": r, "bush": rng.randf() < 0.35, "tint": rng.randf()}
 	_trees[c] = tree
@@ -261,6 +269,9 @@ func _tree(c: Vector2i) -> Dictionary:
 func setup(p_kind: String, p_main: Node) -> void:
 	kind = p_kind
 	main = p_main
+	if main != null and main.get("spawner") != null:
+		tree_chance = float(main.spawner.stage().get("tree_chance", TREE_CHANCE))
+		tree_cell = float(main.spawner.stage().get("tree_cell", TREE_CELL))
 
 
 func _process(delta: float) -> void:
@@ -274,7 +285,7 @@ func _process(delta: float) -> void:
 			_belt_t = BELT_SWITCH
 			_belt_dir = -_belt_dir
 			if main != null and main.get("hud") != null:
-				main.hud.show_banner(tr("BELTS_SWITCH"), 2.0)
+				main.hud.show_banner(tr("CANALS_SWITCH" if _theme() == "sewer" else "BELTS_SWITCH"), 2.0)
 	queue_redraw()
 
 
@@ -329,6 +340,10 @@ func _view() -> Rect2:
 	return Rect2(inv * rect.position, inv.basis_xform(rect.size)).abs().grow(80.0)
 
 
+func _theme() -> String:
+	return WorldFloor.current.theme if WorldFloor.current != null else ""
+
+
 func _draw() -> void:
 	var view := _view()
 	match kind:
@@ -347,8 +362,8 @@ func _draw() -> void:
 
 
 func _draw_trees(view: Rect2) -> void:
-	var c0 := Vector2i(floori(view.position.x / TREE_CELL) - 1, floori(view.position.y / TREE_CELL) - 1)
-	var c1 := Vector2i(floori(view.end.x / TREE_CELL) + 1, floori(view.end.y / TREE_CELL) + 1)
+	var c0 := Vector2i(floori(view.position.x / tree_cell) - 1, floori(view.position.y / tree_cell) - 1)
+	var c1 := Vector2i(floori(view.end.x / tree_cell) + 1, floori(view.end.y / tree_cell) + 1)
 	for cx in range(c0.x, c1.x + 1):
 		for cy in range(c0.y, c1.y + 1):
 			var tree := _tree(Vector2i(cx, cy))
@@ -426,7 +441,7 @@ func _draw_shelves(area: Rect2, view: Rect2) -> void:
 	area = area.intersection(view)
 	if not area.has_area():
 		return
-	var pic := FloorChunk.art("terrain_shelves")
+	var pic := FloorChunk.art("terrain_wagons" if _theme() == "railyard" else "terrain_shelves")
 	if pic != null:
 		draw_texture_rect_region(pic, area, area)
 		draw_rect(area, Color("2b2f36"), false, 6.0)
@@ -723,7 +738,7 @@ func _draw_walls(view: Rect2) -> void:
 	var c0 := Vector2i(floori(view.position.x / WALL_CELL) - 1, floori(view.position.y / WALL_CELL) - 1)
 	var c1 := Vector2i(floori(view.end.x / WALL_CELL) + 1, floori(view.end.y / WALL_CELL) + 1)
 	var brick := Color("b3aa9c")
-	var look := "station_wall" if WorldFloor.current != null and WorldFloor.current.theme == "station" else "parapet"
+	var look: String = {"station": "station_wall", "construction": "fence"}.get(_theme(), "parapet")
 	var art_h := FloorChunk.art("terrain_%s_h" % look)
 	var art_v := FloorChunk.art("terrain_%s_v" % look)
 	for cx in range(c0.x, c1.x + 1):
@@ -766,7 +781,8 @@ func _draw_belts(view: Rect2) -> void:
 		if absf(y + BELT_WIDTH * 0.5) < BELT_EVERY * 0.5:
 			continue
 		var dir := _belt_dir * (1.0 if posmod(row, 2) == 0 else -1.0)
-		var pic := FloorChunk.art("terrain_belt_r" if dir > 0.0 else "terrain_belt_l")
+		var look := "canal" if _theme() == "sewer" else "belt"
+		var pic := FloorChunk.art("terrain_%s_%s" % [look, "r" if dir > 0.0 else "l"])
 		if pic != null:
 			# The belt's ribs and chevrons ride along with it.
 			var moved := _belt_shift * (1.0 if posmod(row, 2) == 0 else -1.0)

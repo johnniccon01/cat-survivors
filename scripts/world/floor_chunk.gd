@@ -18,7 +18,8 @@ const ITEM_KINDS: Array[String] = ["mouse", "book", "ball", "feather", "crumbs"]
 ## per rug colour).
 const APARTMENT_ITEMS: Array[String] = ["toy_mouse", "book", "yarn", "feather", "crumbs", "sock", "paper_ball", "slipper", "newspaper", "kibble", "hair", "hair", "kibble", "sock"]
 const ART_ITEMS := ["toy_mouse", "paper_ball", "newspaper", "kibble", "hair", "bolt", "jar", "leaf", "pebble", "flower", "acorn",
-	"twig", "bottle_cap", "receipt", "grape", "price_tag", "coin_small", "shell", "starfish", "rope_bit"]
+	"twig", "bottle_cap", "receipt", "grape", "price_tag", "coin_small", "shell", "starfish", "rope_bit",
+	"pinecone", "mushroom_small", "nail", "brick_bit", "coal_bit"]
 const ART_FABRIC_ITEMS := ["sock", "yarn", "slipper", "book", "rag"]
 const BASEMENT_ITEMS: Array[String] = ["cobweb", "bolt", "rag", "crumbs", "jar"]
 const GARDEN_ITEMS: Array[String] = ["leaf", "leaf", "pebble", "flower", "acorn", "twig"]
@@ -30,9 +31,14 @@ const CEMETERY_ITEMS: Array[String] = ["leaf", "twig", "pebble", "feather", "lea
 const STATION_ITEMS: Array[String] = ["receipt", "coin_small", "bolt", "crumbs", "feather"]
 const ISLAND_ITEMS: Array[String] = ["shell", "starfish", "pebble", "shell", "leaf"]
 const PARK_ITEMS: Array[String] = ["leaf", "acorn", "feather", "flower", "crumbs"]
+const SEWER_ITEMS: Array[String] = ["bolt", "rag", "bottle_cap", "pebble", "crumbs"]
+const FOREST_ITEMS: Array[String] = ["leaf", "acorn", "twig", "pinecone", "mushroom_small", "leaf"]
+const CONSTRUCTION_ITEMS: Array[String] = ["bolt", "nail", "pebble", "brick_bit", "receipt"]
+const RAILYARD_ITEMS: Array[String] = ["bolt", "coal_bit", "pebble", "receipt", "coin_small"]
 const THEME_ITEMS := {"apartment": APARTMENT_ITEMS, "basement": BASEMENT_ITEMS, "garden": GARDEN_ITEMS, "rooftop": ROOFTOP_ITEMS,
 	"supermarket": SUPERMARKET_ITEMS, "harbor": HARBOR_ITEMS, "factory": FACTORY_ITEMS, "cemetery": CEMETERY_ITEMS,
-	"station": STATION_ITEMS, "island": ISLAND_ITEMS, "park": PARK_ITEMS}
+	"station": STATION_ITEMS, "island": ISLAND_ITEMS, "park": PARK_ITEMS, "sewer": SEWER_ITEMS, "forest": FOREST_ITEMS,
+	"construction": CONSTRUCTION_ITEMS, "railyard": RAILYARD_ITEMS}
 ## Zones per theme, from low noise to high noise.
 const THEME_ZONES := {
 	"apartment": ["kitchen", "living", "bedroom"],
@@ -46,6 +52,10 @@ const THEME_ZONES := {
 	"station": ["hall", "platform", "tracks"],
 	"island": ["sand", "palm_grove", "rocks"],
 	"park": ["park_path", "meadow", "pond"],
+	"sewer": ["walkway", "tunnel", "sludge"],
+	"forest": ["clearing", "forest_floor", "moss"],
+	"construction": ["site_slab", "site_dirt", "site_yard"],
+	"railyard": ["yard_dock", "yard_ballast", "yard_rails"],
 }
 const FURNITURE := {
 	"living": ["sofa", "armchair", "coffee_table", "bookshelf", "tv", "floor_lamp", "plant", "cat_tree"],
@@ -81,8 +91,21 @@ const FURNITURE := {
 	"park_path": ["bench", "garden_lamp", "fountain", "trash_bin", "bench", "garden_lamp"],
 	"meadow": ["tree", "picnic_blanket", "bush", "tree", "flowers", "garden_lamp"],
 	"pond": ["ducks", "bush", "bench", "tree", "garden_lamp"],
+	"tunnel": ["pipes", "valve", "sewer_grate", "barrels", "sewer_lamp", "rubber_duck"],
+	"walkway": ["sewer_ladder", "valve", "crates", "sewer_lamp", "pipes"],
+	"sludge": ["mushrooms_glow", "sewer_grate", "barrels", "rubber_duck", "sewer_lamp", "mushrooms_glow"],
+	"forest_floor": ["pine", "stump", "fern", "log", "mushrooms", "pine"],
+	"moss": ["fern", "rock", "log", "anthill", "mushrooms", "pine"],
+	"clearing": ["stump", "campfire", "flowers", "bush", "tent", "log"],
+	"site_dirt": ["traffic_cone", "wheelbarrow", "brick_pallet", "sand_pile", "site_lamp", "traffic_cone"],
+	"site_slab": ["cement_bags", "rebar", "toolbox", "brick_pallet", "site_lamp", "portable_toilet"],
+	"site_yard": ["pipe_stack", "cement_mixer", "traffic_cone", "site_lamp", "cable_drum"],
+	"yard_ballast": ["coal_pile", "switch_lever", "signal", "crates", "yard_lamp"],
+	"yard_rails": ["buffer_stop", "switch_lever", "signal", "yard_lamp"],
+	"yard_dock": ["container", "crates", "barrels", "pallet_stack", "yard_lamp", "container"],
 }
-const LAMPS := ["floor_lamp", "nightstand", "bulb", "garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp", "factory_lamp", "grave_candle", "station_lamp", "campfire"]
+const LAMPS := ["floor_lamp", "nightstand", "bulb", "garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp", "factory_lamp", "grave_candle", "station_lamp", "campfire",
+	"sewer_lamp", "site_lamp", "yard_lamp", "mushrooms_glow"]
 const LAMP_COLOR := Color(1.0, 0.82, 0.55)
 
 static var _light_texture: Texture2D
@@ -100,7 +123,13 @@ const ART_FURNITURE := ["bookshelf", "tv", "floor_lamp", "plant", "dining_table"
 	"pallet_stack", "machine", "robot_arm", "control_panel", "gear_pile", "factory_lamp",
 	"gravestone", "grave_cross", "dead_tree", "grave_candle", "crypt",
 	"ticket_machine", "luggage", "signal", "buffer_stop", "station_lamp",
-	"palm", "campfire", "rock", "wreck", "fountain", "picnic_blanket", "ducks"]
+	"palm", "campfire", "rock", "wreck", "fountain", "picnic_blanket", "ducks",
+	# The last maps of the first district (tools/gen_district1.py).
+	"valve", "sewer_grate", "rubber_duck", "sewer_ladder", "mushrooms_glow", "sewer_lamp",
+	"pine", "stump", "fern", "log", "mushrooms", "anthill", "tent",
+	"traffic_cone", "brick_pallet", "sand_pile", "cement_bags", "rebar", "toolbox", "portable_toilet",
+	"pipe_stack", "cement_mixer", "cable_drum", "site_lamp",
+	"coal_pile", "switch_lever", "container", "yard_lamp"]
 const ART_FABRIC := ["sofa", "armchair", "coffee_table", "cat_tree", "cat_bowls", "bed", "cat_bed", "doormat", "bike",
 	"scarecrow", "deck_chair", "towel"]
 ## Apartment floors from pixel art: zone -> texture name.
@@ -114,7 +143,11 @@ const ART_FLOORS := {"living": "floor_planks", "kitchen": "floor_tiles", "bedroo
 	"gravel": "floor_gravel", "grave_lawn": "floor_grave_lawn", "graves": "floor_graves",
 	"hall": "floor_hall", "platform": "floor_platform", "tracks": "floor_tracks",
 	"sand": "floor_sand", "palm_grove": "floor_palm_grove", "rocks": "floor_rocks",
-	"park_path": "floor_park_path", "meadow": "floor_meadow", "pond": "floor_meadow"}
+	"park_path": "floor_park_path", "meadow": "floor_meadow", "pond": "floor_meadow",
+	"tunnel": "floor_tunnel", "walkway": "floor_walkway", "sludge": "floor_sludge",
+	"forest_floor": "floor_forest_floor", "moss": "floor_moss", "clearing": "floor_clearing",
+	"site_dirt": "floor_site_dirt", "site_slab": "floor_site_slab", "site_yard": "floor_site_yard",
+	"yard_ballast": "floor_yard_ballast", "yard_rails": "floor_yard_rails", "yard_dock": "floor_yard_dock"}
 ## Zones with rooms (thresholds and door frames between them).
 const ROOM_ZONES := ["living", "kitchen", "bedroom", "concrete", "laundry", "storage"]
 

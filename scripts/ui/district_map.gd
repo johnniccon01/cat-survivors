@@ -24,7 +24,7 @@ const RESIDENT_SPOTS := {
 const REPORT_LOOK := {"trip": ["»", Color("8a4ad0")], "defend": ["!", Color("c0392b")], "hunt": ["★", Color("d4801c")], "gold": ["$", Color("2f8a6a")], "rescue": ["+", Color("3a6ad0")]}
 
 const WW := 720
-const WH := 300
+const WH := 400
 ## One town pixel is at least this many screen pixels; a taller or wider map
 ## area zooms in further so the town always fills it.
 const MIN_PX := 2.0
@@ -47,6 +47,10 @@ const PLACES := {
 	"CEMETERY": {"pos": Vector2(660, 50), "view": Rect2(600, 0, 120, 118)},
 	"ISLAND": {"pos": Vector2(622, 190), "view": Rect2(570, 166, 104, 76)},
 	"STATION": {"pos": Vector2(140, 276), "view": Rect2(56, 250, 170, 50)},
+	"SEWER": {"pos": Vector2(272, 314), "view": Rect2(222, 296, 116, 84)},
+	"FOREST": {"pos": Vector2(84, 330), "view": Rect2(0, 300, 186, 100)},
+	"CONSTRUCTION": {"pos": Vector2(420, 316), "view": Rect2(338, 292, 170, 106)},
+	"RAILYARD": {"pos": Vector2(622, 304), "view": Rect2(512, 276, 208, 124)},
 }
 ## Paths from the open maps on to the future ones (still in fog).
 const FUTURE_LINKS := []
@@ -54,6 +58,8 @@ const FUTURE_LINKS := []
 const FOG := {
 	"FACTORY": Rect2(318, 0, 126, 110), "PARK": Rect2(446, 0, 146, 118), "CEMETERY": Rect2(600, 0, 120, 118),
 	"ISLAND": Rect2(576, 178, 92, 56), "STATION": Rect2(56, 274, 170, 26),
+	"SEWER": Rect2(222, 298, 116, 82), "FOREST": Rect2(0, 302, 186, 98), "CONSTRUCTION": Rect2(338, 294, 170, 106),
+	"RAILYARD": Rect2(512, 278, 208, 122),
 }
 
 ## Home bonus stats -> [text key, multiplier for the shown number].
@@ -1074,6 +1080,11 @@ static func _build_town() -> void:
 	_cemetery()
 	_island()
 	_station()
+	_south()
+	_forest()
+	_sewer()
+	_construction()
+	_railyard()
 	_scatter()
 	_image = _img
 
@@ -1491,6 +1502,106 @@ static func _scatter() -> void:
 	_tree(186, 140, 6); _tree(186, 206, 7); _tree(176, 236, 5); _tree(18, 128, 6); _tree(150, 232, 6)
 	_tree(312, 104, 6); _tree(170, 110, 5); _bush(160, 140); _bush(12, 236); _bush(210, 112); _bush(316, 128)
 	_tree(440, 104, 6); _tree(610, 140, 5); _pine(660, 140, 12); _pine(700, 136, 10); _bush(520, 140); _tree(560, 108, 5)
-	_tree(20, 292, 5); _tree(240, 290, 6); _pine(300, 296, 10); _bush(260, 282)
+	_tree(20, 292, 5); _bush(260, 282)
 	for l: Vector2 in [Vector2(60, 114), Vector2(150, 114), Vector2(250, 114), Vector2(192, 60), Vector2(192, 170), Vector2(212, 40), Vector2(420, 114), Vector2(560, 114), Vector2(680, 114), Vector2(588, 60)]:
 		_lamp(l.x, l.y)
+
+
+## The south of the district, below the railway: a road down from the
+## crossing, a path along the forest and a siding to the railyard.
+static func _south() -> void:
+	R(194, 274, 16, WH - 274, "a49c8e"); R(196, 274, 12, WH - 274, "45434d"); R(196, 274, 1, WH - 274, "5a5864"); R(207, 274, 1, WH - 274, "5a5864")
+	for y in range(278, WH, 10):
+		R(201, y, 1, 5, "e8cf6a")
+	R(208, 382, 304, 10, "a49c8e"); R(208, 383, 304, 8, "45434d")
+	for x in range(212, 510, 10):
+		R(x, 387, 5, 1, "e8cf6a")
+	_car(300, 384, "c0392b"); _car(460, 387, "e0a020")
+	for l: Vector2 in [Vector2(192, 300), Vector2(192, 350), Vector2(240, 380), Vector2(330, 380), Vector2(500, 380)]:
+		_lamp(l.x, l.y)
+
+
+static func _forest() -> void:
+	for i in 26:
+		_pine(8 + (i * 37) % 176, 312 + (i * 23) % 84, 9 + i % 6)
+	for p: Vector2 in [Vector2(30, 330), Vector2(140, 316), Vector2(60, 384), Vector2(160, 372), Vector2(112, 396)]:
+		_tree(p.x, p.y, 7, "1f4a22", "2f6a30", "4a8a40")
+	# A clearing with a tent and a campfire.
+	ellipse(86, 352, 22, 12, "6aa850")
+	R(76, 344, 12, 8, "3f7a8a"); R(80, 348, 4, 4, "1a2a2e")
+	ellipse(98, 356, 3, 2, "f08a2a"); P(98, 355, "fff3c8")
+	_candles.append(Vector2(98, 355))
+	for i in 12:
+		P(20 + i * 13, 340 + (i * 7) % 50, "f2e86a")
+
+
+static func _sewer() -> void:
+	# A concrete outfall in an embankment, a canal running down from it.
+	R(236, 300, 90, 30, "7a746a"); R(236, 300, 90, 2, "a8a49c"); dim(236, 328, 90, 3, 0.3)
+	ellipse(272, 318, 16, 12, "2a2a2e"); ellipse(272, 320, 13, 9, "1a1c1e")
+	for x in range(260, 286, 4):
+		R(x, 308, 1, 22, "6a6e72")
+	R(262, 330, 20, 48, "3a5a4a")
+	for y in range(332, 378, 6):
+		R(264 + (y / 6) % 3 * 4, y, 6, 1, "8aa898")
+	R(258, 330, 4, 48, "8a847a"); R(282, 330, 4, 48, "8a847a")
+	for p: Vector2 in [Vector2(244, 340), Vector2(300, 352), Vector2(312, 336)]:
+		_bush(p.x, p.y)
+	_lamp(246, 312)
+
+
+static func _construction() -> void:
+	R(344, 298, 160, 82, "8a6a48")
+	for i in 300:
+		P(344 + _rng.randi_range(0, 159), 298 + _rng.randi_range(0, 81), "7a5a3a" if i % 2 else "a08060")
+	# A board fence round the lot.
+	for x in range(344, 504, 3):
+		R(x, 296, 2, 3, "c8a070"); R(x, 378, 2, 3, "c8a070")
+	for y in range(296, 381, 3):
+		R(342, y, 3, 2, "c8a070"); R(503, y, 3, 2, "c8a070")
+	# A half-built house: concrete floors and columns, scaffolding.
+	R(420, 318, 60, 46, "b8b4ac"); R(420, 318, 60, 2, "d8d4cc"); dim(420, 362, 60, 3, 0.3)
+	for x in range(422, 480, 12):
+		R(x, 320, 4, 42, "8a8680")
+	for y in range(320, 362, 10):
+		R(418, y, 64, 1, "6a6e72")
+	_window(432, 330, 6, 6); _window(456, 344, 6, 6, false)
+	# The crane: a mast, a long jib and its hook.
+	R(380, 304, 4, 60, "e8c02a")
+	for y in range(304, 364, 4):
+		P(381, y, "8a6a10"); P(382, y + 2, "8a6a10")
+	R(352, 302, 80, 3, "e8c02a"); R(352, 302, 80, 1, "f8e070")
+	R(352, 300, 10, 6, "4a4e54")
+	R(418, 305, 1, 18, "2a2a2e"); R(415, 323, 7, 5, "b8503a")
+	# Piles, a mixer, cones.
+	ellipse(366, 360, 10, 6, "d8c08a"); R(356, 340, 14, 8, "b8503a"); R(392, 352, 10, 8, "f08a2a")
+	for p: Vector2 in [Vector2(360, 372), Vector2(410, 372), Vector2(492, 330)]:
+		R(p.x, p.y, 3, 3, "f08a2a"); P(p.x + 1, p.y, "f4f1ea")
+	_lamp(350, 300); _lamp(496, 300)
+
+
+static func _railyard() -> void:
+	# A siding leaves the main line and fans out into the yard.
+	R(516, 276, 204, 122, "6e665c")
+	for i in 900:
+		P(516 + _rng.randi_range(0, 203), 276 + _rng.randi_range(0, 121), "7a7268" if i % 2 else "5e564c")
+	for k in 5:
+		var y := 290 + k * 22
+		for x in range(520, WW, 4):
+			R(x, y - 2, 2, 7, "4a3020")
+		R(520, y, WW - 520, 1, "b8b8c0"); R(520, y + 3, WW - 520, 1, "b8b8c0")
+	for i in 30:
+		P(500 + i, 270 + i * 0.7, "b8b8c0")
+	# Wagons, a container stack, the engine shed with its water tower.
+	for w: Array in [[540, 286, "8a3a2a"], [578, 286, "3a5a7a"], [600, 308, "5a6a3a"], [640, 330, "7a6a4a"], [560, 352, "4a4a52"], [612, 352, "8a3a2a"]]:
+		R(w[0], w[1], 34, 9, w[2]); R(w[0], w[1], 34, 1, Color(w[2]).lightened(0.3)); dim(w[0], w[1] + 9, 34, 2, 0.3)
+	R(670, 360, 44, 12, "c0392b"); R(670, 372, 44, 12, "2f6f9a"); R(670, 360, 44, 1, "e05a4a")
+	R(660, 280, 52, 30, "5a3a2a"); R(660, 278, 52, 3, "3a2a20")
+	for x in range(664, 708, 12):
+		R(x, 292, 8, 18, "2a2a2e")
+	_window(666, 284, 6, 5); _window(690, 284, 6, 5)
+	ellipse(706, 330, 8, 6, "6a4a3a"); R(704, 336, 2, 14, "3a2a20")
+	# The old steam engine waiting for the trip to the dog district.
+	R(530, 330, 40, 12, "2a2a2e"); R(560, 324, 10, 18, "3a3a40"); ellipse(534, 336, 4, 4, "c0392b")
+	R(526, 332, 4, 8, "e8c02a")
+	_lamp(524, 300); _lamp(650, 344); _lamp(716, 300)

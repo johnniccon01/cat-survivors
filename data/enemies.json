@@ -1901,5 +1901,31 @@
     "knockback_resist": 0.2,
     "cost": 2.0,
     "behavior": "shooter"
+  },
+  "RIVAL_RUBY": {
+    "shape": "cat",
+    "cat": "RUBY",
+    "boss": true,
+    "specials": ["pounce", "whirl"],
+    "behavior": "dash",
+    "hp": 1300,
+    "speed": 70,
+    "damage": 16,
+    "radius": 12,
+    "xp": 70,
+    "knockback_resist": 0.9
+  },
+  "RIVAL_RASCAL": {
+    "shape": "cat",
+    "cat": "RASCAL",
+    "boss": true,
+    "specials": ["puddles", "blink"],
+    "behavior": "dash",
+    "hp": 1500,
+    "speed": 64,
+    "damage": 17,
+    "radius": 12,
+    "xp": 75,
+    "knockback_resist": 0.9
   }
 }

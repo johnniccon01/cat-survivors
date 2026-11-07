@@ -23,8 +23,8 @@ Stav: **pripravené, nehrateľné** (7. 11. 2026). Hotová je mapa štvrte (pane
 |---|--------|------------------------|--------------------|--------------|
 | 1 | Nákladná stanica | debny, žeriavy; posunované vagóny | Bernardín, prednosta stanice | – |
 | 2 | Útulok | rady kotercov; zatvárajúce sa dvierka kotercov (pasce) | Starý baset, správca | **Tieň** (čierna mačka) – oslobodíš ju v queste |
-| 3 | Psí park | lietajúce frisbee a tenisky (strely naprieč mapou) | **Ruby**, border kólia | **Ruby** – prvý hrateľný pes, po porazení |
-| 4 | Smetisko | kopy haraburdia, lis (drví, čo stojí v jeho páse) | Kosť, rotvajler | **Lotor** (mýval) – po porazení Kosti |
+| 3 | Psí park | lietajúce frisbee a tenisky (strely naprieč mapou) | Labrador, Kráľ aportu | **Ruby** – prvý hrateľný pes, po súboji v parku |
+| 4 | Smetisko | kopy haraburdia, žeriav s magnetom zhadzuje vraky | Kosť, rotvajler | **Lotor** (mýval) – po súboji na Smetisku |
 | 5 | Psí salón | fény (fúkajú hráča), bublinky, oblaky voňaviek (spomaľujú) | Pudlová kráľovná | – |
 | 6 | Pekáreň piškót | horúce pece, pásy s piškótami | Jazvečík pekár | – |
 | 7 | Dostihová dráha | dráhy chrtov (ako vlak, ale v kruhu) | Blesk, chrt | – |
@@ -57,7 +57,7 @@ Hlavne noví (psí svet), niekoľko starých na začiatok:
 | Tieň | čierna mačka | osloboď ju v Útulku (2. mapa, quest) | Tieňové pazúry · inštinkt: v tme silnejšia |
 | Iskra | hasičská mačka | quest na Hasičskej stanici (8. mapa) | Vodná striekačka · inštinkt: pri nízkom zdraví ju ochladí (štít) |
 
-Pes a mýval sa kreslia vlastnými tvarmi (`cat_frame` v `tools/gen_sprites.py` dostane variant „dog“ a „raccoon“), majú vlastné animácie a hlasy.
+Pes a mýval sa kreslia ako mačky s `"species": "dog"` / `"raccoon"` v `data/cats.json` (`cat_frame` v `tools/gen_sprites.py`: ovisnuté uši a ňufák, resp. maska a pruhovaný chvost). Hotové: Ruby (Pierková hračka, inštinkt Zaháňanie), Lotor (Hádzanie plechoviek, Hrabáč), Tieň (Ihla s niťou, Do tmy); Ruby a Lotor sa získajú súbojom, Tieň záchranou.
 
 ## Technika (na ďalšiu časť)
 

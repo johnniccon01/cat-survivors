@@ -24,6 +24,9 @@ const DATA := {
 	"MOSS": {"kills": 40, "heal": 0.05},
 	"BRICK": {"still": 1.0, "armor": 3.0, "seconds": 3.0},
 	"COAL": {"kills": 30, "speed": 0.2, "seconds": 4.0},
+	"RUBY": {"every": 20.0, "radius": 160.0, "ahead": 90.0},
+	"RASCAL": {"heart": 0.03},
+	"SHADOW": {"every": 20.0, "invuln": 1.5},
 }
 
 var player: Player
@@ -119,6 +122,24 @@ func _physics_process(delta: float) -> void:
 				_t = value("seconds")
 				player.bless({"armor": value("armor")}, value("seconds"), "INSTINCT_BRICK_NAME", Color("e8b020"))
 				_fire()
+		"RUBY":
+			# Herding: the crowd around is rounded up into one bunch ahead.
+			if _t <= 0.0 and enemies.nearest(player.position, value("radius")) != null:
+				_t = value("every")
+				var spot := player.position + Vector2(player.facing, 0) * value("ahead")
+				for e in enemies.query_radius(player.position, value("radius")):
+					if not e.is_boss:
+						e._knock = (spot - e.position).normalized() * 220.0
+				_ring(value("radius"), Color("f4f1ea"))
+				_fire()
+				Audio.play("whoosh", -10.0)
+		"SHADOW":
+			# Melts into the dark for a moment: nothing can touch her.
+			if _t <= 0.0 and enemies.nearest(player.position, 60.0) != null:
+				_t = value("every")
+				player._invuln = maxf(player._invuln, value("invuln"))
+				_ring(20.0, Color("6a5a8a"))
+				_fire()
 		"BOLT":
 			if _t <= 0.0:
 				var target := enemies.nearest(player.position, value("range"))
@@ -183,6 +204,12 @@ func _on_kill(id: String, pos: Vector2, _xp: float) -> void:
 				_kills = 0
 				player.bless({"speed": value("speed")}, value("seconds"), "INSTINCT_COAL_NAME", Color("f08a2a"))
 				_fire()
+		"RASCAL":
+			if randf() < value("heart"):
+				var found := get_tree().get_first_node_in_group("pickups") as Pickups
+				if found != null:
+					found.spawn_named("heart", pos, 10.0)
+					_fire()
 		"CLOVER":
 			if randf() < value("coin"):
 				var pickups := get_tree().get_first_node_in_group("pickups") as Pickups

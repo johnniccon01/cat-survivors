@@ -251,6 +251,59 @@
       "speed": 0.1
     }
   },
+  "RUBY": {
+    "species": "dog",
+    "fur": "#2a2a2e",
+    "dark": "#1a1a1e",
+    "belly": "#f4f1ea",
+    "eyes": "#8a5a2a",
+    "patches": true,
+    "size": 1.15,
+    "weapon": "FEATHER",
+    "bonus": {
+      "speed": 0.1,
+      "magnet": 20
+    },
+    "unlock": "RUBY",
+    "home": "DOG_PARK",
+    "home_bonus": {
+      "speed": 0.1
+    }
+  },
+  "RASCAL": {
+    "species": "raccoon",
+    "fur": "#8a8a94",
+    "dark": "#2a2a30",
+    "belly": "#d8d8dc",
+    "eyes": "#2a1a14",
+    "weapon": "TIN_CAN_TOSS",
+    "bonus": {
+      "luck": 0.1,
+      "greed": 0.15
+    },
+    "unlock": "RASCAL",
+    "home": "JUNKYARD",
+    "home_bonus": {
+      "greed": 0.15
+    }
+  },
+  "SHADOW": {
+    "fur": "#1e1e24",
+    "dark": "#0e0e12",
+    "belly": "#3a3a44",
+    "eyes": "#e8d84a",
+    "fluffy": true,
+    "weapon": "SEWING_NEEDLE",
+    "bonus": {
+      "crit_chance": 0.05,
+      "speed": 0.05
+    },
+    "unlock": "SHADOW",
+    "home": "DOG_SHELTER",
+    "home_bonus": {
+      "crit_chance": 0.05
+    }
+  },
   "STRAY": {
     "fur": "#8a7a6a",
     "dark": "#4a4038",

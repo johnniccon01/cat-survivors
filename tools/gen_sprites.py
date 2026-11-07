@@ -329,13 +329,21 @@ def cat_frame(look, frame, mood="normal", dead=False, scale=1.0):
     P = lambda x, y: (ox + x * s, oy + y * s)
     fluffy = look.get("fluffy", False)
     points = look.get("points", False)
+    # Not every playable friend is a cat: "species" dog (floppy ears, a long
+    # snout) or raccoon (a mask, a ringed tail, small round ears).
+    species = look.get("species", "cat")
     bob = 1 if frame in (1, 3) else 0
 
     # Tail (sways with the walk)
     c.cur = "tail"
     sway = [0, 1, 0, -1][frame]
     tail = [P(9, 19 - bob), P(5, 16 - bob), P(4 + sway, 10), P(6 + sway, 6), P(8 + sway, 5)]
-    c.thick_line(tail, (2.0 if fluffy else 1.4) * s, "tailtip" if points else "fur")
+    c.thick_line(tail, (2.0 if fluffy else 1.4) * s * (1.4 if species == "raccoon" else 1.0), "tailtip" if points else "fur")
+    if species == "raccoon":
+        for y in range(H):
+            for x in range(W):
+                if c.get(x, y) == "fur" and int((x + y) / (2.2 * s)) % 2 == 0:
+                    c.set(x, y, "dark", True)
 
     # Legs: diagonal pairs move together.
     lifts = [(0, 2), (1, 1), (2, 0), (1, 1)][frame]
@@ -369,20 +377,37 @@ def cat_frame(look, frame, mood="normal", dead=False, scale=1.0):
     if sad:  # flattened ears
         ear_l = [P(19.5, 8 - bob), P(17.5, 4 - bob), P(23, 6 - bob)]
         ear_r = [P(27, 6 - bob), P(32, 5 - bob), P(30.5, 9 - bob)]
-    for ear in (ear_l, ear_r):
-        c.poly(ear, "ear" if points else "fur")
+    if species == "dog":
+        # Floppy ears hang down the sides of the head.
+        ear_l = [P(19, 6 - bob), P(17.5, 14 - bob), P(21.5, 13 - bob), P(22.5, 6 - bob)]
+        ear_r = [P(28, 5 - bob), P(31.5, 12.5 - bob), P(29.5, 13.5 - bob), P(26.5, 6 - bob)]
+    elif species == "raccoon":
+        ear_l = [P(20, 7 - bob), P(20.5, 3 - bob), P(23.5, 5.5 - bob)]
+        ear_r = [P(26, 5.5 - bob), P(28.5, 2.5 - bob), P(30, 6.5 - bob)]
+    if species != "dog":
+        for ear in (ear_l, ear_r):
+            c.poly(ear, "ear" if points else "fur")
     c.ellipse(hx, hy, hr, hr * 0.95, "fur", jag=0.06 if fluffy else 0.0)
+    if species == "dog":
+        for ear in (ear_l, ear_r):
+            c.poly(ear, "dark")
     # Inner ears
     inner_l = [P(20.5, 7 - bob), P(21, 3.5 - bob), P(23, 6.5 - bob)]
     inner_r = [P(26.5, 6.5 - bob), P(29, 3.5 - bob), P(29.5, 7.5 - bob)]
-    if not sad:
+    if not sad and species == "cat":
         c.poly(inner_l, "inner")
         c.poly(inner_r, "inner")
     # Muzzle and cheeks
     mx, my = P(27, 14 - bob)
     if points:
         c.ellipse(mx, my - 0.5 * s, 4.2 * s, 3.4 * s, "mask", only=("fur",))
-    c.ellipse(mx, my + 0.4 * s, 2.6 * s, 1.7 * s, "muzzle")
+    if species == "dog":
+        # A longer snout sticking out in front.
+        c.ellipse(*P(29.5, 13.6 - bob), 3.8 * s, 2.5 * s, "muzzle")
+    else:
+        c.ellipse(mx, my + 0.4 * s, 2.6 * s, 1.7 * s, "muzzle")
+    if species == "raccoon":
+        c.ellipse(*P(25.5, 10.8 - bob), 6.2 * s, 2.0 * s, "dark", only=("fur",))
 
     # Pattern
     if look.get("stripes"):
@@ -433,9 +458,11 @@ def cat_frame(look, frame, mood="normal", dead=False, scale=1.0):
         if sad and ex > 25:
             c.set(x + 1, y + 3, "tear")
     # Nose and mouth
-    nx, ny = P(29.2, 12.6 - bob)
+    nx, ny = P(29.2, 12.6 - bob) if species != "dog" else P(32.3, 12.8 - bob)
     c.set(nx, ny, "nose")
     c.set(nx + 1, ny, "nose")
+    if species == "dog":
+        c.set(nx, ny - 1, "nose")
     c.set(nx, ny + 1.4, "ink")
     return c
 
@@ -451,7 +478,7 @@ def cat_palette(look):
         "inner": hexc("#f3a9b8"), "eye": hexc(look["eyes"]), "pupil": hexc("#1a1210"),
         "eyelow": shade(hexc(look["eyes"]), -0.35),
         "blush": tuple((a * 3 + b * 2) // 5 for a, b in zip(hexc(look["belly"])[:3], (240, 120, 140))) + (255,),
-        "glint": (255, 255, 255, 255), "nose": hexc("#f08aa0"), "ink": OUTLINE,
+        "glint": (255, 255, 255, 255), "nose": hexc("#2a1a14") if look.get("species") in ("dog", "raccoon") else hexc("#f08aa0"), "ink": OUTLINE,
         "tear": hexc("#8fd3ff"), "patch2": hexc("#3a2a22"),
     }
 

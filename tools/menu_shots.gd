@@ -16,6 +16,11 @@ func _initialize() -> void:
 
 
 func _run() -> void:
+	# Without --ui-test the Profile would load and save the player's own file.
+	if not "--ui-test" in OS.get_cmdline_user_args():
+		push_error("menu_shots: run with -- --ui-test (it never touches the player's profile then)")
+		quit(1)
+		return
 	_out = OS.get_user_data_dir().path_join("menu_shots")
 	DirAccess.make_dir_recursive_absolute(_out)
 	_unlock()

@@ -42,7 +42,7 @@ func _ready() -> void:
 	head_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	head_row.add_theme_constant_override("separation", 12)
 	box.add_child(head_row)
-	var prev := UiStyle.click_button("◀", 44, 18)
+	var prev := UiStyle.click_button("‹", 44, 22)
 	prev.pressed.connect(_switch.bind(-1))
 	head_row.add_child(prev)
 	_header = _label(19, Color("f4ecd4"))
@@ -50,7 +50,7 @@ func _ready() -> void:
 	_header.clip_text = true
 	_header.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	head_row.add_child(_header)
-	var next := UiStyle.click_button("▶", 44, 18)
+	var next := UiStyle.click_button("›", 44, 22)
 	next.pressed.connect(_switch.bind(1))
 	head_row.add_child(next)
 	_others = _label(15, GOLD)

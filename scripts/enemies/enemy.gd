@@ -57,6 +57,7 @@ const MOW_LENGTH := 520.0
 const MOW_SPEED := 7.0
 const TENTACLES := 6
 const GRID_GAP := 120.0
+const SIG_WARN := 0.9
 ## Lawnmower: hedges spring up round the cat this often and stand this long.
 const HEDGE_EVERY := 11.0
 const HEDGE_STAND := 5.0
@@ -68,6 +69,8 @@ var is_elite := false
 ## Set when a swarm enemy has run its course; the manager removes it.
 var wants_despawn := false
 var manager: EnemyManager
+## Spots a signature attack marked (fetch).
+var _sig_spots: Array[Vector2] = []
 
 var _shape := "sock"
 ## "chase" (default), "dash" (winds up, then lunges) or "shooter" (keeps its
@@ -646,7 +649,15 @@ func _tick_fight(delta: float, target: Vector2) -> void:
 ## (three lanes are marked, then rats stampede down them), "mow" (a marked
 ## lane, then it drives down it spraying cuttings), "tentacles" (bands slam
 ## down across the cat one after another), "grid" (laser rows, then columns:
-## stand between them).
+## stand between them), "fetch" (balls land round the cat, the dog runs to
+## each), "droppings" (a spiral of marks from the cat outwards), "bloodmoon"
+## (three rings closing in, each with its gap somewhere else), "pincers"
+## (bands from both sides close on the cat), "express" (a lane through the
+## cat, then the boss and its gang race down it), "deathroll" (it lunges,
+## then spins with four arms of shots and leaves burning pools), "feathers"
+## (three rounds of feathers from every side, a gap in each), "dig" (three
+## trenches fan out towards the cat), "squad" (lanes from four sides, then
+## the pack charges down them).
 func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 	var hurt := damage * 0.8
 	match _special:
@@ -704,6 +715,151 @@ func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 				for side in [-1.0, 1.0]:
 					manager.spawn_bullet(position, _special_dir.orthogonal() * side, shot, "hair", 110.0)
 			return _special_dir * speed * MOW_SPEED
+		"fetch":
+			if _special_step == 0:
+				_special_step = 1
+				_sig_spots.clear()
+				var a := randf() * TAU
+				for i in 3:
+					var spot := Terrain.fix(target + Vector2.from_angle(a + TAU * i / 3.0) * 110.0, radius)
+					_sig_spots.append(spot)
+					manager.spawn_hazard(spot, "strike", radius + 18.0, SIG_WARN + i * 0.5, damage * 0.7)
+				Audio.play("roar", -8.0, 0.1)
+			if t < SIG_WARN - 0.3:
+				return Vector2.ZERO
+			var leg := clampi(int((t - SIG_WARN + 0.3) / 0.5), 0, 2)
+			if t > SIG_WARN + 1.3:
+				for i in 10:
+					manager.spawn_bullet(position, Vector2.from_angle(TAU * i / 10.0), shot, "hair")
+				return _end_special()
+			var left := maxf(SIG_WARN + leg * 0.5 - t, delta_guess())
+			return (_sig_spots[leg] - position) / left
+		"droppings":
+			if _special_step == 0:
+				_special_step = 1
+				var a := randf() * TAU
+				for i in 14:
+					var at := target + Vector2.from_angle(a + i * 0.9) * (20.0 + i * 20.0)
+					manager.spawn_hazard(at, "strike", 30.0, 0.7 + i * 0.09, hurt)
+				Audio.play("roar", -10.0, 0.2)
+			if t > 2.1:
+				return _end_special()
+			return Vector2.ZERO
+		"bloodmoon":
+			for ring in 3:
+				if _special_step == ring and t >= ring * 0.7:
+					_special_step += 1
+					var r := 230.0 - ring * 80.0
+					var count := 14 - ring * 3
+					var gap := randi() % count
+					for i in count:
+						if i == gap:
+							continue
+						manager.spawn_hazard(_special_at + Vector2.from_angle(TAU * i / count) * r, "strike", 30.0, 1.0, hurt, "portal" if ring == 0 else "")
+			if t > 2.6:
+				return _end_special()
+			return Vector2.ZERO
+		"pincers":
+			if _special_step == 0:
+				_special_dir = (target - position).normalized()
+			for wave in 3:
+				if _special_step == wave and t >= wave * 0.45:
+					_special_step += 1
+					var off := 170.0 - wave * 85.0
+					var along := _special_dir
+					for side: float in [-1.0, 1.0]:
+						if wave == 2 and side > 0.0:
+							continue
+						var mid := _special_at + along.orthogonal() * off * side
+						manager.spawn_beam(mid - along * 260.0, mid + along * 260.0, 36.0, 1.0, hurt, "tentacle")
+			if t > 2.2:
+				return _end_special()
+			return Vector2.ZERO
+		"express":
+			if _special_step == 0:
+				_special_step = 1
+				_special_dir = (target - position).normalized()
+				manager.spawn_beam(position, position + _special_dir * 640.0, 64.0, 1.1, 0.0, "rats")
+				Audio.play("bell", -4.0, 0.0)
+			if t < 1.1:
+				_flash = 0.05 if int(t * 10.0) % 2 == 0 else 0.0
+				return Vector2.ZERO
+			if _special_step == 1:
+				_special_step = 2
+				var gang := _minion if _minion != "" else "RACCOON"
+				for i in 5:
+					var e := manager.spawn(gang, position - _special_dir * (30.0 + i * 26.0), hp_mult)
+					if e != null:
+						e.spawn_in = 0.0
+						e.charge(_special_dir, 640.0 / maxf(e.speed * 2.2, 1.0))
+			if t > 1.1 + 640.0 / (speed * 7.0):
+				return _end_special()
+			return _special_dir * speed * 7.0
+		"deathroll":
+			if _special_step == 0:
+				_special_step = 1
+				manager.spawn_hazard(_special_at, "strike", radius + 20.0, SIG_WARN, damage * 0.8)
+				Audio.play("roar", -6.0, 0.1)
+			if t < SIG_WARN - 0.3:
+				return Vector2.ZERO
+			if t < SIG_WARN:
+				return (_special_at - position) / maxf(SIG_WARN - t, delta_guess())
+			if t < SIG_WARN + 1.4:
+				if t >= SIG_WARN + (_special_step - 1) * 0.1:
+					_special_step += 1
+					for arm in 4:
+						manager.spawn_bullet(position, Vector2.from_angle(_special_step * 0.4 + arm * PI * 0.5), shot, "hair")
+				return Vector2.ZERO
+			for i in 5:
+				manager.spawn_hazard(position + Vector2.from_angle(TAU * i / 5.0) * 70.0, "steam", 24.0, 4.0, damage * 0.3)
+			return _end_special()
+		"feathers":
+			for wave in 3:
+				if _special_step == wave and t >= wave * 0.55:
+					_special_step += 1
+					var gap := randi() % 16
+					for i in 16:
+						if i == gap or i == (gap + 1) % 16:
+							continue
+						var from := target + Vector2.from_angle(TAU * i / 16.0 + wave * 0.2) * 300.0
+						manager.spawn_bullet(from, (target - from).normalized(), shot, "hair", 120.0)
+			if t > 2.2:
+				return _end_special()
+			return Vector2.ZERO
+		"dig":
+			if _special_step == 0:
+				_special_step = 1
+				var aim := (target - position).normalized()
+				for fan in 3:
+					var d := aim.rotated((fan - 1) * 0.45)
+					for i in 7:
+						manager.spawn_hazard(position + d * (radius + 30.0 + i * 42.0), "strike", 28.0 + i * 2.0, 0.6 + i * 0.12, hurt)
+				Audio.play("roar", -8.0, 0.1)
+			if t > 1.6:
+				for i in 8:
+					manager.spawn_bullet(position, Vector2.from_angle(TAU * i / 8.0 + 0.2), shot, "hair")
+				return _end_special()
+			return Vector2.ZERO
+		"squad":
+			if _special_step == 0:
+				_special_step = 1
+				for side in 4:
+					var from := _special_at + Vector2.from_angle(side * PI * 0.5) * 320.0
+					manager.spawn_beam(from, from + (_special_at - from) * 2.0, 40.0, 1.0, 0.0, "rats")
+				Audio.play("bell", -6.0, 0.2)
+			if _special_step == 1 and t >= 1.0:
+				_special_step = 2
+				var dog := _minion if _minion != "" else "STRAY_DOG"
+				for side in 4:
+					var run := -Vector2.from_angle(side * PI * 0.5)
+					for i in 3:
+						var e := manager.spawn(dog, _special_at - run * (320.0 + i * 26.0), hp_mult)
+						if e != null:
+							e.spawn_in = 0.0
+							e.charge(run, 640.0 / maxf(e.speed * 2.2, 1.0))
+			if t > 1.5:
+				return _end_special()
+			return Vector2.ZERO
 		"tentacles":
 			if _special_step < TENTACLES and t >= _special_step * 0.35:
 				_special_step += 1
@@ -847,6 +1003,12 @@ func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 				return _end_special()
 			return Vector2.ZERO
 	return _end_special()
+
+
+## One physics step (signatures that move the boss to a spot divide by the
+## time left, never by less than a step).
+func delta_guess() -> float:
+	return get_physics_process_delta_time()
 
 
 func _end_special() -> Vector2:

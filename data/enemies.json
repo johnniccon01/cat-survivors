@@ -333,7 +333,7 @@
   "HORNET_QUEEN": {
     "shape": "bee",
     "boss": true,
-    "specials": ["bark", "rampage"],
+    "specials": ["bark", "pounce"],
     "scale": 2.6,
     "color": "#e0902a",
     "accent": "#2a2018",
@@ -573,7 +573,7 @@
   },
   "IRON": {
     "boss": true,
-    "specials": ["pounce", "rain"],
+    "specials": ["pounce", "puddles"],
     "knockback_resist": 0.95,
     "shape": "iron",
     "behavior": "trail",
@@ -588,7 +588,7 @@
   },
   "BOILER": {
     "boss": true,
-    "specials": ["puddles", "wall"],
+    "specials": ["puddles", "bark"],
     "knockback_resist": 0.95,
     "shape": "boiler",
     "behavior": "spiral",
@@ -603,7 +603,7 @@
   },
   "SCARECROW": {
     "boss": true,
-    "specials": ["bark", "puddles"],
+    "specials": ["bark", "rain"],
     "knockback_resist": 0.95,
     "shape": "scarecrow",
     "behavior": "mortar",
@@ -716,7 +716,7 @@
   "FORKLIFT": {
     "shape": "mower",
     "boss": true,
-    "specials": ["rampage", "wall"],
+    "specials": ["rampage", "rain"],
     "scale": 2.8,
     "color": "#f2c14e",
     "accent": "#3a3a44",
@@ -764,7 +764,7 @@
   "GUARD_DOG": {
     "shape": "dog",
     "boss": true,
-    "specials": ["chase", "pounce", "bark"],
+    "specials": ["fetch", "pounce", "bark"],
     "final": true,
     "fight": {"pack": true},
     "behavior": "final",
@@ -851,7 +851,7 @@
   "GIANT_CRAB": {
     "shape": "crab",
     "boss": true,
-    "specials": ["wall", "rampage"],
+    "specials": ["wall", "pounce"],
     "scale": 3.0,
     "color": "#c9432f",
     "accent": "#f2a03a",
@@ -961,7 +961,7 @@
   "RAT_GENERAL": {
     "shape": "rat",
     "boss": true,
-    "specials": ["bark", "rain"],
+    "specials": ["bark", "pull"],
     "behavior": "dash",
     "scale": 3.0,
     "color": "#4a4048",
@@ -997,7 +997,7 @@
   "MOLE_KING": {
     "shape": "mole",
     "boss": true,
-    "specials": ["pounce", "puddles"],
+    "specials": ["pounce", "nova"],
     "scale": 3.2,
     "color": "#3a2e38",
     "accent": "#f2c14e",
@@ -1154,7 +1154,7 @@
   "PRESS": {
     "shape": "press",
     "boss": true,
-    "specials": ["nova", "pounce"],
+    "specials": ["nova", "rampage"],
     "scale": 2.6,
     "color": "#6a6e72",
     "accent": "#f2c14e",
@@ -1202,7 +1202,7 @@
   "PIGEON_KING": {
     "shape": "pigeon",
     "boss": true,
-    "specials": ["whirl", "rain", "rampage"],
+    "specials": ["droppings", "whirl", "rampage"],
     "scale": 4.2,
     "color": "#6a5a92",
     "accent": "#f2c14e",
@@ -1221,7 +1221,7 @@
   "BAT_COUNT": {
     "shape": "bat",
     "boss": true,
-    "specials": ["blink", "whirl", "rain"],
+    "specials": ["bloodmoon", "blink", "whirl"],
     "scale": 4.4,
     "color": "#3a2a4a",
     "accent": "#c0392b",
@@ -1240,11 +1240,7 @@
   "CRAB_EMPEROR": {
     "shape": "crab",
     "boss": true,
-    "specials": [
-      "cage",
-      "rampage",
-      "rain"
-    ],
+    "specials": ["pincers", "cage", "rampage"],
     "scale": 4.4,
     "color": "#c0503a",
     "accent": "#f2c14e",
@@ -1263,11 +1259,7 @@
   "STATIONMASTER": {
     "shape": "raccoon",
     "boss": true,
-    "specials": [
-      "chase",
-      "pounce",
-      "grid"
-    ],
+    "specials": ["express", "chase", "pounce"],
     "scale": 4.2,
     "color": "#5a4a6a",
     "accent": "#e0a020",
@@ -1400,7 +1392,7 @@
   "SLIME_KING": {
     "shape": "slime",
     "boss": true,
-    "specials": ["puddles", "nova"],
+    "specials": ["puddles", "rampage"],
     "scale": 3.0,
     "color": "#5aa83a",
     "accent": "#d8f8a0",
@@ -1418,7 +1410,7 @@
   "ROACH_QUEEN": {
     "shape": "cockroach",
     "boss": true,
-    "specials": ["swarm", "pounce"],
+    "specials": ["pounce", "pull"],
     "scale": 2.8,
     "color": "#4a2a12",
     "accent": "#e8a060",
@@ -1436,7 +1428,7 @@
   "SEWER_GATOR": {
     "shape": "gator",
     "boss": true,
-    "specials": ["chase", "sweep", "puddles", "pounce"],
+    "specials": ["deathroll", "sweep", "puddles"],
     "scale": 4.2,
     "color": "#4a6a3a",
     "accent": "#c8b860",
@@ -1493,7 +1485,7 @@
   "BADGER": {
     "shape": "hedgehog",
     "boss": true,
-    "specials": ["rampage", "wall"],
+    "specials": ["rampage", "pull"],
     "scale": 3.0,
     "color": "#4a4a52",
     "accent": "#f4f1ea",
@@ -1511,7 +1503,7 @@
   "FOX_ALPHA": {
     "shape": "fox",
     "boss": true,
-    "specials": ["pounce", "blink"],
+    "specials": ["pounce", "whirl"],
     "scale": 2.8,
     "color": "#c0501a",
     "accent": "#f4f1ea",
@@ -1529,7 +1521,7 @@
   "GREAT_OWL": {
     "shape": "owl",
     "boss": true,
-    "specials": ["bats", "whirl", "blink", "rain"],
+    "specials": ["feathers", "blink", "rain"],
     "scale": 4.2,
     "color": "#6a5a3a",
     "accent": "#f2c14e",
@@ -1622,7 +1614,7 @@
   "EXCAVATOR": {
     "shape": "excavator",
     "boss": true,
-    "specials": ["sweep", "wall", "meteor", "rampage"],
+    "specials": ["dig", "sweep", "wall"],
     "scale": 4.2,
     "color": "#e8b020",
     "accent": "#4a4e54",
@@ -1679,7 +1671,7 @@
   "PATROL_DOG": {
     "shape": "dog",
     "boss": true,
-    "specials": ["bark", "pounce"],
+    "specials": ["bark", "chase"],
     "scale": 2.8,
     "color": "#6a5a4a",
     "accent": "#c0392b",
@@ -1715,7 +1707,7 @@
   "BULLDOG_SERGEANT": {
     "shape": "dog",
     "boss": true,
-    "specials": ["bark", "rampage", "cage", "chase"],
+    "specials": ["squad", "bark", "cage"],
     "scale": 4.4,
     "color": "#c8a878",
     "accent": "#6a4a3a",

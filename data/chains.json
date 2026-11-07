@@ -1400,5 +1400,543 @@
       {"type": "chase", "enemy": "PIGEON_THIEF", "times": 2, "hp_mult": 1.2},
       {"type": "boss", "enemy": "PIGEON_EMPEROR", "hp_mult": 2.0, "look": "kite", "distance": 240, "after_minute": 6}
     ]
+  },
+  "CLEAN_WATER": {
+    "stage": "SEWER",
+    "reward": {
+      "gold": 1300,
+      "charm": "MILK_TOOTH"
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "bottle",
+        "count": 5,
+        "spread": [
+          200,
+          420
+        ],
+        "deliver": true,
+        "look_to": "bin"
+      },
+      {
+        "type": "zones",
+        "count": 3,
+        "hold": 5,
+        "radius": 40,
+        "spread": [
+          200,
+          340
+        ],
+        "look": "fuse"
+      },
+      {
+        "type": "boss",
+        "enemy": "SLIME_KING",
+        "hp_mult": 2.0,
+        "look": "barrel",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "TUNNEL_LIGHTS": {
+    "stage": "SEWER",
+    "reward": {
+      "gold": 1200,
+      "charm": "CRESCENT_MOON"
+    },
+    "steps": [
+      {
+        "type": "carry",
+        "item": "lantern",
+        "dark": true,
+        "to_distance": [
+          500,
+          700
+        ],
+        "time": 80,
+        "look_to": "x"
+      },
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "COCKROACH",
+        "spawn_every": 2.5,
+        "spawn_count": 6,
+        "look": "boiler",
+        "dark": true
+      }
+    ]
+  },
+  "GATOR_NEST": {
+    "stage": "SEWER",
+    "secret": {
+      "type": "far",
+      "distance": 8000,
+      "dark_from": 1800
+    },
+    "reward": {
+      "gold": 2500,
+      "charm": "SPIDER_SILK"
+    },
+    "steps": [
+      {
+        "type": "boss",
+        "enemy": "ROACH_QUEEN",
+        "hp_mult": 3.0,
+        "look": "nest",
+        "dark": true,
+        "distance": 260
+      }
+    ]
+  },
+  "LOST_CAMP": {
+    "stage": "FOREST",
+    "reward": {
+      "gold": 1300,
+      "charm": "STAR_COLLAR"
+    },
+    "steps": [
+      {
+        "type": "trail",
+        "count": 5,
+        "spacing": [
+          150,
+          210
+        ],
+        "look": "pawprints"
+      },
+      {
+        "type": "carry",
+        "item": "lantern",
+        "to_distance": [
+          450,
+          650
+        ],
+        "time": 70,
+        "look_to": "x"
+      },
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "FOX",
+        "spawn_every": 3.0,
+        "spawn_count": 3,
+        "look": "fire"
+      }
+    ]
+  },
+  "MUSHROOM_BASKET": {
+    "stage": "FOREST",
+    "reward": {
+      "gold": 1200,
+      "charm": "CATNIP_LEAF"
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "flower",
+        "count": 6,
+        "spread": [
+          200,
+          420
+        ],
+        "deliver": true,
+        "look_to": "basket"
+      },
+      {
+        "type": "boss",
+        "enemy": "BADGER",
+        "hp_mult": 2.0,
+        "look": "hole",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "OLD_OAK": {
+    "stage": "FOREST",
+    "secret": {
+      "type": "trail",
+      "legs": 10,
+      "leg": [
+        380,
+        540
+      ],
+      "start": [
+        300,
+        450
+      ]
+    },
+    "reward": {
+      "gold": 2500,
+      "charm": "YARN_KNOT"
+    },
+    "steps": [
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "OWL",
+        "spawn_every": 3.0,
+        "spawn_count": 4,
+        "look": "nest"
+      },
+      {
+        "type": "boss",
+        "enemy": "FOX_ALPHA",
+        "hp_mult": 3.0,
+        "look": "x",
+        "distance": 220
+      }
+    ]
+  },
+  "TOPPING_OUT": {
+    "stage": "CONSTRUCTION",
+    "reward": {
+      "gold": 1400,
+      "charm": "GOLD_WHISKER"
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "map_piece",
+        "count": 4,
+        "spread": [
+          220,
+          440
+        ],
+        "deliver": true,
+        "look_to": "lost_found"
+      },
+      {
+        "type": "zones",
+        "count": 3,
+        "hold": 5,
+        "radius": 40,
+        "spread": [
+          200,
+          340
+        ],
+        "look": "fuse"
+      },
+      {
+        "type": "boss",
+        "enemy": "MIXER_BOT",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "NIGHT_WATCH": {
+    "stage": "CONSTRUCTION",
+    "reward": {
+      "gold": 1300
+    },
+    "steps": [
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "BRICK",
+        "spawn_every": 3.5,
+        "spawn_count": 3,
+        "look": "lost_found"
+      },
+      {
+        "type": "chase",
+        "enemy": "HARDHAT_RAT",
+        "times": 3,
+        "hp_mult": 3.0
+      }
+    ]
+  },
+  "FOUNDATIONS": {
+    "stage": "CONSTRUCTION",
+    "secret": {
+      "type": "far",
+      "distance": 8500,
+      "dark_from": 2000
+    },
+    "reward": {
+      "gold": 2800
+    },
+    "steps": [
+      {
+        "type": "boss",
+        "enemy": "BRICK_GOLEM",
+        "hp_mult": 3.0,
+        "look": "hole",
+        "dark": true,
+        "distance": 260
+      }
+    ]
+  },
+  "SWITCHMAN": {
+    "stage": "RAILYARD",
+    "reward": {
+      "gold": 1400
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 4,
+        "hold": 5,
+        "radius": 40,
+        "spread": [
+          200,
+          360
+        ],
+        "look": "signal_light"
+      },
+      {
+        "type": "carry",
+        "item": "key",
+        "to_distance": [
+          450,
+          650
+        ],
+        "time": 70,
+        "look_to": "locomotive"
+      },
+      {
+        "type": "boss",
+        "enemy": "COAL_GOLEM",
+        "hp_mult": 2.0,
+        "look": "locomotive",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "DOG_ORDERS": {
+    "stage": "RAILYARD",
+    "reward": {
+      "gold": 1500
+    },
+    "steps": [
+      {
+        "type": "chase",
+        "enemy": "DOBERMAN",
+        "times": 3,
+        "hp_mult": 3.0
+      },
+      {
+        "type": "collect",
+        "item": "letter",
+        "count": 3,
+        "spread": [
+          220,
+          420
+        ],
+        "deliver": true,
+        "look_to": "x"
+      },
+      {
+        "type": "boss",
+        "enemy": "PATROL_DOG",
+        "hp_mult": 2.2,
+        "look": "doghouse",
+        "distance": 240,
+        "after_minute": 6
+      }
+    ]
+  },
+  "ENGINE_SHED": {
+    "stage": "RAILYARD",
+    "secret": {
+      "type": "trail",
+      "legs": 12,
+      "leg": [
+        380,
+        560
+      ],
+      "start": [
+        300,
+        450
+      ]
+    },
+    "reward": {
+      "gold": 3000
+    },
+    "steps": [
+      {
+        "type": "defend",
+        "time": 40,
+        "mode": "enemies",
+        "enemy": "STRAY_DOG",
+        "spawn_every": 3.0,
+        "spawn_count": 3,
+        "look": "locomotive"
+      },
+      {
+        "type": "boss",
+        "enemy": "COAL_GOLEM",
+        "hp_mult": 3.0,
+        "look": "x",
+        "distance": 240
+      }
+    ]
+  },
+  "WAY_HOME_2": {
+    "stage": "any",
+    "requires": [
+      "chain:WAY_HOME"
+    ],
+    "reward": {
+      "gold": 3000
+    },
+    "steps": [
+      {
+        "type": "trail",
+        "stage": "ISLAND",
+        "count": 5,
+        "spacing": [
+          140,
+          200
+        ],
+        "look": "ribbon"
+      },
+      {
+        "type": "collect",
+        "stage": "STATION",
+        "item": "letter",
+        "count": 3,
+        "spread": [
+          200,
+          400
+        ],
+        "deliver": true,
+        "look_to": "lost_found"
+      },
+      {
+        "type": "carry",
+        "stage": "FOREST",
+        "item": "lantern",
+        "to_distance": [
+          500,
+          700
+        ],
+        "time": 80,
+        "look_to": "x"
+      },
+      {
+        "type": "defend",
+        "stage": "RAILYARD",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "STRAY_DOG",
+        "spawn_every": 3.5,
+        "spawn_count": 3,
+        "look": "doghouse"
+      }
+    ]
+  },
+  "CAT_FAMILY_2": {
+    "stage": "any",
+    "requires": [
+      "chain:CAT_FAMILY"
+    ],
+    "reward": {
+      "gold": 3000
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "stage": "SEWER",
+        "needs_cat": "BOLT",
+        "count": 3,
+        "hold": 4,
+        "radius": 36,
+        "spread": [
+          160,
+          300
+        ],
+        "look": "fuse"
+      },
+      {
+        "type": "collect",
+        "stage": "FOREST",
+        "needs_cat": "CLOVER",
+        "item": "flower",
+        "count": 4,
+        "spread": [
+          200,
+          380
+        ]
+      },
+      {
+        "type": "defend",
+        "stage": "CONSTRUCTION",
+        "needs_cat": "BRUNO",
+        "time": 30,
+        "mode": "enemies",
+        "enemy": "BRICK",
+        "spawn_every": 4.0,
+        "spawn_count": 3,
+        "look": "lost_found"
+      },
+      {
+        "type": "carry",
+        "stage": "RAILYARD",
+        "needs_cat": "BARON",
+        "item": "letter",
+        "to_distance": [
+          450,
+          600
+        ],
+        "time": 60,
+        "look_to": "locomotive"
+      }
+    ]
+  },
+  "WHO_IS_BEHIND_2": {
+    "stage": "any",
+    "requires": [
+      "chain:WHO_IS_BEHIND"
+    ],
+    "reward": {
+      "gold": 4000,
+      "flag": "dog_plot"
+    },
+    "steps": [
+      {
+        "type": "final",
+        "stage": "PARK"
+      },
+      {
+        "type": "final",
+        "stage": "CEMETERY"
+      },
+      {
+        "type": "final",
+        "stage": "ISLAND"
+      },
+      {
+        "type": "final",
+        "stage": "STATION"
+      },
+      {
+        "type": "final",
+        "stage": "SEWER"
+      },
+      {
+        "type": "final",
+        "stage": "FOREST"
+      },
+      {
+        "type": "final",
+        "stage": "CONSTRUCTION"
+      },
+      {
+        "type": "final",
+        "stage": "RAILYARD"
+      }
+    ]
   }
 }

@@ -1261,6 +1261,9 @@ func _end_run(kind: String) -> void:
 				for wid: String in GameData.weapons:
 					if GameData.weapons[wid].get("requires_stage", "") == spawner.stage_id:
 						deeds.append(tr("SUMMARY_WEAPON_UNLOCKED") % tr("WEAPON_%s_NAME" % wid))
+				for pid: String in GameData.passives:
+					if GameData.passives[pid].get("requires_stage", "") == spawner.stage_id:
+						deeds.append(tr("SUMMARY_PASSIVE_UNLOCKED") % tr("PASSIVE_%s_NAME" % pid))
 				for id: String in GameData.stages:
 					var opens: bool = GameData.stages[id].get("requires", "") == spawner.stage_id or spawner.stage_id in GameData.stages[id].get("requires_also", [])
 					if opens and Profile.is_stage_unlocked(id):

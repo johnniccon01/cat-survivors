@@ -290,7 +290,7 @@
       }
     ]
   },
-  "CRIT_MULT": {
+  "CRIT_MULT": { "requires_stage": "JUNKYARD",
     "rarity": 60,
     "levels": [
       {
@@ -310,7 +310,7 @@
       }
     ]
   },
-  "BOSS_DAMAGE": {
+  "BOSS_DAMAGE": { "requires_stage": "STATION",
     "rarity": 60,
     "levels": [
       {
@@ -330,7 +330,7 @@
       }
     ]
   },
-  "THORNS": {
+  "THORNS": { "requires_stage": "CEMETERY",
     "rarity": 60,
     "levels": [
       {
@@ -370,7 +370,7 @@
       }
     ]
   },
-  "LEVEL_HEAL": {
+  "LEVEL_HEAL": { "requires_stage": "FREIGHT_YARD",
     "rarity": 60,
     "levels": [
       {

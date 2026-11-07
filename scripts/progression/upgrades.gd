@@ -61,6 +61,8 @@ static func roll(player: Player, count: int = 3, owned_only: bool = false) -> Ar
 		var lvl: int = player.passives.get(id, 0)
 		if "passive:" + id in player.banished:
 			continue
+		if lvl == 0 and data.has("requires_stage") and data["requires_stage"] not in Profile.cleared_stages:
+			continue
 		if lvl == 0 and (owned_only or player.passives.size() >= Player.MAX_PASSIVES):
 			continue
 		if lvl < data["levels"].size():

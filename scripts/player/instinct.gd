@@ -20,6 +20,10 @@ const DATA := {
 	"STRAY": {"reroll": 1},
 	"ANGEL": {"heal": 0.5, "invuln": 3.0},
 	"DEVIL": {"chance": 0.08, "radius": 56.0, "damage": 25.0, "per_level": 3.0},
+	"RUSTY": {"every": 25.0, "heal": 0.06, "radius": 100.0, "slow": 0.5, "seconds": 2.0},
+	"MOSS": {"kills": 40, "heal": 0.05},
+	"BRICK": {"still": 1.0, "armor": 3.0, "seconds": 3.0},
+	"COAL": {"kills": 30, "speed": 0.2, "seconds": 4.0},
 }
 
 var player: Player
@@ -30,6 +34,8 @@ var _kills := 0
 ## Bruno's shield is up; the angel's one rescue is still there.
 var shield := false
 var _saved := false
+## Brick: how long the cat has stood still.
+var _still := 0.0
 
 
 func _ready() -> void:
@@ -95,6 +101,24 @@ func _physics_process(delta: float) -> void:
 				_fire()
 				_ring(30.0, Color("6cc46c"))
 				Audio.play("heal", -6.0)
+		"RUSTY":
+			# Bath time: a cleansing splash heals and slows the crowd.
+			if _t <= 0.0 and enemies.nearest(player.position, value("radius")) != null:
+				_t = value("every")
+				player.heal(player.max_hp * value("heal"))
+				for e in enemies.query_radius(player.position, value("radius")):
+					e.slow_down(value("slow"), value("seconds"))
+					e.make_wet(value("seconds"))
+				_ring(value("radius"), Color("8fd3ff"))
+				_fire()
+				Audio.play("whoosh", -10.0)
+		"BRICK":
+			# Stands like a wall: after a moment still, a hard hat of armour.
+			_still = _still + delta if player.velocity.length() < 5.0 else 0.0
+			if _still >= value("still") and _t <= 0.0:
+				_t = value("seconds")
+				player.bless({"armor": value("armor")}, value("seconds"), "INSTINCT_BRICK_NAME", Color("e8b020"))
+				_fire()
 		"BOLT":
 			if _t <= 0.0:
 				var target := enemies.nearest(player.position, value("range"))
@@ -145,6 +169,19 @@ func _on_kill(id: String, pos: Vector2, _xp: float) -> void:
 			if _kills >= int(value("kills")):
 				_kills = 0
 				player.bless({"cooldown": value("cooldown")}, value("seconds"), "INSTINCT_MICA_NAME", Color("ff9a4a"))
+				_fire()
+		"MOSS":
+			_kills += 1
+			if _kills >= int(value("kills")):
+				_kills = 0
+				player.heal(player.max_hp * value("heal"))
+				_ring(24.0, Color("9ad04a"))
+				_fire()
+		"COAL":
+			_kills += 1
+			if _kills >= int(value("kills")):
+				_kills = 0
+				player.bless({"speed": value("speed")}, value("seconds"), "INSTINCT_COAL_NAME", Color("f08a2a"))
 				_fire()
 		"CLOVER":
 			if randf() < value("coin"):

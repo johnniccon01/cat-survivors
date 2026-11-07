@@ -2726,7 +2726,7 @@
     "damage_mult": 0.9,
     "music": "music_basement",
     "requires": "STATION",
-    "cat_quests": [],
+    "cat_quests": ["RUSTY"],
     "props": [
       "BARREL",
       "OIL_DRUM",
@@ -2970,7 +2970,7 @@
     "terrain": "trees",
     "music": "music_garden",
     "requires": "CEMETERY",
-    "cat_quests": [],
+    "cat_quests": ["MOSS"],
     "props": [
       "SEED_SACK",
       "PICNIC_BASKET",
@@ -3207,7 +3207,7 @@
     "damage_mult": 0.9,
     "music": "music_factory",
     "requires": "FACTORY",
-    "cat_quests": [],
+    "cat_quests": ["BRICK"],
     "props": [
       "CRATE",
       "TOOLBOX",
@@ -3449,7 +3449,7 @@
     "damage_mult": 0.9,
     "music": "music_rooftop",
     "requires": "CONSTRUCTION",
-    "cat_quests": [],
+    "cat_quests": ["COAL"],
     "props": [
       "CRATE",
       "OIL_DRUM",

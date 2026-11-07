@@ -182,6 +182,75 @@
       "cooldown": -0.1
     }
   },
+  "RUSTY": {
+    "fur": "#b8683a",
+    "dark": "#7a3e22",
+    "belly": "#e8c8a0",
+    "eyes": "#6ab0a0",
+    "patches": true,
+    "weapon": "SOAP_BUBBLES",
+    "bonus": {
+      "regen": 0.3,
+      "max_hp": 20
+    },
+    "unlock": "RUSTY",
+    "home": "SEWER",
+    "home_bonus": {
+      "regen": 0.5
+    }
+  },
+  "MOSS": {
+    "fur": "#6a6a52",
+    "dark": "#3a3a2a",
+    "belly": "#c8c8a8",
+    "eyes": "#9ad04a",
+    "stripes": true,
+    "fluffy": true,
+    "weapon": "TAIL_WHIP",
+    "bonus": {
+      "luck": 0.1,
+      "magnet": 20
+    },
+    "unlock": "MOSS",
+    "home": "FOREST",
+    "home_bonus": {
+      "luck": 0.15
+    }
+  },
+  "BRICK": {
+    "fur": "#c8a070",
+    "dark": "#8a6a42",
+    "belly": "#f0dcc0",
+    "eyes": "#3a6ac8",
+    "size": 1.3,
+    "weapon": "CARDBOARD_BOX",
+    "bonus": {
+      "armor": 1,
+      "area": 0.1
+    },
+    "unlock": "BRICK",
+    "home": "CONSTRUCTION",
+    "home_bonus": {
+      "area": 0.1
+    }
+  },
+  "COAL": {
+    "fur": "#3a3a40",
+    "dark": "#1e1e22",
+    "belly": "#6a6a72",
+    "eyes": "#f08a2a",
+    "points": true,
+    "weapon": "BOTTLE_CAPS",
+    "bonus": {
+      "speed": 0.1,
+      "proj_speed": 0.1
+    },
+    "unlock": "COAL",
+    "home": "RAILYARD",
+    "home_bonus": {
+      "speed": 0.1
+    }
+  },
   "STRAY": {
     "fur": "#8a7a6a",
     "dark": "#4a4038",

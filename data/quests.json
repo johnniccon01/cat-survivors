@@ -83,6 +83,54 @@
         620.0
       ],
       "escort_hp": 60.0
+    },
+    "RUSTY": {
+      "type": "rescue",
+      "poi": "cage",
+      "guards": "SEWER_RAT",
+      "guard_count": 24,
+      "free_time": 4.0,
+      "escort_distance": [
+        480.0,
+        620.0
+      ],
+      "escort_hp": 60.0
+    },
+    "MOSS": {
+      "type": "rescue",
+      "poi": "cage",
+      "guards": "FOX",
+      "guard_count": 24,
+      "free_time": 4.0,
+      "escort_distance": [
+        480.0,
+        620.0
+      ],
+      "escort_hp": 60.0
+    },
+    "BRICK": {
+      "type": "rescue",
+      "poi": "cart",
+      "guards": "HARDHAT_RAT",
+      "guard_count": 24,
+      "free_time": 4.0,
+      "escort_distance": [
+        480.0,
+        620.0
+      ],
+      "escort_hp": 60.0
+    },
+    "COAL": {
+      "type": "rescue",
+      "poi": "cage",
+      "guards": "STRAY_DOG",
+      "guard_count": 24,
+      "free_time": 4.0,
+      "escort_distance": [
+        480.0,
+        620.0
+      ],
+      "escort_hp": 60.0
     }
   },
   "side_quests": {

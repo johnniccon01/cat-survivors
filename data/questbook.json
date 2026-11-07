@@ -1903,6 +1903,194 @@
         }
       ]
     },
+    "CATS_RUSTY": {
+      "chapter": "cats",
+      "cat": "RUSTY",
+      "text": "CATLINE",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:RUSTY"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level_cat:RUSTY"
+          ],
+          "target": 40,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "bosses_cat:RUSTY"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:RUSTY"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
+    "CATS_MOSS": {
+      "chapter": "cats",
+      "cat": "MOSS",
+      "text": "CATLINE",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:MOSS"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level_cat:MOSS"
+          ],
+          "target": 40,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "bosses_cat:MOSS"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:MOSS"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
+    "CATS_BRICK": {
+      "chapter": "cats",
+      "cat": "BRICK",
+      "text": "CATLINE",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:BRICK"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level_cat:BRICK"
+          ],
+          "target": 40,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "bosses_cat:BRICK"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:BRICK"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
+    "CATS_COAL": {
+      "chapter": "cats",
+      "cat": "COAL",
+      "text": "CATLINE",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:COAL"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "best_level_cat:COAL"
+          ],
+          "target": 40,
+          "reward": {
+            "gold": 300
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "bosses_cat:COAL"
+          ],
+          "target": 25,
+          "reward": {
+            "gold": 400
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins_cat:COAL"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 800
+          }
+        }
+      ]
+    },
     "CATS_STRAY": {
       "chapter": "cats",
       "cat": "STRAY",

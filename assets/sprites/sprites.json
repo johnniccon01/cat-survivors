@@ -121,6 +121,50 @@
       ],
       "frames": 4
     },
+    "RUSTY": {
+      "cell": [
+        36,
+        30
+      ],
+      "anchor": [
+        16.0,
+        18.0
+      ],
+      "frames": 4
+    },
+    "MOSS": {
+      "cell": [
+        36,
+        30
+      ],
+      "anchor": [
+        16.0,
+        18.0
+      ],
+      "frames": 4
+    },
+    "BRICK": {
+      "cell": [
+        47,
+        39
+      ],
+      "anchor": [
+        20.9,
+        23.4
+      ],
+      "frames": 4
+    },
+    "COAL": {
+      "cell": [
+        36,
+        30
+      ],
+      "anchor": [
+        16.0,
+        18.0
+      ],
+      "frames": 4
+    },
     "STRAY": {
       "cell": [
         35,

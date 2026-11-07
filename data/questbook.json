@@ -1261,6 +1261,178 @@
         }
       ]
     },
+    "GROOMING_SALON": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:GROOMING_SALON"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 700
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:GROOMING_SALON"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1200
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:GROOMING_SALON",
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:GROOMING_SALON"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 2800
+          }
+        }
+      ]
+    },
+    "BONE_BAKERY": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:BONE_BAKERY"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 700
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:BONE_BAKERY"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1200
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:BONE_BAKERY",
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:BONE_BAKERY"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 2800
+          }
+        }
+      ]
+    },
+    "RACETRACK": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:RACETRACK"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 700
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:RACETRACK"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1200
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:RACETRACK",
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:RACETRACK"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 2800
+          }
+        }
+      ]
+    },
+    "FIRE_STATION": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:FIRE_STATION"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 700
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:FIRE_STATION"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1200
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:FIRE_STATION",
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:FIRE_STATION"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 2800
+          }
+        }
+      ]
+    },
     "OLD_DIARY": {
       "chapter": "story",
       "tiers": [

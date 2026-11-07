@@ -304,6 +304,23 @@
       "crit_chance": 0.05
     }
   },
+  "SPARKY": {
+    "fur": "#d8682a",
+    "dark": "#8a3a1a",
+    "belly": "#f4e0c8",
+    "eyes": "#4a8ae8",
+    "stripes": true,
+    "weapon": "SPRINKLER",
+    "bonus": {
+      "duration": 0.1,
+      "max_hp": 20
+    },
+    "unlock": "SPARKY",
+    "home": "FIRE_STATION",
+    "home_bonus": {
+      "duration": 0.1
+    }
+  },
   "STRAY": {
     "fur": "#8a7a6a",
     "dark": "#4a4038",

@@ -229,5 +229,127 @@ def main():
     print("district 2 art written to", OUT)
 
 
+# --- maps 5-8: the Grooming Salon, the Biscuit Bakery, the Racetrack, the Fire Station ---
+
+def salon_tiles():
+    from gen_outdoor import tiles_floor
+    tiles_floor("salon", hexc("f8e0ec"), hexc("f4f1ea"), 340, t=32, grout="c8a8b8").save("apt_floor_salon.png")
+
+
+def bakery_tiles():
+    from gen_outdoor import tiles_floor
+    img = tiles_floor("bakery", hexc("f0dcb0"), hexc("e8c890"), 341, t=32, grout="b8986a")
+    rng = random.Random(341)
+    for _ in range(200):
+        img.set(rng.randrange(128), rng.randrange(128), hexc("fffaf0"))
+    img.save("apt_floor_bakery.png")
+
+
+def fire_floor():
+    floor_concrete_plain("fire_bay", hexc("a8423a"), 342, slab=80, stripes=True)
+
+
+def dryer_chair():
+    img = framed(30, 34)
+    img.rect(3, 14, 26, 20, hexc("e88aa8"))
+    img.bevel(3, 14, 26, 20, 0.25)
+    img.circle(16, 9, 10, hexc("c9ced2"), 8)
+    img.round_shade(16, 9, 10, 0.3)
+    img.circle(16, 9, 6, hexc("4a4e54"), 4)
+    img.outline()
+    img.save("apt_dryer_chair.png")
+
+
+def bath_tub():
+    img = framed(52, 30)
+    img.rect(1, 1, 52, 30, hexc("f4f4f0"))
+    img.bevel(1, 1, 52, 30, 0.25)
+    img.rect(5, 5, 44, 22, hexc("8fd3ff"))
+    for k in range(9):
+        img.circle(10 + k * 4.5, 10 + (k % 3) * 5, 2.5, hexc("ffffff"))
+    img.outline()
+    img.save("apt_bath_tub.png")
+
+
+def oven():
+    img = framed(40, 36)
+    img.rect(1, 1, 40, 36, hexc("6a6e72"))
+    img.bevel(1, 1, 40, 36, 0.3)
+    img.rect(6, 12, 30, 18, hexc("2a1a14"))
+    img.rect(8, 16, 26, 10, hexc("f08a2a"))
+    for x in range(10, 34, 6):
+        img.rect(x, 18, 4, 3, hexc("c88a4a"))
+    img.circle(10, 6, 2, hexc("e04646"))
+    img.circle(18, 6, 2, hexc("f2d14e"))
+    img.outline()
+    img.save("apt_oven.png")
+
+
+def flour_sacks():
+    rng = random.Random(350)
+    img = framed(40, 28)
+    for (x, y) in ((2, 2), (20, 2), (11, 13)):
+        img.rect(x, y, 18, 13, shade(hexc("f4ecd8"), rng.uniform(-0.05, 0.02)))
+        img.bevel(x, y, 18, 13, 0.25)
+        img.rect(x + 5, y + 4, 8, 4, hexc("c88a4a"))
+    img.outline()
+    img.save("apt_flour_sacks.png")
+
+
+def hurdle():
+    img = framed(44, 14)
+    img.rect(2, 4, 40, 4, hexc("f4f1ea"))
+    for x in range(2, 42, 8):
+        img.rect(x, 4, 4, 4, hexc("c0392b"))
+    img.rect(2, 2, 2, 12, METAL)
+    img.rect(40, 2, 2, 12, METAL)
+    img.outline()
+    img.save("apt_hurdle.png")
+
+
+def start_gate():
+    img = framed(70, 24)
+    for i in range(6):
+        x = 1 + i * 11
+        img.rect(x, 1, 10, 22, hexc("3a6ac8") if i % 2 else hexc("c0392b"))
+        img.bevel(x, 1, 10, 22, 0.3)
+        img.rect(x + 3, 4, 4, 2, hexc("f4f1ea"))
+    img.outline()
+    img.save("apt_start_gate.png")
+
+
+def fire_truck():
+    img = framed(96, 40)
+    img.rect(1, 2, 96, 36, hexc("c0392b"))
+    img.bevel(1, 2, 96, 36, 0.25)
+    img.rect(70, 6, 22, 28, hexc("a02a20"))
+    img.rect(74, 9, 14, 10, hexc("8fd3ff"))
+    for y in range(8, 34, 6):
+        img.rect(8, y, 56, 2, hexc("c9ced2"))
+    img.rect(80, 1, 10, 3, hexc("4a8ae8"))
+    img.outline()
+    img.save("apt_fire_truck.png")
+
+
+def hose_reel():
+    img = framed(30, 30)
+    c = 15.5
+    img.circle(c, c, 14, hexc("c0392b"))
+    img.round_shade(c, c, 14, 0.3)
+    for r in (11, 8, 5):
+        for k in range(int(r * 8)):
+            a = k * math.tau / (r * 8)
+            img.set(c + math.cos(a) * r, c + math.sin(a) * r, hexc("e8c02a"))
+    img.circle(c, c, 2.5, hexc("4a4e54"))
+    img.outline()
+    img.save("apt_hose_reel.png")
+
+
+def main58():
+    for fn in (salon_tiles, bakery_tiles, fire_floor, dryer_chair, bath_tub, oven, flour_sacks, hurdle, start_gate, fire_truck, hose_reel):
+        fn()
+
+
 if __name__ == "__main__":
     main()
+    main58()

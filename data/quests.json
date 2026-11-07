@@ -151,6 +151,18 @@
         620.0
       ],
       "escort_hp": 60.0
+    },
+    "SPARKY": {
+      "type": "rescue",
+      "poi": "cart",
+      "guards": "HYDRANT",
+      "guard_count": 18,
+      "free_time": 4.0,
+      "escort_distance": [
+        480.0,
+        620.0
+      ],
+      "escort_hp": 60.0
     }
   },
   "side_quests": {

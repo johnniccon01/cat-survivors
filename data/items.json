@@ -84,6 +84,10 @@
     "LONG_EARS": { "slot": "HAT", "boss": "BASSET", "color": "#b8783a", "stats": { "magnet": 40.0, "luck": 0.08 } },
     "GOLDEN_BALL": { "slot": "TAIL", "boss": "LABRADOR", "color": "#f2c14e", "stats": { "speed": 0.1, "amount": 1.0 } },
     "BONES_COLLAR": { "slot": "COLLAR", "boss": "BONES_ROTTWEILER", "color": "#4a4e54", "stats": { "thorns": 1.0, "armor": 2.0 } },
+    "PERFUME_BOW": { "slot": "HAT", "boss": "POODLE_QUEEN", "color": "#e88aa8", "stats": { "area": 0.12, "luck": 0.06 } },
+    "BAKERS_APRON": { "slot": "VEST", "boss": "BAKER_DACHSHUND", "color": "#f4f1ea", "stats": { "max_hp": 40.0, "regen": 0.3 } },
+    "RACING_BIB": { "slot": "VEST", "boss": "FLASH_GREYHOUND", "color": "#3a6ac8", "stats": { "speed": 0.15, "cooldown": -0.05 } },
+    "FIRE_HELMET": { "slot": "HAT", "boss": "FIRE_CHIEF", "color": "#c0392b", "stats": { "armor": 3.0, "duration": 0.1 } },
     "SOUL_BELL": { "slot": "COLLAR", "boss": "", "special": true, "color": "#9a7aff", "stats": {} }
   }
 }

@@ -42,7 +42,8 @@ const THEME_ITEMS := {"apartment": APARTMENT_ITEMS, "basement": BASEMENT_ITEMS, 
 	"supermarket": SUPERMARKET_ITEMS, "harbor": HARBOR_ITEMS, "factory": FACTORY_ITEMS, "cemetery": CEMETERY_ITEMS,
 	"station": STATION_ITEMS, "island": ISLAND_ITEMS, "park": PARK_ITEMS, "sewer": SEWER_ITEMS, "forest": FOREST_ITEMS,
 	"construction": CONSTRUCTION_ITEMS, "railyard": RAILYARD_ITEMS, "freight": RAILYARD_ITEMS, "shelter": SHELTER_ITEMS,
-	"dogpark": DOGPARK_ITEMS, "junkyard": JUNKYARD_ITEMS}
+	"dogpark": DOGPARK_ITEMS, "junkyard": JUNKYARD_ITEMS, "salon": SHELTER_ITEMS, "bakery": SUPERMARKET_ITEMS,
+	"racetrack": DOGPARK_ITEMS, "firestation": FACTORY_ITEMS}
 ## Zones per theme, from low noise to high noise.
 const THEME_ZONES := {
 	"apartment": ["kitchen", "living", "bedroom"],
@@ -64,6 +65,10 @@ const THEME_ZONES := {
 	"shelter": ["shelter_hall", "kennel_row", "shelter_yard"],
 	"dogpark": ["dog_path", "dog_lawn", "agility"],
 	"junkyard": ["car_lot", "mud", "scrap"],
+	"salon": ["salon_floor", "salon_bath", "salon_hall"],
+	"bakery": ["bakery_floor", "bakery_store", "bakery_yard"],
+	"racetrack": ["track", "track_lawn", "stands"],
+	"firestation": ["fire_bay", "fire_yard", "fire_hall"],
 }
 const FURNITURE := {
 	"living": ["sofa", "armchair", "coffee_table", "bookshelf", "tv", "floor_lamp", "plant", "cat_tree"],
@@ -123,6 +128,18 @@ const FURNITURE := {
 	"car_lot": ["car_wreck", "tire_stack", "fridge", "yard_lamp", "car_wreck"],
 	"mud": ["scrap_pile", "tire_stack", "barrels", "fridge", "yard_lamp"],
 	"scrap": ["scrap_pile", "car_wreck", "scrap_pile", "tire_stack", "yard_lamp"],
+	"salon_floor": ["dryer_chair", "dryer_chair", "dog_bed", "shop_lamp", "plant"],
+	"salon_bath": ["bath_tub", "water_bowl", "dryer_chair", "shop_lamp"],
+	"salon_hall": ["dog_bed", "plant", "bench", "shop_lamp", "dryer_chair"],
+	"bakery_floor": ["oven", "flour_sacks", "counter", "shop_lamp", "oven"],
+	"bakery_store": ["flour_sacks", "crates", "pallet_stack", "shop_lamp"],
+	"bakery_yard": ["flour_sacks", "barrels", "trash_bin", "garden_lamp"],
+	"track": ["hurdle", "start_gate", "hurdle", "garden_lamp"],
+	"track_lawn": ["hurdle", "bush", "tree", "garden_lamp", "water_bowl"],
+	"stands": ["bench", "bench", "trash_bin", "station_lamp"],
+	"fire_bay": ["fire_truck", "hose_reel", "fire_truck", "factory_lamp"],
+	"fire_yard": ["hose_reel", "barrels", "tire_stack", "factory_lamp"],
+	"fire_hall": ["dog_bed", "hose_reel", "bench", "station_lamp"],
 }
 const LAMPS := ["floor_lamp", "nightstand", "bulb", "garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp", "factory_lamp", "grave_candle", "station_lamp", "campfire",
 	"sewer_lamp", "site_lamp", "yard_lamp", "mushrooms_glow"]
@@ -151,7 +168,8 @@ const ART_FURNITURE := ["bookshelf", "tv", "floor_lamp", "plant", "dining_table"
 	"pipe_stack", "cement_mixer", "cable_drum", "site_lamp",
 	"coal_pile", "switch_lever", "container", "yard_lamp",
 	# The Dog District (tools/gen_district2.py).
-	"kennel", "dog_bed", "water_bowl", "agility_hoop", "tire_stack", "car_wreck", "scrap_pile", "fridge", "dog_crate"]
+	"kennel", "dog_bed", "water_bowl", "agility_hoop", "tire_stack", "car_wreck", "scrap_pile", "fridge", "dog_crate",
+	"dryer_chair", "bath_tub", "oven", "flour_sacks", "hurdle", "start_gate", "fire_truck", "hose_reel"]
 const ART_FABRIC := ["sofa", "armchair", "coffee_table", "cat_tree", "cat_bowls", "bed", "cat_bed", "doormat", "bike",
 	"scarecrow", "deck_chair", "towel"]
 ## Apartment floors from pixel art: zone -> texture name.
@@ -173,7 +191,11 @@ const ART_FLOORS := {"living": "floor_planks", "kitchen": "floor_tiles", "bedroo
 	"freight_dock": "floor_yard_dock", "freight_gravel": "floor_yard_ballast", "freight_rails": "floor_yard_rails",
 	"shelter_hall": "floor_hall", "kennel_row": "floor_kennel_row", "shelter_yard": "floor_gravel",
 	"dog_path": "floor_park_path", "dog_lawn": "floor_lawn", "agility": "floor_agility",
-	"car_lot": "floor_dock", "mud": "floor_site_dirt", "scrap": "floor_scrap"}
+	"car_lot": "floor_dock", "mud": "floor_site_dirt", "scrap": "floor_scrap",
+	"salon_floor": "floor_salon", "salon_bath": "floor_salon", "salon_hall": "floor_hall",
+	"bakery_floor": "floor_bakery", "bakery_store": "floor_boards", "bakery_yard": "floor_gravel",
+	"track": "floor_agility", "track_lawn": "floor_lawn", "stands": "floor_platform",
+	"fire_bay": "floor_fire_bay", "fire_yard": "floor_dock", "fire_hall": "floor_hall"}
 ## Zones with rooms (thresholds and door frames between them).
 const ROOM_ZONES := ["living", "kitchen", "bedroom", "concrete", "laundry", "storage"]
 

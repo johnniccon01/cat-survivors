@@ -2853,3 +2853,143 @@ CHAIN_GENERAL_ORDERS_3,Follow the old paw prints in the park,Sleduj staré stopy
 CHAIN_GENERAL_ORDERS_3_DONE,They lead to the junkyard – where the General's old home stood.,Vedú na smetisko – tam stál Generálov starý domov.,Vedou na smetiště – tam stál Generálův starý domov.,"Llevan al desguace, donde estaba el viejo hogar del General.","Они ведут на свалку – туда, где стоял старый дом Генерала.",它们通向垃圾场——将军的旧家曾经在那里。
 CHAIN_GENERAL_ORDERS_4,Defeat Bones at the Junkyard,Poraz Kosť na Smetisku,Poraz Kost na Smetišti,Derrota a Huesos en el desguace,Победи Кость на Свалке,在垃圾场击败骨头
 CHAIN_GENERAL_ORDERS_4_DONE,"Bones growls: ""The General doesn't want war. He's just afraid.""",Kosť zavrčí: „Generál nechce vojnu. Len sa bojí.“,Kost zavrčí: „Generál nechce válku. Jen se bojí.“,Huesos gruñe: «El General no quiere la guerra. Solo tiene miedo.»,Кость рычит: «Генерал не хочет войны. Он просто боится».,骨头低吼：“将军不想打仗。他只是害怕。”
+STAGE_GROOMING_SALON_NAME,The Grooming Salon,Psí salón,Psí salon,La peluquería canina,Собачий салон,狗狗美容院
+STAGE_GROOMING_SALON_HINT,Defeat Bones at the Junkyard,Poraz Kosť na Smetisku,Poraz Kost na Smetišti,Derrota a Huesos en el desguace,Победи Кость на Свалке,在垃圾场击败骨头
+STORY_GROOMING_SALON_INTRO,"Hair dryers roar, bubbles float and the poodles sniff at your messy fur.","Fény hučia, bubliny plávajú a pudle čuchajú k tvojej strapatej srsti.","Fény hučí, bubliny plují a pudlové čichají k tvé rozcuchané srsti.","Rugen los secadores, flotan burbujas y los caniches huelen tu pelo revuelto.","Ревут фены, плывут пузыри, и пудели принюхиваются к твоей лохматой шерсти.",吹风机轰鸣，泡泡飘浮，贵宾犬们嗅着你乱糟糟的毛。
+QB_GROOMING_SALON_NAME,The Grooming Salon,Psí salón,Psí salon,La peluquería canina,Собачий салон,狗狗美容院
+QB_GROOMING_SALON_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_GROOMING_SALON_2,Defeat its dog boss.,Poraziť jeho psieho bossa.,Porazit jeho psího bosse.,Derrota a su jefe perruno.,Победи его собачьего босса.,击败那里的狗狗首领。
+QB_GROOMING_SALON_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_GROOMING_SALON_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_BONE_BAKERY_NAME,The Biscuit Bakery,Pekáreň piškót,Pekárna piškotů,La panadería de galletas,Пекарня печенья,饼干面包房
+STAGE_BONE_BAKERY_HINT,Defeat the Poodle Queen in the Grooming Salon,Poraz Pudlovú kráľovnú v Psom salóne,Poraz Pudlí královnu v Psím salonu,Derrota a la Reina Caniche en la peluquería,Победи Королеву пуделей в Собачьем салоне,在狗狗美容院击败贵宾犬女王
+STORY_BONE_BAKERY_INTRO,"The ovens glow, the belts rattle and the air smells of biscuits.","Pece žeravia, pásy rachotia a vzduch vonia piškótami.","Pece žhnou, pásy rachotí a vzduch voní piškoty.","Los hornos brillan, las cintas traquetean y el aire huele a galletas.","Печи пышут жаром, ленты гремят, и воздух пахнет печеньем.",烤箱发着光，传送带咔嗒作响，空气里满是饼干香。
+QB_BONE_BAKERY_NAME,The Biscuit Bakery,Pekáreň piškót,Pekárna piškotů,La panadería de galletas,Пекарня печенья,饼干面包房
+QB_BONE_BAKERY_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_BONE_BAKERY_2,Defeat its dog boss.,Poraziť jeho psieho bossa.,Porazit jeho psího bosse.,Derrota a su jefe perruno.,Победи его собачьего босса.,击败那里的狗狗首领。
+QB_BONE_BAKERY_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_BONE_BAKERY_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_RACETRACK_NAME,The Racetrack,Dostihová dráha,Dostihová dráha,El canódromo,Ипподром,赛狗场
+STAGE_RACETRACK_HINT,Defeat the Baker Dachshund in the Bakery,Poraz Jazvečíka pekára v Pekárni,Poraz Jezevčíka pekaře v Pekárně,Derrota al teckel panadero en la panadería,Победи Таксу-пекаря в Пекарне,在面包房击败腊肠犬面包师
+STORY_RACETRACK_INTRO,The starting gates open and the greyhounds race. Watch the lanes!,Štartové boxy sa otvárajú a chrty uháňajú. Pozor na dráhy!,Startovní boxy se otevírají a chrti uhánějí. Pozor na dráhy!,Se abren las puertas y corren los galgos. ¡Cuidado con las calles!,"Открываются стартовые боксы, и мчатся борзые. Берегись дорожек!",起跑门打开，灵缇犬飞奔而出。小心跑道！
+QB_RACETRACK_NAME,The Racetrack,Dostihová dráha,Dostihová dráha,El canódromo,Ипподром,赛狗场
+QB_RACETRACK_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_RACETRACK_2,Defeat its dog boss.,Poraziť jeho psieho bossa.,Porazit jeho psího bosse.,Derrota a su jefe perruno.,Победи его собачьего босса.,击败那里的狗狗首领。
+QB_RACETRACK_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_RACETRACK_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_FIRE_STATION_NAME,The Fire Station,Hasičská stanica,Hasičská stanice,El parque de bomberos,Пожарная часть,消防站
+STAGE_FIRE_STATION_HINT,Defeat Flash at the Racetrack,Poraz Bleska na Dostihovej dráhe,Poraz Bleska na Dostihové dráze,Derrota a Rayo en el canódromo,Победи Молнию на Ипподроме,在赛狗场击败闪电
+STORY_FIRE_STATION_INTRO,Sirens wail and hoses spray. A cat hides somewhere among the fire trucks.,Sirény húkajú a hadice striekajú. Medzi hasičskými autami sa skrýva mačka.,Sirény houkají a hadice stříkají. Mezi hasičskými auty se skrývá kočka.,Aúllan las sirenas y rocían las mangueras. Entre los camiones se esconde una gata.,"Воют сирены, брызжут шланги. Среди пожарных машин прячется кошка.",警笛长鸣，水管喷水。一只猫躲在消防车之间。
+QB_FIRE_STATION_NAME,The Fire Station,Hasičská stanica,Hasičská stanice,El parque de bomberos,Пожарная часть,消防站
+QB_FIRE_STATION_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_FIRE_STATION_2,Defeat its dog boss.,Poraziť jeho psieho bossa.,Porazit jeho psího bosse.,Derrota a su jefe perruno.,Победи его собачьего босса.,击败那里的狗狗首领。
+QB_FIRE_STATION_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_FIRE_STATION_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+ENEMY_DRYER_BOT_NAME,Dryer Bot,Fénobot,Fénobot,Robo-secador,Фен-бот,吹风机器人
+ENEMY_DRYER_BOT_DESC,Blows hot air in rings.,Fúka horúci vzduch v kruhoch.,Fouká horký vzduch v kruzích.,Sopla aire caliente en anillos.,Дует горячим воздухом кольцами.,一圈圈吹出热风。
+ENEMY_POMPOM_GIANT_NAME,Giant Pompom,Obrí pompón,Obří bambule,Pompón gigante,Огромный помпон,巨型绒球
+ENEMY_POMPOM_GIANT_DESC,So fluffy it vanishes and pops up elsewhere.,"Taký nadýchaný, že zmizne a vynorí sa inde.","Tak nadýchaná, že zmizí a vynoří se jinde.",Tan esponjoso que desaparece y aparece en otro sitio.,"Такой пушистый, что исчезает и появляется в другом месте.",蓬松到会消失，然后从别处冒出来。
+ENEMY_POODLE_QUEEN_NAME,The Poodle Queen,Pudlová kráľovná,Pudlí královna,La Reina Caniche,Королева пуделей,贵宾犬女王
+ENEMY_POODLE_QUEEN_DESC,Rules the salon. Her perfume blooms into stinging clouds round you.,Vládne salónu. Jej voňavka rozkvitne do štípajúcich oblakov okolo teba.,Vládne salonu. Její voňavka rozkvete do štiplavých mraků kolem tebe.,Reina en la peluquería. Su perfume florece en nubes que pican a tu alrededor.,Правит салоном. Её духи расцветают жгучими облаками вокруг тебя.,统治着美容院。她的香水会在你周围绽放成刺鼻的云。
+ENEMY_BISCUIT_GOLEM_NAME,Biscuit Golem,Piškótový golem,Piškotový golem,Gólem de galletas,Печеньевый голем,饼干魔像
+ENEMY_BISCUIT_GOLEM_DESC,Baked a little too long.,Pečený trochu pridlho.,Pečený trochu moc dlouho.,Horneado demasiado tiempo.,Перепечённый.,烤得有点久了。
+ENEMY_DOUGH_BLOB_NAME,Dough Blob,Cesto,Těsto,Masa de pan,Тесто,面团怪
+ENEMY_DOUGH_BLOB_DESC,"Rises, spreads and sticks to your paws.","Kysne, rozteká sa a lepí sa na labky.","Kyne, roztéká se a lepí se na tlapky.","Sube, se extiende y se pega a las patas.","Поднимается, расползается и липнет к лапам.",发酵、摊开，粘在你的爪子上。
+ENEMY_BAKER_DACHSHUND_NAME,The Baker Dachshund,Jazvečík pekár,Jezevčík pekař,El teckel panadero,Такса-пекарь,腊肠犬面包师
+ENEMY_BAKER_DACHSHUND_DESC,Lays out a tray of strikes row by row.,Rozloží plech úderov rad po rade.,Rozloží plech úderů řadu po řadě.,Coloca una bandeja de golpes fila a fila.,Раскладывает противень ударов ряд за рядом.,一排一排地摆出一整盘打击。
+ENEMY_STARTER_NAME,The Starter,Štartér,Startér,El juez de salida,Стартёр,发令员
+ENEMY_STARTER_DESC,Fires the starting shots – in every direction.,Vystrelí štartovacie výstrely – do všetkých strán.,Vystřelí startovací výstřely – do všech stran.,Dispara la salida en todas direcciones.,Даёт стартовые выстрелы – во все стороны.,向四面八方鸣枪发令。
+ENEMY_GREY_PACK_NAME,Grey Pack,Sivá svorka,Šedá smečka,La jauría gris,Серая стая,灰色狗群
+ENEMY_GREY_PACK_DESC,The fastest pack on the track.,Najrýchlejšia svorka na dráhe.,Nejrychlejší smečka na dráze.,La jauría más rápida de la pista.,Самая быстрая стая на дорожке.,赛道上最快的狗群。
+ENEMY_FLASH_GREYHOUND_NAME,Flash the Greyhound,"Blesk, chrt","Blesk, chrt","Rayo, el galgo","Молния, борзая",闪电，灵缇犬
+ENEMY_FLASH_GREYHOUND_DESC,The champion. Sprints four times straight through where you stand.,"Šampión. Štyrikrát preletí rovno cez miesto, kde stojíš.","Šampion. Čtyřikrát proletí rovnou přes místo, kde stojíš.",El campeón. Cruza cuatro veces en línea recta por donde estás.,"Чемпион. Четыре раза проносится прямо через место, где ты стоишь.",冠军。四次直线冲过你站的地方。
+ENEMY_HYDRANT_KING_NAME,Hydrant King,Kráľ hydrantov,Král hydrantů,El rey hidrante,Король гидрантов,消防栓之王
+ENEMY_HYDRANT_KING_DESC,Sweeps the yard with jets of water.,Zametá dvor prúdmi vody.,Zametá dvůr proudy vody.,Barre el patio con chorros de agua.,Метёт двор струями воды.,用水柱横扫院子。
+ENEMY_SMOKE_CLOUD_NAME,Smoke Cloud,Oblak dymu,Oblak kouře,Nube de humo,Облако дыма,烟云
+ENEMY_SMOKE_CLOUD_DESC,Pulls you in and rains embers.,Vťahuje ťa dnu a sype žeravé uhlíky.,Vtahuje tě dovnitř a sype žhavé uhlíky.,Te atrae y llueve brasas.,Затягивает тебя и сыплет угольками.,把你吸进去，洒下火星。
+ENEMY_FIRE_CHIEF_NAME,The Fire Chief,Veliteľ hasičov,Velitel hasičů,El jefe de bomberos,Начальник пожарных,消防队长
+ENEMY_FIRE_CHIEF_DESC,A dalmatian with a hose: the jet turns once all round him.,Dalmatín s hadicou: prúd vody sa otočí raz dookola.,Dalmatin s hadicí: proud vody se otočí jednou dokola.,Un dálmata con manguera: el chorro da una vuelta entera.,Далматинец со шлангом: струя делает полный круг.,拿着水管的大麦町：水柱绕他转一整圈。
+ITEM_PERFUME_BOW_NAME,Perfume Bow,Navoňaná mašľa,Navoněná mašle,Lazo perfumado,Надушенный бант,香水蝴蝶结
+ITEM_PERFUME_BOW_DESC,"From the Poodle Queen. +12% area, +6% luck.","Od Pudlovej kráľovnej. +12 % plocha, +6 % šťastie.","Od Pudlí královny. +12 % plocha, +6 % štěstí.","De la Reina Caniche. +12 % de área, +6 % de suerte.","От Королевы пуделей. +12 % площади, +6 % удачи.",来自贵宾犬女王。+12% 范围，+6% 幸运。
+ITEM_BAKERS_APRON_NAME,Baker's Apron,Pekárska zástera,Pekařská zástěra,Delantal de panadero,Фартук пекаря,面包师围裙
+ITEM_BAKERS_APRON_DESC,"From the Baker Dachshund. +40 health, +0.3 regeneration.","Od Jazvečíka pekára. +40 zdravia, +0,3 regenerácie.","Od Jezevčíka pekaře. +40 zdraví, +0,3 regenerace.","Del teckel panadero. +40 de salud, +0,3 de regeneración.","От Таксы-пекаря. +40 здоровья, +0,3 регенерации.",来自腊肠犬面包师。+40 生命，+0.3 生命恢复。
+ITEM_RACING_BIB_NAME,Racing Bib,Pretekárske číslo,Závodní číslo,Dorsal de carreras,Номер гонщика,比赛号码布
+ITEM_RACING_BIB_DESC,"From Flash. +15% speed, attacks 5% more often.","Od Bleska. +15 % rýchlosť, útoky o 5 % častejšie.","Od Bleska. +15 % rychlost, útoky o 5 % častěji.","De Rayo. +15 % de velocidad, ataques un 5 % más frecuentes.","От Молнии. +15 % скорости, атаки на 5 % чаще.",来自闪电。+15% 速度，攻击频率 +5%。
+ITEM_FIRE_HELMET_NAME,Fire Helmet,Hasičská prilba,Hasičská přilba,Casco de bombero,Пожарная каска,消防头盔
+ITEM_FIRE_HELMET_DESC,"From the Fire Chief. +3 armour, +10% duration.","Od Veliteľa hasičov. +3 brnenie, +10 % trvanie.","Od Velitele hasičů. +3 brnění, +10 % trvání.","Del jefe de bomberos. +3 de armadura, +10 % de duración.","От Начальника пожарных. +3 брони, +10 % длительности.",来自消防队长。+3 护甲，+10% 持续时间。
+CAT_SPARKY_NAME,Sparky,Iskra,Jiskra,Chispa,Искра,火花
+CAT_SPARKY_DESC,"The fire station's cat, brave as a firefighter. Starts with the Sprinkler; +10% duration, +20 health.","Mačka z hasičskej stanice, odvážna ako hasič. Začína s Kropičom; +10 % trvanie, +20 zdravia.","Kočka z hasičské stanice, odvážná jako hasič. Začíná s Kropičem; +10 % trvání, +20 zdraví.","La gata del parque de bomberos, valiente como un bombero. Empieza con el Aspersor; +10% de duración, +20 de salud.","Кошка пожарной части, смелая как пожарный. Начинает с Разбрызгивателем; +10% длительности, +20 здоровья.",消防站的猫，像消防员一样勇敢。初始武器洒水器；+10% 持续时间，+20 生命。
+CAT_SPARKY_HINT,Free her at the Fire Station.,Vysloboď ju na Hasičskej stanici.,Vysvoboď ji na Hasičské stanici.,Libérala en el parque de bomberos.,Освободи её в Пожарной части.,在消防站救出她。
+INSTINCT_SPARKY_NAME,Fire drill,Požiarny poplach,Požární poplach,Simulacro,Пожарная тревога,消防演习
+INSTINCT_SPARKY_DESC,"below half health, once in 45 s: 2 s untouchable, enemies around soaked and slowed","pod polovicou zdravia raz za 45 s: 2 s nedotknuteľná, nepriatelia okolo mokrí a spomalení","pod polovinou zdraví jednou za 45 s: 2 s nedotknutelná, nepřátelé kolem mokří a zpomalení","con menos de la mitad de salud, una vez cada 45 s: 2 s intocable, enemigos cercanos mojados y frenados","ниже половины здоровья, раз в 45 с: 2 с неуязвимости, враги вокруг мокрые и замедлены",生命低于一半时每 45 秒一次：2 秒无敌，周围敌人被淋湿并减速
+BLOWDRY_WARNING,The dryers blast a lane of hot air – step aside!,Fény vyfúknu pruh horúceho vzduchu – uhni!,Fény vyfouknou pruh horkého vzduchu – uhni!,"¡Los secadores soplan un pasillo de aire caliente, apártate!",Фены выдувают полосу горячего воздуха – отойди!,吹风机吹出一道热风——快躲开！
+HOSE_WARNING,The hoses are turned on – keep off the line!,Hadice sa púšťajú – uhni z pruhu!,Hadice se pouštějí – uhni z pruhu!,"¡Abren las mangueras, apártate!",Шланги включают – уйди с полосы!,水管开了——离开那条线！
+RACE_WARNING,The greyhounds are off – clear the lane!,Chrty vybiehajú – uvoľni dráhu!,Chrti vybíhají – uvolni dráhu!,"¡Salen los galgos, despeja la calle!",Борзые стартуют – освободи дорожку!,灵缇犬起跑了——让开跑道！
+CHAIN_BUBBLE_TROUBLE_NAME,Bubble Trouble,Bublinkové problémy,Bublinkové potíže,Problemas de burbujas,Пузырные проблемы,泡泡麻烦
+CHAIN_BUBBLE_TROUBLE_DESC,The salon's machines have gone mad.,Stroje v salóne sa zbláznili.,Stroje v salonu se zbláznily.,Las máquinas del salón se han vuelto locas.,Машины салона взбесились.,美容院的机器疯了。
+CHAIN_BUBBLE_TROUBLE_1,Switch off the three dryers,Vypni tri fény,Vypni tři fény,Apaga los tres secadores,Выключи три фена,关掉三台吹风机
+CHAIN_BUBBLE_TROUBLE_1_DONE,Quiet – until the dryer bot wakes.,Ticho – kým sa nezobudí fénobot.,Ticho – dokud se neprobudí fénobot.,"Silencio, hasta que despierta el robo-secador.",Тишина – пока не проснулся фен-бот.,安静了——直到吹风机器人醒来。
+CHAIN_BUBBLE_TROUBLE_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_BUBBLE_TROUBLE_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_LOST_RIBBONS_NAME,Lost Ribbons,Stratené mašle,Ztracené mašle,Lazos perdidos,Потерянные банты,丢失的丝带
+CHAIN_LOST_RIBBONS_DESC,The show ribbons blew all over the salon.,Výstavné mašle sa rozfúkali po celom salóne.,Výstavní mašle se rozfoukaly po celém salonu.,Los lazos de exposición volaron por todo el salón.,Выставочные банты разлетелись по всему салону.,比赛用的丝带被吹得满美容院都是。
+CHAIN_LOST_RIBBONS_1,Gather the ribbons,Pozbieraj mašle,Posbírej mašle,Recoge los lazos,Собери банты,收集丝带
+CHAIN_LOST_RIBBONS_1_DONE,One pompom ran off with the last one.,Jeden pompón utiekol s poslednou.,Jedna bambule utekla s poslední.,Un pompón huyó con el último.,Один помпон удрал с последним.,一个绒球带着最后一条跑了。
+CHAIN_LOST_RIBBONS_2,Catch the pompoms,Chyť pompóny,Chyť bambule,Atrapa los pompones,Поймай помпоны,抓住绒球
+CHAIN_LOST_RIBBONS_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_BACK_ROOM_NAME,The Back Room,Zadná miestnosť,Zadní místnost,La trastienda,Подсобка,后屋
+CHAIN_BACK_ROOM_DESC,"Far in the dark, behind the salon, something huge and fluffy waits.",Ďaleko v tme za salónom čaká niečo obrovské a nadýchané.,Daleko ve tmě za salonem čeká něco obrovského a nadýchaného.,"Lejos en la oscuridad, tras el salón, espera algo enorme y esponjoso.",Далеко в темноте за салоном ждёт что-то огромное и пушистое.,美容院后面的黑暗深处，有个又大又蓬松的东西在等着。
+CHAIN_BACK_ROOM_1,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_BACK_ROOM_1_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_HOT_OVENS_NAME,Hot Ovens,Horúce pece,Horké pece,Hornos calientes,Горячие печи,热烤箱
+CHAIN_HOT_OVENS_DESC,Fresh bread must reach the pantry before the rats get it.,"Čerstvý chlieb musí do špajze skôr, než ho dostanú potkany.","Čerstvý chléb musí do spíže dřív, než ho dostanou krysy.",El pan recién hecho debe llegar a la despensa antes que las ratas.,Свежий хлеб должен попасть в кладовую раньше крыс.,新鲜面包得在老鼠抢到之前送进食品柜。
+CHAIN_HOT_OVENS_1,Carry the bread to the pantry,Zanes chlieb do špajze,Zanes chléb do spíže,Lleva el pan a la despensa,Отнеси хлеб в кладовую,把面包送进食品柜
+CHAIN_HOT_OVENS_1_DONE,The rats smell it!,Potkany to cítia!,Krysy to cítí!,¡Las ratas lo huelen!,Крысы почуяли!,老鼠闻到了！
+CHAIN_HOT_OVENS_2,Guard the pantry,Stráž špajzu,Hlídej spíž,Vigila la despensa,Охраняй кладовую,守住食品柜
+CHAIN_HOT_OVENS_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_SECRET_RECIPE_NAME,The Secret Recipe,Tajný recept,Tajný recept,La receta secreta,Секретный рецепт,秘密配方
+CHAIN_SECRET_RECIPE_DESC,The recipe for the best biscuits was torn up.,Recept na najlepšie piškóty niekto roztrhal.,Recept na nejlepší piškoty někdo roztrhal.,Alguien rompió la receta de las mejores galletas.,Рецепт лучшего печенья порван.,最好吃的饼干配方被撕碎了。
+CHAIN_SECRET_RECIPE_1,Gather the pieces of the recipe,Pozbieraj kúsky receptu,Posbírej kousky receptu,Junta los trozos de la receta,Собери куски рецепта,收集配方碎片
+CHAIN_SECRET_RECIPE_1_DONE,Whole again – but the dough comes alive!,Je celý – lenže cesto ožije!,Je celý – jenže těsto ožije!,"Entera de nuevo, ¡pero la masa cobra vida!",Снова целый – но тесто оживает!,拼好了——可是面团活了！
+CHAIN_SECRET_RECIPE_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_SECRET_RECIPE_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_FLOUR_CELLAR_NAME,The Flour Cellar,Múčna pivnica,Moučný sklep,La bodega de harina,Мучной погреб,面粉地窖
+CHAIN_FLOUR_CELLAR_DESC,A trail of flour leads down to an old cellar.,Stopa múky vedie dolu do starej pivnice.,Stopa mouky vede dolů do starého sklepa.,Un rastro de harina lleva a una vieja bodega.,След муки ведёт в старый погреб.,一道面粉痕迹通向一个旧地窖。
+CHAIN_FLOUR_CELLAR_1,Hold off the dachshunds,Zadrž jazvečíky,Zadrž jezevčíky,Frena a los teckels,Сдержи такс,挡住腊肠犬
+CHAIN_FLOUR_CELLAR_1_DONE,A golem of old biscuits rises.,Zdvíha sa golem zo starých piškót.,Zvedá se golem ze starých piškotů.,Se alza un gólem de galletas viejas.,Поднимается голем из старого печенья.,一个旧饼干魔像站了起来。
+CHAIN_FLOUR_CELLAR_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_FLOUR_CELLAR_2_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_FALSE_START_NAME,False Start,Predčasný štart,Předčasný start,Salida en falso,Фальстарт,抢跑
+CHAIN_FALSE_START_DESC,Someone keeps firing the starting gun.,Niekto stále strieľa zo štartovacej pištole.,Někdo pořád střílí ze startovací pistole.,Alguien no deja de disparar la pistola de salida.,Кто-то всё стреляет из стартового пистолета.,有人不停地开发令枪。
+CHAIN_FALSE_START_1,Reset the four starting lights,Nastav štyri štartovacie svetlá,Nastav čtyři startovací světla,Reinicia las cuatro luces de salida,Перезапусти четыре стартовых огня,重置四盏起跑灯
+CHAIN_FALSE_START_1_DONE,The starter is furious.,Štartér zúri.,Startér zuří.,El juez de salida está furioso.,Стартёр в ярости.,发令员气坏了。
+CHAIN_FALSE_START_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_FALSE_START_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_BETTING_SLIPS_NAME,The Lucky Ticket,Šťastný tiket,Šťastný tiket,El boleto de la suerte,Счастливый билет,幸运彩票
+CHAIN_BETTING_SLIPS_DESC,A winning ticket flew off across the track.,Výherný tiket uletel cez dráhu.,Výherní tiket uletěl přes dráhu.,Un boleto ganador voló por la pista.,Выигрышный билет улетел через дорожку.,一张中奖彩票飞过了跑道。
+CHAIN_BETTING_SLIPS_1,Follow it across the track,Sleduj ho cez dráhu,Sleduj ho přes dráhu,Síguelo por la pista,Следуй за ним через дорожку,穿过跑道追它
+CHAIN_BETTING_SLIPS_1_DONE,A greyhound snatched it!,Chrt ho schmatol!,Chrt ho popadl!,¡Un galgo lo cogió!,Борзая его схватила!,一只灵缇犬把它叼走了！
+CHAIN_BETTING_SLIPS_2,Catch the greyhounds,Chyť chrtov,Chyť chrty,Atrapa a los galgos,Поймай борзых,抓住灵缇犬
+CHAIN_BETTING_SLIPS_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_OLD_KENNELS_NAME,The Old Kennels,Staré koterce,Staré kotce,Las viejas perreras,Старые вольеры,旧狗舍
+CHAIN_OLD_KENNELS_DESC,Far from the lights stand the kennels of retired racers.,Ďaleko od svetiel stoja koterce vyslúžilých pretekárov.,Daleko od světel stojí kotce vysloužilých závodníků.,Lejos de las luces están las perreras de los corredores retirados.,Вдали от огней стоят вольеры старых бегунов.,远离灯光的地方，是退役赛犬的狗舍。
+CHAIN_OLD_KENNELS_1,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_OLD_KENNELS_1_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_FIRE_DRILL_NAME,Fire Drill,Cvičný poplach,Cvičný poplach,Simulacro de incendio,Учебная тревога,消防演练
+CHAIN_FIRE_DRILL_DESC,The drill got out of hand – real fires everywhere.,Cvičenie sa vymklo – všade skutočné ohne.,Cvičení se vymklo – všude skutečné ohně.,El simulacro se descontroló: fuegos de verdad por todas partes.,Учения вышли из-под контроля – повсюду настоящий огонь.,演练失控了——到处都是真火。
+CHAIN_FIRE_DRILL_1,Put out the three fires,Uhas tri ohne,Uhas tři ohně,Apaga los tres fuegos,Потуши три пожара,扑灭三处火
+CHAIN_FIRE_DRILL_1_DONE,The smoke gathers into a cloud...,Dym sa zlieva do oblaku...,Kouř se slévá do oblaku...,El humo se junta en una nube...,Дым собирается в облако...,烟聚成了一团云……
+CHAIN_FIRE_DRILL_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_FIRE_DRILL_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_HOSE_DUTY_NAME,Hose Duty,Služba pri hadici,Služba u hadice,De guardia con la manguera,Дежурство у шланга,水管值班
+CHAIN_HOSE_DUTY_DESC,The pump needs a new hose before the next alarm.,Čerpadlo potrebuje novú hadicu pred ďalším poplachom.,Čerpadlo potřebuje novou hadici před dalším poplachem.,La bomba necesita una manguera nueva antes de la próxima alarma.,Насосу нужен новый шланг до следующей тревоги.,下次警报前，水泵需要一根新水管。
+CHAIN_HOSE_DUTY_1,Bring the hose to the pump,Dones hadicu k čerpadlu,Přines hadici k čerpadlu,Lleva la manguera a la bomba,Отнеси шланг к насосу,把水管送到水泵
+CHAIN_HOSE_DUTY_1_DONE,Drones come to cut it!,Drony ju idú prestrihnúť!,Drony ji jdou přestřihnout!,¡Vienen drones a cortarla!,Дроны летят её перерезать!,无人机要来剪断它！
+CHAIN_HOSE_DUTY_2,Guard the pump,Stráž čerpadlo,Hlídej čerpadlo,Vigila la bomba,Охраняй насос,守住水泵
+CHAIN_HOSE_DUTY_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_BELL_TOWER_NAME,The Bell Tower,Zvonica,Zvonice,El campanario,Колокольня,钟楼
+CHAIN_BELL_TOWER_DESC,A long trail of water leads to the old alarm bell.,Dlhá stopa vody vedie k starému poplašnému zvonu.,Dlouhá stopa vody vede ke starému poplašnému zvonu.,Un largo rastro de agua lleva a la vieja campana de alarma.,Длинный водяной след ведёт к старому тревожному колоколу.,一道长长的水迹通向旧警钟。
+CHAIN_BELL_TOWER_1,Hold the tower,Ubráň vežu,Ubraň věž,Defiende la torre,Удержи башню,守住塔楼
+CHAIN_BELL_TOWER_1_DONE,The hydrant king rises from the puddles.,Z mlák sa dvíha kráľ hydrantov.,Z louží se zvedá král hydrantů.,El rey hidrante surge de los charcos.,Из луж поднимается король гидрантов.,消防栓之王从水坑里站了起来。
+CHAIN_BELL_TOWER_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_BELL_TOWER_2_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。

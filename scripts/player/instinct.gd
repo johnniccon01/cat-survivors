@@ -27,6 +27,7 @@ const DATA := {
 	"RUBY": {"every": 20.0, "radius": 160.0, "ahead": 90.0},
 	"RASCAL": {"heart": 0.03},
 	"SHADOW": {"every": 20.0, "invuln": 1.5},
+	"SPARKY": {"below": 0.5, "cd": 45.0, "invuln": 2.0, "radius": 120.0, "slow": 0.5, "seconds": 3.0},
 }
 
 var player: Player
@@ -133,6 +134,17 @@ func _physics_process(delta: float) -> void:
 				_ring(value("radius"), Color("f4f1ea"))
 				_fire()
 				Audio.play("whoosh", -10.0)
+		"SPARKY":
+			# Fire drill: when hurt badly, a cooling spray – a moment safe,
+			# everyone around slowed and soaked.
+			if _t <= 0.0 and player.hp < player.max_hp * value("below"):
+				_t = value("cd")
+				player._invuln = maxf(player._invuln, value("invuln"))
+				for e in enemies.query_radius(player.position, value("radius")):
+					e.slow_down(value("slow"), value("seconds"))
+					e.make_wet(value("seconds"))
+				_ring(value("radius"), Color("8fd3ff"))
+				_fire()
 		"SHADOW":
 			# Melts into the dark for a moment: nothing can touch her.
 			if _t <= 0.0 and enemies.nearest(player.position, 60.0) != null:

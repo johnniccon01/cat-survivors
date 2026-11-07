@@ -4666,5 +4666,975 @@
     "music_night": "music_factory_night",
     "challenge": 3.0,
     "hazard": "crane"
+  },
+  "GROOMING_SALON": {
+    "theme": "salon",
+    "terrain": "walls",
+    "damage_mult": 0.9,
+    "music": "music_supermarket",
+    "requires": "JUNKYARD",
+    "district": "dogs",
+    "cat_quests": [],
+    "props": [
+      "BOX",
+      "BUCKET",
+      "BOX"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "POODLE_QUEEN",
+    "events": [
+      {
+        "minute": 4.5,
+        "type": "swarm",
+        "enemy": "FLEA",
+        "count": 100
+      },
+      {
+        "minute": 6.0,
+        "type": "ring",
+        "enemy": "POMPOM",
+        "count": 30
+      },
+      {
+        "minute": 9.0,
+        "type": "swarm",
+        "enemy": "PUPPY",
+        "count": 90
+      },
+      {
+        "minute": 12.0,
+        "type": "ring",
+        "enemy": "SQUEAKY_TOY",
+        "count": 34
+      },
+      {
+        "minute": 15.0,
+        "type": "swarm",
+        "enemy": "FLEA",
+        "count": 130
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "POMPOM",
+        "count": 46
+      }
+    ],
+    "traps": [
+      "FREEZER",
+      "SPARK_PUDDLE",
+      "FREEZER"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.65,
+      0.85,
+      1.0,
+      0.85,
+      1.15,
+      0.65,
+      1.15,
+      1.3,
+      1.4,
+      0.95,
+      0.65,
+      1.3,
+      1.45,
+      1.0,
+      1.45,
+      0.7,
+      1.45,
+      1.6,
+      1.1,
+      1.55,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.4,
+        "per_tick": 1,
+        "enemies": [
+          "PUPPY",
+          "FLEA"
+        ],
+        "hp_mult": 1.74
+      },
+      {
+        "minute": 1,
+        "minimum": 16,
+        "interval": 1.1,
+        "per_tick": 2,
+        "enemies": [
+          "PUPPY",
+          "FLEA"
+        ],
+        "hp_mult": 1.89
+      },
+      {
+        "minute": 2,
+        "minimum": 28,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": [
+          "PUPPY",
+          "FLEA",
+          "POMPOM"
+        ],
+        "hp_mult": 2.07
+      },
+      {
+        "minute": 3,
+        "minimum": 42,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "PUPPY",
+          "FLEA",
+          "POMPOM",
+          "SQUEAKY_TOY"
+        ],
+        "hp_mult": 2.38,
+        "bosses": [
+          "DRYER_BOT"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.7,
+        "per_tick": 3,
+        "enemies": [
+          "POMPOM",
+          "SQUEAKY_TOY"
+        ],
+        "hp_mult": 3.17
+      },
+      {
+        "minute": 7,
+        "minimum": 110,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "POMPOM",
+          "SQUEAKY_TOY",
+          "PUPPY"
+        ],
+        "hp_mult": 4.75,
+        "bosses": [
+          "POMPOM_GIANT"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 150,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "PUPPY",
+          "FLEA",
+          "POMPOM",
+          "SQUEAKY_TOY",
+          "DACHSHUND"
+        ],
+        "hp_mult": 5.55
+      },
+      {
+        "minute": 11,
+        "minimum": 180,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "POMPOM",
+          "SQUEAKY_TOY",
+          "DACHSHUND"
+        ],
+        "hp_mult": 6.34,
+        "bosses": [
+          "DRYER_BOT"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 220,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "PUPPY",
+          "FLEA",
+          "POMPOM",
+          "SQUEAKY_TOY",
+          "DACHSHUND"
+        ],
+        "hp_mult": 7.92,
+        "bosses": [
+          "POMPOM_GIANT"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 260,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "POMPOM",
+          "SQUEAKY_TOY",
+          "DACHSHUND"
+        ],
+        "hp_mult": 9.51,
+        "bosses": [
+          "DRYER_BOT",
+          "POMPOM_GIANT"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 300,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "PUPPY",
+          "FLEA",
+          "POMPOM",
+          "SQUEAKY_TOY",
+          "DACHSHUND"
+        ],
+        "hp_mult": 11.09
+      }
+    ],
+    "music_night": "music_supermarket_night",
+    "challenge": 3.1,
+    "hazard": "blowdry"
+  },
+  "BONE_BAKERY": {
+    "theme": "bakery",
+    "terrain": "belts",
+    "damage_mult": 0.9,
+    "music": "music_factory",
+    "requires": "GROOMING_SALON",
+    "district": "dogs",
+    "cat_quests": [],
+    "props": [
+      "CEREAL_BOX",
+      "BREAD_BAG",
+      "CRATE"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "BAKER_DACHSHUND",
+    "events": [
+      {
+        "minute": 4.5,
+        "type": "swarm",
+        "enemy": "RAT",
+        "count": 100
+      },
+      {
+        "minute": 6.0,
+        "type": "ring",
+        "enemy": "CHEW_BONE",
+        "count": 34
+      },
+      {
+        "minute": 9.0,
+        "type": "swarm",
+        "enemy": "PUPPY",
+        "count": 90
+      },
+      {
+        "minute": 12.0,
+        "type": "ring",
+        "enemy": "DACHSHUND",
+        "count": 30
+      },
+      {
+        "minute": 15.0,
+        "type": "swarm",
+        "enemy": "RAT",
+        "count": 130
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "CHEW_BONE",
+        "count": 50
+      }
+    ],
+    "traps": [
+      "STOVE",
+      "ELECTRIC_FLOOR",
+      "STOVE"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.65,
+      0.85,
+      1.0,
+      0.85,
+      1.15,
+      0.65,
+      1.15,
+      1.3,
+      1.4,
+      0.95,
+      0.65,
+      1.3,
+      1.45,
+      1.0,
+      1.45,
+      0.7,
+      1.45,
+      1.6,
+      1.1,
+      1.55,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.4,
+        "per_tick": 1,
+        "enemies": [
+          "RAT",
+          "CHEW_BONE"
+        ],
+        "hp_mult": 1.8
+      },
+      {
+        "minute": 1,
+        "minimum": 16,
+        "interval": 1.1,
+        "per_tick": 2,
+        "enemies": [
+          "RAT",
+          "CHEW_BONE"
+        ],
+        "hp_mult": 1.96
+      },
+      {
+        "minute": 2,
+        "minimum": 28,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": [
+          "RAT",
+          "CHEW_BONE",
+          "DACHSHUND"
+        ],
+        "hp_mult": 2.13
+      },
+      {
+        "minute": 3,
+        "minimum": 42,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "RAT",
+          "CHEW_BONE",
+          "DACHSHUND",
+          "SQUEAKY_TOY"
+        ],
+        "hp_mult": 2.45,
+        "bosses": [
+          "DOUGH_BLOB"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.7,
+        "per_tick": 3,
+        "enemies": [
+          "DACHSHUND",
+          "SQUEAKY_TOY"
+        ],
+        "hp_mult": 3.27
+      },
+      {
+        "minute": 7,
+        "minimum": 110,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "DACHSHUND",
+          "SQUEAKY_TOY",
+          "RAT"
+        ],
+        "hp_mult": 4.91,
+        "bosses": [
+          "BISCUIT_GOLEM"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 150,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "RAT",
+          "CHEW_BONE",
+          "DACHSHUND",
+          "SQUEAKY_TOY",
+          "POMPOM"
+        ],
+        "hp_mult": 5.72
+      },
+      {
+        "minute": 11,
+        "minimum": 180,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "DACHSHUND",
+          "SQUEAKY_TOY",
+          "POMPOM"
+        ],
+        "hp_mult": 6.54,
+        "bosses": [
+          "DOUGH_BLOB"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 220,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "RAT",
+          "CHEW_BONE",
+          "DACHSHUND",
+          "SQUEAKY_TOY",
+          "POMPOM"
+        ],
+        "hp_mult": 8.18,
+        "bosses": [
+          "BISCUIT_GOLEM"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 260,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "DACHSHUND",
+          "SQUEAKY_TOY",
+          "POMPOM"
+        ],
+        "hp_mult": 9.81,
+        "bosses": [
+          "DOUGH_BLOB",
+          "BISCUIT_GOLEM"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 300,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "RAT",
+          "CHEW_BONE",
+          "DACHSHUND",
+          "SQUEAKY_TOY",
+          "POMPOM"
+        ],
+        "hp_mult": 11.45
+      }
+    ],
+    "music_night": "music_factory_night",
+    "challenge": 3.2,
+    "hazard": "crane"
+  },
+  "RACETRACK": {
+    "theme": "racetrack",
+    "terrain": "walls",
+    "damage_mult": 0.9,
+    "music": "music_garden",
+    "requires": "BONE_BAKERY",
+    "district": "dogs",
+    "cat_quests": [],
+    "props": [
+      "SEED_SACK",
+      "BUCKET",
+      "SEED_SACK"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "FLASH_GREYHOUND",
+    "events": [
+      {
+        "minute": 4.5,
+        "type": "swarm",
+        "enemy": "TENNIS_BALL",
+        "count": 90
+      },
+      {
+        "minute": 6.0,
+        "type": "ring",
+        "enemy": "GREYHOUND",
+        "count": 26
+      },
+      {
+        "minute": 9.0,
+        "type": "swarm",
+        "enemy": "FRISBEE",
+        "count": 70
+      },
+      {
+        "minute": 12.0,
+        "type": "ring",
+        "enemy": "STRAY_DOG",
+        "count": 34
+      },
+      {
+        "minute": 15.0,
+        "type": "swarm",
+        "enemy": "PUPPY",
+        "count": 120
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "GREYHOUND",
+        "count": 40
+      }
+    ],
+    "traps": [
+      "RAKE",
+      "LAWN_SPRINKLER",
+      "RAKE"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.65,
+      0.85,
+      1.0,
+      0.85,
+      1.15,
+      0.65,
+      1.15,
+      1.3,
+      1.4,
+      0.95,
+      0.65,
+      1.3,
+      1.45,
+      1.0,
+      1.45,
+      0.7,
+      1.45,
+      1.6,
+      1.1,
+      1.55,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.4,
+        "per_tick": 1,
+        "enemies": [
+          "PUPPY",
+          "TENNIS_BALL"
+        ],
+        "hp_mult": 1.85
+      },
+      {
+        "minute": 1,
+        "minimum": 16,
+        "interval": 1.1,
+        "per_tick": 2,
+        "enemies": [
+          "PUPPY",
+          "TENNIS_BALL"
+        ],
+        "hp_mult": 2.02
+      },
+      {
+        "minute": 2,
+        "minimum": 28,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": [
+          "PUPPY",
+          "TENNIS_BALL",
+          "GREYHOUND"
+        ],
+        "hp_mult": 2.2
+      },
+      {
+        "minute": 3,
+        "minimum": 42,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "PUPPY",
+          "TENNIS_BALL",
+          "GREYHOUND",
+          "FRISBEE"
+        ],
+        "hp_mult": 2.53,
+        "bosses": [
+          "STARTER"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.7,
+        "per_tick": 3,
+        "enemies": [
+          "GREYHOUND",
+          "FRISBEE"
+        ],
+        "hp_mult": 3.37
+      },
+      {
+        "minute": 7,
+        "minimum": 110,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "GREYHOUND",
+          "FRISBEE",
+          "PUPPY"
+        ],
+        "hp_mult": 5.06,
+        "bosses": [
+          "GREY_PACK"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 150,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "PUPPY",
+          "TENNIS_BALL",
+          "GREYHOUND",
+          "FRISBEE",
+          "STRAY_DOG"
+        ],
+        "hp_mult": 5.9
+      },
+      {
+        "minute": 11,
+        "minimum": 180,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "GREYHOUND",
+          "FRISBEE",
+          "STRAY_DOG"
+        ],
+        "hp_mult": 6.75,
+        "bosses": [
+          "STARTER"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 220,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "PUPPY",
+          "TENNIS_BALL",
+          "GREYHOUND",
+          "FRISBEE",
+          "STRAY_DOG"
+        ],
+        "hp_mult": 8.43,
+        "bosses": [
+          "GREY_PACK"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 260,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "GREYHOUND",
+          "FRISBEE",
+          "STRAY_DOG"
+        ],
+        "hp_mult": 10.12,
+        "bosses": [
+          "STARTER",
+          "GREY_PACK"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 300,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "PUPPY",
+          "TENNIS_BALL",
+          "GREYHOUND",
+          "FRISBEE",
+          "STRAY_DOG"
+        ],
+        "hp_mult": 11.81
+      }
+    ],
+    "music_night": "music_garden_night",
+    "challenge": 3.3,
+    "hazard": "race"
+  },
+  "FIRE_STATION": {
+    "theme": "firestation",
+    "terrain": "aisles",
+    "damage_mult": 0.9,
+    "music": "music_factory",
+    "requires": "RACETRACK",
+    "district": "dogs",
+    "cat_quests": [
+      "SPARKY"
+    ],
+    "props": [
+      "OIL_DRUM",
+      "TOOLBOX",
+      "OIL_DRUM"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "FIRE_CHIEF",
+    "events": [
+      {
+        "minute": 4.5,
+        "type": "swarm",
+        "enemy": "DOG_DRONE",
+        "count": 60
+      },
+      {
+        "minute": 6.0,
+        "type": "ring",
+        "enemy": "HYDRANT",
+        "count": 24
+      },
+      {
+        "minute": 9.0,
+        "type": "swarm",
+        "enemy": "PUPPY",
+        "count": 110
+      },
+      {
+        "minute": 12.0,
+        "type": "ring",
+        "enemy": "DOBERMAN",
+        "count": 30
+      },
+      {
+        "minute": 15.0,
+        "type": "swarm",
+        "enemy": "DOG_DRONE",
+        "count": 80
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "DOG_CATCHER",
+        "count": 30
+      }
+    ],
+    "traps": [
+      "STEAM_PIPE",
+      "LIVE_WIRE",
+      "STEAM_PIPE"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.65,
+      0.85,
+      1.0,
+      0.85,
+      1.15,
+      0.65,
+      1.15,
+      1.3,
+      1.4,
+      0.95,
+      0.65,
+      1.3,
+      1.45,
+      1.0,
+      1.45,
+      0.7,
+      1.45,
+      1.6,
+      1.1,
+      1.55,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.4,
+        "per_tick": 1,
+        "enemies": [
+          "PUPPY",
+          "DOG_DRONE"
+        ],
+        "hp_mult": 1.91
+      },
+      {
+        "minute": 1,
+        "minimum": 16,
+        "interval": 1.1,
+        "per_tick": 2,
+        "enemies": [
+          "PUPPY",
+          "DOG_DRONE"
+        ],
+        "hp_mult": 2.08
+      },
+      {
+        "minute": 2,
+        "minimum": 28,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": [
+          "PUPPY",
+          "DOG_DRONE",
+          "HYDRANT"
+        ],
+        "hp_mult": 2.27
+      },
+      {
+        "minute": 3,
+        "minimum": 42,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "PUPPY",
+          "DOG_DRONE",
+          "HYDRANT",
+          "DOG_CATCHER"
+        ],
+        "hp_mult": 2.61,
+        "bosses": [
+          "HYDRANT_KING"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.7,
+        "per_tick": 3,
+        "enemies": [
+          "HYDRANT",
+          "DOG_CATCHER"
+        ],
+        "hp_mult": 3.48
+      },
+      {
+        "minute": 7,
+        "minimum": 110,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "HYDRANT",
+          "DOG_CATCHER",
+          "PUPPY"
+        ],
+        "hp_mult": 5.21,
+        "bosses": [
+          "SMOKE_CLOUD"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 150,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "PUPPY",
+          "DOG_DRONE",
+          "HYDRANT",
+          "DOG_CATCHER",
+          "DOBERMAN"
+        ],
+        "hp_mult": 6.08
+      },
+      {
+        "minute": 11,
+        "minimum": 180,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "HYDRANT",
+          "DOG_CATCHER",
+          "DOBERMAN"
+        ],
+        "hp_mult": 6.95,
+        "bosses": [
+          "HYDRANT_KING"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 220,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "PUPPY",
+          "DOG_DRONE",
+          "HYDRANT",
+          "DOG_CATCHER",
+          "DOBERMAN"
+        ],
+        "hp_mult": 8.69,
+        "bosses": [
+          "SMOKE_CLOUD"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 260,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "HYDRANT",
+          "DOG_CATCHER",
+          "DOBERMAN"
+        ],
+        "hp_mult": 10.43,
+        "bosses": [
+          "HYDRANT_KING",
+          "SMOKE_CLOUD"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 300,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "PUPPY",
+          "DOG_DRONE",
+          "HYDRANT",
+          "DOG_CATCHER",
+          "DOBERMAN"
+        ],
+        "hp_mult": 12.16
+      }
+    ],
+    "music_night": "music_factory_night",
+    "challenge": 3.4,
+    "hazard": "hose"
   }
 }

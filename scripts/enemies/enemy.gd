@@ -660,7 +660,10 @@ func _tick_fight(delta: float, target: Vector2) -> void:
 ## the pack charges down them), "barrels" (rescue barrels roll down five
 ## lanes fanning out), "howl" (three rings of sound, each with a gap),
 ## "zoomies" (it races a lap round the cat, then the lap strikes), "junk"
-## (a spiral of junk lands round it, then bursts).
+## (a spiral of junk lands round it, then bursts), "perfume" (clouds of
+## perfume bloom round the cat like petals), "biscuits" (a tray of marks
+## lands row by row), "sprint" (it dashes four times straight through the
+## cat's spot), "hosebeam" (a water jet turns once round it).
 func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 	var hurt := damage * 0.8
 	match _special:
@@ -718,6 +721,46 @@ func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 				for side in [-1.0, 1.0]:
 					manager.spawn_bullet(position, _special_dir.orthogonal() * side, shot, "hair", 110.0)
 			return _special_dir * speed * MOW_SPEED
+		"perfume":
+			if _special_step == 0:
+				_special_step = 1
+				for i in 6:
+					manager.spawn_hazard(_special_at + Vector2.from_angle(TAU * i / 6.0) * 90.0, "steam", 30.0, 4.0, damage * 0.3)
+				manager.spawn_hazard(_special_at, "strike", 60.0, 1.4, hurt)
+				Audio.play("whoosh", -8.0)
+			if t > 1.5:
+				return _end_special()
+			return Vector2.ZERO
+		"biscuits":
+			for row in 4:
+				if _special_step == row and t >= row * 0.35:
+					_special_step += 1
+					for col in 5:
+						manager.spawn_hazard(_special_at + Vector2((col - 2) * 60.0, (row - 1.5) * 60.0), "strike", 26.0, 0.8, hurt)
+			if t > 2.4:
+				return _end_special()
+			return Vector2.ZERO
+		"sprint":
+			var dash := int(t / 0.9)
+			if dash >= 4:
+				return _end_special()
+			if _special_step == dash:
+				_special_step += 1
+				_special_dir = (target - position).normalized()
+				manager.spawn_beam(position, position + _special_dir * 500.0, radius * 2.0, 0.5, 0.0, "mow")
+			if fmod(t, 0.9) < 0.5:
+				return Vector2.ZERO
+			return _special_dir * speed * 9.0
+		"hosebeam":
+			if _special_step == 0:
+				_special_dir = (target - position).normalized().rotated(-PI * 0.5)
+			if _special_step < 16 and t >= _special_step * 0.15:
+				var aim := _special_dir.rotated(_special_step * TAU / 16.0)
+				manager.spawn_beam(position + aim * radius, position + aim * (radius + 320.0), 30.0, 0.6, hurt, "laser")
+				_special_step += 1
+			if t > 3.0:
+				return _end_special()
+			return Vector2.ZERO
 		"barrels":
 			if _special_step == 0:
 				_special_step = 1

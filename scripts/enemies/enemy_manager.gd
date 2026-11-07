@@ -65,6 +65,15 @@ var pack_cooldown := 0.0
 var _bullets_alive := 0
 var _shot_budget := SHOT_BURST
 var _spits: Array = []
+## --stuck-check (tests): watches for enemies pressed against a wall or tree
+## that hardly move for STUCK_SAMPLES samples in a row while far from the cat.
+const STUCK_EVERY := 2.0
+const STUCK_SAMPLES := 3
+var stuck_check := "--stuck-check" in GameData.args()
+var stuck_found: Array[String] = []
+var stuck_seen := 0
+var _stuck_t := 0.0
+var _stuck: Dictionary = {}
 
 
 func _enter_tree() -> void:
@@ -341,6 +350,8 @@ func _physics_process(delta: float) -> void:
 			var moved := enemy.position + Terrain.flow(enemy.position) * 0.5 * delta
 			var fixed := Terrain.fix(moved, enemy.radius)
 			if fixed != moved:
+				if stuck_check:
+					_stuck_note(enemy)
 				# Pushed back by a wall or tree: slide along it towards the cat
 				# instead of standing stuck against it.
 				var along := Terrain.current.slide_dir(fixed, chase, fixed - moved, enemy.radius) if Terrain.current != null else (fixed - moved).orthogonal().normalized()
@@ -355,6 +366,8 @@ func _physics_process(delta: float) -> void:
 			if enemy.spawn_in <= 0.0 and not enemy.vanished and not c.is_dead and enemy.position.distance_squared_to(c.position) < reach * reach:
 				c.take_damage(enemy.damage, enemy.fatal)
 	_tick_burning(delta)
+	if stuck_check:
+		_tick_stuck(delta, target)
 	for i in range(enemies.size() - 1, -1, -1):
 		if enemies[i].wants_despawn:
 			despawn(enemies[i])
@@ -362,6 +375,48 @@ func _physics_process(delta: float) -> void:
 		if props[i].position.distance_squared_to(target) > relocate_distance * relocate_distance * 2.0:
 			props[i].queue_free()
 			props.remove_at(i)
+
+
+func _stuck_note(enemy: Enemy) -> void:
+	var rec: Dictionary = _stuck.get(enemy.get_instance_id(), {})
+	if rec.is_empty():
+		rec = {"from": enemy.position, "blocked": 0, "frames": 0, "count": 0}
+		_stuck[enemy.get_instance_id()] = rec
+	rec["blocked"] += 1
+
+
+func _tick_stuck(delta: float, target: Vector2) -> void:
+	for enemy in enemies:
+		var rec: Dictionary = _stuck.get(enemy.get_instance_id(), {})
+		if rec.is_empty():
+			_stuck[enemy.get_instance_id()] = {"from": enemy.position, "blocked": 0, "frames": 1, "count": 0}
+		else:
+			rec["frames"] += 1
+	_stuck_t += delta
+	if _stuck_t < STUCK_EVERY:
+		return
+	_stuck_t = 0.0
+	var alive := {}
+	for enemy in enemies:
+		var key := enemy.get_instance_id()
+		alive[key] = true
+		var rec: Dictionary = _stuck[key]
+		var far := enemy.position.distance_to(target) > enemy.radius + Player.RADIUS + 60.0
+		var still := enemy.position.distance_to(rec["from"]) < 12.0
+		var walls: bool = rec["blocked"] * 2 >= rec["frames"]
+		if far and still and walls and enemy.speed > 0.0 and not enemy.is_charging() and enemy.spawn_in <= 0.0:
+			rec["count"] += 1
+			if rec["count"] == STUCK_SAMPLES:
+				stuck_found.append("%s@%d,%d" % [enemy.id, roundi(enemy.position.x), roundi(enemy.position.y)])
+		else:
+			rec["count"] = 0
+		rec["from"] = enemy.position
+		rec["blocked"] = 0
+		rec["frames"] = 0
+	for key: int in _stuck.keys():
+		if not alive.has(key):
+			_stuck.erase(key)
+			stuck_seen += 1
 
 
 func _apply_arena(enemy: Enemy) -> void:

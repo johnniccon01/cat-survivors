@@ -632,6 +632,9 @@ func _process(delta: float) -> void:
 		print("BOT: damage numbers on screen=%d" % enemies.numbers._numbers.size())
 		print("BOT: most enemies alive at once=%d, budget per minute (avg used/cap): %s" % [_max_alive, _budget_log])
 		print("BOT: revives=%d end=%s" % [_bot_revives, _last_end])
+		if enemies.stuck_check:
+			var seen := enemies.stuck_seen + enemies.enemies.size()
+			print("STUCK: %d of %d enemies stuck against terrain for %d s %s" % [enemies.stuck_found.size(), seen, roundi(enemies.STUCK_EVERY * enemies.STUCK_SAMPLES), enemies.stuck_found.slice(0, 8)])
 		var dealt: Array[String] = []
 		for wid: String in Weapon.damage_log:
 			dealt.append("%s:%d" % [wid, roundi(Weapon.damage_log[wid])])

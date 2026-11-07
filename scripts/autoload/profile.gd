@@ -540,6 +540,7 @@ const TERRITORY_BONUS := {
 	"FREIGHT_YARD": {"magnet": 15.0}, "DOG_SHELTER": {"regen": 0.3}, "DOG_PARK": {"speed": 0.05}, "JUNKYARD": {"greed": 0.05},
 	"GROOMING_SALON": {"area": 0.05}, "BONE_BAKERY": {"max_hp": 10.0}, "RACETRACK": {"speed": 0.05}, "FIRE_STATION": {"duration": 0.05},
 	"POLICE_K9": {"might": 0.05}, "VET_CLINIC": {"regen": 0.3}, "RIVER_DAM": {"max_hp": 10.0}, "SNOW_HILL": {"cooldown": -0.03},
+	"TRAINING_GROUND": {"speed": 0.05}, "DOG_SHOW": {"luck": 0.05}, "BARRACKS": {"armor": 1.0}, "GENERAL_KENNEL": {"might": 0.05},
 }
 var territories: Array[String] = []
 

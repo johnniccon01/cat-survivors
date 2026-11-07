@@ -6585,5 +6585,958 @@
     "challenge": 3.8,
     "hazard": "avalanche",
     "tree_chance": 0.35
+  },
+  "TRAINING_GROUND": {
+    "theme": "training",
+    "terrain": "walls",
+    "damage_mult": 0.9,
+    "music": "music_garden",
+    "requires": "SNOW_HILL",
+    "district": "dogs",
+    "cat_quests": [],
+    "props": [
+      "CRATE",
+      "TOOLBOX",
+      "CRATE"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "INSTRUCTOR_BOXER",
+    "events": [
+      {
+        "minute": 4.5,
+        "type": "swarm",
+        "enemy": "PUPPY",
+        "count": 120
+      },
+      {
+        "minute": 6.0,
+        "type": "ring",
+        "enemy": "STRAY_DOG",
+        "count": 30
+      },
+      {
+        "minute": 9.0,
+        "type": "swarm",
+        "enemy": "TENNIS_BALL",
+        "count": 90
+      },
+      {
+        "minute": 12.0,
+        "type": "ring",
+        "enemy": "GREYHOUND",
+        "count": 30
+      },
+      {
+        "minute": 15.0,
+        "type": "swarm",
+        "enemy": "PUPPY",
+        "count": 150
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "DOBERMAN",
+        "count": 40
+      }
+    ],
+    "traps": [
+      "PRESS_PLATE",
+      "ELECTRIC_FLOOR",
+      "PRESS_PLATE"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.65,
+      0.85,
+      1.0,
+      0.85,
+      1.15,
+      0.65,
+      1.15,
+      1.3,
+      1.4,
+      0.95,
+      0.65,
+      1.3,
+      1.45,
+      1.0,
+      1.45,
+      0.7,
+      1.45,
+      1.6,
+      1.1,
+      1.55,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.4,
+        "per_tick": 1,
+        "enemies": ["PUPPY", "FLEA"],
+        "hp_mult": 2.19
+      },
+      {
+        "minute": 1,
+        "minimum": 16,
+        "interval": 1.1,
+        "per_tick": 2,
+        "enemies": ["PUPPY", "FLEA"],
+        "hp_mult": 2.38
+      },
+      {
+        "minute": 2,
+        "minimum": 28,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": ["PUPPY", "FLEA", "STRAY_DOG"],
+        "hp_mult": 2.6
+      },
+      {
+        "minute": 3,
+        "minimum": 42,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "PUPPY",
+          "STRAY_DOG",
+          "GREYHOUND",
+          "TENNIS_BALL"
+        ],
+        "hp_mult": 2.99,
+        "bosses": [
+          "WHISTLE_COACH"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.7,
+        "per_tick": 3,
+        "enemies": [
+          "GREYHOUND",
+          "TENNIS_BALL"
+        ],
+        "hp_mult": 3.99
+      },
+      {
+        "minute": 7,
+        "minimum": 110,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "GREYHOUND",
+          "TENNIS_BALL",
+          "PUPPY"
+        ],
+        "hp_mult": 5.98,
+        "bosses": [
+          "HURDLE_BOT"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 150,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "PUPPY",
+          "STRAY_DOG",
+          "GREYHOUND",
+          "TENNIS_BALL",
+          "DOBERMAN"
+        ],
+        "hp_mult": 6.98
+      },
+      {
+        "minute": 11,
+        "minimum": 180,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "GREYHOUND",
+          "TENNIS_BALL",
+          "DOBERMAN"
+        ],
+        "hp_mult": 7.97,
+        "bosses": [
+          "WHISTLE_COACH"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 220,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "PUPPY",
+          "STRAY_DOG",
+          "GREYHOUND",
+          "TENNIS_BALL",
+          "DOBERMAN"
+        ],
+        "hp_mult": 9.97,
+        "bosses": [
+          "HURDLE_BOT"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 260,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "GREYHOUND",
+          "TENNIS_BALL",
+          "DOBERMAN"
+        ],
+        "hp_mult": 11.96,
+        "bosses": [
+          "WHISTLE_COACH",
+          "HURDLE_BOT"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 300,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "PUPPY",
+          "STRAY_DOG",
+          "GREYHOUND",
+          "TENNIS_BALL",
+          "DOBERMAN"
+        ],
+        "hp_mult": 13.95
+      }
+    ],
+    "music_night": "music_garden_night",
+    "challenge": 3.9,
+    "hazard": "agility"
+  },
+  "DOG_SHOW": {
+    "theme": "show",
+    "terrain": "walls",
+    "damage_mult": 0.9,
+    "music": "music_supermarket",
+    "requires": "TRAINING_GROUND",
+    "district": "dogs",
+    "cat_quests": [],
+    "props": [
+      "BOX",
+      "BUCKET",
+      "BOX"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "AFGHAN_DIVA",
+    "events": [
+      {
+        "minute": 4.5,
+        "type": "swarm",
+        "enemy": "FLEA",
+        "count": 140
+      },
+      {
+        "minute": 6.0,
+        "type": "ring",
+        "enemy": "POMPOM",
+        "count": 36
+      },
+      {
+        "minute": 9.0,
+        "type": "swarm",
+        "enemy": "PUPPY",
+        "count": 130
+      },
+      {
+        "minute": 12.0,
+        "type": "ring",
+        "enemy": "DACHSHUND",
+        "count": 32
+      },
+      {
+        "minute": 15.0,
+        "type": "swarm",
+        "enemy": "SQUEAKY_TOY",
+        "count": 90
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "POMPOM",
+        "count": 50
+      }
+    ],
+    "traps": [
+      "FREEZER",
+      "BROKEN_LIGHT",
+      "FREEZER"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.65,
+      0.85,
+      1.0,
+      0.85,
+      1.15,
+      0.65,
+      1.15,
+      1.3,
+      1.4,
+      0.95,
+      0.65,
+      1.3,
+      1.45,
+      1.0,
+      1.45,
+      0.7,
+      1.45,
+      1.6,
+      1.1,
+      1.55,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.4,
+        "per_tick": 1,
+        "enemies": [
+          "PUPPY",
+          "FLEA"
+        ],
+        "hp_mult": 2.24
+      },
+      {
+        "minute": 1,
+        "minimum": 16,
+        "interval": 1.1,
+        "per_tick": 2,
+        "enemies": [
+          "PUPPY",
+          "FLEA"
+        ],
+        "hp_mult": 2.44
+      },
+      {
+        "minute": 2,
+        "minimum": 28,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": [
+          "PUPPY",
+          "FLEA",
+          "POMPOM"
+        ],
+        "hp_mult": 2.67
+      },
+      {
+        "minute": 3,
+        "minimum": 42,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "PUPPY",
+          "FLEA",
+          "POMPOM",
+          "SQUEAKY_TOY"
+        ],
+        "hp_mult": 3.07,
+        "bosses": [
+          "JUDGE_BASSET"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.7,
+        "per_tick": 3,
+        "enemies": [
+          "POMPOM",
+          "SQUEAKY_TOY"
+        ],
+        "hp_mult": 4.09
+      },
+      {
+        "minute": 7,
+        "minimum": 110,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "POMPOM",
+          "SQUEAKY_TOY",
+          "PUPPY"
+        ],
+        "hp_mult": 6.13,
+        "bosses": [
+          "TROPHY_GOLEM"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 150,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "PUPPY",
+          "FLEA",
+          "POMPOM",
+          "SQUEAKY_TOY",
+          "DACHSHUND"
+        ],
+        "hp_mult": 7.16
+      },
+      {
+        "minute": 11,
+        "minimum": 180,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "POMPOM",
+          "SQUEAKY_TOY",
+          "DACHSHUND"
+        ],
+        "hp_mult": 8.18,
+        "bosses": [
+          "JUDGE_BASSET"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 220,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "PUPPY",
+          "FLEA",
+          "POMPOM",
+          "SQUEAKY_TOY",
+          "DACHSHUND"
+        ],
+        "hp_mult": 10.22,
+        "bosses": [
+          "TROPHY_GOLEM"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 260,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "POMPOM",
+          "SQUEAKY_TOY",
+          "DACHSHUND"
+        ],
+        "hp_mult": 12.27,
+        "bosses": [
+          "JUDGE_BASSET",
+          "TROPHY_GOLEM"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 300,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "PUPPY",
+          "FLEA",
+          "POMPOM",
+          "SQUEAKY_TOY",
+          "DACHSHUND"
+        ],
+        "hp_mult": 14.31
+      }
+    ],
+    "music_night": "music_supermarket_night",
+    "challenge": 4.0,
+    "hazard": "spotlight"
+  },
+  "BARRACKS": {
+    "theme": "barracks",
+    "terrain": "walls",
+    "damage_mult": 0.9,
+    "music": "music_factory",
+    "requires": "DOG_SHOW",
+    "district": "dogs",
+    "cat_quests": [],
+    "props": [
+      "CRATE",
+      "BARREL",
+      "CRATE"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "COLONEL_MASTIFF",
+    "events": [
+      {
+        "minute": 4.5,
+        "type": "swarm",
+        "enemy": "STRAY_DOG",
+        "count": 90
+      },
+      {
+        "minute": 6.0,
+        "type": "ring",
+        "enemy": "PATROL_DOG",
+        "count": 32
+      },
+      {
+        "minute": 9.0,
+        "type": "swarm",
+        "enemy": "PUPPY",
+        "count": 150
+      },
+      {
+        "minute": 12.0,
+        "type": "ring",
+        "enemy": "DOBERMAN",
+        "count": 36
+      },
+      {
+        "minute": 15.0,
+        "type": "swarm",
+        "enemy": "DOG_DRONE",
+        "count": 100
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "PATROL_DOG",
+        "count": 50
+      }
+    ],
+    "traps": [
+      "ELECTRIC_FLOOR",
+      "PRESS_PLATE",
+      "ELECTRIC_FLOOR"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.65,
+      0.85,
+      1.0,
+      0.85,
+      1.15,
+      0.65,
+      1.15,
+      1.3,
+      1.4,
+      0.95,
+      0.65,
+      1.3,
+      1.45,
+      1.0,
+      1.45,
+      0.7,
+      1.45,
+      1.6,
+      1.1,
+      1.55,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.4,
+        "per_tick": 1,
+        "enemies": ["PUPPY", "FLEA"],
+        "hp_mult": 2.3
+      },
+      {
+        "minute": 1,
+        "minimum": 16,
+        "interval": 1.1,
+        "per_tick": 2,
+        "enemies": ["PUPPY", "FLEA"],
+        "hp_mult": 2.51
+      },
+      {
+        "minute": 2,
+        "minimum": 28,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": ["PUPPY", "FLEA", "STRAY_DOG"],
+        "hp_mult": 2.73
+      },
+      {
+        "minute": 3,
+        "minimum": 42,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "PUPPY",
+          "STRAY_DOG",
+          "PATROL_DOG",
+          "DRUM"
+        ],
+        "hp_mult": 3.14,
+        "bosses": [
+          "DRUM_MAJOR"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.7,
+        "per_tick": 3,
+        "enemies": [
+          "PATROL_DOG",
+          "DRUM"
+        ],
+        "hp_mult": 4.19
+      },
+      {
+        "minute": 7,
+        "minimum": 110,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "PATROL_DOG",
+          "DRUM",
+          "PUPPY"
+        ],
+        "hp_mult": 6.29,
+        "bosses": [
+          "TENNIS_TANK"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 150,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "PUPPY",
+          "STRAY_DOG",
+          "PATROL_DOG",
+          "DRUM",
+          "DOBERMAN",
+          "DOG_CATCHER"
+        ],
+        "hp_mult": 7.33
+      },
+      {
+        "minute": 11,
+        "minimum": 180,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "PATROL_DOG",
+          "DRUM",
+          "DOBERMAN",
+          "DOG_CATCHER"
+        ],
+        "hp_mult": 8.38,
+        "bosses": [
+          "DRUM_MAJOR"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 220,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "PUPPY",
+          "STRAY_DOG",
+          "PATROL_DOG",
+          "DRUM",
+          "DOBERMAN",
+          "DOG_CATCHER"
+        ],
+        "hp_mult": 10.48,
+        "bosses": [
+          "TENNIS_TANK"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 260,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "PATROL_DOG",
+          "DRUM",
+          "DOBERMAN",
+          "DOG_CATCHER"
+        ],
+        "hp_mult": 12.57,
+        "bosses": [
+          "DRUM_MAJOR",
+          "TENNIS_TANK"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 300,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "PUPPY",
+          "STRAY_DOG",
+          "PATROL_DOG",
+          "DRUM",
+          "DOBERMAN",
+          "DOG_CATCHER"
+        ],
+        "hp_mult": 14.67
+      }
+    ],
+    "music_night": "music_factory_night",
+    "challenge": 4.1,
+    "hazard": "march"
+  },
+  "GENERAL_KENNEL": {
+    "theme": "general",
+    "terrain": "walls",
+    "damage_mult": 0.9,
+    "music": "music_factory",
+    "requires": "BARRACKS",
+    "district": "dogs",
+    "cat_quests": [],
+    "props": [
+      "CRATE",
+      "BARREL",
+      "CRATE"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "GENERAL",
+    "events": [
+      {
+        "minute": 4.5,
+        "type": "swarm",
+        "enemy": "PUPPY",
+        "count": 160
+      },
+      {
+        "minute": 6.0,
+        "type": "ring",
+        "enemy": "DOBERMAN",
+        "count": 36
+      },
+      {
+        "minute": 9.0,
+        "type": "swarm",
+        "enemy": "DOG_DRONE",
+        "count": 110
+      },
+      {
+        "minute": 12.0,
+        "type": "ring",
+        "enemy": "PATROL_DOG",
+        "count": 44
+      },
+      {
+        "minute": 15.0,
+        "type": "swarm",
+        "enemy": "GREYHOUND",
+        "count": 90
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "DOBERMAN",
+        "count": 56
+      }
+    ],
+    "traps": [
+      "ELECTRIC_FLOOR",
+      "PRESS_PLATE",
+      "ELECTRIC_FLOOR"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.65,
+      0.85,
+      1.0,
+      0.85,
+      1.15,
+      0.65,
+      1.15,
+      1.3,
+      1.4,
+      0.95,
+      0.65,
+      1.3,
+      1.45,
+      1.0,
+      1.45,
+      0.7,
+      1.45,
+      1.6,
+      1.1,
+      1.55,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.4,
+        "per_tick": 1,
+        "enemies": ["PUPPY", "FLEA"],
+        "hp_mult": 2.41
+      },
+      {
+        "minute": 1,
+        "minimum": 16,
+        "interval": 1.1,
+        "per_tick": 2,
+        "enemies": ["PUPPY", "FLEA"],
+        "hp_mult": 2.63
+      },
+      {
+        "minute": 2,
+        "minimum": 28,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": ["PUPPY", "FLEA", "STRAY_DOG"],
+        "hp_mult": 2.87
+      },
+      {
+        "minute": 3,
+        "minimum": 42,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "PUPPY",
+          "STRAY_DOG",
+          "DOBERMAN",
+          "PATROL_DOG"
+        ],
+        "hp_mult": 3.3,
+        "bosses": [
+          "GENERAL_GUARD"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.7,
+        "per_tick": 3,
+        "enemies": [
+          "DOBERMAN",
+          "PATROL_DOG"
+        ],
+        "hp_mult": 4.4
+      },
+      {
+        "minute": 7,
+        "minimum": 110,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "DOBERMAN",
+          "PATROL_DOG",
+          "PUPPY"
+        ],
+        "hp_mult": 6.59,
+        "bosses": [
+          "WAR_DRONE"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 150,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "PUPPY",
+          "STRAY_DOG",
+          "DOBERMAN",
+          "PATROL_DOG",
+          "GREYHOUND",
+          "DRUM",
+          "DOG_CATCHER"
+        ],
+        "hp_mult": 7.69
+      },
+      {
+        "minute": 11,
+        "minimum": 180,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "DOBERMAN",
+          "PATROL_DOG",
+          "GREYHOUND",
+          "DRUM",
+          "DOG_CATCHER"
+        ],
+        "hp_mult": 8.79,
+        "bosses": [
+          "GENERAL_GUARD"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 220,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "PUPPY",
+          "STRAY_DOG",
+          "DOBERMAN",
+          "PATROL_DOG",
+          "GREYHOUND",
+          "DRUM",
+          "DOG_CATCHER"
+        ],
+        "hp_mult": 10.99,
+        "bosses": [
+          "WAR_DRONE"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 260,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "DOBERMAN",
+          "PATROL_DOG",
+          "GREYHOUND",
+          "DRUM",
+          "DOG_CATCHER"
+        ],
+        "hp_mult": 13.19,
+        "bosses": [
+          "GENERAL_GUARD",
+          "WAR_DRONE"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 300,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "PUPPY",
+          "STRAY_DOG",
+          "DOBERMAN",
+          "PATROL_DOG",
+          "GREYHOUND",
+          "DRUM",
+          "DOG_CATCHER"
+        ],
+        "hp_mult": 15.38
+      }
+    ],
+    "music_night": "music_factory_night",
+    "challenge": 4.3,
+    "hazard": "kennels"
   }
 }

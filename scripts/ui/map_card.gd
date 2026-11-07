@@ -32,6 +32,10 @@ const GROUNDS := {
 	"vet": [Color("e8f0f4"), Color("e04646")],
 	"dam": [Color("8e8a84"), Color("2e729e")],
 	"snow": [Color("eef4f8"), Color("b8d8ec")],
+	"training": [Color("d8c08a"), Color("e8642a")],
+	"show": [Color("a83a4a"), Color("f2c14e")],
+	"barracks": [Color("6a6a4a"), Color("c8b870")],
+	"general": [Color("4a3a2a"), Color("c0392b")],
 }
 
 var stage_id := ""

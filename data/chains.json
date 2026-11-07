@@ -3009,5 +3009,407 @@
         "distance": 240
       }
     ]
+  },
+  "OBSTACLE_COURSE": {
+    "stage": "TRAINING_GROUND",
+    "reward": {
+      "gold": 2700
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 4,
+        "hold": 4,
+        "radius": 40,
+        "spread": [
+          200,
+          360
+        ],
+        "look": "signal_light"
+      },
+      {
+        "type": "boss",
+        "enemy": "WHISTLE_COACH",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "LOST_BALLS": {
+    "stage": "TRAINING_GROUND",
+    "reward": {
+      "gold": 2700
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "bone",
+        "count": 5,
+        "spread": [
+          200,
+          420
+        ],
+        "deliver": true,
+        "look_to": "doghouse"
+      },
+      {
+        "type": "chase",
+        "enemy": "STRAY_DOG",
+        "times": 3,
+        "hp_mult": 3.0
+      }
+    ]
+  },
+  "OLD_TUNNEL": {
+    "stage": "TRAINING_GROUND",
+    "secret": {
+      "type": "far",
+      "distance": 9000,
+      "dark_from": 2000
+    },
+    "reward": {
+      "gold": 4300
+    },
+    "steps": [
+      {
+        "type": "boss",
+        "enemy": "HURDLE_BOT",
+        "hp_mult": 3.0,
+        "look": "hole",
+        "dark": true,
+        "distance": 260
+      }
+    ]
+  },
+  "BEST_IN_SHOW": {
+    "stage": "DOG_SHOW",
+    "reward": {
+      "gold": 2800
+    },
+    "steps": [
+      {
+        "type": "trail",
+        "count": 6,
+        "spacing": [
+          150,
+          210
+        ],
+        "look": "pawprints"
+      },
+      {
+        "type": "boss",
+        "enemy": "JUDGE_BASSET",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "STOLEN_TROPHY": {
+    "stage": "DOG_SHOW",
+    "reward": {
+      "gold": 2800
+    },
+    "steps": [
+      {
+        "type": "carry",
+        "item": "photo",
+        "to_distance": [
+          450,
+          650
+        ],
+        "time": 70,
+        "look_to": "lost_found"
+      },
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "POMPOM",
+        "spawn_every": 2.5,
+        "spawn_count": 5,
+        "look": "lost_found"
+      }
+    ]
+  },
+  "BACKSTAGE": {
+    "stage": "DOG_SHOW",
+    "secret": {
+      "type": "trail",
+      "legs": 12,
+      "leg": [
+        380,
+        560
+      ],
+      "start": [
+        300,
+        450
+      ]
+    },
+    "reward": {
+      "gold": 4400
+    },
+    "steps": [
+      {
+        "type": "defend",
+        "time": 40,
+        "mode": "enemies",
+        "enemy": "PUPPY",
+        "spawn_every": 3.0,
+        "spawn_count": 4,
+        "look": "ribbon"
+      },
+      {
+        "type": "boss",
+        "enemy": "TROPHY_GOLEM",
+        "hp_mult": 3.0,
+        "look": "x",
+        "distance": 240
+      }
+    ]
+  },
+  "SUPPLY_RUN": {
+    "stage": "BARRACKS",
+    "reward": {
+      "gold": 2900
+    },
+    "steps": [
+      {
+        "type": "carry",
+        "item": "barrel",
+        "to_distance": [
+          450,
+          650
+        ],
+        "time": 70,
+        "look_to": "boiler"
+      },
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "PATROL_DOG",
+        "spawn_every": 3.0,
+        "spawn_count": 3,
+        "look": "boiler"
+      }
+    ]
+  },
+  "SILENT_DRUMS": {
+    "stage": "BARRACKS",
+    "reward": {
+      "gold": 2900
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 3,
+        "hold": 5,
+        "radius": 40,
+        "spread": [
+          200,
+          340
+        ],
+        "look": "antenna"
+      },
+      {
+        "type": "boss",
+        "enemy": "DRUM_MAJOR",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "ARMORY": {
+    "stage": "BARRACKS",
+    "secret": {
+      "type": "far",
+      "distance": 9000,
+      "dark_from": 2000
+    },
+    "reward": {
+      "gold": 4500
+    },
+    "steps": [
+      {
+        "type": "boss",
+        "enemy": "TENNIS_TANK",
+        "hp_mult": 3.0,
+        "look": "hole",
+        "dark": true,
+        "distance": 260
+      }
+    ]
+  },
+  "CASTLE_GATES": {
+    "stage": "GENERAL_KENNEL",
+    "reward": {
+      "gold": 3000
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 4,
+        "hold": 4,
+        "radius": 40,
+        "spread": [
+          200,
+          360
+        ],
+        "look": "fuse"
+      },
+      {
+        "type": "boss",
+        "enemy": "GENERAL_GUARD",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "WHITE_FLAG": {
+    "stage": "GENERAL_KENNEL",
+    "reward": {
+      "gold": 3000
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "letter",
+        "count": 5,
+        "spread": [
+          200,
+          420
+        ],
+        "deliver": true,
+        "look_to": "doghouse"
+      },
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "DOBERMAN",
+        "spawn_every": 3.0,
+        "spawn_count": 3,
+        "look": "doghouse"
+      }
+    ]
+  },
+  "THRONE_ROOM": {
+    "stage": "GENERAL_KENNEL",
+    "secret": {
+      "type": "trail",
+      "legs": 12,
+      "leg": [
+        380,
+        560
+      ],
+      "start": [
+        300,
+        450
+      ]
+    },
+    "reward": {
+      "gold": 4600
+    },
+    "steps": [
+      {
+        "type": "defend",
+        "time": 40,
+        "mode": "enemies",
+        "enemy": "DOG_DRONE",
+        "spawn_every": 3.0,
+        "spawn_count": 3,
+        "look": "lantern"
+      },
+      {
+        "type": "boss",
+        "enemy": "WAR_DRONE",
+        "hp_mult": 3.0,
+        "look": "x",
+        "distance": 240
+      }
+    ]
+  },
+  "PEACE_ROAD": {
+    "stage": "any",
+    "requires": [
+      "chain:GENERAL_ORDERS"
+    ],
+    "reward": {
+      "gold": 5000
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "stage": "POLICE_K9",
+        "item": "letter",
+        "count": 3,
+        "spread": [
+          200,
+          400
+        ]
+      },
+      {
+        "type": "carry",
+        "stage": "SNOW_HILL",
+        "item": "milk",
+        "to_distance": [
+          450,
+          600
+        ],
+        "time": 70,
+        "look_to": "chimney"
+      },
+      {
+        "type": "zones",
+        "stage": "TRAINING_GROUND",
+        "count": 3,
+        "hold": 5,
+        "radius": 40,
+        "spread": [
+          200,
+          340
+        ],
+        "look": "fire"
+      },
+      {
+        "type": "final",
+        "stage": "BARRACKS"
+      }
+    ]
+  },
+  "THE_PEACE": {
+    "stage": "any",
+    "requires": [
+      "chain:PEACE_ROAD"
+    ],
+    "reward": {
+      "gold": 8000,
+      "flag": "dog_peace"
+    },
+    "steps": [
+      {
+        "type": "carry",
+        "stage": "GENERAL_KENNEL",
+        "item": "ribbon",
+        "to_distance": [
+          450,
+          600
+        ],
+        "time": 70,
+        "look_to": "doghouse"
+      },
+      {
+        "type": "final",
+        "stage": "GENERAL_KENNEL"
+      }
+    ]
   }
 }

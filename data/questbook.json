@@ -1605,6 +1605,178 @@
         }
       ]
     },
+    "TRAINING_GROUND": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:TRAINING_GROUND"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 900
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:TRAINING_GROUND"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1500
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:TRAINING_GROUND",
+          "target": 1,
+          "reward": {
+            "gold": 2000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:TRAINING_GROUND"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3300
+          }
+        }
+      ]
+    },
+    "DOG_SHOW": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:DOG_SHOW"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 900
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:DOG_SHOW"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1500
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:DOG_SHOW",
+          "target": 1,
+          "reward": {
+            "gold": 2000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:DOG_SHOW"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3300
+          }
+        }
+      ]
+    },
+    "BARRACKS": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:BARRACKS"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 900
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:BARRACKS"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1500
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:BARRACKS",
+          "target": 1,
+          "reward": {
+            "gold": 2000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:BARRACKS"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3300
+          }
+        }
+      ]
+    },
+    "GENERAL_KENNEL": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:GENERAL_KENNEL"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 900
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:GENERAL_KENNEL"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1500
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:GENERAL_KENNEL",
+          "target": 1,
+          "reward": {
+            "gold": 2000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:GENERAL_KENNEL"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3300
+          }
+        }
+      ]
+    },
     "OLD_DIARY": {
       "chapter": "story",
       "tiers": [

@@ -667,7 +667,12 @@ func _tick_fight(delta: float, target: Vector2) -> void:
 ## march in from far to near, one row after another), "injection" (quick
 ## small jabs exactly where the cat is), "wave" (a broad wave rolls out from
 ## it in three surges), "blizzard" (snow spirals in from every side while the
-## cat is slowed).
+## cat is slowed), "drill" (hurdles: crossed bars over the cat, three times,
+## turned each time), "catwalk" (it struts straight through the cat's spot,
+## throwing hair to both sides), "artillery" (three volleys land round the
+## cat, each closer, the last on it), "orders" (the General's three orders: a
+## ring of strikes with a gap, a star of bars through the cat, then his dogs
+## charge from both sides).
 func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 	var hurt := damage * 0.8
 	match _special:
@@ -761,6 +766,74 @@ func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 					manager.spawn_bullet(from, (target - from).normalized().rotated(0.4), shot, "hair", 110.0)
 				return Vector2.ZERO
 			return _end_special()
+		"drill":
+			for round in 3:
+				if _special_step == round and t >= round * 0.7:
+					_special_step += 1
+					for k in 2:
+						var d := Vector2.from_angle(k * PI * 0.5 + (PI * 0.25 if round == 1 else 0.0))
+						manager.spawn_beam(target - d * 300.0, target + d * 300.0, 28.0, SIG_WARN, hurt, "laser")
+					Audio.play("bell", -8.0, 0.3)
+			if t > 2.6:
+				return _end_special()
+			return Vector2.ZERO
+		"catwalk":
+			if _special_step == 0:
+				_special_step = 1
+				_special_dir = (target - position).normalized()
+				manager.spawn_beam(position, position + _special_dir * 520.0, radius * 2.0, 0.6, 0.0, "mow")
+			if t < 0.6:
+				return Vector2.ZERO
+			if t > 1.8:
+				return _end_special()
+			if t >= 0.6 + _special_step * 0.1:
+				_special_step += 1
+				for side: float in [-1.0, 1.0]:
+					manager.spawn_bullet(position, _special_dir.orthogonal() * side, shot, "hair", 95.0)
+			return _special_dir * speed * 7.0
+		"artillery":
+			for volley in 3:
+				if _special_step == volley and t >= volley * 0.6:
+					_special_step += 1
+					for i in 6:
+						manager.spawn_hazard(target + Vector2.from_angle(TAU * i / 6.0 + volley) * (130.0 - volley * 45.0), "strike", 34.0, 0.9, hurt)
+					if volley == 2:
+						manager.spawn_hazard(target, "strike", 50.0, 1.0, hurt)
+					Audio.play("roar", -12.0, 0.4)
+			if t > 2.6:
+				return _end_special()
+			return Vector2.ZERO
+		"orders":
+			if _special_step == 0:
+				_special_step = 1
+				var gap := randi() % 12
+				for i in 12:
+					if i == gap or i == (gap + 1) % 12:
+						continue
+					manager.spawn_hazard(_special_at + Vector2.from_angle(TAU * i / 12.0) * 110.0, "strike", 30.0, 1.0, hurt)
+				Audio.play("roar", -8.0, 0.1)
+			if _special_step == 1 and t >= 1.1:
+				_special_step = 2
+				for k in 4:
+					var d := Vector2.from_angle(k * PI * 0.25)
+					manager.spawn_beam(target - d * 320.0, target + d * 320.0, 26.0, SIG_WARN, hurt, "laser")
+				_special_dir = (target - position).normalized().orthogonal()
+				for side: float in [-1.0, 1.0]:
+					var from := target + _special_dir * side * 320.0
+					manager.spawn_beam(from, from - _special_dir * side * 640.0, 40.0, 1.0, 0.0, "rats")
+			if _special_step == 2 and t >= 2.2:
+				_special_step = 3
+				var dog := _minion if _minion != "" else "DOBERMAN"
+				for side: float in [-1.0, 1.0]:
+					var run := -_special_dir * side
+					for i in 4:
+						var e := manager.spawn(dog, target - run * (320.0 + i * 26.0), hp_mult)
+						if e != null:
+							e.spawn_in = 0.0
+							e.charge(run, 640.0 / maxf(e.speed * 2.2, 1.0))
+			if t > 2.8:
+				return _end_special()
+			return Vector2.ZERO
 		"perfume":
 			if _special_step == 0:
 				_special_step = 1

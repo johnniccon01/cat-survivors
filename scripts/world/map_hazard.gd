@@ -64,7 +64,12 @@ const LANES := {
 	"race": [2.0, 0, 0.0, "RACE_WARNING"],
 	"patrol": [2.0, 0, 0.0, "PATROL_WARNING"],
 	"avalanche": [2.4, 5, 14.0, "AVALANCHE_WARNING"],
+	"agility": [2.0, 0, 0.0, "AGILITY_WARNING"],
+	"spotlight": [3.0, 5, 8.0, "SPOTLIGHT_WARNING"],
+	"march": [2.6, 0, 0.0, "MARCH_WARNING"],
 }
+## Lane hazards where dogs charge down the lane instead of a train.
+const RUNNERS := {"race": "GREYHOUND", "patrol": "DOBERMAN", "agility": "STRAY_DOG", "march": "PATROL_DOG"}
 const CRANE_FIRST := 30.0
 const CRANE_EVERY := Vector2(18.0, 28.0)
 const CRANE_WARN := 2.6
@@ -187,7 +192,7 @@ func phase() -> String:
 func _physics_process(delta: float) -> void:
 	_t += delta
 	match kind:
-		"train", "flood", "shunting", "blowdry", "hose", "race", "patrol", "avalanche":
+		"train", "flood", "shunting", "blowdry", "hose", "race", "patrol", "avalanche", "agility", "spotlight", "march":
 			_tick_train(delta)
 		"crane":
 			_tick_crane(delta)
@@ -365,7 +370,7 @@ func _tick_train(delta: float) -> void:
 	_phase_t -= delta
 	if _phase == "pass":
 		_front = lerpf(_from, _to, clampf(1.0 - _phase_t / _pass_time(), 0.0, 1.0))
-		if kind != "race" and kind != "patrol":
+		if not RUNNERS.has(kind):
 			_run_over()
 	if _phase_t > 0.0:
 		return
@@ -390,10 +395,10 @@ func _tick_train(delta: float) -> void:
 			_cat_hit = false
 			Audio.play("whoosh", 4.0)
 			main.player.shake(3.0, _pass_time())
-			if kind == "race" or kind == "patrol":
-				# The greyhounds race down the lane (a police patrol: dobermans).
+			if RUNNERS.has(kind):
+				# The greyhounds race down the lane (a police patrol: dobermans, ...).
 				for i in 7:
-					var e: Enemy = main.spawner._spawn("GREYHOUND" if kind == "race" else "DOBERMAN", Vector2(_from - _dir * i * 26.0, _lane_y + randf_range(-20.0, 20.0)))
+					var e: Enemy = main.spawner._spawn(RUNNERS[kind], Vector2(_from - _dir * i * 26.0, _lane_y + randf_range(-20.0, 20.0)))
 					if e != null:
 						e.spawn_in = 0.0
 						e.charge(Vector2(_dir, 0.0), 2.6)
@@ -446,7 +451,7 @@ func _view() -> Rect2:
 
 func _draw() -> void:
 	match kind:
-		"train", "flood", "shunting", "blowdry", "hose", "race", "patrol", "avalanche":
+		"train", "flood", "shunting", "blowdry", "hose", "race", "patrol", "avalanche", "agility", "spotlight", "march":
 			_draw_train()
 		"crane":
 			_draw_crane()
@@ -553,10 +558,10 @@ func _draw_train() -> void:
 			var p := at + Vector2(_dir * i * 22.0, 0.0)
 			draw_colored_polygon(PackedVector2Array([p + Vector2(-_dir * 8.0, -10.0), p + Vector2(_dir * 8.0, 0.0), p + Vector2(-_dir * 8.0, 10.0)]), Color(1.0, 0.3, 0.2, 0.4 + 0.6 * k))
 		return
-	if kind in ["flood", "blowdry", "hose", "avalanche"]:
+	if kind in ["flood", "blowdry", "hose", "avalanche", "spotlight"]:
 		_draw_wave(view)
 		return
-	if kind == "race" or kind == "patrol":
+	if RUNNERS.has(kind):
 		return
 	# The train: a locomotive and its carriages.
 	var y0 := _lane_y - TRAIN_HALF + 2.0
@@ -622,7 +627,12 @@ func _draw_wave(view: Rect2) -> void:
 		draw_texture_rect_region(water, band, Rect2(band.position + Vector2(-_t * 140.0 * _dir, 0), band.size), Color(1, 1, 1, 0.92))
 	else:
 		# Hot air from the dryers (a pink shimmer) or a wall of snow.
-		draw_rect(band, Color(0.95, 0.97, 1.0, 0.9) if kind == "avalanche" else Color(1.0, 0.7, 0.85, 0.35 + 0.1 * sin(_t * 20.0)))
+		var tint := Color(1.0, 0.7, 0.85, 0.35 + 0.1 * sin(_t * 20.0))
+		if kind == "avalanche":
+			tint = Color(0.95, 0.97, 1.0, 0.9)
+		elif kind == "spotlight":
+			tint = Color(1.0, 0.95, 0.6, 0.4 + 0.1 * sin(_t * 9.0))
+		draw_rect(band, tint)
 	# Foam where it breaks, and spray.
 	for k in 9:
 		var y := _lane_y - TRAIN_HALF + k * TRAIN_HALF * 2.0 / 8.0

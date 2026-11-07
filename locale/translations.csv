@@ -3127,3 +3127,154 @@ CHAIN_ICE_CAVE_1,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste e
 CHAIN_ICE_CAVE_1_DONE,The Snowman King rises.,Snehuliačí kráľ vstáva.,Sněhulácký král vstává.,Se alza el Rey de las Nieves.,Снежный король поднимается.,雪人王站起来了。
 CHAIN_ICE_CAVE_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
 CHAIN_ICE_CAVE_2_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+STAGE_TRAINING_GROUND_NAME,The Training Ground,Výcvikové ihrisko,Výcvikové hřiště,El campo de entrenamiento,Тренировочная площадка,训练场
+STAGE_TRAINING_GROUND_HINT,Defeat the Husky Leader on the Snowy Hill,Poraz Vodcu huskyov na Zasneženom kopci,Poraz Vůdce huskyů na Zasněženém kopci,Derrota al líder de los huskies en la colina nevada,Победи Вожака хаски на Снежном холме,在雪坡击败哈士奇头领
+STORY_TRAINING_GROUND_INTRO,"Hurdles, tunnels and a whistle: the dogs train here to catch cats. Show them how it's done!","Prekážky, tunely a píšťalka: psi tu trénujú chytanie mačiek. Ukáž im, ako sa to robí!","Překážky, tunely a píšťalka: psi tu trénují chytání koček. Ukaž jim, jak se to dělá!","Vallas, túneles y un silbato: aquí los perros entrenan para cazar gatos. ¡Enséñales cómo se hace!","Барьеры, тоннели и свисток: здесь собак учат ловить кошек. Покажи им, как надо!",跨栏、隧道和哨子：狗狗们在这里练习抓猫。给它们露一手！
+QB_TRAINING_GROUND_NAME,The Training Ground,Výcvikové ihrisko,Výcvikové hřiště,El campo de entrenamiento,Тренировочная площадка,训练场
+QB_TRAINING_GROUND_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_TRAINING_GROUND_2,Defeat its dog boss.,Poraziť jeho psieho bossa.,Porazit jeho psího bosse.,Derrota a su jefe perruno.,Победи его собачьего босса.,击败那里的狗狗首领。
+QB_TRAINING_GROUND_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_TRAINING_GROUND_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_DOG_SHOW_NAME,The Dog Show,Výstava psov,Výstava psů,La exposición canina,Выставка собак,狗狗展
+STAGE_DOG_SHOW_HINT,Defeat the Instructor at the Training Ground,Poraz Inštruktora na Výcvikovom ihrisku,Poraz Instruktora na Výcvikovém hřišti,Derrota al instructor en el campo de entrenamiento,Победи Инструктора на Тренировочной площадке,在训练场击败教官
+STORY_DOG_SHOW_INTRO,Spotlights sweep the hall and the judges watch every step. Stay out of the light!,Reflektory prechádzajú halou a porotcovia sledujú každý krok. Drž sa mimo svetla!,Reflektory projíždějí halou a porotci sledují každý krok. Drž se mimo světlo!,Los focos barren la sala y los jueces vigilan cada paso. ¡No te pongas a la luz!,"Прожекторы скользят по залу, судьи следят за каждым шагом. Держись вне света!",聚光灯扫过大厅，评委盯着每一步。别站到光里！
+QB_DOG_SHOW_NAME,The Dog Show,Výstava psov,Výstava psů,La exposición canina,Выставка собак,狗狗展
+QB_DOG_SHOW_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_DOG_SHOW_2,Defeat its dog boss.,Poraziť jeho psieho bossa.,Porazit jeho psího bosse.,Derrota a su jefe perruno.,Победи его собачьего босса.,击败那里的狗狗首领。
+QB_DOG_SHOW_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_DOG_SHOW_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_BARRACKS_NAME,The Barracks,Kasárne,Kasárna,El cuartel,Казармы,军营
+STAGE_BARRACKS_HINT,Defeat the Afghan Diva at the Dog Show,Poraz Afgánsku divu na Výstave psov,Poraz Afghánskou divu na Výstavě psů,Derrota a la diva afgana en la exposición,Победи Афганскую диву на Выставке собак,在狗狗展击败阿富汗猎犬天后
+STORY_BARRACKS_INTRO,Drums beat and the dogs march in columns. The General's army is ready.,Bubny dunia a psi pochodujú v šíkoch. Generálova armáda je pripravená.,Bubny duní a psi pochodují v šicích. Generálova armáda je připravená.,Suenan los tambores y los perros marchan en columnas. El ejército del General está listo.,"Бьют барабаны, собаки маршируют колоннами. Армия Генерала готова.",鼓声隆隆，狗狗们列队行进。将军的军队已经就绪。
+QB_BARRACKS_NAME,The Barracks,Kasárne,Kasárna,El cuartel,Казармы,军营
+QB_BARRACKS_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_BARRACKS_2,Defeat its dog boss.,Poraziť jeho psieho bossa.,Porazit jeho psího bosse.,Derrota a su jefe perruno.,Победи его собачьего босса.,击败那里的狗狗首领。
+QB_BARRACKS_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_BARRACKS_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_GENERAL_KENNEL_NAME,The General's Kennel,Generálova búda,Generálova bouda,La caseta del General,Будка Генерала,将军的狗屋
+STAGE_GENERAL_KENNEL_HINT,Defeat the Colonel at the Barracks,Poraz Plukovníka v Kasárňach,Poraz Plukovníka v Kasárnách,Derrota al coronel en el cuartel,Победи Полковника в Казармах,在军营击败上校
+STORY_GENERAL_KENNEL_INTRO,A castle of kennels. Here sits the General – and the end of the war between cats and dogs.,Hrad z búd. Tu sedí Generál – a koniec vojny medzi mačkami a psami.,Hrad z bud. Tady sedí Generál – a konec války mezi kočkami a psy.,"Un castillo de casetas. Aquí está el General, y el fin de la guerra entre gatos y perros.",Замок из будок. Здесь сидит Генерал – и конец войны кошек и собак.,狗屋砌成的城堡。将军就在这里——猫狗之战也将在此终结。
+QB_GENERAL_KENNEL_NAME,The General's Kennel,Generálova búda,Generálova bouda,La caseta del General,Будка Генерала,将军的狗屋
+QB_GENERAL_KENNEL_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_GENERAL_KENNEL_2,Defeat its dog boss.,Poraziť jeho psieho bossa.,Porazit jeho psího bosse.,Derrota a su jefe perruno.,Победи его собачьего босса.,击败那里的狗狗首领。
+QB_GENERAL_KENNEL_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_GENERAL_KENNEL_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+ENEMY_HURDLE_BOT_NAME,Hurdle Bot,Prekážkobot,Překážkobot,Robo-valla,Барьер-бот,跨栏机器人
+ENEMY_HURDLE_BOT_DESC,Blinks across the course and sweeps it with bars.,Preskakuje po dráhe a zametá ju tyčami.,Přeskakuje po dráze a zametá ji tyčemi.,Salta por el circuito y lo barre con barras.,Прыгает по трассе и сметает её планками.,在赛道上闪现，用横杆扫荡。
+ENEMY_WHISTLE_COACH_NAME,Whistle Coach,Tréner s píšťalkou,Trenér s píšťalkou,El entrenador del silbato,Тренер со свистком,吹哨教练
+ENEMY_WHISTLE_COACH_DESC,Blows the whistle: strikes follow your steps.,Zapíska: údery idú po tvojich stopách.,Zapíská: údery jdou po tvých stopách.,Toca el silbato: los golpes siguen tus pasos.,Свистит: удары идут по твоим следам.,一吹哨，打击就跟着你的脚步落下。
+ENEMY_INSTRUCTOR_BOXER_NAME,Instructor Boxer,Inštruktor boxer,Instruktor boxer,El instructor bóxer,Инструктор боксёр,拳师犬教官
+ENEMY_INSTRUCTOR_BOXER_DESC,"Sets up hurdles: crossed bars over you, turned each time.","Postaví prekážky: skrížené tyče nad tebou, zakaždým otočené.","Postaví překážky: zkřížené tyče nad tebou, pokaždé otočené.","Monta vallas: barras cruzadas sobre ti, giradas cada vez.","Ставит барьеры: скрещённые планки над тобой, каждый раз повёрнутые.",摆出跨栏：交叉的横杆罩住你，每次角度都不同。
+ENEMY_JUDGE_BASSET_NAME,Judge Basset,Porotca baset,Porotce baset,El juez basset,Судья бассет,巴吉度评委
+ENEMY_JUDGE_BASSET_DESC,Barks his verdict in a cross.,Vyštekne verdikt do kríža.,Vyštěká verdikt do kříže.,Ladra su veredicto en cruz.,Лает свой вердикт крестом.,以十字形吠出裁决。
+ENEMY_TROPHY_GOLEM_NAME,Trophy Golem,Pohárový golem,Pohárový golem,El gólem del trofeo,Кубковый голем,奖杯魔像
+ENEMY_TROPHY_GOLEM_DESC,A pile of golden cups that throws itself at you.,"Kopa zlatých pohárov, ktorá sa na teba hádže.","Hromada zlatých pohárů, která se na tebe vrhá.",Un montón de copas doradas que se lanza contra ti.,"Груда золотых кубков, бросающаяся на тебя.",一堆金杯，朝你砸过来。
+ENEMY_AFGHAN_DIVA_NAME,The Afghan Diva,Afgánska diva,Afghánská diva,La diva afgana,Афганская дива,阿富汗猎犬天后
+ENEMY_AFGHAN_DIVA_DESC,"Struts the catwalk straight through you, throwing hair to both sides.",Kráča po móle priamo cez teba a hádže srsť na obe strany.,Kráčí po molu přímo přes tebe a hází srst na obě strany.,"Desfila por la pasarela a través de ti, lanzando pelo a ambos lados.","Шагает по подиуму прямо сквозь тебя, разбрасывая шерсть в стороны.",沿着T台径直穿过你，向两侧甩出毛发。
+ENEMY_DRUM_MAJOR_NAME,Drum Major,Tambur major,Tambor major,El tambor mayor,Тамбурмажор,鼓乐队长
+ENEMY_DRUM_MAJOR_DESC,Beats the drum and sweeps the yard.,Bubnuje a zametá dvor.,Bubnuje a zametá dvůr.,Toca el tambor y barre el patio.,Бьёт в барабан и сметает двор.,边打鼓边横扫院子。
+ENEMY_TENNIS_TANK_NAME,Tennis Tank,Tenisový tank,Tenisový tank,El tanque de tenis,Теннисный танк,网球坦克
+ENEMY_TENNIS_TANK_DESC,Rolls over everything and fires tennis balls in a cross.,Prevalcuje všetko a strieľa tenisáky do kríža.,Převálcuje všechno a střílí tenisáky do kříže.,Aplasta todo y dispara pelotas en cruz.,Давит всё и стреляет мячами крестом.,碾压一切，十字发射网球。
+ENEMY_COLONEL_MASTIFF_NAME,Colonel Mastiff,Plukovník mastif,Plukovník mastif,El coronel mastín,Полковник мастиф,獒犬上校
+ENEMY_COLONEL_MASTIFF_DESC,"Calls in artillery: three volleys land round you, the last right on you.","Privolá delostrelectvo: tri salvy dopadnú okolo teba, posledná priamo na teba.","Přivolá dělostřelectvo: tři salvy dopadnou kolem tebe, poslední přímo na tebe.","Pide artillería: tres salvas caen a tu alrededor, la última encima de ti.","Вызывает артиллерию: три залпа ложатся вокруг тебя, последний – прямо на тебя.",呼叫炮击：三轮齐射落在你周围，最后一轮正中你。
+ENEMY_GENERAL_GUARD_NAME,The General's Guard,Generálova stráž,Generálova stráž,La guardia del General,Стража Генерала,将军卫兵
+ENEMY_GENERAL_GUARD_DESC,Cages you in and charges.,Zatvorí ťa do klietky a vyrazí.,Zavře tě do klece a vyrazí.,Te enjaula y embiste.,Запирает тебя в клетку и бросается.,把你困住，然后猛冲。
+ENEMY_WAR_DRONE_NAME,War Drone,Vojnový dron,Válečný dron,El dron de guerra,Военный дрон,战争无人机
+ENEMY_WAR_DRONE_DESC,Pulls you in and sweeps you with fire.,Pritiahne ťa a zametie paľbou.,Přitáhne tě a zamete palbou.,Te atrae y te barre con fuego.,Притягивает тебя и сметает огнём.,把你吸过去再用火力横扫。
+ENEMY_GENERAL_NAME,The General,Generál,Generál,El General,Генерал,将军
+ENEMY_GENERAL_DESC,"Gives three orders: a ring with a gap, a star of bars, then his dogs charge from both sides.","Vydá tri rozkazy: kruh s medzerou, hviezdu z tyčí a potom jeho psi vyrazia z oboch strán.","Vydá tři rozkazy: kruh s mezerou, hvězdu z tyčí a pak jeho psi vyrazí z obou stran.","Da tres órdenes: un anillo con un hueco, una estrella de barras y luego sus perros cargan por ambos lados.","Отдаёт три приказа: кольцо с проходом, звезду из планок, затем его псы бросаются с обеих сторон.",下达三道命令：带缺口的圆环、星形横杆，然后他的狗从两侧冲锋。
+ITEM_COACH_WHISTLE_NAME,Coach's Whistle,Trénerova píšťalka,Trenérova píšťalka,Silbato del entrenador,Тренерский свисток,教练哨子
+ITEM_COACH_WHISTLE_DESC,"From the Instructor. -6% cooldown, +6% speed.","Od Inštruktora. -6 % čas nabíjania, +6 % rýchlosť.","Od Instruktora. -6 % doba nabíjení, +6 % rychlost.","Del instructor. -6 % de recarga, +6 % de velocidad.","От Инструктора. -6 % перезарядки, +6 % скорости.",来自教官。-6% 冷却，+6% 速度。
+ITEM_SHOW_SASH_NAME,Winner's Sash,Víťazná šerpa,Vítězná šerpa,Banda de ganadora,Лента победителя,冠军绶带
+ITEM_SHOW_SASH_DESC,"From the Diva. +15% luck, +12% growth.","Od Divy. +15 % šťastie, +12 % rast.","Od Divy. +15 % štěstí, +12 % růst.","De la diva. +15 % de suerte, +12 % de crecimiento.","От Дивы. +15 % удачи, +12 % роста.",来自天后。+15% 幸运，+12% 成长。
+ITEM_COLONEL_HELMET_NAME,Colonel's Helmet,Plukovníkova prilba,Plukovníkova přilba,Casco del coronel,Шлем полковника,上校头盔
+ITEM_COLONEL_HELMET_DESC,"From the Colonel. +2 armour, +30 health.","Od Plukovníka. +2 brnenie, +30 zdravia.","Od Plukovníka. +2 brnění, +30 zdraví.","Del coronel. +2 de armadura, +30 de salud.","От Полковника. +2 брони, +30 здоровья.",来自上校。+2 护甲，+30 生命。
+ITEM_GENERAL_MEDAL_NAME,The General's Medal,Generálova medaila,Generálova medaile,La medalla del General,Медаль Генерала,将军勋章
+ITEM_GENERAL_MEDAL_DESC,"From the General. +12% might, +8% area, +10% damage to bosses.","Od Generála. +12 % sila, +8 % plocha, +10 % poškodenie bossom.","Od Generála. +12 % síla, +8 % plocha, +10 % poškození bossům.","Del General. +12 % de poder, +8 % de área, +10 % de daño a jefes.","От Генерала. +12 % силы, +8 % площади, +10 % урона боссам.",来自将军。+12% 力量，+8% 范围，+10% 首领伤害。
+AGILITY_WARNING,Dogs run the agility course down the lane – step aside!,Pruhom bežia psi prekážkovú dráhu – uhni!,Pruhem běží psi překážkovou dráhu – uhni!,"¡Los perros corren el circuito por el carril, apártate!",По полосе бегут собаки по полосе препятствий – отойди!,狗狗们沿着这条线跑障碍赛——快让开！
+SPOTLIGHT_WARNING,The spotlight sweeps the lane – stay out of the light!,Reflektor prechádza pruhom – drž sa mimo svetla!,Reflektor projíždí pruhem – drž se mimo světlo!,"¡El foco barre el carril, no te pongas a la luz!",Прожектор скользит по полосе – держись вне света!,聚光灯扫过这条线——别站到光里！
+MARCH_WARNING,A column of dogs marches down the lane – step aside!,Pruhom pochoduje šík psov – uhni!,Pruhem pochoduje šik psů – uhni!,"¡Una columna de perros marcha por el carril, apártate!",По полосе марширует колонна собак – отойди!,一列狗狗沿着这条线行进——快让开！
+CHAIN_OBSTACLE_COURSE_NAME,The Obstacle Course,Prekážková dráha,Překážková dráha,La pista de obstáculos,Полоса препятствий,障碍赛道
+CHAIN_OBSTACLE_COURSE_DESC,Beat the dogs' best time on the course.,Prekonaj najlepší čas psov na dráhe.,Překonej nejlepší čas psů na dráze.,Supera el mejor tiempo de los perros.,Побей лучшее время собак на трассе.,打破狗狗们的赛道最佳纪录。
+CHAIN_OBSTACLE_COURSE_1,Hold the four marks,Podrž štyri značky,Podrž čtyři značky,Mantén las cuatro marcas,Удержи четыре отметки,守住四个标记
+CHAIN_OBSTACLE_COURSE_1_DONE,The coach blows his whistle in anger.,Tréner nahnevane zapíska.,Trenér naštvaně zapíská.,El entrenador pita enfadado.,Тренер сердито свистит.,教练气得吹响了哨子。
+CHAIN_OBSTACLE_COURSE_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_OBSTACLE_COURSE_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_LOST_BALLS_NAME,Lost Toys,Stratené hračky,Ztracené hračky,Juguetes perdidos,Потерянные игрушки,丢失的玩具
+CHAIN_LOST_BALLS_DESC,The training toys are scattered all over the ground.,Tréningové hračky sú rozhádzané po celom ihrisku.,Tréninkové hračky jsou rozházené po celém hřišti.,Los juguetes de entrenamiento están por todo el campo.,Тренировочные игрушки разбросаны по всей площадке.,训练玩具散落在整个场地上。
+CHAIN_LOST_BALLS_1,Gather the toys,Pozbieraj hračky,Posbírej hračky,Recoge los juguetes,Собери игрушки,收集玩具
+CHAIN_LOST_BALLS_1_DONE,Three dogs grabbed the last ones.,Traja psi schmatli posledné.,Tři psi popadli poslední.,Tres perros agarraron los últimos.,Три пса схватили последние.,三只狗抢走了最后几个。
+CHAIN_LOST_BALLS_2,Catch the dogs,Chyť psov,Chyť psy,Atrapa a los perros,Поймай собак,抓住那些狗
+CHAIN_LOST_BALLS_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_OLD_TUNNEL_NAME,The Old Tunnel,Starý tunel,Starý tunel,El viejo túnel,Старый тоннель,旧隧道
+CHAIN_OLD_TUNNEL_DESC,"Far in the dark, an old training tunnel still hums.",Ďaleko v tme ešte bzučí starý tréningový tunel.,Daleko ve tmě ještě bzučí starý tréninkový tunel.,"Lejos en la oscuridad, un viejo túnel aún zumba.",Далеко в темноте ещё гудит старый тоннель.,远处的黑暗里，一条旧训练隧道仍在嗡嗡作响。
+CHAIN_OLD_TUNNEL_1,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_OLD_TUNNEL_1_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_BEST_IN_SHOW_NAME,Best in Show,Víťaz výstavy,Vítěz výstavy,El mejor de la exposición,Лучший на выставке,全场最佳
+CHAIN_BEST_IN_SHOW_DESC,A cat in the show ring? The judges will need some convincing.,Mačka v ringu? Porotu bude treba presvedčiť.,Kočka v ringu? Porotu bude třeba přesvědčit.,¿Un gato en la pista? Habrá que convencer a los jueces.,Кошка на ринге? Судей придётся убедить.,猫上了展台？得好好说服评委。
+CHAIN_BEST_IN_SHOW_1,Walk the show path,Prejdi výstavnú trasu,Projdi výstavní trasu,Recorre el camino de la exposición,Пройди выставочный путь,走完展示路线
+CHAIN_BEST_IN_SHOW_1_DONE,The judge is not impressed.,Porotca nie je nadšený.,Porotce není nadšený.,Al juez no le impresiona.,Судья не впечатлён.,评委不为所动。
+CHAIN_BEST_IN_SHOW_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_BEST_IN_SHOW_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_STOLEN_TROPHY_NAME,The Stolen Photo,Ukradnutá fotka,Ukradená fotka,La foto robada,Украденное фото,被偷的照片
+CHAIN_STOLEN_TROPHY_DESC,The winner's photo vanished from the wall.,Fotka víťaza zmizla zo steny.,Fotka vítěze zmizela ze zdi.,La foto del ganador desapareció de la pared.,Фото победителя пропало со стены.,冠军的照片从墙上不见了。
+CHAIN_STOLEN_TROPHY_1,Bring the photo back,Vráť fotku,Vrať fotku,Devuelve la foto,Верни фото,把照片送回去
+CHAIN_STOLEN_TROPHY_1_DONE,The pompoms want it for themselves.,Pompóny ju chcú pre seba.,Bambule ji chtějí pro sebe.,Los pompones la quieren para ellos.,Помпоны хотят его себе.,绒球们想据为己有。
+CHAIN_STOLEN_TROPHY_2,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_STOLEN_TROPHY_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_BACKSTAGE_NAME,Backstage,Za oponou,Za oponou,Entre bastidores,За кулисами,后台
+CHAIN_BACKSTAGE_DESC,"A trail of ribbons leads backstage, where the trophies come alive.","Stopa mašlí vedie za oponu, kde ožívajú poháre.","Stopa mašlí vede za oponu, kde ožívají poháry.","Un rastro de lazos lleva entre bastidores, donde los trofeos cobran vida.","Дорожка из лент ведёт за кулисы, где оживают кубки.",一路丝带通向后台，奖杯在那里活了过来。
+CHAIN_BACKSTAGE_1,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_BACKSTAGE_1_DONE,The golden pile starts to move.,Zlatá kopa sa pohne.,Zlatá hromada se pohne.,El montón dorado empieza a moverse.,Золотая груда начинает двигаться.,金色的堆开始动了。
+CHAIN_BACKSTAGE_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_BACKSTAGE_2_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_SUPPLY_RUN_NAME,Supply Run,Zásobovanie,Zásobování,Llevar provisiones,Подвоз припасов,补给任务
+CHAIN_SUPPLY_RUN_DESC,Steal a barrel of the army's biscuits for the hungry strays.,Ukradni sud armádnych piškót pre hladných túlavých psov.,Ukradni sud armádních piškotů pro hladové toulavé psy.,Roba un barril de galletas del ejército para los perros callejeros.,Укради бочку армейского печенья для голодных бродяг.,偷一桶军用饼干给饥饿的流浪狗。
+CHAIN_SUPPLY_RUN_1,Carry the barrel to the stove,Dones sud k piecke,Přines sud ke kamnům,Lleva el barril a la estufa,Отнеси бочку к печке,把木桶搬到炉子边
+CHAIN_SUPPLY_RUN_1_DONE,The patrol noticed!,Hliadka si to všimla!,Hlídka si toho všimla!,¡La patrulla se dio cuenta!,Патруль заметил!,巡逻队发现了！
+CHAIN_SUPPLY_RUN_2,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_SUPPLY_RUN_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_SILENT_DRUMS_NAME,Silent Drums,Tiché bubny,Tiché bubny,Tambores en silencio,Тихие барабаны,静默的鼓
+CHAIN_SILENT_DRUMS_DESC,"Without drums, the dogs can't march.",Bez bubnov psi nevedia pochodovať.,Bez bubnů psi neumí pochodovat.,"Sin tambores, los perros no pueden marchar.",Без барабанов собаки не могут маршировать.,没有鼓声，狗狗们就没法行军。
+CHAIN_SILENT_DRUMS_1,Hold the three drum posts,Podrž tri bubenícke stanovištia,Podrž tři bubenická stanoviště,Mantén los tres puestos de tambor,Удержи три барабанных поста,守住三个鼓手岗
+CHAIN_SILENT_DRUMS_1_DONE,The drum major is furious.,Tambur major zúri.,Tambor major zuří.,El tambor mayor está furioso.,Тамбурмажор в ярости.,鼓乐队长气炸了。
+CHAIN_SILENT_DRUMS_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_SILENT_DRUMS_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_ARMORY_NAME,The Armory,Zbrojnica,Zbrojnice,La armería,Оружейная,军械库
+CHAIN_ARMORY_DESC,"Far in the dark lies the armory, guarded by a tank of tennis balls.","Ďaleko v tme je zbrojnica, ktorú stráži tank tenisákov.","Daleko ve tmě je zbrojnice, kterou hlídá tank tenisáků.","Lejos en la oscuridad está la armería, guardada por un tanque de pelotas.","Далеко в темноте оружейная, её охраняет танк мячей.",黑暗深处是军械库，由一辆网球坦克把守。
+CHAIN_ARMORY_1,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_ARMORY_1_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_CASTLE_GATES_NAME,The Castle Gates,Brány hradu,Brány hradu,Las puertas del castillo,Ворота замка,城堡大门
+CHAIN_CASTLE_GATES_DESC,Open the gates of the kennel castle.,Otvor brány hradu z búd.,Otevři brány hradu z bud.,Abre las puertas del castillo de casetas.,Открой ворота замка из будок.,打开狗屋城堡的大门。
+CHAIN_CASTLE_GATES_1,Hold the four gate levers,Podrž štyri páky brán,Podrž čtyři páky bran,Mantén las cuatro palancas,Удержи четыре рычага ворот,守住四个门闸
+CHAIN_CASTLE_GATES_1_DONE,The General's guard blocks the way.,Generálova stráž zastúpi cestu.,Generálova stráž zastoupí cestu.,La guardia del General bloquea el paso.,Стража Генерала преграждает путь.,将军的卫兵挡住了去路。
+CHAIN_CASTLE_GATES_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_CASTLE_GATES_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_WHITE_FLAG_NAME,The White Flag,Biela vlajka,Bílá vlajka,La bandera blanca,Белый флаг,白旗
+CHAIN_WHITE_FLAG_DESC,Letters of peace from the cats must reach the General's door.,Mierové listy od mačiek musia doraziť ku Generálovým dverám.,Mírové dopisy od koček musí dorazit ke Generálovým dveřím.,Las cartas de paz de los gatos deben llegar a la puerta del General.,Мирные письма от кошек должны дойти до двери Генерала.,猫咪们的和平信必须送到将军门前。
+CHAIN_WHITE_FLAG_1,Gather the letters of peace,Pozbieraj mierové listy,Posbírej mírové dopisy,Recoge las cartas de paz,Собери мирные письма,收集和平信
+CHAIN_WHITE_FLAG_1_DONE,Not every dog wants peace yet.,Nie každý pes ešte chce mier.,Ne každý pes ještě chce mír.,No todos los perros quieren la paz todavía.,Не каждый пёс пока хочет мира.,并不是每只狗都想要和平。
+CHAIN_WHITE_FLAG_2,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_WHITE_FLAG_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_THRONE_ROOM_NAME,The Throne Room,Trónna sieň,Trůnní sál,La sala del trono,Тронный зал,王座厅
+CHAIN_THRONE_ROOM_DESC,Lanterns lead through the dark castle to an empty throne.,Lampáše vedú tmavým hradom k prázdnemu trónu.,Lucerny vedou temným hradem k prázdnému trůnu.,Faroles guían por el castillo oscuro hasta un trono vacío.,Фонари ведут по тёмному замку к пустому трону.,灯笼穿过漆黑的城堡，通向一张空王座。
+CHAIN_THRONE_ROOM_1,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_THRONE_ROOM_1_DONE,A war drone wakes above the throne.,Nad trónom sa zobudí vojnový dron.,Nad trůnem se probudí válečný dron.,Un dron de guerra despierta sobre el trono.,Над троном просыпается военный дрон.,王座上方，一架战争无人机苏醒了。
+CHAIN_THRONE_ROOM_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_THRONE_ROOM_2_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_PEACE_ROAD_NAME,The Road to Peace,Cesta k mieru,Cesta k míru,El camino a la paz,Путь к миру,通往和平之路
+CHAIN_PEACE_ROAD_DESC,"The General is only afraid. Find out why, and win him over.",Generál sa len bojí. Zisti prečo a získaj ho na svoju stranu.,Generál se jen bojí. Zjisti proč a získej ho na svou stranu.,El General solo tiene miedo. Descubre por qué y gánatelo.,Генерал просто боится. Узнай почему и переубеди его.,将军只是害怕。弄清原因，赢得他的信任。
+CHAIN_PEACE_ROAD_1,Find the old case files at the Police Station,Nájdi staré spisy na Policajnej stanici,Najdi staré spisy na Policejní stanici,Encuentra los viejos expedientes en la comisaría,Найди старые дела в Полицейском участке,在警犬站找到旧档案
+CHAIN_PEACE_ROAD_1_DONE,"The cat who took his home was a stray kitten, hiding from the rain.","Mačka, ktorá mu vzala domov, bolo túlavé mačiatko, čo sa skrývalo pred dažďom.","Kočka, která mu vzala domov, bylo toulavé kotě, které se schovávalo před deštěm.",El gato que le quitó su hogar era un gatito callejero que se escondía de la lluvia.,"Кошка, отнявшая его дом, была бездомным котёнком, прятавшимся от дождя.",夺走他家的那只猫，只是一只躲雨的流浪小猫。
+CHAIN_PEACE_ROAD_2,Bring warm milk to the huskies' hut on the Snowy Hill,Dones teplé mlieko do chatky huskyov na Zasneženom kopci,Přines teplé mléko do chatky huskyů na Zasněženém kopci,Lleva leche caliente a la cabaña de los huskies en la colina,Отнеси тёплое молоко в домик хаски на Снежном холме,把热牛奶送到雪坡上哈士奇的小屋
+CHAIN_PEACE_ROAD_2_DONE,The huskies will carry your message to the General.,Huskyovia odnesú tvoj odkaz Generálovi.,Huskyové odnesou tvůj vzkaz Generálovi.,Los huskies llevarán tu mensaje al General.,Хаски передадут твоё послание Генералу.,哈士奇们会把你的口信带给将军。
+CHAIN_PEACE_ROAD_3,Light the three peace fires at the Training Ground,Zapáľ tri mierové ohne na Výcvikovom ihrisku,Zapal tři mírové ohně na Výcvikovém hřišti,Enciende los tres fuegos de paz en el campo de entrenamiento,Зажги три костра мира на Тренировочной площадке,在训练场点燃三堆和平之火
+CHAIN_PEACE_ROAD_3_DONE,The whole district sees the fires.,Ohne vidí celá štvrť.,Ohně vidí celá čtvrť.,Todo el barrio ve los fuegos.,Костры видит весь район.,整个街区都看到了火光。
+CHAIN_PEACE_ROAD_4,Defeat Colonel Mastiff at the Barracks,Poraz Plukovníka mastifa v Kasárňach,Poraz Plukovníka mastifa v Kasárnách,Derrota al coronel mastín en el cuartel,Победи Полковника мастифа в Казармах,在军营击败獒犬上校
+CHAIN_PEACE_ROAD_4_DONE,"The Colonel steps aside: ""Talk to him. Maybe he'll listen to a cat.""",Plukovník ustúpi: „Hovor s ním. Možno mačku vypočuje.“,Plukovník ustoupí: „Mluv s ním. Možná kočku vyslechne.“,El coronel se aparta: «Habla con él. Quizá escuche a un gato».,"Полковник отходит: «Поговори с ним. Может, кошку он выслушает».",上校让开了路：“去和他谈谈吧，也许他会听一只猫的话。”
+CHAIN_THE_PEACE_NAME,Peace,Mier,Mír,La paz,Мир,和平
+CHAIN_THE_PEACE_DESC,Bring the General his old puppy collar – and end the war.,Dones Generálovi jeho starý obojok zo šteňacích čias – a ukonči vojnu.,Přines Generálovi jeho starý obojek ze štěněcích časů – a ukonči válku.,Lleva al General su viejo collar de cachorro y acaba con la guerra.,Принеси Генералу его старый щенячий ошейник – и закончи войну.,把将军小时候的项圈还给他——结束这场战争。
+CHAIN_THE_PEACE_1,Carry the collar to the General's kennel,Zanes obojok ku Generálovej búde,Zanes obojek ke Generálově boudě,Lleva el collar a la caseta del General,Отнеси ошейник к будке Генерала,把项圈送到将军的狗屋
+CHAIN_THE_PEACE_1_DONE,The General comes out – and he does not want to listen. Not yet.,Generál vyjde von – a nechce počúvať. Zatiaľ nie.,Generál vyjde ven – a nechce poslouchat. Zatím ne.,"El General sale, y no quiere escuchar. Todavía no.",Генерал выходит – и не хочет слушать. Пока.,将军出来了——可他还不想听。暂时不想。
+CHAIN_THE_PEACE_2,Defeat the General,Poraz Generála,Poraz Generála,Derrota al General,Победи Генерала,击败将军
+CHAIN_THE_PEACE_2_DONE,"The General lies down: ""You could have taken my town. You brought back my collar."" Cats and dogs make peace at last!",Generál si ľahne: „Mohli ste mi vziať mesto. Vy ste mi vrátili obojok.“ Mačky a psi konečne uzavreli mier!,Generál si lehne: „Mohli jste mi vzít město. Vy jste mi vrátili obojek.“ Kočky a psi konečně uzavřeli mír!,El General se tumba: «Podríais haberme quitado la ciudad. Me devolvisteis el collar». ¡Por fin hay paz entre gatos y perros!,Генерал ложится: «Вы могли забрать мой город. А вернули мне ошейник». Кошки и собаки наконец помирились!,将军趴了下来：“你们本可以夺走我的城市，却把项圈还给了我。”猫和狗终于握手言和！

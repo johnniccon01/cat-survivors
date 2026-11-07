@@ -738,7 +738,7 @@ func _draw_walls(view: Rect2) -> void:
 	var c0 := Vector2i(floori(view.position.x / WALL_CELL) - 1, floori(view.position.y / WALL_CELL) - 1)
 	var c1 := Vector2i(floori(view.end.x / WALL_CELL) + 1, floori(view.end.y / WALL_CELL) + 1)
 	var brick := Color("b3aa9c")
-	var look: String = {"station": "station_wall", "construction": "fence", "shelter": "chainlink", "junkyard": "scrapwall", "racetrack": "fence", "salon": "station_wall", "police": "chainlink", "vet": "station_wall"}.get(_theme(), "parapet")
+	var look: String = {"station": "station_wall", "construction": "fence", "shelter": "chainlink", "junkyard": "scrapwall", "racetrack": "fence", "salon": "station_wall", "police": "chainlink", "vet": "station_wall", "training": "fence", "show": "station_wall", "barracks": "chainlink", "general": "scrapwall"}.get(_theme(), "parapet")
 	var art_h := FloorChunk.art("terrain_%s_h" % look)
 	var art_v := FloorChunk.art("terrain_%s_v" % look)
 	for cx in range(c0.x, c1.x + 1):

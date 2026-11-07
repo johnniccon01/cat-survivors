@@ -92,6 +92,10 @@
     "NURSE_CAP": { "slot": "HAT", "boss": "NURSE_CHIHUAHUA", "color": "#f4f1ea", "stats": { "regen": 0.6, "heal_power": 0.2 } },
     "LIFE_VEST": { "slot": "VEST", "boss": "NEWFOUNDLAND", "color": "#f08a2a", "stats": { "max_hp": 50.0, "armor": 1.0 } },
     "SLED_HARNESS": { "slot": "PAWS", "boss": "HUSKY_LEADER", "color": "#3a6ac8", "stats": { "speed": 0.12, "might": 0.08 } },
+    "COACH_WHISTLE": { "slot": "COLLAR", "boss": "INSTRUCTOR_BOXER", "color": "#c8c8d0", "stats": { "cooldown": -0.06, "speed": 0.06 } },
+    "SHOW_SASH": { "slot": "VEST", "boss": "AFGHAN_DIVA", "color": "#c0392b", "stats": { "luck": 0.15, "growth": 0.12 } },
+    "COLONEL_HELMET": { "slot": "HAT", "boss": "COLONEL_MASTIFF", "color": "#6a6a4a", "stats": { "armor": 2.0, "max_hp": 30.0 } },
+    "GENERAL_MEDAL": { "slot": "COLLAR", "boss": "GENERAL", "color": "#f2c14e", "stats": { "might": 0.12, "area": 0.08, "boss_damage": 0.1 } },
     "SOUL_BELL": { "slot": "COLLAR", "boss": "", "special": true, "color": "#9a7aff", "stats": {} }
   }
 }

@@ -38,6 +38,18 @@ Hra je hrateľná od menu po koniec noci na 7 mapách:
 - [ ] Vyskúšať novú Smrť (F1 → „Death now“), Mrazenú rybku, nové svätyne a vyhadzovanie zbraní v pauze
 - [ ] Rozhodnúť: zlúčiť charmy, artefakty a výbavu do menej systémov? (otázka z 28. 10.)
 
+## Krátkodobý plán – časť 4 (zadané 7. 11. 2026: dokončiť Psie štvrte, robí sa po časti 3)
+
+Návrh je v `PSIE_STVRTE.md`. Postup po krokoch, každý s testami, commitom, značkou a pushom; všetko v novom pixel-art štýle, texty vo všetkých jazykoch, nič sa neposúva. Každý boss má vlastný hlavný útok (ako finálni bossovia prvej štvrte).
+
+1. [ ] **Základ dvoch štvrtí**: noci majú `"district"` (cats/dogs), `Profile.district`, mapa štvrte kreslí mesto podľa štvrte (mesto psov 720×400 s 16 miestami a hmlou), vlak medzi štvrťami (Vlak na východ / Vlak domov), poradie a čísla miest v rámci štvrte, domov v Psích štvrtiach = Nákladná stanica; `DogDistrictPanel` nahradí skutočná mapa.
+2. [ ] **Psí nepriatelia**: šteňatá, blchy, tenisky, pískacie hračky, kosti, frisbee, jazvečíky, hydranty, psie drony, snehuliaci, chrty, pudlie pompóny, psí lapači, bubny (+ pár starých); sprity v `gen_sprites.py`.
+3. [ ] **Mapy 1–4** (Nákladná stanica, Útulok, Psí park, Smetisko): podlahy, nábytok, terén, špeciality, bossovia (2 malí + finálny psí boss s vlastným útokom), 2 príbehy + tajomstvo, záchrana Tieňa (Útulok); **Ruby** (pes, hrateľná po porazení v Psom parku) a **Lotor** (mýval, po Smetisku) – vlastné sprity, zbrane, inštinkty.
+4. [ ] **Mapy 5–8** (Psí salón, Pekáreň piškót, Dostihová dráha, Hasičská stanica) + mačka **Iskra**.
+5. [ ] **Mapy 9–12** (Policajná stanica, Veterinárna klinika, Hrádza, Zasnežený kopec).
+6. [ ] **Mapy 13–16** (Výcvikové ihrisko, Výstava psov, Kasárne, Generálova búda) a koniec príbehu – mier s Generálom.
+7. [ ] **Testy celej druhej štvrte**: scenáre máp, špecialít, bossov, príbehov; kampaň oboch štvrtí; kontrola textov a rozloženia vo všetkých jazykoch.
+
 ## Krátkodobý plán – časť 3 (zadané 7. 11. 2026, robí sa ako prvé)
 
 Pracuje sa samostatne bod po bode, cez viac sessions (ďalšia pokračuje prvým neodškrtnutým bodom). Po každom kroku testy, commit, značka a push. Všetko nové sa kreslí v novom pixel-art štýle; texty vo všetkých jazykoch, nič sa nesmie posúvať ani orezávať (kontrola `strings_check`, `ui_test`, `text_fit_test`).

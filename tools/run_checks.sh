@@ -73,6 +73,7 @@ scenarios=(
   "chain_night_watch|--bot --stage=CONSTRUCTION --god --levels=20 --quest=NIGHT_WATCH --bot-time=240"
   "chain_switchman|--bot --stage=RAILYARD --god --levels=20 --quest=SWITCHMAN --bot-time=240"
   "chain_dog_orders|--bot --stage=RAILYARD --god --levels=20 --quest=DOG_ORDERS --bot-time=240"
+  "chain_ticket_east|--bot --stage=RAILYARD --god --levels=20 --quest=TICKET_EAST --bot-time=200"
   "island|--bot --stage=ISLAND --cat=TIGER --bot-time=300"
   "park_thief|--bot --god --cat=TIGER --levels=10 --stage=PARK --hazard-at=20 --bot-time=90 --expect=thief_came,thief_caught"
   "chain_ducks|--bot --stage=PARK --god --levels=20 --quest=FEED_THE_DUCKS --bot-time=240"

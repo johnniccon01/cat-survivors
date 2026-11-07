@@ -63,7 +63,7 @@ func setup(p_main: Node) -> void:
 		var chain: Dictionary = GameData.chains[id]
 		if not chain.has("secret") or chain.get("stage", "any") != main.spawner.stage_id:
 			continue
-		if not chain.get("requires", []).all(func(f: String) -> bool: return Profile.has_flag(f)):
+		if not chain.get("requires", []).all(ChainStep.requirement_met):
 			continue
 		# A far secret darkens its map even once it's done.
 		_secrets.append(id)
@@ -186,7 +186,7 @@ func _pick_chain() -> String:
 		if ChainStep.is_done(id) or id in _chains_failed or id == _last_chain or GameData.chains[id].has("secret"):
 			continue
 		var needs: Array = GameData.chains[id].get("requires", [])
-		if not needs.all(func(f: String) -> bool: return Profile.has_flag(f)):
+		if not needs.all(ChainStep.requirement_met):
 			continue
 		var n := ChainStep.progress_of(id) + 1
 		var step: Dictionary = ChainStep.steps(id)[n - 1]

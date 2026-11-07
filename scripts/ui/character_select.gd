@@ -25,6 +25,7 @@ var _stage_index := 0
 var _shop: ShopPanel
 var _charms: TalentPanel
 var _memorials: MemorialPanel
+var _dogs: DogDistrictPanel
 var _memorial_button: Button
 var _items: ItemPanel
 var _artifacts: ArtifactPanel
@@ -221,6 +222,7 @@ func _build() -> void:
 	_district.moon_chosen.connect(_on_moon_chosen)
 	_district.resident_chosen.connect(_on_resident_chosen)
 	_district.memorial_chosen.connect(_open_memorials)
+	_district.dogs_chosen.connect(func() -> void: _dogs.open())
 	map_frame.add_child(_district)
 	map_frame.add_child(_legend())
 	# The full moon, the forecast and your nemesis sit in the top bar, so
@@ -634,6 +636,9 @@ func _build() -> void:
 	_memorials = MemorialPanel.new()
 	add_child(_memorials)
 	_memorials.closed.connect(_refresh)
+	_dogs = DogDistrictPanel.new()
+	add_child(_dogs)
+	_dogs.closed.connect(_refresh)
 	_journal = JournalPanel.new()
 	add_child(_journal)
 	_journal.closed.connect(_refresh)

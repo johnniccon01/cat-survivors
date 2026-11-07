@@ -1262,7 +1262,8 @@ func _end_run(kind: String) -> void:
 					if GameData.weapons[wid].get("requires_stage", "") == spawner.stage_id:
 						deeds.append(tr("SUMMARY_WEAPON_UNLOCKED") % tr("WEAPON_%s_NAME" % wid))
 				for id: String in GameData.stages:
-					if GameData.stages[id].get("requires", "") == spawner.stage_id:
+					var opens: bool = GameData.stages[id].get("requires", "") == spawner.stage_id or spawner.stage_id in GameData.stages[id].get("requires_also", [])
+					if opens and Profile.is_stage_unlocked(id):
 						deeds.append(tr("STAGE_UNLOCKED") % tr("STAGE_%s_NAME" % id))
 	if _has_page:
 		if kind != "death":

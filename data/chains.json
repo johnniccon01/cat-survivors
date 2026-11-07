@@ -1938,5 +1938,54 @@
         "stage": "RAILYARD"
       }
     ]
+  },
+  "TICKET_EAST": {
+    "stage": "any",
+    "requires": [
+      "stage:RAILYARD"
+    ],
+    "reward": {
+      "gold": 2500,
+      "flag": "train_east"
+    },
+    "steps": [
+      {
+        "type": "carry",
+        "stage": "RAILYARD",
+        "item": "key",
+        "to_distance": [
+          450,
+          650
+        ],
+        "time": 70,
+        "look_to": "locomotive"
+      },
+      {
+        "type": "zones",
+        "stage": "STATION",
+        "count": 3,
+        "hold": 5,
+        "radius": 40,
+        "spread": [
+          200,
+          340
+        ],
+        "look": "signal_light"
+      },
+      {
+        "type": "defend",
+        "stage": "RAILYARD",
+        "time": 40,
+        "mode": "enemies",
+        "enemy": "DOBERMAN",
+        "spawn_every": 3.5,
+        "spawn_count": 3,
+        "look": "locomotive"
+      },
+      {
+        "type": "final",
+        "stage": "RAILYARD"
+      }
+    ]
   }
 }

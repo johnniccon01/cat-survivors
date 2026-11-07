@@ -31,6 +31,13 @@ static func progress_of(id: String) -> int:
 	return int(Profile.chains.get(id, 0))
 
 
+## One of a chain's "requires": a flag, or "stage:ID" for a map already won.
+static func requirement_met(need: String) -> bool:
+	if need.begins_with("stage:"):
+		return need.trim_prefix("stage:") in Profile.cleared_stages
+	return Profile.has_flag(need)
+
+
 static func is_done(id: String) -> bool:
 	return progress_of(id) >= steps(id).size()
 

@@ -13,6 +13,8 @@ signal moon_chosen
 signal resident_chosen(cat: String)
 ## The memorial sign by the Cemetery: the stones of retired cats.
 signal memorial_chosen
+## The train east was clicked (once "A Ticket East" is done).
+signal dogs_chosen
 
 ## Where each resident lives in the town.
 const RESIDENT_SPOTS := {
@@ -105,6 +107,7 @@ var _hover := ""
 var _hover_cat := ""
 var _hint: PanelContainer
 var _paths_btn: Button
+var _dogs_btn: Button
 var _press_at := Vector2.ZERO
 ## The night report on show in the side panel, or -1.
 var selected_report := -1
@@ -218,6 +221,13 @@ func _ready() -> void:
 		_style_paths_btn())
 	add_child(_paths_btn)
 	_style_paths_btn()
+	# The train to the dog district, once its story is done.
+	_dogs_btn = UiStyle.click_button("DOGS_BUTTON", 0, 12)
+	_dogs_btn.custom_minimum_size.y = 24
+	_dogs_btn.add_theme_color_override("font_color", UiStyle.GOLD)
+	_dogs_btn.pressed.connect(func() -> void: dogs_chosen.emit())
+	_dogs_btn.visible = Profile.has_flag("train_east")
+	add_child(_dogs_btn)
 	# A short hint in the bottom-right corner: closes with its cross and
 	# fades away by itself after a few seconds.
 	_hint = PanelContainer.new()
@@ -282,6 +292,8 @@ func _place_controls() -> void:
 	_mini.position = Vector2(size.x - 192, 12)
 	_paths_btn.reset_size()
 	_paths_btn.position = Vector2(size.x - 10 - _paths_btn.size.x, 10)
+	_dogs_btn.reset_size()
+	_dogs_btn.position = Vector2(_paths_btn.position.x - 8 - _dogs_btn.size.x, 10)
 	_hint.reset_size()
 	_hint.position = Vector2(size.x - _hint.size.x - 10, size.y - _hint.size.y - 58)
 	# The real size is only known now: centre on the chosen place again.

@@ -34,7 +34,7 @@ func _run() -> void:
 		change_scene_to_file("res://scenes/character_select.tscn")
 		await _frames(12)
 		await _shot(locale, "select")
-		for panel in ["_charms", "_items", "_artifacts", "_challenges", "_memorials", "_help"]:
+		for panel in ["_charms", "_items", "_artifacts", "_challenges", "_memorials", "_help", "_dogs"]:
 			await _panel(locale, "select", panel)
 		await _game(locale)
 	print("SHOTS: saved to ", _out)
@@ -86,6 +86,7 @@ func _unlock() -> void:
 	for id: String in data.cats:
 		profile.unlocked.append(id)
 	profile.gold = 12345
+	profile.set_flag("train_east")
 	var items_script: Script = load("res://scripts/progression/items.gd")
 	var found: Array = []
 	for id: String in data.items["legendaries"]:

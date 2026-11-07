@@ -19,6 +19,10 @@ extends Node2D
 ##   along the yard (Railyard).
 ## - "crane": the crane drops loads on marked spots around the cat; whatever
 ##   stands there gets squashed (Construction site).
+## - "kennels": like the graves, but kennel doors rattle open; sit by one to
+##   shut it, or puppies pour out (Shelter).
+## - "ball_launcher": a lane lights up across the cat and a launcher fires a
+##   stream of tennis balls down it (Dog Park).
 ## - "fireflies": swarms of fireflies light up the dark forest; catch them
 ##   for experience and a little health, all of a swarm for coins (Forest).
 
@@ -139,10 +143,14 @@ func setup(p_kind: String, p_main: Node) -> void:
 		_phase_t = float(GameData.arg("--hazard-at=", str(CRANE_FIRST)))
 	elif kind == "fireflies":
 		_phase_t = float(GameData.arg("--hazard-at=", str(FIREFLY_FIRST)))
-	elif kind == "graves":
+	elif kind == "ball_launcher":
+		_phase_t = float(GameData.arg("--hazard-at=", str(TRAIN_FIRST)))
+	elif kind == "graves" or kind == "kennels":
 		z_index = -2
 		_phase_t = float(GameData.arg("--hazard-at=", str(GRAVE_FIRST)))
 		# Fog drifts over everyone, so it has its own layer on top.
+		if kind == "kennels":
+			return
 		_fog = Node2D.new()
 		_fog.z_index = 9
 		_fog.draw.connect(_draw_fog)
@@ -182,9 +190,12 @@ func _physics_process(delta: float) -> void:
 			_tick_fireflies(delta)
 		"low_tide":
 			_tick_low_tide(delta)
-		"graves":
+		"graves", "kennels":
 			_tick_graves(delta)
-			_fog.queue_redraw()
+			if is_instance_valid(_fog):
+				_fog.queue_redraw()
+		"ball_launcher":
+			_tick_launcher(delta)
 		"pigeon_thief":
 			_tick_thief(delta)
 	queue_redraw()
@@ -273,7 +284,7 @@ func _tick_graves(delta: float) -> void:
 		Audio.play("thunder", -4.0)
 		if not _told:
 			_told = true
-			main.hud.show_banner(tr("GRAVES_WARNING"), 3.5)
+			main.hud.show_banner(tr("KENNELS_WARNING" if kind == "kennels" else "GRAVES_WARNING"), 3.5)
 		BotLog.event("graves_rise")
 	else:
 		_phase = "wait"
@@ -282,7 +293,7 @@ func _tick_graves(delta: float) -> void:
 			if g["sealed"]:
 				continue
 			for i in GRAVE_GHOSTS:
-				main.spawner._spawn("GHOST", g["pos"] + Vector2.from_angle(TAU * i / GRAVE_GHOSTS) * 12.0)
+				main.spawner._spawn("PUPPY" if kind == "kennels" else "GHOST", g["pos"] + Vector2.from_angle(TAU * i / GRAVE_GHOSTS) * 12.0)
 			BotLog.event("graves_open")
 		_graves.clear()
 
@@ -430,8 +441,10 @@ func _draw() -> void:
 			_draw_fireflies()
 		"low_tide":
 			_draw_treasures()
-		"graves":
+		"graves", "kennels":
 			_draw_graves()
+		"ball_launcher":
+			_draw_launcher()
 		"pigeon_thief":
 			_draw_thief()
 
@@ -460,9 +473,9 @@ func _draw_graves() -> void:
 		# A cracked mound glowing green, brighter as it gets ready to open.
 		draw_colored_polygon(Shapes.ellipse(p, GRAVE_RADIUS, GRAVE_RADIUS * 0.6, 16), Color(0.29, 0.23, 0.19, 0.9))
 		draw_colored_polygon(Shapes.ellipse(p, GRAVE_RADIUS * 0.8, GRAVE_RADIUS * 0.45, 16), Color(0.4, 1.0, 0.55, (0.15 + 0.35 * k) * (1.2 - left)))
-		var mound := FloorChunk.art("grave_mound")
+		var mound := FloorChunk.art("kennel" if kind == "kennels" else "grave_mound")
 		if mound != null:
-			draw_texture(mound, p - Vector2(25, 41))
+			draw_texture(mound, p - (Vector2(21, 30) if kind == "kennels" else Vector2(25, 41)))
 			draw_colored_polygon(Shapes.ellipse(p, GRAVE_RADIUS * 0.8, GRAVE_RADIUS * 0.45, 16), Color(0.4, 1.0, 0.55, (0.1 + 0.25 * k) * (1.2 - left)))
 		else:
 			var stone := Rect2(p + Vector2(-7, -26), Vector2(14, 16))
@@ -661,7 +674,8 @@ func _draw_crane() -> void:
 		draw_arc(p, CRANE_RADIUS, 0.0, TAU, 32, Color(1.0, 0.75, 0.2, 0.5 + 0.4 * sin(_t * 14.0)), 3.0)
 		draw_line(p + Vector2(0, -400), p + Vector2(0, -CRANE_RADIUS * (1.0 - k) - 10.0), Color(0.2, 0.2, 0.22, 0.5), 1.5)
 	for d in _debris:
-		var pic := FloorChunk.art(["crane_load_bricks", "crane_load_pipes", "crane_load_crate"][int(d["look"])])
+		var looks := ["crane_load_car", "crane_load_car", "crane_load_crate"] if WorldFloor.current != null and WorldFloor.current.theme == "junkyard" else ["crane_load_bricks", "crane_load_pipes", "crane_load_crate"]
+		var pic := FloorChunk.art(looks[int(d["look"])])
 		var fade := clampf(float(d["left"]) / 0.4, 0.0, 1.0)
 		if pic != null:
 			draw_texture(pic, (d["pos"] as Vector2) - (pic.get_size() * 0.5).floor(), Color(1, 1, 1, fade))
@@ -726,3 +740,41 @@ func _draw_fireflies() -> void:
 		draw_circle(p, 3.0, Color(1.0, 1.0, 0.7, blink))
 		draw_circle(p + Vector2(-3, -2), 2.0, Color(0.8, 0.9, 1.0, 0.5))
 		draw_circle(p + Vector2(3, -2), 2.0, Color(0.8, 0.9, 1.0, 0.5))
+
+
+## Tennis-ball launcher: a warned lane across the cat, then a stream of balls.
+func _tick_launcher(delta: float) -> void:
+	_phase_t -= delta
+	if _phase == "pass":
+		if fmod(_phase_t, 0.12) < delta:
+			var from := Vector2((_view().position.x - 20.0) if _dir > 0.0 else (_view().end.x + 20.0), _lane_y + randf_range(-TRAIN_HALF, TRAIN_HALF) * 0.8)
+			main.enemies.spawn_bullet(from, Vector2(_dir, 0.0), 10.0, "ball", 320.0)
+	if _phase_t > 0.0:
+		return
+	match _phase:
+		"wait":
+			_phase = "warn"
+			_phase_t = TRAIN_WARN
+			_lane_y = main.player.position.y + randf_range(-20.0, 20.0)
+			_dir = 1.0 if randf() < 0.5 else -1.0
+			Audio.play("whoosh", 0.0)
+			main.hud.show_banner(tr("BALLS_WARNING"), 2.5)
+			BotLog.event("train_warn")
+		"warn":
+			_phase = "pass"
+			_phase_t = 2.4
+		"pass":
+			_phase = "wait"
+			_phase_t = randf_range(TRAIN_EVERY.x, TRAIN_EVERY.y)
+			BotLog.event("train_pass")
+
+
+func _draw_launcher() -> void:
+	if _phase != "warn":
+		return
+	var view := _view()
+	var k := 0.5 + 0.5 * sin(_t * 14.0)
+	draw_rect(Rect2(view.position.x, _lane_y - TRAIN_HALF, view.size.x, TRAIN_HALF * 2.0), Color(0.9, 0.95, 0.3, 0.10 + 0.1 * k))
+	var at := Vector2(view.position.x + 60.0 if _dir > 0.0 else view.end.x - 60.0, _lane_y)
+	draw_circle(at, 12.0, Color(0.85, 0.9, 0.3, 0.6 + 0.4 * k))
+

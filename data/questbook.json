@@ -1089,6 +1089,178 @@
         }
       ]
     },
+    "FREIGHT_YARD": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:FREIGHT_YARD"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 600
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:FREIGHT_YARD"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1100
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:FREIGHT_YARD",
+          "target": 1,
+          "reward": {
+            "gold": 1600
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:FREIGHT_YARD"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 2600
+          }
+        }
+      ]
+    },
+    "DOG_SHELTER": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:DOG_SHELTER"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 600
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:DOG_SHELTER"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1100
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:DOG_SHELTER",
+          "target": 1,
+          "reward": {
+            "gold": 1600
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:DOG_SHELTER"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 2600
+          }
+        }
+      ]
+    },
+    "DOG_PARK": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:DOG_PARK"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 600
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:DOG_PARK"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1100
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:DOG_PARK",
+          "target": 1,
+          "reward": {
+            "gold": 1600
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:DOG_PARK"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 2600
+          }
+        }
+      ]
+    },
+    "JUNKYARD": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:JUNKYARD"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 600
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:JUNKYARD"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1100
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:JUNKYARD",
+          "target": 1,
+          "reward": {
+            "gold": 1600
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:JUNKYARD"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 2600
+          }
+        }
+      ]
+    },
     "OLD_DIARY": {
       "chapter": "story",
       "tiers": [

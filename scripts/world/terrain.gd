@@ -441,7 +441,7 @@ func _draw_shelves(area: Rect2, view: Rect2) -> void:
 	area = area.intersection(view)
 	if not area.has_area():
 		return
-	var pic := FloorChunk.art("terrain_wagons" if _theme() == "railyard" else "terrain_shelves")
+	var pic := FloorChunk.art("terrain_wagons" if _theme() in ["railyard", "freight"] else "terrain_shelves")
 	if pic != null:
 		draw_texture_rect_region(pic, area, area)
 		draw_rect(area, Color("2b2f36"), false, 6.0)
@@ -738,7 +738,7 @@ func _draw_walls(view: Rect2) -> void:
 	var c0 := Vector2i(floori(view.position.x / WALL_CELL) - 1, floori(view.position.y / WALL_CELL) - 1)
 	var c1 := Vector2i(floori(view.end.x / WALL_CELL) + 1, floori(view.end.y / WALL_CELL) + 1)
 	var brick := Color("b3aa9c")
-	var look: String = {"station": "station_wall", "construction": "fence"}.get(_theme(), "parapet")
+	var look: String = {"station": "station_wall", "construction": "fence", "shelter": "chainlink", "junkyard": "scrapwall"}.get(_theme(), "parapet")
 	var art_h := FloorChunk.art("terrain_%s_h" % look)
 	var art_v := FloorChunk.art("terrain_%s_v" % look)
 	for cx in range(c0.x, c1.x + 1):

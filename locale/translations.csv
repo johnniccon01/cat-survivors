@@ -2709,3 +2709,147 @@ ENEMY_RIVAL_RUBY_NAME,Ruby,Ruby,Ruby,Ruby,Руби,露比
 ENEMY_RIVAL_RUBY_DESC,Fastest paws in the Dog Park. Beat her and she'll run with you.,Najrýchlejšie labky v Psom parku. Poraz ju a bude behať s tebou.,Nejrychlejší tlapky v Psím parku. Poraz ji a bude běhat s tebou.,Las patas más rápidas del parque. Véncela y correrá contigo.,Самые быстрые лапы в Собачьем парке. Победи её – и она побежит с тобой.,狗狗公园里最快的爪子。打败她，她就会和你一起跑。
 ENEMY_RIVAL_RASCAL_NAME,Rascal,Lotor,Lotr,Pillo,Плут,捣蛋鬼
 ENEMY_RIVAL_RASCAL_DESC,King of the junk heaps. Beat him and he'll share his finds.,Kráľ kôp haraburdia. Poraz ho a podelí sa o svoje nálezy.,Král hromad haraburdí. Poraz ho a podělí se o své nálezy.,Rey de los montones de chatarra. Véncelo y compartirá sus hallazgos.,Король мусорных куч. Победи его – и он поделится находками.,废品堆之王。打败他，他会分享他的发现。
+STAGE_FREIGHT_YARD_NAME,The Freight Yard,Nákladná stanica,Nákladové nádraží,La estación de mercancías,Грузовая станция,货运站
+STAGE_FREIGHT_YARD_HINT,Take the train east from the Railyard,Choď vlakom na východ z Depa,Jeď vlakem na východ z Depa,Toma el tren al este desde las cocheras,Поезжай поездом на восток из Депо,从车辆段坐火车向东
+STORY_FREIGHT_YARD_INTRO,The train hisses to a stop among crates and cranes. The dogs' patrols are already sniffing round the wagons.,Vlak zasyčí a zastaví medzi debnami a žeriavmi. Psie hliadky už ovoniavajú vagóny.,Vlak zasyčí a zastaví mezi bednami a jeřáby. Psí hlídky už očichávají vagóny.,El tren silba y se detiene entre cajas y grúas. Las patrullas de perros ya olfatean los vagones.,Поезд с шипением останавливается среди ящиков и кранов. Собачьи патрули уже обнюхивают вагоны.,火车嘶嘶地停在箱子和吊车之间。狗狗巡逻队已经在车厢周围嗅来嗅去。
+QB_FREIGHT_YARD_NAME,The Freight Yard,Nákladná stanica,Nákladové nádraží,La estación de mercancías,Грузовая станция,货运站
+QB_FREIGHT_YARD_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_FREIGHT_YARD_2,Defeat its dog boss.,Poraziť jeho psieho bossa.,Porazit jeho psího bosse.,Derrota a su jefe perruno.,Победи его собачьего босса.,击败那里的狗狗首领。
+QB_FREIGHT_YARD_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_FREIGHT_YARD_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_DOG_SHELTER_NAME,The Shelter,Útulok,Útulek,El refugio,Приют,收容所
+STAGE_DOG_SHELTER_HINT,Defeat the Saint Bernard at the Freight Yard,Poraz Bernardína na Nákladnej stanici,Poraz Bernardýna na Nákladovém nádraží,Derrota al San Bernardo en la estación de mercancías,Победи Сенбернара на Грузовой станции,在货运站击败圣伯纳
+STORY_DOG_SHELTER_INTRO,Rows of kennels rattle in the dark. Somewhere among the dogs a cat is crying.,Rady kotercov hrkocú potme. Niekde medzi psami plače mačka.,Řady kotců rachotí potmě. Někde mezi psy pláče kočka.,Filas de jaulas traquetean en la oscuridad. Entre los perros llora una gata.,Ряды вольеров дребезжат в темноте. Где-то среди собак плачет кошка.,一排排狗笼在黑暗中咔嗒作响。狗群中有一只猫在哭。
+QB_DOG_SHELTER_NAME,The Shelter,Útulok,Útulek,El refugio,Приют,收容所
+QB_DOG_SHELTER_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_DOG_SHELTER_2,Defeat its dog boss.,Poraziť jeho psieho bossa.,Porazit jeho psího bosse.,Derrota a su jefe perruno.,Победи его собачьего босса.,击败那里的狗狗首领。
+QB_DOG_SHELTER_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_DOG_SHELTER_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_DOG_PARK_NAME,The Dog Park,Psí park,Psí park,El parque de perros,Собачий парк,狗狗公园
+STAGE_DOG_PARK_HINT,Defeat the Basset at the Shelter,Poraz Baseta v Útulku,Poraz Baseta v Útulku,Derrota al basset en el refugio,Победи Бассета в Приюте,在收容所击败巴吉度
+STORY_DOG_PARK_INTRO,"Balls fly, frisbees glide and everyone wants to play – rough. A collie watches you from the hill.","Lietajú lopty, plachtia frisbee a všetci sa chcú hrať – nahrubo. Z kopčeka ťa sleduje kólia.","Létají míče, plachtí frisbee a všichni si chtějí hrát – nahrubo. Z kopečku tě sleduje kolie.","Vuelan pelotas, planean frisbis y todos quieren jugar, a lo bruto. Una collie te observa desde la colina.","Летают мячи, парят фрисби, и все хотят поиграть – грубо. С холма за тобой следит колли.",球在飞，飞盘在滑翔，大家都想玩——玩得很粗野。一只牧羊犬在山坡上看着你。
+QB_DOG_PARK_NAME,The Dog Park,Psí park,Psí park,El parque de perros,Собачий парк,狗狗公园
+QB_DOG_PARK_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_DOG_PARK_2,Defeat its dog boss.,Poraziť jeho psieho bossa.,Porazit jeho psího bosse.,Derrota a su jefe perruno.,Победи его собачьего босса.,击败那里的狗狗首领。
+QB_DOG_PARK_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_DOG_PARK_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_JUNKYARD_NAME,The Junkyard,Smetisko,Smetiště,El desguace,Свалка,垃圾场
+STAGE_JUNKYARD_HINT,Defeat the King of Fetch in the Dog Park,Poraz Kráľa aportu v Psom parku,Poraz Krále aportu v Psím parku,Derrota al Rey del Aporte en el parque,Победи Короля апорта в Собачьем парке,在狗狗公园击败接球之王
+STORY_JUNKYARD_INTRO,"Mountains of junk, a crane with a magnet and a rottweiler who guards every rusty can.","Hory haraburdia, žeriav s magnetom a rotvajler, ktorý stráži každú hrdzavú plechovku.","Hory haraburdí, jeřáb s magnetem a rotvajler, který hlídá každou rezavou plechovku.","Montañas de chatarra, una grúa con imán y un rottweiler que vigila cada lata oxidada.","Горы хлама, кран с магнитом и ротвейлер, стерегущий каждую ржавую банку.",成山的废品，一台带磁铁的吊车，还有一只守着每个生锈罐头的罗威纳犬。
+QB_JUNKYARD_NAME,The Junkyard,Smetisko,Smetiště,El desguace,Свалка,垃圾场
+QB_JUNKYARD_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_JUNKYARD_2,Defeat its dog boss.,Poraziť jeho psieho bossa.,Porazit jeho psího bosse.,Derrota a su jefe perruno.,Победи его собачьего босса.,击败那里的狗狗首领。
+QB_JUNKYARD_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_JUNKYARD_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+KENNELS_WARNING,Kennel doors rattle! Sit by one to shut it – or puppies pour out.,Dvierka kotercov hrkocú! Postoj pri nich a zavri ich – inak vybehnú šteňatá.,Dvířka kotců rachotí! Postůj u nich a zavři je – jinak vyběhnou štěňata.,¡Las puertas de las jaulas traquetean! Quédate junto a una para cerrarla o saldrán cachorros.,"Дверцы вольеров дребезжат! Постой рядом, чтобы закрыть, – или выбегут щенки.",狗笼的门在晃！站在旁边把它关上——否则小狗会冲出来。
+BALLS_WARNING,The ball launcher aims across your path!,Vystreľovač loptičiek mieri cez tvoju cestu!,Vystřelovač míčků míří přes tvou cestu!,¡El lanzapelotas apunta a tu camino!,Пушка для мячей целится поперёк твоего пути!,发球机瞄准了你的路线！
+ENEMY_PACK_LEADER_NAME,Pack Leader,Vodca svorky,Vůdce smečky,Líder de la manada,Вожак стаи,狗群首领
+ENEMY_PACK_LEADER_DESC,A shepherd with a pack of puppies at his heels.,Ovčiak so svorkou šteniat v pätách.,Ovčák se smečkou štěňat v patách.,Un pastor con una manada de cachorros pisándole los talones.,Овчарка со стаей щенков по пятам.,身后跟着一群小狗的牧羊犬。
+ENEMY_YARD_DRONE_NAME,Yard Drone,Dron depa,Dron depa,Dron del patio,Дрон станции,货场无人机
+ENEMY_YARD_DRONE_DESC,Circles over the wagons and calls patrol drones.,Krúži nad vagónmi a privoláva hliadkové drony.,Krouží nad vagóny a přivolává hlídkové drony.,Da vueltas sobre los vagones y llama drones patrulla.,Кружит над вагонами и зовёт патрульные дроны.,在车厢上空盘旋，呼叫巡逻无人机。
+ENEMY_BERNARD_NAME,The Saint Bernard,Bernardín,Bernardýn,El San Bernardo,Сенбернар,圣伯纳
+ENEMY_BERNARD_DESC,The yard master. Rolls rescue barrels down five lanes at once.,Prednosta stanice. Kotúľa záchranné sudy piatimi pruhmi naraz.,Přednosta nádraží. Koulí záchranné sudy pěti pruhy naráz.,El jefe de patio. Hace rodar barriles de rescate por cinco carriles a la vez.,Начальник станции. Катит спасательные бочки по пяти полосам сразу.,货运站站长。同时沿五条线滚出救援桶。
+ENEMY_WARDEN_CATCHER_NAME,Shelter Warden,Správca útulku,Správce útulku,El guardián del refugio,Смотритель приюта,收容所看守
+ENEMY_WARDEN_CATCHER_DESC,Throws nets and locks cats in cages.,Hádže siete a zatvára mačky do klietok.,Hází sítě a zavírá kočky do klecí.,Lanza redes y encierra gatos en jaulas.,Бросает сети и запирает кошек в клетки.,扔网，把猫关进笼子。
+ENEMY_FLEA_QUEEN_NAME,Flea Queen,Kráľovná bĺch,Královna blech,La reina pulga,Королева блох,跳蚤女王
+ENEMY_FLEA_QUEEN_DESC,Never comes alone – her swarm itches everywhere.,Nikdy nepríde sama – jej roj svrbí všade.,Nikdy nepřijde sama – její roj svědí všude.,Nunca llega sola: su enjambre pica por todas partes.,Никогда не приходит одна – её рой чешется везде.,从不单独出现——她的虫群让你浑身发痒。
+ENEMY_BASSET_NAME,The Old Basset,Starý baset,Starý baset,El viejo basset,Старый бассет,老巴吉度
+ENEMY_BASSET_DESC,The shelter's warden. Howls rings of sound with a gap in each.,"Správca útulku. Vyje kruhy zvuku, každý s medzerou.","Správce útulku. Vyje kruhy zvuku, každý s mezerou.","El guardián del refugio. Aúlla anillos de sonido, cada uno con un hueco.","Смотритель приюта. Воет кольцами звука, в каждом есть брешь.",收容所看守。嚎出一圈圈声波，每圈都有缺口。
+ENEMY_GIANT_BALL_NAME,Giant Ball,Obrovská lopta,Obří míč,Pelota gigante,Огромный мяч,巨型球
+ENEMY_GIANT_BALL_DESC,Somebody threw it far too hard.,Niekto ju hodil priveľmi silno.,Někdo ho hodil příliš silně.,Alguien la lanzó demasiado fuerte.,Кто-то бросил его слишком сильно.,有人扔得太用力了。
+ENEMY_FRISBEE_ACE_NAME,Frisbee Ace,Eso frisbee,Eso frisbee,As del frisbi,Ас фрисби,飞盘王牌
+ENEMY_FRISBEE_ACE_DESC,Sweeps the park in wide arcs.,Zametá park širokými oblúkmi.,Zametá park širokými oblouky.,Barre el parque en amplios arcos.,Прочёсывает парк широкими дугами.,以大弧线横扫公园。
+ENEMY_LABRADOR_NAME,The King of Fetch,Kráľ aportu,Král aportu,El Rey del Aporte,Король апорта,接球之王
+ENEMY_LABRADOR_DESC,"A labrador with the zoomies: races laps round you, then every lap strikes.",Labrador v rozbehu: obieha okolo teba kolá a každé kolo udrie.,Labrador v rozběhu: obíhá kolem tebe kola a každé kolo udeří.,Un labrador desbocado: corre vueltas a tu alrededor y cada vuelta golpea.,"Лабрадор в угаре: нарезает круги вокруг тебя, и каждый круг бьёт.",兴奋的拉布拉多：绕着你跑圈，每一圈都会造成打击。
+ENEMY_BONE_GIANT_NAME,Giant Bone,Obria kosť,Obří kost,Hueso gigante,Огромная кость,巨型骨头
+ENEMY_BONE_GIANT_DESC,"Nobody could chew it, so it got angry.","Nikto ju nedokázal ohrýzť, tak sa nahnevala.","Nikdo ji nedokázal ohryzat, tak se naštvala.","Nadie pudo morderlo, así que se enfadó.","Никто не смог её разгрызть, вот она и разозлилась.",没人啃得动它，所以它生气了。
+ENEMY_JUNK_RACCOON_NAME,Junk Raccoon,Haraburdový mýval,Haraburdový mýval,Mapache chatarrero,Енот-барахольщик,废品浣熊
+ENEMY_JUNK_RACCOON_DESC,Rascal's grumpy uncle. Splashes oil and throws scrap.,Lotorov mrzutý strýko. Strieka olej a hádže šrot.,Lotrův mrzutý strýc. Stříká olej a hází šrot.,El tío gruñón de Pillo. Salpica aceite y lanza chatarra.,Ворчливый дядя Плута. Брызжет маслом и кидает металлолом.,捣蛋鬼脾气暴躁的叔叔。泼油、扔废铁。
+ENEMY_BONES_ROTTWEILER_NAME,Bones the Rottweiler,"Kosť, rotvajler","Kost, rotvajler","Huesos, el rottweiler","Кость, ротвейлер",骨头，罗威纳犬
+ENEMY_BONES_ROTTWEILER_DESC,Guards the junkyard. Hurls a spiral of junk that lands all round him.,"Stráži smetisko. Hádže špirálu haraburdia, ktoré dopadá všade okolo.","Hlídá smetiště. Hází spirálu haraburdí, které dopadá všude kolem.",Vigila el desguace. Lanza una espiral de chatarra que cae a su alrededor.,"Стережёт свалку. Швыряет спираль хлама, падающего вокруг него.",看守垃圾场。扔出一圈螺旋形的废品，落满他周围。
+ITEM_RESCUE_BARREL_NAME,Rescue Barrel,Záchranný súdok,Záchranný soudek,Barril de rescate,Спасательная бочка,救援桶
+ITEM_RESCUE_BARREL_DESC,"From the Saint Bernard. +30 health, +15% healing.","Od Bernardína. +30 zdravia, +15 % liečenie.","Od Bernardýna. +30 zdraví, +15 % léčení.","Del San Bernardo. +30 de salud, +15 % de curación.","От Сенбернара. +30 здоровья, +15 % лечения.",来自圣伯纳。+30 生命，+15% 治疗。
+ITEM_LONG_EARS_NAME,Long Ears,Dlhé uši,Dlouhé uši,Orejas largas,Длинные уши,长耳朵
+ITEM_LONG_EARS_DESC,"From the Old Basset. Bigger magnet, +8% luck.","Od Starého baseta. Väčší magnet, +8 % šťastie.","Od Starého baseta. Větší magnet, +8 % štěstí.","Del viejo basset. Imán mayor, +8 % de suerte.","От Старого бассета. Сильнее магнит, +8 % удачи.",来自老巴吉度。磁铁范围更大，+8% 幸运。
+ITEM_GOLDEN_BALL_NAME,Golden Ball,Zlatá loptička,Zlatý míček,Pelota dorada,Золотой мяч,金球
+ITEM_GOLDEN_BALL_DESC,"From the King of Fetch. +10% speed, +1 projectile.","Od Kráľa aportu. +10 % rýchlosť, +1 projektil.","Od Krále aportu. +10 % rychlost, +1 projektil.","Del Rey del Aporte. +10 % de velocidad, +1 proyectil.","От Короля апорта. +10 % скорости, +1 снаряд.",来自接球之王。+10% 速度，+1 弹射物。
+ITEM_BONES_COLLAR_DESC,"From Bones. Pricks those who hurt you, +2 armour.","Od Kosti. Pichne toho, kto ťa zraní, +2 brnenie.","Od Kosti. Píchne toho, kdo tě zraní, +2 brnění.","De Huesos. Pincha a quien te hiere, +2 de armadura.","От Кости. Колет обидчиков, +2 брони.",来自骨头。刺伤伤害你的人，+2 护甲。
+ITEM_BONES_COLLAR_NAME,Bones' Collar,Kostin obojok,Kostin obojek,Collar de Huesos,Ошейник Кости,骨头的项圈
+CHAIN_CRATE_ESCAPE_NAME,Crate Escape,Útek z debien,Útěk z beden,Fuga de las cajas,Побег из ящиков,逃出箱子
+CHAIN_CRATE_ESCAPE_DESC,Cats from the cat town are locked in crates on the wagons.,Mačky z mačacieho mesta sú zavreté v debnách na vagónoch.,Kočky z kočičího města jsou zavřené v bednách na vagónech.,Hay gatos de la ciudad encerrados en cajas en los vagones.,Кошки из кошачьего города заперты в ящиках на вагонах.,猫城来的猫被关在车厢上的箱子里。
+CHAIN_CRATE_ESCAPE_1,Open the three crates,Otvor tri debny,Otevři tři bedny,Abre las tres cajas,Открой три ящика,打开三个箱子
+CHAIN_CRATE_ESCAPE_1_DONE,The cats run free – but the pack leader saw it.,Mačky utekajú na slobodu – lenže vodca svorky to videl.,Kočky utíkají na svobodu – jenže vůdce smečky to viděl.,"Los gatos huyen, pero el líder de la manada lo vio.",Кошки на свободе – но вожак стаи это видел.,猫咪们逃出来了——可狗群首领看见了。
+CHAIN_CRATE_ESCAPE_2,Defeat the pack leader,Poraz vodcu svorky,Poraz vůdce smečky,Derrota al líder de la manada,Победи вожака стаи,击败狗群首领
+CHAIN_CRATE_ESCAPE_2_DONE,The yard is quiet again. The cats thank you with a purr.,Na stanici je zase ticho. Mačky ďakujú pradením.,Na nádraží je zase klid. Kočky děkují předením.,El patio vuelve a estar tranquilo. Los gatos te dan las gracias ronroneando.,На станции снова тихо. Кошки благодарят мурчанием.,货运站又安静了。猫咪们用呼噜声感谢你。
+CHAIN_LOST_CARGO_NAME,Lost Cargo,Stratený náklad,Ztracený náklad,Carga perdida,Потерянный груз,丢失的货物
+CHAIN_LOST_CARGO_DESC,Suitcases from the train lie all over the yard.,Kufre z vlaku ležia po celej stanici.,Kufry z vlaku leží po celém nádraží.,Las maletas del tren están por todo el patio.,Чемоданы с поезда разбросаны по всей станции.,火车上的行李箱散落在货运站各处。
+CHAIN_LOST_CARGO_1,Bring the suitcases to the depot,Dones kufre do skladu,Přines kufry do skladu,Lleva las maletas al almacén,Отнеси чемоданы на склад,把行李箱送到仓库
+CHAIN_LOST_CARGO_1_DONE,All there but one – a greyhound grabbed it.,Všetky okrem jedného – ten schmatol chrt.,Všechny kromě jednoho – ten popadl chrt.,Todas menos una: la cogió un galgo.,"Все, кроме одного, – его схватила борзая.",除了一个都在——被灵缇犬叼走了。
+CHAIN_LOST_CARGO_2,Catch the greyhound,Chyť chrta,Chyť chrta,Atrapa al galgo,Поймай борзую,抓住灵缇犬
+CHAIN_LOST_CARGO_2_DONE,Got it! The cargo is complete.,Mám ho! Náklad je kompletný.,Mám ho! Náklad je kompletní.,¡Lo tengo! La carga está completa.,Поймал! Груз на месте.,抓到了！货物齐全了。
+CHAIN_SIGNAL_TOWER_NAME,The Signal Tower,Návestná veža,Návěstní věž,La torre de señales,Сигнальная башня,信号塔
+CHAIN_SIGNAL_TOWER_DESC,"Far away in the dark, a drone guards the old signal tower.",Ďaleko v tme stráži dron starú návestnú vežu.,Daleko ve tmě hlídá dron starou návěstní věž.,"Lejos en la oscuridad, un dron vigila la vieja torre.",Далеко в темноте дрон охраняет старую сигнальную башню.,远处的黑暗中，一架无人机守着旧信号塔。
+CHAIN_SIGNAL_TOWER_1,Shoot down the yard drone,Zostreľ dron depa,Sestřel dron depa,Derriba el dron del patio,Сбей дрон станции,击落货场无人机
+CHAIN_SIGNAL_TOWER_1_DONE,In the tower: the dogs' whole timetable – and a box of coins.,Vo veži: celý cestovný poriadok psov – a krabica mincí.,Ve věži: celý jízdní řád psů – a krabice mincí.,En la torre: el horario de los perros y una caja de monedas.,В башне: всё собачье расписание – и коробка монет.,塔里有狗狗们的全部时刻表——还有一盒金币。
+CHAIN_OPEN_KENNELS_NAME,Open the Kennels,Otvorené koterce,Otevřené kotce,Abrid las jaulas,Открытые вольеры,打开狗笼
+CHAIN_OPEN_KENNELS_DESC,Not every dog wants to be locked up. Find the keys.,Nie každý pes chce byť zavretý. Nájdi kľúče.,Ne každý pes chce být zavřený. Najdi klíče.,No todos los perros quieren estar encerrados. Encuentra las llaves.,Не каждая собака хочет сидеть взаперти. Найди ключи.,不是每只狗都想被关着。找到钥匙。
+CHAIN_OPEN_KENNELS_1,Find three keys,Nájdi tri kľúče,Najdi tři klíče,Encuentra tres llaves,Найди три ключа,找到三把钥匙
+CHAIN_OPEN_KENNELS_1_DONE,"Click, click, click – the kennels open.","Cvak, cvak, cvak – koterce sa otvárajú.","Cvak, cvak, cvak – kotce se otevírají.","Clic, clic, clic: las jaulas se abren.","Щёлк, щёлк, щёлк – вольеры открываются.",咔、咔、咔——狗笼打开了。
+CHAIN_OPEN_KENNELS_2,Hold off the catchers,Zadrž lapačov,Zadrž lapače,Frena a los cazadores,Сдержи ловцов,挡住捕猫人
+CHAIN_OPEN_KENNELS_2_DONE,The dogs run out to the hills. Some of them wag at you.,Psi utekajú do kopcov. Niektorí na teba zavrtia chvostom.,Psi utíkají do kopců. Někteří na tebe zavrtí ocasem.,Los perros corren a las colinas. Algunos te mueven la cola.,Собаки бегут к холмам. Некоторые виляют тебе хвостом.,狗狗们跑向山丘。有几只朝你摇尾巴。
+CHAIN_FLEA_BATH_NAME,Flea Bath,Kúpeľ proti blchám,Koupel proti blechám,Baño antipulgas,Ванна от блох,除蚤浴
+CHAIN_FLEA_BATH_DESC,The fleas are taking over the shelter.,Blchy ovládli útulok.,Blechy ovládly útulek.,Las pulgas se apoderan del refugio.,Блохи захватили приют.,跳蚤占领了收容所。
+CHAIN_FLEA_BATH_1,Bring the flea shampoo to the bath,Dones šampón proti blchám k vani,Přines šampon proti blechám k vaně,Lleva el champú antipulgas al baño,Отнеси шампунь от блох к ванне,把除蚤香波送到浴盆
+CHAIN_FLEA_BATH_1_DONE,Bubbles everywhere! Their queen is furious.,Všade bubliny! Ich kráľovná zúri.,Všude bubliny! Jejich královna zuří.,¡Burbujas por todas partes! Su reina está furiosa.,Везде пузыри! Их королева в ярости.,到处是泡泡！它们的女王气坏了。
+CHAIN_FLEA_BATH_2,Defeat the Flea Queen,Poraz Kráľovnú bĺch,Poraz Královnu blech,Derrota a la reina pulga,Победи Королеву блох,击败跳蚤女王
+CHAIN_FLEA_BATH_2_DONE,The shelter stops itching.,Útulok prestal svrbieť.,Útulek přestal svědět.,El refugio deja de picar.,Приют перестал чесаться.,收容所不再痒了。
+CHAIN_NIGHT_KENNEL_NAME,The Night Kennel,Nočný koterec,Noční kotec,La jaula nocturna,Ночной вольер,夜间狗笼
+CHAIN_NIGHT_KENNEL_DESC,A trail leads to a kennel no one feeds.,"Stopa vedie ku koterci, ktorý nikto nekŕmi.","Stopa vede ke kotci, který nikdo nekrmí.",Un rastro lleva a una jaula que nadie alimenta.,"След ведёт к вольеру, где никого не кормят.",一条痕迹通向一个没人喂的狗笼。
+CHAIN_NIGHT_KENNEL_1,Protect the hungry puppies,Ochráň hladné šteňatá,Ochraň hladová štěňata,Protege a los cachorros hambrientos,Защити голодных щенков,保护饥饿的小狗
+CHAIN_NIGHT_KENNEL_1_DONE,The warden comes to lock them up again.,Správca ich ide znova zavrieť.,Správce je jde znovu zavřít.,El guardián viene a encerrarlos otra vez.,Смотритель идёт снова их запереть.,看守又来把它们关起来。
+CHAIN_NIGHT_KENNEL_2,Defeat the warden,Poraz správcu,Poraz správce,Derrota al guardián,Победи смотрителя,击败看守
+CHAIN_NIGHT_KENNEL_2_DONE,The puppies are free and full. They leave you their treasure.,Šteňatá sú voľné a najedené. Nechajú ti svoj poklad.,Štěňata jsou volná a najedená. Nechají ti svůj poklad.,Los cachorros son libres y comen. Te dejan su tesoro.,Щенки свободны и сыты. Они оставляют тебе свой клад.,小狗们自由了，也吃饱了。它们把宝藏留给了你。
+CHAIN_LOST_FRISBEES_NAME,Lost Frisbees,Stratené frisbee,Ztracená frisbee,Frisbis perdidos,Потерянные фрисби,丢失的飞盘
+CHAIN_LOST_FRISBEES_DESC,Someone hid all the frisbees in the park.,Niekto skryl v parku všetky frisbee.,Někdo schoval v parku všechna frisbee.,Alguien escondió todos los frisbis del parque.,Кто-то спрятал все фрисби в парке.,有人把公园里所有飞盘都藏起来了。
+CHAIN_LOST_FRISBEES_1,Follow the paw prints,Sleduj stopy labiek,Sleduj stopy tlapek,Sigue las huellas,Иди по следам лап,跟着爪印走
+CHAIN_LOST_FRISBEES_1_DONE,A pile of frisbees – and their jealous ace.,Kopa frisbee – a ich žiarlivé eso.,Hromada frisbee – a jejich žárlivé eso.,Un montón de frisbis y su celoso as.,Куча фрисби – и их ревнивый ас.,一堆飞盘——还有它们善妒的王牌。
+CHAIN_LOST_FRISBEES_2,Defeat the Frisbee Ace,Poraz eso frisbee,Poraz eso frisbee,Derrota al as del frisbi,Победи аса фрисби,击败飞盘王牌
+CHAIN_LOST_FRISBEES_2_DONE,Everyone can play again.,Všetci sa môžu zase hrať.,Všichni si můžou zase hrát.,Todos pueden volver a jugar.,Все снова могут играть.,大家又能玩了。
+CHAIN_PICNIC_NAME,The Picnic,Piknik,Piknik,El pícnic,Пикник,野餐
+CHAIN_PICNIC_DESC,"Ruby wants a picnic – a real one, cats and dogs together.","Ruby chce piknik – naozajstný, mačky a psi spolu.","Ruby chce piknik – opravdový, kočky a psi spolu.","Ruby quiere un pícnic de verdad, gatos y perros juntos.","Руби хочет пикник – настоящий, кошки и собаки вместе.",露比想办一场真正的野餐，猫和狗一起。
+CHAIN_PICNIC_1,Pack the picnic basket,Zbaľ košík na piknik,Sbal košík na piknik,Prepara la cesta,Собери корзину для пикника,装好野餐篮
+CHAIN_PICNIC_1_DONE,Ready – but the tennis balls want the food.,Hotovo – lenže tenisáky chcú jedlo.,Hotovo – jenže tenisáky chtějí jídlo.,"Listo, pero las pelotas quieren la comida.",Готово – но мячи хотят еду.,准备好了——可是网球们想抢吃的。
+CHAIN_PICNIC_2,Guard the picnic,Stráž piknik,Hlídej piknik,Vigila el pícnic,Охраняй пикник,守住野餐
+CHAIN_PICNIC_2_DONE,Cats and dogs eat together for the first time.,Mačky a psi jedia prvý raz spolu.,Kočky a psi jedí poprvé spolu.,Gatos y perros comen juntos por primera vez.,Кошки и собаки впервые едят вместе.,猫和狗第一次一起吃饭。
+CHAIN_OLD_TREEHOUSE_NAME,The Old Treehouse,Starý domček na strome,Starý domek na stromě,La vieja casa del árbol,Старый домик на дереве,旧树屋
+CHAIN_OLD_TREEHOUSE_DESC,"Deep in the park, in the dark, stands a forgotten treehouse.","Hlboko v parku, v tme, stojí zabudnutý domček na strome.","Hluboko v parku, ve tmě, stojí zapomenutý domek na stromě.","En lo más hondo del parque, a oscuras, hay una casa del árbol olvidada.","В глубине парка, в темноте, стоит забытый домик на дереве.",公园深处的黑暗里，有一座被遗忘的树屋。
+CHAIN_OLD_TREEHOUSE_1,Defeat the Giant Ball,Poraz obrovskú loptu,Poraz obří míč,Derrota a la pelota gigante,Победи огромный мяч,击败巨型球
+CHAIN_OLD_TREEHOUSE_1_DONE,Up in the treehouse: the park's lost treasure.,Hore v domčeku: stratený poklad parku.,Nahoře v domku: ztracený poklad parku.,Arriba en la casa: el tesoro perdido del parque.,Наверху в домике – потерянный клад парка.,树屋上面：公园丢失的宝藏。
+CHAIN_JUNK_MOBILE_NAME,Spare Parts,Náhradné diely,Náhradní díly,Piezas de repuesto,Запчасти,备用零件
+CHAIN_JUNK_MOBILE_DESC,Rascal is building something big from junk.,Lotor stavia z haraburdia niečo veľké.,Lotr staví z haraburdí něco velkého.,Pillo construye algo grande con chatarra.,Плут строит из хлама что-то большое.,捣蛋鬼正用废品造个大家伙。
+CHAIN_JUNK_MOBILE_1,Bring four gears,Dones štyri ozubené kolesá,Přines čtyři ozubená kola,Trae cuatro engranajes,Принеси четыре шестерёнки,带来四个齿轮
+CHAIN_JUNK_MOBILE_1_DONE,Now the power.,Teraz prúd.,Teď proud.,Ahora la corriente.,Теперь ток.,现在接上电。
+CHAIN_JUNK_MOBILE_2,Switch on the three generators,Zapni tri generátory,Zapni tři generátory,Enciende los tres generadores,Включи три генератора,打开三台发电机
+CHAIN_JUNK_MOBILE_2_DONE,A junk-mobile! Rascal grins from ear to ear.,Haraburdomobil! Lotor sa škerí od ucha k uchu.,Haraburdomobil! Lotr se šklebí od ucha k uchu.,¡Un chatarramóvil! Pillo sonríe de oreja a oreja.,Хламомобиль! Плут улыбается до ушей.,一辆废品车！捣蛋鬼笑得合不拢嘴。
+CHAIN_JUNK_KING_NAME,King of the Heap,Kráľ kopy,Král hromady,Rey del montón,Король кучи,废品堆之王
+CHAIN_JUNK_KING_DESC,Rascal's uncle thinks the whole junkyard is his.,"Lotorov strýko si myslí, že celé smetisko je jeho.","Lotrův strýc si myslí, že celé smetiště je jeho.",El tío de Pillo cree que todo el desguace es suyo.,"Дядя Плута думает, что вся свалка – его.",捣蛋鬼的叔叔以为整个垃圾场都是他的。
+CHAIN_JUNK_KING_1,Chase the junk raccoon,Naháňaj haraburdového mývala,Naháněj haraburdového mývala,Persigue al mapache chatarrero,Гоняйся за енотом-барахольщиком,追赶废品浣熊
+CHAIN_JUNK_KING_1_DONE,He hides behind a giant bone!,Schoval sa za obriu kosť!,Schoval se za obří kost!,¡Se esconde tras un hueso gigante!,Он спрятался за огромную кость!,他躲到了一根巨型骨头后面！
+CHAIN_JUNK_KING_2,Defeat the Giant Bone,Poraz obriu kosť,Poraz obří kost,Derrota al hueso gigante,Победи огромную кость,击败巨型骨头
+CHAIN_JUNK_KING_2_DONE,The heap belongs to everyone now.,Kopa teraz patrí všetkým.,Hromada teď patří všem.,Ahora el montón es de todos.,Теперь куча принадлежит всем.,现在废品堆属于大家了。
+CHAIN_BURIED_CAR_NAME,The Buried Car,Zakopané auto,Zakopané auto,El coche enterrado,Зарытая машина,被埋的汽车
+CHAIN_BURIED_CAR_DESC,A long trail of oil leads to a car buried in junk.,Dlhá olejová stopa vedie k autu zakopanému v haraburdí.,Dlouhá olejová stopa vede k autu zakopanému v haraburdí.,Un largo rastro de aceite lleva a un coche enterrado en chatarra.,"Длинный масляный след ведёт к машине, заваленной хламом.",一道长长的油迹通向一辆埋在废品里的汽车。
+CHAIN_BURIED_CAR_1,Hold off the rats,Zadrž potkany,Zadrž krysy,Frena a las ratas,Сдержи крыс,挡住老鼠
+CHAIN_BURIED_CAR_1_DONE,The car's owner is back – and grumpy.,Majiteľ auta je späť – a mrzutý.,Majitel auta je zpět – a mrzutý.,"El dueño del coche ha vuelto, y gruñón.",Хозяин машины вернулся – и он не в духе.,车主回来了——脾气很坏。
+CHAIN_BURIED_CAR_2,Defeat the junk raccoon,Poraz haraburdového mývala,Poraz haraburdového mývala,Derrota al mapache chatarrero,Победи енота-барахольщика,击败废品浣熊
+CHAIN_BURIED_CAR_2_DONE,In the boot: a chest full of gold.,V kufri: truhlica plná zlata.,V kufru: truhla plná zlata.,En el maletero: un cofre lleno de oro.,"В багажнике – сундук, полный золота.",后备箱里：满满一箱金子。
+CHAIN_GENERAL_ORDERS_NAME,The General's Orders,Generálove rozkazy,Generálovy rozkazy,Las órdenes del General,Приказы Генерала,将军的命令
+CHAIN_GENERAL_ORDERS_DESC,Why do the dogs hate the cats? The General's letters will tell.,Prečo psi nenávidia mačky? Povedia to Generálove listy.,Proč psi nenávidí kočky? Řeknou to Generálovy dopisy.,¿Por qué los perros odian a los gatos? Las cartas del General lo dirán.,Почему собаки ненавидят кошек? Расскажут письма Генерала.,狗为什么讨厌猫？将军的信会告诉你。
+CHAIN_GENERAL_ORDERS_1,Find the General's letters,Nájdi Generálove listy,Najdi Generálovy dopisy,Encuentra las cartas del General,Найди письма Генерала,找到将军的信
+CHAIN_GENERAL_ORDERS_1_DONE,"""When I was a puppy, a cat took my home."" – the General","„Keď som bol šteňa, mačka mi zobrala domov.“ – Generál","„Když jsem byl štěně, kočka mi vzala domov.“ – Generál","«Cuando era cachorro, un gato me quitó mi hogar.» – el General","«Когда я был щенком, кошка отняла у меня дом». – Генерал",“我还是小狗的时候，一只猫夺走了我的家。”——将军
+CHAIN_GENERAL_ORDERS_2,Take the key to the old kennel,Zanes kľúč k starému kotercu,Zanes klíč ke starému kotci,Lleva la llave a la vieja jaula,Отнеси ключ к старому вольеру,把钥匙送到旧狗笼
+CHAIN_GENERAL_ORDERS_2_DONE,"Inside: a puppy's collar with the name ""General"".",Vnútri: obojok šteňaťa s menom „Generál“.,Uvnitř: obojek štěněte se jménem „Generál“.,Dentro: un collar de cachorro con el nombre «General».,Внутри – ошейник щенка с именем «Генерал».,里面：一个刻着“将军”的小狗项圈。
+CHAIN_GENERAL_ORDERS_3,Follow the old paw prints in the park,Sleduj staré stopy v parku,Sleduj staré stopy v parku,Sigue las viejas huellas del parque,Иди по старым следам в парке,跟着公园里的旧爪印走
+CHAIN_GENERAL_ORDERS_3_DONE,They lead to the junkyard – where the General's old home stood.,Vedú na smetisko – tam stál Generálov starý domov.,Vedou na smetiště – tam stál Generálův starý domov.,"Llevan al desguace, donde estaba el viejo hogar del General.","Они ведут на свалку – туда, где стоял старый дом Генерала.",它们通向垃圾场——将军的旧家曾经在那里。
+CHAIN_GENERAL_ORDERS_4,Defeat Bones at the Junkyard,Poraz Kosť na Smetisku,Poraz Kost na Smetišti,Derrota a Huesos en el desguace,Победи Кость на Свалке,在垃圾场击败骨头
+CHAIN_GENERAL_ORDERS_4_DONE,"Bones growls: ""The General doesn't want war. He's just afraid.""",Kosť zavrčí: „Generál nechce vojnu. Len sa bojí.“,Kost zavrčí: „Generál nechce válku. Jen se bojí.“,Huesos gruñe: «El General no quiere la guerra. Solo tiene miedo.»,Кость рычит: «Генерал не хочет войны. Он просто боится».,骨头低吼：“将军不想打仗。他只是害怕。”

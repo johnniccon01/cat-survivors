@@ -80,6 +80,10 @@
     "OWL_FEATHER": { "slot": "HAT", "boss": "GREAT_OWL", "color": "#f2c14e", "stats": { "luck": 0.12, "crit_chance": 0.06 } },
     "HARD_HAT": { "slot": "HAT", "boss": "EXCAVATOR", "color": "#e8b020", "stats": { "armor": 2.0, "area": 0.1 } },
     "SERGEANT_COLLAR": { "slot": "COLLAR", "boss": "BULLDOG_SERGEANT", "color": "#c0392b", "stats": { "might": 0.12, "speed": 0.06 } },
+    "RESCUE_BARREL": { "slot": "COLLAR", "boss": "BERNARD", "color": "#c8783a", "stats": { "max_hp": 30.0, "heal_power": 0.15 } },
+    "LONG_EARS": { "slot": "HAT", "boss": "BASSET", "color": "#b8783a", "stats": { "magnet": 40.0, "luck": 0.08 } },
+    "GOLDEN_BALL": { "slot": "TAIL", "boss": "LABRADOR", "color": "#f2c14e", "stats": { "speed": 0.1, "amount": 1.0 } },
+    "BONES_COLLAR": { "slot": "COLLAR", "boss": "BONES_ROTTWEILER", "color": "#4a4e54", "stats": { "thorns": 1.0, "armor": 2.0 } },
     "SOUL_BELL": { "slot": "COLLAR", "boss": "", "special": true, "color": "#9a7aff", "stats": {} }
   }
 }

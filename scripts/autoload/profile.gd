@@ -537,6 +537,7 @@ const TERRITORY_BONUS := {
 	"ROOFTOP": {"speed": 0.05}, "SUPERMARKET": {"luck": 0.1}, "HARBOR": {"area": 0.05},
 	"FACTORY": {"might": 0.05}, "PARK": {"growth": 0.05}, "CEMETERY": {"cooldown": -0.03}, "STATION": {"magnet": 15.0}, "ISLAND": {"proj_speed": 0.05},
 	"SEWER": {"max_hp": 10.0}, "FOREST": {"luck": 0.05}, "CONSTRUCTION": {"area": 0.05}, "RAILYARD": {"speed": 0.05},
+	"FREIGHT_YARD": {"magnet": 15.0}, "DOG_SHELTER": {"regen": 0.3}, "DOG_PARK": {"speed": 0.05}, "JUNKYARD": {"greed": 0.05},
 }
 var territories: Array[String] = []
 

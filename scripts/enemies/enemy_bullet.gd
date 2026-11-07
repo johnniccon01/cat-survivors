@@ -48,6 +48,11 @@ func _draw() -> void:
 		Blit.disc(self, Vector2.ZERO, 4.2, Color("8fd04a"))
 		Blit.disc(self, Vector2(-1, -1), 1.0, Color("d8f0a0"))
 		return
+	if style == "ball":
+		Blit.disc(self, Vector2.ZERO, 5.5, Color("2b1d14"))
+		Blit.disc(self, Vector2.ZERO, 4.4, Color("d8e84a"))
+		Blit.line(self, Vector2(-3, -1), Vector2(3, 1), Color("f4f4f0"), 1.0)
+		return
 	if style == "hair":
 		Blit.disc(self, Vector2.ZERO, 5.5, Color("2b1d14"))
 		Blit.disc(self, Vector2.ZERO, 4.2, Color("8a6a4a"))

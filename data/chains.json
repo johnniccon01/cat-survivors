@@ -1987,5 +1987,380 @@
         "stage": "RAILYARD"
       }
     ]
+  },
+  "CRATE_ESCAPE": {
+    "stage": "FREIGHT_YARD",
+    "reward": {
+      "gold": 1500
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 3,
+        "hold": 5,
+        "radius": 40,
+        "spread": [
+          200,
+          340
+        ],
+        "look": "lantern"
+      },
+      {
+        "type": "boss",
+        "enemy": "PACK_LEADER",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "LOST_CARGO": {
+    "stage": "FREIGHT_YARD",
+    "reward": {
+      "gold": 1500
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "suitcase",
+        "count": 4,
+        "capacity": 1,
+        "slow_each": 0.3,
+        "spread": [
+          220,
+          420
+        ],
+        "deliver": true,
+        "look_to": "lost_found"
+      },
+      {
+        "type": "chase",
+        "enemy": "GREYHOUND",
+        "times": 2,
+        "hp_mult": 3.0
+      }
+    ]
+  },
+  "SIGNAL_TOWER": {
+    "stage": "FREIGHT_YARD",
+    "secret": {
+      "type": "far",
+      "distance": 8500,
+      "dark_from": 2000
+    },
+    "reward": {
+      "gold": 3000
+    },
+    "steps": [
+      {
+        "type": "boss",
+        "enemy": "YARD_DRONE",
+        "hp_mult": 3.0,
+        "look": "signal_light",
+        "dark": true,
+        "distance": 260
+      }
+    ]
+  },
+  "OPEN_KENNELS": {
+    "stage": "DOG_SHELTER",
+    "reward": {
+      "gold": 1600
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "key",
+        "count": 3,
+        "spread": [
+          200,
+          380
+        ]
+      },
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "DOG_CATCHER",
+        "spawn_every": 3.5,
+        "spawn_count": 2,
+        "look": "lost_found"
+      }
+    ]
+  },
+  "FLEA_BATH": {
+    "stage": "DOG_SHELTER",
+    "reward": {
+      "gold": 1600
+    },
+    "steps": [
+      {
+        "type": "carry",
+        "item": "bottle",
+        "to_distance": [
+          450,
+          650
+        ],
+        "time": 70,
+        "look_to": "bowl"
+      },
+      {
+        "type": "boss",
+        "enemy": "FLEA_QUEEN",
+        "hp_mult": 2.0,
+        "look": "bowl",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "NIGHT_KENNEL": {
+    "stage": "DOG_SHELTER",
+    "secret": {
+      "type": "trail",
+      "legs": 10,
+      "leg": [
+        380,
+        540
+      ],
+      "start": [
+        300,
+        450
+      ]
+    },
+    "reward": {
+      "gold": 3000
+    },
+    "steps": [
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "PUPPY",
+        "spawn_every": 2.0,
+        "spawn_count": 6,
+        "look": "doghouse"
+      },
+      {
+        "type": "boss",
+        "enemy": "WARDEN_CATCHER",
+        "hp_mult": 3.0,
+        "look": "x",
+        "distance": 240
+      }
+    ]
+  },
+  "LOST_FRISBEES": {
+    "stage": "DOG_PARK",
+    "reward": {
+      "gold": 1700
+    },
+    "steps": [
+      {
+        "type": "trail",
+        "count": 5,
+        "spacing": [
+          150,
+          210
+        ],
+        "look": "pawprints"
+      },
+      {
+        "type": "boss",
+        "enemy": "FRISBEE_ACE",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "PICNIC": {
+    "stage": "DOG_PARK",
+    "reward": {
+      "gold": 1700
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "items": [
+          "bread",
+          "ham",
+          "cheese"
+        ],
+        "count": 3,
+        "spread": [
+          200,
+          420
+        ],
+        "deliver": true,
+        "look_to": "basket"
+      },
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "TENNIS_BALL",
+        "spawn_every": 2.5,
+        "spawn_count": 5,
+        "look": "basket"
+      }
+    ]
+  },
+  "OLD_TREEHOUSE": {
+    "stage": "DOG_PARK",
+    "secret": {
+      "type": "far",
+      "distance": 8500,
+      "dark_from": 2000
+    },
+    "reward": {
+      "gold": 3200
+    },
+    "steps": [
+      {
+        "type": "boss",
+        "enemy": "GIANT_BALL",
+        "hp_mult": 3.0,
+        "look": "nest",
+        "dark": true,
+        "distance": 260
+      }
+    ]
+  },
+  "JUNK_MOBILE": {
+    "stage": "JUNKYARD",
+    "reward": {
+      "gold": 1800
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "gear",
+        "count": 4,
+        "spread": [
+          220,
+          440
+        ],
+        "deliver": true,
+        "look_to": "fuse"
+      },
+      {
+        "type": "zones",
+        "count": 3,
+        "hold": 5,
+        "radius": 40,
+        "spread": [
+          200,
+          340
+        ],
+        "look": "fuse"
+      }
+    ]
+  },
+  "JUNK_KING": {
+    "stage": "JUNKYARD",
+    "reward": {
+      "gold": 1800
+    },
+    "steps": [
+      {
+        "type": "chase",
+        "enemy": "JUNK_RACCOON",
+        "times": 2,
+        "hp_mult": 2.5
+      },
+      {
+        "type": "boss",
+        "enemy": "BONE_GIANT",
+        "hp_mult": 2.0,
+        "look": "hole",
+        "distance": 240,
+        "after_minute": 6
+      }
+    ]
+  },
+  "BURIED_CAR": {
+    "stage": "JUNKYARD",
+    "secret": {
+      "type": "trail",
+      "legs": 12,
+      "leg": [
+        380,
+        560
+      ],
+      "start": [
+        300,
+        450
+      ]
+    },
+    "reward": {
+      "gold": 3500
+    },
+    "steps": [
+      {
+        "type": "defend",
+        "time": 40,
+        "mode": "enemies",
+        "enemy": "RAT",
+        "spawn_every": 2.5,
+        "spawn_count": 6,
+        "look": "raft"
+      },
+      {
+        "type": "boss",
+        "enemy": "JUNK_RACCOON",
+        "hp_mult": 3.0,
+        "look": "x",
+        "distance": 240
+      }
+    ]
+  },
+  "GENERAL_ORDERS": {
+    "stage": "any",
+    "requires": [
+      "stage:FREIGHT_YARD"
+    ],
+    "reward": {
+      "gold": 4000
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "stage": "FREIGHT_YARD",
+        "item": "letter",
+        "count": 3,
+        "spread": [
+          200,
+          400
+        ]
+      },
+      {
+        "type": "carry",
+        "stage": "DOG_SHELTER",
+        "item": "key",
+        "to_distance": [
+          450,
+          600
+        ],
+        "time": 70,
+        "look_to": "doghouse"
+      },
+      {
+        "type": "trail",
+        "stage": "DOG_PARK",
+        "count": 5,
+        "spacing": [
+          140,
+          200
+        ],
+        "look": "pawprints"
+      },
+      {
+        "type": "final",
+        "stage": "JUNKYARD"
+      }
+    ]
   }
 }

@@ -657,7 +657,10 @@ func _tick_fight(delta: float, target: Vector2) -> void:
 ## then spins with four arms of shots and leaves burning pools), "feathers"
 ## (three rounds of feathers from every side, a gap in each), "dig" (three
 ## trenches fan out towards the cat), "squad" (lanes from four sides, then
-## the pack charges down them).
+## the pack charges down them), "barrels" (rescue barrels roll down five
+## lanes fanning out), "howl" (three rings of sound, each with a gap),
+## "zoomies" (it races a lap round the cat, then the lap strikes), "junk"
+## (a spiral of junk lands round it, then bursts).
 func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 	var hurt := damage * 0.8
 	match _special:
@@ -715,6 +718,63 @@ func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 				for side in [-1.0, 1.0]:
 					manager.spawn_bullet(position, _special_dir.orthogonal() * side, shot, "hair", 110.0)
 			return _special_dir * speed * MOW_SPEED
+		"barrels":
+			if _special_step == 0:
+				_special_step = 1
+				_special_dir = (target - position).normalized()
+				for lane in 5:
+					var d := _special_dir.rotated((lane - 2) * 0.3)
+					manager.spawn_beam(position, position + d * 420.0, 30.0, SIG_WARN, 0.0, "mow")
+				Audio.play("roar", -8.0, 0.1)
+			if _special_step == 1 and t >= SIG_WARN:
+				_special_step = 2
+				for lane in 5:
+					var d := _special_dir.rotated((lane - 2) * 0.3)
+					for i in 3:
+						manager.spawn_bullet(position - d * i * 18.0, d, shot * 1.5, "ball", 180.0)
+			if t > SIG_WARN + 0.6:
+				return _end_special()
+			return Vector2.ZERO
+		"howl":
+			for ring in 3:
+				if _special_step == ring and t >= ring * 0.55:
+					_special_step += 1
+					var gap := randi() % 20
+					for i in 20:
+						if posmod(i - gap, 20) < 3:
+							continue
+						manager.spawn_bullet(position, Vector2.from_angle(TAU * (i + ring * 0.33) / 20.0), shot, "hair", 85.0)
+					Audio.play("roar", -10.0, 0.3)
+			if t > 1.9:
+				return _end_special()
+			return Vector2.ZERO
+		"zoomies":
+			var lap := 1.6
+			if _special_step == 0:
+				_special_step = 1
+				_special_dir = (position - _special_at).normalized()
+			if t < lap:
+				var a := _special_dir.angle() + TAU * t / lap
+				var want := _special_at + Vector2.from_angle(a) * 170.0
+				if int(t * 10.0) > _special_step:
+					_special_step = int(t * 10.0)
+					manager.spawn_hazard(want, "strike", 26.0, 0.8, hurt)
+				return (want - position) / maxf(delta_guess() * 2.0, 0.01)
+			if t > lap + 0.9:
+				return _end_special()
+			return Vector2.ZERO
+		"junk":
+			if _special_step == 0:
+				_special_step = 1
+				var a := randf() * TAU
+				for i in 12:
+					manager.spawn_hazard(position + Vector2.from_angle(a + i * 0.55) * (60.0 + i * 16.0), "strike", 30.0, 0.6 + i * 0.1, hurt)
+				Audio.play("break", -6.0)
+			if t > 1.9:
+				for i in 12:
+					manager.spawn_bullet(position, Vector2.from_angle(TAU * i / 12.0), shot, "hair")
+				return _end_special()
+			return Vector2.ZERO
 		"fetch":
 			if _special_step == 0:
 				_special_step = 1

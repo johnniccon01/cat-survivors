@@ -226,10 +226,10 @@ func toughen(enemy: Enemy, strength: float = 1.0) -> void:
 	enemy.damage *= pow(1.0 + maxf(_player.level - 10, 0) * BOSS_LEVEL_DAMAGE, strength)
 
 
-## Health multiplier of a final boss: the map's challenge (a bit less than
+## Health multiplier of a final boss: the map's challenge (much less than
 ## the rest) and the cat's level, so a strong cat doesn't melt it.
 func final_hp_multiplier() -> float:
-	return _player.stat("curse") * pow(challenge(), 0.8) * level_factor()
+	return _player.stat("curse") * pow(challenge(), 0.65) * level_factor()
 
 
 ## The map's challenge ("challenge" in stages.json): later maps grow tougher

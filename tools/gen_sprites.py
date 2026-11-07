@@ -766,20 +766,53 @@ def enemy_canvas(shape, frame, data):
         for x in range(7, 21, 4):
             c.rect(x, 17, 2, 2, "white")
     elif shape == "dog":
+        # One dog drawing for every breed: "breed" in the data picks traits
+        # (DOG_BREEDS): long or slim body, big, tiny, floppy ears, fluffy
+        # coat, spots. Without a breed it is the plain guard dog.
+        t = DOG_BREEDS.get(data.get("breed", ""), ())
         sway = frame
-        c.thick_line([(4, 12), (2, 7 + sway)], 1.2, "body")
-        c.ellipse(12, 15, 8, 6, "body")
-        c.ellipse(12, 18, 5, 2.5, "belly", only=("body",))
-        c.ellipse(20, 10, 5, 4.5, "body")
-        c.ellipse(24, 12, 3, 2.4, "belly")
-        c.set(26, 11, "ink"); c.set(27, 11, "ink")
-        c.poly([(17, 7), (15, 2), (19, 5)], "accent")
-        c.poly([(22, 6), (23, 1), (25, 6)], "accent")
-        c.set(20, 9, "eye"); c.set(23, 9, "eye")
-        c.rect(14, 12, 8, 1, "accent", only=("body",))
-        for x in ((7, 16) if frame else (9, 14)):
-            c.rect(x, 20, 2, 4, "body")
-        c.set(24, 14, "white")
+        long_body = "long" in t
+        slim = "slim" in t
+        big = "big" in t
+        tiny = "tiny" in t
+        jag = 0.2 if "fluffy" in t else 0.0
+        bw, bh = (11, 4.5) if long_body else (8, 4.2) if slim else (9, 7) if big else (6, 4.5) if tiny else (8, 6)
+        bx, by = (12, 16) if long_body else (12, 15)
+        head = (21, 10) if not tiny else (19, 11)
+        hr = 4.5 if not big else 5.2
+        if tiny:
+            hr = 5.0
+        c.thick_line([(bx - bw + 1, by - 3), (bx - bw - 2, by - 8 + sway)], 1.0 if not ("fluffy" in t) else 1.8, "body")
+        leg_y = by + bh - 1
+        leg_h = 2 if long_body else 6 if slim else 4
+        for x in ((bx - bw + 3, bx + bw - 4) if frame else (bx - bw + 5, bx + bw - 6)):
+            c.rect(x, leg_y, 2, leg_h, "body")
+        c.ellipse(bx, by, bw, bh, "body", jag=jag)
+        c.ellipse(bx, by + bh * 0.5, bw * 0.6, bh * 0.4, "belly", only=("body",))
+        c.ellipse(head[0], head[1], hr, hr * 0.95, "body", jag=jag * 0.7)
+        snout = (head[0] + hr * 0.9, head[1] + 2) if not slim else (head[0] + hr + 1, head[1] + 1.5)
+        c.ellipse(snout[0], snout[1], 3 if not slim else 3.6, 2.4 if not slim else 1.6, "belly")
+        c.set(int(snout[0]) + 2, int(snout[1]) - 1, "ink"); c.set(int(snout[0]) + 3, int(snout[1]) - 1, "ink")
+        if "floppy" in t:
+            c.ellipse(head[0] - hr + 1, head[1] + 2, 1.8, 3.6, "accent")
+            c.ellipse(head[0] + 1, head[1] + 3, 1.6, 3.2, "accent")
+        elif "big_ears" in t:
+            c.poly([(head[0] - 3, head[1] - 2), (head[0] - 7, head[1] - 9), (head[0] - 1, head[1] - 4)], "accent")
+            c.poly([(head[0] + 1, head[1] - 4), (head[0] + 4, head[1] - 10), (head[0] + 4, head[1] - 3)], "accent")
+        else:
+            c.poly([(head[0] - 4, head[1] - 3), (head[0] - 6, head[1] - 8), (head[0] - 2, head[1] - 5)], "accent")
+            c.poly([(head[0] + 1, head[1] - 4), (head[0] + 2, head[1] - 9), (head[0] + 4, head[1] - 4)], "accent")
+        c.set(head[0] - 1, head[1] - 1, "eye"); c.set(head[0] + 2, head[1] - 1, "eye")
+        if "spots" in t:
+            for (x, y) in ((8, 13), (13, 16), (16, 13), (10, 18), (19, 9)):
+                c.ellipse(x, y, 1.2, 1.0, "accent", only=("body",))
+        elif "pom" in t:
+            c.ellipse(bx - bw + 1, by - 3, 2.4, 2.4, "white")
+            c.ellipse(head[0], head[1] - hr + 1, 2.6, 2.0, "white")
+        else:
+            c.rect(bx - 2, by - bh + 2, 8, 1, "accent", only=("body",))
+        if data.get("collar", True) and not tiny:
+            c.rect(head[0] - 3, head[1] + hr - 1, 5, 1, "eye", only=("body",))
     elif shape == "crab":
         step = frame
         for side in (-1, 1):
@@ -1053,6 +1086,79 @@ def enemy_canvas(shape, frame, data):
         for x in (11, 16):
             c.set(x, 13, "led"); c.set(x, 14, "accent")
         c.rect(12, 17, 3, 1, "led" if glow else "accent")
+    elif shape == "flea":
+        hop = frame * 2
+        c.ellipse(14, 15 - hop, 5, 4, "body")
+        c.ellipse(14, 14 - hop, 3, 1.5, "top", only=("body",))
+        c.thick_line([(12, 18 - hop), (8, 22)], 0.5, "leg")
+        c.thick_line([(16, 18 - hop), (20, 22)], 0.5, "leg")
+        c.thick_line([(18, 14 - hop), (22, 10 - hop)], 0.35, "ink")
+        c.set(17, 13 - hop, "eye")
+    elif shape == "ball":
+        bounce = frame * 2
+        c.ellipse(14, 15 - bounce, 7, 7, "body")
+        c.thick_line([(8, 11 - bounce), (14, 15 - bounce), (20, 11 - bounce)], 0.6, "white")
+        c.ellipse(11, 12 - bounce, 1.6, 1.6, "glint", only=("body",))
+        c.set(12, 16 - bounce, "pupil"); c.set(16, 16 - bounce, "pupil")
+    elif shape == "squeaky":
+        squash = frame
+        c.ellipse(14, 16, 8 + squash, 6 - squash, "body")
+        c.ellipse(14, 9 - squash, 3, 2.5, "accent")
+        c.set(11, 15, "pupil"); c.set(17, 15, "pupil")
+        c.rect(12, 18, 5, 1, "ink")
+        c.set(13, 19, "accent"); c.set(15, 19, "accent")
+    elif shape == "bone":
+        roll = frame
+        c.rect(8, 13 + roll, 12, 3, "body")
+        for (x, y) in ((7, 12), (7, 17), (21, 12), (21, 17)):
+            c.ellipse(x, y + roll, 2.6, 2.6, "body")
+        c.set(12, 14 + roll, "pupil"); c.set(16, 14 + roll, "pupil")
+    elif shape == "frisbee":
+        tilt = frame
+        c.ellipse(14, 14, 10, 4 + tilt, "body")
+        c.ellipse(14, 13, 7, 2.5 + tilt * 0.5, "top", only=("body",))
+        c.ellipse(14, 13, 3, 1, "accent", only=("body", "top"))
+        c.set(11, 13, "pupil"); c.set(17, 13, "pupil")
+    elif shape == "hydrant":
+        c.rect(9, 9, 10, 15, "body")
+        c.ellipse(14, 9, 5, 3, "body")
+        c.rect(6, 14, 16, 3, "accent")
+        c.rect(12, 4, 4, 3, "accent")
+        c.set(11, 11, "white"); c.set(16, 11, "white"); c.set(11, 12, "pupil"); c.set(16, 12, "pupil")
+        if frame:
+            c.ellipse(24, 14, 2, 1.5, "wing")
+    elif shape == "snowman":
+        c.ellipse(14, 19, 7, 6, "body")
+        c.ellipse(14, 10, 5, 4.5, "body")
+        c.rect(10, 4, 8, 2, "ink"); c.rect(12, 1, 4, 4, "ink")
+        c.set(12, 9, "pupil"); c.set(16, 9, "pupil")
+        c.poly([(14, 11), (19 + frame, 12), (14, 12)], "beak")
+        c.thick_line([(8, 16), (3, 12 - frame)], 0.4, "accent")
+        c.thick_line([(20, 16), (25, 12 + frame)], 0.4, "accent")
+    elif shape == "pompom":
+        wob = frame
+        for (x, y) in ((10, 12), (18, 12), (14, 18), (9, 18), (19, 18), (14, 10)):
+            c.ellipse(x, y + wob * (1 if x % 2 else -1) * 0.5, 4.2, 4.2, "body", jag=0.25)
+        c.ellipse(14, 15, 3, 2, "accent", only=("body",))
+        c.set(12, 14, "pupil"); c.set(16, 14, "pupil")
+    elif shape == "catcher":
+        step = frame
+        c.rect(10, 8, 8, 12, "body")
+        c.ellipse(14, 6, 4, 4, "skin")
+        c.rect(10, 2, 8, 3, "accent")
+        c.set(13, 6, "pupil"); c.set(15, 6, "pupil")
+        c.rect(10 - step, 20, 3, 5, "ink"); c.rect(15 + step, 20, 3, 5, "ink")
+        c.thick_line([(18, 12), (25, 4)], 0.5, "leg")
+        c.ellipse(25, 4, 3, 3, "wing")
+    elif shape == "drum":
+        beat = frame
+        c.ellipse(14, 17, 9, 6, "body")
+        c.ellipse(14, 13, 9, 4, "white")
+        for x in (7, 11, 15, 19):
+            c.thick_line([(x, 14), (x + 2, 21)], 0.4, "accent")
+        c.thick_line([(8, 6 + beat), (12, 12)], 0.5, "leg")
+        c.thick_line([(20, 6 - beat), (16, 12)], 0.5, "leg")
+        c.set(12, 18, "pupil"); c.set(16, 18, "pupil")
     elif shape == "suitcase":
         # Lost luggage that got up and walks: a case on little legs.
         step = frame
@@ -1090,6 +1196,16 @@ def enemy_canvas(shape, frame, data):
         c.rect(8, 13, 12, 5, "accent")
         c.ellipse(14, 9, 6, 2, "top")
     return c
+
+
+## Dog breeds -> traits for the "dog" shape.
+DOG_BREEDS = {
+    "puppy": ("tiny", "floppy"), "bernard": ("big", "fluffy", "floppy"), "basset": ("long", "floppy"),
+    "collie": ("fluffy",), "rottweiler": ("big",), "poodle": ("fluffy", "pom"), "dachshund": ("long", "floppy"),
+    "greyhound": ("slim",), "dalmatian": ("spots",), "shepherd": (), "chihuahua": ("tiny", "big_ears"),
+    "newfoundland": ("big", "fluffy", "floppy"), "husky": ("fluffy",), "boxer": ("big",), "afghan": ("slim", "fluffy", "floppy"),
+    "dane": ("big", "slim"),
+}
 
 
 def enemy_palette(data):

@@ -11,6 +11,11 @@ func _ready() -> void:
 	bg.size = Vector2(1280, 720)
 	bg.show_behind_parent = true
 	add_child(bg)
+	# "A,B,C" instead of a map: just those enemies.
+	if "," in stage:
+		for id in stage.split(","):
+			_ids.append(id)
+		return
 	var data: Dictionary = GameData.stages[stage]
 	for w: Dictionary in data["waves"]:
 		for id: Variant in w.get("enemies", []) + w.get("bosses", []):

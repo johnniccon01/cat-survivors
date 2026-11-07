@@ -2662,3 +2662,31 @@ DISTRICT_BARRACKS_STORY,"The dogs' army sleeps here. Marching boots, drums and t
 DISTRICT_GENERAL_KENNEL_NAME,The General's Kennel,Generálova búda,Generálova bouda,La caseta del General,Будка Генерала,将军的狗屋
 DISTRICT_GENERAL_KENNEL_STORY,"A kennel as big as a castle. Here the General plans to clean the cats out of every town. Boss: The General, a Great Dane.","Búda veľká ako hrad. Tu Generál plánuje vyhnať mačky z každého mesta. Boss: Generál, nemecká doga.","Bouda velká jako hrad. Tady Generál plánuje vyhnat kočky z každého města. Boss: Generál, německá doga.","Una caseta grande como un castillo. Aquí el General planea echar a los gatos de todas las ciudades. Jefe: El General, un gran danés.","Будка размером с замок. Здесь Генерал планирует выгнать кошек из всех городов. Босс: Генерал, немецкий дог.",像城堡一样大的狗屋。将军在这里计划把猫赶出每一座城市。 首领：将军，大丹犬.
 CATS_BUTTON,Train home,Vlak domov,Vlak domů,Tren a casa,Поезд домой,回家的火车
+ENEMY_PUPPY_NAME,Puppy,Šteňa,Štěně,Cachorro,Щенок,小狗
+ENEMY_PUPPY_DESC,"Small, fast and never alone.","Malé, rýchle a nikdy nie samo.","Malé, rychlé a nikdy ne samo.","Pequeño, rápido y nunca solo.","Маленький, быстрый и никогда не один.",又小又快，从不单独行动。
+ENEMY_FLEA_NAME,Flea,Blcha,Blecha,Pulga,Блоха,跳蚤
+ENEMY_FLEA_DESC,Jumps out of the dogs' fur in swarms.,V rojoch vyskakuje z psej srsti.,V rojích vyskakuje z psí srsti.,Salta del pelo de los perros en enjambres.,Роями выпрыгивает из собачьей шерсти.,成群地从狗毛里跳出来。
+ENEMY_TENNIS_BALL_NAME,Tennis Ball,Tenisák,Tenisák,Pelota de tenis,Теннисный мяч,网球
+ENEMY_TENNIS_BALL_DESC,Bounces at you – somebody threw it.,Skáče na teba – niekto ho hodil.,Skáče na tebe – někdo ho hodil.,Rebota hacia ti: alguien la lanzó.,Скачет на тебя – кто-то его бросил.,朝你弹过来——有人扔的。
+ENEMY_SQUEAKY_TOY_NAME,Squeaky Toy,Pískacia hračka,Pískací hračka,Juguete chillón,Пищалка,吱吱玩具
+ENEMY_SQUEAKY_TOY_DESC,Squeaks and spits slobber.,Píska a pľuje sliny.,Píská a plive sliny.,Chilla y escupe babas.,Пищит и плюётся слюнями.,吱吱叫着吐口水。
+ENEMY_CHEW_BONE_NAME,Chew Bone,Kosť na hryzenie,Kost na kousání,Hueso para morder,Косточка,磨牙骨头
+ENEMY_CHEW_BONE_DESC,Chewed all over and very stubborn.,Celá ohryzená a veľmi tvrdohlavá.,Celá ohryzaná a velmi tvrdohlavá.,Mordisqueado entero y muy terco.,Вся обгрызена и очень упряма.,被啃得到处是牙印，非常顽固。
+ENEMY_FRISBEE_NAME,Frisbee,Frisbee,Frisbee,Frisbi,Фрисби,飞盘
+ENEMY_FRISBEE_DESC,Glides in and swoops down on the cat.,Priplachtí a spustí sa na mačku.,Připlachtí a snese se na kočku.,Planea y se lanza sobre el gato.,Подлетает и пикирует на кошку.,滑翔过来，向猫俯冲。
+ENEMY_DACHSHUND_NAME,Dachshund,Jazvečík,Jezevčík,Teckel,Такса,腊肠犬
+ENEMY_DACHSHUND_DESC,"Long, slow and surprisingly tough.","Dlhý, pomalý a nečakane odolný.","Dlouhý, pomalý a nečekaně odolný.","Largo, lento y sorprendentemente duro.","Длинная, медленная и на удивление крепкая.",又长又慢，却出奇地结实。
+ENEMY_HYDRANT_NAME,Fire Hydrant,Hydrant,Hydrant,Hidrante,Гидрант,消防栓
+ENEMY_HYDRANT_DESC,Every dog's favourite. Sprays water from afar.,Obľúbenec každého psa. Strieka vodu z diaľky.,Oblíbenec každého psa. Stříká vodu z dálky.,El favorito de todos los perros. Lanza agua desde lejos.,Любимец всех собак. Брызгает водой издалека.,每只狗的最爱。从远处喷水。
+ENEMY_SNOWMAN_NAME,Snowman,Snehuliak,Sněhulák,Muñeco de nieve,Снеговик,雪人
+ENEMY_SNOWMAN_DESC,Lobs snowballs over the crowd.,Hádže snehové gule ponad dav.,Hází sněhové koule přes dav.,Lanza bolas de nieve por encima de la multitud.,Кидает снежки поверх толпы.,越过人群扔雪球。
+ENEMY_GREYHOUND_NAME,Greyhound,Chrt,Chrt,Galgo,Борзая,灵缇犬
+ENEMY_GREYHOUND_DESC,Faster than anything – lunges in a straight line.,Rýchlejší ako čokoľvek – vrhá sa rovno na teba.,Rychlejší než cokoli – vrhá se rovnou na tebe.,Más rápido que nada: embiste en línea recta.,Быстрее всех – бросается по прямой.,比什么都快——直线冲刺。
+ENEMY_POMPOM_NAME,Poodle Pompom,Pudlí pompón,Pudlí bambule,Pompón de caniche,Пудельный помпон,贵宾犬绒球
+ENEMY_POMPOM_DESC,"Fluffy, perfumed and leaves a sticky trail.","Nadýchaný, navoňaný a nechá lepkavú stopu.","Nadýchaná, navoněná a nechá lepkavou stopu.","Esponjoso, perfumado y deja un rastro pegajoso.","Пушистый, надушенный и оставляет липкий след.",蓬松、香喷喷，还会留下黏糊糊的痕迹。
+ENEMY_DOG_CATCHER_NAME,Cat Catcher,Lapač mačiek,Lapač koček,Cazagatos,Ловец кошек,捕猫人
+ENEMY_DOG_CATCHER_DESC,The dogs hired him. Throws nets from a distance.,Najali si ho psi. Hádže siete z diaľky.,Najali si ho psi. Hází sítě z dálky.,Lo contrataron los perros. Lanza redes desde lejos.,Его наняли собаки. Бросает сети издалека.,狗狗们雇来的。从远处扔网。
+ENEMY_DRUM_NAME,Marching Drum,Pochodový bubon,Pochodový buben,Tambor de marcha,Маршевый барабан,行进鼓
+ENEMY_DRUM_DESC,Beats the rhythm for the dogs' army.,Udáva rytmus psej armáde.,Udává rytmus psí armádě.,Marca el ritmo del ejército canino.,Отбивает ритм собачьей армии.,为狗狗军队打节拍。
+ENEMY_DOG_DRONE_NAME,Patrol Drone,Hliadkový dron,Hlídkový dron,Dron patrulla,Патрульный дрон,巡逻无人机
+ENEMY_DOG_DRONE_DESC,The dog police's eye in the sky.,Oko psej polície na oblohe.,Oko psí policie na obloze.,El ojo de la policía canina en el cielo.,Глаз собачьей полиции в небе.,狗狗警察在天上的眼睛。

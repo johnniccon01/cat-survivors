@@ -1443,6 +1443,160 @@
       ],
       "frames": 2
     },
+    "PUPPY": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "FLEA": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "TENNIS_BALL": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "SQUEAKY_TOY": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "CHEW_BONE": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "FRISBEE": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "DACHSHUND": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "HYDRANT": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "SNOWMAN": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "GREYHOUND": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "POMPOM": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "DOG_CATCHER": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "DRUM": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "DOG_DRONE": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
     "BOX": {
       "cell": [
         28,

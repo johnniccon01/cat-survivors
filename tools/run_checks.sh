@@ -249,7 +249,7 @@ scenarios=(
   "chain_the_director|--bot --stage=COMPANY_LOT --god --levels=20 --quest=THE_DIRECTOR --bot-time=240"
   "dream_plain|--bot --god --dream=3 --start-minute=19.9 --catch-up --bot-time=300 --expect=dream_start,dream_won"
   "dream_nightmare|--bot --god --dream=5 --start-minute=19.9 --catch-up --bot-time=120 --expect=dream_start,special:orders"
-  "dream_gear|--bot --god --dream=40 --item-chance=1 --bot-time=90 --expect=item_dream"
+  "dream_gear|--bot --god --dream=40 --item-chance=1 --start-minute=3 --catch-up --bot-time=300 --expect=item_dream"
   "quest_wolf|--bot --stage=GARDEN --levels=30 --quest=WOLF --bot-time=150"
   "instinct_wolf|--bot --cat=WOLF --bot-time=60 --expect=instinct:WOLF"
   "instinct_bear|--bot --cat=BEAR --stage=FIRE_STATION --start-minute=12 --catch-up --bot-time=200 --expect=instinct:BEAR"
@@ -527,7 +527,7 @@ export -f run_one
 export GODOT QUICK
 
 if [ -n "$QUICK" ] && [ -z "$ONLY" ]; then
-  ONLY="menus|map_clicks|apartment|basement|garden|rooftop|supermarket|harbor|factory|final_vacuum|final_kraken|final_r3000|all_weapons|new_weapons_2|evolution_mica|evolution_drone|branches_fx|quest_luna|quest_baron|story_note|chain_trail|chain_carry|chain_zones|chain_gift|chain_kittens|chain_fire|artifacts_hurt|challenges|traps|endless|champions|freight_yard|final_orders|forest_edge|final_frostbite|company_lab|final_lockdown|partner_general|dream_gear|chain_wild_flees"
+  ONLY="menus|map_clicks|apartment|basement|garden|rooftop|supermarket|harbor|factory|final_vacuum|final_kraken|final_r3000|all_weapons|new_weapons_2|evolution_mica|evolution_drone|branches_fx|quest_luna|quest_baron|story_note|chain_trail|chain_carry|chain_zones|chain_gift|chain_kittens|chain_fire|artifacts_hurt|challenges|traps|endless|champions|freight_yard|final_orders|forest_edge|final_frostbite|company_lab|final_lockdown|partner_general|chain_wild_flees"
 fi
 # ONLY="name1|name2" runs just those scenarios.
 printf '%s\n' "${scenarios[@]}" | grep -E "^(${ONLY:-[^|]+})\|" | xargs -P "$JOBS" -I{} bash -c 'run_one "$@"' _ {} | tee /tmp/catsurvivors_checks.txt

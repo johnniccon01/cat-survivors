@@ -4478,5 +4478,245 @@
         "stage": "FENCE_LINE"
       }
     ]
+  },
+  "SECURITY_CAMERAS": {
+    "stage": "COMPANY_LOT",
+    "reward": {
+      "gold": 4400
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 4,
+        "hold": 4,
+        "radius": 40,
+        "spread": [
+          200,
+          360
+        ],
+        "look": "antenna"
+      },
+      {
+        "type": "boss",
+        "enemy": "GUARD_CAPTAIN",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "FLAT_TYRES": {
+    "stage": "COMPANY_LOT",
+    "reward": {
+      "gold": 4400
+    },
+    "steps": [
+      {
+        "type": "trail",
+        "count": 6,
+        "spacing": [
+          150,
+          210
+        ],
+        "look": "pawprints"
+      },
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "OFFICE_CHAIR",
+        "spawn_every": 2.0,
+        "spawn_count": 8,
+        "look": "fuse"
+      }
+    ]
+  },
+  "BOOM_BARRIER": {
+    "stage": "COMPANY_LOT",
+    "secret": {
+      "type": "far",
+      "distance": 9000,
+      "dark_from": 2000
+    },
+    "reward": {
+      "gold": 6000
+    },
+    "steps": [
+      {
+        "type": "boss",
+        "enemy": "GUARD_CAPTAIN",
+        "hp_mult": 3.0,
+        "look": "hole",
+        "dark": true,
+        "distance": 260
+      }
+    ]
+  },
+  "SAND_IN_THE_GEARS": {
+    "stage": "MACHINE_GARAGE",
+    "reward": {
+      "gold": 4500
+    },
+    "steps": [
+      {
+        "type": "carry",
+        "item": "gear",
+        "to_distance": [
+          450,
+          650
+        ],
+        "time": 70,
+        "look_to": "boiler"
+      },
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "CHAINSAW",
+        "spawn_every": 3.0,
+        "spawn_count": 3,
+        "look": "boiler"
+      }
+    ]
+  },
+  "KEYS_OF_MACHINES": {
+    "stage": "MACHINE_GARAGE",
+    "reward": {
+      "gold": 4500
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "key",
+        "count": 5,
+        "spread": [
+          200,
+          420
+        ],
+        "deliver": true,
+        "look_to": "lost_found"
+      },
+      {
+        "type": "boss",
+        "enemy": "BIG_FORKLIFT",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "OIL_PIT": {
+    "stage": "MACHINE_GARAGE",
+    "secret": {
+      "type": "trail",
+      "legs": 12,
+      "leg": [
+        380,
+        560
+      ],
+      "start": [
+        300,
+        450
+      ]
+    },
+    "reward": {
+      "gold": 6100
+    },
+    "steps": [
+      {
+        "type": "defend",
+        "time": 40,
+        "mode": "enemies",
+        "enemy": "MINI_HARVESTER",
+        "spawn_every": 5.0,
+        "spawn_count": 1,
+        "look": "lantern"
+      },
+      {
+        "type": "boss",
+        "enemy": "BIG_FORKLIFT",
+        "hp_mult": 3.0,
+        "look": "x",
+        "distance": 240
+      }
+    ]
+  },
+  "THE_PARROT": {
+    "stage": "COMPANY_LAB",
+    "reward": {
+      "gold": 4600,
+      "flag": "parrot_friend"
+    },
+    "steps": [
+      {
+        "type": "trail",
+        "count": 6,
+        "spacing": [
+          150,
+          210
+        ],
+        "look": "pawprints"
+      },
+      {
+        "type": "carry",
+        "item": "key",
+        "to_distance": [
+          450,
+          650
+        ],
+        "time": 70,
+        "look_to": "doghouse"
+      }
+    ]
+  },
+  "OPEN_CAGES": {
+    "stage": "COMPANY_LAB",
+    "reward": {
+      "gold": 4600
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 4,
+        "hold": 4,
+        "radius": 40,
+        "spread": [
+          200,
+          360
+        ],
+        "look": "doghouse"
+      },
+      {
+        "type": "boss",
+        "enemy": "CAGE_DRONE",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "SECRET_FILES": {
+    "stage": "COMPANY_LAB",
+    "secret": {
+      "type": "far",
+      "distance": 9000,
+      "dark_from": 2000
+    },
+    "reward": {
+      "gold": 6200
+    },
+    "steps": [
+      {
+        "type": "boss",
+        "enemy": "LAB_BOT",
+        "hp_mult": 3.0,
+        "look": "hole",
+        "dark": true,
+        "distance": 260
+      }
+    ]
   }
 }

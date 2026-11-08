@@ -3797,3 +3797,110 @@ CHAIN_THE_MACHINES_3,Carry the photos to the bears at the Burnt Clearing,Odnes f
 CHAIN_THE_MACHINES_3_DONE,Now every animal in the Wild knows: the cats are not the enemy.,Teraz už každé zviera v Divočine vie: mačky nie sú nepriatelia.,Teď už každé zvíře v Divočině ví: kočky nejsou nepřátelé.,Ahora todos los animales lo saben: los gatos no son el enemigo.,Теперь каждый зверь знает: кошки не враги.,现在荒野里的每只动物都知道了：猫不是敌人。
 CHAIN_THE_MACHINES_4,Defeat the Machine Warden at the Company Fence,Poraz Strážcu strojov pri Plote firmy,Poraz Strážce strojů u Plotu firmy,Derrota al Guardián en la valla de la empresa,Победи Стража машин у Забора компании,在公司围栏击败机械看守
 CHAIN_THE_MACHINES_4_DONE,The gate creaks open. Behind it: the Company – and the man who wants the forest gone.,"Brána sa so škripotom otvorí. Za ňou: Firma – a človek, ktorý chce les zničiť.","Brána se se skřípotem otevře. Za ní: Firma – a člověk, který chce les zničit.","La verja se abre chirriando. Detrás: la empresa, y el hombre que quiere acabar con el bosque.","Ворота со скрипом открываются. За ними – Компания и человек, который хочет уничтожить лес.",大门吱呀打开。门后是公司——还有那个想毁掉森林的人。
+STAGE_COMPANY_LOT_NAME,The Gate and Car Park,Brána a parkovisko,Brána a parkoviště,La entrada y el aparcamiento,Ворота и парковка,大门与停车场
+STAGE_COMPANY_LOT_HINT,Finish the story The Machines,Dokonči príbeh Stroje,Dokonči příběh Stroje,Termina la historia Las máquinas,Заверши историю «Машины»,完成故事《机器》
+STORY_COMPANY_LOT_INTRO,Laser walls sweep the car park. A green parrot shrieks your position to the guards!,"Laserové steny prechádzajú parkoviskom. Zelený papagáj kričí strážam, kde si!","Laserové stěny projíždějí parkovištěm. Zelený papoušek křičí na stráže, kde jsi!",Muros láser barren el aparcamiento. ¡Un loro verde chilla a los guardias dónde estás!,"Лазерные стены скользят по парковке. Зелёный попугай кричит охране, где ты!",激光墙扫过停车场。一只绿鹦鹉向警卫尖叫着报告你的位置！
+QB_COMPANY_LOT_NAME,The Gate and Car Park,Brána a parkovisko,Brána a parkoviště,La entrada y el aparcamiento,Ворота и парковка,大门与停车场
+QB_COMPANY_LOT_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_COMPANY_LOT_2,Defeat its boss.,Poraziť jeho bossa.,Porazit jeho bosse.,Derrota a su jefe.,Победи его босса.,击败那里的首领。
+QB_COMPANY_LOT_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_COMPANY_LOT_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_MACHINE_GARAGE_NAME,The Machine Garage,Garáž strojov,Garáž strojů,El garaje de máquinas,Гараж машин,机械车库
+STAGE_MACHINE_GARAGE_HINT,Defeat the Security Chief at the gate,Poraz Šéfa ochranky pri bráne,Poraz Šéfa ochranky u brány,Derrota al Jefe de seguridad en la entrada,Победи Начальника охраны у ворот,在大门击败保安队长
+STORY_MACHINE_GARAGE_INTRO,"Belts, bulldozers and the giant digger that cut the forest down.","Pásy, buldozéry a obrí bager, ktorý vyrúbal les.","Pásy, buldozery a obří bagr, který vykácel les.","Cintas, excavadoras y la pala gigante que taló el bosque.","Конвейеры, бульдозеры и гигантский экскаватор, срубивший лес.",传送带、推土机，还有砍光森林的巨型挖掘机。
+QB_MACHINE_GARAGE_NAME,The Machine Garage,Garáž strojov,Garáž strojů,El garaje de máquinas,Гараж машин,机械车库
+QB_MACHINE_GARAGE_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_MACHINE_GARAGE_2,Defeat its boss.,Poraziť jeho bossa.,Porazit jeho bosse.,Derrota a su jefe.,Победи его босса.,击败那里的首领。
+QB_MACHINE_GARAGE_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_MACHINE_GARAGE_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_COMPANY_LAB_NAME,The Laboratory,Laboratórium,Laboratoř,El laboratorio,Лаборатория,实验室
+STAGE_COMPANY_LAB_HINT,Defeat the Giant Digger in the garage,Poraz Obrí bager v garáži,Poraz Obří bagr v garáži,Derrota a la Pala Gigante en el garaje,Победи Гигантский экскаватор в гараже,在车库击败巨型挖掘机
+STORY_COMPANY_LAB_INTRO,"Alarms, mechanical dogs and cages full of animals. Even the parrot looks sad here.","Alarmy, mechanickí psi a klietky plné zvierat. Aj papagáj sa tu tvári smutne.","Alarmy, mechaničtí psi a klece plné zvířat. I papoušek se tu tváří smutně.","Alarmas, perros mecánicos y jaulas llenas de animales. Hasta el loro parece triste.","Сигнализация, механические псы и клетки, полные зверей. Даже попугай здесь грустит.",警报、机械狗和关满动物的笼子。连鹦鹉在这里都显得很难过。
+QB_COMPANY_LAB_NAME,The Laboratory,Laboratórium,Laboratoř,El laboratorio,Лаборатория,实验室
+QB_COMPANY_LAB_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_COMPANY_LAB_2,Defeat its boss.,Poraziť jeho bossa.,Porazit jeho bosse.,Derrota a su jefe.,Победи его босса.,击败那里的首领。
+QB_COMPANY_LAB_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_COMPANY_LAB_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+ENEMY_OFFICE_CHAIR_NAME,Office Chair,Kancelárska stolička,Kancelářská židle,Silla de oficina,Офисное кресло,办公椅
+ENEMY_OFFICE_CHAIR_DESC,Rolls at you on squeaky wheels.,Rúti sa na teba na vŕzgajúcich kolieskach.,Řítí se na tebe na vrzajících kolečkách.,Rueda hacia ti con ruedas chirriantes.,Катится на тебя на скрипучих колёсиках.,踩着吱吱作响的轮子朝你冲来。
+ENEMY_MECH_DOG_NAME,Mechanical Dog,Mechanický pes,Mechanický pes,Perro mecánico,Механический пёс,机械狗
+ENEMY_MECH_DOG_DESC,A robot dog that lunges like a real one.,"Robotický pes, ktorý vyráža ako skutočný.","Robotický pes, který vyráží jako skutečný.",Un perro robot que embiste como uno de verdad.,"Робопёс, бросающийся как настоящий.",像真狗一样猛扑的机器狗。
+ENEMY_LASER_DRONE_NAME,Laser Drone,Laserový dron,Laserový dron,Dron láser,Лазерный дрон,激光无人机
+ENEMY_LASER_DRONE_DESC,Keeps its distance and fires red lasers.,Drží si odstup a strieľa červené lasery.,Drží si odstup a střílí červené lasery.,Guarda distancia y dispara láseres rojos.,Держится поодаль и стреляет красными лазерами.,保持距离，发射红色激光。
+ENEMY_PRINTER_NAME,Printer,Tlačiareň,Tiskárna,Impresora,Принтер,打印机
+ENEMY_PRINTER_DESC,Shoots sheets of paper. Lots of them.,Strieľa listy papiera. Veľa listov.,Střílí listy papíru. Spoustu listů.,Dispara hojas de papel. Muchas.,Стреляет листами бумаги. Очень много.,射出纸张，一大堆纸张。
+ENEMY_PARROT_NAME,The Director's Parrot,Riaditeľov papagáj,Ředitelův papoušek,El loro del director,Попугай директора,总裁的鹦鹉
+ENEMY_PARROT_DESC,Flies away from you and calls the guards.,Uletí pred tebou a privolá stráže.,Uletí před tebou a přivolá stráže.,Huye volando y llama a los guardias.,Улетает от тебя и зовёт охрану.,飞离你，召唤警卫。
+ENEMY_GUARD_CAPTAIN_NAME,Guard Captain,Kapitán stráže,Kapitán stráže,El capitán de la guardia,Капитан охраны,警卫队长
+ENEMY_GUARD_CAPTAIN_DESC,Fires in a cross and cages you in.,Strieľa do kríža a uzavrie ťa.,Střílí do kříže a uzavře tě.,Dispara en cruz y te encierra.,Стреляет крестом и запирает тебя.,十字射击，把你困住。
+ENEMY_SECURITY_CHIEF_NAME,The Security Chief,Šéf ochranky,Šéf ochranky,El Jefe de seguridad,Начальник охраны,保安队长
+ENEMY_SECURITY_CHIEF_DESC,"Locks the yard down: barriers through you, then cameras round you.","Uzavrie areál: závory cez teba, potom kamery okolo teba.","Uzavře areál: závory přes tebe, pak kamery kolem tebe.",Cierra el recinto: barreras a través de ti y luego cámaras alrededor.,"Блокирует двор: шлагбаумы сквозь тебя, затем камеры вокруг.",封锁场地：道闸穿过你，然后摄像头围住你。
+ENEMY_BIG_FORKLIFT_NAME,Forklift,Vysokozdvižný vozík,Vysokozdvižný vozík,La carretilla,Погрузчик,叉车
+ENEMY_BIG_FORKLIFT_DESC,Rams through and stacks walls of crates.,Rúti sa cez všetko a stavia steny z debien.,Řítí se přes všechno a staví zdi z beden.,Embiste y apila muros de cajas.,Таранит всё и складывает стены из ящиков.,横冲直撞，堆起箱子墙。
+ENEMY_GIANT_DIGGER_NAME,The Giant Digger,Obrí bager,Obří bagr,La Pala Gigante,Гигантский экскаватор,巨型挖掘机
+ENEMY_GIANT_DIGGER_DESC,"Three huge scoops, each one nearer to you.","Tri obrovské lopaty, každá bližšie k tebe.","Tři obrovské lopaty, každá blíž k tobě.","Tres enormes paladas, cada una más cerca de ti.","Три огромных ковша, каждый ближе к тебе.",三下巨铲，一下比一下离你更近。
+ENEMY_CAGE_DRONE_NAME,Cage Drone,Klietkový dron,Klecový dron,El dron jaula,Дрон-клетка,笼子无人机
+ENEMY_CAGE_DRONE_DESC,Pulls you in and drops a cage round you.,Pritiahne ťa a spustí okolo teba klietku.,Přitáhne tě a spustí kolem tebe klec.,Te atrae y deja caer una jaula a tu alrededor.,Притягивает и опускает вокруг тебя клетку.,把你吸过去，再罩下一个笼子。
+ENEMY_LAB_BOT_NAME,Lab Bot,Laboratórny robot,Laboratorní robot,El robot de laboratorio,Лабораторный робот,实验室机器人
+ENEMY_LAB_BOT_DESC,Spills chemicals and bursts in rings.,Rozlieva chemikálie a vybuchuje v kruhoch.,Rozlévá chemikálie a vybuchuje v kruzích.,Derrama químicos y estalla en anillos.,Разливает химию и взрывается кольцами.,泼洒化学品，环形爆发。
+ENEMY_CAGE_GUARDIAN_NAME,The Cage Guardian,Strážca klietok,Strážce klecí,El Guardián de las jaulas,Страж клеток,笼子守卫
+ENEMY_CAGE_GUARDIAN_DESC,A bolt jumps from it to you and on to three spots round you.,Výboj skočí z neho na teba a ďalej na tri miesta okolo teba.,Výboj skočí z něj na tebe a dál na tři místa kolem tebe.,Una descarga salta de él a ti y a tres puntos a tu alrededor.,Разряд прыгает от него к тебе и дальше в три точки вокруг.,电流从它跳到你身上，再跳向你周围三处。
+ITEM_GUARD_BADGE_NAME,Guard Badge,Odznak ochranky,Odznak ochranky,Placa de guardia,Значок охраны,保安徽章
+ITEM_GUARD_BADGE_DESC,"From the Security Chief. +2 armour, +10% damage to bosses.","Od Šéfa ochranky. +2 brnenie, +10 % poškodenie bossom.","Od Šéfa ochranky. +2 brnění, +10 % poškození bossům.","Del Jefe de seguridad. +2 de armadura, +10 % de daño a jefes.","От Начальника охраны. +2 брони, +10 % урона боссам.",来自保安队长。+2 护甲，+10% 首领伤害。
+ITEM_DIGGER_BOLT_NAME,Digger Bolt,Skrutka z bagra,Šroub z bagru,Tornillo de la pala,Болт экскаватора,挖掘机螺栓
+ITEM_DIGGER_BOLT_DESC,"From the Giant Digger. +12% might, +6% area.","Od Obrieho bagra. +12 % sila, +6 % plocha.","Od Obřího bagru. +12 % síla, +6 % plocha.","De la Pala Gigante. +12 % de poder, +6 % de área.","От Гигантского экскаватора. +12 % силы, +6 % площади.",来自巨型挖掘机。+12% 力量，+6% 范围。
+ITEM_LAB_GOGGLES_NAME,Lab Goggles,Laboratórne okuliare,Laboratorní brýle,Gafas de laboratorio,Лабораторные очки,实验护目镜
+ITEM_LAB_GOGGLES_DESC,"From the Cage Guardian. +8% critical chance, -5% cooldown.","Od Strážcu klietok. +8 % kritická šanca, -5 % čas nabíjania.","Od Strážce klecí. +8 % kritická šance, -5 % doba nabíjení.","Del Guardián de las jaulas. +8 % de probabilidad crítica, -5 % de recarga.","От Стража клеток. +8 % шанса крита, -5 % перезарядки.",来自笼子守卫。+8% 暴击率，-5% 冷却。
+LASERWALL_WARNING,A laser wall sweeps down the lane – step aside!,Pruhom sa posúva laserová stena – uhni!,Pruhem se posouvá laserová stěna – uhni!,"¡Un muro láser barre el carril, apártate!",По полосе движется лазерная стена – отойди!,一道激光墙沿着这条线扫来——快让开！
+DOZERS_WARNING,Machines drive down the lane – step aside!,Pruhom idú stroje – uhni!,Pruhem jedou stroje – uhni!,"¡Las máquinas cruzan el carril, apártate!",По полосе едут машины – отойди!,机器沿着这条线开过来——快让开！
+ALARM_WARNING,Alarm! Mechanical dogs run down the lane – step aside!,Poplach! Pruhom bežia mechanickí psi – uhni!,Poplach! Pruhem běží mechaničtí psi – uhni!,"¡Alarma! Perros mecánicos cruzan el carril, ¡apártate!",Тревога! По полосе бегут механические псы – отойди!,警报！机械狗沿着这条线冲来——快让开！
+CHAIN_SECURITY_CAMERAS_NAME,Blind the Cameras,Oslep kamery,Oslep kamery,Ciega las cámaras,Ослепи камеры,蒙蔽摄像头
+CHAIN_SECURITY_CAMERAS_DESC,Cover the cameras so the guards can't see you coming.,"Zakry kamery, nech ťa stráže nevidia prichádzať.","Zakryj kamery, ať tě stráže nevidí přicházet.",Tapa las cámaras para que los guardias no te vean llegar.,"Закрой камеры, чтобы охрана не видела тебя.",遮住摄像头，别让警卫看到你过来。
+CHAIN_SECURITY_CAMERAS_1,Hold the four camera posts,Podrž štyri stĺpy s kamerami,Podrž čtyři sloupy s kamerami,Mantén los cuatro postes,Удержи четыре столба с камерами,守住四根摄像头柱
+CHAIN_SECURITY_CAMERAS_1_DONE,The guard captain comes to check.,Kapitán stráže sa ide pozrieť.,Kapitán stráže se jde podívat.,El capitán viene a revisar.,Капитан охраны идёт проверить.,警卫队长过来查看了。
+CHAIN_SECURITY_CAMERAS_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_SECURITY_CAMERAS_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_FLAT_TYRES_NAME,Flat Tyres,Prepichnuté pneumatiky,Propíchnuté pneumatiky,Ruedas pinchadas,Проколотые шины,扎破的轮胎
+CHAIN_FLAT_TYRES_DESC,Let the air out of the machines' tyres so they can't leave.,"Vypusť strojom vzduch z pneumatík, nech nemôžu odísť.","Vypusť strojům vzduch z pneumatik, ať nemůžou odjet.",Desinfla las ruedas de las máquinas para que no puedan irse.,"Спусти шины машинам, чтобы они не уехали.",给机器的轮胎放气，让它们开不走。
+CHAIN_FLAT_TYRES_1,Follow the tracks,Choď po stopách,Jdi po stopách,Sigue las huellas,Иди по следам,跟着足迹走
+CHAIN_FLAT_TYRES_1_DONE,The office chairs come rolling.,Prichádzajú kancelárske stoličky.,Přijíždějí kancelářské židle.,Llegan rodando las sillas de oficina.,Катятся офисные кресла.,办公椅滚过来了。
+CHAIN_FLAT_TYRES_2,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_FLAT_TYRES_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_BOOM_BARRIER_NAME,The Back Gate,Zadná brána,Zadní brána,La puerta trasera,Задние ворота,后门
+CHAIN_BOOM_BARRIER_DESC,"Far in the dark, behind the car park, there is a forgotten back gate.",Ďaleko v tme za parkoviskom je zabudnutá zadná brána.,Daleko ve tmě za parkovištěm je zapomenutá zadní brána.,"Lejos en la oscuridad, tras el aparcamiento, hay una puerta trasera olvidada.",Далеко в темноте за парковкой есть забытые задние ворота.,停车场后的黑暗深处，有一扇被遗忘的后门。
+CHAIN_BOOM_BARRIER_1,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_BOOM_BARRIER_1_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_SAND_IN_THE_GEARS_NAME,Sand in the Gears,Piesok do súkolesia,Písek do soukolí,Arena en los engranajes,Песок в шестерёнки,齿轮里撒沙
+CHAIN_SAND_IN_THE_GEARS_DESC,Carry a broken gear into the main machine and jam it.,Zanes pokazené ozubené koleso do hlavného stroja a zablokuj ho.,Zanes rozbité ozubené kolo do hlavního stroje a zablokuj ho.,Lleva un engranaje roto a la máquina principal y atáscala.,Отнеси сломанную шестерню в главную машину и заклинь её.,把坏齿轮塞进主机器，让它卡住。
+CHAIN_SAND_IN_THE_GEARS_1,Carry the gear to the machine,Zanes koleso k stroju,Zanes kolo ke stroji,Lleva el engranaje a la máquina,Отнеси шестерню к машине,把齿轮送到机器旁
+CHAIN_SAND_IN_THE_GEARS_1_DONE,The saws come to fix it.,Píly ho prichádzajú opraviť.,Pily ho přicházejí opravit.,Las sierras vienen a arreglarla.,Пилы идут её чинить.,电锯赶来修理了。
+CHAIN_SAND_IN_THE_GEARS_2,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_SAND_IN_THE_GEARS_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_KEYS_OF_MACHINES_NAME,The Ignition Keys,Kľúče od strojov,Klíče od strojů,Las llaves de contacto,Ключи зажигания,点火钥匙
+CHAIN_KEYS_OF_MACHINES_DESC,Steal the keys of every machine in the garage.,Ukradni kľúče od všetkých strojov v garáži.,Ukradni klíče od všech strojů v garáži.,Roba las llaves de todas las máquinas del garaje.,Укради ключи от всех машин в гараже.,偷走车库里所有机器的钥匙。
+CHAIN_KEYS_OF_MACHINES_1,Gather the keys,Pozbieraj kľúče,Posbírej klíče,Recoge las llaves,Собери ключи,收集钥匙
+CHAIN_KEYS_OF_MACHINES_1_DONE,The forklift wants them back.,Vysokozdvižný vozík ich chce späť.,Vysokozdvižný vozík je chce zpátky.,La carretilla las quiere de vuelta.,Погрузчик хочет их назад.,叉车想把它们抢回去。
+CHAIN_KEYS_OF_MACHINES_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_KEYS_OF_MACHINES_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_OIL_PIT_NAME,The Oil Pit,Olejová jama,Olejová jáma,El foso de aceite,Масляная яма,油坑
+CHAIN_OIL_PIT_DESC,A trail of lanterns leads to the oil pit under the garage.,Stopa lampášov vedie k olejovej jame pod garážou.,Stopa luceren vede k olejové jámě pod garáží.,Un rastro de faroles lleva al foso de aceite bajo el garaje.,Дорожка фонарей ведёт к масляной яме под гаражом.,一路灯笼通向车库下的油坑。
+CHAIN_OIL_PIT_1,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_OIL_PIT_1_DONE,Something big starts its engine.,Niečo veľké naštartuje motor.,Něco velkého nastartuje motor.,Algo grande arranca el motor.,Что-то большое заводит мотор.,有个大家伙发动了引擎。
+CHAIN_OIL_PIT_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_OIL_PIT_2_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_THE_PARROT_NAME,The Parrot,Papagáj,Papoušek,El loro,Попугай,鹦鹉
+CHAIN_THE_PARROT_DESC,The director's parrot sits by the cages and doesn't shriek any more.,Riaditeľov papagáj sedí pri klietkach a už nekričí.,Ředitelův papoušek sedí u klecí a už nekřičí.,El loro del director está junto a las jaulas y ya no chilla.,Попугай директора сидит у клеток и больше не кричит.,总裁的鹦鹉坐在笼子边，不再尖叫了。
+CHAIN_THE_PARROT_1,Follow the green feathers,Choď po zelených perách,Jdi po zelených pírkách,Sigue las plumas verdes,Иди по зелёным перьям,跟着绿羽毛走
+CHAIN_THE_PARROT_1_DONE,"""I didn't know he kept them in cages,"" the parrot whispers. ""Take the key.""","„Nevedel som, že ich drží v klietkach,“ šepne papagáj. „Vezmi si kľúč.“","„Nevěděl jsem, že je drží v klecích,“ šeptne papoušek. „Vezmi si klíč.“","«No sabía que los tenía en jaulas», susurra el loro. «Toma la llave».","«Я не знал, что он держит их в клетках», – шепчет попугай. «Возьми ключ».",“我不知道他把它们关在笼子里，”鹦鹉小声说，“拿着钥匙。”
+CHAIN_THE_PARROT_2,Carry the key to the cages,Zanes kľúč ku klietkam,Zanes klíč ke klecím,Lleva la llave a las jaulas,Отнеси ключ к клеткам,把钥匙送到笼子边
+CHAIN_THE_PARROT_2_DONE,"The parrot is on your side now. ""I know where the director hides. I'll help you!""","Papagáj je teraz na tvojej strane. „Viem, kde sa riaditeľ skrýva. Pomôžem vám!“","Papoušek je teď na tvé straně. „Vím, kde se ředitel skrývá. Pomůžu vám!“",El loro ya está de tu lado. «Sé dónde se esconde el director. ¡Os ayudaré!»,"Теперь попугай на твоей стороне. «Я знаю, где прячется директор. Я помогу!»",鹦鹉现在站在你这边了。“我知道总裁藏在哪儿。我来帮你们！”
+CHAIN_OPEN_CAGES_NAME,Open the Cages,Otvor klietky,Otevři klece,Abre las jaulas,Открой клетки,打开笼子
+CHAIN_OPEN_CAGES_DESC,Every animal in the laboratory deserves to go home.,Každé zviera v laboratóriu si zaslúži ísť domov.,Každé zvíře v laboratoři si zaslouží jít domů.,Cada animal del laboratorio merece volver a casa.,Каждый зверь в лаборатории заслуживает вернуться домой.,实验室里的每只动物都应该回家。
+CHAIN_OPEN_CAGES_1,Open the four cages,Otvor štyri klietky,Otevři čtyři klece,Abre las cuatro jaulas,Открой четыре клетки,打开四个笼子
+CHAIN_OPEN_CAGES_1_DONE,A cage drone swoops down.,Zletí klietkový dron.,Slétne klecový dron.,Baja un dron jaula.,Пикирует дрон-клетка.,一架笼子无人机俯冲下来。
+CHAIN_OPEN_CAGES_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_OPEN_CAGES_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_SECRET_FILES_NAME,The Secret Files,Tajné spisy,Tajné spisy,Los archivos secretos,Секретные документы,秘密档案
+CHAIN_SECRET_FILES_DESC,"Far in the dark lab, a robot guards the director's secret files.",Ďaleko v tmavom laboratóriu stráži robot riaditeľove tajné spisy.,Daleko v temné laboratoři hlídá robot ředitelovy tajné spisy.,"Lejos en el laboratorio oscuro, un robot guarda los archivos secretos.",Далеко в тёмной лаборатории робот охраняет секретные документы.,漆黑实验室深处，一个机器人守着总裁的秘密档案。
+CHAIN_SECRET_FILES_1,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_SECRET_FILES_1_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。

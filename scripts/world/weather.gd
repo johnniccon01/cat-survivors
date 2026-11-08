@@ -11,7 +11,7 @@ extends Node2D
 const KINDS := ["CLEAR", "RAIN", "STORM", "WIND", "FOG", "FROST"]
 ## How often each comes up (clear nights are the most common).
 const WEIGHTS := [4.0, 2.0, 1.0, 1.5, 1.5, 1.0]
-const INDOOR := ["LIVING_ROOM", "BASEMENT", "SUPERMARKET", "FACTORY", "SEWER", "DOG_SHELTER", "GROOMING_SALON", "BONE_BAKERY", "VET_CLINIC", "DOG_SHOW", "CAVES"]
+const INDOOR := ["LIVING_ROOM", "BASEMENT", "SUPERMARKET", "FACTORY", "SEWER", "DOG_SHELTER", "GROOMING_SALON", "BONE_BAKERY", "VET_CLINIC", "DOG_SHOW", "CAVES", "MACHINE_GARAGE", "COMPANY_LAB", "DIRECTOR_TOWER"]
 const COLORS := {"CLEAR": "f2d14e", "RAIN": "7ab8f0", "STORM": "b39cff", "WIND": "a8e0b0", "FOG": "c8c8d4", "FROST": "bfe8ff"}
 
 const STORM_EVERY := [10.0, 16.0]

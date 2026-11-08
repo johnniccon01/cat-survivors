@@ -2293,6 +2293,135 @@
         }
       ]
     },
+    "COMPANY_LOT": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:COMPANY_LOT"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:COMPANY_LOT"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:COMPANY_LOT",
+          "target": 1,
+          "reward": {
+            "gold": 2200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:COMPANY_LOT"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3600
+          }
+        }
+      ]
+    },
+    "MACHINE_GARAGE": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:MACHINE_GARAGE"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:MACHINE_GARAGE"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:MACHINE_GARAGE",
+          "target": 1,
+          "reward": {
+            "gold": 2200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:MACHINE_GARAGE"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3600
+          }
+        }
+      ]
+    },
+    "COMPANY_LAB": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:COMPANY_LAB"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:COMPANY_LAB"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:COMPANY_LAB",
+          "target": 1,
+          "reward": {
+            "gold": 2200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:COMPANY_LAB"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3600
+          }
+        }
+      ]
+    },
     "OLD_DIARY": {
       "chapter": "story",
       "tiers": [

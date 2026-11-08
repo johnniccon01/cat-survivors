@@ -683,7 +683,12 @@ func _tick_fight(delta: float, target: Vector2) -> void:
 ## each turned, then a ring), "dronestrike" (drones swarm in round the cat
 ## while marks land on it), "bearhug" (it drags the cat in, then three rings
 ## of strikes slam round it), "laserfence" (a ring of laser fences round
-## the cat with one gap, twice).
+## the cat with one gap, twice), "lockdown" (barriers cross through the
+## cat, then cameras mark four spots round it), "scoop" (three huge scoops
+## land in front of it, each nearer the cat), "taser" (a bolt jumps from it
+## to the cat and on to three spots round it), "megadozer" (the director's
+## bulldozer: two charges through the cat, its blade leaving strikes behind,
+## then a scoop right on the cat).
 func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 	var hurt := damage * 0.8
 	match _special:
@@ -777,6 +782,66 @@ func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 					manager.spawn_bullet(from, (target - from).normalized().rotated(0.4), shot, "hair", 110.0)
 				return Vector2.ZERO
 			return _end_special()
+		"megadozer":
+			var run := int(t / 1.0)
+			if run >= 2:
+				if _special_step == 4:
+					_special_step = 5
+					for k in 3:
+						manager.spawn_hazard(target + Vector2((k - 1) * 50.0, 0.0), "strike", 44.0, 0.8, hurt)
+				if t > 3.0:
+					return _end_special()
+				return Vector2.ZERO
+			if _special_step == run * 2:
+				_special_step += 1
+				_special_dir = (target - position).normalized()
+				manager.spawn_beam(position, position + _special_dir * 560.0, radius * 2.0, 0.5, 0.0, "mow")
+				Audio.play("roar", -8.0, 0.1)
+			if fmod(t, 1.0) < 0.5:
+				return Vector2.ZERO
+			if _special_step == run * 2 + 1 and fmod(t, 1.0) > 0.75:
+				_special_step += 1
+				manager.spawn_hazard(position, "strike", 36.0, 0.6, hurt)
+			return _special_dir * speed * 9.0
+		"lockdown":
+			if _special_step == 0:
+				_special_step = 1
+				for k in 2:
+					var d := Vector2.from_angle(k * PI * 0.5 + randf() * 0.3)
+					manager.spawn_beam(_special_at - d * 320.0, _special_at + d * 320.0, 30.0, SIG_WARN, hurt, "laser")
+				Audio.play("bell", -6.0, 0.4)
+			if _special_step == 1 and t >= 1.0:
+				_special_step = 2
+				for k in 4:
+					manager.spawn_hazard(target + Vector2.from_angle(PI * 0.25 + k * PI * 0.5) * 70.0, "strike", 40.0, 0.7, hurt)
+			if t > 2.0:
+				return _end_special()
+			return Vector2.ZERO
+		"scoop":
+			if _special_step == 0:
+				_special_dir = (target - position).normalized()
+			for bite in 3:
+				if _special_step == bite and t >= bite * 0.7:
+					_special_step += 1
+					var reach := position.distance_to(target) * (0.5 + bite * 0.25)
+					var at := position + _special_dir * reach
+					for k in 3:
+						manager.spawn_hazard(at + _special_dir.orthogonal() * (k - 1) * 50.0, "strike", 40.0, 0.7, hurt)
+			if t > 2.4:
+				return _end_special()
+			return Vector2.ZERO
+		"taser":
+			if _special_step == 0:
+				_special_step = 1
+				var points := [position, target]
+				for k in 3:
+					points.append(target + Vector2.from_angle(randf() * TAU) * randf_range(90.0, 160.0))
+				for k in points.size() - 1:
+					manager.spawn_beam(points[k], points[k + 1], 22.0, SIG_WARN, hurt, "laser")
+				Audio.play("whoosh", -6.0, 0.5)
+			if t > SIG_WARN + 0.4:
+				return _end_special()
+			return Vector2.ZERO
 		"sawblades":
 			for volley in 3:
 				if _special_step == volley and t >= volley * 0.6:

@@ -10473,5 +10473,739 @@
     "music_night": "music_factory_night",
     "challenge": 3.49,
     "hazard": "robopatrol"
+  },
+  "COMPANY_LOT": {
+    "theme": "company_lot",
+    "terrain": "walls",
+    "damage_mult": 0.9,
+    "music": "music_factory",
+    "requires": "FENCE_LINE",
+    "district": "company",
+    "cat_quests": [],
+    "props": [
+      "CRATE",
+      "TOOLBOX",
+      "CRATE"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "SECURITY_CHIEF",
+    "events": [
+      {
+        "minute": 4.5,
+        "type": "swarm",
+        "enemy": "OFFICE_CHAIR",
+        "count": 200
+      },
+      {
+        "minute": 6.0,
+        "type": "ring",
+        "enemy": "ROBO_GUARD",
+        "count": 30
+      },
+      {
+        "minute": 9.0,
+        "type": "swarm",
+        "enemy": "LASER_DRONE",
+        "count": 120
+      },
+      {
+        "minute": 12.0,
+        "type": "ring",
+        "enemy": "MECH_DOG",
+        "count": 36
+      },
+      {
+        "minute": 15.0,
+        "type": "swarm",
+        "enemy": "OFFICE_CHAIR",
+        "count": 240
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "ROBO_GUARD",
+        "count": 50
+      }
+    ],
+    "traps": [
+      "ELECTRIC_FLOOR",
+      "PRESS_PLATE",
+      "ELECTRIC_FLOOR"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.65,
+      0.85,
+      1.0,
+      0.85,
+      1.15,
+      0.65,
+      1.15,
+      1.3,
+      1.4,
+      0.95,
+      0.65,
+      1.3,
+      1.45,
+      1.0,
+      1.45,
+      0.7,
+      1.45,
+      1.6,
+      1.1,
+      1.55,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.4,
+        "per_tick": 1,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA"
+        ],
+        "hp_mult": 1.98
+      },
+      {
+        "minute": 1,
+        "minimum": 16,
+        "interval": 1.1,
+        "per_tick": 2,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA"
+        ],
+        "hp_mult": 2.16
+      },
+      {
+        "minute": 2,
+        "minimum": 28,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA",
+          "ROBO_GUARD"
+        ],
+        "hp_mult": 2.35
+      },
+      {
+        "minute": 3,
+        "minimum": 42,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA",
+          "ROBO_GUARD",
+          "LASER_DRONE"
+        ],
+        "hp_mult": 2.71,
+        "bosses": [
+          "PARROT"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.7,
+        "per_tick": 3,
+        "enemies": [
+          "ROBO_GUARD",
+          "LASER_DRONE"
+        ],
+        "hp_mult": 3.61
+      },
+      {
+        "minute": 7,
+        "minimum": 110,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "ROBO_GUARD",
+          "LASER_DRONE",
+          "OFFICE_CHAIR"
+        ],
+        "hp_mult": 5.41,
+        "bosses": [
+          "GUARD_CAPTAIN"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 150,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA",
+          "ROBO_GUARD",
+          "LASER_DRONE",
+          "MECH_DOG"
+        ],
+        "hp_mult": 6.31
+      },
+      {
+        "minute": 11,
+        "minimum": 180,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "ROBO_GUARD",
+          "LASER_DRONE",
+          "MECH_DOG"
+        ],
+        "hp_mult": 7.22,
+        "bosses": [
+          "PARROT"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 220,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA",
+          "ROBO_GUARD",
+          "LASER_DRONE",
+          "MECH_DOG"
+        ],
+        "hp_mult": 9.02,
+        "bosses": [
+          "GUARD_CAPTAIN"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 260,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "ROBO_GUARD",
+          "LASER_DRONE",
+          "MECH_DOG"
+        ],
+        "hp_mult": 10.83,
+        "bosses": [
+          "PARROT",
+          "GUARD_CAPTAIN"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 300,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA",
+          "ROBO_GUARD",
+          "LASER_DRONE",
+          "MECH_DOG"
+        ],
+        "hp_mult": 12.63
+      }
+    ],
+    "music_night": "music_factory_night",
+    "challenge": 3.53,
+    "hazard": "laserwall",
+    "requires_flag": "company_gate"
+  },
+  "MACHINE_GARAGE": {
+    "theme": "garage",
+    "terrain": "belts",
+    "damage_mult": 0.9,
+    "music": "music_factory",
+    "requires": "COMPANY_LOT",
+    "district": "company",
+    "cat_quests": [],
+    "props": [
+      "CRATE",
+      "TOOLBOX",
+      "CRATE"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "GIANT_DIGGER",
+    "events": [
+      {
+        "minute": 4.5,
+        "type": "swarm",
+        "enemy": "CHAINSAW",
+        "count": 100
+      },
+      {
+        "minute": 6.0,
+        "type": "ring",
+        "enemy": "MINI_HARVESTER",
+        "count": 22
+      },
+      {
+        "minute": 9.0,
+        "type": "swarm",
+        "enemy": "OFFICE_CHAIR",
+        "count": 240
+      },
+      {
+        "minute": 12.0,
+        "type": "ring",
+        "enemy": "ROBO_GUARD",
+        "count": 40
+      },
+      {
+        "minute": 15.0,
+        "type": "swarm",
+        "enemy": "CHAINSAW",
+        "count": 130
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "MINI_HARVESTER",
+        "count": 30
+      }
+    ],
+    "traps": [
+      "ELECTRIC_FLOOR",
+      "PRESS_PLATE",
+      "ELECTRIC_FLOOR"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.65,
+      0.85,
+      1.0,
+      0.85,
+      1.15,
+      0.65,
+      1.15,
+      1.3,
+      1.4,
+      0.95,
+      0.65,
+      1.3,
+      1.45,
+      1.0,
+      1.45,
+      0.7,
+      1.45,
+      1.6,
+      1.1,
+      1.55,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.4,
+        "per_tick": 1,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA"
+        ],
+        "hp_mult": 2.0
+      },
+      {
+        "minute": 1,
+        "minimum": 16,
+        "interval": 1.1,
+        "per_tick": 2,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA"
+        ],
+        "hp_mult": 2.18
+      },
+      {
+        "minute": 2,
+        "minimum": 28,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA",
+          "CHAINSAW"
+        ],
+        "hp_mult": 2.38
+      },
+      {
+        "minute": 3,
+        "minimum": 42,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA",
+          "CHAINSAW",
+          "MINI_HARVESTER"
+        ],
+        "hp_mult": 2.74,
+        "bosses": [
+          "PARROT"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.7,
+        "per_tick": 3,
+        "enemies": [
+          "CHAINSAW",
+          "MINI_HARVESTER"
+        ],
+        "hp_mult": 3.65
+      },
+      {
+        "minute": 7,
+        "minimum": 110,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "CHAINSAW",
+          "MINI_HARVESTER",
+          "OFFICE_CHAIR"
+        ],
+        "hp_mult": 5.47,
+        "bosses": [
+          "BIG_FORKLIFT"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 150,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA",
+          "CHAINSAW",
+          "MINI_HARVESTER",
+          "ROBO_GUARD",
+          "PRINTER"
+        ],
+        "hp_mult": 6.39
+      },
+      {
+        "minute": 11,
+        "minimum": 180,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "CHAINSAW",
+          "MINI_HARVESTER",
+          "ROBO_GUARD",
+          "PRINTER"
+        ],
+        "hp_mult": 7.3,
+        "bosses": [
+          "PARROT"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 220,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA",
+          "CHAINSAW",
+          "MINI_HARVESTER",
+          "ROBO_GUARD",
+          "PRINTER"
+        ],
+        "hp_mult": 9.12,
+        "bosses": [
+          "BIG_FORKLIFT"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 260,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "CHAINSAW",
+          "MINI_HARVESTER",
+          "ROBO_GUARD",
+          "PRINTER"
+        ],
+        "hp_mult": 10.95,
+        "bosses": [
+          "PARROT",
+          "BIG_FORKLIFT"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 300,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA",
+          "CHAINSAW",
+          "MINI_HARVESTER",
+          "ROBO_GUARD",
+          "PRINTER"
+        ],
+        "hp_mult": 12.77
+      }
+    ],
+    "music_night": "music_factory_night",
+    "challenge": 3.57,
+    "hazard": "dozers"
+  },
+  "COMPANY_LAB": {
+    "theme": "lab",
+    "terrain": "walls",
+    "damage_mult": 0.9,
+    "music": "music_supermarket",
+    "requires": "MACHINE_GARAGE",
+    "district": "company",
+    "cat_quests": [
+      "LION"
+    ],
+    "props": [
+      "CRATE",
+      "TOOLBOX",
+      "CRATE"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "CAGE_GUARDIAN",
+    "events": [
+      {
+        "minute": 4.5,
+        "type": "swarm",
+        "enemy": "LASER_DRONE",
+        "count": 130
+      },
+      {
+        "minute": 6.0,
+        "type": "ring",
+        "enemy": "PRINTER",
+        "count": 30
+      },
+      {
+        "minute": 9.0,
+        "type": "swarm",
+        "enemy": "OFFICE_CHAIR",
+        "count": 250
+      },
+      {
+        "minute": 12.0,
+        "type": "ring",
+        "enemy": "MECH_DOG",
+        "count": 40
+      },
+      {
+        "minute": 15.0,
+        "type": "swarm",
+        "enemy": "LASER_DRONE",
+        "count": 160
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "MECH_DOG",
+        "count": 54
+      }
+    ],
+    "traps": [
+      "ELECTRIC_FLOOR",
+      "PRESS_PLATE",
+      "ELECTRIC_FLOOR"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.65,
+      0.85,
+      1.0,
+      0.85,
+      1.15,
+      0.65,
+      1.15,
+      1.3,
+      1.4,
+      0.95,
+      0.65,
+      1.3,
+      1.45,
+      1.0,
+      1.45,
+      0.7,
+      1.45,
+      1.6,
+      1.1,
+      1.55,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.4,
+        "per_tick": 1,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA"
+        ],
+        "hp_mult": 2.03
+      },
+      {
+        "minute": 1,
+        "minimum": 16,
+        "interval": 1.1,
+        "per_tick": 2,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA"
+        ],
+        "hp_mult": 2.21
+      },
+      {
+        "minute": 2,
+        "minimum": 28,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA",
+          "PRINTER"
+        ],
+        "hp_mult": 2.41
+      },
+      {
+        "minute": 3,
+        "minimum": 42,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA",
+          "PRINTER",
+          "LASER_DRONE"
+        ],
+        "hp_mult": 2.77,
+        "bosses": [
+          "CAGE_DRONE"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.7,
+        "per_tick": 3,
+        "enemies": [
+          "PRINTER",
+          "LASER_DRONE"
+        ],
+        "hp_mult": 3.69
+      },
+      {
+        "minute": 7,
+        "minimum": 110,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "PRINTER",
+          "LASER_DRONE",
+          "OFFICE_CHAIR"
+        ],
+        "hp_mult": 5.54,
+        "bosses": [
+          "LAB_BOT"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 150,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA",
+          "PRINTER",
+          "LASER_DRONE",
+          "MECH_DOG"
+        ],
+        "hp_mult": 6.46
+      },
+      {
+        "minute": 11,
+        "minimum": 180,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "PRINTER",
+          "LASER_DRONE",
+          "MECH_DOG"
+        ],
+        "hp_mult": 7.38,
+        "bosses": [
+          "CAGE_DRONE"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 220,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA",
+          "PRINTER",
+          "LASER_DRONE",
+          "MECH_DOG"
+        ],
+        "hp_mult": 9.23,
+        "bosses": [
+          "LAB_BOT"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 260,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "PRINTER",
+          "LASER_DRONE",
+          "MECH_DOG"
+        ],
+        "hp_mult": 11.07,
+        "bosses": [
+          "CAGE_DRONE",
+          "LAB_BOT"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 300,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "OFFICE_CHAIR",
+          "ROOMBA",
+          "PRINTER",
+          "LASER_DRONE",
+          "MECH_DOG"
+        ],
+        "hp_mult": 12.92
+      }
+    ],
+    "music_night": "music_supermarket_night",
+    "challenge": 3.61,
+    "hazard": "alarm"
   }
 }

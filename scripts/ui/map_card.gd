@@ -48,6 +48,10 @@ const GROUNDS := {
 	"logging": [Color("8a6a44"), Color("e8c02a")],
 	"burnt": [Color("3a3430"), Color("e0802a")],
 	"company_fence": [Color("9aa0a6"), Color("c0392b")],
+	"company_lot": [Color("45434d"), Color("e8cf6a")],
+	"garage": [Color("8a6a3a"), Color("e8c02a")],
+	"lab": [Color("e8ecf0"), Color("3a6ac8")],
+	"tower": [Color("2a4a6a"), Color("c0392b")],
 }
 
 var stage_id := ""

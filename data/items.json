@@ -108,6 +108,9 @@
     "DRONE_ANTENNA": { "slot": "HAT", "boss": "DRONE_SWARM", "color": "#c0392b", "stats": { "cooldown": -0.06, "proj_speed": 0.1 } },
     "BEAR_PAW": { "slot": "PAWS", "boss": "OLD_BEAR", "color": "#5a3a2a", "stats": { "max_hp": 40.0, "armor": 1.0 } },
     "WARDEN_CHIP": { "slot": "TAIL", "boss": "MACHINE_WARDEN", "color": "#3a6ac8", "stats": { "luck": 0.12, "boss_damage": 0.12 } },
+    "GUARD_BADGE": { "slot": "COLLAR", "boss": "SECURITY_CHIEF", "color": "#e8c02a", "stats": { "armor": 2.0, "boss_damage": 0.1 } },
+    "DIGGER_BOLT": { "slot": "PAWS", "boss": "GIANT_DIGGER", "color": "#8a8a94", "stats": { "might": 0.12, "area": 0.06 } },
+    "LAB_GOGGLES": { "slot": "HAT", "boss": "CAGE_GUARDIAN", "color": "#3a6ac8", "stats": { "crit_chance": 0.08, "cooldown": -0.05 } },
     "SOUL_BELL": { "slot": "COLLAR", "boss": "", "special": true, "color": "#9a7aff", "stats": {} }
   }
 }

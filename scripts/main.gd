@@ -1260,6 +1260,11 @@ func _end_run(kind: String) -> void:
 			lines.append(tr("SUMMARY_STREAK") % [Profile.streak, Profile.best_streak])
 			Audio.play("victory", -2.0, 0.0)
 			end_title = tr("VICTORY_TITLE")
+			if spawner.stage_id == "DIRECTOR_TOWER":
+				# The end of the story: no harm done, just mud and a lesson.
+				lines.append(tr("ENDING_STORY"))
+				Profile.set_flag("game_won")
+				BotLog.event("game_won")
 			end_stats = tr("VICTORY_STATS") % [tr("CAT_%s_NAME" % player.cat_id), kills]
 			if Profile.clear_stage(spawner.stage_id):
 				for wid: String in GameData.weapons:
@@ -2231,6 +2236,13 @@ func _on_final_boss(boss: Enemy) -> void:
 	Audio.play_music(GameData.enemies[boss.id].get("music", "music_boss"))
 	spawner.paused = true
 	hud.show_banner(tr("FINAL_BOSS_WARNING") % tr("ENEMY_%s_NAME" % boss.id), 4.0)
+	# The last fight of all: everyone you won over comes to help.
+	if boss.id == "DIRECTOR":
+		var allies := FinaleAllies.new()
+		allies.main = self
+		allies.boss = boss
+		allies.process_mode = Node.PROCESS_MODE_PAUSABLE
+		add_child(allies)
 
 
 ## After a win, E keeps the night going: the final boss is gone, waves keep

@@ -83,7 +83,7 @@ const LANES := {
 	"alarm": [2.0, 0, 0.0, "ALARM_WARNING"],
 }
 ## Lane hazards where dogs charge down the lane instead of a train.
-const RUNNERS := {"race": "GREYHOUND", "patrol": "DOBERMAN", "agility": "STRAY_DOG", "march": "PATROL_DOG", "wolfpack": "YOUNG_WOLF", "salmon": "SALMON", "batswarm": "BAT", "ravens": "RAVEN", "boars": "WILD_BOAR", "robopatrol": "ROBO_GUARD", "dozers": "MINI_HARVESTER", "alarm": "MECH_DOG"}
+const RUNNERS := {"race": "GREYHOUND", "patrol": "DOBERMAN", "agility": "STRAY_DOG", "march": "PATROL_DOG", "wolfpack": "YOUNG_WOLF", "salmon": "SALMON", "batswarm": "BAT", "ravens": "RAVEN", "boars": "PIGLET", "robopatrol": "ROBO_GUARD", "dozers": "MINI_HARVESTER", "alarm": "MECH_DOG"}
 const CRANE_FIRST := 30.0
 const CRANE_EVERY := Vector2(18.0, 28.0)
 const CRANE_WARN := 2.6
@@ -720,7 +720,9 @@ func _draw_crane() -> void:
 		var p: Vector2 = d["pos"]
 		var k := 1.0 - clampf(float(d["t"]) / CRANE_WARN, 0.0, 1.0)
 		# The load's shadow grows as it comes down, with a warning ring.
-		draw_colored_polygon(Shapes.ellipse(p, maxf(CRANE_RADIUS * k, 1.0), maxf(CRANE_RADIUS * 0.7 * k, 1.0), 20), Color(0, 0, 0, 0.35 * k))
+		# (Too small a shadow can't be drawn as a polygon at all.)
+		if CRANE_RADIUS * 0.7 * k >= 3.0:
+			draw_colored_polygon(Shapes.ellipse(p, CRANE_RADIUS * k, CRANE_RADIUS * 0.7 * k, 20), Color(0, 0, 0, 0.35 * k))
 		draw_arc(p, CRANE_RADIUS, 0.0, TAU, 32, Color(1.0, 0.75, 0.2, 0.5 + 0.4 * sin(_t * 14.0)), 3.0)
 		draw_line(p + Vector2(0, -400), p + Vector2(0, -CRANE_RADIUS * (1.0 - k) - 10.0), Color(0.2, 0.2, 0.22, 0.5), 1.5)
 	for d in _debris:

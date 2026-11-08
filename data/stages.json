@@ -3204,7 +3204,7 @@
   "CONSTRUCTION": {
     "theme": "construction",
     "terrain": "walls",
-    "damage_mult": 0.9,
+    "damage_mult": 0.85,
     "music": "music_factory",
     "requires": "FACTORY",
     "cat_quests": ["BRICK"],
@@ -3689,7 +3689,7 @@
   "FREIGHT_YARD": {
     "theme": "freight",
     "terrain": "aisles",
-    "damage_mult": 0.9,
+    "damage_mult": 0.65,
     "music": "music_rooftop",
     "requires": "RAILYARD",
     "district": "dogs",
@@ -3932,7 +3932,7 @@
   "DOG_SHELTER": {
     "theme": "shelter",
     "terrain": "walls",
-    "damage_mult": 0.9,
+    "damage_mult": 0.65,
     "music": "music_basement",
     "requires": "FREIGHT_YARD",
     "district": "dogs",
@@ -4176,7 +4176,7 @@
   "DOG_PARK": {
     "theme": "dogpark",
     "terrain": "trees",
-    "damage_mult": 0.9,
+    "damage_mult": 0.65,
     "music": "music_garden",
     "requires": "DOG_SHELTER",
     "district": "dogs",
@@ -4421,7 +4421,7 @@
   "JUNKYARD": {
     "theme": "junkyard",
     "terrain": "walls",
-    "damage_mult": 0.9,
+    "damage_mult": 0.65,
     "music": "music_factory",
     "requires": "DOG_PARK",
     "district": "dogs",
@@ -4670,7 +4670,7 @@
   "GROOMING_SALON": {
     "theme": "salon",
     "terrain": "walls",
-    "damage_mult": 0.9,
+    "damage_mult": 0.65,
     "music": "music_supermarket",
     "requires": "JUNKYARD",
     "district": "dogs",
@@ -4912,7 +4912,7 @@
   "BONE_BAKERY": {
     "theme": "bakery",
     "terrain": "belts",
-    "damage_mult": 0.9,
+    "damage_mult": 0.68,
     "music": "music_factory",
     "requires": "GROOMING_SALON",
     "district": "dogs",
@@ -5154,7 +5154,7 @@
   "RACETRACK": {
     "theme": "racetrack",
     "terrain": "walls",
-    "damage_mult": 0.9,
+    "damage_mult": 0.65,
     "music": "music_garden",
     "requires": "BONE_BAKERY",
     "district": "dogs",
@@ -5396,7 +5396,7 @@
   "FIRE_STATION": {
     "theme": "firestation",
     "terrain": "aisles",
-    "damage_mult": 0.9,
+    "damage_mult": 0.65,
     "music": "music_factory",
     "requires": "RACETRACK",
     "district": "dogs",
@@ -5640,7 +5640,7 @@
   "POLICE_K9": {
     "theme": "police",
     "terrain": "walls",
-    "damage_mult": 0.9,
+    "damage_mult": 0.65,
     "music": "music_factory",
     "requires": "FIRE_STATION",
     "district": "dogs",
@@ -5872,7 +5872,7 @@
   "VET_CLINIC": {
     "theme": "vet",
     "terrain": "walls",
-    "damage_mult": 0.9,
+    "damage_mult": 0.65,
     "music": "music_supermarket",
     "requires": "POLICE_K9",
     "district": "dogs",
@@ -6114,7 +6114,7 @@
   "RIVER_DAM": {
     "theme": "dam",
     "terrain": "tide",
-    "damage_mult": 0.9,
+    "damage_mult": 0.65,
     "music": "music_harbor",
     "requires": "VET_CLINIC",
     "district": "dogs",
@@ -6356,7 +6356,7 @@
   "SNOW_HILL": {
     "theme": "snow",
     "terrain": "trees",
-    "damage_mult": 0.9,
+    "damage_mult": 0.65,
     "music": "music_garden",
     "requires": "RIVER_DAM",
     "district": "dogs",
@@ -6589,7 +6589,7 @@
   "TRAINING_GROUND": {
     "theme": "training",
     "terrain": "walls",
-    "damage_mult": 0.9,
+    "damage_mult": 0.65,
     "music": "music_garden",
     "requires": "SNOW_HILL",
     "district": "dogs",
@@ -6821,7 +6821,7 @@
   "DOG_SHOW": {
     "theme": "show",
     "terrain": "walls",
-    "damage_mult": 0.9,
+    "damage_mult": 0.65,
     "music": "music_supermarket",
     "requires": "TRAINING_GROUND",
     "district": "dogs",
@@ -7063,7 +7063,7 @@
   "BARRACKS": {
     "theme": "barracks",
     "terrain": "walls",
-    "damage_mult": 0.9,
+    "damage_mult": 0.65,
     "music": "music_factory",
     "requires": "DOG_SHOW",
     "district": "dogs",
@@ -7300,7 +7300,7 @@
   "GENERAL_KENNEL": {
     "theme": "general",
     "terrain": "walls",
-    "damage_mult": 0.9,
+    "damage_mult": 0.65,
     "music": "music_factory",
     "requires": "BARRACKS",
     "district": "dogs",
@@ -7542,7 +7542,7 @@
   "FOREST_EDGE": {
     "theme": "wild_edge",
     "terrain": "trees",
-    "damage_mult": 0.9,
+    "damage_mult": 0.55,
     "music": "music_garden",
     "requires": "GENERAL_KENNEL",
     "district": "wild",
@@ -7786,7 +7786,7 @@
   "DEEP_WOODS": {
     "theme": "deep_woods",
     "terrain": "trees",
-    "damage_mult": 0.9,
+    "damage_mult": 0.55,
     "music": "music_garden",
     "requires": "FOREST_EDGE",
     "district": "wild",
@@ -8037,7 +8037,7 @@
   "SWAMP": {
     "theme": "swamp",
     "terrain": "trees",
-    "damage_mult": 0.9,
+    "damage_mult": 0.55,
     "music": "music_harbor",
     "requires": "DEEP_WOODS",
     "district": "wild",
@@ -8280,7 +8280,7 @@
   "WATERFALL": {
     "theme": "waterfall",
     "terrain": "belts",
-    "damage_mult": 0.9,
+    "damage_mult": 0.55,
     "music": "music_harbor",
     "requires": "SWAMP",
     "district": "wild",
@@ -8522,7 +8522,7 @@
   "CAVES": {
     "theme": "caves",
     "terrain": "trees",
-    "damage_mult": 0.9,
+    "damage_mult": 0.55,
     "music": "music_basement",
     "requires": "WATERFALL",
     "district": "wild",
@@ -8765,7 +8765,7 @@
   "MOUNTAIN_MEADOW": {
     "theme": "meadow",
     "terrain": "trees",
-    "damage_mult": 0.9,
+    "damage_mult": 0.55,
     "music": "music_garden",
     "requires": "CAVES",
     "district": "wild",
@@ -9008,7 +9008,7 @@
   "EAGLE_CLIFFS": {
     "theme": "cliffs",
     "terrain": "walls",
-    "damage_mult": 0.9,
+    "damage_mult": 0.55,
     "music": "music_rooftop",
     "requires": "MOUNTAIN_MEADOW",
     "district": "wild",
@@ -9250,7 +9250,7 @@
   "FROZEN_LAKE": {
     "theme": "frozen",
     "terrain": "tide",
-    "damage_mult": 0.9,
+    "damage_mult": 0.55,
     "music": "music_garden",
     "requires": "EAGLE_CLIFFS",
     "district": "wild",
@@ -9492,7 +9492,7 @@
   "OLD_CAMP": {
     "theme": "camp",
     "terrain": "trees",
-    "damage_mult": 0.9,
+    "damage_mult": 0.55,
     "music": "music_garden",
     "requires": "FROZEN_LAKE",
     "district": "wild",
@@ -9740,7 +9740,7 @@
   "LOGGING_SITE": {
     "theme": "logging",
     "terrain": "walls",
-    "damage_mult": 0.9,
+    "damage_mult": 0.55,
     "music": "music_factory",
     "requires": "OLD_CAMP",
     "district": "wild",
@@ -9982,7 +9982,7 @@
   "BURNT_CLEARING": {
     "theme": "burnt",
     "terrain": "trees",
-    "damage_mult": 0.9,
+    "damage_mult": 0.55,
     "music": "music_factory",
     "requires": "LOGGING_SITE",
     "district": "wild",
@@ -10230,7 +10230,7 @@
   "FENCE_LINE": {
     "theme": "company_fence",
     "terrain": "walls",
-    "damage_mult": 0.9,
+    "damage_mult": 0.55,
     "music": "music_factory",
     "requires": "BURNT_CLEARING",
     "district": "wild",
@@ -10477,7 +10477,7 @@
   "COMPANY_LOT": {
     "theme": "company_lot",
     "terrain": "walls",
-    "damage_mult": 0.9,
+    "damage_mult": 0.5,
     "music": "music_factory",
     "requires": "FENCE_LINE",
     "district": "company",
@@ -10720,7 +10720,7 @@
   "MACHINE_GARAGE": {
     "theme": "garage",
     "terrain": "belts",
-    "damage_mult": 0.9,
+    "damage_mult": 0.5,
     "music": "music_factory",
     "requires": "COMPANY_LOT",
     "district": "company",
@@ -10967,7 +10967,7 @@
   "COMPANY_LAB": {
     "theme": "lab",
     "terrain": "walls",
-    "damage_mult": 0.9,
+    "damage_mult": 0.5,
     "music": "music_supermarket",
     "requires": "MACHINE_GARAGE",
     "district": "company",
@@ -11211,7 +11211,7 @@
   "DIRECTOR_TOWER": {
     "theme": "tower",
     "terrain": "walls",
-    "damage_mult": 0.9,
+    "damage_mult": 0.5,
     "music": "music_factory",
     "requires": "COMPANY_LAB",
     "district": "company",

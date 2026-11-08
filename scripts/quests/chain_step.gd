@@ -111,6 +111,7 @@ func start_line() -> String:
 func complete() -> void:
 	if _done:
 		return
+	BotLog.event("chain_step:%s:%d" % [chain_id, step_no])
 	# Skip the steps of the branch not taken.
 	var next := step_no
 	while next < steps(chain_id).size() and not Profile.has_flag(steps(chain_id)[next].get("if", "")) and steps(chain_id)[next].has("if"):

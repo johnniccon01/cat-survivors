@@ -3,7 +3,8 @@
   "rarities": {
     "common": { "weight": 75, "extra": 0, "mult": 1.0, "color": "#d9cce6", "salvage": 15 },
     "rare": { "weight": 25, "extra": 1, "mult": 1.3, "color": "#8fd3ff", "salvage": 40 },
-    "legendary": { "weight": 0, "extra": 0, "mult": 1.0, "color": "#ff9f43", "salvage": 150 }
+    "legendary": { "weight": 0, "extra": 0, "mult": 1.0, "color": "#ff9f43", "salvage": 150 },
+    "dream": {"weight": 0, "extra": 2, "mult": 1.5, "color": "#c8a8ff", "salvage": 250}
   },
   "affixes": {
     "might": [0.04, 0.08],

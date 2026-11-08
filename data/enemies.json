@@ -3944,5 +3944,111 @@
     "summon": "PRINTER",
     "summon_count": 2,
     "summon_every": 9.0
+  },
+  "NIGHTMARE_RAT_KING": {
+    "shape": "rat",
+    "boss": true,
+    "specials": ["swarm", "vortex", "grid", "cage"],
+    "final": true,
+    "behavior": "final",
+    "final_mode": "roar",
+    "scale": 4.6,
+    "color": "#2a1a2e",
+    "accent": "#ff3060",
+    "hp": 202800,
+    "speed": 46,
+    "damage": 31,
+    "radius": 26,
+    "xp": 0,
+    "knockback_resist": 1.0,
+    "minion": "RAT",
+    "music": "music_boss_rat",
+    "nightmare": true,
+    "fight": {
+      "phase2": {
+        "specials": ["vortex", "grid", "cage", "swarm"],
+        "speed": 1.2
+      }
+    }
+  },
+  "SHADOW_GENERAL": {
+    "shape": "dog",
+    "breed": "dane",
+    "boss": true,
+    "specials": ["orders", "squad", "howl", "cage"],
+    "scale": 5.06,
+    "color": "#1a1a24",
+    "accent": "#8a3ab0",
+    "hp": 264000,
+    "speed": 56,
+    "damage": 62,
+    "radius": 30,
+    "xp": 0,
+    "knockback_resist": 1.0,
+    "final": true,
+    "behavior": "final",
+    "final_mode": "roar",
+    "minion": "DOBERMAN",
+    "music": "music_boss",
+    "nightmare": true,
+    "fight": {
+      "phase2": {
+        "specials": ["squad", "howl", "cage", "orders"],
+        "speed": 1.2
+      }
+    }
+  },
+  "NIGHT_WOLF": {
+    "shape": "dog",
+    "boss": true,
+    "specials": ["packhunt", "frostbite", "shadowpounce", "whirl"],
+    "scale": 5.06,
+    "color": "#14141e",
+    "accent": "#4ad8ff",
+    "hp": 281600,
+    "speed": 66,
+    "damage": 65,
+    "radius": 30,
+    "xp": 0,
+    "knockback_resist": 1.0,
+    "final": true,
+    "behavior": "final",
+    "final_mode": "roar",
+    "minion": "YOUNG_WOLF",
+    "music": "music_boss",
+    "breed": "wolf",
+    "nightmare": true,
+    "fight": {
+      "phase2": {
+        "specials": ["frostbite", "shadowpounce", "whirl", "packhunt"],
+        "speed": 1.2
+      }
+    }
+  },
+  "MEGA_MACHINE": {
+    "shape": "bulldozer",
+    "boss": true,
+    "specials": ["megadozer", "sawblades", "laserfence", "scoop"],
+    "scale": 5.75,
+    "color": "#3a3a40",
+    "accent": "#ff3030",
+    "hp": 440000,
+    "speed": 48,
+    "damage": 85,
+    "radius": 30,
+    "xp": 0,
+    "knockback_resist": 1.0,
+    "final": true,
+    "behavior": "final",
+    "final_mode": "roar",
+    "minion": "ROBO_GUARD",
+    "music": "music_boss",
+    "nightmare": true,
+    "fight": {
+      "phase2": {
+        "specials": ["sawblades", "laserfence", "scoop", "megadozer"],
+        "speed": 1.2
+      }
+    }
   }
 }

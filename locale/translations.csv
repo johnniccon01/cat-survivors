@@ -3932,3 +3932,33 @@ CHAIN_THE_DIRECTOR_3,Defeat the Cage Guardian in the laboratory,Poraz Strážcu 
 CHAIN_THE_DIRECTOR_3_DONE,The cages are open. Only the tower is left.,Klietky sú otvorené. Zostáva už len veža.,Klece jsou otevřené. Zbývá už jen věž.,Las jaulas están abiertas. Solo queda la torre.,Клетки открыты. Осталась только башня.,笼子都打开了。只剩下大楼了。
 CHAIN_THE_DIRECTOR_4,Defeat the Director in his tower,Poraz Riaditeľa v jeho veži,Poraz Ředitele v jeho věži,Derrota al Director en su torre,Победи Директора в его башне,在大楼里击败总裁
 CHAIN_THE_DIRECTOR_4_DONE,Splash! The director lands in the mud – and the forest is saved for good.,Žblnk! Riaditeľ pristane v blate – a les je zachránený navždy.,Žbluňk! Ředitel přistane v blátě – a les je zachráněn navždy.,¡Plaf! El director cae en el barro y el bosque está a salvo para siempre.,Плюх! Директор падает в грязь – и лес спасён навсегда.,扑通！总裁摔进泥里——森林永远得救了。
+DREAMS_BUTTON,Dreams,Sny,Sny,Sueños,Сны,梦境
+DREAMS_TITLE,Cat Dreams,Mačacie sny,Kočičí sny,Sueños gatunos,Кошачьи сны,猫咪梦境
+DREAMS_DEPTH,Deepest dream: %d · next: depth %d,Najhlbší sen: %d · ďalší: hĺbka %d,Nejhlubší sen: %d · další: hloubka %d,Sueño más profundo: %d · siguiente: profundidad %d,Самый глубокий сон: %d · следующий: глубина %d,最深梦境：%d · 下一个：深度 %d
+DREAMS_OFFER,Depth %d – %s (%s),Hĺbka %d – %s (%s),Hloubka %d – %s (%s),Profundidad %d – %s (%s),Глубина %d – %s (%s),深度 %d – %s（%s）
+DREAMS_NIGHTMARE,Nightmare: %s,Nočná mora: %s,Noční můra: %s,Pesadilla: %s,Кошмар: %s,梦魇：%s
+DREAMS_SHARDS,"Your dream shards (click to add one to the dream: harder, more gold):","Tvoje snové úlomky (kliknutím pridáš do snu: ťažšie, viac zlata):","Tvé snové úlomky (kliknutím přidáš do snu: těžší, víc zlata):","Tus fragmentos de sueño (clic para añadir: más difícil, más oro):","Твои осколки снов (нажми, чтобы добавить в сон: сложнее, больше золота):",你的梦境碎片（点击加入梦境：更难，金币更多）：
+DREAMS_NO_SHARDS,none yet – every dream won leaves one,zatiaľ žiadne – každý vyhraný sen nejaký zanechá,zatím žádné – každý vyhraný sen nějaký zanechá,ninguno aún: cada sueño ganado deja uno,пока нет – каждый выигранный сон оставляет один,暂无——每赢得一个梦都会留下一枚
+DREAMS_POINTS,Dream points: %d – spend them on bonuses that never run out:,"Snové body: %d – minieš ich na bonusy, ktoré nikdy nekončia:","Snové body: %d – utratíš je za bonusy, které nikdy nekončí:",Puntos de sueño: %d – gástalos en bonos que nunca se acaban:,"Очки снов: %d – трать их на бонусы, которые не кончаются:",梦境点数：%d——用于永不封顶的加成：
+DREAMS_GROW,+ %s (%d),+ %s (%d),+ %s (%d),+ %s (%d),+ %s (%d),+ %s（%d）
+DREAM_STAT_MIGHT,1% might,1 % sila,1 % síla,1 % de poder,1 % силы,1% 力量
+DREAM_STAT_MAX_HP,2 health,2 zdravia,2 zdraví,2 de salud,2 здоровья,2 生命
+DREAM_STAT_GREED,2% gold,2 % zlata,2 % zlata,2 % de oro,2 % золота,2% 金币
+DREAM_STAT_GROWTH,1% growth,1 % rast,1 % růst,1 % de crecimiento,1 % роста,1% 成长
+DREAM_STAT_LUCK,1% luck,1 % šťastie,1 % štěstí,1 % de suerte,1 % удачи,1% 幸运
+DREAM_START,A dream – depth %d. Everything is a little stronger here.,Sen – hĺbka %d. Všetko je tu o trochu silnejšie.,Sen – hloubka %d. Všechno je tu o trochu silnější.,Un sueño – profundidad %d. Aquí todo es algo más fuerte.,Сон – глубина %d. Здесь всё немного сильнее.,梦境——深度 %d。这里的一切都更强一些。
+SUMMARY_DREAM_WON,Dream won: depth %d!,Sen vyhraný: hĺbka %d!,Sen vyhrán: hloubka %d!,¡Sueño ganado: profundidad %d!,Сон пройден: глубина %d!,梦境胜利：深度 %d！
+SUMMARY_DREAM_GOLD,Dream bonus ×%.2f: +%d gold,Bonus snu ×%.2f: +%d zlata,Bonus snu ×%.2f: +%d zlata,Bono del sueño ×%.2f: +%d de oro,Бонус сна ×%.2f: +%d золота,梦境加成 ×%.2f：+%d 金币
+SUMMARY_DREAM_SHARD,Dream shard found: %s,Nájdený snový úlomok: %s,Nalezen snový úlomek: %s,Fragmento de sueño encontrado: %s,Найден осколок сна: %s,找到梦境碎片：%s
+ENEMY_NIGHTMARE_RAT_KING_NAME,Nightmare Rat King,Kráľ potkanov z nočnej mory,Král potkanů z noční můry,Rey rata de pesadilla,Кошмарный Крысиный король,梦魇鼠王
+ENEMY_NIGHTMARE_RAT_KING_DESC,"The first boss, back from your worst dream – with tricks from all over the town.","Prvý boss, späť z tvojho najhoršieho sna – s trikmi z celého mesta.","První boss, zpět z tvého nejhoršího snu – s triky z celého města.","El primer jefe, de vuelta de tu peor sueño, con trucos de toda la ciudad.",Первый босс вернулся из твоего худшего сна – с приёмами со всего города.,第一个首领从你最可怕的梦里回来了——还带着全城的招数。
+ENEMY_SHADOW_GENERAL_NAME,The Shadow General,Tieňový Generál,Stínový Generál,El General de las sombras,Теневой Генерал,暗影将军
+ENEMY_SHADOW_GENERAL_DESC,"The General as your nightmares remember him: orders, squads and howls.","Generál, ako si ho pamätajú tvoje nočné mory: rozkazy, čaty a vytie.","Generál, jak si ho pamatují tvé noční můry: rozkazy, čety a vytí.","El General como lo recuerdan tus pesadillas: órdenes, escuadras y aullidos.","Генерал, каким его помнят твои кошмары: приказы, отряды и вой.",噩梦记忆中的将军：命令、小队和嚎叫。
+ENEMY_NIGHT_WOLF_NAME,The Night Wolf,Nočný vlk,Noční vlk,El Lobo Nocturno,Ночной волк,暗夜之狼
+ENEMY_NIGHT_WOLF_DESC,"Pack, frost and shadow in one wolf.","Svorka, mráz a tieň v jednom vlkovi.","Smečka, mráz a stín v jednom vlkovi.","Manada, escarcha y sombra en un solo lobo.","Стая, мороз и тень в одном волке.",狼群、冰霜与暗影集于一狼。
+ENEMY_MEGA_MACHINE_NAME,The Mega Machine,Megastroj,Megastroj,La Megamáquina,Мегамашина,超级机器
+ENEMY_MEGA_MACHINE_DESC,"The director's bulldozer, rebuilt in a nightmare: saws, lasers and scoops.","Riaditeľov buldozér prestavaný v nočnej more: píly, lasery a lopaty.","Ředitelův buldozer přestavěný v noční můře: pily, lasery a lopaty.","La excavadora del director, reconstruida en una pesadilla: sierras, láseres y palas.","Бульдозер директора, перестроенный в кошмаре: пилы, лазеры и ковши.",在梦魇中重建的总裁推土机：锯片、激光和铲斗。
+RARITY_DREAM,dream,snová,snová,onírica,сновидческий,梦境
+SET_MOON_ITEM,Moon %s,Mesačný kúsok: %s,Měsíční kousek: %s,%s lunar,Лунный: %s,月之%s
+SET_STAR_ITEM,Star %s,Hviezdny kúsok: %s,Hvězdný kousek: %s,%s estelar,Звёздный: %s,星之%s
+SET_CLOUD_ITEM,Cloud %s,Oblačný kúsok: %s,Oblačný kousek: %s,%s de nube,Облачный: %s,云之%s

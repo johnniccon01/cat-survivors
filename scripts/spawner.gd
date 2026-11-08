@@ -199,7 +199,7 @@ var ally_hp_mult := 1.0
 
 
 func hp_multiplier() -> float:
-	return float(current_wave().get("hp_mult", 1.0)) * level_factor() * _player.stat("curse") * endless_factor() * early_ease() * challenge() * (1.0 + DARKNESS_HP * darkness) * ally_hp_mult
+	return float(current_wave().get("hp_mult", 1.0)) * level_factor() * _player.stat("curse") * endless_factor() * early_ease() * challenge() * (1.0 + DARKNESS_HP * darkness) * ally_hp_mult * Profile.dream_hp()
 
 
 ## Enemies grow with the cat's level (from LEVEL_SCALING_FROM on).
@@ -229,7 +229,7 @@ func toughen(enemy: Enemy, strength: float = 1.0) -> void:
 ## Health multiplier of a final boss: the map's challenge (much less than
 ## the rest) and the cat's level, so a strong cat doesn't melt it.
 func final_hp_multiplier() -> float:
-	return _player.stat("curse") * pow(challenge(), 0.65) * level_factor()
+	return _player.stat("curse") * pow(challenge(), 0.65) * level_factor() * Profile.dream_hp()
 
 
 ## The map's challenge ("challenge" in stages.json): later maps grow tougher
@@ -281,7 +281,7 @@ func _stage_bosses() -> Array:
 
 ## How hard and fast new enemies are, from the run clock.
 func _update_mults() -> void:
-	_enemies.damage_mult = (1.0 + DAMAGE_PER_MINUTE_SQ * pow(elapsed / 60.0, 2.0)) * early_ease() * sqrt(challenge()) * (1.0 + DARKNESS_DAMAGE * darkness) * float(_stage.get("damage_mult", 1.0))
+	_enemies.damage_mult = (1.0 + DAMAGE_PER_MINUTE_SQ * pow(elapsed / 60.0, 2.0)) * early_ease() * sqrt(challenge()) * (1.0 + DARKNESS_DAMAGE * darkness) * float(_stage.get("damage_mult", 1.0)) * Profile.dream_damage()
 	_enemies.speed_mult = 1.0 + minf(SPEED_PER_MINUTE * elapsed / 60.0, SPEED_MAX_BONUS) + minf(ENDLESS_SPEED_PER_MINUTE * endless_minutes(), ENDLESS_SPEED_MAX)
 
 
@@ -329,6 +329,9 @@ func _physics_process(delta: float) -> void:
 	elif elapsed >= duration_minutes() * 60.0:
 		_cleared = true
 		var final_id: String = _stage.get("final_boss", "")
+		# A nightmare dream brings its own boss.
+		if Profile.dream.get("nightmare", false):
+			final_id = Profile.dream.get("boss", final_id)
 		if final_id == "":
 			stage_cleared.emit()
 		else:

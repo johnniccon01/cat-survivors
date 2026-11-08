@@ -22,6 +22,8 @@ var goals: Dictionary = {}
 var questbook: Dictionary = {}
 ## Dogs that can run with the cat from the Wild on (Partner).
 var partners: Dictionary = {}
+## Cat Dreams: the nightmare bosses (Profile.dream_offers).
+var dreams: Dictionary = {}
 ## base weapon id -> branch id -> {ranks: [effect, effect]}
 var branches: Dictionary = {}
 ## Champion affixes: id -> {hp, speed, damage, taken, scale, split, regen, bomb, color}
@@ -61,6 +63,7 @@ func _ready() -> void:
 	passives = _load_json("res://data/passives.json")
 	cats = _load_json("res://data/cats.json")
 	partners = _load_json("res://data/partners.json")
+	dreams = _load_json("res://data/dreams.json")
 	quests = _load_json("res://data/quests.json")
 	powerups = _load_json("res://data/powerups.json")
 	charms = _load_json("res://data/charms.json")

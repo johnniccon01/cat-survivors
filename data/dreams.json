@@ -1,0 +1,16 @@
+{
+  "nightmares": {
+    "NIGHTMARE_RAT_KING": {
+      "base": "RAT_KING"
+    },
+    "SHADOW_GENERAL": {
+      "base": "GENERAL"
+    },
+    "NIGHT_WOLF": {
+      "base": "WOLF_LEADER"
+    },
+    "MEGA_MACHINE": {
+      "base": "DIRECTOR"
+    }
+  }
+}

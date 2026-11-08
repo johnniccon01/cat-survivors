@@ -327,6 +327,9 @@ func _ready() -> void:
 	night.setup(spawner, player)
 	_start_weather()
 	_start_partner()
+	if not Profile.dream.is_empty():
+		hud.show_banner.call_deferred(tr("DREAM_START") % int(Profile.dream["depth"]), 5.0)
+		BotLog.event("dream_start")
 	_place_memorials()
 	Profile.soul_live = Profile.soul_charge if Profile.soul_worn() and not dev_test else -1.0
 	player._recalc_stats()
@@ -706,6 +709,7 @@ func _exit_tree() -> void:
 	# come back.
 	Profile.end_daily()
 	Profile.end_report()
+	Profile.end_dream(false)
 	Profile.end_moon()
 	# Never leave the game slowed down by a hit-stop when the scene changes.
 	if not _bot:
@@ -1053,7 +1057,9 @@ func _maybe_find_item(chance: float) -> void:
 	# Curses make loot likelier and better.
 	var curse := 1.0 + Profile.challenge_loot()
 	if randf() < float(_arg("--item-chance=", str(chance))) * player.stat("luck") * curse:
-		_find_item(Items.roll(player.stat("luck") * curse))
+		# In dreams, deeper dreams give dream gear more often.
+		var dreamy := not Profile.dream.is_empty() and randf() < 0.2 + 0.02 * float(Profile.dream.get("depth", 0))
+		_find_item(Items.roll(player.stat("luck") * curse, "dream" if dreamy else ""))
 
 
 ## A boss or an elite left an item: it goes straight into the cat's bag for
@@ -1063,6 +1069,8 @@ func _find_item(item: Dictionary) -> void:
 	BotLog.event("item_found")
 	var legendary: bool = item["rarity"] == "legendary"
 	hud.show_banner(tr("ITEM_FOUND") % [Items.item_name(item), tr("RARITY_" + String(item["rarity"]).to_upper())], 5.0 if legendary else 3.5)
+	if item["rarity"] == "dream":
+		BotLog.event("item_dream")
 	if legendary:
 		BotLog.event("item_legendary")
 		# A legendary gets its own fanfare and a burst of gold round the cat.
@@ -1323,6 +1331,18 @@ func _end_run(kind: String) -> void:
 		Profile.add_stat("daily_wins")
 		gold += Profile.DAILY_GOLD
 		lines.append(tr("SUMMARY_DAILY") % Profile.DAILY_GOLD)
+	if not Profile.dream.is_empty():
+		var depth := int(Profile.dream["depth"])
+		var dream_mult := Profile.dream_gold()
+		var dream_bonus := floori(gold * (dream_mult - 1.0))
+		gold += dream_bonus
+		var shard := Profile.end_dream(kind == "victory")
+		if kind == "victory":
+			deeds.append(tr("SUMMARY_DREAM_WON") % depth)
+			lines.append(tr("SUMMARY_DREAM_GOLD") % [dream_mult, dream_bonus])
+			if shard != "":
+				lines.append(tr("SUMMARY_DREAM_SHARD") % tr("CHALLENGE_%s_NAME" % shard))
+			BotLog.event("dream_won")
 	if kind == "victory" and player.is_home():
 		var home_gold := floori(gold * HOME_WIN_GOLD)
 		gold += home_gold

@@ -1,6 +1,6 @@
 # Mačacie sny – endgame (návrh)
 
-Stav: **návrh** (8. 11. 2026, schválený hráčom). Robí sa po dokončení kampane (časť 5: Divočina a Firma).
+Stav: **hrateľné** (8. 11. 2026): sny, úlomky, nočné mory, snová výbava so setmi a snové body. Chýba vylepšovanie výbavy materiálmi a týždenný sen (Steam).
 
 Po porazení riaditeľa mačka zaspí a sníva o všetkom, čo zažila. Sny sú oddelené od kampane: kampaň ostáva rovnaká a dohrateľná, v snoch môže obtiažnosť rásť donekonečna.
 

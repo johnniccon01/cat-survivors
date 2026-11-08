@@ -96,6 +96,11 @@ func _ready() -> void:
 			unlocked.append(id)
 		selected_cat = cfg.get_value("cats", "selected", selected_cat)
 		partner = cfg.get_value("cats", "partner", partner)
+		dream_depth = cfg.get_value("dreams", "depth", 0)
+		for s: String in cfg.get_value("dreams", "shards", []):
+			dream_shards.append(s)
+		dream_points = cfg.get_value("dreams", "points", 0)
+		dream_growth = cfg.get_value("dreams", "growth", {})
 		selected_stage = cfg.get_value("stages", "selected", selected_stage)
 		district = cfg.get_value("stages", "district", district)
 		for id: String in cfg.get_value("stages", "cleared", []):
@@ -177,6 +182,9 @@ func _ready() -> void:
 				challenges.append(id)
 		if arg == "--daily":
 			start_daily()
+		if arg.begins_with("--dream="):
+			dream_depth = maxi(int(arg.substr(8)) - 1, 0)
+			start_dream(dream_offers()[0], [])
 		# `-- --chain-step=KIBBLE_THIEF:2` marks two steps of a chain done.
 		if arg.begins_with("--chain-step="):
 			var parts := arg.trim_prefix("--chain-step=").split(":")
@@ -407,6 +415,122 @@ var report_news: Array = []
 ## Quiet nights left before the next siege can come.
 var siege_calm := 0
 var _report_backup: Array[String] = []
+
+# --- Cat Dreams (the endgame) -------------------------------------------------
+## After the director, the cat dreams: nights on any map one depth deeper than
+## the last dream won (`dream_depth`), harder and richer with every depth.
+## Dream shards (challenge ids) drop from dreams won and can be put into the
+## next one. Every 5th depth is a nightmare with a nightmare boss. Each dream
+## won gives a dream point for a small bonus that never runs out.
+const DREAM_HP := 0.12
+const DREAM_DAMAGE := 0.04
+const DREAM_GOLD := 0.15
+const NIGHTMARE_EVERY := 5
+## Bonus per dream point: stat -> amount (see Player._recalc_stats).
+const DREAM_GROWTH := {"might": 0.01, "max_hp": 2.0, "greed": 0.02, "growth": 0.01, "luck": 0.01}
+var dream_depth := 0
+var dream_shards: Array[String] = []
+var dream_points := 0
+var dream_growth := {}
+## The dream running now ({} when none): depth, stage, shards, nightmare boss.
+var dream := {}
+var _dream_backup: Array[String] = []
+
+
+func dreams_open() -> bool:
+	return has_flag("game_won")
+
+
+## Three dreams for the next depth: one plain, one with a shard, one with
+## two; every NIGHTMARE_EVERY depths they are nightmares instead.
+func dream_offers() -> Array:
+	var depth := dream_depth + 1
+	var rng := RandomNumberGenerator.new()
+	rng.seed = hash("dream%d:%d" % [depth, get_stat("dreams_started")])
+	var maps: Array = GameData.stages.keys().filter(func(s: String) -> bool: return s in cleared_stages)
+	if maps.is_empty():
+		maps = ["LIVING_ROOM"]
+	var pool: Array = GameData.challenges.keys()
+	var out: Array = []
+	for i in 3:
+		var shards: Array[String] = []
+		while shards.size() < i and shards.size() < pool.size():
+			var c: String = pool[rng.randi() % pool.size()]
+			if c not in shards:
+				shards.append(c)
+		var offer := {"depth": depth, "stage": maps[rng.randi() % maps.size()], "shards": shards}
+		if depth % NIGHTMARE_EVERY == 0:
+			var bosses: Array = GameData.dreams.get("nightmares", {}).keys()
+			offer["nightmare"] = true
+			offer["boss"] = bosses[(depth / NIGHTMARE_EVERY + i) % bosses.size()]
+		out.append(offer)
+	return out
+
+
+func start_dream(offer: Dictionary, own_shards: Array) -> void:
+	dream = offer.duplicate(true)
+	_dream_backup = challenges.duplicate()
+	challenges.clear()
+	for s: String in dream["shards"]:
+		if s not in challenges:
+			challenges.append(s)
+	for s: String in own_shards:
+		dream_shards.erase(s)
+		if s not in challenges:
+			challenges.append(s)
+	dream["shards"] = challenges.duplicate()
+	selected_stage = dream["stage"]
+	add_stat("dreams_started")
+
+
+## Ends the dream; when won, the depth counts, a shard and a point drop.
+## Returns the shard found ("" if none).
+func end_dream(won: bool) -> String:
+	if dream.is_empty():
+		return ""
+	var found := ""
+	if won:
+		dream_depth = maxi(dream_depth, int(dream["depth"]))
+		dream_points += 1
+		add_stat("dreams_won")
+		var pool: Array = GameData.challenges.keys()
+		found = pool[randi() % pool.size()]
+		dream_shards.append(found)
+		if dream.get("nightmare", false):
+			add_stat("nightmares_won")
+	challenges = _dream_backup.duplicate()
+	_dream_backup.clear()
+	dream = {}
+	return found
+
+
+func dream_hp() -> float:
+	return 1.0 + DREAM_HP * float(dream.get("depth", 0))
+
+
+func dream_damage() -> float:
+	return 1.0 + DREAM_DAMAGE * float(dream.get("depth", 0))
+
+
+func dream_gold() -> float:
+	return 1.0 + DREAM_GOLD * float(dream.get("depth", 0))
+
+
+func spend_dream_point(stat: String) -> bool:
+	if dream_points <= 0 or not DREAM_GROWTH.has(stat):
+		return false
+	dream_points -= 1
+	dream_growth[stat] = int(dream_growth.get(stat, 0)) + 1
+	save()
+	return true
+
+
+## The bonuses bought with dream points, as stats.
+func dream_bonus() -> Dictionary:
+	var out := {}
+	for stat: String in dream_growth:
+		out[stat] = float(DREAM_GROWTH.get(stat, 0.0)) * int(dream_growth[stat])
+	return out
 ## True from start_report until the night's scene ends (challenges swapped).
 var _report_on := false
 
@@ -1246,6 +1370,12 @@ func item_bonus() -> Dictionary:
 				bonus[key] = minf(float(bonus[key]), float(stats[key]))
 			else:
 				bonus[key] = float(bonus.get(key, 0.0)) + float(stats[key])
+	var worn: Array = []
+	for slot: String in equipped_items:
+		worn.append(worn_item(slot))
+	var sets := Items.set_bonus(worn)
+	for key: String in sets:
+		bonus[key] = float(bonus.get(key, 0.0)) + float(sets[key])
 	return bonus
 
 
@@ -1401,7 +1531,11 @@ func _config() -> ConfigFile:
 	cfg.set_value("shop", "spent", spent)
 	cfg.set_value("shop", "powerups", powerups)
 	cfg.set_value("questbook", "steps", questbook)
-	cfg.set_value("challenge", "active", _daily_backup if daily else (_report_backup if _report_on else challenges))
+	cfg.set_value("challenge", "active", _daily_backup if daily else (_report_backup if _report_on else (_dream_backup if not dream.is_empty() else challenges)))
+	cfg.set_value("dreams", "depth", dream_depth)
+	cfg.set_value("dreams", "shards", dream_shards)
+	cfg.set_value("dreams", "points", dream_points)
+	cfg.set_value("dreams", "growth", dream_growth)
 	cfg.set_value("reports", "list", reports)
 	cfg.set_value("reports", "news", report_news)
 	cfg.set_value("reports", "calm", siege_calm)

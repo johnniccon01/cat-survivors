@@ -26,7 +26,7 @@ func _run() -> void:
 			var data := root.get_node("GameData")
 			for id: String in data.stages:
 				profile.cleared_stages.append(id)
-			for flag: String in ["train_east", "wild_road", "company_gate"]:
+			for flag: String in ["train_east", "wild_road", "company_gate", "game_won"]:
 				profile.set_flag(flag)
 			# Gear with the longest names in every slot, worn and in the bag.
 			var items_script: Script = load("res://scripts/progression/items.gd")
@@ -56,7 +56,7 @@ func _run() -> void:
 			news.queue_free()
 			change_scene_to_file("res://scenes/character_select.tscn")
 			await _frames(8)
-			await _screen(tag, "select", ["_shop", "_charms", "_items", "_artifacts", "_challenges", "_journal"])
+			await _screen(tag, "select", ["_shop", "_charms", "_items", "_artifacts", "_challenges", "_journal", "_dreams"])
 			_map_cards(tag)
 			if opened:
 				await _in_game(tag)

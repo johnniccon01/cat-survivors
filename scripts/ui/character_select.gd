@@ -25,6 +25,7 @@ var _stage_index := 0
 var _shop: ShopPanel
 var _charms: TalentPanel
 var _partner_btn: Button
+var _dreams: DreamPanel
 var _memorials: MemorialPanel
 var _memorial_button: Button
 var _items: ItemPanel
@@ -616,6 +617,12 @@ func _build() -> void:
 		var b := _small_button(entry)
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		_night_buttons.add_child(b)
+	# Cat Dreams, once the director is beaten.
+	if Profile.dreams_open():
+		var dreams := _small_button(["DREAMS_BUTTON", "N", func() -> void: _dreams.open()])
+		dreams.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		dreams.add_theme_color_override("font_color", Color("c8a8ff"))
+		_night_buttons.add_child(dreams)
 	var play := Button.new()
 	play.custom_minimum_size = Vector2(230, 0)
 	play.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -655,6 +662,10 @@ func _build() -> void:
 	_challenges = ChallengePanel.new()
 	add_child(_challenges)
 	_challenges.closed.connect(_refresh)
+	_dreams = DreamPanel.new()
+	add_child(_dreams)
+	_dreams.closed.connect(_refresh)
+	_dreams.dream_chosen.connect(_start_dream)
 
 
 ## A small rounded badge with a row inside (child 0) for its content.
@@ -1310,6 +1321,18 @@ func _start_daily() -> void:
 	# The same floor and the same luck for everyone today.
 	seed(int(Profile.daily_plan()["seed"]))
 	Audio.play("select", -4.0, 0.0)
+	get_tree().change_scene_to_file(MAIN_SCENE)
+
+
+## A dream from the Dreams panel: the night it offers, with the cat chosen.
+func _start_dream(offer: Dictionary, shards: Array) -> void:
+	var id := _ids[_index]
+	if not Profile.is_unlocked(id):
+		Audio.play("hurt", -10.0, 0.0)
+		return
+	Profile.select(id)
+	Profile.start_dream(offer, shards)
+	Profile.save()
 	get_tree().change_scene_to_file(MAIN_SCENE)
 
 

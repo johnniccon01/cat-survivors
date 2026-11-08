@@ -39,7 +39,7 @@ func _run() -> void:
 		change_scene_to_file("res://scenes/character_select.tscn")
 		await _frames(12)
 		await _shot(locale, "select")
-		for panel in ["_charms", "_items", "_artifacts", "_challenges", "_memorials", "_help"]:
+		for panel in ["_charms", "_items", "_artifacts", "_challenges", "_memorials", "_help", "_dreams"]:
 			await _panel(locale, "select", panel)
 		# The Dog District, reached by the train.
 		root.get_node("Profile").district = "dogs"
@@ -102,7 +102,7 @@ func _unlock() -> void:
 	for id: String in data.cats:
 		profile.unlocked.append(id)
 	profile.gold = 12345
-	for flag: String in ["train_east", "wild_road", "company_gate"]:
+	for flag: String in ["train_east", "wild_road", "company_gate", "game_won"]:
 		profile.set_flag(flag)
 	var items_script: Script = load("res://scripts/progression/items.gd")
 	var found: Array = []

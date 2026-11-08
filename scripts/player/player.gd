@@ -352,6 +352,10 @@ func _recalc_stats() -> void:
 		var land := Profile.territory_bonus()
 		for key: String in land:
 			stats[key] += land[key]
+		# Dream points: small bonuses that never run out (the endgame).
+		var dreamt := Profile.dream_bonus()
+		for key: String in dreamt:
+			stats[key] += dreamt[key]
 		# Services bought from the neighbourhood's residents for tonight.
 		var service := Profile.service_bonus()
 		for key: String in service:

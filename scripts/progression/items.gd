@@ -34,7 +34,12 @@ static func roll(luck: float = 1.0, rarity: String = "") -> Dictionary:
 	others.shuffle()
 	for i in int(r["extra"]):
 		stats[others[i]] = _roll_value(others[i], float(r["mult"]))
-	return {"uid": 0, "base": base, "slot": info["slot"], "rarity": rarity, "stats": stats}
+	var item := {"uid": 0, "base": base, "slot": info["slot"], "rarity": rarity, "stats": stats}
+	# Dream gear (Cat Dreams) belongs to a set: two or three of one set worn
+	# give a bonus on top (SETS).
+	if rarity == "dream":
+		item["set"] = SETS.keys().pick_random()
+	return item
 
 
 static func pick_rarity(luck: float = 1.0) -> String:
@@ -92,7 +97,32 @@ static func rarity_color(item: Dictionary) -> Color:
 
 
 static func item_name(item: Dictionary) -> String:
-	return TranslationServer.translate("ITEM_%s_NAME" % item.get("base", ""))
+	var name := TranslationServer.translate("ITEM_%s_NAME" % item.get("base", ""))
+	if item.has("set"):
+		return TranslationServer.translate("SET_%s_ITEM" % item["set"]) % name
+	return name
+
+
+## Dream sets: the bonus for two pieces worn (three give it twice).
+const SETS := {
+	"MOON": {"crit_chance": 0.08, "crit_mult": 0.2},
+	"STAR": {"might": 0.1, "area": 0.06},
+	"CLOUD": {"max_hp": 30.0, "regen": 0.5},
+}
+
+
+## The set bonus of the items worn: {stat: value}.
+static func set_bonus(worn: Array) -> Dictionary:
+	var count := {}
+	for item: Dictionary in worn:
+		if item.has("set"):
+			count[item["set"]] = int(count.get(item["set"], 0)) + 1
+	var out := {}
+	for set_id: String in count:
+		var times := 0 if count[set_id] < 2 else (1 if count[set_id] < 3 else 2)
+		for stat: String in SETS.get(set_id, {}):
+			out[stat] = float(out.get(stat, 0.0)) + float(SETS[set_id][stat]) * times
+	return out
 
 
 ## "+6 % damage" for one stat of an item.

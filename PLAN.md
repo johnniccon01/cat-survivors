@@ -42,11 +42,11 @@ Hra je hrateľná od menu po koniec noci na 7 mapách:
 
 Návrh je v `ENDGAME.md`.
 
-1. [ ] **Mapa snov a hĺbka** (nekonečné úrovne, náhodné noci zo všetkých štvrtí).
-2. [ ] **Snové úlomky** (modifikátory nocí, riziko a odmena).
-3. [ ] **Nočné mory** (superbossovia).
-4. [ ] **Snová výbava** (nová vzácnosť, sety, vylepšovanie).
-5. [ ] **Nekonečný rast** postavy po maximálnej úrovni.
+1. [x] **Mapa snov a hĺbka** (hotové 8. 11., značka `sny`: tlačidlo Sny pri nočných tlačidlách po výhre nad riaditeľom (`game_won`), panel `DreamPanel` ponúkne 3 sny – náhodná vyhraná mapa z ktorejkoľvek štvrte o hĺbku hlbšie; každá hĺbka +12 % zdravia, +4 % poškodenia nepriateľov a +15 % zlata; `Profile.dream_*`, `--dream=N` pre testy).
+2. [x] **Snové úlomky** (hotové 8. 11.: úlomky sú kliatby – sny ich ponúkajú 0/1/2 v sebe, každý vyhraný sen zanechá jeden a hráč ich môže vložiť do ďalšieho snu: ťažšie, viac zlata).
+3. [x] **Nočné mory** (hotové 8. 11.: každá 5. hĺbka; Kráľ potkanov z nočnej mory, Tieňový Generál, Nočný vlk, Megastroj – viac zdravia, útoky viacerých bossov a druhá fáza; `data/dreams.json`).
+4. [x] **Snová výbava** (hotové 8. 11.: vzácnosť „snová“ – o 2 vlastnosti viac a silnejšie, padá len v snoch, v hlbších častejšie; sety Mesiac, Hviezda, Oblak – bonus za 2 a 3 kusy). Vylepšovanie výbavy materiálmi zatiaľ nie.
+5. [x] **Nekonečný rast** (hotové 8. 11.: každý vyhraný sen dá snový bod, za body sa v paneli Snov kupujú malé bonusy bez stropu – sila, zdravie, zlato, rast, šťastie; platia vo všetkých nociach).
 6. [ ] **Testy a balans** endgamu. (Týždenný sen až pri príprave na Steam.)
 
 ## Krátkodobý plán – časť 5 (zadané 8. 11. 2026: Divočina a Firma, robí sa po časti 4)

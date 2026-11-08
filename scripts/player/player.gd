@@ -37,6 +37,8 @@ const BASE_STATS := {
 	"freeze_every": 0.0, "pulse_magnet": 0.0, "heal_power": 1.0,
 	# Shop: extra weapon slots on top of MAX_WEAPONS.
 	"weapon_slots": 0.0,
+	# Close-range weapons (Species.MELEE): the bear's hit harder.
+	"melee": 1.0,
 }
 
 const OUTLINE := Color("2b1d14")
@@ -141,6 +143,10 @@ func _ready() -> void:
 		instinct.cat = cat_id
 		instinct.player = self
 		add_child(instinct)
+	if (controller == "input" or controller == "bot") and Species.has(cat_id):
+		var species := Species.new()
+		species.player = self
+		add_child(species)
 
 
 ## The cat's own weapon, or --start-weapon=ID[,ID...] (tests) for the played cat.
@@ -347,6 +353,10 @@ func _recalc_stats() -> void:
 	var bonus: Dictionary = GameData.cats[cat_id].get("bonus", {})
 	for key: String in bonus:
 		stats[key] += bonus[key]
+	# Dogs, wolves, bears, lions and raccoons have bodies of their own.
+	var body := Species.stats_of(cat_id)
+	for key: String in body:
+		stats[key] += body[key]
 	if controller == "input" or controller == "bot":
 		# On its home map a cat gets its home bonus (data/cats.json).
 		if is_home():

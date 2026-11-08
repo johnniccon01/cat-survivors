@@ -963,6 +963,10 @@ func _next_modal() -> void:
 		# One upgrade (an evolution first, if one is ready); a boss chest that
 		# hits the jackpot gives all three.
 		var count := 3 if kind == "great_chest" or (kind == "boss_chest" and Upgrades.find_evolution(player).is_empty()) else 1
+		# The raccoon's quick paws find one more thing in a chest now and then.
+		if count < 3 and randf() < Species.value(player.cat_id, "chest_extra"):
+			count += 1
+			BotLog.event("raccoon_chest")
 		var results := Upgrades.open_chest(player, count)
 		if kind == "great_chest":
 			hud.show_banner(tr("GREAT_CHEST"), 3.0)

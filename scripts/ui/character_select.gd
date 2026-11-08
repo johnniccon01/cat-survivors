@@ -907,6 +907,14 @@ func _fill_chips(id: String, unlocked: bool) -> void:
 		c.queue_free()
 	if not unlocked:
 		return
+	# A dog, wolf, bear, lion or raccoon plays its own way: its chip first,
+	# what it means in the tooltip.
+	var species := Species.of(id)
+	if Species.DATA.has(species):
+		var chip := _chip(tr("SPECIES_%s_NAME" % species.to_upper()), Color("ffcf7a"))
+		chip.tooltip_text = tr("SPECIES_%s_DESC" % species.to_upper())
+		chip.mouse_filter = Control.MOUSE_FILTER_STOP
+		_chips.add_child(chip)
 	var bonus: Dictionary = GameData.cats[id].get("bonus", {})
 	if bonus.is_empty():
 		_chips.add_child(_chip(tr("BONUS_NONE"), Color("b9a8c9")))

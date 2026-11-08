@@ -267,7 +267,11 @@ func _nearest_other(from: Enemy, r: float) -> Enemy:
 
 func damage() -> float:
 	# Gear made for this weapon hits harder with it.
-	return stat("damage") * player.stat("might") * (1.0 + player.gear_stat("wd:" + base_id()))
+	var d := stat("damage") * player.stat("might") * (1.0 + player.gear_stat("wd:" + base_id()))
+	# A bear's close-range weapons hit harder (see Species).
+	if base_id() in Species.MELEE:
+		d *= player.stat("melee")
+	return d
 
 
 func area() -> float:

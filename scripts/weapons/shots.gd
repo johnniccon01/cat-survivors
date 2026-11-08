@@ -26,7 +26,9 @@ static func draw(ci: CanvasItem, key: String, radius: float) -> bool:
 	var tex := texture(key)
 	if tex == null:
 		return false
-	var size := Vector2(tex.get_width(), tex.get_height()) * (radius / REF_RADIUS)
+	# A needle stays a needle: a wider one hits more, but isn't drawn thicker.
+	var k := radius / REF_RADIUS if key != "needle" else minf(radius / REF_RADIUS, 1.0)
+	var size := Vector2(tex.get_width(), tex.get_height()) * k
 	ci.draw_texture_rect(tex, Rect2(-size / 2.0, size), false)
 	return true
 

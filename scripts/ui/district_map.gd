@@ -234,7 +234,9 @@ func _ready() -> void:
 	_dogs_btn.custom_minimum_size.y = 24
 	_dogs_btn.add_theme_color_override("font_color", UiStyle.GOLD)
 	_dogs_btn.pressed.connect(_travel)
-	_dogs_btn.visible = not travel_targets().is_empty()
+	# Shown from the start: with no other district open yet it tells what
+	# opens the next one.
+	_dogs_btn.visible = not travel_targets().is_empty() or next_locked() != ""
 	add_child(_dogs_btn)
 	# A short hint in the bottom-right corner: closes with its cross and
 	# fades away by itself after a few seconds.
@@ -702,6 +704,49 @@ static func stage_order() -> Array[String]:
 const DISTRICTS := {"cats": "", "dogs": "train_east", "wild": "wild_road", "company": "company_gate"}
 
 
+## Whether district `d` is open.
+static func district_open(d: String) -> bool:
+	return DISTRICTS[d] == "" or Profile.has_flag(DISTRICTS[d])
+
+
+## The story whose reward opens district `d` ("" for the cat district).
+static func gate_chain(d: String) -> String:
+	for id: String in GameData.chains:
+		if GameData.chains[id].get("reward", {}).get("flag", "") == DISTRICTS[d]:
+			return id
+	return ""
+
+
+## What to do to open district `d`: what the story waits for first, or its
+## next step and where.
+static func unlock_hint(d: String) -> String:
+	var id := gate_chain(d)
+	if id == "":
+		return ""
+	var story := TranslationServer.translate("CHAIN_%s_NAME" % id)
+	for need: String in GameData.chains[id].get("requires", []):
+		if ChainStep.requirement_met(need):
+			continue
+		if need.begins_with("stage:"):
+			var stage := need.trim_prefix("stage:")
+			var map_name := TranslationServer.translate("STAGE_%s_NAME" % stage)
+			return TranslationServer.translate("DISTRICT_LOCK_WIN") % [map_name, story]
+		if need.begins_with("chain:"):
+			return TranslationServer.translate("DISTRICT_LOCK_CHAIN") % [TranslationServer.translate("CHAIN_%s_NAME" % need.trim_prefix("chain:")), story]
+	var step := ChainStep.progress_of(id) + 1
+	var stage := ChainStep.stage_of(id, step)
+	var where := TranslationServer.translate("CHAIN_ANY_MAP") if stage == "any" else TranslationServer.translate("STAGE_%s_NAME" % stage)
+	return TranslationServer.translate("DISTRICT_LOCK_STORY") % [story, step, ChainStep.steps(id).size(), where]
+
+
+## The first district still closed ("" when all are open).
+static func next_locked() -> String:
+	for d: String in DISTRICTS:
+		if not district_open(d):
+			return d
+	return ""
+
+
 ## The other districts the cat can travel to now.
 static func travel_targets() -> Array[String]:
 	var out: Array[String] = []
@@ -714,12 +759,20 @@ static func travel_targets() -> Array[String]:
 ## One district open elsewhere: go straight there; more: a short menu.
 func _travel() -> void:
 	var targets := travel_targets()
-	if targets.size() == 1:
+	var locked := next_locked()
+	if targets.size() == 1 and locked == "":
 		district_chosen.emit(targets[0])
 		return
 	var menu := PopupMenu.new()
 	for i in targets.size():
 		menu.add_item(tr("DISTRICT_NAME_" + targets[i].to_upper()), i)
+	# The next closed district, greyed out, with what opens it.
+	if locked != "":
+		menu.add_separator()
+		menu.add_item("🔒 " + tr("DISTRICT_NAME_" + locked.to_upper()), 100)
+		menu.set_item_disabled(menu.item_count - 1, true)
+		menu.add_item(unlock_hint(locked), 101)
+		menu.set_item_disabled(menu.item_count - 1, true)
 	menu.id_pressed.connect(func(i: int) -> void: district_chosen.emit(targets[i]))
 	menu.popup_hide.connect(menu.queue_free)
 	add_child(menu)

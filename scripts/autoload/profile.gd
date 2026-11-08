@@ -231,6 +231,21 @@ func _ready() -> void:
 	for id in GameData.arg("--cleared=", "").split(",", false):
 		if GameData.stages.has(id) and id not in cleared_stages:
 			cleared_stages.append(id)
+	# `-- --open-all` (dev, with --no-save): every map won, every district,
+	# story gate and cat open, to try any part of the game.
+	if "--open-all" in GameData.args():
+		for id: String in GameData.stages:
+			if id not in cleared_stages:
+				cleared_stages.append(id)
+			var gate: String = GameData.stages[id].get("requires_flag", "")
+			if gate != "" and gate not in flags:
+				flags.append(gate)
+		for gate: String in ["train_east", "wild_road", "company_gate", "dog_peace"]:
+			if gate not in flags:
+				flags.append(gate)
+		for cat: String in GameData.cats:
+			if cat not in unlocked:
+				unlocked.append(cat)
 	ensure_weather()
 	# `-- --retired=MICA,LUNA` puts those cats on the Cemetery (tests).
 	for cat in GameData.arg("--retired=", "").split(",", false):

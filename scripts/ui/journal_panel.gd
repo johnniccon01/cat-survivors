@@ -94,6 +94,7 @@ func show_tab(which: String) -> void:
 # --- quests ---------------------------------------------------------------------
 
 func _build_quests() -> void:
+	_build_districts()
 	_header(tr("QB_CHAPTER_CHAINS"))
 	# Grouped by map, then the stories that go across maps or happen anywhere.
 	var groups: Array = GameData.stages.keys()
@@ -115,6 +116,29 @@ func _build_quests() -> void:
 			if QuestBook.lines()[id]["chapter"] == chapter:
 				_list.add_child(_quest_row(id))
 
+
+## The districts: open ones ticked, the next one with what opens it, the
+## ones after it still a mystery.
+func _build_districts() -> void:
+	_header(tr("QB_CHAPTER_DISTRICTS"))
+	var next := DistrictMap.next_locked()
+	for d: String in DistrictMap.DISTRICTS:
+		var open := DistrictMap.district_open(d)
+		var name_label := _label(18, DONE if open else Color.WHITE, HORIZONTAL_ALIGNMENT_LEFT)
+		_list.add_child(name_label)
+		if open:
+			name_label.text = "✓ " + tr("DISTRICT_NAME_" + d.to_upper())
+			continue
+		var desc := _label(15, MUTED, HORIZONTAL_ALIGNMENT_LEFT)
+		desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		desc.custom_minimum_size.x = 1000
+		_list.add_child(desc)
+		if d == next:
+			name_label.text = "🔒 " + tr("DISTRICT_NAME_" + d.to_upper())
+			desc.text = "      " + DistrictMap.unlock_hint(d)
+		else:
+			name_label.text = "🔒 ???"
+			desc.text = "      " + tr("DISTRICT_LOCK_LATER")
 
 func _quest_row(id: String) -> Control:
 	var row := VBoxContainer.new()

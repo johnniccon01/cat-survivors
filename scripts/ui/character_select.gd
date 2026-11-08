@@ -118,7 +118,7 @@ const BONUS_TEXT := {
 
 func _ready() -> void:
 	for arg: String in GameData.args():
-		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--artifacts", "--goals", "--journal", "--challenges", "--ui-test"] and not arg.begins_with("--retired="):
+		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--artifacts", "--goals", "--journal", "--challenges", "--ui-test", "--no-save", "--open-all"] and not arg.begins_with("--retired="):
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
 			return
 	for id: String in GameData.cats:

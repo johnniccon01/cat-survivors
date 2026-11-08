@@ -25,7 +25,11 @@ func _on_start() -> void:
 	if _solo:
 		main.enemies.clear_all()
 		main.spawner.paused = true
-	_boss = main.enemies.spawn(id, position, main.spawner.hp_multiplier() * float(data.get("hp_mult", 1.0)))
+	# The story's own toughness counts less on hard maps, which already make
+	# every enemy tougher (else a ×3 boss there can't be beaten in time).
+	var extra := 1.0 + (float(data.get("hp_mult", 1.0)) - 1.0) / maxf(main.spawner.challenge(), 1.0)
+	# Hard maps count twice in the waves' health; a story boss takes them once.
+	_boss = main.enemies.spawn(id, position, main.spawner.hp_multiplier() * extra / sqrt(maxf(main.spawner.challenge(), 1.0)))
 	main.spawner.toughen(_boss)
 	_left = float(data.get("time_limit", 0.0))
 	main.enemies.enemy_killed.connect(_on_killed)

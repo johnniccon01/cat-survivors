@@ -4912,7 +4912,7 @@
   "BONE_BAKERY": {
     "theme": "bakery",
     "terrain": "belts",
-    "damage_mult": 0.68,
+    "damage_mult": 0.55,
     "music": "music_factory",
     "requires": "GROOMING_SALON",
     "district": "dogs",
@@ -5154,7 +5154,7 @@
   "RACETRACK": {
     "theme": "racetrack",
     "terrain": "walls",
-    "damage_mult": 0.65,
+    "damage_mult": 0.5,
     "music": "music_garden",
     "requires": "BONE_BAKERY",
     "district": "dogs",
@@ -6356,7 +6356,7 @@
   "SNOW_HILL": {
     "theme": "snow",
     "terrain": "trees",
-    "damage_mult": 0.65,
+    "damage_mult": 0.55,
     "music": "music_garden",
     "requires": "RIVER_DAM",
     "district": "dogs",
@@ -7087,7 +7087,7 @@
       {
         "minute": 6.0,
         "type": "ring",
-        "enemy": "PATROL_DOG",
+        "enemy": "SOLDIER_DOG",
         "count": 32
       },
       {
@@ -7111,7 +7111,7 @@
       {
         "minute": 18.0,
         "type": "ring",
-        "enemy": "PATROL_DOG",
+        "enemy": "SOLDIER_DOG",
         "count": 50
       }
     ],
@@ -7177,7 +7177,7 @@
         "enemies": [
           "PUPPY",
           "STRAY_DOG",
-          "PATROL_DOG",
+          "SOLDIER_DOG",
           "DRUM"
         ],
         "hp_mult": 2.38,
@@ -7191,7 +7191,7 @@
         "interval": 0.7,
         "per_tick": 3,
         "enemies": [
-          "PATROL_DOG",
+          "SOLDIER_DOG",
           "DRUM"
         ],
         "hp_mult": 3.18
@@ -7202,7 +7202,7 @@
         "interval": 0.6,
         "per_tick": 4,
         "enemies": [
-          "PATROL_DOG",
+          "SOLDIER_DOG",
           "DRUM",
           "PUPPY"
         ],
@@ -7219,7 +7219,7 @@
         "enemies": [
           "PUPPY",
           "STRAY_DOG",
-          "PATROL_DOG",
+          "SOLDIER_DOG",
           "DRUM",
           "DOBERMAN",
           "DOG_CATCHER"
@@ -7232,7 +7232,7 @@
         "interval": 0.45,
         "per_tick": 5,
         "enemies": [
-          "PATROL_DOG",
+          "SOLDIER_DOG",
           "DRUM",
           "DOBERMAN",
           "DOG_CATCHER"
@@ -7250,7 +7250,7 @@
         "enemies": [
           "PUPPY",
           "STRAY_DOG",
-          "PATROL_DOG",
+          "SOLDIER_DOG",
           "DRUM",
           "DOBERMAN",
           "DOG_CATCHER"
@@ -7266,7 +7266,7 @@
         "interval": 0.4,
         "per_tick": 6,
         "enemies": [
-          "PATROL_DOG",
+          "SOLDIER_DOG",
           "DRUM",
           "DOBERMAN",
           "DOG_CATCHER"
@@ -7285,7 +7285,7 @@
         "enemies": [
           "PUPPY",
           "STRAY_DOG",
-          "PATROL_DOG",
+          "SOLDIER_DOG",
           "DRUM",
           "DOBERMAN",
           "DOG_CATCHER"
@@ -7336,7 +7336,7 @@
       {
         "minute": 12.0,
         "type": "ring",
-        "enemy": "PATROL_DOG",
+        "enemy": "SOLDIER_DOG",
         "count": 44
       },
       {
@@ -7415,7 +7415,7 @@
           "PUPPY",
           "STRAY_DOG",
           "DOBERMAN",
-          "PATROL_DOG"
+          "SOLDIER_DOG"
         ],
         "hp_mult": 2.41,
         "bosses": [
@@ -7429,7 +7429,7 @@
         "per_tick": 3,
         "enemies": [
           "DOBERMAN",
-          "PATROL_DOG"
+          "SOLDIER_DOG"
         ],
         "hp_mult": 3.21
       },
@@ -7440,7 +7440,7 @@
         "per_tick": 4,
         "enemies": [
           "DOBERMAN",
-          "PATROL_DOG",
+          "SOLDIER_DOG",
           "PUPPY"
         ],
         "hp_mult": 4.81,
@@ -7457,7 +7457,7 @@
           "PUPPY",
           "STRAY_DOG",
           "DOBERMAN",
-          "PATROL_DOG",
+          "SOLDIER_DOG",
           "GREYHOUND",
           "DRUM",
           "DOG_CATCHER"
@@ -7471,7 +7471,7 @@
         "per_tick": 5,
         "enemies": [
           "DOBERMAN",
-          "PATROL_DOG",
+          "SOLDIER_DOG",
           "GREYHOUND",
           "DRUM",
           "DOG_CATCHER"
@@ -7490,7 +7490,7 @@
           "PUPPY",
           "STRAY_DOG",
           "DOBERMAN",
-          "PATROL_DOG",
+          "SOLDIER_DOG",
           "GREYHOUND",
           "DRUM",
           "DOG_CATCHER"
@@ -7507,7 +7507,7 @@
         "per_tick": 6,
         "enemies": [
           "DOBERMAN",
-          "PATROL_DOG",
+          "SOLDIER_DOG",
           "GREYHOUND",
           "DRUM",
           "DOG_CATCHER"
@@ -7527,7 +7527,7 @@
           "PUPPY",
           "STRAY_DOG",
           "DOBERMAN",
-          "PATROL_DOG",
+          "SOLDIER_DOG",
           "GREYHOUND",
           "DRUM",
           "DOG_CATCHER"

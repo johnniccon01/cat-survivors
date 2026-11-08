@@ -7,14 +7,20 @@ extends ChainStep
 const REACH := 30.0
 
 var _asked := false
+var _offered: Array[String] = []
 
 
 func _tick(_delta: float) -> void:
 	if _asked or player_dist() > REACH:
 		return
 	_asked = true
-	var options: Array = data.get("options", ["A", "B"])
-	var texts: Array = options.map(func(o: String) -> String: return _option_text(o))
+	# An option the cat can't pay for yet isn't offered (it comes back on a
+	# richer night); the story goes on with the others.
+	_offered.clear()
+	for o: String in data.get("options", ["A", "B"]):
+		if Profile.gold >= int(data.get("rewards", {}).get(o, {}).get("cost", 0)):
+			_offered.append(o)
+	var texts: Array = _offered.map(func(o: String) -> String: return _option_text(o))
 	main.ask_choice(title(), tr("CHAIN_%s_%d_ASK" % [chain_id, step_no]), texts, _on_chosen)
 
 
@@ -35,7 +41,7 @@ func _option_text(option: String) -> String:
 
 
 func _on_chosen(index: int) -> void:
-	var option: String = data.get("options", ["A", "B"])[index]
+	var option: String = _offered[index]
 	Profile.set_flag("choice:%s:%s" % [chain_id, option])
 	var reward: Dictionary = data.get("rewards", {}).get(option, {})
 	var cost := int(reward.get("cost", 0))

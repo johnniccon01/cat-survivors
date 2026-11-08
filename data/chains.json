@@ -2269,7 +2269,7 @@
         "type": "chase",
         "enemy": "JUNK_RACCOON",
         "times": 2,
-        "hp_mult": 2.5
+        "hp_mult": 1.0
       },
       {
         "type": "boss",
@@ -3191,7 +3191,7 @@
         "type": "defend",
         "time": 35,
         "mode": "enemies",
-        "enemy": "PATROL_DOG",
+        "enemy": "SOLDIER_DOG",
         "spawn_every": 3.0,
         "spawn_count": 3,
         "look": "boiler"

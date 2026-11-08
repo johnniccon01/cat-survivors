@@ -5,7 +5,10 @@ extends ChainStep
 ## radius, spawn_every, spawn_count, enemy, look.
 
 const SPOT_HP := 100.0
-const DRAIN_PER_ENEMY := 6.0
+const DRAIN_PER_ENEMY := 4.0
+## At most this many enemies wear a spot down at once (a crowded night
+## would otherwise flatten it in seconds).
+const MAX_BITERS := 4
 const ABSENCE_DRAIN := 3.0
 const REFILL := 12.0
 
@@ -58,7 +61,7 @@ func _tick(delta: float) -> void:
 		if absence:
 			_hp[i] += (REFILL if near_cat else -ABSENCE_DRAIN) * delta
 		else:
-			var biters: int = main.enemies.query_radius(_spots[i], _radius() * 0.6).size()
+			var biters: int = mini(main.enemies.query_radius(_spots[i], _radius() * 0.6).size(), MAX_BITERS)
 			_hp[i] -= biters * DRAIN_PER_ENEMY * delta
 		_hp[i] = minf(_hp[i], SPOT_HP)
 		if _hp[i] <= 0.0:

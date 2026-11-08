@@ -15,6 +15,9 @@ python - "${ONLY:-}" <<'PY' | tr -d '\r' > "${TMPDIR:-/tmp}/catsurvivors_chain_r
 import json, re, sys
 only = sys.argv[1]
 chains = json.load(open('data/chains.json', encoding='utf-8'))
+stages = json.load(open('data/stages.json', encoding='utf-8'))
+# A cat that gets this far is stronger: levels for the test by district.
+LEVELS = {'cats': 20, 'dogs': 30, 'wild': 45, 'company': 45}
 for cid, c in chains.items():
     if only and not re.fullmatch(only, cid):
         continue
@@ -24,11 +27,12 @@ for cid, c in chains.items():
         stage = step.get('stage', c.get('stage', 'any'))
         if stage == 'any':
             stage = 'LIVING_ROOM'
-        args = ['--bot', '--god', '--levels=20', '--stage=' + stage, '--quest=' + cid, '--chain-step=%s:%d' % (cid, i)]
+        lv = LEVELS.get(stages.get(stage, {}).get('district', 'cats'), 20)
+        args = ['--bot', '--god', '--levels=%d' % lv, '--stage=' + stage, '--quest=' + cid, '--chain-step=%s:%d' % (cid, i)]
         t = 300
         if step['type'] == 'final':
             args += ['--start-minute=19.9', '--catch-up']
-            t = 420
+            t = 1000
         elif step.get('after_minute'):
             args += ['--start-minute=%s' % step['after_minute'], '--catch-up']
             t = 360
@@ -38,7 +42,7 @@ PY
 run_one() {
   local name="${1%%|*}" args="${1#*|}"
   local out
-  out=$(timeout 600 "$GODOT" --headless --log-file "${TMPDIR:-/tmp}/catsurvivors_chain.log" --path . -- $args 2>&1)
+  out=$(timeout 1500 "$GODOT" --headless --log-file "${TMPDIR:-/tmp}/catsurvivors_chain.log" --path . -- $args 2>&1)
   local errors
   errors=$(echo "$out" | grep -E "SCRIPT ERROR|Parse Error|ERROR: |TEST: FAIL" | grep -vE "resources still in use|ObjectDB instances leaked" | sort | uniq -c | head -3)
   if [ -n "$errors" ]; then

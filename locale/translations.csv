@@ -3962,3 +3962,5 @@ RARITY_DREAM,dream,snová,snová,onírica,сновидческий,梦境
 SET_MOON_ITEM,Moon %s,Mesačný kúsok: %s,Měsíční kousek: %s,%s lunar,Лунный: %s,月之%s
 SET_STAR_ITEM,Star %s,Hviezdny kúsok: %s,Hvězdný kousek: %s,%s estelar,Звёздный: %s,星之%s
 SET_CLOUD_ITEM,Cloud %s,Oblačný kúsok: %s,Oblačný kousek: %s,%s de nube,Облачный: %s,云之%s
+ENEMY_SOLDIER_DOG_NAME,Soldier Dog,Psí vojak,Psí voják,Perro soldado,Пёс-солдат,士兵犬
+ENEMY_SOLDIER_DOG_DESC,Marches in columns and lunges on command.,Pochoduje v šíkoch a na povel vyrazí.,Pochoduje v šicích a na povel vyrazí.,Marcha en columnas y embiste a la orden.,Марширует колоннами и бросается по команде.,列队行进，听令扑击。

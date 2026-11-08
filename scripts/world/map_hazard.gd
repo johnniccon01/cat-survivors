@@ -83,7 +83,7 @@ const LANES := {
 	"alarm": [2.0, 0, 0.0, "ALARM_WARNING"],
 }
 ## Lane hazards where dogs charge down the lane instead of a train.
-const RUNNERS := {"race": "GREYHOUND", "patrol": "DOBERMAN", "agility": "STRAY_DOG", "march": "PATROL_DOG", "wolfpack": "YOUNG_WOLF", "salmon": "SALMON", "batswarm": "BAT", "ravens": "RAVEN", "boars": "PIGLET", "robopatrol": "ROBO_GUARD", "dozers": "MINI_HARVESTER", "alarm": "MECH_DOG"}
+const RUNNERS := {"race": "GREYHOUND", "patrol": "DOBERMAN", "agility": "STRAY_DOG", "march": "SOLDIER_DOG", "wolfpack": "YOUNG_WOLF", "salmon": "SALMON", "batswarm": "BAT", "ravens": "RAVEN", "boars": "PIGLET", "robopatrol": "ROBO_GUARD", "dozers": "MINI_HARVESTER", "alarm": "MECH_DOG"}
 const CRANE_FIRST := 30.0
 const CRANE_EVERY := Vector2(18.0, 28.0)
 const CRANE_WARN := 2.6

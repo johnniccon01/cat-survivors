@@ -64,6 +64,13 @@ extends Node2D
 ##   --dev-quest=ID     dev panel: start quest ID, or CHAIN#N for step N of a story chain
 ##   --dev-quest-all    dev panel: start every quest and story step in turn, 5 s each (tests)
 ##   --dev-next-terrain=N  dev panel: press "Terrain" N times (tests)
+##   --dev-launcher     open the dev launcher instead of the menu (DevLauncher)
+##   --dev-build=mine   dev panel: start with the build saved in the dev panel
+##   --dev-go-minute=N  dev panel: go to minute N as if played (levels, chests)
+##   --dev-calm         dev panel: no waves (enemies only from the dev panel)
+##   --dev-final        dev panel: go straight to the final boss
+##   --dev-lab          dev panel: test lab (no waves, god mode, Build tab open)
+##   --dev-tab=NAME     dev panel: open on this tab (Run, Build, Enemies...)
 
 const HEART_DROP_CHANCE := 0.005
 const COIN_DROP_CHANCE := 0.015
@@ -442,7 +449,7 @@ func _ready() -> void:
 	Engine.time_scale = _base_time_scale
 	for i in int(_arg("--levels=", "0")):
 		Upgrades.apply(player, Upgrades.roll(player)[0])
-	var dev_flags := ["--strong", "--boss-rush", "--dev-quest-all", "--dev-panel", "--dev-endless"].any(func(f: String) -> bool: return f in _args) or _arg("--dev-boss=", "") != "" or _arg("--dev-next-terrain=", "") != "" or _arg("--dev-quest=", "") != ""
+	var dev_flags := ["--strong", "--boss-rush", "--dev-quest-all", "--dev-panel", "--dev-endless", "--dev-lab", "--dev-calm", "--dev-final"].any(func(f: String) -> bool: return f in _args) or _arg("--dev-boss=", "") != "" or _arg("--dev-next-terrain=", "") != "" or _arg("--dev-quest=", "") != ""
 	if OS.is_debug_build() and (not _bot or dev_flags):
 		var dev := DevPanel.new()
 		dev.main = self
@@ -2359,8 +2366,18 @@ func _test_evolution() -> void:
 
 ## The dev panel's tests straight from the command line (see the list above).
 func _dev_start(dev: DevPanel) -> void:
+	if not GameData.dev_args.is_empty():
+		dev._sandbox()
 	if "--strong" in _args:
 		dev._strong_build()
+	if _arg("--dev-build=", "") == "mine":
+		dev.apply_build(DevPanel.saved_build())
+	if "--dev-calm" in _args or "--dev-lab" in _args:
+		dev.set_calm(true)
+	if "--dev-lab" in _args:
+		dev.start_lab()
+	if "--dev-final" in _args:
+		dev._final_boss()
 	if _arg("--dev-go-minute=", "") != "":
 		dev._go_to_minute(float(_arg("--dev-go-minute=", "0")))
 		print("BOT: went to minute %.1f at level %d with %d weapons" % [spawner.elapsed / 60.0, player.level, player.weapon_count()])
@@ -2374,7 +2391,9 @@ func _dev_start(dev: DevPanel) -> void:
 		dev.cycle_quests()
 	if "--dev-endless" in _args:
 		dev._endless_now()
-	if "--dev-panel" in _args:
+	if "--dev-panel" in _args or "--dev-lab" in _args:
 		dev._open()
+	if _arg("--dev-tab=", "") != "":
+		dev.show_tab(_arg("--dev-tab=", ""))
 	for i in int(_arg("--dev-next-terrain=", "0")):
 		dev._next_terrain()

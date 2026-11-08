@@ -90,7 +90,14 @@ func _ready() -> void:
 ## Command-line flags (after --). Only in debug builds: a released game
 ## ignores every testing and cheat flag.
 static func args() -> PackedStringArray:
-	return OS.get_cmdline_user_args() if OS.is_debug_build() else PackedStringArray()
+	if not OS.is_debug_build():
+		return PackedStringArray()
+	return OS.get_cmdline_user_args() + dev_args
+
+
+## Flags the dev launcher sets for the run it starts (as if typed after --);
+## dropped again when the game gets back to the menus.
+static var dev_args := PackedStringArray()
 
 
 ## The value of a `--name=value` flag, or `default`.

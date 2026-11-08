@@ -5,7 +5,7 @@ extends Control
 const SELECT_SCENE := "res://scenes/character_select.tscn"
 const MAIN_SCENE := "res://scenes/main.tscn"
 ## Flags that keep the menu up instead of jumping into a run.
-const PANEL_FLAGS := ["--shop", "--goals", "--questbook", "--journal", "--settings", "--ui-test", "--no-save", "--open-all"]
+const PANEL_FLAGS := ["--shop", "--goals", "--questbook", "--journal", "--settings", "--ui-test", "--no-save", "--open-all", "--dev-launcher"]
 
 var _shop: ShopPanel
 var _journal: JournalPanel
@@ -21,7 +21,11 @@ const TIPS := 10
 
 
 func _ready() -> void:
+	GameData.dev_args.clear()
 	var args := GameData.args()
+	if "--dev-launcher" in args and not DevLauncher.opened_once:
+		get_tree().change_scene_to_file.call_deferred(DevLauncher.SCENE)
+		return
 	for arg: String in args:
 		if arg.begins_with("--") and arg not in PANEL_FLAGS:
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
@@ -133,6 +137,14 @@ func _build() -> void:
 	_add_button("MENU_JOURNAL", func() -> void: _open(_journal))
 	_add_button("MENU_SETTINGS", func() -> void: _open(_settings))
 	_add_button("MENU_QUIT", func() -> void: get_tree().quit())
+	# Dev builds only (the editor, the launchers): the test launcher.
+	if OS.is_debug_build():
+		var dev := UiStyle.click_button("DEV", 0, 15)
+		dev.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+		dev.position = Vector2(12, 12)
+		dev.add_theme_color_override("font_color", Color("e04646"))
+		dev.pressed.connect(func() -> void: get_tree().change_scene_to_file(DevLauncher.SCENE))
+		add_child(dev)
 	# The language in the corner, so a new player finds it right away; a
 	# click switches to the next one (the menu is rebuilt in it).
 	var lang := UiStyle.click_button("%s: %s" % [tr("SET_LANGUAGE"), tr("LANGUAGE_NAME")], 0, 15)

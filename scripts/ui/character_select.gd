@@ -117,8 +117,13 @@ const BONUS_TEXT := {
 
 
 func _ready() -> void:
+	# Back from a run the dev launcher started: back to the launcher.
+	if not GameData.dev_args.is_empty():
+		GameData.dev_args.clear()
+		get_tree().change_scene_to_file.call_deferred(DevLauncher.SCENE)
+		return
 	for arg: String in GameData.args():
-		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--artifacts", "--goals", "--journal", "--challenges", "--ui-test", "--no-save", "--open-all"] and not arg.begins_with("--retired="):
+		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--artifacts", "--goals", "--journal", "--challenges", "--ui-test", "--no-save", "--open-all", "--dev-launcher"] and not arg.begins_with("--retired="):
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
 			return
 	for id: String in GameData.cats:

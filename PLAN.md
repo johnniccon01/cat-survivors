@@ -566,6 +566,10 @@ Príbeh v troch štvrtiach: psy sú najprv nepriatelia, potom spojenci. 2. a 3. 
 - Opravené: posuvník na krátkej konečnej obrazovke, „bonus série +0 %", Úroveň/úr. v SK/CS, „Cooldown" v obchode, značka ponuky prekrývala „5 · Supermarket", odrezané názvy výbavy v slotoch, riadok dvierok sa prekrýval s questom/požehnaním v HUD, kombo Naháňačka (myšky teraz idú po cieli z lasera), Šantová záhrada a Tsunami silnejšie, testy kombá Signál a Naháňačka už nezávisia od náhody.
 - Na zváženie (balans podľa bota, nie hráča): smrti v 10.–19. min – Byt 3, Pivnica 20, Strecha 27, Supermarket 1; bez nákupov v obchode bot Továreň nevyhrá (R3000 má 90k HP). Melee/aura zbrane (Tigrie pazúry, Šantová záhrada, Kostený kolotoč, Monzún) dávajú v neskorej hre zlomok poškodenia ostatných evolúcií.
 
+## 8. 11. 2026: vývojárska konzola (hotové)
+- [x] Dev launcher (DEV v menu, `--dev-launcher`, `Spustit\8`): každý quest pod svojou mapou → spustí sa na tej mape v minúte otvorenia s buildom; mapy v ľubovoľnej minúte, finále, nekonečná noc; každý boss na svojej mape; laboratórium; špeciálne udalosti. Nič sa neukladá.
+- [x] F1 panel so záložkami: Run (čas, rýchlosť, počasie, svätyne, pasce, level-up, truhla), Build (každá zbraň/pasívka/evolúcia/vetva, level hore-dole, uložiť „môj build“), Enemies (spawn ×1/5/20/100, figuríny, vlny vyp., DPS meter), Bosses, Quests.
+
 ## Ako pracujeme
 
 - Každý väčší krok = commit; na GitHub pushujeme, keď povieš.

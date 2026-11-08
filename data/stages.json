@@ -8518,5 +8518,975 @@
     "music_night": "music_harbor_night",
     "challenge": 3.26,
     "hazard": "salmon"
+  },
+  "CAVES": {
+    "theme": "caves",
+    "terrain": "trees",
+    "damage_mult": 0.9,
+    "music": "music_basement",
+    "requires": "WATERFALL",
+    "district": "wild",
+    "cat_quests": [],
+    "props": [
+      "SEED_SACK",
+      "PICNIC_BASKET",
+      "SEED_SACK"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "LYNX_BOSS",
+    "events": [
+      {
+        "minute": 4.5,
+        "type": "swarm",
+        "enemy": "BAT",
+        "count": 170
+      },
+      {
+        "minute": 6.0,
+        "type": "ring",
+        "enemy": "BEAR_CUB",
+        "count": 28
+      },
+      {
+        "minute": 9.0,
+        "type": "swarm",
+        "enemy": "HORNET",
+        "count": 160
+      },
+      {
+        "minute": 12.0,
+        "type": "ring",
+        "enemy": "BAT",
+        "count": 50
+      },
+      {
+        "minute": 15.0,
+        "type": "swarm",
+        "enemy": "PIGLET",
+        "count": 170
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "BEAR_CUB",
+        "count": 44
+      }
+    ],
+    "traps": [
+      "WILL_O_WISP",
+      "RAKE",
+      "GOOSE_NEST"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.65,
+      0.85,
+      1.0,
+      0.85,
+      1.15,
+      0.65,
+      1.15,
+      1.3,
+      1.4,
+      0.95,
+      0.65,
+      1.3,
+      1.45,
+      1.0,
+      1.45,
+      0.7,
+      1.45,
+      1.6,
+      1.1,
+      1.55,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.4,
+        "per_tick": 1,
+        "enemies": [
+          "RABBIT",
+          "PIGLET"
+        ],
+        "hp_mult": 1.85
+      },
+      {
+        "minute": 1,
+        "minimum": 16,
+        "interval": 1.1,
+        "per_tick": 2,
+        "enemies": [
+          "RABBIT",
+          "PIGLET"
+        ],
+        "hp_mult": 2.01
+      },
+      {
+        "minute": 2,
+        "minimum": 28,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "BAT"
+        ],
+        "hp_mult": 2.19
+      },
+      {
+        "minute": 3,
+        "minimum": 42,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "BAT",
+          "HORNET"
+        ],
+        "hp_mult": 2.52,
+        "bosses": [
+          "BAT_LORD"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.7,
+        "per_tick": 3,
+        "enemies": [
+          "BAT",
+          "HORNET"
+        ],
+        "hp_mult": 3.36
+      },
+      {
+        "minute": 7,
+        "minimum": 110,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "BAT",
+          "HORNET",
+          "RABBIT"
+        ],
+        "hp_mult": 5.04,
+        "bosses": [
+          "GLOW_WORM"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 150,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "BAT",
+          "HORNET",
+          "BEAR_CUB"
+        ],
+        "hp_mult": 5.89
+      },
+      {
+        "minute": 11,
+        "minimum": 180,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "BAT",
+          "HORNET",
+          "BEAR_CUB"
+        ],
+        "hp_mult": 6.73,
+        "bosses": [
+          "BAT_LORD"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 220,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "BAT",
+          "HORNET",
+          "BEAR_CUB"
+        ],
+        "hp_mult": 8.41,
+        "bosses": [
+          "GLOW_WORM"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 260,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "BAT",
+          "HORNET",
+          "BEAR_CUB"
+        ],
+        "hp_mult": 10.09,
+        "bosses": [
+          "BAT_LORD",
+          "GLOW_WORM"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 300,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "BAT",
+          "HORNET",
+          "BEAR_CUB"
+        ],
+        "hp_mult": 11.77
+      }
+    ],
+    "music_night": "music_basement_night",
+    "challenge": 3.29,
+    "hazard": "batswarm",
+    "tree_chance": 0.2
+  },
+  "MOUNTAIN_MEADOW": {
+    "theme": "meadow",
+    "terrain": "trees",
+    "damage_mult": 0.9,
+    "music": "music_garden",
+    "requires": "CAVES",
+    "district": "wild",
+    "cat_quests": [],
+    "props": [
+      "SEED_SACK",
+      "PICNIC_BASKET",
+      "SEED_SACK"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "GREAT_MOOSE",
+    "events": [
+      {
+        "minute": 4.5,
+        "type": "swarm",
+        "enemy": "RABBIT",
+        "count": 190
+      },
+      {
+        "minute": 6.0,
+        "type": "ring",
+        "enemy": "MOOSE_CALF",
+        "count": 30
+      },
+      {
+        "minute": 9.0,
+        "type": "swarm",
+        "enemy": "HORNET",
+        "count": 170
+      },
+      {
+        "minute": 12.0,
+        "type": "ring",
+        "enemy": "WILD_BOAR",
+        "count": 36
+      },
+      {
+        "minute": 15.0,
+        "type": "swarm",
+        "enemy": "RABBIT",
+        "count": 210
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "MOOSE_CALF",
+        "count": 46
+      }
+    ],
+    "traps": [
+      "WILL_O_WISP",
+      "RAKE",
+      "GOOSE_NEST"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.65,
+      0.85,
+      1.0,
+      0.85,
+      1.15,
+      0.65,
+      1.15,
+      1.3,
+      1.4,
+      0.95,
+      0.65,
+      1.3,
+      1.45,
+      1.0,
+      1.45,
+      0.7,
+      1.45,
+      1.6,
+      1.1,
+      1.55,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.4,
+        "per_tick": 1,
+        "enemies": [
+          "RABBIT",
+          "PIGLET"
+        ],
+        "hp_mult": 1.86
+      },
+      {
+        "minute": 1,
+        "minimum": 16,
+        "interval": 1.1,
+        "per_tick": 2,
+        "enemies": [
+          "RABBIT",
+          "PIGLET"
+        ],
+        "hp_mult": 2.03
+      },
+      {
+        "minute": 2,
+        "minimum": 28,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "MOOSE_CALF"
+        ],
+        "hp_mult": 2.21
+      },
+      {
+        "minute": 3,
+        "minimum": 42,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "MOOSE_CALF",
+          "HORNET"
+        ],
+        "hp_mult": 2.55,
+        "bosses": [
+          "MOUNTAIN_GOAT"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.7,
+        "per_tick": 3,
+        "enemies": [
+          "MOOSE_CALF",
+          "HORNET"
+        ],
+        "hp_mult": 3.39
+      },
+      {
+        "minute": 7,
+        "minimum": 110,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "MOOSE_CALF",
+          "HORNET",
+          "RABBIT"
+        ],
+        "hp_mult": 5.09,
+        "bosses": [
+          "MARMOT"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 150,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "MOOSE_CALF",
+          "HORNET",
+          "WILD_BOAR"
+        ],
+        "hp_mult": 5.94
+      },
+      {
+        "minute": 11,
+        "minimum": 180,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "MOOSE_CALF",
+          "HORNET",
+          "WILD_BOAR"
+        ],
+        "hp_mult": 6.79,
+        "bosses": [
+          "MOUNTAIN_GOAT"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 220,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "MOOSE_CALF",
+          "HORNET",
+          "WILD_BOAR"
+        ],
+        "hp_mult": 8.48,
+        "bosses": [
+          "MARMOT"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 260,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "MOOSE_CALF",
+          "HORNET",
+          "WILD_BOAR"
+        ],
+        "hp_mult": 10.18,
+        "bosses": [
+          "MOUNTAIN_GOAT",
+          "MARMOT"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 300,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "MOOSE_CALF",
+          "HORNET",
+          "WILD_BOAR"
+        ],
+        "hp_mult": 11.88
+      }
+    ],
+    "music_night": "music_garden_night",
+    "challenge": 3.32,
+    "hazard": "gust",
+    "tree_chance": 0.25
+  },
+  "EAGLE_CLIFFS": {
+    "theme": "cliffs",
+    "terrain": "walls",
+    "damage_mult": 0.9,
+    "music": "music_rooftop",
+    "requires": "MOUNTAIN_MEADOW",
+    "district": "wild",
+    "cat_quests": [],
+    "props": [
+      "SEED_SACK",
+      "PICNIC_BASKET",
+      "SEED_SACK"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "GOLDEN_EAGLE",
+    "events": [
+      {
+        "minute": 4.5,
+        "type": "swarm",
+        "enemy": "RAVEN",
+        "count": 110
+      },
+      {
+        "minute": 6.0,
+        "type": "ring",
+        "enemy": "MOOSE_CALF",
+        "count": 30
+      },
+      {
+        "minute": 9.0,
+        "type": "swarm",
+        "enemy": "RABBIT",
+        "count": 200
+      },
+      {
+        "minute": 12.0,
+        "type": "ring",
+        "enemy": "RAVEN",
+        "count": 40
+      },
+      {
+        "minute": 15.0,
+        "type": "swarm",
+        "enemy": "HORNET",
+        "count": 190
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "MOOSE_CALF",
+        "count": 48
+      }
+    ],
+    "traps": [
+      "WILL_O_WISP",
+      "RAKE",
+      "GOOSE_NEST"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.65,
+      0.85,
+      1.0,
+      0.85,
+      1.15,
+      0.65,
+      1.15,
+      1.3,
+      1.4,
+      0.95,
+      0.65,
+      1.3,
+      1.45,
+      1.0,
+      1.45,
+      0.7,
+      1.45,
+      1.6,
+      1.1,
+      1.55,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.4,
+        "per_tick": 1,
+        "enemies": [
+          "RABBIT",
+          "PIGLET"
+        ],
+        "hp_mult": 1.88
+      },
+      {
+        "minute": 1,
+        "minimum": 16,
+        "interval": 1.1,
+        "per_tick": 2,
+        "enemies": [
+          "RABBIT",
+          "PIGLET"
+        ],
+        "hp_mult": 2.05
+      },
+      {
+        "minute": 2,
+        "minimum": 28,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "RAVEN"
+        ],
+        "hp_mult": 2.23
+      },
+      {
+        "minute": 3,
+        "minimum": 42,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "RAVEN",
+          "MOOSE_CALF"
+        ],
+        "hp_mult": 2.57,
+        "bosses": [
+          "STORM_RAVEN"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.7,
+        "per_tick": 3,
+        "enemies": [
+          "RAVEN",
+          "MOOSE_CALF"
+        ],
+        "hp_mult": 3.42
+      },
+      {
+        "minute": 7,
+        "minimum": 110,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "RAVEN",
+          "MOOSE_CALF",
+          "RABBIT"
+        ],
+        "hp_mult": 5.14,
+        "bosses": [
+          "ROCK_RAM"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 150,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "RAVEN",
+          "MOOSE_CALF",
+          "HORNET"
+        ],
+        "hp_mult": 5.99
+      },
+      {
+        "minute": 11,
+        "minimum": 180,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "RAVEN",
+          "MOOSE_CALF",
+          "HORNET"
+        ],
+        "hp_mult": 6.85,
+        "bosses": [
+          "STORM_RAVEN"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 220,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "RAVEN",
+          "MOOSE_CALF",
+          "HORNET"
+        ],
+        "hp_mult": 8.56,
+        "bosses": [
+          "ROCK_RAM"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 260,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "RAVEN",
+          "MOOSE_CALF",
+          "HORNET"
+        ],
+        "hp_mult": 10.27,
+        "bosses": [
+          "STORM_RAVEN",
+          "ROCK_RAM"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 300,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "RAVEN",
+          "MOOSE_CALF",
+          "HORNET"
+        ],
+        "hp_mult": 11.99
+      }
+    ],
+    "music_night": "music_rooftop_night",
+    "challenge": 3.35,
+    "hazard": "ravens"
+  },
+  "FROZEN_LAKE": {
+    "theme": "frozen",
+    "terrain": "tide",
+    "damage_mult": 0.9,
+    "music": "music_garden",
+    "requires": "EAGLE_CLIFFS",
+    "district": "wild",
+    "cat_quests": [],
+    "props": [
+      "SEED_SACK",
+      "PICNIC_BASKET",
+      "SEED_SACK"
+    ],
+    "max_props": 6,
+    "prop_interval": 4.0,
+    "duration_minutes": 20,
+    "final_boss": "WHITE_WOLF",
+    "events": [
+      {
+        "minute": 4.5,
+        "type": "swarm",
+        "enemy": "RABBIT",
+        "count": 200
+      },
+      {
+        "minute": 6.0,
+        "type": "ring",
+        "enemy": "ICE_WOLF",
+        "count": 30
+      },
+      {
+        "minute": 9.0,
+        "type": "swarm",
+        "enemy": "RAVEN",
+        "count": 120
+      },
+      {
+        "minute": 12.0,
+        "type": "ring",
+        "enemy": "BEAR_CUB",
+        "count": 40
+      },
+      {
+        "minute": 15.0,
+        "type": "swarm",
+        "enemy": "PIGLET",
+        "count": 200
+      },
+      {
+        "minute": 18.0,
+        "type": "ring",
+        "enemy": "ICE_WOLF",
+        "count": 50
+      }
+    ],
+    "traps": [
+      "WILL_O_WISP",
+      "RAKE",
+      "GOOSE_NEST"
+    ],
+    "max_traps": 6,
+    "intensity": [
+      0.65,
+      0.85,
+      1.0,
+      0.85,
+      1.15,
+      0.65,
+      1.15,
+      1.3,
+      1.4,
+      0.95,
+      0.65,
+      1.3,
+      1.45,
+      1.0,
+      1.45,
+      0.7,
+      1.45,
+      1.6,
+      1.1,
+      1.55,
+      1.0
+    ],
+    "waves": [
+      {
+        "minute": 0,
+        "minimum": 8,
+        "interval": 1.4,
+        "per_tick": 1,
+        "enemies": [
+          "RABBIT",
+          "PIGLET"
+        ],
+        "hp_mult": 1.9
+      },
+      {
+        "minute": 1,
+        "minimum": 16,
+        "interval": 1.1,
+        "per_tick": 2,
+        "enemies": [
+          "RABBIT",
+          "PIGLET"
+        ],
+        "hp_mult": 2.07
+      },
+      {
+        "minute": 2,
+        "minimum": 28,
+        "interval": 1.0,
+        "per_tick": 2,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "ICE_WOLF"
+        ],
+        "hp_mult": 2.25
+      },
+      {
+        "minute": 3,
+        "minimum": 42,
+        "interval": 0.9,
+        "per_tick": 3,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "ICE_WOLF",
+          "RAVEN"
+        ],
+        "hp_mult": 2.59,
+        "bosses": [
+          "ICE_BEAR"
+        ]
+      },
+      {
+        "minute": 5,
+        "minimum": 70,
+        "interval": 0.7,
+        "per_tick": 3,
+        "enemies": [
+          "ICE_WOLF",
+          "RAVEN"
+        ],
+        "hp_mult": 3.46
+      },
+      {
+        "minute": 7,
+        "minimum": 110,
+        "interval": 0.6,
+        "per_tick": 4,
+        "enemies": [
+          "ICE_WOLF",
+          "RAVEN",
+          "RABBIT"
+        ],
+        "hp_mult": 5.18,
+        "bosses": [
+          "FROST_OWL"
+        ]
+      },
+      {
+        "minute": 9,
+        "minimum": 150,
+        "interval": 0.5,
+        "per_tick": 4,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "ICE_WOLF",
+          "RAVEN",
+          "BEAR_CUB"
+        ],
+        "hp_mult": 6.05
+      },
+      {
+        "minute": 11,
+        "minimum": 180,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "ICE_WOLF",
+          "RAVEN",
+          "BEAR_CUB"
+        ],
+        "hp_mult": 6.91,
+        "bosses": [
+          "ICE_BEAR"
+        ]
+      },
+      {
+        "minute": 13,
+        "minimum": 220,
+        "interval": 0.45,
+        "per_tick": 5,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "ICE_WOLF",
+          "RAVEN",
+          "BEAR_CUB"
+        ],
+        "hp_mult": 8.64,
+        "bosses": [
+          "FROST_OWL"
+        ]
+      },
+      {
+        "minute": 15,
+        "minimum": 260,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "ICE_WOLF",
+          "RAVEN",
+          "BEAR_CUB"
+        ],
+        "hp_mult": 10.37,
+        "bosses": [
+          "ICE_BEAR",
+          "FROST_OWL"
+        ]
+      },
+      {
+        "minute": 17,
+        "minimum": 300,
+        "interval": 0.4,
+        "per_tick": 6,
+        "enemies": [
+          "RABBIT",
+          "PIGLET",
+          "ICE_WOLF",
+          "RAVEN",
+          "BEAR_CUB"
+        ],
+        "hp_mult": 12.09
+      }
+    ],
+    "music_night": "music_garden_night",
+    "challenge": 3.38,
+    "hazard": "icecrack"
   }
 }

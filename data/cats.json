@@ -512,5 +512,19 @@
     "home_bonus": {
       "might": 0.1
     }
+  },
+  "LYNX": {
+    "fur": "#c8a070",
+    "dark": "#6a4a2a",
+    "belly": "#f0dcb0",
+    "eyes": "#e8c02a",
+    "stripes": true,
+    "size": 1.2,
+    "weapon": "SCRATCH",
+    "bonus": {},
+    "hidden": true,
+    "npc": true,
+    "home": "CAVES",
+    "home_bonus": {}
   }
 }

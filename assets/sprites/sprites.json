@@ -329,6 +329,17 @@
         25.200000000000003
       ],
       "frames": 4
+    },
+    "LYNX": {
+      "cell": [
+        44,
+        36
+      ],
+      "anchor": [
+        19.6,
+        21.6
+      ],
+      "frames": 4
     }
   },
   "enemies": {
@@ -2511,6 +2522,127 @@
       "frames": 2
     },
     "BEAVER_QUEEN": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "BAT_LORD": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "GLOW_WORM": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "MOUNTAIN_GOAT": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "MARMOT": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "GREAT_MOOSE": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "STORM_RAVEN": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "ROCK_RAM": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "GOLDEN_EAGLE": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "ICE_BEAR": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "FROST_OWL": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "WHITE_WOLF": {
       "cell": [
         28,
         28

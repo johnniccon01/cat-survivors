@@ -71,9 +71,13 @@ const LANES := {
 	"wolfpack": [2.0, 0, 0.0, "WOLFPACK_WARNING"],
 	"bog": [2.8, 5, 10.0, "BOG_WARNING"],
 	"salmon": [2.0, 0, 0.0, "SALMON_WARNING"],
+	"batswarm": [2.0, 0, 0.0, "BATSWARM_WARNING"],
+	"gust": [2.6, 5, 10.0, "GUST_WARNING"],
+	"ravens": [2.0, 0, 0.0, "RAVENS_WARNING"],
+	"icecrack": [2.6, 5, 14.0, "ICECRACK_WARNING"],
 }
 ## Lane hazards where dogs charge down the lane instead of a train.
-const RUNNERS := {"race": "GREYHOUND", "patrol": "DOBERMAN", "agility": "STRAY_DOG", "march": "PATROL_DOG", "wolfpack": "YOUNG_WOLF", "salmon": "SALMON"}
+const RUNNERS := {"race": "GREYHOUND", "patrol": "DOBERMAN", "agility": "STRAY_DOG", "march": "PATROL_DOG", "wolfpack": "YOUNG_WOLF", "salmon": "SALMON", "batswarm": "BAT", "ravens": "RAVEN"}
 const CRANE_FIRST := 30.0
 const CRANE_EVERY := Vector2(18.0, 28.0)
 const CRANE_WARN := 2.6
@@ -196,7 +200,7 @@ func phase() -> String:
 func _physics_process(delta: float) -> void:
 	_t += delta
 	match kind:
-		"train", "flood", "shunting", "blowdry", "hose", "race", "patrol", "avalanche", "agility", "spotlight", "march", "logs", "wolfpack", "bog", "salmon":
+		"train", "flood", "shunting", "blowdry", "hose", "race", "patrol", "avalanche", "agility", "spotlight", "march", "logs", "wolfpack", "bog", "salmon", "batswarm", "gust", "ravens", "icecrack":
 			_tick_train(delta)
 		"crane":
 			_tick_crane(delta)
@@ -455,7 +459,7 @@ func _view() -> Rect2:
 
 func _draw() -> void:
 	match kind:
-		"train", "flood", "shunting", "blowdry", "hose", "race", "patrol", "avalanche", "agility", "spotlight", "march", "logs", "wolfpack", "bog", "salmon":
+		"train", "flood", "shunting", "blowdry", "hose", "race", "patrol", "avalanche", "agility", "spotlight", "march", "logs", "wolfpack", "bog", "salmon", "batswarm", "gust", "ravens", "icecrack":
 			_draw_train()
 		"crane":
 			_draw_crane()
@@ -562,7 +566,7 @@ func _draw_train() -> void:
 			var p := at + Vector2(_dir * i * 22.0, 0.0)
 			draw_colored_polygon(PackedVector2Array([p + Vector2(-_dir * 8.0, -10.0), p + Vector2(_dir * 8.0, 0.0), p + Vector2(-_dir * 8.0, 10.0)]), Color(1.0, 0.3, 0.2, 0.4 + 0.6 * k))
 		return
-	if kind in ["flood", "blowdry", "hose", "avalanche", "spotlight", "logs", "bog"]:
+	if kind in ["flood", "blowdry", "hose", "avalanche", "spotlight", "logs", "bog", "gust", "icecrack"]:
 		_draw_wave(view)
 		return
 	if RUNNERS.has(kind):
@@ -638,6 +642,10 @@ func _draw_wave(view: Rect2) -> void:
 			tint = Color(1.0, 0.95, 0.6, 0.4 + 0.1 * sin(_t * 9.0))
 		elif kind == "logs":
 			tint = Color(0.45, 0.3, 0.18, 0.95)
+		elif kind == "gust":
+			tint = Color(0.9, 0.95, 1.0, 0.3 + 0.1 * sin(_t * 14.0))
+		elif kind == "icecrack":
+			tint = Color(0.6, 0.85, 1.0, 0.75)
 		draw_rect(band, tint)
 	# Foam where it breaks, and spray.
 	for k in 9:

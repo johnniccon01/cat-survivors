@@ -100,6 +100,10 @@
     "WOLF_PELT": { "slot": "VEST", "boss": "WOLF_LEADER", "color": "#5a5a64", "stats": { "speed": 0.1, "crit_chance": 0.06 } },
     "MUD_MASK": { "slot": "HAT", "boss": "GIANT_BADGER", "color": "#6a5a3a", "stats": { "armor": 2.0, "regen": 0.4 } },
     "BEAVER_CROWN": { "slot": "HAT", "boss": "BEAVER_QUEEN", "color": "#f2c14e", "stats": { "area": 0.1, "max_hp": 30.0 } },
+    "LYNX_EARS": { "slot": "HAT", "boss": "LYNX_BOSS", "color": "#c8a070", "stats": { "crit_chance": 0.08, "magnet": 30.0 } },
+    "MOOSE_ANTLER": { "slot": "COLLAR", "boss": "GREAT_MOOSE", "color": "#e8d8a8", "stats": { "area": 0.12, "armor": 1.0 } },
+    "EAGLE_FEATHER": { "slot": "TAIL", "boss": "GOLDEN_EAGLE", "color": "#f2c14e", "stats": { "speed": 0.1, "proj_speed": 0.15 } },
+    "FROST_COLLAR": { "slot": "COLLAR", "boss": "WHITE_WOLF", "color": "#8ab8d8", "stats": { "cooldown": -0.06, "max_hp": 25.0 } },
     "SOUL_BELL": { "slot": "COLLAR", "boss": "", "special": true, "color": "#9a7aff", "stats": {} }
   }
 }

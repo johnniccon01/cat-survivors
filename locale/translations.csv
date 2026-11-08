@@ -3515,3 +3515,140 @@ CHAIN_BEHIND_THE_FALLS_1,Hold out against the attack,Vydrž útok,Vydrž útok,R
 CHAIN_BEHIND_THE_FALLS_1_DONE,An otter guards the cave.,Jaskyňu stráži vydra.,Jeskyni hlídá vydra.,Una nutria guarda la cueva.,Пещеру охраняет выдра.,一只水獭守着洞穴。
 CHAIN_BEHIND_THE_FALLS_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
 CHAIN_BEHIND_THE_FALLS_2_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+STAGE_CAVES_NAME,The Caves,Jaskyne,Jeskyně,Las cuevas,Пещеры,洞穴
+STAGE_CAVES_HINT,Defeat the Beaver Queen at the Waterfall,Poraz Kráľovnú bobrov pri Vodopáde,Poraz Královnu bobrů u Vodopádu,Derrota a la Reina Castor en la cascada,Победи Королеву бобров у Водопада,在瀑布击败河狸女王
+STORY_CAVES_INTRO,Darkness and swarms of bats. Something with yellow eyes watches from the shadows.,Tma a roje netopierov. Z tieňa sleduje niečo so žltými očami.,Tma a roje netopýrů. Ze stínu sleduje něco se žlutýma očima.,Oscuridad y nubes de murciélagos. Algo de ojos amarillos vigila desde las sombras.,Тьма и стаи летучих мышей. Из тени следит что-то с жёлтыми глазами.,黑暗与成群的蝙蝠。阴影中有双黄眼睛在盯着。
+QB_CAVES_NAME,The Caves,Jaskyne,Jeskyně,Las cuevas,Пещеры,洞穴
+QB_CAVES_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_CAVES_2,Defeat its boss.,Poraziť jeho bossa.,Porazit jeho bosse.,Derrota a su jefe.,Победи его босса.,击败那里的首领。
+QB_CAVES_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_CAVES_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_MOUNTAIN_MEADOW_NAME,The Mountain Meadow,Horská lúka,Horská louka,El prado de montaña,Горный луг,高山草甸
+STAGE_MOUNTAIN_MEADOW_HINT,Defeat the Lynx in the Caves,Poraz Rysa v Jaskyniach,Poraz Rysa v Jeskyních,Derrota al lince en las cuevas,Победи Рысь в Пещерах,在洞穴击败猞猁
+STORY_MOUNTAIN_MEADOW_INTRO,Gusts of wind sweep the flowers. The great moose guards his meadow.,Nárazy vetra česú kvety. Veľký los stráži svoju lúku.,Nárazy větru češou květy. Velký los hlídá svou louku.,Ráfagas de viento barren las flores. El gran alce guarda su prado.,Порывы ветра треплют цветы. Большой лось охраняет свой луг.,阵阵狂风掠过花丛。大驼鹿守护着它的草甸。
+QB_MOUNTAIN_MEADOW_NAME,The Mountain Meadow,Horská lúka,Horská louka,El prado de montaña,Горный луг,高山草甸
+QB_MOUNTAIN_MEADOW_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_MOUNTAIN_MEADOW_2,Defeat its boss.,Poraziť jeho bossa.,Porazit jeho bosse.,Derrota a su jefe.,Победи его босса.,击败那里的首领。
+QB_MOUNTAIN_MEADOW_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_MOUNTAIN_MEADOW_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_EAGLE_CLIFFS_NAME,The Eagle Cliffs,Orlie skaly,Orlí skály,Los riscos del águila,Орлиные скалы,鹰崖
+STAGE_EAGLE_CLIFFS_HINT,Defeat the Great Moose on the Mountain Meadow,Poraz Veľkého losa na Horskej lúke,Poraz Velkého losa na Horské louce,Derrota al Gran Alce en el prado,Победи Большого лося на Горном лугу,在高山草甸击败巨型驼鹿
+STORY_EAGLE_CLIFFS_INTRO,"Narrow ledges, flocks of ravens – and a golden eagle diving from the sky.","Úzke rímsy, kŕdle havranov – a zlatý orol, ktorý sa vrhá z neba.","Úzké římsy, hejna havranů – a zlatý orel, který se vrhá z nebe.","Cornisas estrechas, bandadas de cuervos y un águila dorada que cae del cielo.","Узкие уступы, стаи воронов – и беркут, пикирующий с неба.",狭窄的岩架、成群的渡鸦——还有一只从天而降的金雕。
+QB_EAGLE_CLIFFS_NAME,The Eagle Cliffs,Orlie skaly,Orlí skály,Los riscos del águila,Орлиные скалы,鹰崖
+QB_EAGLE_CLIFFS_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_EAGLE_CLIFFS_2,Defeat its boss.,Poraziť jeho bossa.,Porazit jeho bosse.,Derrota a su jefe.,Победи его босса.,击败那里的首领。
+QB_EAGLE_CLIFFS_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_EAGLE_CLIFFS_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_FROZEN_LAKE_NAME,The Frozen Lake,Zamrznuté jazero,Zamrzlé jezero,El lago helado,Замёрзшее озеро,冰湖
+STAGE_FROZEN_LAKE_HINT,Defeat the Golden Eagle on the Eagle Cliffs,Poraz Zlatého orla na Orlích skalách,Poraz Zlatého orla na Orlích skalách,Derrota al Águila Dorada en los riscos,Победи Беркута на Орлиных скалах,在鹰崖击败金雕
+STORY_FROZEN_LAKE_INTRO,The ice cracks in long lines. A white wolf hunts across the lake.,Ľad praská v dlhých čiarach. Po jazere loví biely vlk.,Led praská v dlouhých čarách. Po jezeře loví bílý vlk.,El hielo se agrieta en largas líneas. Un lobo blanco caza en el lago.,Лёд трескается длинными полосами. По озеру охотится белый волк.,冰面裂开一道道长缝。一只白狼在湖上狩猎。
+QB_FROZEN_LAKE_NAME,The Frozen Lake,Zamrznuté jazero,Zamrzlé jezero,El lago helado,Замёрзшее озеро,冰湖
+QB_FROZEN_LAKE_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_FROZEN_LAKE_2,Defeat its boss.,Poraziť jeho bossa.,Porazit jeho bosse.,Derrota a su jefe.,Победи его босса.,击败那里的首领。
+QB_FROZEN_LAKE_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_FROZEN_LAKE_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+ENEMY_BAT_LORD_NAME,Bat Lord,Netopierí pán,Netopýří pán,El señor murciélago,Повелитель мышей,蝙蝠领主
+ENEMY_BAT_LORD_DESC,Cages you in and bursts in rings.,Uzavrie ťa do klietky a vybuchne v kruhoch.,Uzavře tě do klece a vybuchne v kruzích.,Te encierra y estalla en anillos.,Запирает тебя и взрывается кольцами.,把你困住，然后环形爆发。
+ENEMY_GLOW_WORM_NAME,Glow Worm,Svätojánska larva,Světluška,La luciérnaga,Светлячок,萤火虫
+ENEMY_GLOW_WORM_DESC,"Glows, sweeps the cave and drops stones from above.","Svieti, zametá jaskyňu a zhadzuje zhora kamene.","Svítí, zametá jeskyni a shazuje shora kameny.","Brilla, barre la cueva y tira piedras desde arriba.","Светится, метёт пещеру и роняет камни сверху.",发着光横扫洞穴，从上方砸下石头。
+ENEMY_LYNX_BOSS_NAME,The Lynx,Rys,Rys,El lince,Рысь,猞猁
+ENEMY_LYNX_BOSS_DESC,"Vanishes into the dark and leaps out right by you, three times.",Zmizne v tme a trikrát vyskočí tesne pri tebe.,Zmizí ve tmě a třikrát vyskočí těsně u tebe.,Desaparece en la oscuridad y salta junto a ti tres veces.,Исчезает во тьме и трижды выпрыгивает прямо рядом.,隐入黑暗，三次从你身边扑出。
+ENEMY_MOUNTAIN_GOAT_NAME,Mountain Goat,Kamzík,Kamzík,La cabra montés,Горный козёл,岩羊
+ENEMY_MOUNTAIN_GOAT_DESC,Charges across the slope in wide sweeps.,Rúti sa svahom v širokých oblúkoch.,Řítí se svahem v širokých obloucích.,Carga por la ladera en amplios barridos.,Несётся по склону широкими дугами.,以大弧线冲过山坡。
+ENEMY_MARMOT_NAME,Marmot,Svišť,Svišť,La marmota,Сурок,旱獭
+ENEMY_MARMOT_DESC,Whistles loudly and pulls you in.,Hlasno píska a priťahuje ťa.,Hlasitě píská a přitahuje tě.,Silba fuerte y te atrae.,Громко свистит и притягивает тебя.,大声吹哨，把你吸过去。
+ENEMY_GREAT_MOOSE_NAME,The Great Moose,Veľký los,Velký los,El Gran Alce,Большой лось,巨型驼鹿
+ENEMY_GREAT_MOOSE_DESC,"Two wide sweeps of his antlers, one each way.","Dva široké zámachy parohmi, na každú stranu jeden.","Dvě široká máchnutí parohy, na každou stranu jedno.","Dos amplios barridos de sus astas, uno a cada lado.","Два широких взмаха рогами, в каждую сторону.",用鹿角左右各横扫一次。
+ENEMY_STORM_RAVEN_NAME,Storm Raven,Búrkový havran,Bouřkový havran,El cuervo de la tormenta,Грозовой ворон,风暴渡鸦
+ENEMY_STORM_RAVEN_DESC,Rains feathers and fires in a cross.,Sype perie a strieľa do kríža.,Sype peří a střílí do kříže.,Lanza plumas y dispara en cruz.,Сыплет перьями и стреляет крестом.,洒下羽毛，十字射击。
+ENEMY_ROCK_RAM_NAME,Rock Ram,Skalný baran,Skalní beran,El carnero de roca,Скальный баран,岩石公羊
+ENEMY_ROCK_RAM_DESC,Brings down rocks and cages you in.,Zhodí skaly a uzavrie ťa.,Shodí skály a uzavře tě.,Derriba rocas y te encierra.,Обрушивает камни и запирает тебя.,砸下岩石，把你困住。
+ENEMY_GOLDEN_EAGLE_NAME,The Golden Eagle,Zlatý orol,Zlatý orel,El Águila Dorada,Беркут,金雕
+ENEMY_GOLDEN_EAGLE_DESC,"Dives at you three times, each dive ending in a strike.",Trikrát sa na teba vrhne a každý strmhlav skončí úderom.,Třikrát se na tebe vrhne a každý střemhlav skončí úderem.,"Se lanza sobre ti tres veces, cada picado acaba en un golpe.","Трижды пикирует на тебя, и каждый раз – удар.",三次俯冲向你，每次都以重击收尾。
+ENEMY_ICE_BEAR_NAME,Ice Bear,Ľadový medveď,Ledový medvěd,El oso de hielo,Ледяной медведь,冰熊
+ENEMY_ICE_BEAR_DESC,Cages you in ice and spins shards round.,Uzavrie ťa do ľadu a roztočí črepiny.,Uzavře tě do ledu a roztočí střepy.,Te encierra en hielo y hace girar esquirlas.,Запирает тебя во льду и крутит осколки.,把你冰封住，旋转冰片。
+ENEMY_FROST_OWL_NAME,Frost Owl,Mrazivá sova,Mrazivá sova,El búho de escarcha,Морозная сова,霜之猫头鹰
+ENEMY_FROST_OWL_DESC,Drops ice from above and follows your steps.,Zhadzuje ľad zhora a ide po tvojich stopách.,Shazuje led shora a jde po tvých stopách.,Tira hielo desde arriba y sigue tus pasos.,Роняет лёд сверху и идёт по твоим следам.,从上方投下冰块，追踪你的脚步。
+ENEMY_WHITE_WOLF_NAME,The White Wolf,Biely vlk,Bílý vlk,El Lobo Blanco,Белый волк,白狼
+ENEMY_WHITE_WOLF_DESC,Slows you with frost while ice shards fly in from four corners.,"Spomalí ťa mrazom, kým zo štyroch rohov letia ľadové črepiny.","Zpomalí tě mrazem, zatímco ze čtyř rohů letí ledové střepy.",Te frena con escarcha mientras vuelan esquirlas desde cuatro esquinas.,"Замедляет тебя морозом, пока с четырёх сторон летят ледяные осколки.",用冰霜减慢你，冰片从四角飞来。
+ITEM_LYNX_EARS_NAME,Lynx Ears,Rysie uši,Rysí uši,Orejas de lince,Рысьи уши,猞猁耳
+ITEM_LYNX_EARS_DESC,"From the Lynx. +8% critical chance, bigger magnet.","Od Rysa. +8 % kritická šanca, väčší magnet.","Od Rysa. +8 % kritická šance, větší magnet.","Del lince. +8 % de probabilidad crítica, imán mayor.","От Рыси. +8 % шанса крита, сильнее магнит.",来自猞猁。+8% 暴击率，磁力更强。
+ITEM_MOOSE_ANTLER_NAME,Moose Antler,Losí paroh,Losí paroh,Asta de alce,Лосиный рог,驼鹿角
+ITEM_MOOSE_ANTLER_DESC,"From the Great Moose. +12% area, +1 armour.","Od Veľkého losa. +12 % plocha, +1 brnenie.","Od Velkého losa. +12 % plocha, +1 brnění.","Del Gran Alce. +12 % de área, +1 de armadura.","От Большого лося. +12 % площади, +1 брони.",来自巨型驼鹿。+12% 范围，+1 护甲。
+ITEM_EAGLE_FEATHER_NAME,Eagle Feather,Orlie pero,Orlí pero,Pluma de águila,Орлиное перо,鹰羽
+ITEM_EAGLE_FEATHER_DESC,"From the Golden Eagle. +10% speed, +15% projectile speed.","Od Zlatého orla. +10 % rýchlosť, +15 % rýchlosť striel.","Od Zlatého orla. +10 % rychlost, +15 % rychlost střel.","Del Águila Dorada. +10 % de velocidad, +15 % de velocidad de proyectiles.","От Беркута. +10 % скорости, +15 % скорости снарядов.",来自金雕。+10% 速度，+15% 弹速。
+ITEM_FROST_COLLAR_NAME,Frost Collar,Mrazivý obojok,Mrazivý obojek,Collar de escarcha,Морозный ошейник,霜之项圈
+ITEM_FROST_COLLAR_DESC,"From the White Wolf. -6% cooldown, +25 health.","Od Bieleho vlka. -6 % čas nabíjania, +25 zdravia.","Od Bílého vlka. -6 % doba nabíjení, +25 zdraví.","Del Lobo Blanco. -6 % de recarga, +25 de salud.","От Белого волка. -6 % перезарядки, +25 здоровья.",来自白狼。-6% 冷却，+25 生命。
+BATSWARM_WARNING,A swarm of bats sweeps down the lane – step aside!,Pruhom sa ženie roj netopierov – uhni!,Pruhem se žene roj netopýrů – uhni!,"¡Un enjambre de murciélagos cruza el carril, apártate!",По полосе несётся стая летучих мышей – отойди!,一群蝙蝠沿着这条线冲来——快让开！
+GUST_WARNING,A gust of wind sweeps the slope – get out of its way!,Svahom sa prežene nárazový vietor – uhni mu!,Svahem se přežene nárazový vítr – uhni mu!,"¡Una ráfaga de viento barre la ladera, apártate!",По склону проносится порыв ветра – уйди с пути!,一阵狂风扫过山坡——快躲开！
+RAVENS_WARNING,A flock of ravens flies down the lane – step aside!,Pruhom letí kŕdeľ havranov – uhni!,Pruhem letí hejno havranů – uhni!,"¡Una bandada de cuervos cruza el carril, apártate!",По полосе летит стая воронов – отойди!,一群渡鸦沿着这条线飞来——快让开！
+ICECRACK_WARNING,The ice is cracking along the lane – get off it!,Ľad praská pozdĺž pruhu – zíď z neho!,Led praská podél pruhu – slez z něj!,"¡El hielo se agrieta a lo largo del carril, sal de ahí!",Лёд трескается вдоль полосы – уходи с него!,冰面沿着这条线开裂——快离开！
+CAT_LYNX_NAME,The Lynx,Rys,Rys,El lince,Рысь,猞猁
+CHAIN_CAVE_PAINTINGS_NAME,Cave Paintings,Jaskynné maľby,Jeskynní malby,Pinturas rupestres,Пещерные рисунки,洞穴壁画
+CHAIN_CAVE_PAINTINGS_DESC,"Old paintings of cats, dogs and wolves side by side. Follow them deeper.","Staré maľby mačiek, psov a vlkov vedľa seba. Choď za nimi hlbšie.","Staré malby koček, psů a vlků vedle sebe. Jdi za nimi hlouběji.","Viejas pinturas de gatos, perros y lobos juntos. Síguelas más adentro.","Старые рисунки кошек, собак и волков рядом. Иди за ними глубже.",古老的壁画上，猫、狗和狼并肩而立。顺着它们往深处走。
+CHAIN_CAVE_PAINTINGS_1,Follow the tracks,Choď po stopách,Jdi po stopách,Sigue las huellas,Иди по следам,跟着足迹走
+CHAIN_CAVE_PAINTINGS_1_DONE,The bats don't like visitors.,Netopiere nemajú radi návštevy.,Netopýři nemají rádi návštěvy.,A los murciélagos no les gustan las visitas.,Летучие мыши не любят гостей.,蝙蝠不喜欢访客。
+CHAIN_CAVE_PAINTINGS_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_CAVE_PAINTINGS_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_GLOWING_STONES_NAME,Glowing Stones,Svietiace kamene,Svítící kameny,Piedras brillantes,Светящиеся камни,发光的石头
+CHAIN_GLOWING_STONES_DESC,Bring light into the cave so the animals hiding here can find the way out.,"Prines do jaskyne svetlo, nech skryté zvieratá nájdu cestu von.","Přines do jeskyně světlo, ať schovaná zvířata najdou cestu ven.",Lleva luz a la cueva para que los animales escondidos encuentren la salida.,"Принеси свет в пещеру, чтобы прячущиеся звери нашли выход.",把光带进洞穴，让躲藏的动物找到出路。
+CHAIN_GLOWING_STONES_1,Gather the glowing stones,Pozbieraj svietiace kamene,Posbírej svítící kameny,Recoge las piedras brillantes,Собери светящиеся камни,收集发光的石头
+CHAIN_GLOWING_STONES_1_DONE,The light wakes the bats.,Svetlo zobudí netopiere.,Světlo probudí netopýry.,La luz despierta a los murciélagos.,Свет будит летучих мышей.,光亮惊醒了蝙蝠。
+CHAIN_GLOWING_STONES_2,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_GLOWING_STONES_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_DEEPEST_CAVE_NAME,The Deepest Cave,Najhlbšia jaskyňa,Nejhlubší jeskyně,La cueva más profunda,Самая глубокая пещера,最深的洞穴
+CHAIN_DEEPEST_CAVE_DESC,"Far in the dark, something glows green.",Ďaleko v tme svieti niečo nazeleno.,Daleko ve tmě svítí něco zeleně.,"Lejos en la oscuridad, algo brilla en verde.",Далеко в темноте что-то светится зелёным.,黑暗深处有东西发着绿光。
+CHAIN_DEEPEST_CAVE_1,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_DEEPEST_CAVE_1_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_ALPINE_FLOWERS_NAME,Alpine Flowers,Horské kvety,Horské květy,Flores alpinas,Альпийские цветы,高山花
+CHAIN_ALPINE_FLOWERS_DESC,The machines' dust is choking the meadow. Save the last flowers.,Prach zo strojov dusí lúku. Zachráň posledné kvety.,Prach ze strojů dusí louku. Zachraň poslední květy.,El polvo de las máquinas ahoga el prado. Salva las últimas flores.,Пыль от машин душит луг. Спаси последние цветы.,机器扬起的尘土让草甸窒息。拯救最后的花朵。
+CHAIN_ALPINE_FLOWERS_1,Gather the flowers,Pozbieraj kvety,Posbírej květy,Recoge las flores,Собери цветы,收集花朵
+CHAIN_ALPINE_FLOWERS_1_DONE,A goat thinks they're his lunch.,"Kamzík si myslí, že sú jeho obed.","Kamzík si myslí, že jsou jeho oběd.",Una cabra cree que son su almuerzo.,"Козёл думает, что это его обед.",一只岩羊以为那是它的午餐。
+CHAIN_ALPINE_FLOWERS_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_ALPINE_FLOWERS_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_HERD_HOME_NAME,Herd Them Home,Zažeň ich domov,Zažeň je domů,Llévalos a casa,Загони их домой,把它们赶回家
+CHAIN_HERD_HOME_DESC,Three moose calves strayed from their mothers.,Tri losíky sa zatúlali od matiek.,Tři losíci se zatoulali od matek.,Tres crías de alce se alejaron de sus madres.,Три лосёнка отбились от матерей.,三只小驼鹿离开了妈妈。
+CHAIN_HERD_HOME_1,Hold the three meadow spots,Podrž tri miesta na lúke,Podrž tři místa na louce,Mantén los tres puntos del prado,Удержи три места на лугу,守住草甸上的三个点
+CHAIN_HERD_HOME_1_DONE,The calves come running – but not to you.,Losíky pribehnú – ale nie k tebe.,Losíci přiběhnou – ale ne k tobě.,"Las crías vienen corriendo, pero no hacia ti.",Лосята прибегают – но не к тебе.,小驼鹿跑过来了——但不是跑向你。
+CHAIN_HERD_HOME_2,Catch the calves,Chyť losíky,Chyť losíky,Atrapa las crías,Поймай лосят,抓住小驼鹿
+CHAIN_HERD_HOME_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_MARMOT_BURROW_NAME,The Marmot Burrow,Svišťia nora,Svišťí nora,La madriguera de la marmota,Нора сурка,旱獭洞
+CHAIN_MARMOT_BURROW_DESC,A long whistling trail leads to a burrow under the meadow.,Dlhá pískajúca stopa vedie k nore pod lúkou.,Dlouhá pískající stopa vede k noře pod loukou.,Un largo rastro de silbidos lleva a una madriguera bajo el prado.,Длинный свистящий след ведёт к норе под лугом.,一路口哨声通向草甸下的洞穴。
+CHAIN_MARMOT_BURROW_1,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_MARMOT_BURROW_1_DONE,The marmot pops out.,Svišť vykukne.,Svišť vykoukne.,La marmota asoma.,Сурок выглядывает.,旱獭探出头来。
+CHAIN_MARMOT_BURROW_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_MARMOT_BURROW_2_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_EAGLE_EGGS_NAME,The Eagle's Eggs,Orlie vajcia,Orlí vejce,Los huevos del águila,Орлиные яйца,鹰蛋
+CHAIN_EAGLE_EGGS_DESC,Bring warm bread to keep the eagle's nest warm until she returns.,"Dones teplý chlieb, nech orlie hniezdo nevychladne, kým sa orlica vráti.","Přines teplý chléb, ať orlí hnízdo nevychladne, než se orlice vrátí.",Lleva pan caliente para mantener el nido del águila hasta que vuelva.,"Принеси тёплый хлеб, чтобы гнездо не остыло до возвращения орлицы.",带来热面包，在雌鹰回来前让鹰巢保持温暖。
+CHAIN_EAGLE_EGGS_1,Carry the bread to the nest,Zanes chlieb k hniezdu,Zanes chléb k hnízdu,Lleva el pan al nido,Отнеси хлеб к гнезду,把面包送到鹰巢
+CHAIN_EAGLE_EGGS_1_DONE,The ravens want the eggs.,Havrany chcú vajcia.,Havrani chtějí vejce.,Los cuervos quieren los huevos.,Вороны хотят яйца.,渡鸦想要那些蛋。
+CHAIN_EAGLE_EGGS_2,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_EAGLE_EGGS_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_CLIFF_PATH_NAME,The Cliff Path,Skalný chodník,Skalní chodník,El sendero del risco,Скальная тропа,崖边小路
+CHAIN_CLIFF_PATH_DESC,Light the old signal stones along the cliff path.,Zapáľ staré signálne kamene pozdĺž skalného chodníka.,Zapal staré signální kameny podél skalního chodníku.,Enciende las viejas piedras de señal del sendero.,Зажги старые сигнальные камни вдоль тропы.,点亮崖边小路上的旧信号石。
+CHAIN_CLIFF_PATH_1,Hold the four signal stones,Podrž štyri signálne kamene,Podrž čtyři signální kameny,Mantén las cuatro piedras,Удержи четыре сигнальных камня,守住四块信号石
+CHAIN_CLIFF_PATH_1_DONE,A storm raven comes to see.,Priletí búrkový havran.,Přiletí bouřkový havran.,Un cuervo de tormenta viene a ver.,Прилетает грозовой ворон.,一只风暴渡鸦飞来查看。
+CHAIN_CLIFF_PATH_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_CLIFF_PATH_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_HIGHEST_PEAK_NAME,The Highest Peak,Najvyšší štít,Nejvyšší štít,El pico más alto,Самая высокая вершина,最高峰
+CHAIN_HIGHEST_PEAK_DESC,"Far above, in the dark, a ram guards the top of the world.",Ďaleko hore v tme stráži baran vrchol sveta.,Daleko nahoře ve tmě hlídá beran vrchol světa.,"Muy arriba, en la oscuridad, un carnero guarda la cima del mundo.","Далеко вверху, во тьме, баран охраняет вершину мира.",高处的黑暗中，一只公羊守着世界之巅。
+CHAIN_HIGHEST_PEAK_1,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_HIGHEST_PEAK_1_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_THIN_ICE_NAME,Thin Ice,Tenký ľad,Tenký led,Hielo fino,Тонкий лёд,薄冰
+CHAIN_THIN_ICE_DESC,Only one safe path leads across the lake.,Cez jazero vedie len jedna bezpečná cesta.,Přes jezero vede jen jedna bezpečná cesta.,Solo un camino seguro cruza el lago.,Через озеро ведёт лишь одна безопасная тропа.,只有一条安全的路能穿过湖面。
+CHAIN_THIN_ICE_1,Follow the tracks,Choď po stopách,Jdi po stopách,Sigue las huellas,Иди по следам,跟着足迹走
+CHAIN_THIN_ICE_1_DONE,An ice bear waits on the far shore.,Na druhom brehu čaká ľadový medveď.,Na druhém břehu čeká ledový medvěd.,Un oso de hielo espera en la otra orilla.,На том берегу ждёт ледяной медведь.,一只冰熊在对岸等着。
+CHAIN_THIN_ICE_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_THIN_ICE_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_ICE_FISHING_NAME,Ice Fishing,Rybárčenie na ľade,Rybaření na ledu,Pesca en hielo,Подлёдная рыбалка,冰钓
+CHAIN_ICE_FISHING_DESC,The hungry animals by the lake need fish.,Hladné zvieratá pri jazere potrebujú ryby.,Hladová zvířata u jezera potřebují ryby.,Los animales hambrientos del lago necesitan peces.,Голодным зверям у озера нужна рыба.,湖边饥饿的动物们需要鱼。
+CHAIN_ICE_FISHING_1,Catch the fish,Nachytaj ryby,Nachytej ryby,Pesca los peces,Налови рыбы,抓鱼
+CHAIN_ICE_FISHING_1_DONE,White wolves smell the fish.,Biele vlky zacítili ryby.,Bílí vlci ucítili ryby.,Los lobos blancos huelen el pescado.,Белые волки учуяли рыбу.,白狼闻到了鱼味。
+CHAIN_ICE_FISHING_2,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_ICE_FISHING_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_FROZEN_SHIP_NAME,The Frozen Boat,Zamrznutá loďka,Zamrzlá loďka,El barco helado,Вмёрзшая лодка,冰封的小船
+CHAIN_FROZEN_SHIP_DESC,A trail of lanterns leads to a boat frozen in the middle of the lake.,Stopa lampášov vedie k loďke zamrznutej uprostred jazera.,Stopa luceren vede k loďce zamrzlé uprostřed jezera.,Un rastro de faroles lleva a un barco helado en medio del lago.,"Дорожка фонарей ведёт к лодке, вмёрзшей посреди озера.",一路灯笼通向冻在湖中央的小船。
+CHAIN_FROZEN_SHIP_1,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_FROZEN_SHIP_1_DONE,A frost owl lands on the mast.,Na sťažeň si sadne mrazivá sova.,Na stěžeň si sedne mrazivá sova.,Un búho de escarcha se posa en el mástil.,На мачту садится морозная сова.,一只霜之猫头鹰落在桅杆上。
+CHAIN_FROZEN_SHIP_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_FROZEN_SHIP_2_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。

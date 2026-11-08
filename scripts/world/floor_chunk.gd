@@ -46,7 +46,8 @@ const THEME_ITEMS := {"apartment": APARTMENT_ITEMS, "basement": BASEMENT_ITEMS, 
 	"racetrack": DOGPARK_ITEMS, "firestation": FACTORY_ITEMS, "police": STATION_ITEMS, "vet": SHELTER_ITEMS,
 	"dam": HARBOR_ITEMS, "snow": FOREST_ITEMS, "training": DOGPARK_ITEMS, "show": SHELTER_ITEMS,
 	"barracks": STATION_ITEMS, "general": FACTORY_ITEMS, "wild_edge": FOREST_ITEMS, "deep_woods": FOREST_ITEMS,
-	"swamp": FOREST_ITEMS, "waterfall": ISLAND_ITEMS}
+	"swamp": FOREST_ITEMS, "waterfall": ISLAND_ITEMS, "caves": BASEMENT_ITEMS, "meadow": PARK_ITEMS, "cliffs": ROOFTOP_ITEMS,
+	"frozen": FOREST_ITEMS}
 ## Zones per theme, from low noise to high noise.
 const THEME_ZONES := {
 	"apartment": ["kitchen", "living", "bedroom"],
@@ -84,6 +85,10 @@ const THEME_ZONES := {
 	"deep_woods": ["forest_floor", "moss", "dark_woods"],
 	"swamp": ["bog", "reed_bed", "moss"],
 	"waterfall": ["river_rocks", "river_bank", "moss"],
+	"caves": ["cave_floor", "cave_mouth", "river_rocks"],
+	"meadow": ["alpine_meadow", "flower_slope", "river_rocks"],
+	"cliffs": ["ledge", "scree", "alpine_meadow"],
+	"frozen": ["lake_ice", "snowfield", "snow_path"],
 }
 const FURNITURE := {
 	"living": ["sofa", "armchair", "coffee_table", "bookshelf", "tv", "floor_lamp", "plant", "cat_tree"],
@@ -184,6 +189,13 @@ const FURNITURE := {
 	"bog": ["mushrooms_glow", "log", "fern", "mushrooms_glow"],
 	"reed_bed": ["fern", "log", "rock", "fern"],
 	"river_rocks": ["rock", "fern", "rock", "log"],
+	"cave_floor": ["rock", "mushrooms_glow", "rock", "crates"],
+	"cave_mouth": ["rock", "fern", "log", "mushrooms"],
+	"alpine_meadow": ["flowers", "rock", "bench", "bush"],
+	"flower_slope": ["flowers", "flowers", "rock", "fern"],
+	"ledge": ["rock", "rock", "fern"],
+	"scree": ["rock", "log", "rock"],
+	"lake_ice": ["rock", "pine", "rock"],
 }
 const LAMPS := ["floor_lamp", "nightstand", "bulb", "garden_lamp", "roof_lamp", "shop_lamp", "harbor_lamp", "factory_lamp", "grave_candle", "station_lamp", "campfire",
 	"sewer_lamp", "site_lamp", "yard_lamp", "mushrooms_glow"]
@@ -249,7 +261,8 @@ const ART_FLOORS := {"living": "floor_planks", "kitchen": "floor_tiles", "bedroo
 	"parade_ground": "floor_yard_dock", "barrack_hall": "floor_boards", "drill_yard": "floor_gravel",
 	"kennel_court": "floor_kennel_row", "castle_hall": "floor_hall", "castle_yard": "floor_lawn",
 	"cut_strip": "floor_site_dirt", "dark_woods": "floor_forest_floor", "bog": "floor_sludge", "reed_bed": "floor_moss",
-	"river_rocks": "floor_rocks"}
+	"river_rocks": "floor_rocks", "cave_floor": "floor_tunnel", "cave_mouth": "floor_rocks", "alpine_meadow": "floor_meadow",
+	"flower_slope": "floor_flowerbed", "ledge": "floor_rocks", "scree": "floor_gravel", "lake_ice": "floor_ice"}
 ## Zones with rooms (thresholds and door frames between them).
 const ROOM_ZONES := ["living", "kitchen", "bedroom", "concrete", "laundry", "storage"]
 

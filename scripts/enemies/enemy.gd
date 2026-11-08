@@ -675,7 +675,11 @@ func _tick_fight(delta: float, target: Vector2) -> void:
 ## charge from both sides), "tusks" (three charges, each leaving a furrow of
 ## strikes behind), "packhunt" (wolves appear in a ring round the cat and
 ## lunge in), "burrow" (it digs under and bursts up by the cat three times),
-## "logjam" (a square of logs round the cat closes in twice).
+## "logjam" (a square of logs round the cat closes in twice), "shadowpounce"
+## (it vanishes and leaps out by the cat three times), "antlers" (two wide
+## sweeps of its antlers, one each way), "talons" (three dives at the cat,
+## each ending in a strike), "frostbite" (ice shards fly in from four
+## corners while the cat is slowed).
 func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 	var hurt := damage * 0.8
 	match _special:
@@ -767,6 +771,58 @@ func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 					_special_step += 1
 					var from := target + Vector2.from_angle(_special_step * 0.9) * 320.0
 					manager.spawn_bullet(from, (target - from).normalized().rotated(0.4), shot, "hair", 110.0)
+				return Vector2.ZERO
+			return _end_special()
+		"shadowpounce":
+			for leap in 3:
+				if _special_step == leap * 2 and t >= leap * 0.9:
+					_special_step += 1
+					var side := Vector2.from_angle(randf() * TAU)
+					position = target + side * 130.0
+					reset_physics_interpolation()
+					manager.spawn_beam(position, target - side * 40.0, radius * 1.4, 0.5, 0.0, "mow")
+				if _special_step == leap * 2 + 1 and t >= leap * 0.9 + 0.5:
+					_special_step += 1
+					manager.spawn_hazard(target, "strike", 40.0, 0.35, hurt)
+			if t > 2.9:
+				return _end_special()
+			return Vector2.ZERO
+		"antlers":
+			if _special_step == 0:
+				_special_dir = (target - position).normalized()
+			for sweep in 2:
+				for k in 7:
+					var n := sweep * 7 + k
+					if _special_step == n and t >= sweep * 1.0 + k * 0.08:
+						_special_step += 1
+						var a := (k - 3) * 0.32 * (1.0 if sweep == 0 else -1.0)
+						var d := _special_dir.rotated(a)
+						manager.spawn_beam(position + d * radius, position + d * (radius + 260.0), 34.0, 0.5, hurt, "mow")
+			if t > 2.4:
+				return _end_special()
+			return Vector2.ZERO
+		"talons":
+			var dive := int(t / 0.9)
+			if dive >= 3:
+				return _end_special()
+			if _special_step == dive * 2:
+				_special_step += 1
+				_special_dir = (target - position).normalized()
+				manager.spawn_beam(position, target, radius * 1.4, 0.45, 0.0, "mow")
+				_special_at = target
+			if _special_step == dive * 2 + 1 and fmod(t, 0.9) >= 0.75:
+				_special_step += 1
+				manager.spawn_hazard(_special_at, "strike", 44.0, 0.2, hurt)
+			if fmod(t, 0.9) < 0.45:
+				return Vector2.ZERO
+			return (_special_at - position) / maxf(0.3, delta_guess() * 4.0)
+		"frostbite":
+			if t < 2.6:
+				manager.player.pull = (position - target).normalized() * 20.0
+				if t >= _special_step * 0.22:
+					_special_step += 1
+					var corner := Vector2(1, 1).rotated(PI * 0.5 * (_special_step % 4)) * 260.0
+					manager.spawn_bullet(target + corner, -corner.normalized(), shot, "hair", 120.0)
 				return Vector2.ZERO
 			return _end_special()
 		"tusks":

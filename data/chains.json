@@ -3779,5 +3779,331 @@
         "distance": 240
       }
     ]
+  },
+  "CAVE_PAINTINGS": {
+    "stage": "CAVES",
+    "reward": {
+      "gold": 3500
+    },
+    "steps": [
+      {
+        "type": "trail",
+        "count": 6,
+        "spacing": [
+          150,
+          210
+        ],
+        "look": "pawprints"
+      },
+      {
+        "type": "boss",
+        "enemy": "BAT_LORD",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "GLOWING_STONES": {
+    "stage": "CAVES",
+    "reward": {
+      "gold": 3500
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "lantern",
+        "count": 5,
+        "spread": [
+          200,
+          420
+        ],
+        "deliver": true,
+        "look_to": "lost_found"
+      },
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "BAT",
+        "spawn_every": 2.5,
+        "spawn_count": 6,
+        "look": "lost_found"
+      }
+    ]
+  },
+  "DEEPEST_CAVE": {
+    "stage": "CAVES",
+    "secret": {
+      "type": "far",
+      "distance": 9000,
+      "dark_from": 2000
+    },
+    "reward": {
+      "gold": 5100
+    },
+    "steps": [
+      {
+        "type": "boss",
+        "enemy": "GLOW_WORM",
+        "hp_mult": 3.0,
+        "look": "hole",
+        "dark": true,
+        "distance": 260
+      }
+    ]
+  },
+  "ALPINE_FLOWERS": {
+    "stage": "MOUNTAIN_MEADOW",
+    "reward": {
+      "gold": 3600
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "flower",
+        "count": 5,
+        "spread": [
+          200,
+          420
+        ],
+        "deliver": true,
+        "look_to": "basket"
+      },
+      {
+        "type": "boss",
+        "enemy": "MOUNTAIN_GOAT",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "HERD_HOME": {
+    "stage": "MOUNTAIN_MEADOW",
+    "reward": {
+      "gold": 3600
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 3,
+        "hold": 5,
+        "radius": 40,
+        "spread": [
+          200,
+          340
+        ],
+        "look": "flower"
+      },
+      {
+        "type": "chase",
+        "enemy": "MOOSE_CALF",
+        "times": 3,
+        "hp_mult": 3.0
+      }
+    ]
+  },
+  "MARMOT_BURROW": {
+    "stage": "MOUNTAIN_MEADOW",
+    "secret": {
+      "type": "trail",
+      "legs": 12,
+      "leg": [
+        380,
+        560
+      ],
+      "start": [
+        300,
+        450
+      ]
+    },
+    "reward": {
+      "gold": 5200
+    },
+    "steps": [
+      {
+        "type": "defend",
+        "time": 40,
+        "mode": "enemies",
+        "enemy": "RABBIT",
+        "spawn_every": 2.5,
+        "spawn_count": 6,
+        "look": "molehill"
+      },
+      {
+        "type": "boss",
+        "enemy": "MARMOT",
+        "hp_mult": 3.0,
+        "look": "x",
+        "distance": 240
+      }
+    ]
+  },
+  "EAGLE_EGGS": {
+    "stage": "EAGLE_CLIFFS",
+    "reward": {
+      "gold": 3700
+    },
+    "steps": [
+      {
+        "type": "carry",
+        "item": "bread",
+        "to_distance": [
+          450,
+          650
+        ],
+        "time": 70,
+        "look_to": "nest"
+      },
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "RAVEN",
+        "spawn_every": 3.0,
+        "spawn_count": 3,
+        "look": "nest"
+      }
+    ]
+  },
+  "CLIFF_PATH": {
+    "stage": "EAGLE_CLIFFS",
+    "reward": {
+      "gold": 3700
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 4,
+        "hold": 4,
+        "radius": 40,
+        "spread": [
+          200,
+          360
+        ],
+        "look": "signal_light"
+      },
+      {
+        "type": "boss",
+        "enemy": "STORM_RAVEN",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "HIGHEST_PEAK": {
+    "stage": "EAGLE_CLIFFS",
+    "secret": {
+      "type": "far",
+      "distance": 9000,
+      "dark_from": 2000
+    },
+    "reward": {
+      "gold": 5300
+    },
+    "steps": [
+      {
+        "type": "boss",
+        "enemy": "ROCK_RAM",
+        "hp_mult": 3.0,
+        "look": "hole",
+        "dark": true,
+        "distance": 260
+      }
+    ]
+  },
+  "THIN_ICE": {
+    "stage": "FROZEN_LAKE",
+    "reward": {
+      "gold": 3800
+    },
+    "steps": [
+      {
+        "type": "trail",
+        "count": 6,
+        "spacing": [
+          150,
+          210
+        ],
+        "look": "pawprints"
+      },
+      {
+        "type": "boss",
+        "enemy": "ICE_BEAR",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "ICE_FISHING": {
+    "stage": "FROZEN_LAKE",
+    "reward": {
+      "gold": 3800
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "fish",
+        "count": 5,
+        "spread": [
+          200,
+          420
+        ],
+        "deliver": true,
+        "look_to": "bowl"
+      },
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "ICE_WOLF",
+        "spawn_every": 3.0,
+        "spawn_count": 2,
+        "look": "bowl"
+      }
+    ]
+  },
+  "FROZEN_SHIP": {
+    "stage": "FROZEN_LAKE",
+    "secret": {
+      "type": "trail",
+      "legs": 12,
+      "leg": [
+        380,
+        560
+      ],
+      "start": [
+        300,
+        450
+      ]
+    },
+    "reward": {
+      "gold": 5400
+    },
+    "steps": [
+      {
+        "type": "defend",
+        "time": 40,
+        "mode": "enemies",
+        "enemy": "RAVEN",
+        "spawn_every": 3.0,
+        "spawn_count": 3,
+        "look": "boat"
+      },
+      {
+        "type": "boss",
+        "enemy": "FROST_OWL",
+        "hp_mult": 3.0,
+        "look": "x",
+        "distance": 240
+      }
+    ]
   }
 }

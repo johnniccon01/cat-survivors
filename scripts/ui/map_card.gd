@@ -40,6 +40,10 @@ const GROUNDS := {
 	"deep_woods": [Color("1f4a26"), Color("3a5a2e")],
 	"swamp": [Color("4a5a34"), Color("3a5a5a")],
 	"waterfall": [Color("3d90c0"), Color("7a7a84")],
+	"caves": [Color("3a3a42"), Color("6a5a8a")],
+	"meadow": [Color("6aa850"), Color("f2d14e")],
+	"cliffs": [Color("7a7a84"), Color("c8b888")],
+	"frozen": [Color("d8ecf8"), Color("8ab8d8")],
 }
 
 var stage_id := ""

@@ -1949,6 +1949,178 @@
         }
       ]
     },
+    "CAVES": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:CAVES"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:CAVES"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:CAVES",
+          "target": 1,
+          "reward": {
+            "gold": 2200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:CAVES"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3600
+          }
+        }
+      ]
+    },
+    "MOUNTAIN_MEADOW": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:MOUNTAIN_MEADOW"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:MOUNTAIN_MEADOW"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:MOUNTAIN_MEADOW",
+          "target": 1,
+          "reward": {
+            "gold": 2200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:MOUNTAIN_MEADOW"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3600
+          }
+        }
+      ]
+    },
+    "EAGLE_CLIFFS": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:EAGLE_CLIFFS"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:EAGLE_CLIFFS"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:EAGLE_CLIFFS",
+          "target": 1,
+          "reward": {
+            "gold": 2200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:EAGLE_CLIFFS"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3600
+          }
+        }
+      ]
+    },
+    "FROZEN_LAKE": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:FROZEN_LAKE"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:FROZEN_LAKE"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:FROZEN_LAKE",
+          "target": 1,
+          "reward": {
+            "gold": 2200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:FROZEN_LAKE"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3600
+          }
+        }
+      ]
+    },
     "OLD_DIARY": {
       "chapter": "story",
       "tiers": [

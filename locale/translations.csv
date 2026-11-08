@@ -3334,3 +3334,31 @@ PARTNER_GENERAL_DESC,The General gives a command: a blast round you hits every e
 CAT_BARNEY_NAME,Barney,Barney,Barney,Barney,Барни,巴尼
 CAT_DOTTY_NAME,Dotty,Bodka,Tečka,Dotty,Пятнашка,点点
 CAT_GENERAL_NAME,The General,Generál,Generál,El General,Генерал,将军
+ENEMY_RABBIT_NAME,Rabbit,Zajac,Zajíc,Conejo,Заяц,兔子
+ENEMY_RABBIT_DESC,"Quick and jumpy, comes in crowds.","Rýchly a skočný, chodí v húfoch.","Rychlý a skočný, chodí v houfech.","Rápido y saltarín, viene en grupos.","Быстрый и прыгучий, приходит толпами.",敏捷爱跳，成群结队。
+ENEMY_PIGLET_NAME,Piglet,Diviača,Sele,Jabato,Кабанёнок,小野猪
+ENEMY_PIGLET_DESC,"Small, striped and stubborn.","Malé, pruhované a tvrdohlavé.","Malé, pruhované a tvrdohlavé.","Pequeño, rayado y testarudo.","Маленький, полосатый и упрямый.",个子小、带条纹、脾气倔。
+ENEMY_YOUNG_WOLF_NAME,Young Wolf,Mladý vlk,Mladý vlk,Lobo joven,Молодой волк,小狼
+ENEMY_YOUNG_WOLF_DESC,"Lunges in short bursts, like its pack.",Vyráža v krátkych výpadoch ako jeho svorka.,Vyráží v krátkých výpadech jako jeho smečka.,"Embiste en ráfagas cortas, como su manada.","Бросается короткими рывками, как и его стая.",像狼群一样短距离猛扑。
+ENEMY_WILD_BOAR_NAME,Wild Boar,Diviak,Divočák,Jabalí,Кабан,野猪
+ENEMY_WILD_BOAR_DESC,Charges straight ahead and does not stop for anything.,Rúti sa rovno a pre nič sa nezastaví.,Řítí se rovně a pro nic se nezastaví.,Carga de frente y no se detiene ante nada.,Несётся напролом и ни перед чем не останавливается.,笔直冲锋，什么都拦不住。
+ENEMY_HORNET_NAME,Hornet,Sršeň,Sršeň,Avispón,Шершень,大黄蜂
+ENEMY_HORNET_DESC,"Tiny, fast and angry.","Malý, rýchly a nahnevaný.","Malý, rychlý a naštvaný.","Pequeño, rápido y enfadado.","Маленький, быстрый и злой.",又小又快又暴躁。
+ENEMY_SALMON_NAME,Salmon,Losos,Losos,Salmón,Лосось,鲑鱼
+ENEMY_SALMON_DESC,Leaps out of the river at you.,Vyskočí na teba z rieky.,Vyskočí na tebe z řeky.,Salta del río hacia ti.,Выпрыгивает на тебя из реки.,从河里朝你跃出。
+ENEMY_RAVEN_NAME,Raven,Havran,Havran,Cuervo,Ворон,渡鸦
+ENEMY_RAVEN_DESC,Keeps its distance and drops pebbles.,Drží si odstup a hádže kamienky.,Drží si odstup a hází kamínky.,Guarda las distancias y tira piedrecitas.,Держится поодаль и бросает камешки.,保持距离，往下丢石子。
+ENEMY_BEAR_CUB_NAME,Bear Cub,Medvieďa,Medvídě,Osezno,Медвежонок,小熊
+ENEMY_BEAR_CUB_DESC,"Clumsy, but stronger than it looks.","Nemotorné, ale silnejšie, než vyzerá.","Nemotorné, ale silnější, než vypadá.","Torpe, pero más fuerte de lo que parece.","Неуклюжий, но сильнее, чем кажется.",笨手笨脚，却比看上去更强壮。
+ENEMY_MOOSE_CALF_NAME,Moose Calf,Losík,Losík,Cría de alce,Лосёнок,小驼鹿
+ENEMY_MOOSE_CALF_DESC,"Long legs, sudden dashes.","Dlhé nohy, náhle výpady.","Dlouhé nohy, náhlé výpady.","Patas largas, arranques repentinos.","Длинные ноги, внезапные рывки.",长腿，突然冲刺。
+ENEMY_ICE_WOLF_NAME,White Wolf,Biely vlk,Bílý vlk,Lobo blanco,Белый волк,白狼
+ENEMY_ICE_WOLF_DESC,"Hunts on the ice, hard to see in the snow.","Loví na ľade, v snehu ho takmer nevidno.","Loví na ledu, ve sněhu ho skoro není vidět.",Caza sobre el hielo; en la nieve casi no se ve.,"Охотится на льду, в снегу его почти не видно.",在冰上狩猎，在雪中几乎看不见。
+ENEMY_CHAINSAW_NAME,Chainsaw,Motorová píla,Motorová pila,Motosierra,Бензопила,电锯
+ENEMY_CHAINSAW_DESC,A runaway machine that cuts through everything.,"Splašený stroj, ktorý prereže všetko.","Splašený stroj, který prořízne všechno.",Una máquina desbocada que lo corta todo.,"Взбесившаяся машина, режущая всё подряд.",失控的机器，见什么锯什么。
+ENEMY_MINI_HARVESTER_NAME,Small Harvester,Malý harvestor,Malý harvestor,Cosechadora pequeña,Малый харвестер,小型采伐机
+ENEMY_MINI_HARVESTER_DESC,"Slow, heavy and very hard to stop.","Pomalý, ťažký a veľmi ťažko zastaviteľný.","Pomalý, těžký a velmi těžko zastavitelný.","Lenta, pesada y muy difícil de parar.","Медленный, тяжёлый, его очень трудно остановить.",慢吞吞、沉甸甸，很难拦住。
+ENEMY_SURVEY_DRONE_NAME,Survey Drone,Prieskumný dron,Průzkumný dron,Dron topógrafo,Дрон-разведчик,勘测无人机
+ENEMY_SURVEY_DRONE_DESC,Marks the forest for cutting – and shoots at you.,Značí les na výrub – a strieľa po tebe.,Značí les k vykácení – a střílí po tobě.,"Marca el bosque para talarlo, y te dispara.",Размечает лес под вырубку – и стреляет в тебя.,给森林标记砍伐点——还会朝你开火。
+ENEMY_ROBO_GUARD_NAME,Robot Guard,Robotická stráž,Robotická stráž,Guardia robot,Робот-охранник,机器人守卫
+ENEMY_ROBO_GUARD_DESC,Rolls on patrol and fires at intruders.,Hliadkuje na kolieskach a strieľa po votrelcoch.,Hlídkuje na kolečkách a střílí po vetřelcích.,Patrulla sobre ruedas y dispara a los intrusos.,Патрулирует на колёсах и стреляет по чужакам.,滚着巡逻，向闯入者开火。

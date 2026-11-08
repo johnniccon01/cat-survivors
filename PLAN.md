@@ -55,7 +55,7 @@ Návrh je v `TRETIA_STVRT.md`. Každý krok s testami, commitom, značkou a push
 
 1. [x] **Základ tretej a štvrtej štvrte** (hotové 8. 11., značka `divocina-firma-mapy`: `WildTown` – les, rieka s vodopádom, močiar, hory, zamrznuté jazero, pás výrubu k plotu firmy; `CompanyTown` – areál s bránou, parkoviskom, garážou, laboratóriom s klietkami a vežou; tlačidlo Cestovať ponúkne otvorené štvrte (`DistrictMap.DISTRICTS`, príznaky `train_east`, `wild_road`, `company_gate`); príbeh Divé zvieratá utekajú po Mieri otvorí cestu do Divočiny; `tools/town_shot.gd -- wild`)
 2. [x] **Psí parťák** (hotové 8. 11., značka `psi-partak`: `Partner` + `data/partners.json` – Ruby (štekot odhodí a spomalí dav, má ju hráč), Barney bernardín (záchranný súdok lieči, po Nákladnej stanici), Bodka dalmatínka (strieka vodu, po Hasičskej stanici), Generál (rozkaz – výbuch okolo mačky, po Mieri); tlačidlo „Parťák: …“ pri mačke v Divočine a Firme; `--partner=ID` pre testy)
-3. [ ] **Nepriatelia Divočiny** a pixel art.
+3. [x] **Nepriatelia Divočiny** (hotové 8. 11., značka `divoci-nepriatelia`: zajac, diviača, mladý vlk, diviak, sršeň, losos, havran, medvieďa, losík, biely vlk, motorová píla, malý harvestor, prieskumný dron, robotická stráž; nové tvary v `gen_sprites.py` – medveď, diviak, los, zajac, orol, ryba, píla, harvestor, plemeno vlk)
 4. [ ] **Divočina mapy 1–4** (+ Vlk).
 5. [ ] **Divočina mapy 5–8**.
 6. [ ] **Divočina mapy 9–12** (+ Medveď, stopy k Firme).

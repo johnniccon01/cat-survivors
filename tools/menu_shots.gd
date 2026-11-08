@@ -83,7 +83,7 @@ func _game(locale: String) -> void:
 	await _frames(20)
 	await _shot(locale, "game_choice")
 	choice.visible = false
-	var lines: Array[String] = [TranslationServer.translate("SUMMARY_GOLD") % [321, 20], TranslationServer.translate("SUMMARY_STREAK") % [3, 5], TranslationServer.translate("SUMMARY_ITEMS_KEPT") % "%s, %s" % [TranslationServer.translate("ITEM_RAT_CROWN_NAME"), TranslationServer.translate("ITEM_NUTSHELL_HELMET_NAME")]]
+	var lines: Array[String] = [TranslationServer.translate("SUMMARY_GOLD") % [321, 20], TranslationServer.translate("SUMMARY_STREAK") % [3, 5], TranslationServer.translate("SUMMARY_ITEMS_KEPT") % "%s, %s" % [TranslationServer.translate("ITEM_RAT_CROWN_NAME"), TranslationServer.translate("ITEM_NUTSHELL_HELMET_NAME")], TranslationServer.translate("ENDING_STORY")]
 	var deeds: Array[String] = [TranslationServer.translate("SUMMARY_QUESTS_DONE") % 3, TranslationServer.translate("STAGE_UNLOCKED") % TranslationServer.translate("STAGE_BASEMENT_NAME")]
 	var tr_ := func(k: String) -> String: return TranslationServer.translate(k)
 	hud.call("show_end", tr_.call("VICTORY_TITLE"), tr_.call("VICTORY_STATS") % [tr_.call("CAT_KAPITAN_NAME"), 1234], deeds, lines, tr_.call("SUMMARY_TOTAL") % 4321, true)

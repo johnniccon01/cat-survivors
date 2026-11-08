@@ -2422,6 +2422,49 @@
         }
       ]
     },
+    "DIRECTOR_TOWER": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:DIRECTOR_TOWER"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:DIRECTOR_TOWER"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:DIRECTOR_TOWER",
+          "target": 1,
+          "reward": {
+            "gold": 2200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:DIRECTOR_TOWER"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3600
+          }
+        }
+      ]
+    },
     "OLD_DIARY": {
       "chapter": "story",
       "tiers": [

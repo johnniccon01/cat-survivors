@@ -111,6 +111,7 @@
     "GUARD_BADGE": { "slot": "COLLAR", "boss": "SECURITY_CHIEF", "color": "#e8c02a", "stats": { "armor": 2.0, "boss_damage": 0.1 } },
     "DIGGER_BOLT": { "slot": "PAWS", "boss": "GIANT_DIGGER", "color": "#8a8a94", "stats": { "might": 0.12, "area": 0.06 } },
     "LAB_GOGGLES": { "slot": "HAT", "boss": "CAGE_GUARDIAN", "color": "#3a6ac8", "stats": { "crit_chance": 0.08, "cooldown": -0.05 } },
+    "DIRECTOR_TIE": { "slot": "COLLAR", "boss": "DIRECTOR", "color": "#c0392b", "stats": { "might": 0.15, "greed": 0.2, "luck": 0.1 } },
     "SOUL_BELL": { "slot": "COLLAR", "boss": "", "special": true, "color": "#9a7aff", "stats": {} }
   }
 }

@@ -3882,5 +3882,67 @@
     "final_mode": "roar",
     "minion": "MECH_DOG",
     "music": "music_boss"
+  },
+  "DIRECTOR": {
+    "shape": "bulldozer",
+    "boss": true,
+    "specials": ["megadozer", "rampage", "cage"],
+    "scale": 5.0,
+    "color": "#e8c02a",
+    "accent": "#c0392b",
+    "hp": 220000,
+    "speed": 48,
+    "damage": 66,
+    "radius": 30,
+    "xp": 0,
+    "knockback_resist": 1.0,
+    "final": true,
+    "behavior": "final",
+    "final_mode": "roar",
+    "minion": "ROBO_GUARD",
+    "music": "music_boss",
+    "fight": {
+      "pack": true,
+      "phase2": {
+        "specials": ["megadozer", "laserfence", "meteor", "whirl"],
+        "speed": 1.25
+      }
+    }
+  },
+  "TOWER_GUARD": {
+    "shape": "welder",
+    "boss": true,
+    "specials": ["sweep", "cage"],
+    "scale": 3.0,
+    "color": "#1a1a1e",
+    "accent": "#f2c14e",
+    "hp": 9400,
+    "speed": 60,
+    "damage": 46,
+    "radius": 22,
+    "xp": 240,
+    "knockback_resist": 0.95,
+    "behavior": "shooter",
+    "summon": "MECH_DOG",
+    "summon_count": 3,
+    "summon_every": 8.0
+  },
+  "SECRETARY_BOT": {
+    "shape": "register",
+    "boss": true,
+    "specials": ["rain", "pull"],
+    "scale": 3.0,
+    "color": "#e8e4dc",
+    "accent": "#c0392b",
+    "hp": 9200,
+    "speed": 50,
+    "damage": 46,
+    "radius": 22,
+    "xp": 240,
+    "knockback_resist": 0.95,
+    "behavior": "shooter",
+    "summon": "PRINTER",
+    "summon_count": 2,
+    "summon_every": 9.0
   }
 }

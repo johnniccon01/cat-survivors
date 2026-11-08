@@ -1,6 +1,6 @@
 # Divočina a Firma – návrh tretej a štvrtej (poslednej) štvrte
 
-Stav: **návrh** (8. 11. 2026, schválený hráčom). Hra má štyri štvrte a jasný koniec:
+Stav: **hrateľné** (8. 11. 2026: Divočina 12 máp, Firma 4 mapy, Vlk, Medveď, Lev, psí parťák, finále s riaditeľom). Hra má štyri štvrte a jasný koniec:
 
 | Štvrť | Proti komu | Koniec |
 |---|---|---|

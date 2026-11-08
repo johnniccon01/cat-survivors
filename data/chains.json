@@ -4718,5 +4718,32 @@
         "distance": 260
       }
     ]
+  },
+  "THE_DIRECTOR": {
+    "stage": "any",
+    "requires": [
+      "chain:THE_MACHINES"
+    ],
+    "reward": {
+      "gold": 10000
+    },
+    "steps": [
+      {
+        "type": "final",
+        "stage": "COMPANY_LOT"
+      },
+      {
+        "type": "final",
+        "stage": "MACHINE_GARAGE"
+      },
+      {
+        "type": "final",
+        "stage": "COMPANY_LAB"
+      },
+      {
+        "type": "final",
+        "stage": "DIRECTOR_TOWER"
+      }
+    ]
   }
 }

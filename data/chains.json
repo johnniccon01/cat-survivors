@@ -4105,5 +4105,378 @@
         "distance": 240
       }
     ]
+  },
+  "ABANDONED_TENTS": {
+    "stage": "OLD_CAMP",
+    "reward": {
+      "gold": 3900
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "map_piece",
+        "count": 5,
+        "spread": [
+          200,
+          420
+        ],
+        "deliver": true,
+        "look_to": "lost_found"
+      },
+      {
+        "type": "boss",
+        "enemy": "CAMP_RACCOON",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "CAMPFIRE_STORIES": {
+    "stage": "OLD_CAMP",
+    "reward": {
+      "gold": 3900
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 3,
+        "hold": 5,
+        "radius": 40,
+        "spread": [
+          200,
+          340
+        ],
+        "look": "fire"
+      },
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "WILD_BOAR",
+        "spawn_every": 3.5,
+        "spawn_count": 2,
+        "look": "fire"
+      }
+    ]
+  },
+  "OLD_TRAILER": {
+    "stage": "OLD_CAMP",
+    "secret": {
+      "type": "far",
+      "distance": 9000,
+      "dark_from": 2000
+    },
+    "reward": {
+      "gold": 5500
+    },
+    "steps": [
+      {
+        "type": "boss",
+        "enemy": "LANTERN_GHOST",
+        "hp_mult": 3.0,
+        "look": "hole",
+        "dark": true,
+        "distance": 260
+      }
+    ]
+  },
+  "JAMMED_SAWS": {
+    "stage": "LOGGING_SITE",
+    "reward": {
+      "gold": 4000
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 4,
+        "hold": 4,
+        "radius": 40,
+        "spread": [
+          200,
+          360
+        ],
+        "look": "fuse"
+      },
+      {
+        "type": "boss",
+        "enemy": "FOREMAN_BOT",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "REPLANT": {
+    "stage": "LOGGING_SITE",
+    "reward": {
+      "gold": 4000
+    },
+    "steps": [
+      {
+        "type": "carry",
+        "item": "flower",
+        "to_distance": [
+          450,
+          650
+        ],
+        "time": 70,
+        "look_to": "basket"
+      },
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "CHAINSAW",
+        "spawn_every": 3.0,
+        "spawn_count": 3,
+        "look": "basket"
+      }
+    ]
+  },
+  "LOG_PILE": {
+    "stage": "LOGGING_SITE",
+    "secret": {
+      "type": "trail",
+      "legs": 12,
+      "leg": [
+        380,
+        560
+      ],
+      "start": [
+        300,
+        450
+      ]
+    },
+    "reward": {
+      "gold": 5600
+    },
+    "steps": [
+      {
+        "type": "defend",
+        "time": 40,
+        "mode": "enemies",
+        "enemy": "SURVEY_DRONE",
+        "spawn_every": 3.0,
+        "spawn_count": 3,
+        "look": "lantern"
+      },
+      {
+        "type": "boss",
+        "enemy": "LOG_LOADER",
+        "hp_mult": 3.0,
+        "look": "x",
+        "distance": 240
+      }
+    ]
+  },
+  "PUT_OUT_FIRES": {
+    "stage": "BURNT_CLEARING",
+    "reward": {
+      "gold": 4100
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 4,
+        "hold": 4,
+        "radius": 40,
+        "spread": [
+          200,
+          360
+        ],
+        "look": "fire"
+      },
+      {
+        "type": "boss",
+        "enemy": "EMBER_FOX",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "BEAR_TRUTH": {
+    "stage": "BURNT_CLEARING",
+    "reward": {
+      "gold": 4100,
+      "cat": "BEAR"
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "photo",
+        "count": 4,
+        "spread": [
+          220,
+          440
+        ],
+        "deliver": true,
+        "look_to": "doghouse"
+      },
+      {
+        "type": "final",
+        "stage": "BURNT_CLEARING"
+      }
+    ]
+  },
+  "ASH_TREE": {
+    "stage": "BURNT_CLEARING",
+    "secret": {
+      "type": "far",
+      "distance": 9000,
+      "dark_from": 2000
+    },
+    "reward": {
+      "gold": 5700
+    },
+    "steps": [
+      {
+        "type": "boss",
+        "enemy": "SMOKE_CROW",
+        "hp_mult": 3.0,
+        "look": "hole",
+        "dark": true,
+        "distance": 260
+      }
+    ]
+  },
+  "CUT_THE_FENCE": {
+    "stage": "FENCE_LINE",
+    "reward": {
+      "gold": 4200
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 4,
+        "hold": 4,
+        "radius": 40,
+        "spread": [
+          200,
+          360
+        ],
+        "look": "fuse"
+      },
+      {
+        "type": "boss",
+        "enemy": "GATE_CRUSHER",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "LIGHTS_OUT": {
+    "stage": "FENCE_LINE",
+    "reward": {
+      "gold": 4200
+    },
+    "steps": [
+      {
+        "type": "trail",
+        "count": 6,
+        "spacing": [
+          150,
+          210
+        ],
+        "look": "pawprints"
+      },
+      {
+        "type": "boss",
+        "enemy": "SEARCHLIGHT_BOT",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "GUARD_HOUSE": {
+    "stage": "FENCE_LINE",
+    "secret": {
+      "type": "trail",
+      "legs": 12,
+      "leg": [
+        380,
+        560
+      ],
+      "start": [
+        300,
+        450
+      ]
+    },
+    "reward": {
+      "gold": 5800
+    },
+    "steps": [
+      {
+        "type": "defend",
+        "time": 40,
+        "mode": "enemies",
+        "enemy": "ROBO_GUARD",
+        "spawn_every": 3.5,
+        "spawn_count": 2,
+        "look": "lantern"
+      },
+      {
+        "type": "boss",
+        "enemy": "SEARCHLIGHT_BOT",
+        "hp_mult": 3.0,
+        "look": "x",
+        "distance": 240
+      }
+    ]
+  },
+  "THE_MACHINES": {
+    "stage": "any",
+    "requires": [
+      "chain:WILD_FLEES"
+    ],
+    "reward": {
+      "gold": 6000,
+      "flag": "company_gate"
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "stage": "OLD_CAMP",
+        "item": "map_piece",
+        "count": 3,
+        "spread": [
+          200,
+          400
+        ]
+      },
+      {
+        "type": "trail",
+        "stage": "LOGGING_SITE",
+        "count": 5,
+        "spacing": [
+          140,
+          200
+        ],
+        "look": "pawprints"
+      },
+      {
+        "type": "carry",
+        "stage": "BURNT_CLEARING",
+        "item": "photo",
+        "to_distance": [
+          450,
+          600
+        ],
+        "time": 70,
+        "look_to": "doghouse"
+      },
+      {
+        "type": "final",
+        "stage": "FENCE_LINE"
+      }
+    ]
   }
 }

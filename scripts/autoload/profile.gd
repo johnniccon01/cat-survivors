@@ -546,6 +546,7 @@ const TERRITORY_BONUS := {
 	"TRAINING_GROUND": {"speed": 0.05}, "DOG_SHOW": {"luck": 0.05}, "BARRACKS": {"armor": 1.0}, "GENERAL_KENNEL": {"might": 0.05},
 	"FOREST_EDGE": {"might": 0.05}, "DEEP_WOODS": {"speed": 0.05}, "SWAMP": {"regen": 0.3}, "WATERFALL": {"max_hp": 10.0},
 	"CAVES": {"luck": 0.05}, "MOUNTAIN_MEADOW": {"area": 0.05}, "EAGLE_CLIFFS": {"speed": 0.05}, "FROZEN_LAKE": {"armor": 1.0},
+	"OLD_CAMP": {"greed": 0.05}, "LOGGING_SITE": {"might": 0.05}, "BURNT_CLEARING": {"max_hp": 10.0}, "FENCE_LINE": {"cooldown": -0.03},
 	# --wild-end--
 }
 var territories: Array[String] = []

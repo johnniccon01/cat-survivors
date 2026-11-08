@@ -104,6 +104,10 @@
     "MOOSE_ANTLER": { "slot": "COLLAR", "boss": "GREAT_MOOSE", "color": "#e8d8a8", "stats": { "area": 0.12, "armor": 1.0 } },
     "EAGLE_FEATHER": { "slot": "TAIL", "boss": "GOLDEN_EAGLE", "color": "#f2c14e", "stats": { "speed": 0.1, "proj_speed": 0.15 } },
     "FROST_COLLAR": { "slot": "COLLAR", "boss": "WHITE_WOLF", "color": "#8ab8d8", "stats": { "cooldown": -0.06, "max_hp": 25.0 } },
+    "SAW_TOOTH": { "slot": "COLLAR", "boss": "HARVESTER", "color": "#c8ccd0", "stats": { "might": 0.1, "crit_mult": 0.2 } },
+    "DRONE_ANTENNA": { "slot": "HAT", "boss": "DRONE_SWARM", "color": "#c0392b", "stats": { "cooldown": -0.06, "proj_speed": 0.1 } },
+    "BEAR_PAW": { "slot": "PAWS", "boss": "OLD_BEAR", "color": "#5a3a2a", "stats": { "max_hp": 40.0, "armor": 1.0 } },
+    "WARDEN_CHIP": { "slot": "TAIL", "boss": "MACHINE_WARDEN", "color": "#3a6ac8", "stats": { "luck": 0.12, "boss_damage": 0.12 } },
     "SOUL_BELL": { "slot": "COLLAR", "boss": "", "special": true, "color": "#9a7aff", "stats": {} }
   }
 }

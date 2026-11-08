@@ -2121,6 +2121,178 @@
         }
       ]
     },
+    "OLD_CAMP": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:OLD_CAMP"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:OLD_CAMP"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:OLD_CAMP",
+          "target": 1,
+          "reward": {
+            "gold": 2200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:OLD_CAMP"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3600
+          }
+        }
+      ]
+    },
+    "LOGGING_SITE": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:LOGGING_SITE"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:LOGGING_SITE"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:LOGGING_SITE",
+          "target": 1,
+          "reward": {
+            "gold": 2200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:LOGGING_SITE"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3600
+          }
+        }
+      ]
+    },
+    "BURNT_CLEARING": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:BURNT_CLEARING"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:BURNT_CLEARING"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:BURNT_CLEARING",
+          "target": 1,
+          "reward": {
+            "gold": 2200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:BURNT_CLEARING"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3600
+          }
+        }
+      ]
+    },
+    "FENCE_LINE": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:FENCE_LINE"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:FENCE_LINE"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:FENCE_LINE",
+          "target": 1,
+          "reward": {
+            "gold": 2200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:FENCE_LINE"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3600
+          }
+        }
+      ]
+    },
     "OLD_DIARY": {
       "chapter": "story",
       "tiers": [

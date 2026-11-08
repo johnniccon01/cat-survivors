@@ -44,6 +44,10 @@ const GROUNDS := {
 	"meadow": [Color("6aa850"), Color("f2d14e")],
 	"cliffs": [Color("7a7a84"), Color("c8b888")],
 	"frozen": [Color("d8ecf8"), Color("8ab8d8")],
+	"camp": [Color("5a8a3a"), Color("e08a2a")],
+	"logging": [Color("8a6a44"), Color("e8c02a")],
+	"burnt": [Color("3a3430"), Color("e0802a")],
+	"company_fence": [Color("9aa0a6"), Color("c0392b")],
 }
 
 var stage_id := ""

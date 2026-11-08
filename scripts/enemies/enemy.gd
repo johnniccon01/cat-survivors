@@ -679,7 +679,11 @@ func _tick_fight(delta: float, target: Vector2) -> void:
 ## (it vanishes and leaps out by the cat three times), "antlers" (two wide
 ## sweeps of its antlers, one each way), "talons" (three dives at the cat,
 ## each ending in a strike), "frostbite" (ice shards fly in from four
-## corners while the cat is slowed).
+## corners while the cat is slowed), "sawblades" (three fans of saw blades,
+## each turned, then a ring), "dronestrike" (drones swarm in round the cat
+## while marks land on it), "bearhug" (it drags the cat in, then three rings
+## of strikes slam round it), "laserfence" (a ring of laser fences round
+## the cat with one gap, twice).
 func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 	var hurt := damage * 0.8
 	match _special:
@@ -773,6 +777,63 @@ func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 					manager.spawn_bullet(from, (target - from).normalized().rotated(0.4), shot, "hair", 110.0)
 				return Vector2.ZERO
 			return _end_special()
+		"sawblades":
+			for volley in 3:
+				if _special_step == volley and t >= volley * 0.6:
+					_special_step += 1
+					var aim := (target - position).normalized().rotated((volley - 1) * 0.25)
+					for k in 5:
+						manager.spawn_bullet(position, aim.rotated((k - 2) * 0.22), shot, "ball", 150.0)
+			if _special_step == 3 and t >= 2.0:
+				_special_step = 4
+				for i in 12:
+					manager.spawn_bullet(position, Vector2.from_angle(TAU * i / 12.0), shot, "ball", 110.0)
+			if t > 2.4:
+				return _end_special()
+			return Vector2.ZERO
+		"dronestrike":
+			if _special_step == 0:
+				_special_step = 1
+				var drone := _minion if _minion != "" else "SURVEY_DRONE"
+				for i in 6:
+					var e := manager.spawn(drone, _special_at + Vector2.from_angle(TAU * i / 6.0) * 240.0, hp_mult)
+					if e != null:
+						e.spawn_in = 0.0
+			for mark in 4:
+				if _special_step == mark + 1 and t >= 0.4 + mark * 0.45:
+					_special_step += 1
+					manager.spawn_hazard(target, "strike", 36.0, 0.6, hurt)
+			if t > 2.6:
+				return _end_special()
+			return Vector2.ZERO
+		"bearhug":
+			if t < 1.4:
+				manager.player.pull = (position - target).normalized() * 70.0
+				return Vector2.ZERO
+			for ring in 3:
+				if _special_step == ring and t >= 1.4 + ring * 0.4:
+					_special_step += 1
+					for i in 10:
+						manager.spawn_hazard(position + Vector2.from_angle(TAU * i / 10.0 + ring) * (90.0 + ring * 60.0), "strike", 30.0, 0.6, hurt)
+					Audio.play("roar", -8.0, 0.2)
+			if t > 3.0:
+				return _end_special()
+			return Vector2.ZERO
+		"laserfence":
+			for ring in 2:
+				if _special_step == ring and t >= ring * 1.2:
+					_special_step += 1
+					var gap := randi() % 8
+					var r := 200.0 - ring * 70.0
+					for i in 8:
+						if i == gap:
+							continue
+						var a := Vector2.from_angle(TAU * i / 8.0) * r
+						var b := Vector2.from_angle(TAU * (i + 1) / 8.0) * r
+						manager.spawn_beam(_special_at + a, _special_at + b, 26.0, SIG_WARN, hurt, "laser")
+			if t > 2.6:
+				return _end_special()
+			return Vector2.ZERO
 		"shadowpounce":
 			for leap in 3:
 				if _special_step == leap * 2 and t >= leap * 0.9:

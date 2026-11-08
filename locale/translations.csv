@@ -3652,3 +3652,148 @@ CHAIN_FROZEN_SHIP_1,Hold out against the attack,Vydrž útok,Vydrž útok,Resist
 CHAIN_FROZEN_SHIP_1_DONE,A frost owl lands on the mast.,Na sťažeň si sadne mrazivá sova.,Na stěžeň si sedne mrazivá sova.,Un búho de escarcha se posa en el mástil.,На мачту садится морозная сова.,一只霜之猫头鹰落在桅杆上。
 CHAIN_FROZEN_SHIP_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
 CHAIN_FROZEN_SHIP_2_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+STAGE_OLD_CAMP_NAME,The Old Camp,Opustený tábor,Opuštěný tábor,El campamento abandonado,Заброшенный лагерь,废弃营地
+STAGE_OLD_CAMP_HINT,Defeat the White Wolf on the Frozen Lake,Poraz Bieleho vlka na Zamrznutom jazere,Poraz Bílého vlka na Zamrzlém jezeře,Derrota al Lobo Blanco en el lago helado,Победи Белого волка на Замёрзшем озере,在冰湖击败白狼
+STORY_OLD_CAMP_INTRO,"Cold fires, torn tents and huge caterpillar tracks. Boars stampede through the camp.","Vyhasnuté ohne, roztrhané stany a obrovské stopy pásov. Táborom sa ženú diviaky.","Vyhaslé ohně, roztrhané stany a obrovské stopy pásů. Táborem se ženou divočáci.","Hogueras frías, tiendas rotas y enormes huellas de orugas. Los jabalíes cruzan el campamento.","Остывшие костры, рваные палатки и огромные следы гусениц. По лагерю несутся кабаны.",熄灭的篝火、破帐篷和巨大的履带痕迹。野猪在营地里横冲直撞。
+QB_OLD_CAMP_NAME,The Old Camp,Opustený tábor,Opuštěný tábor,El campamento abandonado,Заброшенный лагерь,废弃营地
+QB_OLD_CAMP_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_OLD_CAMP_2,Defeat its boss.,Poraziť jeho bossa.,Porazit jeho bosse.,Derrota a su jefe.,Победи его босса.,击败那里的首领。
+QB_OLD_CAMP_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_OLD_CAMP_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_LOGGING_SITE_NAME,The Logging Site,Výrub,Výsek,La tala,Вырубка,伐木场
+STAGE_LOGGING_SITE_HINT,Defeat the Harvester at the Old Camp,Poraz Harvestor v Opustenom tábore,Poraz Harvestor v Opuštěném táboře,Derrota a la Cosechadora en el campamento,Победи Харвестер в Заброшенном лагере,在废弃营地击败采伐机
+STORY_LOGGING_SITE_INTRO,"The machines are at work. A crane drops logs, drones mark the next trees.","Stroje pracujú. Žeriav zhadzuje kmene, drony značia ďalšie stromy.","Stroje pracují. Jeřáb shazuje kmeny, drony značí další stromy.",Las máquinas trabajan. Una grúa deja caer troncos y los drones marcan los árboles.,"Машины работают. Кран сбрасывает брёвна, дроны размечают деревья.",机器正在作业。吊车抛下原木，无人机标记下一批树。
+QB_LOGGING_SITE_NAME,The Logging Site,Výrub,Výsek,La tala,Вырубка,伐木场
+QB_LOGGING_SITE_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_LOGGING_SITE_2,Defeat its boss.,Poraziť jeho bossa.,Porazit jeho bosse.,Derrota a su jefe.,Победи его босса.,击败那里的首领。
+QB_LOGGING_SITE_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_LOGGING_SITE_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_BURNT_CLEARING_NAME,The Burnt Clearing,Spálenisko,Spáleniště,El claro quemado,Гарь,焦土空地
+STAGE_BURNT_CLEARING_HINT,Defeat the Drone Swarm at the Logging Site,Poraz Roj dronov na Výrube,Poraz Roj dronů na Výseku,Derrota al Enjambre de drones en la tala,Победи Рой дронов на Вырубке,在伐木场击败无人机群
+STORY_BURNT_CLEARING_INTRO,Smoke rolls over the ash. The old bear blames the cats – show him the truth.,Dym sa valí po popole. Starý medveď viní mačky – ukáž mu pravdu.,Kouř se valí po popelu. Starý medvěd viní kočky – ukaž mu pravdu.,El humo cubre la ceniza. El viejo oso culpa a los gatos: muéstrale la verdad.,Дым стелется по пеплу. Старый медведь винит кошек – покажи ему правду.,浓烟滚过灰烬。老熊把账算在猫头上——让他看看真相。
+QB_BURNT_CLEARING_NAME,The Burnt Clearing,Spálenisko,Spáleniště,El claro quemado,Гарь,焦土空地
+QB_BURNT_CLEARING_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_BURNT_CLEARING_2,Defeat its boss.,Poraziť jeho bossa.,Porazit jeho bosse.,Derrota a su jefe.,Победи его босса.,击败那里的首领。
+QB_BURNT_CLEARING_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_BURNT_CLEARING_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_FENCE_LINE_NAME,The Company Fence,Plot firmy,Plot firmy,La valla de la empresa,Забор компании,公司围栏
+STAGE_FENCE_LINE_HINT,Defeat the Old Bear at the Burnt Clearing,Poraz Starého medveďa na Spálenisku,Poraz Starého medvěda na Spáleništi,Derrota al Viejo Oso en el claro quemado,Победи Старого медведя на Гари,在焦土空地击败老熊
+STORY_FENCE_LINE_INTRO,"A tall fence, robot patrols and searchlights. Behind it: the Company.","Vysoký plot, robotické hliadky a svetlomety. Za ním: Firma.","Vysoký plot, robotické hlídky a světlomety. Za ním: Firma.","Una valla alta, patrullas robot y focos. Detrás: la empresa.","Высокий забор, роботы-патрули и прожекторы. За ним – Компания.",高高的围栏、机器人巡逻队和探照灯。后面就是公司。
+QB_FENCE_LINE_NAME,The Company Fence,Plot firmy,Plot firmy,La valla de la empresa,Забор компании,公司围栏
+QB_FENCE_LINE_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_FENCE_LINE_2,Defeat its boss.,Poraziť jeho bossa.,Porazit jeho bosse.,Derrota a su jefe.,Победи его босса.,击败那里的首领。
+QB_FENCE_LINE_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_FENCE_LINE_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+ENEMY_CAMP_RACCOON_NAME,Camp Raccoon,Táborový mýval,Táborový mýval,El mapache del campamento,Лагерный енот,营地浣熊
+ENEMY_CAMP_RACCOON_DESC,Steals from the tents and throws junk at you.,Kradne zo stanov a hádže po tebe haraburdie.,Krade ze stanů a hází po tobě haraburdí.,Roba de las tiendas y te tira trastos.,Ворует из палаток и швыряет в тебя хлам.,偷帐篷里的东西，还朝你扔杂物。
+ENEMY_LANTERN_GHOST_NAME,Lantern Ghost,Lampášový duch,Lucernový duch,El fantasma del farol,Призрак фонаря,灯笼幽灵
+ENEMY_LANTERN_GHOST_DESC,Flickers from place to place and drops sparks.,Bliká z miesta na miesto a zhadzuje iskry.,Bliká z místa na místo a shazuje jiskry.,Parpadea de un sitio a otro y suelta chispas.,Мерцает с места на место и роняет искры.,忽明忽暗地四处闪现，落下火花。
+ENEMY_HARVESTER_NAME,The Harvester,Harvestor,Harvestor,La Cosechadora,Харвестер,采伐机
+ENEMY_HARVESTER_DESC,"Fires fans of saw blades, then a whole ring of them.",Strieľa vejáre pílových kotúčov a potom celý kruh.,Střílí vějíře pilových kotoučů a pak celý kruh.,Lanza abanicos de discos de sierra y luego un anillo entero.,"Стреляет веерами пильных дисков, а потом целым кольцом.",射出扇形锯片，然后是一整圈。
+ENEMY_FOREMAN_BOT_NAME,Foreman Bot,Robot majster,Robot mistr,El robot capataz,Робот-прораб,工头机器人
+ENEMY_FOREMAN_BOT_DESC,Cages you in and follows your steps.,Uzavrie ťa a ide po tvojich stopách.,Uzavře tě a jde po tvých stopách.,Te encierra y sigue tus pasos.,Запирает тебя и идёт по следам.,把你困住，追踪你的脚步。
+ENEMY_LOG_LOADER_NAME,Log Loader,Nakladač kmeňov,Nakladač kmenů,La cargadora de troncos,Погрузчик брёвен,原木装载机
+ENEMY_LOG_LOADER_DESC,Builds walls of logs and rolls over everything.,Stavia steny z kmeňov a prevalcuje všetko.,Staví zdi z kmenů a převálcuje všechno.,Levanta muros de troncos y lo aplasta todo.,Строит стены из брёвен и давит всё.,用原木筑墙，碾压一切。
+ENEMY_DRONE_SWARM_NAME,The Drone Swarm,Roj dronov,Roj dronů,El Enjambre de drones,Рой дронов,无人机群
+ENEMY_DRONE_SWARM_DESC,Its drones swarm in round you while marks land on your head.,Jeho drony sa zlietnu okolo teba a na hlavu ti padajú značky.,Jeho drony se slétnou kolem tebe a na hlavu ti padají značky.,Sus drones te rodean mientras te caen marcas encima.,"Его дроны слетаются вокруг, а на голову падают метки.",它的无人机围住你，标记一个个落在你头上。
+ENEMY_EMBER_FOX_NAME,Ember Fox,Žeravá líška,Žhavá liška,El zorro de brasas,Огненная лиса,余烬狐
+ENEMY_EMBER_FOX_DESC,Bursts in rings of embers.,Vybuchuje v kruhoch žeravých uhlíkov.,Vybuchuje v kruzích žhavých uhlíků.,Estalla en anillos de brasas.,Взрывается кольцами углей.,炸出一圈圈余烬。
+ENEMY_SMOKE_CROW_NAME,Smoke Crow,Dymová vrana,Kouřová vrána,El cuervo de humo,Дымная ворона,烟鸦
+ENEMY_SMOKE_CROW_DESC,Pulls you into the smoke and drops ash from above.,Vtiahne ťa do dymu a zhadzuje popol zhora.,Vtáhne tě do kouře a shazuje popel shora.,Te arrastra al humo y tira ceniza desde arriba.,Затягивает в дым и роняет пепел сверху.,把你拖进烟雾，从上方撒下灰烬。
+ENEMY_OLD_BEAR_NAME,The Old Bear,Starý medveď,Starý medvěd,El Viejo Oso,Старый медведь,老熊
+ENEMY_OLD_BEAR_DESC,"Drags you into a bear hug, then three rings of strikes slam round him.",Vtiahne ťa do medvedieho objatia a okolo neho dopadnú tri kruhy úderov.,Vtáhne tě do medvědího objetí a kolem něj dopadnou tři kruhy úderů.,Te atrae a un abrazo de oso y tres anillos de golpes caen a su alrededor.,"Затягивает в медвежьи объятия, и вокруг него падают три кольца ударов.",把你拖进熊抱，周围砸下三圈重击。
+ENEMY_SEARCHLIGHT_BOT_NAME,Searchlight Bot,Svetlometný robot,Světlometný robot,El robot del foco,Робот-прожектор,探照灯机器人
+ENEMY_SEARCHLIGHT_BOT_DESC,Sweeps the yard with light and fires in a cross.,Prečesáva dvor svetlom a strieľa do kríža.,Pročesává dvůr světlem a střílí do kříže.,Barre el patio con luz y dispara en cruz.,Прочёсывает двор светом и стреляет крестом.,用光扫过院子，十字射击。
+ENEMY_GATE_CRUSHER_NAME,Gate Crusher,Drvič brány,Drtič brány,El aplastador de puertas,Дробитель ворот,破门机
+ENEMY_GATE_CRUSHER_DESC,Drops weights from above and rams through.,Zhadzuje závažia zhora a rúti sa cez všetko.,Shazuje závaží shora a řítí se přes všechno.,Deja caer pesos desde arriba y embiste.,Роняет грузы сверху и таранит всё.,从上方砸下重物，横冲直撞。
+ENEMY_MACHINE_WARDEN_NAME,The Machine Warden,Strážca strojov,Strážce strojů,El Guardián de máquinas,Страж машин,机械看守
+ENEMY_MACHINE_WARDEN_DESC,Raises laser fences round you with only one way out.,Postaví okolo teba laserové ploty len s jedným východom.,Postaví kolem tebe laserové ploty jen s jedním východem.,Levanta vallas láser a tu alrededor con una sola salida.,Ставит вокруг тебя лазерные заборы с одним выходом.,在你周围立起激光围栏，只留一个出口。
+ITEM_SAW_TOOTH_NAME,Saw Tooth,Zub píly,Zub pily,Diente de sierra,Зуб пилы,锯齿
+ITEM_SAW_TOOTH_DESC,"From the Harvester. +10% might, +20% critical damage.","Od Harvestora. +10 % sila, +20 % kritické poškodenie.","Od Harvestoru. +10 % síla, +20 % kritické poškození.","De la Cosechadora. +10 % de poder, +20 % de daño crítico.","От Харвестера. +10 % силы, +20 % крит. урона.",来自采伐机。+10% 力量，+20% 暴击伤害。
+ITEM_DRONE_ANTENNA_NAME,Drone Antenna,Anténa dronu,Anténa dronu,Antena de dron,Антенна дрона,无人机天线
+ITEM_DRONE_ANTENNA_DESC,"From the Drone Swarm. -6% cooldown, +10% projectile speed.","Od Roja dronov. -6 % čas nabíjania, +10 % rýchlosť striel.","Od Roje dronů. -6 % doba nabíjení, +10 % rychlost střel.","Del Enjambre. -6 % de recarga, +10 % de velocidad de proyectiles.","От Роя дронов. -6 % перезарядки, +10 % скорости снарядов.",来自无人机群。-6% 冷却，+10% 弹速。
+ITEM_BEAR_PAW_NAME,Bear Paw,Medvedia labka,Medvědí tlapka,Zarpa de oso,Медвежья лапа,熊掌
+ITEM_BEAR_PAW_DESC,"From the Old Bear. +40 health, +1 armour.","Od Starého medveďa. +40 zdravia, +1 brnenie.","Od Starého medvěda. +40 zdraví, +1 brnění.","Del Viejo Oso. +40 de salud, +1 de armadura.","От Старого медведя. +40 здоровья, +1 брони.",来自老熊。+40 生命，+1 护甲。
+ITEM_WARDEN_CHIP_NAME,Warden Chip,Čip strážcu,Čip strážce,Chip del guardián,Чип стража,看守芯片
+ITEM_WARDEN_CHIP_DESC,"From the Machine Warden. +12% luck, +12% damage to bosses.","Od Strážcu strojov. +12 % šťastie, +12 % poškodenie bossom.","Od Strážce strojů. +12 % štěstí, +12 % poškození bossům.","Del Guardián. +12 % de suerte, +12 % de daño a jefes.","От Стража машин. +12 % удачи, +12 % урона боссам.",来自机械看守。+12% 幸运，+12% 首领伤害。
+BOARS_WARNING,A herd of boars stampedes down the lane – step aside!,Pruhom sa rúti stádo diviakov – uhni!,Pruhem se řítí stádo divočáků – uhni!,"¡Una manada de jabalíes cruza el carril, apártate!",По полосе несётся стадо кабанов – отойди!,一群野猪沿着这条线狂奔——快让开！
+SMOKE_WARNING,Thick smoke rolls down the lane – get out of it!,Pruhom sa valí hustý dym – uhni!,Pruhem se valí hustý kouř – uhni!,"¡Humo espeso cruza el carril, sal de ahí!",По полосе катится густой дым – уходи!,浓烟沿着这条线滚来——快离开！
+ROBOPATROL_WARNING,A robot patrol rolls down the lane – step aside!,Pruhom sa valí robotická hliadka – uhni!,Pruhem se valí robotická hlídka – uhni!,"¡Una patrulla robot cruza el carril, apártate!",По полосе катится патруль роботов – отойди!,机器人巡逻队沿着这条线驶来——快让开！
+CHAIN_ABANDONED_TENTS_NAME,Abandoned Tents,Opustené stany,Opuštěné stany,Tiendas abandonadas,Брошенные палатки,废弃的帐篷
+CHAIN_ABANDONED_TENTS_DESC,The workers left in a hurry. What did they leave behind?,Robotníci odišli narýchlo. Čo tu nechali?,Dělníci odešli narychlo. Co tu nechali?,Los obreros se fueron deprisa. ¿Qué dejaron?,Рабочие ушли в спешке. Что они оставили?,工人们匆匆离开。他们留下了什么？
+CHAIN_ABANDONED_TENTS_1,Gather the scattered plans,Pozbieraj rozhádzané plány,Posbírej rozházené plány,Recoge los planos esparcidos,Собери разбросанные планы,收集散落的图纸
+CHAIN_ABANDONED_TENTS_1_DONE,A raccoon wants them too.,Chce ich aj mýval.,Chce je i mýval.,Un mapache también los quiere.,Енот тоже их хочет.,一只浣熊也想要。
+CHAIN_ABANDONED_TENTS_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_ABANDONED_TENTS_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_CAMPFIRE_STORIES_NAME,Campfire Stories,Príbehy pri ohni,Příběhy u ohně,Historias junto al fuego,Истории у костра,篝火故事
+CHAIN_CAMPFIRE_STORIES_DESC,Light the old campfires so the animals gather and listen.,"Zapáľ staré ohniská, nech sa zvieratá zídu a počúvajú.","Zapal stará ohniště, ať se zvířata sejdou a poslouchají.",Enciende las viejas hogueras para que los animales se reúnan a escuchar.,"Зажги старые костры, чтобы звери собрались послушать.",点燃旧篝火，让动物们聚过来聆听。
+CHAIN_CAMPFIRE_STORIES_1,Light the three campfires,Zapáľ tri ohniská,Zapal tři ohniště,Enciende las tres hogueras,Зажги три костра,点燃三堆篝火
+CHAIN_CAMPFIRE_STORIES_1_DONE,Not every boar wants to listen.,Nie každý diviak chce počúvať.,Ne každý divočák chce poslouchat.,No todos los jabalíes quieren escuchar.,Не каждый кабан хочет слушать.,并不是每头野猪都愿意听。
+CHAIN_CAMPFIRE_STORIES_2,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_CAMPFIRE_STORIES_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_OLD_TRAILER_NAME,The Old Trailer,Starý karavan,Starý karavan,La vieja caravana,Старый трейлер,旧拖车
+CHAIN_OLD_TRAILER_DESC,Far in the dark stands a trailer with a light still on.,"Ďaleko v tme stojí karavan, v ktorom ešte svieti svetlo.","Daleko ve tmě stojí karavan, ve kterém ještě svítí světlo.",Lejos en la oscuridad hay una caravana con la luz aún encendida.,"Далеко в темноте стоит трейлер, в котором ещё горит свет.",黑暗深处停着一辆仍亮着灯的拖车。
+CHAIN_OLD_TRAILER_1,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_OLD_TRAILER_1_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_JAMMED_SAWS_NAME,Jam the Saws,Zastav píly,Zastav pily,Atasca las sierras,Останови пилы,卡住电锯
+CHAIN_JAMMED_SAWS_DESC,Pull the plugs on the machines before they cut more trees.,"Vytiahni strojom káble, kým nezrežú ďalšie stromy.","Vytáhni strojům kabely, než pokácejí další stromy.",Desenchufa las máquinas antes de que corten más árboles.,"Выдерни у машин провода, пока они не срубили ещё деревья.",在机器砍更多树之前拔掉它们的插头。
+CHAIN_JAMMED_SAWS_1,Hold the four power boxes,Podrž štyri rozvodné skrine,Podrž čtyři rozvodné skříně,Mantén las cuatro cajas eléctricas,Удержи четыре щитка,守住四个电箱
+CHAIN_JAMMED_SAWS_1_DONE,The foreman bot rolls out.,Vyvalí sa robot majster.,Vyvalí se robot mistr.,Sale el robot capataz.,Выезжает робот-прораб.,工头机器人开出来了。
+CHAIN_JAMMED_SAWS_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_JAMMED_SAWS_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_REPLANT_NAME,Replant,Znovu zasaď,Znovu zasaď,Replantar,Посади снова,重新种植
+CHAIN_REPLANT_DESC,Carry young saplings to a safe spot and plant them.,Odnes mladé stromčeky na bezpečné miesto a zasaď ich.,Odnes mladé stromky na bezpečné místo a zasaď je.,Lleva los arbolitos a un lugar seguro y plántalos.,Отнеси саженцы в безопасное место и посади их.,把小树苗搬到安全的地方种下。
+CHAIN_REPLANT_1,Carry the saplings,Odnes stromčeky,Odnes stromky,Lleva los arbolitos,Отнеси саженцы,搬运树苗
+CHAIN_REPLANT_1_DONE,The chainsaws come for them.,Prichádzajú po ne motorové píly.,Přicházejí pro ně motorové pily.,Las motosierras vienen a por ellos.,За ними идут бензопилы.,电锯冲着它们来了。
+CHAIN_REPLANT_2,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_REPLANT_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_LOG_PILE_NAME,The Log Pile,Hromada kmeňov,Hromada kmenů,La pila de troncos,Штабель брёвен,原木堆
+CHAIN_LOG_PILE_DESC,A trail of lanterns leads to a mountain of cut logs.,Stopa lampášov vedie k hore zrezaných kmeňov.,Stopa luceren vede k hoře pokácených kmenů.,Un rastro de faroles lleva a una montaña de troncos.,Дорожка фонарей ведёт к горе спиленных брёвен.,一路灯笼通向一座砍下的原木山。
+CHAIN_LOG_PILE_1,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_LOG_PILE_1_DONE,The loader starts up.,Nakladač sa rozbehne.,Nakladač se rozjede.,La cargadora arranca.,Погрузчик заводится.,装载机启动了。
+CHAIN_LOG_PILE_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_LOG_PILE_2_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_PUT_OUT_FIRES_NAME,Put Out the Fires,Uhas ohne,Uhas ohně,Apaga los fuegos,Потуши огонь,扑灭火焰
+CHAIN_PUT_OUT_FIRES_DESC,Embers still glow in the ash. Put them out before the wind wakes them.,"V popole ešte žeravejú uhlíky. Uhas ich, kým ich vietor nerozdúchá.","V popelu ještě žhnou uhlíky. Uhas je, než je vítr rozfouká.",Las brasas aún brillan en la ceniza. Apágalas antes de que el viento las avive.,"В пепле ещё тлеют угли. Потуши их, пока ветер не раздул.",灰烬里余火未熄。趁风还没吹旺它们，赶紧扑灭。
+CHAIN_PUT_OUT_FIRES_1,Put out the four fires,Uhas štyri ohne,Uhas čtyři ohně,Apaga los cuatro fuegos,Потуши четыре очага,扑灭四处火焰
+CHAIN_PUT_OUT_FIRES_1_DONE,An ember fox jumps out of the last one.,Z posledného vyskočí žeravá líška.,Z posledního vyskočí žhavá liška.,Un zorro de brasas salta del último.,Из последнего выпрыгивает огненная лиса.,最后一处火里跳出一只余烬狐。
+CHAIN_PUT_OUT_FIRES_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_PUT_OUT_FIRES_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_BEAR_TRUTH_NAME,The Bear's Truth,Medveďova pravda,Medvědova pravda,La verdad del oso,Правда медведя,熊的真相
+CHAIN_BEAR_TRUTH_DESC,The old bear thinks the cats burnt his forest. Find the proof.,"Starý medveď si myslí, že jeho les spálili mačky. Nájdi dôkazy.","Starý medvěd si myslí, že jeho les spálily kočky. Najdi důkazy.",El viejo oso cree que los gatos quemaron su bosque. Encuentra las pruebas.,"Старый медведь думает, что его лес сожгли кошки. Найди доказательства.",老熊以为是猫烧了他的森林。找到证据。
+CHAIN_BEAR_TRUTH_1,Find the photos of the machines,Nájdi fotky strojov,Najdi fotky strojů,Encuentra las fotos de las máquinas,Найди фотографии машин,找到机器的照片
+CHAIN_BEAR_TRUTH_1_DONE,The bear won't look. He has to be stopped first.,Medveď sa nechce pozrieť. Najprv ho treba zastaviť.,Medvěd se nechce podívat. Nejdřív ho musíš zastavit.,El oso no quiere mirar. Primero hay que detenerlo.,Медведь не хочет смотреть. Сначала его надо остановить.,老熊不肯看。得先让他停下来。
+CHAIN_BEAR_TRUTH_2,Defeat the Old Bear,Poraz Starého medveďa,Poraz Starého medvěda,Derrota al Viejo Oso,Победи Старого медведя,击败老熊
+CHAIN_BEAR_TRUTH_2_DONE,"The bear looks at the photos for a long time. ""Machines... I'm sorry. I'll come with you.""",Medveď sa dlho díva na fotky. „Stroje... Prepáčte. Pôjdem s vami.“,Medvěd se dlouho dívá na fotky. „Stroje... Promiňte. Půjdu s vámi.“,El oso mira las fotos un buen rato. «Máquinas... Lo siento. Iré con vosotros».,Медведь долго смотрит на фото. «Машины... Простите. Я пойду с вами».,老熊盯着照片看了很久。“原来是机器……对不起。我跟你们走。”
+CHAIN_ASH_TREE_NAME,The Ash Tree,Popolový strom,Popelový strom,El árbol de ceniza,Пепельное дерево,灰烬之树
+CHAIN_ASH_TREE_DESC,Far in the smoke stands the last black tree. A crow sits on top.,Ďaleko v dyme stojí posledný čierny strom. Na vrchu sedí vrana.,Daleko v kouři stojí poslední černý strom. Nahoře sedí vrána.,Lejos en el humo queda el último árbol negro. Un cuervo se posa en lo alto.,Далеко в дыму стоит последнее чёрное дерево. На верхушке сидит ворона.,浓烟深处立着最后一棵焦黑的树，树顶站着一只乌鸦。
+CHAIN_ASH_TREE_1,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_ASH_TREE_1_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_CUT_THE_FENCE_NAME,Cut the Fence,Prestrihni plot,Přestřihni plot,Corta la valla,Перережь забор,剪开围栏
+CHAIN_CUT_THE_FENCE_DESC,Cut the power to the fence in four places.,Prerež prúd do plotu na štyroch miestach.,Přeruš proud do plotu na čtyřech místech.,Corta la corriente de la valla en cuatro puntos.,Обрежь питание забора в четырёх местах.,在四个地方切断围栏的电源。
+CHAIN_CUT_THE_FENCE_1,Hold the four fuse boxes,Podrž štyri poistkové skrine,Podrž čtyři pojistkové skříně,Mantén las cuatro cajas de fusibles,Удержи четыре щитка,守住四个保险箱
+CHAIN_CUT_THE_FENCE_1_DONE,The gate crusher wakes up.,Drvič brány sa zobudí.,Drtič brány se probudí.,El aplastador despierta.,Дробитель ворот просыпается.,破门机苏醒了。
+CHAIN_CUT_THE_FENCE_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_CUT_THE_FENCE_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_LIGHTS_OUT_NAME,Lights Out,Zhasnuté svetlá,Zhasnutá světla,Luces apagadas,Свет погас,熄灯
+CHAIN_LIGHTS_OUT_DESC,Sneak along the fence in the shadows between the searchlights.,Prekradni sa pozdĺž plotu v tieni medzi svetlometmi.,Proplíž se podél plotu ve stínu mezi světlomety.,Escabúllete junto a la valla entre las sombras de los focos.,Прокрадись вдоль забора в тени между прожекторами.,在探照灯之间的阴影里沿着围栏潜行。
+CHAIN_LIGHTS_OUT_1,Follow the tracks,Choď po stopách,Jdi po stopách,Sigue las huellas,Иди по следам,跟着足迹走
+CHAIN_LIGHTS_OUT_1_DONE,A searchlight bot spots you!,Svetlometný robot ťa zbadal!,Světlometný robot tě zahlédl!,¡Un robot del foco te ha visto!,Робот-прожектор заметил тебя!,探照灯机器人发现你了！
+CHAIN_LIGHTS_OUT_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_LIGHTS_OUT_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_GUARD_HOUSE_NAME,The Guard House,Strážnica,Strážnice,La caseta de guardia,Караулка,警卫室
+CHAIN_GUARD_HOUSE_DESC,A trail of lanterns leads to an empty guard house deep in the dark.,Stopa lampášov vedie k prázdnej strážnici hlboko v tme.,Stopa luceren vede k prázdné strážnici hluboko ve tmě.,Un rastro de faroles lleva a una caseta vacía en la oscuridad.,Дорожка фонарей ведёт к пустой караулке глубоко во тьме.,一路灯笼通向黑暗深处一间空荡荡的警卫室。
+CHAIN_GUARD_HOUSE_1,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_GUARD_HOUSE_1_DONE,Its searchlight turns on.,Rozsvieti sa jej svetlomet.,Rozsvítí se její světlomet.,Su foco se enciende.,Включается её прожектор.,它的探照灯亮了。
+CHAIN_GUARD_HOUSE_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_GUARD_HOUSE_2_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_THE_MACHINES_NAME,The Machines,Stroje,Stroje,Las máquinas,Машины,机器
+CHAIN_THE_MACHINES_DESC,Who sends the machines into the forest? Follow the clues to the end.,Kto posiela stroje do lesa? Choď po stopách až do konca.,Kdo posílá stroje do lesa? Jdi po stopách až do konce.,¿Quién manda las máquinas al bosque? Sigue las pistas hasta el final.,Кто посылает машины в лес? Иди по следам до конца.,是谁把机器派进森林？顺着线索追查到底。
+CHAIN_THE_MACHINES_1,Find the plans in the Old Camp,Nájdi plány v Opustenom tábore,Najdi plány v Opuštěném táboře,Encuentra los planos en el campamento,Найди планы в Заброшенном лагере,在废弃营地找到图纸
+CHAIN_THE_MACHINES_1_DONE,The plans carry a logo: a red circle – the Company.,Na plánoch je logo: červený kruh – Firma.,Na plánech je logo: červený kruh – Firma.,"Los planos llevan un logo: un círculo rojo, la empresa.",На планах логотип: красный круг – Компания.,图纸上印着一个标志：红圈——公司。
+CHAIN_THE_MACHINES_2,Follow the caterpillar tracks at the Logging Site,Choď po stopách pásov na Výrube,Jdi po stopách pásů na Výseku,Sigue las huellas de orugas en la tala,Иди по следам гусениц на Вырубке,在伐木场跟着履带痕迹走
+CHAIN_THE_MACHINES_2_DONE,They all lead to the same fence.,Všetky vedú k rovnakému plotu.,Všechny vedou ke stejnému plotu.,Todas llevan a la misma valla.,Все ведут к одному забору.,它们全都通向同一道围栏。
+CHAIN_THE_MACHINES_3,Carry the photos to the bears at the Burnt Clearing,Odnes fotky medveďom na Spálenisko,Odnes fotky medvědům na Spáleniště,Lleva las fotos a los osos del claro quemado,Отнеси фото медведям на Гарь,把照片送到焦土空地的熊那里
+CHAIN_THE_MACHINES_3_DONE,Now every animal in the Wild knows: the cats are not the enemy.,Teraz už každé zviera v Divočine vie: mačky nie sú nepriatelia.,Teď už každé zvíře v Divočině ví: kočky nejsou nepřátelé.,Ahora todos los animales lo saben: los gatos no son el enemigo.,Теперь каждый зверь знает: кошки не враги.,现在荒野里的每只动物都知道了：猫不是敌人。
+CHAIN_THE_MACHINES_4,Defeat the Machine Warden at the Company Fence,Poraz Strážcu strojov pri Plote firmy,Poraz Strážce strojů u Plotu firmy,Derrota al Guardián en la valla de la empresa,Победи Стража машин у Забора компании,在公司围栏击败机械看守
+CHAIN_THE_MACHINES_4_DONE,The gate creaks open. Behind it: the Company – and the man who wants the forest gone.,"Brána sa so škripotom otvorí. Za ňou: Firma – a človek, ktorý chce les zničiť.","Brána se se skřípotem otevře. Za ní: Firma – a člověk, který chce les zničit.","La verja se abre chirriando. Detrás: la empresa, y el hombre que quiere acabar con el bosque.","Ворота со скрипом открываются. За ними – Компания и человек, который хочет уничтожить лес.",大门吱呀打开。门后是公司——还有那个想毁掉森林的人。

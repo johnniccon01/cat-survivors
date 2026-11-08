@@ -1044,6 +1044,32 @@ def enemy_canvas(shape, frame, data):
         c.thick_line([(18, 12), (23, 6), (26, 9)], 1.0, "accent")
         c.ellipse(26, 11, 2.4, 2.4, "ink")
         c.set(9, 15, "led"); c.set(14, 15, "led")
+    elif shape == "parrot":
+        flap = frame * 2
+        c.thick_line([(12, 18), (9, 25), (8, 27)], 1.2, "accent")
+        for side in (-1, 1):
+            c.ellipse(14 + side * (6 + flap * 0.5), 14 + flap * 0.5, 3.5, 6 - flap, "wing_dark")
+        c.ellipse(14, 14, 5, 7, "body")
+        c.ellipse(15, 8, 4, 3.6, "body")
+        c.ellipse(16, 8, 2, 1.6, "white")
+        c.set(16, 8, "pupil")
+        c.poly([(18, 7), (21, 9), (18, 11)], "beak")
+        c.set(19, 10, "ink")
+        c.rect(12, 20, 1, 2, "ink"); c.rect(15, 20, 1, 2, "ink")
+    elif shape == "bulldozer":
+        roll = frame
+        c.rect(2, 19, 20, 6, "ink")
+        for x in range(3, 22, 4):
+            c.set(x + roll, 21, "accent")
+        c.rect(4, 11, 16, 9, "body")
+        c.rect(4, 11, 16, 2, "top", only=("body",))
+        c.rect(8, 4, 9, 8, "glass")
+        c.rect(8, 4, 9, 1, "ink")
+        c.ellipse(12, 8, 2, 2, "skin")
+        c.rect(11, 5, 3, 1, "ink")
+        c.rect(22, 9, 4, 15, "accent")
+        c.rect(20, 14, 2, 3, "ink")
+        c.set(6, 15, "led"); c.set(18, 15, "led")
     elif shape == "squirrel":
         # A red squirrel with a big curled tail.
         hop = frame

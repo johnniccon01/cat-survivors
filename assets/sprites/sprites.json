@@ -296,6 +296,39 @@
         27.0
       ],
       "frames": 4
+    },
+    "WOLF": {
+      "cell": [
+        44,
+        36
+      ],
+      "anchor": [
+        19.6,
+        21.6
+      ],
+      "frames": 4
+    },
+    "BEAR": {
+      "cell": [
+        53,
+        44
+      ],
+      "anchor": [
+        23.6,
+        26.6
+      ],
+      "frames": 4
+    },
+    "LION": {
+      "cell": [
+        51,
+        42
+      ],
+      "anchor": [
+        22.7,
+        25.200000000000003
+      ],
+      "frames": 4
     }
   },
   "enemies": {
@@ -2346,6 +2379,138 @@
       "frames": 2
     },
     "ROBO_GUARD": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "BIG_SAW": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "RABBIT_KING": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "GREAT_BOAR": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "NIGHT_OWL": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "HORNET_NEST": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "WOLF_LEADER": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "BOG_TOAD": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "SWAMP_EEL": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "GIANT_BADGER": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "KING_SALMON": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "RIVER_OTTER": {
+      "cell": [
+        28,
+        28
+      ],
+      "anchor": [
+        14.0,
+        15.0
+      ],
+      "frames": 2
+    },
+    "BEAVER_QUEEN": {
       "cell": [
         28,
         28

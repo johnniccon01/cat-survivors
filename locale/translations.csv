@@ -3362,3 +3362,156 @@ ENEMY_SURVEY_DRONE_NAME,Survey Drone,Prieskumný dron,Průzkumný dron,Dron top�
 ENEMY_SURVEY_DRONE_DESC,Marks the forest for cutting – and shoots at you.,Značí les na výrub – a strieľa po tebe.,Značí les k vykácení – a střílí po tobě.,"Marca el bosque para talarlo, y te dispara.",Размечает лес под вырубку – и стреляет в тебя.,给森林标记砍伐点——还会朝你开火。
 ENEMY_ROBO_GUARD_NAME,Robot Guard,Robotická stráž,Robotická stráž,Guardia robot,Робот-охранник,机器人守卫
 ENEMY_ROBO_GUARD_DESC,Rolls on patrol and fires at intruders.,Hliadkuje na kolieskach a strieľa po votrelcoch.,Hlídkuje na kolečkách a střílí po vetřelcích.,Patrulla sobre ruedas y dispara a los intrusos.,Патрулирует на колёсах и стреляет по чужакам.,滚着巡逻，向闯入者开火。
+STAGE_FOREST_EDGE_NAME,The Forest Edge,Okraj lesa,Okraj lesa,El linde del bosque,Опушка леса,森林边缘
+STAGE_FOREST_EDGE_HINT,Finish the story The Wild Flees,Dokonči príbeh Divé zvieratá utekajú,Dokonči příběh Divoká zvířata utíkají,Termina la historia La fauna huye,Заверши историю «Дикие звери бегут»,完成故事《野兽在逃》
+STORY_FOREST_EDGE_INTRO,Stumps where trees stood and logs rolling down the cut. The boars think you did this!,"Pne tam, kde stáli stromy, a kmene kotúľajúce sa výrubom. Diviaky si myslia, že ty si to spravil!","Pařezy tam, kde stály stromy, a kmeny kutálející se průsekem. Divočáci si myslí, že ty jsi to udělal!",Tocones donde había árboles y troncos rodando por la tala. ¡Los jabalíes creen que fuiste tú!,"Пни там, где стояли деревья, и брёвна катятся по вырубке. Кабаны думают, что это ты!",原本的树木只剩树桩，原木沿着伐道滚落。野猪们以为是你干的！
+QB_FOREST_EDGE_NAME,The Forest Edge,Okraj lesa,Okraj lesa,El linde del bosque,Опушка леса,森林边缘
+QB_FOREST_EDGE_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_FOREST_EDGE_2,Defeat its boss.,Poraziť jeho bossa.,Porazit jeho bosse.,Derrota a su jefe.,Победи его босса.,击败那里的首领。
+QB_FOREST_EDGE_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_FOREST_EDGE_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_DEEP_WOODS_NAME,The Deep Woods,Hlboký les,Hluboký les,El bosque profundo,Глухой лес,密林深处
+STAGE_DEEP_WOODS_HINT,Defeat the Great Boar at the Forest Edge,Poraz Veľkého diviaka na Okraji lesa,Poraz Velkého divočáka na Okraji lesa,Derrota al Gran Jabalí en el linde del bosque,Победи Большого кабана на Опушке,在森林边缘击败巨型野猪
+STORY_DEEP_WOODS_INTRO,Wolves run through the dark in packs. Their leader is waiting for you.,Vlci sa ženú tmou vo svorkách. Ich vodca na teba čaká.,Vlci se ženou tmou ve smečkách. Jejich vůdce na tebe čeká.,Los lobos corren en manada por la oscuridad. Su líder te espera.,Волки мчатся сквозь тьму стаями. Их вожак ждёт тебя.,狼群在黑暗中奔袭。它们的头领正等着你。
+QB_DEEP_WOODS_NAME,The Deep Woods,Hlboký les,Hluboký les,El bosque profundo,Глухой лес,密林深处
+QB_DEEP_WOODS_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_DEEP_WOODS_2,Defeat its boss.,Poraziť jeho bossa.,Porazit jeho bosse.,Derrota a su jefe.,Победи его босса.,击败那里的首领。
+QB_DEEP_WOODS_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_DEEP_WOODS_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_SWAMP_NAME,The Swamp,Močiar,Močál,El pantano,Болото,沼泽
+STAGE_SWAMP_HINT,Defeat the Wolf Leader in the Deep Woods,Poraz Vlčieho vodcu v Hlbokom lese,Poraz Vlčího vůdce v Hlubokém lese,Derrota al Líder Lobo en el bosque profundo,Победи Вожака волков в Глухом лесу,在密林深处击败狼王
+STORY_SWAMP_INTRO,Waves of mud wash over the bog. Watch your step!,"Bahenné vlny sa valia močiarom. Pozor, kam stúpaš!","Bahenní vlny se valí močálem. Pozor, kam šlapeš!",Olas de barro cruzan el pantano. ¡Cuidado dónde pisas!,Грязевые волны катятся по болоту. Смотри под ноги!,泥浪涌过沼泽。小心脚下！
+QB_SWAMP_NAME,The Swamp,Močiar,Močál,El pantano,Болото,沼泽
+QB_SWAMP_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_SWAMP_2,Defeat its boss.,Poraziť jeho bossa.,Porazit jeho bosse.,Derrota a su jefe.,Победи его босса.,击败那里的首领。
+QB_SWAMP_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_SWAMP_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+STAGE_WATERFALL_NAME,The Waterfall,Vodopád,Vodopád,La cascada,Водопад,瀑布
+STAGE_WATERFALL_HINT,Defeat the Giant Badger in the Swamp,Poraz Obrieho jazveca v Močiari,Poraz Obřího jezevce v Močálu,Derrota al Tejón Gigante en el pantano,Победи Огромного барсука на Болоте,在沼泽击败巨型獾
+STORY_WATERFALL_INTRO,The river carries you along and salmon leap from the water.,Rieka ťa unáša a z vody vyskakujú lososy.,Řeka tě unáší a z vody vyskakují lososi.,El río te arrastra y los salmones saltan del agua.,"Река несёт тебя, а из воды выпрыгивают лососи.",河水裹挟着你，鲑鱼从水中跃出。
+QB_WATERFALL_NAME,The Waterfall,Vodopád,Vodopád,La cascada,Водопад,瀑布
+QB_WATERFALL_1,Survive 10 minutes there.,Prežiť tam 10 minút.,Přežít tam 10 minut.,Sobrevive allí 10 minutos.,Продержись там 10 минут.,在那里坚持 10 分钟。
+QB_WATERFALL_2,Defeat its boss.,Poraziť jeho bossa.,Porazit jeho bosse.,Derrota a su jefe.,Победи его босса.,击败那里的首领。
+QB_WATERFALL_3,Beat the boss with at least half of your health left.,Poraziť bossa s aspoň polovicou zdravia.,Porazit bosse s aspoň polovinou zdraví.,Derrota al jefe con al menos la mitad de tu salud.,"Победи босса, сохранив хотя бы половину здоровья.",在剩余至少一半生命时击败首领。
+QB_WATERFALL_4,Win there 5 times.,Vyhrať tam 5-krát.,Vyhrát tam 5krát.,Gana allí 5 veces.,Победи там 5 раз.,在那里获胜 5 次。
+ENEMY_BIG_SAW_NAME,Big Saw,Veľká píla,Velká pila,La gran sierra,Большая пила,巨锯
+ENEMY_BIG_SAW_DESC,"Sweeps the cut with its blade, sends small saws after you.",Zametá výrub čepeľou a posiela za tebou malé píly.,Zametá průsek čepelí a posílá za tebou malé pily.,Barre la tala con su hoja y te manda sierras pequeñas.,Метёт вырубку лезвием и шлёт за тобой маленькие пилы.,用锯片横扫伐道，还派小电锯追你。
+ENEMY_RABBIT_KING_NAME,Rabbit King,Zajačí kráľ,Zaječí král,El rey conejo,Заячий король,兔子国王
+ENEMY_RABBIT_KING_DESC,Hops from place to place with his whole court.,Skáče z miesta na miesto s celým dvorom.,Skáče z místa na místo s celým dvorem.,Salta de un sitio a otro con toda su corte.,Прыгает с места на место со всем двором.,带着整个朝廷四处蹦跳。
+ENEMY_GREAT_BOAR_NAME,The Great Boar,Veľký diviak,Velký divočák,El Gran Jabalí,Большой кабан,巨型野猪
+ENEMY_GREAT_BOAR_DESC,Charges three times and leaves furrows of strikes.,Trikrát sa rozbehne a nechá za sebou brázdy úderov.,Třikrát se rozběhne a nechá za sebou brázdy úderů.,Carga tres veces y deja surcos de golpes.,Трижды бросается и оставляет борозды ударов.,冲锋三次，身后留下一道道冲击沟。
+ENEMY_NIGHT_OWL_NAME,Night Owl,Nočná sova,Noční sova,El búho nocturno,Ночная сова,夜枭
+ENEMY_NIGHT_OWL_DESC,Calls bats out of the dark and pulls you close.,Privolá z tmy netopiere a pritiahne ťa k sebe.,Přivolá ze tmy netopýry a přitáhne tě k sobě.,Llama a murciélagos de la oscuridad y te atrae.,Зовёт из тьмы летучих мышей и притягивает тебя.,从黑暗中召来蝙蝠，把你拉近。
+ENEMY_HORNET_NEST_NAME,Hornet Nest,Sršnie hniezdo,Sršní hnízdo,El avispero,Осиное гнездо,黄蜂窝
+ENEMY_HORNET_NEST_DESC,"Rains hornets on you, again and again.",Sype na teba sršne zas a znova.,Sype na tebe sršně znovu a znovu.,Te llueven avispones una y otra vez.,Снова и снова осыпает тебя шершнями.,一次又一次地朝你倾泻黄蜂。
+ENEMY_WOLF_LEADER_NAME,The Wolf Leader,Vlčí vodca,Vlčí vůdce,El Líder Lobo,Вожак волков,狼王
+ENEMY_WOLF_LEADER_DESC,Calls the pack: wolves appear all round you and lunge in.,Zvolá svorku: vlci sa objavia všade okolo teba a vrhnú sa dnu.,Svolá smečku: vlci se objeví všude kolem tebe a vrhnou se dovnitř.,Llama a la manada: los lobos aparecen a tu alrededor y se lanzan.,Созывает стаю: волки появляются вокруг тебя и бросаются.,召集狼群：狼从四面八方出现扑向你。
+ENEMY_BOG_TOAD_NAME,Bog Toad,Močiarna ropucha,Močálová ropucha,El sapo del pantano,Болотная жаба,沼泽蟾蜍
+ENEMY_BOG_TOAD_DESC,Leaves puddles and spins its shots.,Necháva mláky a krúti strelami.,Nechává louže a točí střelami.,Deja charcos y gira sus disparos.,Оставляет лужи и раскручивает выстрелы.,留下水坑，旋转射击。
+ENEMY_SWAMP_EEL_NAME,Swamp Eel,Močiarny úhor,Močálový úhoř,La anguila del pantano,Болотный угорь,沼泽鳗鱼
+ENEMY_SWAMP_EEL_DESC,Sweeps the bog and pulls you in.,Zametá močiar a vťahuje ťa.,Zametá močál a vtahuje tě.,Barre el pantano y te atrae.,Метёт болото и затягивает тебя.,横扫沼泽，把你拖过去。
+ENEMY_GIANT_BADGER_NAME,The Giant Badger,Obrí jazvec,Obří jezevec,El Tejón Gigante,Огромный барсук,巨型獾
+ENEMY_GIANT_BADGER_DESC,Digs under the mud and bursts up right by you.,Prehrabe sa pod bahnom a vynorí sa tesne pri tebe.,Prohrabe se pod bahnem a vynoří se těsně u tebe.,Excava bajo el barro y sale justo a tu lado.,Роет под грязью и выныривает прямо рядом с тобой.,在泥下挖洞，紧挨着你钻出来。
+ENEMY_KING_SALMON_NAME,King Salmon,Kráľovský losos,Královský losos,El salmón rey,Королевский лосось,鲑鱼王
+ENEMY_KING_SALMON_DESC,Bursts out of the water in rings of spray.,Vyskočí z vody v kruhoch spŕšky.,Vyskočí z vody v kruzích spršky.,Sale del agua en anillos de espuma.,Выпрыгивает из воды кольцами брызг.,带着一圈圈水花跃出水面。
+ENEMY_RIVER_OTTER_NAME,River Otter,Riečna vydra,Říční vydra,La nutria,Речная выдра,水獭
+ENEMY_RIVER_OTTER_DESC,"Quick and slippery: here, then there.","Rýchla a klzká: tu, a hneď tam.","Rychlá a kluzká: tady, a hned tam.",Rápida y escurridiza: aquí y luego allí.,"Быстрая и скользкая: то тут, то там.",又快又滑：一会儿在这，一会儿在那。
+ENEMY_BEAVER_QUEEN_NAME,The Beaver Queen,Kráľovná bobrov,Královna bobrů,La Reina Castor,Королева бобров,河狸女王
+ENEMY_BEAVER_QUEEN_DESC,Builds a square of logs round you and closes it.,Postaví okolo teba štvorec z kmeňov a zatvorí ho.,Postaví kolem tebe čtverec z kmenů a zavře ho.,Construye un cuadrado de troncos a tu alrededor y lo cierra.,Строит вокруг тебя квадрат из брёвен и сжимает его.,用原木围着你搭成方阵，然后收紧。
+ENEMY_RIVAL_WOLF_NAME,Young Wolf,Mladý vlk,Mladý vlk,El lobo joven,Молодой волк,年轻的狼
+ENEMY_RIVAL_WOLF_DESC,The Wolf Leader's son. Beat him and he'll run with you.,Syn Vlčieho vodcu. Poraz ho a bude behať s tebou.,Syn Vlčího vůdce. Poraz ho a bude běhat s tebou.,El hijo del Líder Lobo. Derrótalo y correrá contigo.,Сын Вожака волков. Победи его – и он побежит с тобой.,狼王之子。打败他，他就会与你同行。
+ITEM_BOAR_TUSK_NAME,Boar Tusk,Diviačí kel,Kančí kel,Colmillo de jabalí,Кабаний клык,野猪獠牙
+ITEM_BOAR_TUSK_DESC,"From the Great Boar. +10% might, +20% thorns.","Od Veľkého diviaka. +10 % sila, +20 % tŕne.","Od Velkého divočáka. +10 % síla, +20 % trny.","Del Gran Jabalí. +10 % de poder, +20 % de espinas.","От Большого кабана. +10 % силы, +20 % шипов.",来自巨型野猪。+10% 力量，+20% 荆棘。
+ITEM_WOLF_PELT_NAME,Wolf Pelt,Vlčia kožušina,Vlčí kožešina,Piel de lobo,Волчья шкура,狼皮
+ITEM_WOLF_PELT_DESC,"From the Wolf Leader. +10% speed, +6% critical chance.","Od Vlčieho vodcu. +10 % rýchlosť, +6 % kritická šanca.","Od Vlčího vůdce. +10 % rychlost, +6 % kritická šance.","Del Líder Lobo. +10 % de velocidad, +6 % de probabilidad crítica.","От Вожака волков. +10 % скорости, +6 % шанса крита.",来自狼王。+10% 速度，+6% 暴击率。
+ITEM_MUD_MASK_NAME,Mud Mask,Bahenná maska,Bahenní maska,Máscara de barro,Грязевая маска,泥面具
+ITEM_MUD_MASK_DESC,"From the Giant Badger. +2 armour, +0.4 regeneration.","Od Obrieho jazveca. +2 brnenie, +0,4 regenerácie.","Od Obřího jezevce. +2 brnění, +0,4 regenerace.","Del Tejón Gigante. +2 de armadura, +0,4 de regeneración.","От Огромного барсука. +2 брони, +0,4 регенерации.",来自巨型獾。+2 护甲，+0.4 生命恢复。
+ITEM_BEAVER_CROWN_NAME,Beaver Crown,Bobria koruna,Bobří koruna,Corona de castor,Бобровая корона,河狸王冠
+ITEM_BEAVER_CROWN_DESC,"From the Beaver Queen. +10% area, +30 health.","Od Kráľovnej bobrov. +10 % plocha, +30 zdravia.","Od Královny bobrů. +10 % plocha, +30 zdraví.","De la Reina Castor. +10 % de área, +30 de salud.","От Королевы бобров. +10 % площади, +30 здоровья.",来自河狸女王。+10% 范围，+30 生命。
+LOGS_WARNING,Logs roll down the cut – step aside!,Výrubom sa valia kmene – uhni!,Průsekem se valí kmeny – uhni!,"¡Ruedan troncos por la tala, apártate!",По вырубке катятся брёвна – отойди!,原木沿着伐道滚下来——快让开！
+WOLFPACK_WARNING,The wolf pack runs down the lane – step aside!,Pruhom beží vlčia svorka – uhni!,Pruhem běží vlčí smečka – uhni!,"¡La manada corre por el carril, apártate!",По полосе бежит волчья стая – отойди!,狼群沿着这条线奔来——快让开！
+BOG_WARNING,A wave of mud washes over the bog – get out of its way!,Močiarom sa valí bahenná vlna – uhni jej!,Močálem se valí bahenní vlna – uhni jí!,"¡Una ola de barro cruza el pantano, apártate!",По болоту катится грязевая волна – уйди с дороги!,一股泥浪涌过沼泽——快躲开！
+SALMON_WARNING,Salmon leap up the river – step aside!,Rieka je plná skáčucich lososov – uhni!,Řeka je plná skákajících lososů – uhni!,"¡Los salmones saltan río arriba, apártate!",Лососи прыгают вверх по реке – отойди!,鲑鱼逆流跃起——快让开！
+CAT_WOLF_NAME,Wolf,Vlk,Vlk,Lobo,Волк,狼
+CAT_WOLF_DESC,"The Wolf Leader's son, the first wild animal on the cats' side. Starts with Scratch; +10% speed, +10% might.","Syn Vlčieho vodcu, prvé divé zviera na strane mačiek. Začína so Škrabancom; +10 % rýchlosť, +10 % sila.","Syn Vlčího vůdce, první divoké zvíře na straně koček. Začíná se Škrábancem; +10 % rychlost, +10 % síla.","El hijo del Líder Lobo, el primer animal salvaje del lado de los gatos. Empieza con Arañazo; +10 % de velocidad, +10 % de poder.","Сын Вожака волков, первый дикий зверь на стороне кошек. Начинает с Царапки; +10 % скорости, +10 % силы.",狼王之子，第一只站在猫这边的野兽。初始武器为抓挠；+10% 速度，+10% 力量。
+CAT_WOLF_HINT,Beat him in a duel in the Deep Woods.,Poraz ho v súboji v Hlbokom lese.,Poraz ho v souboji v Hlubokém lese.,Derrótalo en un duelo en el bosque profundo.,Победи его в поединке в Глухом лесу.,在密林深处的决斗中击败他。
+INSTINCT_WOLF_NAME,Howl,Vytie,Vytí,Aullido,Вой,嚎叫
+INSTINCT_WOLF_DESC,"every 22 s, with enemies near: 5 s +20% speed and +15% might",každých 22 s pri nepriateľoch: 5 s +20 % rýchlosť a +15 % sila,každých 22 s u nepřátel: 5 s +20 % rychlost a +15 % síla,cada 22 s con enemigos cerca: 5 s +20 % de velocidad y +15 % de poder,каждые 22 с рядом с врагами: 5 с +20 % скорости и +15 % силы,每 22 秒，附近有敌人时：5 秒 +20% 速度和 +15% 力量
+CAT_BEAR_NAME,Bear,Medveď,Medvěd,Oso,Медведь,熊
+CAT_BEAR_DESC,"The old bear of the Wild. Starts with Paw Stomp; +40 health, +1 armour, a bit slower.","Starý medveď z Divočiny. Začína s Dupnutím labky; +40 zdravia, +1 brnenie, trochu pomalší.","Starý medvěd z Divočiny. Začíná s Dupnutím tlapky; +40 zdraví, +1 brnění, trochu pomalejší.","El viejo oso de la naturaleza. Empieza con Pisotón; +40 de salud, +1 de armadura, algo más lento.","Старый медведь Дикого леса. Начинает с Топота лапы; +40 здоровья, +1 брони, чуть медленнее.",荒野的老熊。初始武器为爪踏；+40 生命，+1 护甲，稍慢。
+CAT_BEAR_HINT,Win him over at the Burnt Clearing.,Získaj ho na svoju stranu na Spálenisku.,Získej ho na svou stranu na Spáleništi.,Gánatelo en el claro quemado.,Переубеди его на Гари.,在焦土空地赢得他的信任。
+INSTINCT_BEAR_NAME,Thick fur,Hustý kožuch,Hustý kožich,Pelaje grueso,Густой мех,厚毛皮
+INSTINCT_BEAR_DESC,"below 40% health: a swipe throws everyone back, 6 s +3 armour (every 40 s)","pod 40 % zdravia: úder labou odhodí všetkých, 6 s +3 brnenie (každých 40 s)","pod 40 % zdraví: úder tlapou odhodí všechny, 6 s +3 brnění (každých 40 s)","por debajo del 40 % de salud: un zarpazo aparta a todos, 6 s +3 de armadura (cada 40 s)","ниже 40 % здоровья: удар лапой отбрасывает всех, 6 с +3 брони (раз в 40 с)",生命低于 40% 时：一掌击退所有敌人，6 秒 +3 护甲（每 40 秒）
+CAT_LION_NAME,Lion,Lev,Lev,León,Лев,狮子
+CAT_LION_DESC,"Kept in a cage by the Company for years. Starts with Purr; +15% might, +10% area.","Firma ho roky držala v klietke. Začína s Priadením; +15 % sila, +10 % plocha.","Firma ho léta držela v kleci. Začíná s Předením; +15 % síla, +10 % plocha.","La empresa lo tuvo enjaulado años. Empieza con Ronroneo; +15 % de poder, +10 % de área.","Компания годами держала его в клетке. Начинает с Мурлыканья; +15 % силы, +10 % площади.",被公司关在笼子里多年。初始武器为呼噜；+15% 力量，+10% 范围。
+CAT_LION_HINT,Free him in the Company's laboratory.,Oslobodi ho v laboratóriu Firmy.,Osvoboď ho v laboratoři Firmy.,Libéralo en el laboratorio de la empresa.,Освободи его в лаборатории Компании.,在公司实验室里解救他。
+INSTINCT_LION_NAME,Roar,Rev,Řev,Rugido,Рык,咆哮
+INSTINCT_LION_DESC,"every 18 s, with enemies near: a roar throws them back and slows them",každých 18 s pri nepriateľoch: rev ich odhodí a spomalí,každých 18 s u nepřátel: řev je odhodí a zpomalí,cada 18 s con enemigos cerca: un rugido los aparta y los frena,каждые 18 с рядом с врагами: рык отбрасывает и замедляет их,每 18 秒，附近有敌人时：咆哮击退并减速敌人
+CHAIN_SAVE_THE_TREES_NAME,Save the Trees,Zachráň stromy,Zachraň stromy,Salva los árboles,Спаси деревья,拯救树木
+CHAIN_SAVE_THE_TREES_DESC,Red marks show which trees the machines will cut next.,"Červené značky ukazujú, ktoré stromy stroje zrežú ako ďalšie.","Červené značky ukazují, které stromy stroje pokácí jako další.",Marcas rojas indican qué árboles cortarán las máquinas.,"Красные метки показывают, какие деревья машины срубят следующими.",红色记号标出了机器接下来要砍的树。
+CHAIN_SAVE_THE_TREES_1,Guard the four marked trees,Ustráž štyri označené stromy,Ohlídej čtyři označené stromy,Protege los cuatro árboles marcados,Защити четыре отмеченных дерева,守住四棵被标记的树
+CHAIN_SAVE_THE_TREES_1_DONE,The saw comes back for them.,Píla sa po ne vracia.,Pila se pro ně vrací.,La sierra vuelve a por ellos.,Пила возвращается за ними.,电锯又回来了。
+CHAIN_SAVE_THE_TREES_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_SAVE_THE_TREES_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_LOST_PIGLETS_NAME,Lost Piglets,Stratené diviačatá,Ztracená selata,Jabatos perdidos,Потерянные кабанята,走失的小野猪
+CHAIN_LOST_PIGLETS_DESC,Three piglets ran off when the trees fell.,"Tri diviačatá utiekli, keď padali stromy.","Tři selata utekla, když padaly stromy.",Tres jabatos huyeron al caer los árboles.,"Три кабанёнка убежали, когда падали деревья.",树倒下时，三只小野猪跑丢了。
+CHAIN_LOST_PIGLETS_1,Follow the tracks,Choď po stopách,Jdi po stopách,Sigue las huellas,Иди по следам,跟着足迹走
+CHAIN_LOST_PIGLETS_1_DONE,There they are – and they're scared.,Tam sú – a boja sa.,Tam jsou – a bojí se.,"Ahí están, y tienen miedo.",Вот они – и им страшно.,它们在那儿——吓坏了。
+CHAIN_LOST_PIGLETS_2,Catch the piglets,Chyť diviačatá,Chyť selata,Atrapa a los jabatos,Поймай кабанят,抓住小野猪
+CHAIN_LOST_PIGLETS_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_HOLLOW_OAK_NAME,The Hollow Oak,Dutý dub,Dutý dub,El roble hueco,Дуплистый дуб,空心橡树
+CHAIN_HOLLOW_OAK_DESC,Far in the dark stands an oak the saws never reached.,"Ďaleko v tme stojí dub, ku ktorému sa píly nikdy nedostali.","Daleko ve tmě stojí dub, ke kterému se pily nikdy nedostaly.",Lejos en la oscuridad hay un roble al que nunca llegaron las sierras.,"Далеко в темноте стоит дуб, до которого пилы так и не добрались.",黑暗深处有一棵电锯从未碰过的橡树。
+CHAIN_HOLLOW_OAK_1,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_HOLLOW_OAK_1_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_HOWL_AT_NIGHT_NAME,Howl at the Moon,Vytie na mesiac,Vytí na měsíc,Aullar a la luna,Вой на луну,对月长嚎
+CHAIN_HOWL_AT_NIGHT_DESC,The wolves gather where the moon shines through the trees.,"Vlci sa zhromažďujú tam, kde cez stromy svieti mesiac.","Vlci se shromažďují tam, kde skrz stromy svítí měsíc.",Los lobos se reúnen donde la luna brilla entre los árboles.,"Волки собираются там, где сквозь деревья светит луна.",狼群聚集在月光穿过树林的地方。
+CHAIN_HOWL_AT_NIGHT_1,Stand in the three moonlit spots,Postav sa na tri miesta v mesačnom svetle,Postav se na tři místa v měsíčním světle,Ponte en los tres claros de luna,Встань в три пятна лунного света,站在三处月光下
+CHAIN_HOWL_AT_NIGHT_1_DONE,The pack answers your howl.,Svorka odpovedá na tvoje vytie.,Smečka odpovídá na tvé vytí.,La manada responde a tu aullido.,Стая отвечает на твой вой.,狼群回应了你的嚎叫。
+CHAIN_HOWL_AT_NIGHT_2,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_HOWL_AT_NIGHT_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_MUSHROOM_RING_NAME,The Mushroom Ring,Hríbový kruh,Houbový kruh,El círculo de setas,Грибное кольцо,蘑菇圈
+CHAIN_MUSHROOM_RING_DESC,Pick the glowing flowers before the owl does.,Natrhaj svietiace kvety skôr než sova.,Natrhej svítící květy dřív než sova.,Recoge las flores brillantes antes que el búho.,Сорви светящиеся цветы раньше совы.,抢在猫头鹰之前摘下发光的花。
+CHAIN_MUSHROOM_RING_1,Gather the glowing flowers,Pozbieraj svietiace kvety,Posbírej svítící květy,Recoge las flores brillantes,Собери светящиеся цветы,收集发光的花
+CHAIN_MUSHROOM_RING_1_DONE,"The owl swoops down, furious.",Sova sa zúrivo znesie dolu.,Sova se zuřivě snese dolů.,El búho baja furioso.,Сова в ярости пикирует вниз.,猫头鹰气冲冲地俯冲下来。
+CHAIN_MUSHROOM_RING_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_MUSHROOM_RING_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_WOLF_DEN_NAME,The Wolf Den,Vlčí brloh,Vlčí doupě,La guarida del lobo,Волчье логово,狼窝
+CHAIN_WOLF_DEN_DESC,Lanterns left by the machines' men lead to the wolves' old den.,Lampáše po ľuďoch od strojov vedú k starému vlčiemu brlohu.,Lucerny po lidech od strojů vedou ke starému vlčímu doupěti.,Faroles dejados por los hombres de las máquinas llevan a la vieja guarida.,Фонари людей с машинами ведут к старому волчьему логову.,机器那边的人留下的灯笼通向狼群的老窝。
+CHAIN_WOLF_DEN_1,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_WOLF_DEN_1_DONE,Something buzzes inside the den.,V brlohu niečo bzučí.,V doupěti něco bzučí.,Algo zumba dentro de la guarida.,Внутри логова что-то жужжит.,窝里有东西在嗡嗡作响。
+CHAIN_WOLF_DEN_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_WOLF_DEN_2_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_STEPPING_STONES_NAME,Stepping Stones,Kamene cez močiar,Kameny přes močál,Piedras del pantano,Камни через болото,沼泽踏石
+CHAIN_STEPPING_STONES_DESC,Only the old stepping stones lead safely across the bog.,Bezpečne cez močiar vedú len staré kamene.,Bezpečně přes močál vedou jen staré kameny.,Solo las viejas piedras cruzan el pantano con seguridad.,Только старые камни безопасно ведут через болото.,只有那些旧踏石能安全穿过沼泽。
+CHAIN_STEPPING_STONES_1,Follow the tracks,Choď po stopách,Jdi po stopách,Sigue las huellas,Иди по следам,跟着足迹走
+CHAIN_STEPPING_STONES_1_DONE,A huge toad blocks the last stone.,Na poslednom kameni sedí obrovská ropucha.,Na posledním kameni sedí obrovská ropucha.,Un sapo enorme bloquea la última piedra.,Огромная жаба сидит на последнем камне.,一只巨大的蟾蜍挡在最后一块石头上。
+CHAIN_STEPPING_STONES_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_STEPPING_STONES_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_MARSH_LIGHTS_NAME,Marsh Lights,Bludičky,Bludičky,Fuegos fatuos,Болотные огни,沼泽鬼火
+CHAIN_MARSH_LIGHTS_DESC,Collect the lost lanterns before the toads swallow them.,"Pozbieraj stratené lampáše skôr, než ich ropuchy prehltnú.","Posbírej ztracené lucerny dřív, než je ropuchy spolknou.",Recoge los faroles perdidos antes de que se los traguen los sapos.,"Собери потерянные фонари, пока их не проглотили жабы.",在蟾蜍吞下它们之前收集走失的灯笼。
+CHAIN_MARSH_LIGHTS_1,Gather the lanterns,Pozbieraj lampáše,Posbírej lucerny,Recoge los faroles,Собери фонари,收集灯笼
+CHAIN_MARSH_LIGHTS_1_DONE,Three toads hopped off with the last ones.,Tri ropuchy s poslednými odskákali.,Tři ropuchy s posledními odskákaly.,Tres sapos se fueron con los últimos.,Три жабы ускакали с последними.,三只蟾蜍带着最后几盏跳走了。
+CHAIN_MARSH_LIGHTS_2,Catch the toads,Chyť ropuchy,Chyť ropuchy,Atrapa los sapos,Поймай жаб,抓住蟾蜍
+CHAIN_MARSH_LIGHTS_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_SUNKEN_LOG_NAME,The Sunken Log,Potopený kmeň,Potopený kmen,El tronco hundido,Затонувшее бревно,沉木
+CHAIN_SUNKEN_LOG_DESC,"Far in the dark bog, something long and slippery waits under a log.",Ďaleko v tmavom močiari čaká pod kmeňom niečo dlhé a klzké.,Daleko v temném močálu čeká pod kmenem něco dlouhého a kluzkého.,"Lejos en el pantano oscuro, algo largo y resbaladizo espera bajo un tronco.",Далеко в тёмном болоте под бревном ждёт что-то длинное и скользкое.,漆黑沼泽深处，有个又长又滑的东西在木头下等着。
+CHAIN_SUNKEN_LOG_1,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_SUNKEN_LOG_1_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。
+CHAIN_BROKEN_DAM_NAME,The Broken Dam,Pretrhnutá hrádza,Protržená hráz,La presa rota,Прорванная плотина,决口的水坝
+CHAIN_BROKEN_DAM_DESC,The beavers' dam broke when the machines came. Help mend it.,"Hrádza bobrov sa pretrhla, keď prišli stroje. Pomôž ju opraviť.","Hráz bobrů se protrhla, když přišly stroje. Pomoz ji opravit.",La presa de los castores se rompió con las máquinas. Ayuda a repararla.,"Плотина бобров прорвалась, когда пришли машины. Помоги её починить.",机器来时，河狸的水坝决口了。帮忙修好它。
+CHAIN_BROKEN_DAM_1,Carry the rope to the raft,Zanes lano k pltí,Zanes lano k voru,Lleva la cuerda a la balsa,Отнеси верёвку к плоту,把绳子送到木筏
+CHAIN_BROKEN_DAM_1_DONE,The salmon jump at you from the water.,Lososy po tebe vyskakujú z vody.,Lososi po tobě vyskakují z vody.,Los salmones te saltan desde el agua.,Лососи прыгают на тебя из воды.,鲑鱼从水里朝你跃来。
+CHAIN_BROKEN_DAM_2,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_BROKEN_DAM_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_UPSTREAM_NAME,Upstream,Proti prúdu,Proti proudu,Río arriba,Против течения,逆流而上
+CHAIN_UPSTREAM_DESC,Hold the river pools so the salmon can swim home.,"Udrž riečne tône, nech lososy môžu doplávať domov.","Udrž říční tůně, ať lososi můžou doplavat domů.",Mantén las pozas para que los salmones vuelvan a casa.,"Удержи речные заводи, чтобы лососи доплыли домой.",守住河中的水潭，让鲑鱼游回家。
+CHAIN_UPSTREAM_1,Hold the four pools,Podrž štyri tône,Podrž čtyři tůně,Mantén las cuatro pozas,Удержи четыре заводи,守住四个水潭
+CHAIN_UPSTREAM_1_DONE,The King Salmon is not grateful.,Kráľovský losos nie je vďačný.,Královský losos není vděčný.,El salmón rey no está agradecido.,Королевский лосось неблагодарен.,鲑鱼王并不领情。
+CHAIN_UPSTREAM_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_UPSTREAM_2_DONE,Done – the place is calmer now.,Hotovo – je tu pokojnejšie.,Hotovo – je tu klidněji.,Hecho: ahora está más tranquilo.,Готово – здесь стало спокойнее.,完成——这里安静多了。
+CHAIN_BEHIND_THE_FALLS_NAME,Behind the Falls,Za vodopádom,Za vodopádem,Tras la cascada,За водопадом,瀑布之后
+CHAIN_BEHIND_THE_FALLS_DESC,A trail of wet lanterns leads to a cave behind the falling water.,Stopa mokrých lampášov vedie do jaskyne za padajúcou vodou.,Stopa mokrých luceren vede do jeskyně za padající vodou.,Un rastro de faroles mojados lleva a una cueva tras el agua.,Дорожка мокрых фонарей ведёт в пещеру за падающей водой.,一路湿漉漉的灯笼通向瀑布后的洞穴。
+CHAIN_BEHIND_THE_FALLS_1,Hold out against the attack,Vydrž útok,Vydrž útok,Resiste el ataque,Выдержи атаку,顶住进攻
+CHAIN_BEHIND_THE_FALLS_1_DONE,An otter guards the cave.,Jaskyňu stráži vydra.,Jeskyni hlídá vydra.,Una nutria guarda la cueva.,Пещеру охраняет выдра.,一只水獭守着洞穴。
+CHAIN_BEHIND_THE_FALLS_2,Defeat the boss,Poraz bossa,Poraz bosse,Derrota al jefe,Победи босса,击败首领
+CHAIN_BEHIND_THE_FALLS_2_DONE,Behind it: a forgotten treasure.,Za ním: zabudnutý poklad.,Za ním: zapomenutý poklad.,Detrás: un tesoro olvidado.,За ним – забытый клад.,后面：一份被遗忘的宝藏。

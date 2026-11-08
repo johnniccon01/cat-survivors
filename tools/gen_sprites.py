@@ -338,7 +338,11 @@ def cat_frame(look, frame, mood="normal", dead=False, scale=1.0):
     c.cur = "tail"
     sway = [0, 1, 0, -1][frame]
     tail = [P(9, 19 - bob), P(5, 16 - bob), P(4 + sway, 10), P(6 + sway, 6), P(8 + sway, 5)]
+    if species == "bear":
+        tail = [P(9, 18 - bob), P(7, 17 - bob)]
     c.thick_line(tail, (2.0 if fluffy else 1.4) * s * (1.4 if species == "raccoon" else 1.0), "tailtip" if points else "fur")
+    if species == "lion":
+        c.ellipse(*tail[-1], 1.8 * s, 1.8 * s, "dark")
     if species == "raccoon":
         for y in range(H):
             for x in range(W):
@@ -381,12 +385,20 @@ def cat_frame(look, frame, mood="normal", dead=False, scale=1.0):
         # Floppy ears hang down the sides of the head.
         ear_l = [P(19, 6 - bob), P(17.5, 14 - bob), P(21.5, 13 - bob), P(22.5, 6 - bob)]
         ear_r = [P(28, 5 - bob), P(31.5, 12.5 - bob), P(29.5, 13.5 - bob), P(26.5, 6 - bob)]
-    elif species == "raccoon":
+    elif species in ("raccoon", "bear"):
         ear_l = [P(20, 7 - bob), P(20.5, 3 - bob), P(23.5, 5.5 - bob)]
         ear_r = [P(26, 5.5 - bob), P(28.5, 2.5 - bob), P(30, 6.5 - bob)]
-    if species != "dog":
+    if species == "bear":
+        # Small round ears.
+        for ex in (20.5, 29):
+            c.ellipse(*P(ex, 5 - bob), 2.2 * s, 2.2 * s, "fur")
+            c.ellipse(*P(ex, 5 - bob), 1.1 * s, 1.1 * s, "dark")
+    elif species != "dog":
         for ear in (ear_l, ear_r):
             c.poly(ear, "ear" if points else "fur")
+    if species == "lion":
+        # The mane round the head.
+        c.ellipse(hx - 0.5 * s, hy + 0.5 * s, hr * 1.45, hr * 1.4, "dark", jag=0.25)
     c.ellipse(hx, hy, hr, hr * 0.95, "fur", jag=0.06 if fluffy else 0.0)
     if species == "dog":
         for ear in (ear_l, ear_r):
@@ -401,7 +413,7 @@ def cat_frame(look, frame, mood="normal", dead=False, scale=1.0):
     mx, my = P(27, 14 - bob)
     if points:
         c.ellipse(mx, my - 0.5 * s, 4.2 * s, 3.4 * s, "mask", only=("fur",))
-    if species == "dog":
+    if species in ("dog", "wolf", "bear"):
         # A longer snout sticking out in front.
         c.ellipse(*P(29.5, 13.6 - bob), 3.8 * s, 2.5 * s, "muzzle")
     else:

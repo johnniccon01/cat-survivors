@@ -132,6 +132,7 @@
       ],
       "escort_hp": 60.0
     },
+    "WOLF": {"type": "duel", "rival": "RIVAL_WOLF"},
     "RUBY": {
       "type": "duel",
       "rival": "RIVAL_RUBY"

@@ -781,7 +781,7 @@ func _draw_belts(view: Rect2) -> void:
 		if absf(y + BELT_WIDTH * 0.5) < BELT_EVERY * 0.5:
 			continue
 		var dir := _belt_dir * (1.0 if posmod(row, 2) == 0 else -1.0)
-		var look := "canal" if _theme() == "sewer" else "belt"
+		var look := "canal" if _theme() in ["sewer", "waterfall"] else "belt"
 		var pic := FloorChunk.art("terrain_%s_%s" % [look, "r" if dir > 0.0 else "l"])
 		if pic != null:
 			# The belt's ribs and chevrons ride along with it.

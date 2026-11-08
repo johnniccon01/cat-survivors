@@ -672,7 +672,10 @@ func _tick_fight(delta: float, target: Vector2) -> void:
 ## throwing hair to both sides), "artillery" (three volleys land round the
 ## cat, each closer, the last on it), "orders" (the General's three orders: a
 ## ring of strikes with a gap, a star of bars through the cat, then his dogs
-## charge from both sides).
+## charge from both sides), "tusks" (three charges, each leaving a furrow of
+## strikes behind), "packhunt" (wolves appear in a ring round the cat and
+## lunge in), "burrow" (it digs under and bursts up by the cat three times),
+## "logjam" (a square of logs round the cat closes in twice).
 func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 	var hurt := damage * 0.8
 	match _special:
@@ -766,6 +769,61 @@ func _tick_signature(t: float, target: Vector2, shot: float) -> Vector2:
 					manager.spawn_bullet(from, (target - from).normalized().rotated(0.4), shot, "hair", 110.0)
 				return Vector2.ZERO
 			return _end_special()
+		"tusks":
+			var leg := int(t / 0.8)
+			if leg >= 3:
+				return _end_special()
+			if _special_step == leg:
+				_special_step += 1
+				_special_dir = (target - position).normalized()
+				manager.spawn_beam(position, position + _special_dir * 420.0, radius * 1.6, 0.4, 0.0, "mow")
+			if fmod(t, 0.8) < 0.4:
+				return Vector2.ZERO
+			if randf() < 0.25:
+				manager.spawn_hazard(position, "strike", 26.0, 0.6, hurt)
+			return _special_dir * speed * 8.0
+		"packhunt":
+			if _special_step == 0:
+				_special_step = 1
+				for i in 8:
+					var at := _special_at + Vector2.from_angle(TAU * i / 8.0) * 260.0
+					manager.spawn_beam(at, _special_at, 26.0, SIG_WARN, 0.0, "rats")
+				Audio.play("roar", -8.0, 0.6)
+			if _special_step == 1 and t >= SIG_WARN:
+				_special_step = 2
+				var wolf := _minion if _minion != "" else "YOUNG_WOLF"
+				for i in 8:
+					var run := -Vector2.from_angle(TAU * i / 8.0)
+					var e := manager.spawn(wolf, _special_at - run * 260.0, hp_mult)
+					if e != null:
+						e.spawn_in = 0.0
+						e.charge(run, 520.0 / maxf(e.speed * 2.2, 1.0))
+			if t > SIG_WARN + 0.5:
+				return _end_special()
+			return Vector2.ZERO
+		"burrow":
+			for hole in 3:
+				if _special_step == hole and t >= hole * 0.9:
+					_special_step += 1
+					var spot := target + Vector2.from_angle(randf() * TAU) * 40.0
+					manager.spawn_hazard(spot, "strike", 46.0, 0.8, hurt)
+					position = spot + Vector2(0, 60)
+					reset_physics_interpolation()
+			if t > 2.8:
+				return _end_special()
+			return Vector2.ZERO
+		"logjam":
+			for ring in 2:
+				if _special_step == ring and t >= ring * 1.0:
+					_special_step += 1
+					var half := 170.0 - ring * 70.0
+					for k in 4:
+						var d := Vector2.from_angle(k * PI * 0.5)
+						var mid := _special_at + d * half
+						manager.spawn_beam(mid - d.orthogonal() * half, mid + d.orthogonal() * half, 30.0, SIG_WARN, hurt, "mow")
+			if t > 2.2:
+				return _end_special()
+			return Vector2.ZERO
 		"drill":
 			for round in 3:
 				if _special_step == round and t >= round * 0.7:

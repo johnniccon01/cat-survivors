@@ -1777,6 +1777,178 @@
         }
       ]
     },
+    "FOREST_EDGE": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:FOREST_EDGE"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:FOREST_EDGE"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:FOREST_EDGE",
+          "target": 1,
+          "reward": {
+            "gold": 2200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:FOREST_EDGE"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3600
+          }
+        }
+      ]
+    },
+    "DEEP_WOODS": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:DEEP_WOODS"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:DEEP_WOODS"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:DEEP_WOODS",
+          "target": 1,
+          "reward": {
+            "gold": 2200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:DEEP_WOODS"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3600
+          }
+        }
+      ]
+    },
+    "SWAMP": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:SWAMP"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:SWAMP"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:SWAMP",
+          "target": 1,
+          "reward": {
+            "gold": 2200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:SWAMP"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3600
+          }
+        }
+      ]
+    },
+    "WATERFALL": {
+      "chapter": "maps",
+      "tiers": [
+        {
+          "type": "stat",
+          "keys": [
+            "best_minutes:WATERFALL"
+          ],
+          "target": 10,
+          "reward": {
+            "gold": 1000
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:WATERFALL"
+          ],
+          "target": 1,
+          "reward": {
+            "gold": 1700
+          }
+        },
+        {
+          "type": "flag",
+          "flag": "win_healthy:WATERFALL",
+          "target": 1,
+          "reward": {
+            "gold": 2200
+          }
+        },
+        {
+          "type": "stat",
+          "keys": [
+            "wins:WATERFALL"
+          ],
+          "target": 5,
+          "reward": {
+            "gold": 3600
+          }
+        }
+      ]
+    },
     "OLD_DIARY": {
       "chapter": "story",
       "tiers": [

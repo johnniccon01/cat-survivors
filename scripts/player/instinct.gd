@@ -27,6 +27,9 @@ const DATA := {
 	"RUBY": {"every": 20.0, "radius": 160.0, "ahead": 90.0},
 	"RASCAL": {"heart": 0.03},
 	"SHADOW": {"every": 20.0, "invuln": 1.5},
+	"WOLF": {"every": 22.0, "speed": 0.2, "might": 0.15, "seconds": 5.0},
+	"BEAR": {"below": 0.4, "cd": 40.0, "radius": 120.0, "stun": 1.5, "armor": 3.0, "seconds": 6.0},
+	"LION": {"every": 18.0, "radius": 150.0, "slow": 0.5, "seconds": 2.0},
 	"SPARKY": {"below": 0.5, "cd": 45.0, "invuln": 2.0, "radius": 120.0, "slow": 0.5, "seconds": 3.0},
 }
 
@@ -145,6 +148,37 @@ func _physics_process(delta: float) -> void:
 					e.make_wet(value("seconds"))
 				_ring(value("radius"), Color("8fd3ff"))
 				_fire()
+		"WOLF":
+			# The howl: for a moment the pack's speed and bite.
+			if _t <= 0.0 and enemies.nearest(player.position, 200.0) != null:
+				_t = value("every")
+				player.bless({"speed": value("speed"), "might": value("might")}, value("seconds"), "INSTINCT_WOLF_NAME", Color("b8c0d0"))
+				_ring(90.0, Color("b8c0d0"))
+				_fire()
+				Audio.play("roar", -10.0, 0.6)
+		"BEAR":
+			# Hurt badly: a heavy swipe knocks everyone back, then thick fur.
+			if _t <= 0.0 and player.hp < player.max_hp * value("below"):
+				_t = value("cd")
+				for e in enemies.query_radius(player.position, value("radius")):
+					if not e.is_boss:
+						e._knock = (e.position - player.position).normalized() * 300.0
+					e.slow_down(0.2, value("stun"))
+				player.bless({"armor": value("armor")}, value("seconds"), "INSTINCT_BEAR_NAME", Color("a8784a"))
+				_ring(value("radius"), Color("a8784a"))
+				_fire()
+				Audio.play("roar", -6.0)
+		"LION":
+			# The roar: everything close is thrown back and slowed.
+			if _t <= 0.0 and enemies.nearest(player.position, value("radius")) != null:
+				_t = value("every")
+				for e in enemies.query_radius(player.position, value("radius")):
+					if not e.is_boss:
+						e._knock = (e.position - player.position).normalized() * 220.0
+					e.slow_down(value("slow"), value("seconds"))
+				_ring(value("radius"), Color("f2c14e"))
+				_fire()
+				Audio.play("roar", -6.0, 0.2)
 		"SHADOW":
 			# Melts into the dark for a moment: nothing can touch her.
 			if _t <= 0.0 and enemies.nearest(player.position, 60.0) != null:

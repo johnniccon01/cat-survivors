@@ -3456,5 +3456,328 @@
         "look": "fire"
       }
     ]
+  },
+  "SAVE_THE_TREES": {
+    "stage": "FOREST_EDGE",
+    "reward": {
+      "gold": 3100
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 4,
+        "hold": 4,
+        "radius": 40,
+        "spread": [
+          200,
+          360
+        ],
+        "look": "flower"
+      },
+      {
+        "type": "boss",
+        "enemy": "BIG_SAW",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "LOST_PIGLETS": {
+    "stage": "FOREST_EDGE",
+    "reward": {
+      "gold": 3100
+    },
+    "steps": [
+      {
+        "type": "trail",
+        "count": 6,
+        "spacing": [
+          150,
+          210
+        ],
+        "look": "pawprints"
+      },
+      {
+        "type": "chase",
+        "enemy": "PIGLET",
+        "times": 3,
+        "hp_mult": 4.0
+      }
+    ]
+  },
+  "HOLLOW_OAK": {
+    "stage": "FOREST_EDGE",
+    "secret": {
+      "type": "far",
+      "distance": 9000,
+      "dark_from": 2000
+    },
+    "reward": {
+      "gold": 4700
+    },
+    "steps": [
+      {
+        "type": "boss",
+        "enemy": "RABBIT_KING",
+        "hp_mult": 3.0,
+        "look": "hole",
+        "dark": true,
+        "distance": 260
+      }
+    ]
+  },
+  "HOWL_AT_NIGHT": {
+    "stage": "DEEP_WOODS",
+    "reward": {
+      "gold": 3200
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 3,
+        "hold": 5,
+        "radius": 40,
+        "spread": [
+          200,
+          340
+        ],
+        "look": "moon"
+      },
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "YOUNG_WOLF",
+        "spawn_every": 3.0,
+        "spawn_count": 3,
+        "look": "moon"
+      }
+    ]
+  },
+  "MUSHROOM_RING": {
+    "stage": "DEEP_WOODS",
+    "reward": {
+      "gold": 3200
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "flower",
+        "count": 5,
+        "spread": [
+          200,
+          420
+        ],
+        "deliver": true,
+        "look_to": "basket"
+      },
+      {
+        "type": "boss",
+        "enemy": "NIGHT_OWL",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "WOLF_DEN": {
+    "stage": "DEEP_WOODS",
+    "secret": {
+      "type": "trail",
+      "legs": 12,
+      "leg": [
+        380,
+        560
+      ],
+      "start": [
+        300,
+        450
+      ]
+    },
+    "reward": {
+      "gold": 4800
+    },
+    "steps": [
+      {
+        "type": "defend",
+        "time": 40,
+        "mode": "enemies",
+        "enemy": "YOUNG_WOLF",
+        "spawn_every": 3.0,
+        "spawn_count": 3,
+        "look": "lantern"
+      },
+      {
+        "type": "boss",
+        "enemy": "HORNET_NEST",
+        "hp_mult": 3.0,
+        "look": "x",
+        "distance": 240
+      }
+    ]
+  },
+  "STEPPING_STONES": {
+    "stage": "SWAMP",
+    "reward": {
+      "gold": 3300
+    },
+    "steps": [
+      {
+        "type": "trail",
+        "count": 6,
+        "spacing": [
+          150,
+          210
+        ],
+        "look": "pawprints"
+      },
+      {
+        "type": "boss",
+        "enemy": "BOG_TOAD",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "MARSH_LIGHTS": {
+    "stage": "SWAMP",
+    "reward": {
+      "gold": 3300
+    },
+    "steps": [
+      {
+        "type": "collect",
+        "item": "lantern",
+        "count": 5,
+        "spread": [
+          200,
+          420
+        ],
+        "deliver": true,
+        "look_to": "pond"
+      },
+      {
+        "type": "chase",
+        "enemy": "TOAD",
+        "times": 3,
+        "hp_mult": 4.0
+      }
+    ]
+  },
+  "SUNKEN_LOG": {
+    "stage": "SWAMP",
+    "secret": {
+      "type": "far",
+      "distance": 9000,
+      "dark_from": 2000
+    },
+    "reward": {
+      "gold": 4900
+    },
+    "steps": [
+      {
+        "type": "boss",
+        "enemy": "SWAMP_EEL",
+        "hp_mult": 3.0,
+        "look": "hole",
+        "dark": true,
+        "distance": 260
+      }
+    ]
+  },
+  "BROKEN_DAM": {
+    "stage": "WATERFALL",
+    "reward": {
+      "gold": 3400
+    },
+    "steps": [
+      {
+        "type": "carry",
+        "item": "rope",
+        "to_distance": [
+          450,
+          650
+        ],
+        "time": 70,
+        "look_to": "raft"
+      },
+      {
+        "type": "defend",
+        "time": 35,
+        "mode": "enemies",
+        "enemy": "SALMON",
+        "spawn_every": 2.5,
+        "spawn_count": 5,
+        "look": "raft"
+      }
+    ]
+  },
+  "UPSTREAM": {
+    "stage": "WATERFALL",
+    "reward": {
+      "gold": 3400
+    },
+    "steps": [
+      {
+        "type": "zones",
+        "count": 4,
+        "hold": 4,
+        "radius": 40,
+        "spread": [
+          200,
+          360
+        ],
+        "look": "pond"
+      },
+      {
+        "type": "boss",
+        "enemy": "KING_SALMON",
+        "hp_mult": 2.0,
+        "look": "x",
+        "distance": 240,
+        "after_minute": 5
+      }
+    ]
+  },
+  "BEHIND_THE_FALLS": {
+    "stage": "WATERFALL",
+    "secret": {
+      "type": "trail",
+      "legs": 12,
+      "leg": [
+        380,
+        560
+      ],
+      "start": [
+        300,
+        450
+      ]
+    },
+    "reward": {
+      "gold": 5000
+    },
+    "steps": [
+      {
+        "type": "defend",
+        "time": 40,
+        "mode": "enemies",
+        "enemy": "BEAR_CUB",
+        "spawn_every": 3.5,
+        "spawn_count": 2,
+        "look": "lantern"
+      },
+      {
+        "type": "boss",
+        "enemy": "RIVER_OTTER",
+        "hp_mult": 3.0,
+        "look": "x",
+        "distance": 240
+      }
+    ]
   }
 }

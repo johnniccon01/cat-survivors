@@ -456,5 +456,61 @@
     "npc": true,
     "home": "GENERAL_KENNEL",
     "home_bonus": {}
+  },
+  "WOLF": {
+    "species": "wolf",
+    "fur": "#8a8a94",
+    "dark": "#4a4a52",
+    "belly": "#d8d8dc",
+    "eyes": "#e8c02a",
+    "fluffy": true,
+    "size": 1.2,
+    "weapon": "SCRATCH",
+    "bonus": {
+      "speed": 0.1,
+      "might": 0.1
+    },
+    "unlock": "WOLF",
+    "home": "DEEP_WOODS",
+    "home_bonus": {
+      "speed": 0.1
+    }
+  },
+  "BEAR": {
+    "species": "bear",
+    "fur": "#7a5a3a",
+    "dark": "#4a3420",
+    "belly": "#c8a070",
+    "eyes": "#2a1a10",
+    "size": 1.45,
+    "weapon": "PAW_STOMP",
+    "bonus": {
+      "max_hp": 40,
+      "armor": 1,
+      "speed": -0.1
+    },
+    "unlock": "BEAR",
+    "home": "BURNT_CLEARING",
+    "home_bonus": {
+      "max_hp": 20
+    }
+  },
+  "LION": {
+    "species": "lion",
+    "fur": "#d8a850",
+    "dark": "#8a5a2a",
+    "belly": "#f0d8a0",
+    "eyes": "#a86a1a",
+    "size": 1.4,
+    "weapon": "PURR",
+    "bonus": {
+      "might": 0.15,
+      "area": 0.1
+    },
+    "unlock": "LION",
+    "home": "COMPANY_LAB",
+    "home_bonus": {
+      "might": 0.1
+    }
   }
 }

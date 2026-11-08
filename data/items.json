@@ -96,6 +96,10 @@
     "SHOW_SASH": { "slot": "VEST", "boss": "AFGHAN_DIVA", "color": "#c0392b", "stats": { "luck": 0.15, "growth": 0.12 } },
     "COLONEL_HELMET": { "slot": "HAT", "boss": "COLONEL_MASTIFF", "color": "#6a6a4a", "stats": { "armor": 2.0, "max_hp": 30.0 } },
     "GENERAL_MEDAL": { "slot": "COLLAR", "boss": "GENERAL", "color": "#f2c14e", "stats": { "might": 0.12, "area": 0.08, "boss_damage": 0.1 } },
+    "BOAR_TUSK": { "slot": "COLLAR", "boss": "GREAT_BOAR", "color": "#e8e4dc", "stats": { "might": 0.1, "thorns": 0.2 } },
+    "WOLF_PELT": { "slot": "VEST", "boss": "WOLF_LEADER", "color": "#5a5a64", "stats": { "speed": 0.1, "crit_chance": 0.06 } },
+    "MUD_MASK": { "slot": "HAT", "boss": "GIANT_BADGER", "color": "#6a5a3a", "stats": { "armor": 2.0, "regen": 0.4 } },
+    "BEAVER_CROWN": { "slot": "HAT", "boss": "BEAVER_QUEEN", "color": "#f2c14e", "stats": { "area": 0.1, "max_hp": 30.0 } },
     "SOUL_BELL": { "slot": "COLLAR", "boss": "", "special": true, "color": "#9a7aff", "stats": {} }
   }
 }

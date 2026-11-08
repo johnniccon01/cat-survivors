@@ -67,9 +67,13 @@ const LANES := {
 	"agility": [2.0, 0, 0.0, "AGILITY_WARNING"],
 	"spotlight": [3.0, 5, 8.0, "SPOTLIGHT_WARNING"],
 	"march": [2.6, 0, 0.0, "MARCH_WARNING"],
+	"logs": [2.4, 4, 12.0, "LOGS_WARNING"],
+	"wolfpack": [2.0, 0, 0.0, "WOLFPACK_WARNING"],
+	"bog": [2.8, 5, 10.0, "BOG_WARNING"],
+	"salmon": [2.0, 0, 0.0, "SALMON_WARNING"],
 }
 ## Lane hazards where dogs charge down the lane instead of a train.
-const RUNNERS := {"race": "GREYHOUND", "patrol": "DOBERMAN", "agility": "STRAY_DOG", "march": "PATROL_DOG"}
+const RUNNERS := {"race": "GREYHOUND", "patrol": "DOBERMAN", "agility": "STRAY_DOG", "march": "PATROL_DOG", "wolfpack": "YOUNG_WOLF", "salmon": "SALMON"}
 const CRANE_FIRST := 30.0
 const CRANE_EVERY := Vector2(18.0, 28.0)
 const CRANE_WARN := 2.6
@@ -192,7 +196,7 @@ func phase() -> String:
 func _physics_process(delta: float) -> void:
 	_t += delta
 	match kind:
-		"train", "flood", "shunting", "blowdry", "hose", "race", "patrol", "avalanche", "agility", "spotlight", "march":
+		"train", "flood", "shunting", "blowdry", "hose", "race", "patrol", "avalanche", "agility", "spotlight", "march", "logs", "wolfpack", "bog", "salmon":
 			_tick_train(delta)
 		"crane":
 			_tick_crane(delta)
@@ -451,7 +455,7 @@ func _view() -> Rect2:
 
 func _draw() -> void:
 	match kind:
-		"train", "flood", "shunting", "blowdry", "hose", "race", "patrol", "avalanche", "agility", "spotlight", "march":
+		"train", "flood", "shunting", "blowdry", "hose", "race", "patrol", "avalanche", "agility", "spotlight", "march", "logs", "wolfpack", "bog", "salmon":
 			_draw_train()
 		"crane":
 			_draw_crane()
@@ -558,7 +562,7 @@ func _draw_train() -> void:
 			var p := at + Vector2(_dir * i * 22.0, 0.0)
 			draw_colored_polygon(PackedVector2Array([p + Vector2(-_dir * 8.0, -10.0), p + Vector2(_dir * 8.0, 0.0), p + Vector2(-_dir * 8.0, 10.0)]), Color(1.0, 0.3, 0.2, 0.4 + 0.6 * k))
 		return
-	if kind in ["flood", "blowdry", "hose", "avalanche", "spotlight"]:
+	if kind in ["flood", "blowdry", "hose", "avalanche", "spotlight", "logs", "bog"]:
 		_draw_wave(view)
 		return
 	if RUNNERS.has(kind):
@@ -621,7 +625,7 @@ func _draw_wave(view: Rect2) -> void:
 	if x1 <= x0:
 		return
 	var band := Rect2(x0, _lane_y - TRAIN_HALF, x1 - x0, TRAIN_HALF * 2.0)
-	var water := FloorChunk.art({"flood": "terrain_sewage", "hose": "terrain_water"}.get(kind, "none"))
+	var water := FloorChunk.art({"flood": "terrain_sewage", "hose": "terrain_water", "bog": "terrain_sewage"}.get(kind, "none"))
 	if water != null:
 		texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
 		draw_texture_rect_region(water, band, Rect2(band.position + Vector2(-_t * 140.0 * _dir, 0), band.size), Color(1, 1, 1, 0.92))
@@ -632,6 +636,8 @@ func _draw_wave(view: Rect2) -> void:
 			tint = Color(0.95, 0.97, 1.0, 0.9)
 		elif kind == "spotlight":
 			tint = Color(1.0, 0.95, 0.6, 0.4 + 0.1 * sin(_t * 9.0))
+		elif kind == "logs":
+			tint = Color(0.45, 0.3, 0.18, 0.95)
 		draw_rect(band, tint)
 	# Foam where it breaks, and spray.
 	for k in 9:

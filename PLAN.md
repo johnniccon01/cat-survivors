@@ -1,42 +1,107 @@
 # Plán – Cat Survivors
 
-Živý zoznam toho, čo je hotové, čo robíme teraz a čo príde. Po každom kroku
-ho aktualizujeme: hotové odškrtneme `[x]`, nové nápady pridáme do Zásobníka.
+Živý zoznam toho, čo je hotové, čo je nedorobené a čo sa ešte nerobilo. Po každom kroku ho aktualizujeme.
 
-Naposledy aktualizované: 31. 10. 2026 (krátkodobý plán – časť 1 hotový)
+Naposledy aktualizované: 8. 11. 2026 – celý plán prejdený a **overený s hrou** (počty z `data/*.json`, funkcie v kóde, nástroje v `tools/`).
+
+**Značky:** `[x]` hotové · `[~]` nedorobené (časť je v hre, niečo chýba) · `[ ]` nerobené · `[?]` čaká na tvoje hranie alebo rozhodnutie.
 
 ---
 
-## Kde sme
+## Kde sme (overené 8. 11. 2026)
 
-Hra je hrateľná od menu po koniec noci na 7 mapách:
+| Čo | V hre | Pôvodný cieľ |
+|---|---|---|
+| Štvrte | 4: Mačacie mesto (15 máp), Psie štvrte (16), Divočina (12), Firma (4) | – |
+| Mapy | **47**, každá s finálnym bossom | 12+ ✓ |
+| Hrateľné postavy | **25** (19 mačiek, pes Ruby, mýval Lotor, Vlk, Medveď, Lev, + tajní Anjel a Diabol) a 6 postáv len do príbehov | 20 ✓ |
+| Zbrane | **30** základných + 30 evolúcií, 18 zbraní s vetvami (3 vetvy) | 30 ✓ |
+| Pasívky | **20** | 20 ✓ |
+| Nepriatelia / bossovia | 93 bežných, **158** bossov (47 finálnych) | 60 bossov ✓ |
+| Príbehy | **173** (363 krokov, 42 tajných) + 19 questov mačiek, 7 vedľajších, 7 príbehových | 150+ ✓ |
+| Kniha questov | 83 línií | – |
+| Meta | 46 úspechov, 33 cieľov, 29 artefaktov, 30 talizmanov, 16 vylepšení v obchode, 8 prekliatí, 6 šampiónov, 22 pascí, 4 psí parťáci | – |
+| Výbava | 5 slotov, 4 rarity (bežná, vzácna, legendárna, snová), 40 základov, 48 legendárok, 15 vlastností, 3 snové sety | pozri Výbava nižšie |
+| Endgame | Mačacie sny: hĺbka, úlomky, nočné mory, snové body | – |
+| Jazyky | 6: EN, SK, CS, ES, RU, ZH | – |
+| Testy | ~480 scenárov v `tools/run_checks.sh`, kampaň, kontrola zaseknutí, kontrola textov a rozloženia | – |
+| Vývoj | Dev launcher (questy, mapy, bossovia, laboratórium), F1 panel so záložkami | – |
+| Export | `builds/CatSurvivors.exe` + testovacie zipy pre testerov (23. 10. – 6. 11.) | – |
 
-- **Mapy:** Byt → Pivnica → Záhrada → Strecha → Supermarket → Prístav → Továreň (každá sa odomkne porazením
-  finálneho bossa predchádzajúcej), každá s vlastnou podlahou, nábytkom,
-  nepriateľmi, bossmi, pascami a hudbou. Od 3. mapy majú terén: Záhrada stromy, Strecha múriky,
-  Supermarket úzku uličku, Prístav príliv, Továreň pohyblivé pásy.
-- **Mačky:** 11 hrateľných (Mica, Luna, Snehulka, Mrňa, Tiger, Barón,
-  Ďatelinka, Bruno, Tučko, Kapitán, Šrubka) + 2 tajné (anjel, diabol).
-- **Boj:** 16 zbraní s evolúciami a vetvami, 12 pasív, kritické zásahy a šťastie,
-  čísla poškodenia, zásahové efekty, otrasy.
-- **Priebeh noci:** rozpočet nepriateľov s krivkou intenzity, oddychy,
-  udalosti (kruhy, roje), elity, bossovia, finálny boss, mačacie dvierka na
-  útek, série výhier.
-- **Questy:** 45 príbehov (3 na každú mapu, 3 cez všetky mapy, 10 samostatných, tajomstvo na každej mape) s voľbami a trvalými zmenami máp, záchrany a súboje mačiek, príbehový quest na každej mape, 7 druhov vedľajších úloh.
-- **Meta:** zlato, obchod s vylepšeniami, charmy, 29 artefaktov, 40 úspechov, dlhodobé ciele, kniha questov, výzvy, nekonečná noc.
-- **Tajomstvo:** anjel ťa na streche po 15. minúte s malou šancou zachráni;
-  po dvoch záchranách príde diabol, ktorý zabije isto.
-- **Technika:** menu, nastavenia, pauza, SK/EN/CS, gamepad, pixel-art sprity, 147
-  automatických testov vrátane celých nocí na každej mape (`tools/run_checks.sh`), spúšťače v `Spustit\`.
+---
 
-## Teraz
+## Čaká na teba (hranie a spätná väzba)
 
-- [ ] Zahrať nové príbehy, Továreň a nové zbrane a dať spätnú väzbu (obtiažnosť questov, sila artefaktov)
+Toto sa nedá overiť botom – treba zahrať a povedať. Zoradené od najdôležitejšieho.
 
-- [ ] Vyskúšať novú obtiažnosť, anjela a diabla (`Spustit\4 Test anjel a diabol.bat`) a dať spätnú väzbu
-- [x] Pushnúť posledné commity na GitHub – odteraz sa pushuje po každom otestovanom kroku
-- [ ] Vyskúšať novú Smrť (F1 → „Death now“), Mrazenú rybku, nové svätyne a vyhadzovanie zbraní v pauze
-- [ ] Rozhodnúť: zlúčiť charmy, artefakty a výbavu do menej systémov? (otázka z 28. 10.)
+- [?] **Nové UI** (8. 11.) – HUD, pauza, koniec noci, obchod, denník, level-up, mapa mesta: zahrať a povedať, čo prekáža
+- [?] **Dev launcher** (`Spustit\8`) – prejsť questy a bossov, ktoré si ešte nevidel
+- [?] **Obtiažnosť** jednotlivých máp a štvrtí (v poslednej kampani bot prehral len Snežný kopec a Garáž strojov, tesne)
+- [?] Sily: ceny v obchode, talizmany, artefakty, dary svätýň, veľká truhlica bossa – nie je niečo príliš silné alebo zbytočné?
+- [?] Čitateľnosť špeciálnych útokov bossov (férové, vidno varovanie?)
+- [?] Terén: šírka uličky v Supermarkete, frekvencia prílivu (konštanty v `scripts/world/terrain.gd`)
+- [?] Tajné príbehy: vzdialenosti 7000 / 9000 px, sila ich bossov
+- [?] Túlavec: nie je na začiatku priťažký?
+- [?] Hudba: spätná väzba na skladby (ja ich nepočujem)
+- [?] Výkon na notebooku: zahrať noc a poslať `perf.log`
+- [?] Gamepad v nových obrazovkách (tlačidlá sú klikateľné, ovládačom netestované)
+
+## Nedorobené
+
+- [~] **Balans neskorých zbraní** – melee/aura evolúcie (Tigrie pazúry, Šantová záhrada, Kostený kolotoč, Monzún) dávajú v neskorej hre menej než ostatné (podľa bota, `tools/weapons_test.sh`)
+- [~] **Finále hry** – koniec je v súhrne noci ako text; záverečná scéna s titulkami chýba
+- [~] **Grafika** – podlahy, nábytok, nepriatelia, bossovia, mačky, terén, pasce a mapy štvrtí sú v pixel-arte. Ikony zbraní a pasív, strely a efekty zbraní sú stále kreslené kódom (vektorovo). Možný ďalší krok: skúška jednej mapy v Blenderi.
+- [~] **Výbava** (malá verzia hotová, veľký návrh v `INVENTAR.md`):
+  - [x] 5 slotov, 40 základov, 48 legendárok z finálnych bossov, studňa prianí, sklad 40, kreslenie na mačke, snová rarita a 3 snové sety
+  - [ ] 12 slotov (dnes 5), 6 rarít (dnes 4), ~40 vlastností (dnes 15), 180+ základov, 12+ setov
+  - [ ] Vlastnosti špecifické pre zbrane a mačky
+  - [ ] Úroveň predmetu podľa mapy a temnoty
+  - [ ] Každá mačka vlastnú nasadenú výbavu (dnes je výbava spoločná pre všetky mačky)
+  - [ ] Kováč / dielňa (vylepšenie, prehodenie vlastnosti, rozobratie), obchodník s výbavou
+  - [ ] Druhy materiálov (dnes jeden „Stavebný materiál“ na domčeky)
+- [~] **Uloženie hry** – záloha profilu pred každým uložením je hotová; verzia profilu a migrácia starších uložení chýba (dôležité pred vydaním)
+- [~] **Terén** – stromy, múriky, ulička, príliv, pásy, izby so stenami (Byt, Pivnica) a špeciality máp sú hotové; nápady navyše (lisy v Továrni, padajúce regále, mosty cez vodu) nie
+- [~] **Mačacie sny** – všetko z časti 6 hotové okrem týždenného snu (nechané na prípravu na Steam)
+
+## Nerobené
+
+- [ ] **Aktívna schopnosť mačky** (jedno tlačidlo, cooldown) – dnes majú mačky len inštinkty, ktoré sa spúšťajú samé
+- [ ] **Krotenie** – pôvodný návrh sa nepáčil, treba vymyslieť inak (bez ďalšej postavy na obrazovke)
+- [ ] **Dielňa v štvrti** – výroba vylepšení zo surovín (materiál sa dnes míňa len na domčeky)
+- [ ] **Psy a zvieratá hrajú inak** – Ruby, Vlk, Medveď, Lev a Lotor sú hrateľní, ale hrajú sa ako mačky (len iný bonus a vzhľad); návrh: viac zdravia, útoky zblízka, štekot, čuch
+- [ ] **Kozmetika** pre mačky za zlato
+- [ ] **Balík / DLC** – rozdelenie psích a ďalších štvrtí do balíka (`pack`) sa nerobilo
+
+## Otvorené otázky (rozhoduješ ty)
+
+- [?] Co-op pre dvoch hráčov – áno alebo nie?
+- [?] Vydanie: len pre seba, itch.io alebo Steam? Psie štvrte a ďalšie ako súčasť hry alebo DLC?
+- [?] Zlúčiť talizmany, artefakty a výbavu do menej systémov? (otázka z 28. 10.)
+- [?] Dev nástroje (launcher, F1) sú len v ladiacej verzii – vo vydanej hre ich nevidno; odstrániť úplne alebo nechať?
+
+## Zrušené alebo nahradené
+
+- Pôvodná „3. štvrť s psami ako hrateľnými postavami“ → nahradená Divočinou a Firmou; psi sú parťáci (Ruby, Barney, Bodka, Generál) a Ruby je hrateľná
+- Dobývanie posúvaním hranice → nahradené vlajkami bossa (`dobytie-vlajky`)
+- Voľba „Pokojná štvrť“ → vyhodená, obliehanie je zriedkavé
+- Ciele „Viac obsahu než konkurencia“ (12 máp, 150 questov, 60 bossov, 30 zbraní, 20 mačiek) → všetky splnené, pozri tabuľku hore
+
+---
+
+# História (čo sa robilo, od najnovšieho)
+
+Staré časti nižšie ostávajú ako záznam. Body, ktoré v nich ostali otvorené, sú presunuté hore do stavu a v histórii sú označené `[→]`.
+
+## 8. 11. 2026: vývojárska konzola (hotové)
+- [x] Dev launcher (DEV v menu, `--dev-launcher`, `Spustit\8`): každý quest pod svojou mapou → spustí sa na tej mape v minúte otvorenia s buildom; mapy v ľubovoľnej minúte, finále, nekonečná noc; každý boss na svojej mape; laboratórium; špeciálne udalosti. Nič sa neukladá.
+- [x] F1 panel so záložkami: Run (čas, rýchlosť, počasie, svätyne, pasce, level-up, truhla), Build (každá zbraň/pasívka/evolúcia/vetva, level hore-dole, uložiť „môj build“), Enemies (spawn ×1/5/20/100, figuríny, vlny vyp., DPS meter), Bosses, Quests.
+
+## 8. 11. 2026: nové UI (hotové)
+- [x] HUD: XP pruh, level, zdravie s číslom, väčšie sloty, pruh noci s bossmi, ikony vpravo, menšie oznámenia
+- [x] Pauza: karty zbraní, „Teraz“ a správy s časom, príbehy s pruhmi, klávesy; oznámenia sa počas pauzy skryjú
+- [x] Koniec noci: panel s dlaždicami, poškodenie podľa zbraní, klikateľné tlačidlá
+- [x] Obchod (karty s ikonami), denník (mapy vľavo, karty príbehov, filter), level-up (pruh vzácnosti, × v rohu, riadok „Máš“)
+- [x] Mapa mesta: klávesy ako klávesy, skupiny Mačka / Noc, štatistiky ako štítky, mriežka všetkých mačiek
 
 ## Krátkodobý plán – časť 6 (zadané 8. 11. 2026: endgame Mačacie sny, robí sa po časti 5)
 
@@ -119,7 +184,7 @@ Doplnok (31. 10. 2026, značka `pomniky`): dôchodok už nedáva percentá. Kaž
 8. [x] „Vzdať sa“ sa počíta ako smrť a berie život – život sa má stratiť len pri skutočnej smrti (hotové, značka `vzdat-bez-zivota`: odmeny ako pri smrti, ale život, hodnosť ani talent sa nestratí; test `career_give_up`).
 9. [x] Ukázať starú vs novú grafiku Bytu (1. 11.: rozdiel je naozaj malý – rovnaké farby, len jemnejšia textúra parkiet a dlažby, vzor koberca a kvetináč; ak má byť viditeľný, treba výraznejší štýl).
 10. [x] Vysvetliť brániť / dobyť / ako vyhrať (hotové, značka `ako-vyhrat`: v pravom paneli hneď pod obrázkom blok „Ako vyhrať túto noc" – výhra noci alebo podmienky prijatej úlohy a dobytie; tlačidlo Pomoc (H) s vysvetlením všetkých tabuliek na mape, dobytia a splnu).
-11. [ ] Byt prepracovať, aby nevyzeral prázdny a lacný (zadané 1. 11.; potom vonkajšie mapy s cestičkami). Krok 1 hotový (značka `byt-detaily`): drevené prahy s mosadznými skrutkami a tieň na hranici izieb, rohožky pri prechodoch, 10 druhov pixel-art drobností na zemi (ponožky, klbká, papuče, knihy, noviny, hračková myš, papierová guľa, granule, srsť), 3–6 na kus podlahy, škrabance na parketách, škvrny v kuchyni, vychodená cestička na koberci, mäkšie tiene nábytku, zostavy (gauč + stolík na koberci, posteľ + nočný stolík, stôl v kuchyni), pixel-art nábytok sa už neotáča. Ďalej: steny izieb s dverami (potrebujú kolíziu), lepšie svetlo, väčší a detailnejší nábytok.
+11. [→] Byt prepracovať, aby nevyzeral prázdny a lacný (zadané 1. 11.; potom vonkajšie mapy s cestičkami). Krok 1 hotový (značka `byt-detaily`): drevené prahy s mosadznými skrutkami a tieň na hranici izieb, rohožky pri prechodoch, 10 druhov pixel-art drobností na zemi (ponožky, klbká, papuče, knihy, noviny, hračková myš, papierová guľa, granule, srsť), 3–6 na kus podlahy, škrabance na parketách, škvrny v kuchyni, vychodená cestička na koberci, mäkšie tiene nábytku, zostavy (gauč + stolík na koberci, posteľ + nočný stolík, stôl v kuchyni), pixel-art nábytok sa už neotáča. Ďalej: steny izieb s dverami (potrebujú kolíziu), lepšie svetlo, väčší a detailnejší nábytok.
     - Krok 2 hotový (značka `byt-steny`): steny izieb s dverami (terén `rooms` – omietka, natretá stena so soklom, tieň, drevené zárubne; kolízia pre mačku aj nepriateľov; pri štarte noci nič), prah a rohožka presne v dverách.
     - Pivnica v štýle Bytu (značka `grafika-pivnica`, `tools/gen_basement.py`): pixel-art betón s prasklinami a škvrnami od oleja, dlaždice práčovne s mlákami, staré dosky skladu s pilinami; kotol, potrubie, bicykel, police so zaváraninami, debny, zakrytý gauč, práčka, sušiak, kopa prádla, plechovky farby; drobnosti skrutka, pohár, handra; betónové steny izieb s dverami. Ďalej: Záhrada (cestičky), Strecha, Supermarket, Prístav, Továreň.
     - Všetky ostatné mapy v pixel-arte (značka `grafika-vsetky-mapy`, `tools/gen_outdoor.py`): podlahy všetkých zón (tráva, záhon, kamenná cestička, lepenka a škridly strechy, terasa, dlažby obchodu, piesok, nábrežie, mólo, betón a plechy továrne, cintorín, hala, nástupište, koľajnice, skaly), 60 kusov nábytku (stromy, kríky, lavičky, klimatizácie, regály, mrazničky, slnečníky, sudy, stroje, náhrobky, krypta, automat, palmy, fontána…), drobnosti na zemi (lístie, kamienky, mušle, hviezdice, bločky…) a veľké stromy a kríky terénu. Ďalej: steny a regály terénu (Strecha, Supermarket, Stanica) a príliv/pásy v novom štýle.
@@ -162,15 +227,15 @@ Do dlhodobého plánu (nerobiť teraz): **Krotenie** – v tejto podobe sa nepá
 
 Najprv dotiahnuť to, čo už máme, kým pridáme ďalší obsah.
 
-- [ ] Obtiažnosť: doladiť rast poškodenia a HP nepriateľov podľa tvojich hier (každá mapa zvlášť)
+- [→] Obtiažnosť: doladiť rast poškodenia a HP nepriateľov podľa tvojich hier (každá mapa zvlášť)
 - [x] Okno „Čo je nové“ po aktualizácii, Denná noc (T), príbehy v Denníku podľa máp, príbehy mapy v pauze, tlačidlo „Story step now“ v dev paneli (F1), výber mačky pre 13+ mačiek, artefakty v 3 stĺpcoch
 - [x] Testy: `QUICK=1` (30 scenárov, ~1 min) medzi krokmi, celá sada (~9 min) na konci
 - [x] Začiatok neskorších máp ľahší: nepriatelia na mapách 2–7 majú na začiatku noci o 30 % menej zdravia a slabšie útoky, do 6. minúty sa to vyrovná
-- [ ] Ceny vylepšení v obchode a sila charmov – nie je niečo príliš silné alebo zbytočné?
+- [→] Ceny vylepšení v obchode a sila charmov – nie je niečo príliš silné alebo zbytočné?
 - [x] Výkon: 114–144 FPS v 17. minúte na Streche, stabilných 144 v nekonečnej noci so šampiónmi (RTX 4070 Ti, 144 Hz) – netreba optimalizovať
 - [x] Príbehové questy pre každú mapu: obojok (Byt) → stará mapa (Pivnica) → kľúč pod stromom (Záhrada) → Brunov odkaz (Strecha); quest Cesta nahor
 - [x] Hudba: dlhšie skladby máp (2–2,7 min), nočná skladba od polovice noci, vlastná hudba pre každého finálneho bossa a diabla
-- [ ] Hudba: tvoja spätná väzba na skladby (ja ich nepočujem)
+- [→] Hudba: tvoja spätná väzba na skladby (ja ich nepočujem)
 - [x] Texty: neutrálne oslovenie namiesto „Prežila si / Porazil si…“, meno mačky na víťaznej obrazovke, automatická kontrola prekladov
 
 ## Fáza 2 – Nový obsah
@@ -302,7 +367,7 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Menu: hviezdy a padajúce hviezdy, žiariaci nadpis, mačky prechádzajú po streche, tip na spodku
 - [x] Výber mačky: pozadie s mestom, bonusy mačky ako farebné štítky, zvýraznenie pod myšou, hviezdičky obtiažnosti a dĺžka noci, výraznejšie tlačidlo Hrať
 - [x] Kvalita talizmanov ★☆☆☆ až ★★★★ (každá hviezda +35 % účinku); lepší kúsok toho istého talizmanu vylepší tvoj namiesto zlata; šťastie zvyšuje šancu na lepšiu kvalitu
-- [ ] Predmety s náhodnými vlastnosťami (výbava ako v Death Must Die) – veľký systém, zatiaľ nie
+- [→] Predmety s náhodnými vlastnosťami (výbava ako v Death Must Die) – veľký systém, zatiaľ nie
 
 ## Výkon a svätyne (22. 10. 2026)
 
@@ -311,8 +376,8 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Bez zásekov: viewporty podlahy sa recyklujú (nový chunk 0,1 ms namiesto 2–8 ms), atlas spritov a skripty questov sa pripravia pri načítaní; `perf.log` zapisuje aj najdlhšiu snímku (`worst=`) za každých 10 s
 - [x] Nové testovacie prepínače: `--seed=N`, `--no-vsync`, `--shot=SEKUNDY` (screenshoty), `--show-choice`
 - [x] Svätyne ako v Death Must Die: po prebudení výber z 2–3 darov – prvý vždy bezpečný, ostatné silnejšie s cenou (krvavá prísaha, búrka, smotana, sladké ovocie = 2 levely za 40 % zdravia, chamtivosť, veľká kliatba so šampiónmi a truhlicou bossa); trvalé bonusy do konca noci; voľby aj myšou
-- [ ] Zahrať a povedať, či sú dary svätýň vyvážené
-- [ ] Výkon na notebooku: zahrať jednu noc a poslať `perf.log` (`%APPDATA%\Godot\app_userdata\Cat Survivors\perf.log`)
+- [→] Zahrať a povedať, či sú dary svätýň vyvážené
+- [→] Výkon na notebooku: zahrať jednu noc a poslať `perf.log` (`%APPDATA%\Godot\app_userdata\Cat Survivors\perf.log`)
 
 
 ## Spätná väzba z hrania (22. 10. 2026)
@@ -333,7 +398,7 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
   - Koniec záhrady (Záhrada): odíď 7000 px od štartu hocikam → stopy + Kráľ trpaslíkov
   - Tieňový pes (Pivnica): čím ďalej, tým tmavšie (od 1500 px), pri 9000 px boss pes v tme
   - Červená stopa (Prístav): dlhá krvavá stopa krížom-krážom (12 úsekov, ~5 500 px) → ochráň kocúra + boss Chobotnica
-- [ ] Overiť v hre: vzdialenosti (7000 / 9000 px), sila bossov, či Túlavec do 5. levelu nie je priťažký
+- [→] Overiť v hre: vzdialenosti (7000 / 9000 px), sila bossov, či Túlavec do 5. levelu nie je priťažký
 
 ## Ľahší Supermarket, sólo bossovia, odmietnutie svätyne (23. 10. 2026)
 
@@ -341,7 +406,7 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Bossovia z vĺn chodia po jednom: ďalší počká, kým predošlý nepadne (+6–12 s pauza)
 - [x] Supermarket: `damage_mult` 0,9, `challenge` 1,6 (bolo 1,7), zdravie vĺn od 7. minúty ~10 % nižšie (na konci 7,6 namiesto 8,5)
 - [x] Svätyňa: posledná voľba „Nežiadaj nič a odíď“ (panel volieb až 4 karty)
-- [ ] Overiť v hre: či je Supermarket teraz zvládnuteľný; bot v teste Holubieho cisára zbiera srdcia, takže úlohu nesplní (aj pred zmenou)
+- [→] Overiť v hre: či je Supermarket teraz zvládnuteľný; bot v teste Holubieho cisára zbiera srdcia, takže úlohu nesplní (aj pred zmenou)
 
 ## Obchodník, truhlice, Bruno, bossovia, strelci (23. 10. 2026)
 
@@ -354,7 +419,7 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
 - [x] Strážny pes: rýchlosť 80 (bolo 52), útoky skok + štekot + výpady
 - [x] Bežní strelci majú spoločný limit: ~1,6 strely/s a najviac 10 ich striel naraz
 - [x] Oprava chyby pri uvoľnenom bossovi vo vlnách (filter v spawner.gd)
-- [ ] Overiť v hre: či sú špeciálne útoky férové/čitateľné a či veľká truhlica nie je príliš silná
+- [→] Overiť v hre: či sú špeciálne útoky férové/čitateľné a či veľká truhlica nie je príliš silná
 
 ## Spätná väzba testerov (25. 10. 2026)
 
@@ -379,8 +444,8 @@ Potom: šablónové questy mačiek a počítadlá presunúť do časti Úspechy.
   - [x] **Prístav (6.) – dynamický príliv**: každých ~70 s varovanie, voda príde zhora aj zdola a stlačí všetkých na pás súše okolo mačky, po ~18 s odíde
   - [x] **Továreň (7.) – pohyblivé pásy**: pásy cez halu posúvajú mačku (a nepriateľov polovičnou rýchlosťou) do strán, susedné idú opačne a každých 25 s zmenia smer
   - [x] Karta mapy ukazuje, že mapa má prekážky; questy, svätyne, dvierka, pasce aj odmeny sa vždy položia na voľné miesto
-- [ ] Zahrať všetky tri a povedať, či je ulička príliš úzka a príliv príliš častý (konštanty hore v `terrain.gd`)
-- [ ] Ďalšie varianty: miestnosti v Pivnici (bludisko), lisy v Továrni, padajúce regále, mosty cez vodu
+- [→] Zahrať všetky tri a povedať, či je ulička príliš úzka a príliv príliš častý (konštanty hore v `terrain.gd`)
+- [→] Ďalšie varianty: miestnosti v Pivnici (bludisko), lisy v Továrni, padajúce regále, mosty cez vodu
 - [x] Dev panel (F1): **Silný build**, **Test bossa** (zoznam všetkých 40 bossov), **Boss rush** (všetci za sebou, 2 s pauza, liečenie), **Test questu** (všetky questy aj každý krok každého príbehu), **Terrain** (prepína terén na aktuálnej mape: žiadny → stromy → múriky → ulička → príliv → pásy); po prvom teste sa do reštartu nič neukladá
 - [x] Testy: `dev_boss_rush`, `dev_quests` (spustí všetkých 91 questov/krokov), `dev_boss_kraken`, 4 nové `secret_*`
 - [x] 4 nové príbehy pre mapy s terénom: Stará bylinkárka (Záhrada), Beh po múrikoch (Strecha), Rozliate mlieko (Supermarket), Vrecia s pieskom (Prístav)
@@ -404,36 +469,36 @@ predné labky (rukavičky), zadné labky (topánočky), chvost (stuha, krúžok)
 pazúry (návleky), batôžtek (taška na chrbte), 2 talizmany (dnešné charmy sa stanú talizmanmi).
 
 **Predmety:**
-- [ ] Rarity: bežný, neobvyklý, vzácny, epický, legendárny, mýtický (6) + unikáty s menom a príbehom
-- [ ] Minimálne **15 základných predmetov na slot = 180+** a k tomu **40+ unikátov** a **12+ setov** (napr. „Námornícky set“: obojok s kotvou, vesta, čiapka – bonus za 2/3 kusy)
-- [ ] Náhodné vlastnosti (affixy): 1–4 podľa rarity z ~40 vlastností (poškodenie, rýchlosť, oblasť, kritiky, život, brnenie, magnet, šťastie, chamtivosť, cooldown, projektily, trvanie, regenerácia, únik, odraz, jed, oheň, mráz, blesk, poškodenie bossom, poškodenie pri plnom živote, ...)
-- [ ] Vlastnosti špecifické pre zbrane („+1 klbko“, „škrabanec zasiahne 2×“) a pre mačky
-- [ ] Úroveň predmetu podľa mapy a temnoty; lepšie predmety na neskorších mapách
+- [→] Rarity: bežný, neobvyklý, vzácny, epický, legendárny, mýtický (6) + unikáty s menom a príbehom
+- [→] Minimálne **15 základných predmetov na slot = 180+** a k tomu **40+ unikátov** a **12+ setov** (napr. „Námornícky set“: obojok s kotvou, vesta, čiapka – bonus za 2/3 kusy)
+- [→] Náhodné vlastnosti (affixy): 1–4 podľa rarity z ~40 vlastností (poškodenie, rýchlosť, oblasť, kritiky, život, brnenie, magnet, šťastie, chamtivosť, cooldown, projektily, trvanie, regenerácia, únik, odraz, jed, oheň, mráz, blesk, poškodenie bossom, poškodenie pri plnom živote, ...)
+- [→] Vlastnosti špecifické pre zbrane („+1 klbko“, „škrabanec zasiahne 2×“) a pre mačky
+- [→] Úroveň predmetu podľa mapy a temnoty; lepšie predmety na neskorších mapách
 
 **Kde predmety padajú a čo s nimi:**
-- [ ] Počas noci: z bossov, elít, truhlíc a questov (predmet si odnesieš len cez dvierka alebo výhrou – ako dnes charmy)
-- [ ] Úkryt (domček) medzi nocami: **inventár** (mriežka, triedenie, porovnanie s nasadeným, zamknutie), **truhla** na sklad, **kováč/šijacia dielňa** (vylepšenie, prehodenie vlastnosti, rozobratie na materiál), **obchodník** s ponukou, ktorá sa mení
-- [ ] Každá mačka má vlastnú nasadenú výbavu; predmety sa dajú presúvať
-- [ ] Materiály: chlpy, nite, rybie šupiny, kovové skrutky (z máp podľa témy)
-- [ ] Bezpečnosť uloženia: verzia profilu, migrácia charmov na talizmany, záloha
+- [x] Počas noci: z bossov, elít, truhlíc a questov (predmet si odnesieš len cez dvierka alebo výhrou – ako dnes charmy) *(overené 8. 11.: v hre je)*
+- [→] Úkryt (domček) medzi nocami: **inventár** (mriežka, triedenie, porovnanie s nasadeným, zamknutie), **truhla** na sklad, **kováč/šijacia dielňa** (vylepšenie, prehodenie vlastnosti, rozobratie na materiál), **obchodník** s ponukou, ktorá sa mení
+- [→] Každá mačka má vlastnú nasadenú výbavu; predmety sa dajú presúvať
+- [→] Materiály: chlpy, nite, rybie šupiny, kovové skrutky (z máp podľa témy)
+- [→] Bezpečnosť uloženia: verzia profilu, migrácia charmov na talizmany, záloha
 
 **Technika (keď sa do toho pustíme):**
-- [ ] `data/items.json` (základné predmety, sety, unikáty), `data/affixes.json`
-- [ ] `scripts/progression/items.gd` (generovanie, hodnoty), `scripts/ui/inventory_panel.gd`, `Profile` – sklad a výbava každej mačky
-- [ ] Vzhľad: predmety sa kreslia na mačke (obojok, čiapka, topánočky) – aspoň obojok, čiapka a vesta
-- [ ] Testy: generovanie 10 000 predmetov bez chýb, uloženie/načítanie, migrácia starého profilu
+- [→] `data/items.json` (základné predmety, sety, unikáty), `data/affixes.json`
+- [→] `scripts/progression/items.gd` (generovanie, hodnoty), `scripts/ui/inventory_panel.gd`, `Profile` – sklad a výbava každej mačky
+- [→] Vzhľad: predmety sa kreslia na mačke (obojok, čiapka, topánočky) – aspoň obojok, čiapka a vesta
+- [→] Testy: generovanie 10 000 predmetov bez chýb, uloženie/načítanie, migrácia starého profilu
 
 ## Viac obsahu než konkurencia (cieľ)
 
-- [ ] Mapy: dnes 7 (z toho 5 s terénom: stromy, múriky, ulička, príliv, pásy) → cieľ **12+**: Pivnica-bludisko, Les (stromy hustejšie, rúbanisko), Kanál (úzke chodby, voda), Cintorín (náhrobky, hmla), Vlak (ide len doprava, vagóny), Zasnežené mesto (ľad, kĺzanie)
-- [ ] Questy: dnes 91 questov a krokov príbehov → cieľ **150+**; nové typy krokov: únik pred niečím, ochrana pohyblivého cieľa, hádanka (spínače v poradí), preteky na čas, stealth v tme
-- [ ] Bossovia: dnes 40 → cieľ 60, každý s aspoň 2 špeciálnymi útokmi (otestovať boss rushom)
-- [ ] Zbrane: dnes 16 základných + evolúcie → cieľ 30
-- [ ] Mačky: dnes 11 + 2 tajné → cieľ 20
+- [→] Mapy: dnes 7 (z toho 5 s terénom: stromy, múriky, ulička, príliv, pásy) → cieľ **12+**: Pivnica-bludisko, Les (stromy hustejšie, rúbanisko), Kanál (úzke chodby, voda), Cintorín (náhrobky, hmla), Vlak (ide len doprava, vagóny), Zasnežené mesto (ľad, kĺzanie)
+- [→] Questy: dnes 91 questov a krokov príbehov → cieľ **150+**; nové typy krokov: únik pred niečím, ochrana pohyblivého cieľa, hádanka (spínače v poradí), preteky na čas, stealth v tme
+- [→] Bossovia: dnes 40 → cieľ 60, každý s aspoň 2 špeciálnymi útokmi (otestovať boss rushom)
+- [→] Zbrane: dnes 16 základných + evolúcie → cieľ 30
+- [→] Mačky: dnes 11 + 2 tajné → cieľ 20
 
 ## Fáza 3 – Grafika a zvuk
 
-- [ ] Sprity aj pre nábytok, podlahy, zbrane a projektily (teraz sú kreslené vektorovo)
+- [→] Sprity aj pre nábytok, podlahy, zbrane a projektily (teraz sú kreslené vektorovo)
 - [x] Animácia smrti (nepriateľ sa sploští, vyskočí, otočí a zbledne) a hviezdička pri kritickom zásahu
 - [x] Obrázok v hlavnom menu (nočné mesto, mesiac, mačky)
 - [x] Ikona hry: Micina hlava v pixel-arte (tools/gen_icon.py); .ico pre .exe pri exporte
@@ -442,7 +507,7 @@ pazúry (návleky), batôžtek (taška na chrbte), 2 talizmany (dnešné charmy 
 ## Fáza 4 – Pred vydaním
 
 - [x] Dev panel (F1), ladiaci riadok a všetky prepínače (`--...`) fungujú len v ladiacej verzii; vydaná verzia ich ignoruje
-- [ ] Export: samostatný Windows `.exe`, otestovať na inom počítači
+- [x] Export: samostatný Windows `.exe`, otestovať na inom počítači *(overené 8. 11.: `builds/CatSurvivors.exe` a testovacie zipy pre testerov)*
 - [x] Gamepad: ľavá páčka, Start, šípky, A potvrdí, B späť – overené automatickým testom (opravené: A v menu predtým nefungovalo)
 - [x] Zmena kláves pohybu v Nastaveniach (šípky a ovládač fungujú vždy), návrat na WASD
 - [x] Čeština ako tretí jazyk (747 textov); ďalšie jazyky = nový stĺpec v translations.csv
@@ -536,13 +601,13 @@ Pravidlá: hviezdy, odomknutia a príbehy sa nikdy nestratia; najviac 2 hrozby n
 
 Každá sa dá urobiť malá v 1. štvrti a neskôr rozšíriť (psie štvrte, nové mapy).
 
-- [ ] **Aktívna schopnosť mačky** (jedno tlačidlo, cooldown): Mica skok, Tiger rev, Snehulka zamrazenie… Neskôr psy: štekot, čuch, privolanie svorky. Dnes má mačka len pasívny bonus.
-- [ ] **Počasie v noci:** dážď (pomalší nepriatelia, mláky), vietor (odfúkne projektily a granuly), búrka (blesky do nepriateľov aj do mačky), hmla. Náhodne alebo podľa mapy; každá nová štvrť pridá svoje.
-- [ ] **Spojenia zbraní:** dve konkrétne zbrane naraz dajú bonus navyše (napr. Mrazená rybka + blesk = rozbitie ľadu). Nie evolúcia, len spoločný efekt; ľahko sa pridávajú ďalšie dvojice.
-- [ ] **Deväť životov:** každá mačka má 9 životov na celú hru; smrť jeden zoberie a dá malý trvalý bonus („jazva"), stratené životy sa dajú vrátiť v štvrti. Dáva smrti zmysel a príbeh mačky.
-- [ ] **Krotenie:** oslabeného elitného nepriateľa chytíš (podržíš tlačidlo) a do konca noci bojuje za teba. V psej štvrti hlavná mechanika (získavanie psov do svorky).
-- [ ] **Dielňa v štvrti:** z nocí nosíš suroviny (klbká, kosti, skrutky), obyvatelia z nich vyrábajú vylepšenia výbavy. Každá štvrť nové suroviny a recepty.
-- [ ] **Prekliatia za odmenu:** pred nocou si zoberieš 1–3 prekliatia (rýchlejší nepriatelia, menej liečenia…) za viac zlata a lepšiu korisť. Jednoduchý spôsob, ako zvýšiť obtiažnosť pre skúsených.
+- [→] **Aktívna schopnosť mačky** (jedno tlačidlo, cooldown): Mica skok, Tiger rev, Snehulka zamrazenie… Neskôr psy: štekot, čuch, privolanie svorky. Dnes má mačka len pasívny bonus.
+- [x] **Počasie v noci:** dážď (pomalší nepriatelia, mláky), vietor (odfúkne projektily a granuly), búrka (blesky do nepriateľov aj do mačky), hmla. Náhodne alebo podľa mapy; každá nová štvrť pridá svoje. *(overené 8. 11.: v hre je)*
+- [x] **Spojenia zbraní:** dve konkrétne zbrane naraz dajú bonus navyše (napr. Mrazená rybka + blesk = rozbitie ľadu). Nie evolúcia, len spoločný efekt; ľahko sa pridávajú ďalšie dvojice. *(overené 8. 11.: v hre je)*
+- [x] **Deväť životov:** každá mačka má 9 životov na celú hru; smrť jeden zoberie a dá malý trvalý bonus („jazva"), stratené životy sa dajú vrátiť v štvrti. Dáva smrti zmysel a príbeh mačky. *(overené 8. 11.: v hre je)*
+- [→] **Krotenie:** oslabeného elitného nepriateľa chytíš (podržíš tlačidlo) a do konca noci bojuje za teba. V psej štvrti hlavná mechanika (získavanie psov do svorky).
+- [→] **Dielňa v štvrti:** z nocí nosíš suroviny (klbká, kosti, skrutky), obyvatelia z nich vyrábajú vylepšenia výbavy. Každá štvrť nové suroviny a recepty.
+- [x] **Prekliatia za odmenu:** pred nocou si zoberieš 1–3 prekliatia (rýchlejší nepriatelia, menej liečenia…) za viac zlata a lepšiu korisť. Jednoduchý spôsob, ako zvýšiť obtiažnosť pre skúsených. *(overené 8. 11.: v hre je)*
 
 ## Psie štvrte (plán 30. 10. 2026, zatiaľ nerobíme – najprv dokončiť prvú štvrť)
 
@@ -550,12 +615,12 @@ Príbeh v troch štvrtiach: psy sú najprv nepriatelia, potom spojenci. 2. a 3. 
 
 1. **1. štvrť – Mačky doma (dnešná hra).** Domáce predmety, potkany, holuby… Dokončiť ako prvé.
 2. **2. štvrť – Psia štvrť (psy sú nepriatelia).** Prechod cez Stanicu. Mapy napr. Psí útulok, Mäsiareň, Výstavisko, Psí park, Kynologická stanica.
-   - [ ] Psí nepriatelia s vlastným správaním: svorky, ktoré obkľúčia; štekot privolá ďalších; útočníci, ktorí sa vrhnú; strážcovia územia. Pomocníci: blchy, poštár, psovod s kefou.
-   - [ ] Psí bossovia: buldog, ovčiak, chrt, jazvečík v norách, finále Vodca svorky – neporazíš ho navždy, získaš si ho (most do 3. štvrte).
-   - [ ] Jeden tajný hrateľný pes už v 2. štvrti (zachránené šteniatko), aby sa hráč tešil.
+   - [x] Psí nepriatelia s vlastným správaním: svorky, ktoré obkľúčia; štekot privolá ďalších; útočníci, ktorí sa vrhnú; strážcovia územia. Pomocníci: blchy, poštár, psovod s kefou. *(overené 8. 11.: v hre je)*
+   - [x] Psí bossovia: buldog, ovčiak, chrt, jazvečík v norách, finále Vodca svorky – neporazíš ho navždy, získaš si ho (most do 3. štvrte). *(overené 8. 11.: v hre je)*
+   - [x] Jeden tajný hrateľný pes už v 2. štvrti (zachránené šteniatko), aby sa hráč tešil. *(overené 8. 11.: v hre je)*
 3. **3. štvrť – Psy ako hrateľné postavy.**
-   - [ ] Psy sa hrajú inak ako mačky: viac zdravia, útoky zblízka, štekot (odtlačí), čuch (nájde poklady a questy), svorka (malí psí pomocníci). Mačky ostávajú rýchle, so šťastím, kritmi a uhýbaním.
-   - [ ] Nová hrozba pre mačky aj psy: psíčkari, pouliční zlodeji, odchytová služba.
+   - [→] Psy sa hrajú inak ako mačky: viac zdravia, útoky zblízka, štekot (odtlačí), čuch (nájde poklady a questy), svorka (malí psí pomocníci). Mačky ostávajú rýchle, so šťastím, kritmi a uhýbaním.
+   - [→] Nová hrozba pre mačky aj psy: psíčkari, pouliční zlodeji, odchytová služba.
 4. **Vydanie:** najprv itch.io (zadarmo/demo, spätná väzba), potom Steam so stránkou a wishlistami; psie štvrte ako súčasť hry alebo DLC – rozhodne sa pri vydaní.
 
 ## 1. 11. 2026: kompletný test hry od začiatku do konca
@@ -565,17 +630,6 @@ Príbeh v troch štvrtiach: psy sú najprv nepriatelia, potom spojenci. 2. a 3. 
 - `--end-shots=NAZOV` uloží všetky strany konečnej obrazovky, `--lang=sk` jazyk na jedno spustenie.
 - Opravené: posuvník na krátkej konečnej obrazovke, „bonus série +0 %", Úroveň/úr. v SK/CS, „Cooldown" v obchode, značka ponuky prekrývala „5 · Supermarket", odrezané názvy výbavy v slotoch, riadok dvierok sa prekrýval s questom/požehnaním v HUD, kombo Naháňačka (myšky teraz idú po cieli z lasera), Šantová záhrada a Tsunami silnejšie, testy kombá Signál a Naháňačka už nezávisia od náhody.
 - Na zváženie (balans podľa bota, nie hráča): smrti v 10.–19. min – Byt 3, Pivnica 20, Strecha 27, Supermarket 1; bez nákupov v obchode bot Továreň nevyhrá (R3000 má 90k HP). Melee/aura zbrane (Tigrie pazúry, Šantová záhrada, Kostený kolotoč, Monzún) dávajú v neskorej hre zlomok poškodenia ostatných evolúcií.
-
-## 8. 11. 2026: vývojárska konzola (hotové)
-- [x] Dev launcher (DEV v menu, `--dev-launcher`, `Spustit\8`): každý quest pod svojou mapou → spustí sa na tej mape v minúte otvorenia s buildom; mapy v ľubovoľnej minúte, finále, nekonečná noc; každý boss na svojej mape; laboratórium; špeciálne udalosti. Nič sa neukladá.
-- [x] F1 panel so záložkami: Run (čas, rýchlosť, počasie, svätyne, pasce, level-up, truhla), Build (každá zbraň/pasívka/evolúcia/vetva, level hore-dole, uložiť „môj build“), Enemies (spawn ×1/5/20/100, figuríny, vlny vyp., DPS meter), Bosses, Quests.
-
-## 8. 11. 2026: nové UI (hotové)
-- [x] HUD: XP pruh, level, zdravie s číslom, väčšie sloty, pruh noci s bossmi, ikony vpravo, menšie oznámenia
-- [x] Pauza: karty zbraní, „Teraz“ a správy s časom, príbehy s pruhmi, klávesy; oznámenia sa počas pauzy skryjú
-- [x] Koniec noci: panel s dlaždicami, poškodenie podľa zbraní, klikateľné tlačidlá
-- [x] Obchod (karty s ikonami), denník (mapy vľavo, karty príbehov, filter), level-up (pruh vzácnosti, × v rohu, riadok „Máš“)
-- [x] Mapa mesta: klávesy ako klávesy, skupiny Mačka / Noc, štatistiky ako štítky, mriežka všetkých mačiek
 
 ## Ako pracujeme
 

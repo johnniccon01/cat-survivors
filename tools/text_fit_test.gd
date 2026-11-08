@@ -71,7 +71,23 @@ func _in_game(tag: String) -> void:
 	await _frames(20)
 	var main := current_scene
 	var hud: Node = main.get("hud")
-	main.get("player").set("god", true)
+	var player: Node = main.get("player")
+	player.set("god", true)
+	# A full cat (the longest weapon and skill names fill the pause cards)
+	# and a few messages for the pause screen's list.
+	var data := root.get_node("GameData")
+	var ids: Array = data.weapons.keys().filter(func(id: String) -> bool: return not data.weapons[id].get("evolved", false))
+	ids.sort_custom(func(a: String, b: String) -> bool: return TranslationServer.translate("WEAPON_%s_NAME" % a).length() > TranslationServer.translate("WEAPON_%s_NAME" % b).length())
+	for id: String in ids.slice(0, 5):
+		if player.call("get_weapon", id) == null:
+			player.call("add_weapon", id)
+	var passive_ids: Array = data.passives.keys()
+	passive_ids.sort_custom(func(a: String, b: String) -> bool: return TranslationServer.translate("PASSIVE_%s_NAME" % a).length() > TranslationServer.translate("PASSIVE_%s_NAME" % b).length())
+	for id: String in passive_ids.slice(0, 5):
+		player.call("add_passive", id)
+	for key in ["EXTRACT_OPEN", "PAGE_FOUND", "BOSS_WARNING"]:
+		hud.call("show_banner", TranslationServer.translate(key))
+	await _frames(2)
 	_check(hud, tag + " hud")
 	paused = true
 	hud.call("show_pause", true)
@@ -96,7 +112,7 @@ func _in_game(tag: String) -> void:
 	for key in ["SUMMARY_GOLD_DEATH", "SUMMARY_STREAK", "SUMMARY_ITEMS_KEPT", "SUMMARY_ITEM_WELL", "SUMMARY_CHARMS_LOST", "SUMMARY_DARKNESS_OPEN", "ENDING_STORY"]:
 		lines.append(_filled(TranslationServer.translate(key)))
 	var deeds: Array[String] = [_filled(TranslationServer.translate("SUMMARY_QUESTS_DONE")), _filled(TranslationServer.translate("STAGE_UNLOCKED"))]
-	hud.call("show_end", TranslationServer.translate("GAME_OVER_TITLE") % TranslationServer.translate("CAT_KAPITAN_NAME"), _filled(TranslationServer.translate("GAME_OVER_STATS")), deeds, lines, _filled(TranslationServer.translate("SUMMARY_TOTAL")), false)
+	hud.call("show_end", TranslationServer.translate("GAME_OVER_TITLE") % TranslationServer.translate("CAT_KAPITAN_NAME"), _filled(TranslationServer.translate("GAME_OVER_STATS")), deeds, lines, _filled(TranslationServer.translate("SUMMARY_TOTAL")), true)
 	for page in 3:
 		await _frames(3)
 		_check(hud, tag + " summary page %d" % (page + 1))

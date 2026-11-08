@@ -602,7 +602,7 @@ func _build() -> void:
 	# Two full-width lines: the cat's record and what you take along, then
 	# challenges, streak and the daily night.
 	var loadout := HBoxContainer.new()
-	loadout.add_theme_constant_override("separation", 12)
+	loadout.add_theme_constant_override("separation", 9)
 	# Taller than any of its lines or buttons (★ included), so it never grows.
 	loadout.custom_minimum_size.y = 34
 	left.add_child(loadout)
@@ -610,7 +610,7 @@ func _build() -> void:
 	loadout.add_child(_cat_stats)
 	_cat_stats.visible = false
 	_stat_tags = HBoxContainer.new()
-	_stat_tags.add_theme_constant_override("separation", 5)
+	_stat_tags.add_theme_constant_override("separation", 4)
 	_stat_tags.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	loadout.add_child(_stat_tags)
 	_worn = _label(13, Color("c77dff"))
@@ -640,6 +640,8 @@ func _build() -> void:
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		l.set_meta("base_size", l.label_settings.font_size)
+		# Fit again whenever the line gets another width (tags beside it change).
+		l.resized.connect(_fit_lines)
 		# A fixed height (two lines for the description and instinct), so a
 		# shorter text or a shrunk font never resizes the bar and the map.
 		var line := l.get_theme_font("font").get_height(l.label_settings.font_size) + l.label_settings.line_spacing
@@ -834,7 +836,11 @@ func _fill_stat_tags() -> void:
 		child.queue_free()
 	for part in _cat_stats.text.split("·", false):
 		if part.strip_edges() != "":
-			_stat_tags.add_child(UiStyle.tag(part.strip_edges(), Color("cfc3dd"), 12))
+			var t := UiStyle.tag(part.strip_edges(), Color("cfc3dd"), 11)
+			var sb := t.get_theme_stylebox("panel") as StyleBoxFlat
+			sb.content_margin_left = 5
+			sb.content_margin_right = 5
+			_stat_tags.add_child(t)
 
 
 func _open_cat_grid() -> void:
@@ -864,7 +870,7 @@ func _fit_top() -> void:
 	var room := get_viewport_rect().size.x - 28.0 - 20.0 - 14.0 * 2.0 - _badges.get_combined_minimum_size().x - _gold.get_combined_minimum_size().x
 	UiStyle.fit_row(_top_buttons, maxf(room, 400.0))
 	UiStyle.fit_row(_night_buttons, 300.0, 9)
-	UiStyle.fit_row(_cat_buttons, 330.0, 9)
+	UiStyle.fit_row(_cat_buttons, 285.0, 9)
 
 
 func _process(delta: float) -> void:

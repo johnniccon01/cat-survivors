@@ -215,37 +215,38 @@ func _group_name(g: String) -> String:
 	return tr("STAGE_%s_NAME" % g) if Profile.is_stage_unlocked(g) else "???"
 
 
-## A map (or chapter) in the left list: its name, stories done and a bar.
-func _group_button(g: String) -> Button:
+## A map (or chapter) in the left list: its name (wrapped when long),
+## stories done and a bar; a click shows its stories.
+func _group_button(g: String) -> PanelContainer:
 	var items := _group_items(g)
 	var done := items.filter(func(id: String) -> bool: return QuestBook.is_complete(id) if g.begins_with("qb:") else ChainStep.is_done(id)).size()
-	var b := Button.new()
-	b.focus_mode = Control.FOCUS_NONE
-	b.custom_minimum_size = Vector2(236, 46)
+	var b := PanelContainer.new()
 	var selected := g == _group
-	for state in ["normal", "hover", "pressed"]:
-		var sb := UiStyle.card(selected)
-		if state == "hover" and not selected:
-			sb.border_color = Color("6a5784")
-		b.add_theme_stylebox_override(state, sb)
-	b.pressed.connect(func() -> void:
-		_group = g
-		show_tab("quests"))
+	var sb := UiStyle.card(selected)
+	sb.content_margin_left = 12
+	sb.content_margin_right = 12
+	sb.content_margin_top = 6
+	sb.content_margin_bottom = 7
+	b.add_theme_stylebox_override("panel", sb)
+	b.mouse_filter = Control.MOUSE_FILTER_STOP
+	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	b.gui_input.connect(func(event: InputEvent) -> void:
+		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			_group = g
+			show_tab.call_deferred("quests"))
+	if not selected:
+		b.mouse_entered.connect(func() -> void: sb.border_color = Color("6a5784"))
+		b.mouse_exited.connect(func() -> void: sb.border_color = UiStyle.CARD_BORDER)
 	var col := VBoxContainer.new()
-	col.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	col.offset_left = 12
-	col.offset_right = -12
-	col.offset_top = 6
-	col.offset_bottom = -6
 	col.add_theme_constant_override("separation", 3)
 	col.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	b.add_child(col)
 	var row := HBoxContainer.new()
 	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	col.add_child(row)
-	var name_label := UiStyle.plain(_group_name(g), 15, GOLD if selected else (DONE if done == items.size() else Color.WHITE))
+	var name_label := UiStyle.plain(_group_name(g), 15, GOLD if selected else (DONE if done == items.size() else Color.WHITE), true)
 	name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	name_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	name_label.custom_minimum_size.x = 150
 	row.add_child(name_label)
 	row.add_child(UiStyle.plain("%d / %d" % [done, items.size()], 13, MUTED))
 	var bar := ProgressBar.new()

@@ -122,7 +122,7 @@ func _ready() -> void:
 	detail.add_child(_buy)
 	var refund := UiStyle.click_button("SHOP_REFUND", 0, 15)
 	refund.custom_minimum_size.y = 42
-	UiStyle.add_key(refund, "⌫", 11)
+	UiStyle.add_key(refund, "Bksp", 11)
 	refund.pressed.connect(func() -> void:
 		Profile.refund_powerups()
 		Audio.play("magnet", -8.0, 0.0)

@@ -53,7 +53,7 @@ Návrh je v `ENDGAME.md`.
 
 Návrh je v `TRETIA_STVRT.md`. Každý krok s testami, commitom, značkou a pushom; texty vo všetkých jazykoch.
 
-1. [ ] **Základ tretej a štvrtej štvrte**: mapy štvrtí (Divočina 12 miest, Firma 4), cesta tam (príbeh po mieri), príbeh Divé zvieratá utekajú.
+1. [x] **Základ tretej a štvrtej štvrte** (hotové 8. 11., značka `divocina-firma-mapy`: `WildTown` – les, rieka s vodopádom, močiar, hory, zamrznuté jazero, pás výrubu k plotu firmy; `CompanyTown` – areál s bránou, parkoviskom, garážou, laboratóriom s klietkami a vežou; tlačidlo Cestovať ponúkne otvorené štvrte (`DistrictMap.DISTRICTS`, príznaky `train_east`, `wild_road`, `company_gate`); príbeh Divé zvieratá utekajú po Mieri otvorí cestu do Divočiny; `tools/town_shot.gd -- wild`)
 2. [ ] **Psí parťák**: výber psa pred nocou, spolubojovník s vlastnou schopnosťou.
 3. [ ] **Nepriatelia Divočiny** a pixel art.
 4. [ ] **Divočina mapy 1–4** (+ Vlk).

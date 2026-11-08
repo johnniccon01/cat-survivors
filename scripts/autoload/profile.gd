@@ -10,8 +10,8 @@ const BACKUP := "user://profile.bak.cfg"
 var unlocked: Array[String] = []
 var selected_cat := "MICA"
 var selected_stage := "LIVING_ROOM"
-## The district on show on the town map: "cats" or, once the train east
-## runs, "dogs".
+## The district on show on the town map: "cats", or once their stories open
+## them "dogs", "wild" and "company".
 var district := "cats"
 var cleared_stages: Array[String] = []
 var flags: Array[String] = []

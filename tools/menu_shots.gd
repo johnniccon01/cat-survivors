@@ -46,6 +46,11 @@ func _run() -> void:
 		change_scene_to_file("res://scenes/character_select.tscn")
 		await _frames(12)
 		await _shot(locale, "select_dogs")
+		for d: String in ["wild", "company"]:
+			root.get_node("Profile").district = d
+			change_scene_to_file("res://scenes/character_select.tscn")
+			await _frames(12)
+			await _shot(locale, "select_" + d)
 		root.get_node("Profile").district = "cats"
 		await _game(locale)
 	print("SHOTS: saved to ", _out)
@@ -97,7 +102,8 @@ func _unlock() -> void:
 	for id: String in data.cats:
 		profile.unlocked.append(id)
 	profile.gold = 12345
-	profile.set_flag("train_east")
+	for flag: String in ["train_east", "wild_road", "company_gate"]:
+		profile.set_flag(flag)
 	var items_script: Script = load("res://scripts/progression/items.gd")
 	var found: Array = []
 	for id: String in data.items["legendaries"]:

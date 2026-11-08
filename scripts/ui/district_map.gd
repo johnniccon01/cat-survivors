@@ -14,7 +14,8 @@ signal resident_chosen(cat: String)
 ## The memorial sign by the Cemetery: the stones of retired cats.
 signal memorial_chosen
 ## The train east was clicked (once "A Ticket East" is done).
-signal dogs_chosen
+## The player picked another district to travel to.
+signal district_chosen(d: String)
 
 ## Where each resident lives in the town.
 const RESIDENT_SPOTS := {
@@ -72,7 +73,7 @@ const HOME_STATS := {
 	"proj_speed": ["BONUS_PROJ_SPEED", 100.0],
 }
 
-## The district on show ("cats" or "dogs") and its places and fog.
+## The district on show ("cats", "dogs", "wild" or "company") and its places and fog.
 static var district := "cats"
 static var PLACES: Dictionary = CAT_PLACES
 static var FOG: Dictionary = CAT_FOG
@@ -228,11 +229,12 @@ func _ready() -> void:
 	add_child(_paths_btn)
 	_style_paths_btn()
 	# The train to the dog district, once its story is done.
-	_dogs_btn = UiStyle.click_button("DOGS_BUTTON" if district == "cats" else "CATS_BUTTON", 0, 12)
+	# With more districts open, it asks which one.
+	_dogs_btn = UiStyle.click_button("TRAVEL_BUTTON", 0, 12)
 	_dogs_btn.custom_minimum_size.y = 24
 	_dogs_btn.add_theme_color_override("font_color", UiStyle.GOLD)
-	_dogs_btn.pressed.connect(func() -> void: dogs_chosen.emit())
-	_dogs_btn.visible = Profile.has_flag("train_east")
+	_dogs_btn.pressed.connect(_travel)
+	_dogs_btn.visible = not travel_targets().is_empty()
 	add_child(_dogs_btn)
 	# A short hint in the bottom-right corner: closes with its cross and
 	# fades away by itself after a few seconds.
@@ -696,6 +698,46 @@ static func stage_order() -> Array[String]:
 	return order
 
 
+## The districts in story order, and the flag that opens each.
+const DISTRICTS := {"cats": "", "dogs": "train_east", "wild": "wild_road", "company": "company_gate"}
+
+
+## The other districts the cat can travel to now.
+static func travel_targets() -> Array[String]:
+	var out: Array[String] = []
+	for d: String in DISTRICTS:
+		if d != district and (DISTRICTS[d] == "" or Profile.has_flag(DISTRICTS[d])):
+			out.append(d)
+	return out
+
+
+## One district open elsewhere: go straight there; more: a short menu.
+func _travel() -> void:
+	var targets := travel_targets()
+	if targets.size() == 1:
+		district_chosen.emit(targets[0])
+		return
+	var menu := PopupMenu.new()
+	for i in targets.size():
+		menu.add_item(tr("DISTRICT_NAME_" + targets[i].to_upper()), i)
+	menu.id_pressed.connect(func(i: int) -> void: district_chosen.emit(targets[i]))
+	menu.popup_hide.connect(menu.queue_free)
+	add_child(menu)
+	menu.popup(Rect2i(Vector2i(_dogs_btn.global_position + Vector2(0, _dogs_btn.size.y)), Vector2i.ZERO))
+
+
+## The places of a district other than the cat town.
+static func district_places(d: String) -> Dictionary:
+	match d:
+		"dogs":
+			return DogTown.PLACES
+		"wild":
+			return WildTown.PLACES
+		"company":
+			return CompanyTown.PLACES
+	return CAT_PLACES
+
+
 ## Which district a map belongs to.
 static func stage_district(id: String) -> String:
 	return GameData.stages.get(id, {}).get("district", "cats")
@@ -708,9 +750,9 @@ static func use_district(d: String) -> void:
 	if _image != null:
 		_towns[district] = [_image, _lamps.duplicate(), _candles.duplicate(), _lit.duplicate()]
 	district = d
-	PLACES = CAT_PLACES if d == "cats" else DogTown.PLACES
-	FOG = CAT_FOG if d == "cats" else DogTown.PLACES.keys().reduce(func(acc: Dictionary, id: String) -> Dictionary:
-		acc[id] = DogTown.PLACES[id]["view"]
+	PLACES = district_places(d)
+	FOG = CAT_FOG if d == "cats" else PLACES.keys().reduce(func(acc: Dictionary, id: String) -> Dictionary:
+		acc[id] = PLACES[id]["view"]
 		return acc, {})
 	if _towns.has(d):
 		_image = _towns[d][0]
@@ -720,7 +762,7 @@ static func use_district(d: String) -> void:
 	elif d == "cats":
 		_build_town()
 	else:
-		_build_dog_town()
+		_build_dog_town(d)
 
 
 ## The map to play next: the first open one you have not won yet.
@@ -1141,13 +1183,19 @@ static func _build_town() -> void:
 	_image = _img
 
 
-static func _build_dog_town() -> void:
+static func _build_dog_town(d: String = "dogs") -> void:
 	_img = Image.create(WW, WH, false, Image.FORMAT_RGBA8)
-	_rng.seed = 23
+	_rng.seed = {"dogs": 23, "wild": 31, "company": 37}.get(d, 23)
 	_lamps.clear()
 	_candles.clear()
 	_lit.clear()
-	DogTown.build()
+	match d:
+		"wild":
+			WildTown.build()
+		"company":
+			CompanyTown.build()
+		_:
+			DogTown.build()
 	_image = _img
 
 

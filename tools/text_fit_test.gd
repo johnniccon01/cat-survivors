@@ -26,7 +26,8 @@ func _run() -> void:
 			var data := root.get_node("GameData")
 			for id: String in data.stages:
 				profile.cleared_stages.append(id)
-			profile.set_flag("train_east")
+			for flag: String in ["train_east", "wild_road", "company_gate"]:
+				profile.set_flag(flag)
 			# Gear with the longest names in every slot, worn and in the bag.
 			var items_script: Script = load("res://scripts/progression/items.gd")
 			var found: Array = []

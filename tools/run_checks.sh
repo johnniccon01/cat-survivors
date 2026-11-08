@@ -161,6 +161,7 @@ scenarios=(
   "chain_general_orders|--bot --stage=FREIGHT_YARD --god --levels=20 --quest=GENERAL_ORDERS --bot-time=240"
   "chain_peace_road|--bot --stage=POLICE_K9 --god --levels=20 --quest=PEACE_ROAD --bot-time=240"
   "chain_the_peace|--bot --stage=GENERAL_KENNEL --god --levels=20 --quest=THE_PEACE --bot-time=240"
+  "chain_wild_flees|--bot --stage=DOG_PARK --god --levels=20 --quest=WILD_FLEES --bot-time=240"
   "general_kennels|--bot --god --stage=GENERAL_KENNEL --hazard-at=3 --bot-time=60 --expect=graves_rise"
   "island|--bot --stage=ISLAND --cat=TIGER --bot-time=300"
   "park_thief|--bot --god --cat=TIGER --levels=10 --stage=PARK --hazard-at=20 --bot-time=90 --expect=thief_came,thief_caught"

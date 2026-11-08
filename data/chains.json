@@ -3411,5 +3411,50 @@
         "stage": "GENERAL_KENNEL"
       }
     ]
+  },
+  "WILD_FLEES": {
+    "stage": "any",
+    "requires": [
+      "chain:THE_PEACE"
+    ],
+    "reward": {
+      "gold": 5000,
+      "flag": "wild_road"
+    },
+    "steps": [
+      {
+        "type": "trail",
+        "stage": "DOG_PARK",
+        "count": 5,
+        "spacing": [
+          140,
+          200
+        ],
+        "look": "pawprints"
+      },
+      {
+        "type": "carry",
+        "stage": "SNOW_HILL",
+        "item": "fish",
+        "to_distance": [
+          450,
+          600
+        ],
+        "time": 70,
+        "look_to": "doghouse"
+      },
+      {
+        "type": "zones",
+        "stage": "RIVER_DAM",
+        "count": 3,
+        "hold": 5,
+        "radius": 40,
+        "spread": [
+          200,
+          340
+        ],
+        "look": "fire"
+      }
+    ]
   }
 }

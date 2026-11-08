@@ -21,17 +21,51 @@ static func base_weapon(id: String) -> String:
 	return _base_of.get(id, id)
 
 
+## The tile colour behind an icon: gold for evolutions, plum for weapons,
+## teal for skills.
+static func tile_color(kind: String, id: String) -> Color:
+	return EVOLVED_BG if is_evolved(kind, id) else (WEAPON_BG if kind == "weapon" else PASSIVE_BG)
+
+
 static func is_evolved(kind: String, id: String) -> bool:
 	return kind == "weapon" and GameData.weapons.get(id, {}).get("evolved", false)
 
 
-## Draws the icon for (kind, id) into `rect` on canvas item `ci`.
+## Folder of the baked pixel-art icons (tools/bake_art.gd draws them from
+## draw_vector at BAKE_SIZE pixels, one texel per pixel of the 16 grid).
+const BAKED := "res://assets/sprites/icons/%s_%s.png"
+const BAKE_SIZE := 24
+
+static var _baked: Dictionary = {}
+
+
+## The baked pixel-art icon for (kind, id), or null when there is none.
+static func texture(kind: String, id: String) -> Texture2D:
+	var key := kind + ":" + id
+	if not _baked.has(key):
+		var path := BAKED % [kind, id]
+		_baked[key] = load(path) if ResourceLoader.exists(path) else null
+	return _baked[key]
+
+
+## Draws the icon for (kind, id) into `rect` on canvas item `ci`: the baked
+## pixel-art picture, scaled up crisp, or the vector drawing if none is baked.
 static func draw(ci: CanvasItem, kind: String, id: String, rect: Rect2) -> void:
-	var evolved := is_evolved(kind, id)
-	var bg := EVOLVED_BG if evolved else (WEAPON_BG if kind == "weapon" else PASSIVE_BG)
-	ci.draw_rect(rect, OUTLINE)
-	ci.draw_rect(rect.grow(-1.0), bg)
-	ci.draw_rect(Rect2(rect.position + Vector2(1, 1), Vector2(rect.size.x - 2, rect.size.y * 0.35)), bg.lightened(0.12))
+	var tex := texture(kind, id)
+	if tex != null:
+		ci.draw_texture_rect(tex, rect, false)
+		return
+	draw_vector(ci, kind, id, rect)
+
+
+## The icon drawn from shapes (what the baked pictures are made from).
+## `with_tile` false draws the symbol alone (the baker shades it apart).
+static func draw_vector(ci: CanvasItem, kind: String, id: String, rect: Rect2, with_tile: bool = true) -> void:
+	if with_tile:
+		var bg := tile_color(kind, id)
+		ci.draw_rect(rect, OUTLINE)
+		ci.draw_rect(rect.grow(-1.0), bg)
+		ci.draw_rect(Rect2(rect.position + Vector2(1, 1), Vector2(rect.size.x - 2, rect.size.y * 0.35)), bg.lightened(0.12))
 	var s := rect.size.x / 16.0
 	ci.draw_set_transform(rect.position, 0.0, Vector2(s, s))
 	if kind == "weapon":

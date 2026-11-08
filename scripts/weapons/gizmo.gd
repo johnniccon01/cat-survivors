@@ -235,22 +235,16 @@ func _draw() -> void:
 			draw_colored_polygon(pts, Color(1.0, 0.95, 0.65, a))
 			draw_circle(Vector2.ZERO, 5.0, Color(1.0, 0.95, 0.7, 0.6))
 		"cap":
-			draw_circle(Vector2.ZERO, radius + 1.0, OUTLINE)
-			draw_circle(Vector2.ZERO, radius, Color("d9534f") if not evolved else Color("f2c14e"))
-			draw_circle(Vector2.ZERO, radius * 0.55, Color("f4f1ea"))
-			for i in 6:
-				var p := Vector2.from_angle(TAU * i / 6.0) * radius
-				draw_line(p, p * 1.15, OUTLINE, 1.0)
+			if not Shots.draw(self, "cap_gold" if evolved else "cap", radius):
+				Gizmo.draw_cap(self, radius, evolved)
 		"bubble":
 			draw_circle(Vector2.ZERO, radius, Color(0.75, 0.9, 1.0, 0.25))
 			draw_arc(Vector2.ZERO, radius, 0.0, TAU, 20, Color(1, 1, 1, 0.75), 1.0)
 			draw_arc(Vector2.ZERO, radius * 0.7, PI * 1.1, PI * 1.5, 6, Color(1, 1, 1, 0.9), 1.5)
 			draw_arc(Vector2.ZERO, radius * 0.85, 0.2, 0.9, 6, Color(1.0, 0.7, 0.9, 0.6), 1.0)
 		"plane":
-			var body := PackedVector2Array([Vector2(radius * 1.4, 0), Vector2(-radius, -radius * 0.9), Vector2(-radius * 0.4, 0), Vector2(-radius, radius * 0.9)])
-			draw_colored_polygon(body, Color("f4f1ea") if not evolved else Color("f2d14e"))
-			draw_polyline(Shapes.closed(body), OUTLINE, 1.0)
-			draw_line(Vector2(-radius * 0.4, 0), Vector2(radius * 1.4, 0), Color("c8c0b0"), 1.0)
+			if not Shots.draw(self, "plane_gold" if evolved else "plane", radius):
+				Gizmo.draw_plane(self, radius, evolved)
 		"cloud":
 			var fade := clampf((lifetime - _age) / 0.6, 0.0, 1.0)
 			for i in 5:
@@ -259,3 +253,21 @@ func _draw() -> void:
 			for i in 8:
 				var p := Vector2.from_angle(i * 2.4 + _age * 2.0) * radius * fmod(i * 0.37 + _age, 1.0)
 				draw_rect(Rect2(p, Vector2(1, 1)), Color(0.6, 0.55, 0.45, 0.8 * fade))
+
+
+## A bottle cap drawn from shapes (what tools/bake_art.gd bakes).
+static func draw_cap(ci: CanvasItem, radius: float, gold: bool) -> void:
+	ci.draw_circle(Vector2.ZERO, radius + 1.0, OUTLINE)
+	ci.draw_circle(Vector2.ZERO, radius, Color("f2c14e") if gold else Color("d9534f"))
+	ci.draw_circle(Vector2.ZERO, radius * 0.55, Color("f4f1ea"))
+	for i in 6:
+		var p := Vector2.from_angle(TAU * i / 6.0) * radius
+		ci.draw_line(p, p * 1.15, OUTLINE, 1.0)
+
+
+## A paper plane drawn from shapes (what tools/bake_art.gd bakes).
+static func draw_plane(ci: CanvasItem, radius: float, gold: bool) -> void:
+	var body := PackedVector2Array([Vector2(radius * 1.4, 0), Vector2(-radius, -radius * 0.9), Vector2(-radius * 0.4, 0), Vector2(-radius, radius * 0.9)])
+	ci.draw_colored_polygon(body, Color("f2d14e") if gold else Color("f4f1ea"))
+	ci.draw_polyline(Shapes.closed(body), OUTLINE, 1.0)
+	ci.draw_line(Vector2(-radius * 0.4, 0), Vector2(radius * 1.4, 0), Color("c8c0b0"), 1.0)

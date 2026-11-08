@@ -70,11 +70,18 @@ static func draw(ci: CanvasItem, name: String, r: Rect2) -> void:
 ## Draws a passive-style tile (the teal of the game's passive icons) with
 ## glyph `name` on it, like Icons.draw does for real passives.
 static func draw_tile(ci: CanvasItem, name: String, r: Rect2) -> void:
-	ci.draw_rect(r, Color("1d3b3b"))
-	var inner := r.grow(-r.size.x / 28.0)
-	ci.draw_rect(inner, Color("2a5050"))
-	ci.draw_rect(Rect2(inner.position, Vector2(inner.size.x, inner.size.y * 0.5)), Color("33605f"))
+	# The bevelled tile of the baked skill icons (see tools/bake_art_body.gd).
+	var bg := Icons.PASSIVE_BG
+	var px := r.size.x / Icons.BAKE_SIZE
+	ci.draw_rect(r, Color("1e140f"))
+	var inner := r.grow(-px)
+	ci.draw_rect(inner, bg.darkened(0.08))
+	ci.draw_rect(Rect2(inner.position, Vector2(inner.size.x, inner.size.y * 0.5 - px)), bg)
+	ci.draw_rect(Rect2(inner.position, Vector2(inner.size.x, px)), bg.lightened(0.28))
+	ci.draw_rect(Rect2(inner.position, Vector2(px, inner.size.y)), bg.lightened(0.14))
+	ci.draw_rect(Rect2(Vector2(inner.position.x, inner.end.y - px), Vector2(inner.size.x, px)), bg.darkened(0.3))
+	ci.draw_rect(Rect2(Vector2(inner.end.x - px, inner.position.y), Vector2(px, inner.size.y)), bg.darkened(0.22))
 	var tex := texture(name)
-	var px := floorf(r.size.x * 0.7 / maxf(tex.get_width(), tex.get_height()))
-	var size := Vector2(tex.get_width(), tex.get_height()) * maxf(px, 1.0)
+	var scale := floorf(r.size.x * 0.7 / maxf(tex.get_width(), tex.get_height()))
+	var size := Vector2(tex.get_width(), tex.get_height()) * maxf(scale, 1.0)
 	ci.draw_texture_rect(tex, Rect2(r.get_center() - size / 2.0, size).abs(), false)

@@ -46,16 +46,22 @@ func _physics_process(delta: float) -> void:
 
 
 func _draw() -> void:
+	if not Shots.draw(self, "bone", radius):
+		OrbitProjectile.draw_body(self, radius)
+
+
+## The fish bone drawn from shapes (what tools/bake_art.gd bakes).
+static func draw_body(ci: CanvasItem, radius: float) -> void:
 	var s := radius / 6.0
-	draw_set_transform(Vector2.ZERO, 0.0, Vector2(s, s))
+	ci.draw_set_transform(Vector2.ZERO, 0.0, Vector2(s, s))
 	# Spine, ribs, head and tail of a cartoon fish skeleton.
-	Blit.rect(self, Rect2(-6, -1.5, 11, 3), OUTLINE)
-	Blit.rect(self, Rect2(-6, -0.5, 11, 1), BONE)
+	Blit.rect(ci, Rect2(-6, -1.5, 11, 3), OUTLINE)
+	Blit.rect(ci, Rect2(-6, -0.5, 11, 1), BONE)
 	for x: float in [-3.0, 0.0, 3.0]:
-		Blit.rect(self, Rect2(x - 1.5, -3, 3, 6), OUTLINE)
-		Blit.rect(self, Rect2(x - 0.5, -3, 1, 6), BONE)
-	Blit.disc(self, Vector2(6, 0), 3.0, OUTLINE)
-	Blit.disc(self, Vector2(6, 0), 2.0, BONE)
+		Blit.rect(ci, Rect2(x - 1.5, -3, 3, 6), OUTLINE)
+		Blit.rect(ci, Rect2(x - 0.5, -3, 1, 6), BONE)
+	Blit.disc(ci, Vector2(6, 0), 3.0, OUTLINE)
+	Blit.disc(ci, Vector2(6, 0), 2.0, BONE)
 	var tail := PackedVector2Array([Vector2(-6, 0), Vector2(-9, -3), Vector2(-9, 3)])
-	draw_colored_polygon(tail, BONE)
-	draw_polyline(Shapes.closed(tail), OUTLINE, 1.0)
+	ci.draw_colored_polygon(tail, BONE)
+	ci.draw_polyline(Shapes.closed(tail), OUTLINE, 1.0)

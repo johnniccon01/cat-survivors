@@ -80,42 +80,49 @@ func _draw() -> void:
 	for i in range(1, _trail.size()):
 		var k := float(i) / _trail.size()
 		Blit.line(self, to_local(_trail[i - 1]), to_local(_trail[i]), Color(tc, 0.35 * k), radius * 1.4 * k)
+	# The line behind a hook or a ball of yarn follows the flight, so it stays
+	# drawn here; the projectile itself is a baked pixel-art picture.
+	if style in ["hook", "golden_hook"]:
+		Blit.line(self, Vector2.ZERO, -velocity.normalized().rotated(-rotation) * radius * 5.0, Color(0.9, 0.9, 0.9, 0.6), 1.0)
+	elif not style in ["feather", "phoenix", "needle", "hairball"]:
+		Blit.line(self, Vector2.ZERO, -velocity.normalized().rotated(-rotation) * radius * 2.5, Color("e0628f"), 1.0)
+	if style == "phoenix":
+		Blit.disc(self, Vector2.ZERO, radius * 1.4, Color(1.0, 0.5, 0.1, 0.25))
+	if not Shots.draw(self, style, radius):
+		Projectile.draw_body(self, style, radius)
+
+
+## The projectile itself, drawn from shapes (what tools/bake_art.gd bakes).
+static func draw_body(ci: CanvasItem, style: String, radius: float) -> void:
 	var s := radius / 4.0
 	match style:
 		"feather", "phoenix":
 			var main := Color("ff8a3d") if style == "phoenix" else Color("6fc2ff")
 			var tip := Color("ffe066") if style == "phoenix" else Color("f28ac0")
-			Blit.line(self, Vector2(-radius * 1.2, 0), Vector2(radius * 1.2, 0), Color("e8e0d0"), 1.0)
+			Blit.line(ci, Vector2(-radius * 1.2, 0), Vector2(radius * 1.2, 0), Color("e8e0d0"), 1.0)
 			var vane := PackedVector2Array([Vector2(-radius, 0), Vector2(-radius * 0.2, -radius * 0.7), Vector2(radius, 0), Vector2(-radius * 0.2, radius * 0.7)])
-			draw_colored_polygon(vane, main)
-			draw_polyline(Shapes.closed(vane), OUTLINE, 1.0)
-			Blit.disc(self, Vector2(radius * 0.6, 0), radius * 0.3, tip)
-			if style == "phoenix":
-				Blit.disc(self, Vector2.ZERO, radius * 1.4, Color(1.0, 0.5, 0.1, 0.25))
+			ci.draw_colored_polygon(vane, main)
+			ci.draw_polyline(Shapes.closed(vane), OUTLINE, 1.0)
+			Blit.disc(ci, Vector2(radius * 0.6, 0), radius * 0.3, tip)
 		"hook", "golden_hook":
-			# A hook on its line, the line trailing back the way it came.
 			var metal := Color("f2c14e") if style == "golden_hook" else Color("c9ced2")
-			var back := -velocity.normalized().rotated(-rotation) * radius * 5.0
-			Blit.line(self, Vector2.ZERO, back, Color(0.9, 0.9, 0.9, 0.6), 1.0)
 			var hook := PackedVector2Array([Vector2(0, -radius), Vector2(0, radius * 0.4), Vector2(-radius * 0.5, radius), Vector2(-radius, radius * 0.6)])
-			draw_polyline(hook, OUTLINE, 3.0)
-			draw_polyline(hook, metal, 1.5)
+			ci.draw_polyline(hook, OUTLINE, 3.0)
+			ci.draw_polyline(hook, metal, 1.5)
 		"needle":
-			Blit.line(self, Vector2(-radius * 3.0, 0), Vector2(radius * 3.0, 0), OUTLINE, 2.5)
-			Blit.line(self, Vector2(-radius * 3.0, 0), Vector2(radius * 3.0, 0), Color("dfe4e8"), 1.2)
-			Blit.line(self, Vector2(-radius * 3.0, 0), Vector2(-radius * 6.0, 2), Color("e0628f"), 1.0)
+			Blit.line(ci, Vector2(-radius * 3.0, 0), Vector2(radius * 3.0, 0), OUTLINE, 2.5)
+			Blit.line(ci, Vector2(-radius * 3.0, 0), Vector2(radius * 3.0, 0), Color("dfe4e8"), 1.2)
+			Blit.line(ci, Vector2(-radius * 3.0, 0), Vector2(-radius * 6.0, 2), Color("e0628f"), 1.0)
 		"hairball":
 			var pts := PackedVector2Array()
 			for i in 12:
 				var r := radius * (1.0 if i % 2 == 0 else 0.75)
 				pts.append(Vector2.from_angle(TAU * i / 12.0) * r)
-			draw_colored_polygon(pts, Color("7a5235"))
-			draw_polyline(Shapes.closed(pts), OUTLINE, 1.0)
-			Blit.line(self, Vector2(-2, -1) * s, Vector2(2, 1) * s, Color("a8774f"), 1.0)
+			ci.draw_colored_polygon(pts, Color("7a5235"))
+			ci.draw_polyline(Shapes.closed(pts), OUTLINE, 1.0)
+			Blit.line(ci, Vector2(-2, -1) * s, Vector2(2, 1) * s, Color("a8774f"), 1.0)
 		_:
-			Blit.disc(self, Vector2.ZERO, radius + 1.0, OUTLINE)
-			Blit.disc(self, Vector2.ZERO, radius, Color("e0628f"))
-			Blit.line(self, Vector2(-radius, -1), Vector2(radius, 1), Color("f7a8c4"), 1.0)
-			Blit.line(self, Vector2(-1, -radius), Vector2(1, radius), Color("f7a8c4"), 1.0)
-			# Trailing thread
-			Blit.line(self, Vector2.ZERO, -velocity.normalized().rotated(-rotation) * radius * 2.5, Color("e0628f"), 1.0)
+			Blit.disc(ci, Vector2.ZERO, radius + 1.0, OUTLINE)
+			Blit.disc(ci, Vector2.ZERO, radius, Color("e0628f"))
+			Blit.line(ci, Vector2(-radius, -1), Vector2(radius, 1), Color("f7a8c4"), 1.0)
+			Blit.line(ci, Vector2(-1, -radius), Vector2(1, radius), Color("f7a8c4"), 1.0)

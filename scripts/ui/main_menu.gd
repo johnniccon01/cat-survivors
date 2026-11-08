@@ -136,6 +136,12 @@ func _build() -> void:
 	_add_button("MENU_UPGRADES", func() -> void: _open(_shop))
 	_add_button("MENU_JOURNAL", func() -> void: _open(_journal))
 	_add_button("MENU_SETTINGS", func() -> void: _open(_settings))
+	# After the end of the story: its titles again.
+	if Profile.has_flag("game_won"):
+		_add_button("MENU_CREDITS", func() -> void:
+			var credits := CreditsPanel.new()
+			add_child(credits)
+			credits.finished.connect(func() -> void: (_buttons.get_child(0) as Control).grab_focus()))
 	_add_button("MENU_QUIT", func() -> void: get_tree().quit())
 	# Dev builds only (the editor, the launchers): the test launcher.
 	if OS.is_debug_build():

@@ -247,6 +247,7 @@ scenarios=(
   "director_tower|--bot --stage=DIRECTOR_TOWER --cat=TIGER --bot-time=300 --stuck-check"
   "director_tower_laserwall|--bot --stage=DIRECTOR_TOWER --hazard-at=5 --bot-time=60 --expect=train_warn,train_pass"
   "final_megadozer|--bot --god --stage=DIRECTOR_TOWER --start-minute=19.9 --catch-up --bot-time=400 --expect=special:megadozer,phase2,game_won"
+  "credits_roll|--bot --god --stage=DIRECTOR_TOWER --start-minute=19.9 --catch-up --bot-time=400 --show-credits --expect=game_won,credits"
   "chain_the_director|--bot --stage=COMPANY_LOT --god --levels=20 --quest=THE_DIRECTOR --bot-time=240"
   "dream_plain|--bot --god --dream=3 --start-minute=19.9 --catch-up --bot-time=300 --expect=dream_start,dream_won"
   "dream_nightmare|--bot --god --dream=5 --start-minute=19.9 --catch-up --bot-time=120 --expect=dream_start,special:orders"

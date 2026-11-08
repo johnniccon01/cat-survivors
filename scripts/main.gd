@@ -1405,7 +1405,15 @@ func _end_run(kind: String) -> void:
 	if _bot:
 		print("BOT: summary %s" % " | ".join(deeds + lines))
 	hud.end_facts = {"kills": kills, "time": spawner.elapsed, "level": player.level, "gold": floori(run_gold)}
-	hud.show_end(end_title, end_stats, deeds, lines, tr("SUMMARY_TOTAL") % Profile.gold, kind == "victory")
+	var total := tr("SUMMARY_TOTAL") % Profile.gold
+	# The end of the story rolls its titles first, then the night's summary.
+	if kind == "victory" and spawner.stage_id == "DIRECTOR_TOWER" and (not _bot or "--show-credits" in _args):
+		var credits := CreditsPanel.new()
+		hud.add_child(credits)
+		credits.finished.connect(func() -> void: hud.show_end(end_title, end_stats, deeds, lines, total, true))
+		BotLog.event("credits")
+		return
+	hud.show_end(end_title, end_stats, deeds, lines, total, kind == "victory")
 
 
 func _catch_up(seconds: float) -> void:

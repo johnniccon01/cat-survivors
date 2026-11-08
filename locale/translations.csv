@@ -4010,3 +4010,17 @@ LEVELUP_REROLL_BUTTON,New offer,Prehodiť ponuku,Přehodit nabídku,Nueva oferta
 SELECT_GROUP_CAT,CAT,MAČKA,KOČKA,GATO,КОШКА,猫咪
 SELECT_GROUP_NIGHT,NIGHT,NOC,NOC,NOCHE,НОЧЬ,夜晚
 SELECT_ALL_CATS,All cats,Všetky mačky,Všechny kočky,Todos los gatos,Все кошки,全部猫咪
+MENU_CREDITS,Credits,Titulky,Titulky,Créditos,Титры,制作名单
+CREDITS_THE_END,The End,Koniec,Konec,Fin,Конец,完
+CREDITS_EPILOGUE_1,"Since then the cats and the dogs share the yards, the park and the sunniest bench in town. The wild breathes freely again, and the company's machines rust quietly in the grass.","Mačky a psi odvtedy zdieľajú dvory, park aj tú najslnečnejšiu lavičku v meste. Divočina znova voľne dýcha a stroje firmy potichu hrdzavejú v tráve.","Kočky a psi od té doby sdílejí dvorky, park i tu nejslunnější lavičku ve městě. Divočina zase volně dýchá a stroje firmy tiše rezaví v trávě.","Desde entonces, gatos y perros comparten los patios, el parque y el banco más soleado de la ciudad. La naturaleza vuelve a respirar y las máquinas de la empresa se oxidan en silencio entre la hierba.","С тех пор кошки и собаки делят дворы, парк и самую солнечную скамейку в городе. Дикий лес снова дышит свободно, а машины компании тихо ржавеют в траве.",从那以后，猫和狗一起分享院子、公园和城里阳光最好的长椅。荒野重新自由呼吸，公司的机器在草丛里静静生锈。
+CREDITS_EPILOGUE_2,"And the cats? Every evening they come home to a full bowl. Until it gets dark, and somewhere in the neighbourhood the next story starts to rustle…",A mačky? Každý večer sa vrátia domov k plnej miske. Kým sa nezotmie a niekde v štvrti nezašuští ďalší príbeh…,A kočky? Každý večer se vrátí domů k plné misce. Dokud se nesetmí a někde ve čtvrti nezašustí další příběh…,"¿Y los gatos? Cada tarde vuelven a casa a un cuenco lleno. Hasta que oscurece y, en algún rincón del barrio, empieza a susurrar la próxima historia…",А кошки? Каждый вечер они возвращаются домой к полной миске. Пока не стемнеет и где-то в районе не зашуршит новая история…,那猫咪们呢？每天傍晚，它们都会回到家里的满满一碗旁。直到天色变暗，街区某处又响起下一个故事的沙沙声……
+CREDITS_ALLIES,They came to help,Prišli pomôcť,Přišli pomoct,Vinieron a ayudar,Пришли на помощь,前来相助
+CREDITS_CATS,Every cat on the journey,Všetky mačky na ceste,Všechny kočky na cestě,Todos los gatos del viaje,Все кошки в пути,旅途中的每一只猫
+CREDITS_JOURNEY,Your journey,Tvoja cesta,Tvoje cesta,Tu viaje,Твой путь,你的旅程
+CREDITS_STAT_NIGHTS,Nights played: %d,Odohraných nocí: %d,Odehraných nocí: %d,Noches jugadas: %d,Сыграно ночей: %d,游玩夜晚：%d
+CREDITS_STAT_WINS,Nights won: %d,Vyhraných nocí: %d,Vyhraných nocí: %d,Noches ganadas: %d,Выиграно ночей: %d,获胜夜晚：%d
+CREDITS_STAT_KILLS,Enemies defeated: %s,Porazených nepriateľov: %s,Poražených nepřátel: %s,Enemigos derrotados: %s,Побеждено врагов: %s,击败敌人：%s
+CREDITS_STAT_QUESTS,Quests completed: %d,Splnených questov: %d,Splněných questů: %d,Misiones completadas: %d,Выполнено заданий: %d,完成任务：%d
+CREDITS_STAT_MAPS,Places won: %d of %d,Vyhrané miesta: %d z %d,Vyhraná místa: %d z %d,Lugares ganados: %d de %d,Покорено мест: %d из %d,已征服地点：%d / %d
+CREDITS_THANKS,Thank you for playing!,Ďakujeme za hranie!,Děkujeme za hraní!,¡Gracias por jugar!,Спасибо за игру!,感谢游玩！
+CREDITS_SKIP,Space – faster · Esc – skip,Medzerník – rýchlejšie · Esc – preskočiť,Mezerník – rychleji · Esc – přeskočit,Espacio – más rápido · Esc – saltar,Пробел – быстрее · Esc – пропустить,空格 – 加速 · Esc – 跳过

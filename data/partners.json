@@ -1,0 +1,28 @@
+{
+  "RUBY": {
+    "requires": "cat:RUBY",
+    "skill": "bark",
+    "every": 10.0,
+    "radius": 140.0
+  },
+  "BARNEY": {
+    "requires": "stage:FREIGHT_YARD",
+    "skill": "barrel",
+    "every": 25.0,
+    "heal": 0.12
+  },
+  "DOTTY": {
+    "requires": "stage:FIRE_STATION",
+    "skill": "hose",
+    "every": 8.0,
+    "radius": 120.0,
+    "damage": 14.0
+  },
+  "GENERAL": {
+    "requires": "flag:dog_peace",
+    "skill": "command",
+    "every": 14.0,
+    "radius": 160.0,
+    "damage": 32.0
+  }
+}

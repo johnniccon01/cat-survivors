@@ -326,6 +326,7 @@ func _ready() -> void:
 	_bot_time += spawner.elapsed
 	night.setup(spawner, player)
 	_start_weather()
+	_start_partner()
 	_place_memorials()
 	Profile.soul_live = Profile.soul_charge if Profile.soul_worn() and not dev_test else -1.0
 	player._recalc_stats()
@@ -1905,6 +1906,32 @@ func _place_memorials() -> void:
 
 
 ## Tonight's weather over the map (none under a roof, in tests or endless).
+## The dog partner comes along in the Wild and the Company (--partner=ID
+## picks one for tests).
+func _start_partner() -> void:
+	var id := _arg("--partner=", Profile.partner)
+	if DistrictMap.stage_district(spawner.stage_id) not in Partner.DISTRICTS and not "--partner=" in " ".join(_args):
+		return
+	if id == "" or not GameData.partners.has(id) or (not Partner.available(id) and not "--partner=" in " ".join(_args)):
+		return
+	var dog: Player = PLAYER_SCENE.instantiate()
+	dog.controller = "follow"
+	dog.cat_id = id
+	dog.leader = player
+	dog.process_mode = Node.PROCESS_MODE_PAUSABLE
+	dog.position = player.position + Vector2(-24, 12)
+	add_child(dog)
+	move_child(dog, player.get_index())
+	companions.append(dog)
+	var partner := Partner.new()
+	partner.main = self
+	partner.dog = dog
+	partner.id = id
+	partner.process_mode = Node.PROCESS_MODE_PAUSABLE
+	add_child(partner)
+	BotLog.event("partner:" + id)
+
+
 func _start_weather() -> void:
 	var kind := Weather.for_stage(spawner.stage_id)
 	if kind == "CLEAR" or kind == "" or (dev_test and GameData.arg("--weather=", "") == ""):

@@ -13,6 +13,8 @@ var selected_stage := "LIVING_ROOM"
 ## The district on show on the town map: "cats", or once their stories open
 ## them "dogs", "wild" and "company".
 var district := "cats"
+## The dog partner chosen for nights in the Wild and the Company ("" = none).
+var partner := ""
 var cleared_stages: Array[String] = []
 var flags: Array[String] = []
 var gold := 0
@@ -93,6 +95,7 @@ func _ready() -> void:
 		for id: String in cfg.get_value("cats", "unlocked", []):
 			unlocked.append(id)
 		selected_cat = cfg.get_value("cats", "selected", selected_cat)
+		partner = cfg.get_value("cats", "partner", partner)
 		selected_stage = cfg.get_value("stages", "selected", selected_stage)
 		district = cfg.get_value("stages", "district", district)
 		for id: String in cfg.get_value("stages", "cleared", []):
@@ -1374,6 +1377,7 @@ func _config() -> ConfigFile:
 	var cfg := ConfigFile.new()
 	cfg.set_value("cats", "unlocked", unlocked)
 	cfg.set_value("cats", "selected", selected_cat)
+	cfg.set_value("cats", "partner", partner)
 	cfg.set_value("stages", "selected", selected_stage)
 	cfg.set_value("stages", "district", district)
 	cfg.set_value("stages", "cleared", cleared_stages)

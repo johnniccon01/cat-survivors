@@ -24,6 +24,7 @@ var _stage_ids: Array[String] = []
 var _stage_index := 0
 var _shop: ShopPanel
 var _charms: TalentPanel
+var _partner_btn: Button
 var _memorials: MemorialPanel
 var _memorial_button: Button
 var _items: ItemPanel
@@ -587,6 +588,12 @@ func _build() -> void:
 			["MENU_ITEMS", "I", func() -> void: _items.open()],
 			["ARTIFACTS_TITLE", "V", func() -> void: _artifacts.open()]]:
 		_cat_buttons.add_child(_small_button(entry))
+	# The dog partner for the Wild and the Company: each click the next one.
+	_partner_btn = UiStyle.click_button("", 0, 13)
+	_partner_btn.custom_minimum_size.y = 28
+	_partner_btn.pressed.connect(_next_partner)
+	_cat_buttons.add_child(_partner_btn)
+	_show_partner()
 	# Never cut off: these lines shrink their font to fit (see _fit_lines).
 	for l: Label in [_cat_stats, _worn, _artifact_label, _desc]:
 		l.clip_text = true
@@ -718,6 +725,26 @@ func _legend() -> Control:
 ## Talents of the chosen cat; ← → in the panel go through the unlocked cats.
 func _open_talents() -> void:
 	_charms.open(_ids[_index], _ids.filter(func(id: String) -> bool: return Profile.is_unlocked(id)))
+
+
+## The partner button shows the chosen dog; only in the districts where
+## partners come along, once one has joined.
+func _show_partner() -> void:
+	var dogs := Partner.all_available()
+	_partner_btn.visible = Profile.district in Partner.DISTRICTS and not dogs.is_empty()
+	if Profile.partner != "" and Profile.partner not in dogs:
+		Profile.partner = ""
+	_partner_btn.text = tr("PARTNER_BUTTON") % (tr("CAT_%s_NAME" % Profile.partner) if Profile.partner != "" else tr("PARTNER_NONE"))
+	_partner_btn.tooltip_text = tr("PARTNER_%s_DESC" % Profile.partner) if Profile.partner != "" else tr("PARTNER_HELP")
+
+
+func _next_partner() -> void:
+	Audio.play("click", -6.0, 0.0)
+	var choices: Array[String] = [""]
+	choices.append_array(Partner.all_available())
+	Profile.partner = choices[(choices.find(Profile.partner) + 1) % choices.size()]
+	Profile.save()
+	_show_partner()
 
 
 func _small_button(entry: Array) -> Button:

@@ -412,5 +412,49 @@
     "home_bonus": {
       "regen": 1.0
     }
+  },
+  "BARNEY": {
+    "species": "dog",
+    "fur": "#a8642a",
+    "dark": "#6a3a1a",
+    "belly": "#f4f1ea",
+    "eyes": "#3a2a1a",
+    "patches": true,
+    "size": 1.35,
+    "weapon": "PAW_STOMP",
+    "bonus": {},
+    "hidden": true,
+    "npc": true,
+    "home": "FREIGHT_YARD",
+    "home_bonus": {}
+  },
+  "DOTTY": {
+    "species": "dog",
+    "fur": "#f4f1ea",
+    "dark": "#1a1a1e",
+    "belly": "#ffffff",
+    "eyes": "#3a2a1a",
+    "patches": true,
+    "size": 1.15,
+    "weapon": "SPRINKLER",
+    "bonus": {},
+    "hidden": true,
+    "npc": true,
+    "home": "FIRE_STATION",
+    "home_bonus": {}
+  },
+  "GENERAL": {
+    "species": "dog",
+    "fur": "#8a8a94",
+    "dark": "#4a4a52",
+    "belly": "#c8c8d0",
+    "eyes": "#2a1a14",
+    "size": 1.5,
+    "weapon": "SQUEAKY_HAMMER",
+    "bonus": {},
+    "hidden": true,
+    "npc": true,
+    "home": "GENERAL_KENNEL",
+    "home_bonus": {}
   }
 }

@@ -570,6 +570,13 @@ Príbeh v troch štvrtiach: psy sú najprv nepriatelia, potom spojenci. 2. a 3. 
 - [x] Dev launcher (DEV v menu, `--dev-launcher`, `Spustit\8`): každý quest pod svojou mapou → spustí sa na tej mape v minúte otvorenia s buildom; mapy v ľubovoľnej minúte, finále, nekonečná noc; každý boss na svojej mape; laboratórium; špeciálne udalosti. Nič sa neukladá.
 - [x] F1 panel so záložkami: Run (čas, rýchlosť, počasie, svätyne, pasce, level-up, truhla), Build (každá zbraň/pasívka/evolúcia/vetva, level hore-dole, uložiť „môj build“), Enemies (spawn ×1/5/20/100, figuríny, vlny vyp., DPS meter), Bosses, Quests.
 
+## 8. 11. 2026: nové UI (hotové)
+- [x] HUD: XP pruh, level, zdravie s číslom, väčšie sloty, pruh noci s bossmi, ikony vpravo, menšie oznámenia
+- [x] Pauza: karty zbraní, „Teraz“ a správy s časom, príbehy s pruhmi, klávesy; oznámenia sa počas pauzy skryjú
+- [x] Koniec noci: panel s dlaždicami, poškodenie podľa zbraní, klikateľné tlačidlá
+- [x] Obchod (karty s ikonami), denník (mapy vľavo, karty príbehov, filter), level-up (pruh vzácnosti, × v rohu, riadok „Máš“)
+- [x] Mapa mesta: klávesy ako klávesy, skupiny Mačka / Noc, štatistiky ako štítky, mriežka všetkých mačiek
+
 ## Ako pracujeme
 
 - Každý väčší krok = commit; na GitHub pushujeme, keď povieš.

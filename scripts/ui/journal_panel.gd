@@ -23,6 +23,12 @@ var tab := "quests"
 var _tab_buttons: Dictionary = {}
 var _list: VBoxContainer
 var _scroll: ScrollContainer
+## Quests tab: the group shown on the right (a map id, "any" or "qb:CHAPTER"),
+## the filter (all / open / done) and the right-hand list that the arrow
+## keys scroll.
+var _group := ""
+var _filter := "all"
+var _inner_scroll: ScrollContainer
 
 
 func _ready() -> void:
@@ -94,129 +100,248 @@ func show_tab(which: String) -> void:
 # --- quests ---------------------------------------------------------------------
 
 func _build_quests() -> void:
-	_build_districts()
-	_header(tr("QB_CHAPTER_CHAINS"))
-	# Grouped by map, then the stories that go across maps or happen anywhere.
-	var groups: Array = GameData.stages.keys()
-	groups.append("any")
-	for group: String in groups:
-		var ids: Array = GameData.chains.keys().filter(func(c: String) -> bool: return GameData.chains[c].get("stage", "any") == group)
-		if ids.is_empty():
-			continue
-		var title := tr("CHAIN_GROUP_ANY") if group == "any" else (tr("STAGE_%s_NAME" % group) if Profile.is_stage_unlocked(group) else "???")
-		var done := ids.filter(func(c: String) -> bool: return ChainStep.is_done(c)).size()
-		var sub := _label(17, GOLD, HORIZONTAL_ALIGNMENT_LEFT)
-		sub.text = "   %s  (%d/%d)" % [title, done, ids.size()]
-		_list.add_child(sub)
-		for id: String in ids:
-			_list.add_child(_chain_row(id))
-	for chapter: String in GameData.questbook.get("chapters", []):
-		_header(tr("QB_CHAPTER_%s" % chapter.to_upper()))
-		for id: String in QuestBook.lines():
-			if QuestBook.lines()[id]["chapter"] == chapter:
-				_list.add_child(_quest_row(id))
-
-
-## The districts: open ones ticked, the next one with what opens it, the
-## ones after it still a mystery.
-func _build_districts() -> void:
-	_header(tr("QB_CHAPTER_DISTRICTS"))
+	# Districts in one row of chips, the next one's hint under them.
+	var top := HBoxContainer.new()
+	top.add_theme_constant_override("separation", 8)
+	_list.add_child(top)
+	top.add_child(UiStyle.plain(tr("QB_CHAPTER_DISTRICTS"), 14, MUTED))
 	var next := DistrictMap.next_locked()
 	for d: String in DistrictMap.DISTRICTS:
-		var open := DistrictMap.district_open(d)
-		var name_label := _label(18, DONE if open else Color.WHITE, HORIZONTAL_ALIGNMENT_LEFT)
-		_list.add_child(name_label)
-		if open:
-			name_label.text = "✓ " + tr("DISTRICT_NAME_" + d.to_upper())
-			continue
-		var desc := _label(15, MUTED, HORIZONTAL_ALIGNMENT_LEFT)
-		desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		desc.custom_minimum_size.x = 1000
-		_list.add_child(desc)
-		if d == next:
-			name_label.text = "🔒 " + tr("DISTRICT_NAME_" + d.to_upper())
-			desc.text = "      " + DistrictMap.unlock_hint(d)
+		if DistrictMap.district_open(d):
+			top.add_child(UiStyle.tag("✓ " + tr("DISTRICT_NAME_" + d.to_upper()), DONE, 14))
+		elif d == next:
+			top.add_child(UiStyle.tag("🔒 " + tr("DISTRICT_NAME_" + d.to_upper()), Color.WHITE, 14))
 		else:
-			name_label.text = "🔒 ???"
-			desc.text = "      " + tr("DISTRICT_LOCK_LATER")
+			top.add_child(UiStyle.tag("🔒 ???", MUTED, 14))
+	var spacer := Control.new()
+	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	top.add_child(spacer)
+	for f: String in ["all", "open", "done"]:
+		var b := Button.new()
+		b.text = tr("QB_FILTER_%s" % f.to_upper())
+		b.focus_mode = Control.FOCUS_NONE
+		b.add_theme_font_size_override("font_size", 14)
+		b.add_theme_color_override("font_color", GOLD if f == _filter else TEXT)
+		b.add_theme_color_override("font_hover_color", GOLD)
+		var sb := UiStyle.card(false, Color("2c2338"))
+		sb.border_color = GOLD if f == _filter else Color(0, 0, 0, 0)
+		sb.set_content_margin_all(4)
+		sb.content_margin_left = 10
+		sb.content_margin_right = 10
+		for state in ["normal", "hover", "pressed"]:
+			b.add_theme_stylebox_override(state, sb)
+		b.pressed.connect(func() -> void:
+			_filter = f
+			show_tab("quests"))
+		top.add_child(b)
+	if next != "":
+		var hint := UiStyle.plain(DistrictMap.unlock_hint(next), 13, MUTED, true)
+		hint.custom_minimum_size.x = 1100
+		_list.add_child(hint)
+	# Left: the maps (and the quest book's chapters), right: their stories.
+	var groups := _quest_groups()
+	if _group == "" or _group not in groups:
+		_group = _default_group(groups)
+	var cols := HBoxContainer.new()
+	cols.add_theme_constant_override("separation", 16)
+	_list.add_child(cols)
+	var left := ScrollContainer.new()
+	left.custom_minimum_size = Vector2(250, LIST_HEIGHT - 70)
+	left.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	cols.add_child(left)
+	var maps := VBoxContainer.new()
+	maps.add_theme_constant_override("separation", 5)
+	maps.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	left.add_child(maps)
+	for g: String in groups:
+		maps.add_child(_group_button(g))
+	_inner_scroll = ScrollContainer.new()
+	_inner_scroll.custom_minimum_size = Vector2(840, LIST_HEIGHT - 70)
+	_inner_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_inner_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	cols.add_child(_inner_scroll)
+	var cards := VBoxContainer.new()
+	cards.add_theme_constant_override("separation", 8)
+	cards.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_inner_scroll.add_child(cards)
+	var shown := 0
+	for id: String in _group_items(_group):
+		var done := QuestBook.is_complete(id) if _group.begins_with("qb:") else ChainStep.is_done(id)
+		var started := QuestBook.steps_done(id) > 0 if _group.begins_with("qb:") else ChainStep.progress_of(id) > 0
+		if (_filter == "done" and not done) or (_filter == "open" and (done or not started)):
+			continue
+		cards.add_child(_quest_card(id) if _group.begins_with("qb:") else _chain_card(id))
+		shown += 1
+	if shown == 0:
+		cards.add_child(UiStyle.plain(tr("PAUSE_LOG_EMPTY"), 15, MUTED))
 
-func _quest_row(id: String) -> Control:
-	var row := VBoxContainer.new()
-	row.add_theme_constant_override("separation", 0)
-	var top := HBoxContainer.new()
-	row.add_child(top)
-	var done := QuestBook.is_complete(id)
-	var n := QuestBook.step_count(id)
-	var name_label := _label(18, DONE if done else Color.WHITE, HORIZONTAL_ALIGNMENT_LEFT)
-	_fill(name_label)
-	top.add_child(name_label)
-	var dots := _label(16, GOLD, HORIZONTAL_ALIGNMENT_LEFT)
-	dots.custom_minimum_size.x = 120
-	top.add_child(dots)
-	var count := _label(15, TEXT, HORIZONTAL_ALIGNMENT_RIGHT)
-	count.custom_minimum_size.x = 110
-	top.add_child(count)
-	var reward := _reward_label()
-	top.add_child(reward)
-	var desc := _label(15, MUTED, HORIZONTAL_ALIGNMENT_LEFT)
-	desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	desc.custom_minimum_size.x = 1000
-	row.add_child(desc)
-	if QuestBook.is_hidden(id):
-		name_label.text = "  ???"
-		desc.text = "      " + tr("QB_SECRET")
-		return row
-	var steps := QuestBook.steps_done(id)
-	name_label.text = "%s %s" % ["✓" if done else "·", QuestBook.line_name(id)]
-	dots.text = "●".repeat(steps) + "○".repeat(n - steps)
-	if done:
-		desc.text = "      " + tr("QB_DONE")
-		return row
-	var step := QuestBook.current(id)
-	count.text = "%d/%d" % [mini(QuestBook.progress(step), QuestBook.target(step)), QuestBook.target(step)]
-	reward.text = "  " + QuestBook.reward_text(step["reward"])
-	desc.text = "      %s  %s" % [tr("QB_STEP") % [steps + 1, n], QuestBook.step_text(id, steps + 1)]
-	return row
+
+## The groups of the quests tab: every map with stories, "any", then the
+## quest book's chapters ("qb:CHAPTER").
+func _quest_groups() -> Array[String]:
+	var groups: Array[String] = []
+	for stage: String in GameData.stages:
+		if GameData.chains.keys().any(func(c: String) -> bool: return GameData.chains[c].get("stage", "any") == stage):
+			groups.append(stage)
+	groups.append("any")
+	for chapter: String in GameData.questbook.get("chapters", []):
+		groups.append("qb:" + chapter)
+	return groups
 
 
-## A quest chain: name, steps done, the map, reward and what to do next.
-func _chain_row(id: String) -> Control:
-	var row := VBoxContainer.new()
-	row.add_theme_constant_override("separation", 0)
-	var top := HBoxContainer.new()
-	row.add_child(top)
+## The first map with a story under way, else the map last played.
+func _default_group(groups: Array[String]) -> String:
+	for g in groups:
+		if g.begins_with("qb:"):
+			continue
+		for id: String in _group_items(g):
+			if ChainStep.progress_of(id) > 0 and not ChainStep.is_done(id):
+				return g
+	return Profile.selected_stage if Profile.selected_stage in groups else groups[0]
+
+
+func _group_items(g: String) -> Array:
+	if g.begins_with("qb:"):
+		var chapter := g.trim_prefix("qb:")
+		return QuestBook.lines().keys().filter(func(id: String) -> bool: return QuestBook.lines()[id]["chapter"] == chapter)
+	return GameData.chains.keys().filter(func(c: String) -> bool: return GameData.chains[c].get("stage", "any") == g)
+
+
+func _group_name(g: String) -> String:
+	if g.begins_with("qb:"):
+		return tr("QB_CHAPTER_%s" % g.trim_prefix("qb:").to_upper())
+	if g == "any":
+		return tr("CHAIN_GROUP_ANY")
+	return tr("STAGE_%s_NAME" % g) if Profile.is_stage_unlocked(g) else "???"
+
+
+## A map (or chapter) in the left list: its name, stories done and a bar.
+func _group_button(g: String) -> Button:
+	var items := _group_items(g)
+	var done := items.filter(func(id: String) -> bool: return QuestBook.is_complete(id) if g.begins_with("qb:") else ChainStep.is_done(id)).size()
+	var b := Button.new()
+	b.focus_mode = Control.FOCUS_NONE
+	b.custom_minimum_size = Vector2(236, 46)
+	var selected := g == _group
+	for state in ["normal", "hover", "pressed"]:
+		var sb := UiStyle.card(selected)
+		if state == "hover" and not selected:
+			sb.border_color = Color("6a5784")
+		b.add_theme_stylebox_override(state, sb)
+	b.pressed.connect(func() -> void:
+		_group = g
+		show_tab("quests"))
+	var col := VBoxContainer.new()
+	col.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	col.offset_left = 12
+	col.offset_right = -12
+	col.offset_top = 6
+	col.offset_bottom = -6
+	col.add_theme_constant_override("separation", 3)
+	col.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	b.add_child(col)
+	var row := HBoxContainer.new()
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	col.add_child(row)
+	var name_label := UiStyle.plain(_group_name(g), 15, GOLD if selected else (DONE if done == items.size() else Color.WHITE))
+	name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	name_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	row.add_child(name_label)
+	row.add_child(UiStyle.plain("%d / %d" % [done, items.size()], 13, MUTED))
+	var bar := ProgressBar.new()
+	bar.show_percentage = false
+	bar.custom_minimum_size.y = 4
+	bar.max_value = maxi(items.size(), 1)
+	bar.value = done
+	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var bg := StyleBoxFlat.new()
+	bg.bg_color = UiStyle.SEG_EMPTY
+	bg.set_corner_radius_all(2)
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = DONE
+	fill.set_corner_radius_all(2)
+	bar.add_theme_stylebox_override("background", bg)
+	bar.add_theme_stylebox_override("fill", fill)
+	col.add_child(bar)
+	return b
+
+
+## A card for a story chain: name and state, reward, the story and the next step.
+func _chain_card(id: String) -> PanelContainer:
 	var done := ChainStep.is_done(id)
 	var n := ChainStep.steps(id).size()
 	var steps := ChainStep.progress_of(id)
-	var name_label := _label(18, DONE if done else Color.WHITE, HORIZONTAL_ALIGNMENT_LEFT)
-	_fill(name_label)
 	# A secret keeps its name hidden until it is found (its hint still shows).
 	var hidden: bool = ChainStep.chain(id).has("secret") and steps == 0
-	name_label.text = "%s %s" % ["✓" if done else "·", "???" if hidden else tr("CHAIN_%s_NAME" % id)]
-	top.add_child(name_label)
-	var dots := _label(16, GOLD, HORIZONTAL_ALIGNMENT_LEFT)
-	dots.custom_minimum_size.x = 120
-	dots.text = "●".repeat(steps) + "○".repeat(n - steps)
-	top.add_child(dots)
-	var reward := _reward_label()
-	reward.text = "  " + QuestBook.reward_text(ChainStep.chain(id).get("reward", {}))
-	top.add_child(reward)
-	var desc := _label(15, MUTED, HORIZONTAL_ALIGNMENT_LEFT)
-	desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	desc.custom_minimum_size.x = 1000
-	row.add_child(desc)
+	var next_text := ""
+	if not done:
+		var stage := ChainStep.stage_of(id, steps + 1)
+		var where := tr("CHAIN_ANY_MAP") if stage == "any" else tr("STAGE_%s_NAME" % stage)
+		if stage != "any" and not Profile.is_stage_unlocked(stage):
+			where = "???"
+		var need: String = ChainStep.steps(id)[steps].get("needs_cat", "")
+		if need != "" and not Profile.is_unlocked(need):
+			where += " · " + tr("CHAIN_NEEDS_CAT") % tr("CAT_%s_NAME" % need)
+		next_text = "%s  (%s)" % [tr("CHAIN_%s_%d" % [id, steps + 1]), where]
+	return _story_card("???" if hidden else tr("CHAIN_%s_NAME" % id), done, steps, n, QuestBook.reward_text(ChainStep.chain(id).get("reward", {})), tr("CHAIN_%s_DESC" % id), next_text)
+
+
+## A card for a quest book line (the same look as a story).
+func _quest_card(id: String) -> PanelContainer:
+	if QuestBook.is_hidden(id):
+		return _story_card("???", false, 0, 0, "", tr("QB_SECRET"), "")
+	var done := QuestBook.is_complete(id)
+	var n := QuestBook.step_count(id)
+	var steps := QuestBook.steps_done(id)
+	var reward := ""
+	var next_text := ""
+	if not done:
+		var step := QuestBook.current(id)
+		reward = QuestBook.reward_text(step["reward"])
+		next_text = "%s  %d/%d" % [QuestBook.step_text(id, steps + 1), mini(QuestBook.progress(step), QuestBook.target(step)), QuestBook.target(step)]
+	return _story_card(QuestBook.line_name(id), done, steps, n, reward, "", next_text)
+
+
+func _story_card(title: String, done: bool, steps: int, n: int, reward: String, desc: String, next_text: String) -> PanelContainer:
+	var card := PanelContainer.new()
+	var sb := UiStyle.card()
+	sb.set_content_margin_all(12)
 	if done:
-		desc.text = "      " + tr("QB_DONE")
-		return row
-	var stage := ChainStep.stage_of(id, steps + 1)
-	var where := tr("CHAIN_ANY_MAP") if stage == "any" else tr("STAGE_%s_NAME" % stage)
-	if stage != "any" and not Profile.is_stage_unlocked(stage):
-		where = "???"
-	var need: String = ChainStep.steps(id)[steps].get("needs_cat", "")
-	if need != "" and not Profile.is_unlocked(need):
-		where += " · " + tr("CHAIN_NEEDS_CAT") % tr("CAT_%s_NAME" % need)
-	desc.text = "      %s\n      %s  %s  (%s)" % [tr("CHAIN_%s_DESC" % id), tr("QB_STEP") % [steps + 1, n], tr("CHAIN_%s_%d" % [id, steps + 1]), where]
-	return row
+		sb.border_color = Color("3f6a35")
+	card.add_theme_stylebox_override("panel", sb)
+	var col := VBoxContainer.new()
+	col.add_theme_constant_override("separation", 3)
+	card.add_child(col)
+	var head := HBoxContainer.new()
+	head.add_theme_constant_override("separation", 10)
+	col.add_child(head)
+	var name_label := UiStyle.plain(title, 17, DONE if done else Color.WHITE)
+	head.add_child(name_label)
+	var state := "done" if done else ("open" if steps > 0 else "new")
+	head.add_child(UiStyle.tag(tr("QB_STATE_%s" % state.to_upper()), DONE if done else (GOLD if steps > 0 else Color("cfc3dd")), 11))
+	var spacer := Control.new()
+	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	head.add_child(spacer)
+	if reward != "":
+		var r := UiStyle.plain(reward, 13, GOLD, true)
+		r.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		r.custom_minimum_size.x = minf(ThemeDB.fallback_font.get_string_size(reward, HORIZONTAL_ALIGNMENT_LEFT, -1, 13).x + 4.0, 330.0)
+		head.add_child(r)
+	if desc != "":
+		col.add_child(UiStyle.plain(desc, 13, MUTED, true))
+	if n > 0:
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation", 10)
+		col.add_child(row)
+		row.add_child(UiStyle.segments(n, steps, 24 if n <= 8 else 12, 6))
+		if next_text != "":
+			row.add_child(UiStyle.plain(tr("QB_NEXT"), 13, MUTED))
+			var t := UiStyle.plain(next_text, 13, TEXT, true)
+			t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			row.add_child(t)
+		elif done:
+			row.add_child(UiStyle.plain(tr("QB_DONE"), 13, DONE))
+	return card
 
 
 # --- achievements -----------------------------------------------------------------
@@ -477,11 +602,12 @@ func _input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 	if not event.is_pressed():
 		return
+	var scroll := _inner_scroll if tab == "quests" and is_instance_valid(_inner_scroll) else _scroll
 	if event.is_action_pressed("move_down", true) or event.is_action_pressed("ui_down", true):
-		_scroll.scroll_vertical += SCROLL_STEP
+		scroll.scroll_vertical += SCROLL_STEP
 		return
 	if event.is_action_pressed("move_up", true) or event.is_action_pressed("ui_up", true):
-		_scroll.scroll_vertical -= SCROLL_STEP
+		scroll.scroll_vertical -= SCROLL_STEP
 		return
 	if event.is_echo():
 		return

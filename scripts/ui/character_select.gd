@@ -67,6 +67,10 @@ var _top_buttons: HBoxContainer
 var _cat_buttons: HBoxContainer
 var _badges: HBoxContainer
 var _night_buttons: HBoxContainer
+## The cat's record as small tags (wins, best level, bosses).
+var _stat_tags: HBoxContainer
+## Every cat in a grid, for when the strip is too long to look through.
+var _cat_grid: CatGridPanel
 ## The cat bar's fixed height: choosing a cat never resizes the map.
 const BOTTOM_HEIGHT := 150.0
 ## The full moon is on show in the side panel.
@@ -213,7 +217,8 @@ func _build() -> void:
 			["MENU_JOURNAL", "J", func() -> void: _journal.open("quests")],
 			["HELP_BUTTON", "H", func() -> void: _help.open()],
 			["SET_BACK", "Esc", func() -> void: get_tree().change_scene_to_file("res://scenes/main_menu.tscn")]]:
-		var b := UiStyle.click_button("%s (%s)" % [tr(entry[0]), entry[1]], 0, 15)
+		var b := UiStyle.click_button(tr(entry[0]), 0, 15)
+		UiStyle.add_key(b, entry[1], 11)
 		b.pressed.connect(entry[2])
 		buttons.add_child(b)
 	_top_buttons = buttons
@@ -492,10 +497,30 @@ func _build() -> void:
 	left.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	left.add_theme_constant_override("separation", 2)
 	bottom.add_child(left)
+	# The strip of cats, and a button that shows all of them at once.
+	var strip := HBoxContainer.new()
+	strip.add_theme_constant_override("separation", 6)
+	left.add_child(strip)
+	var all_cats := UiStyle.click_button("", 44, 13)
+	all_cats.custom_minimum_size = Vector2(44, 56)
+	all_cats.tooltip_text = tr("SELECT_ALL_CATS")
+	all_cats.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	var grid_icon := Control.new()
+	grid_icon.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	grid_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	grid_icon.draw.connect(func() -> void:
+		var c := grid_icon.size / 2.0
+		for gx in 3:
+			for gy in 3:
+				grid_icon.draw_rect(Rect2(c + Vector2(-11 + gx * 8, -11 + gy * 8), Vector2(6, 6)), GOLD))
+	all_cats.add_child(grid_icon)
+	all_cats.pressed.connect(_open_cat_grid)
+	strip.add_child(all_cats)
 	var scroll := ScrollContainer.new()
 	scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.custom_minimum_size = Vector2(0, 60)
-	left.add_child(scroll)
+	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	strip.add_child(scroll)
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 5)
 	scroll.add_child(row)
@@ -577,16 +602,24 @@ func _build() -> void:
 	# Two full-width lines: the cat's record and what you take along, then
 	# challenges, streak and the daily night.
 	var loadout := HBoxContainer.new()
-	loadout.add_theme_constant_override("separation", 22)
+	loadout.add_theme_constant_override("separation", 12)
 	# Taller than any of its lines or buttons (★ included), so it never grows.
 	loadout.custom_minimum_size.y = 34
 	left.add_child(loadout)
 	_cat_stats = _label(13, Color("8f7ea3"))
 	loadout.add_child(_cat_stats)
+	_cat_stats.visible = false
+	_stat_tags = HBoxContainer.new()
+	_stat_tags.add_theme_constant_override("separation", 5)
+	_stat_tags.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	loadout.add_child(_stat_tags)
 	_worn = _label(13, Color("c77dff"))
 	loadout.add_child(_worn)
 	_artifact_label = _label(13, Color("8fd3ff"))
 	loadout.add_child(_artifact_label)
+	var cat_group := UiStyle.plain(tr("SELECT_GROUP_CAT"), 11, Color("8f7ea3"))
+	cat_group.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	loadout.add_child(cat_group)
 	_cat_buttons = HBoxContainer.new()
 	_cat_buttons.add_theme_constant_override("separation", 4)
 	loadout.add_child(_cat_buttons)
@@ -614,18 +647,17 @@ func _build() -> void:
 	var play_col := VBoxContainer.new()
 	play_col.add_theme_constant_override("separation", 4)
 	bottom.add_child(play_col)
+	play_col.add_child(UiStyle.plain(tr("SELECT_GROUP_NIGHT"), 11, Color("8f7ea3")))
 	_night_buttons = HBoxContainer.new()
 	_night_buttons.add_theme_constant_override("separation", 4)
 	play_col.add_child(_night_buttons)
 	for entry: Array in [["CHALLENGES_TITLE", "X", func() -> void: _challenges.open()],
 			["SELECT_BTN_DAILY", "T", _start_daily]]:
-		var b := _small_button(entry)
-		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var b := _night_button(entry)
 		_night_buttons.add_child(b)
 	# Cat Dreams, once the director is beaten.
 	if Profile.dreams_open():
-		var dreams := _small_button(["DREAMS_BUTTON", "N", func() -> void: _dreams.open()])
-		dreams.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var dreams := _night_button(["DREAMS_BUTTON", "N", func() -> void: _dreams.open()])
 		dreams.add_theme_color_override("font_color", Color("c8a8ff"))
 		_night_buttons.add_child(dreams)
 	var play := Button.new()
@@ -764,10 +796,59 @@ func _next_partner() -> void:
 
 
 func _small_button(entry: Array) -> Button:
-	var b := UiStyle.click_button("%s (%s)" % [tr(entry[0]), entry[1]], 0, 13)
+	var b := UiStyle.click_button(tr(entry[0]), 0, 13)
 	b.custom_minimum_size.y = 28
+	UiStyle.add_key(b, entry[1], 10)
 	b.pressed.connect(entry[2])
 	return b
+
+
+## A button by Play: its name with the key cap under it.
+func _night_button(entry: Array) -> Button:
+	var b := UiStyle.click_button(tr(entry[0]), 0, 12)
+	b.custom_minimum_size.y = 44
+	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	b.vertical_icon_alignment = VERTICAL_ALIGNMENT_TOP
+	for state in ["normal", "hover", "pressed"]:
+		var sb := b.get_theme_stylebox(state).duplicate() as StyleBox
+		sb.content_margin_top = 2
+		sb.content_margin_bottom = 18
+		sb.content_margin_left = 4
+		sb.content_margin_right = 4
+		b.add_theme_stylebox_override(state, sb)
+	var cap := UiStyle.key_cap(entry[1], 9)
+	b.add_child(cap)
+	cap.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
+	cap.offset_left = -10
+	cap.offset_right = 10
+	cap.offset_top = -19
+	cap.offset_bottom = -4
+	cap.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	b.pressed.connect(entry[2])
+	return b
+
+
+## The cat's record ("Wins: 3 · Best level: 41 · ...") as small tags.
+func _fill_stat_tags() -> void:
+	for child in _stat_tags.get_children():
+		child.queue_free()
+	for part in _cat_stats.text.split("·", false):
+		if part.strip_edges() != "":
+			_stat_tags.add_child(UiStyle.tag(part.strip_edges(), Color("cfc3dd"), 12))
+
+
+func _open_cat_grid() -> void:
+	if _cat_grid == null:
+		_cat_grid = CatGridPanel.new()
+		add_child(_cat_grid)
+		_cat_grid.picked.connect(func(i: int) -> void:
+			_index = i
+			_refresh())
+	var home: Array = []
+	for i in _ids.size():
+		if _home_marks[i].visible:
+			home.append(_ids[i])
+	_cat_grid.open(_ids, _index, home)
 
 
 ## The bottom lines shrink their font until all of their text fits.
@@ -782,7 +863,7 @@ func _fit_lines() -> void:
 func _fit_top() -> void:
 	var room := get_viewport_rect().size.x - 28.0 - 20.0 - 14.0 * 2.0 - _badges.get_combined_minimum_size().x - _gold.get_combined_minimum_size().x
 	UiStyle.fit_row(_top_buttons, maxf(room, 400.0))
-	UiStyle.fit_row(_night_buttons, 230.0, 9)
+	UiStyle.fit_row(_night_buttons, 300.0, 9)
 	UiStyle.fit_row(_cat_buttons, 330.0, 9)
 
 
@@ -878,10 +959,11 @@ func _refresh() -> void:
 		_desc.text = tr("CAT_%s_HINT" % id)
 		_weapon_label.text = ""
 		_cat_stats.text = ""
+	_fill_stat_tags()
 	var career := Profile.career(id) if unlocked else {}
 	if unlocked:
 		var picks := int(career["picks"])
-		_worn.text = tr("SELECT_CAREER") % [int(career["lives"]), Profile.LIVES, int(career["rank"]), Profile.MAX_RANK, (career["talents"] as Array).size()] + ("  " + tr("SELECT_CAREER_PICK") % picks if picks > 0 else "")
+		_worn.text = (tr("SELECT_CAREER") % [int(career["lives"]), Profile.LIVES, int(career["rank"]), Profile.MAX_RANK, (career["talents"] as Array).size()]).replace(" (C)", "") + ("  " + tr("SELECT_CAREER_PICK") % picks if picks > 0 else "")
 	else:
 		_worn.text = ""
 	# The Talents button and the cards tell which cats have a talent to pick.
@@ -890,7 +972,7 @@ func _refresh() -> void:
 		_pick_marks[i].queue_redraw()
 	var talents: Button = _cat_buttons.get_child(0)
 	var waiting := unlocked and int(career["picks"]) > 0
-	talents.text = "%s (C)" % tr("MENU_TALENTS") + (" ★" if waiting else "")
+	talents.text = tr("MENU_TALENTS") + (" ★" if waiting else "")
 	talents.add_theme_color_override("font_color", GOLD if waiting else UiStyle.TEXT)
 	_artifact_label.text = tr("SELECT_LEGACY") % Profile.retired.size() if not Profile.retired.is_empty() else ""
 	if Profile.streak > 0 or Profile.best_streak > 0:
@@ -898,13 +980,13 @@ func _refresh() -> void:
 	# The curses and the daily night tell their state on their own buttons.
 	var ch: Array = Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))
 	var curses: Button = _night_buttons.get_child(0)
-	curses.text = "%s (X)" % tr("CHALLENGES_TITLE") + ("" if ch.is_empty() else " ×%.2f" % Profile.challenge_gold())
+	curses.text = tr("CHALLENGES_TITLE") + ("" if ch.is_empty() else " ×%.2f" % Profile.challenge_gold())
 	curses.tooltip_text = tr("SELECT_CHALLENGES") % ["—" if ch.is_empty() else ", ".join(ch), Profile.challenge_gold()]
 	curses.add_theme_color_override("font_color", UiStyle.TEXT if ch.is_empty() else Color("ff7a6a"))
 	var plan := Profile.daily_plan()
 	var done := Profile.has_flag("daily_win:" + Profile.today())
 	var daily: Button = _night_buttons.get_child(1)
-	daily.text = "%s (T)" % tr("SELECT_BTN_DAILY") + (" ✓" if done else "")
+	daily.text = tr("SELECT_BTN_DAILY") + (" ✓" if done else "")
 	daily.tooltip_text = tr("SELECT_DAILY") % [tr("STAGE_%s_NAME" % plan["stage"]), ", ".join((plan["challenges"] as Array).map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c)))]
 	_fit_top.call_deferred()
 	_gold.text = tr("SELECT_GOLD") % Profile.gold + "   " + tr("SELECT_MATERIALS") % Profile.materials
@@ -1237,7 +1319,7 @@ func _refresh_darkness(stage_id: String) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _shop.visible or _charms.visible or _items.visible or _journal.visible or _challenges.visible or _artifacts.visible or _help.visible:
+	if _shop.visible or _charms.visible or _items.visible or _journal.visible or _challenges.visible or _artifacts.visible or _help.visible or (_cat_grid != null and _cat_grid.visible):
 		return
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_H:
 		Audio.play("click", -6.0, 0.0)

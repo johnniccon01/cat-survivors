@@ -425,6 +425,7 @@ func _ready() -> void:
 	player.inventory_changed.connect(func() -> void: hud.update_inventory(player))
 	hud.level_up.chosen.connect(_on_offer_chosen)
 	hud.level_up.reroll_requested.connect(_on_reroll)
+	hud.end_action.connect(_on_end_action)
 	hud.level_up.banish_requested.connect(_on_banish)
 	player.revived.connect(_on_revived)
 	hud.treasure.closed.connect(_next_modal)
@@ -721,6 +722,24 @@ func _exit_tree() -> void:
 	# Never leave the game slowed down by a hit-stop when the scene changes.
 	if not _bot:
 		Engine.time_scale = 1.0
+
+
+## A click on one of the end screen's buttons: the same as its key.
+func _on_end_action(action: String) -> void:
+	match action:
+		"endless":
+			if _last_end == "victory" and not _endless:
+				_start_endless()
+		"next":
+			if not hud.next_end_page():
+				get_tree().paused = false
+				get_tree().change_scene_to_file("res://scenes/character_select.tscn")
+		"again":
+			get_tree().paused = false
+			get_tree().reload_current_scene()
+		"back":
+			get_tree().paused = false
+			get_tree().change_scene_to_file("res://scenes/character_select.tscn")
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -1385,6 +1404,7 @@ func _end_run(kind: String) -> void:
 		deeds.append(QuestBook.completed_text(entry))
 	if _bot:
 		print("BOT: summary %s" % " | ".join(deeds + lines))
+	hud.end_facts = {"kills": kills, "time": spawner.elapsed, "level": player.level, "gold": floori(run_gold)}
 	hud.show_end(end_title, end_stats, deeds, lines, tr("SUMMARY_TOTAL") % Profile.gold, kind == "victory")
 
 

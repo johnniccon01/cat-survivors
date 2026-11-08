@@ -1,11 +1,14 @@
 class_name InventoryBar
 extends Control
-## Two rows of slots in the top-left corner: weapons and passives. Each icon
-## shows its level; maxed items say MAX and evolved weapons get a star and
-## a gold frame. Empty slots are dark, so the slot limit is visible.
+## Two rows of slots in the top-left corner under the health bar: weapons
+## (bigger) and passives. Each icon shows its level; maxed and evolved items
+## get a gold frame and a star. Empty slots are a faint outline, so the slot
+## limit is visible without covering the floor.
 
-const SLOT := 28.0
-const GAP := 4.0
+const SLOT := 40.0
+const PASSIVE_SLOT := 28.0
+const GAP := 5.0
+const FRAME := Color("54466c")
 const OUTLINE := Color("2b1d14")
 const GOLD := Color("f2c14e")
 
@@ -17,8 +20,8 @@ var _font: Font
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_font = ThemeDB.fallback_font
-	position = Vector2(10, 22)
-	size = Vector2((SLOT + GAP) * (Player.MAX_WEAPONS + 2), (SLOT + GAP) * 2 + 20 * 4)
+	position = Vector2(12, 46)
+	size = Vector2((SLOT + GAP) * (Player.MAX_WEAPONS + 2), SLOT + PASSIVE_SLOT + GAP * 2 + 20 * 4)
 
 
 func refresh() -> void:
@@ -33,33 +36,39 @@ func _draw() -> void:
 		var rect := Rect2(Vector2(i * (SLOT + GAP), 0), Vector2(SLOT, SLOT))
 		if i < weapons.size():
 			var w: Weapon = weapons[i]
-			Icons.draw(self, "weapon", w.id, rect)
+			var top := Icons.is_evolved("weapon", w.id) or w.level >= w.max_level()
+			_slot(rect, top)
+			Icons.draw(self, "weapon", w.id, rect.grow(-4.0))
 			if w.branch != "":
 				# One dot per branch rank, coloured by what the branch does.
 				for k in w.branch_rank:
-					var p := rect.position + Vector2(4 + k * 6, 4)
+					var p := rect.position + Vector2(6 + k * 6, 6)
 					draw_circle(p, 2.6, OUTLINE)
 					draw_circle(p, 2.0, InventoryBar.branch_color(w.branch_effect()))
-			if Icons.is_evolved("weapon", w.id):
-				draw_rect(rect.grow(1.0), GOLD, false, 2.0)
-				_badge(rect, "★", GOLD)
+			if top:
+				_star(rect)
 			else:
-				_badge(rect, "MAX" if w.level >= w.max_level() else str(w.level), GOLD if w.level >= w.max_level() else Color.WHITE)
+				_badge(rect, str(w.level), Color.WHITE)
 		else:
 			_empty(rect)
 	var ids := player.passives.keys()
+	var y0 := SLOT + GAP
 	for i in Player.MAX_PASSIVES:
-		var rect := Rect2(Vector2(i * (SLOT + GAP), SLOT + GAP), Vector2(SLOT, SLOT))
+		var rect := Rect2(Vector2(i * (PASSIVE_SLOT + GAP), y0), Vector2(PASSIVE_SLOT, PASSIVE_SLOT))
 		if i < ids.size():
 			var id: String = ids[i]
 			var lvl: int = player.passives[id]
 			var max_lvl: int = GameData.passives[id]["levels"].size()
-			Icons.draw(self, "passive", id, rect)
-			_badge(rect, "MAX" if lvl >= max_lvl else str(lvl), GOLD if lvl >= max_lvl else Color.WHITE)
+			_slot(rect, lvl >= max_lvl)
+			Icons.draw(self, "passive", id, rect.grow(-3.0))
+			if lvl >= max_lvl:
+				_star(rect, 1)
+			else:
+				_badge(rect, str(lvl), Color.WHITE, 11)
 		else:
 			_empty(rect)
 	# Active weapon combos under the slots: both icons and the name.
-	var y := (SLOT + GAP) * 2 + 2
+	var y := SLOT + PASSIVE_SLOT + GAP * 2 + 2
 	for c: String in player.combos:
 		var pair: Array = Combos.LIST[c]
 		var x := 0.0
@@ -85,8 +94,27 @@ func _draw() -> void:
 
 
 func _empty(rect: Rect2) -> void:
-	draw_rect(rect, Color(0, 0, 0, 0.35))
-	draw_rect(rect, Color(1, 1, 1, 0.12), false, 1.0)
+	draw_style_box(_box(Color(0.055, 0.04, 0.08, 0.32), Color(1, 1, 1, 0.13)), rect)
+
+
+## A filled slot: dark plate, gold edge when it is at its best.
+func _slot(rect: Rect2, gold: bool) -> void:
+	draw_style_box(_box(Color(0.055, 0.04, 0.08, 0.72), GOLD.darkened(0.1) if gold else FRAME), rect)
+
+
+func _box(fill: Color, border: Color) -> StyleBoxFlat:
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = fill
+	sb.border_color = border
+	sb.set_border_width_all(2)
+	sb.set_corner_radius_all(6)
+	return sb
+
+
+## The gold star of a maxed or evolved item, in the bottom-right corner.
+func _star(rect: Rect2, scale: int = 2) -> void:
+	var size := Vector2(7, 7) * scale
+	PixelGlyph.draw(self, "star", Rect2(rect.end - size + Vector2(2, 2), size))
 
 
 ## Colour that tells the kind of a weapon branch (fire, frost, spark...).
@@ -107,8 +135,7 @@ static func branch_color(fx: Dictionary) -> Color:
 
 
 ## Small number (or MAX / star) in the bottom-right corner of a slot.
-func _badge(rect: Rect2, text: String, color: Color) -> void:
-	var size := 11 if text.length() > 1 else 13
+func _badge(rect: Rect2, text: String, color: Color, size: int = 13) -> void:
 	var w := _font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x
 	var pos := rect.end + Vector2(-w - 1, -2)
 	draw_string_outline(_font, pos, text, HORIZONTAL_ALIGNMENT_LEFT, -1, size, 3, OUTLINE)

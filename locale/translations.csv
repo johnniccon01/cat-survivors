@@ -3969,3 +3969,44 @@ DISTRICT_LOCK_WIN,"Win %s, then finish the story “%s” to open it.",Vyhraj ma
 DISTRICT_LOCK_CHAIN,"Finish the story “%s”, then the story “%s” opens it.","Dokonči príbeh „%s“, potom ho otvorí príbeh „%s“.","Dokonči příběh „%s“, pak ho otevře příběh „%s“.",Termina la historia «%s»; luego la historia «%s» lo abre.,"Пройди историю «%s», затем его откроет история «%s».",完成故事“%s”，之后故事“%s”将开启它。
 DISTRICT_LOCK_STORY,Finish the story “%s” (step %d/%d: %s) – see the Journal.,Dokonči príbeh „%s“ (krok %d/%d: %s) – pozri Denník.,Dokonči příběh „%s“ (krok %d/%d: %s) – viz Deník.,Termina la historia «%s» (paso %d/%d: %s) – mira el Diario.,Пройди историю «%s» (шаг %d/%d: %s) – см. Журнал.,完成故事“%s”（第%d/%d步：%s）——见图鉴。
 DISTRICT_LOCK_LATER,An unknown district – it opens after the one before it.,Neznáma štvrť – otvorí sa po tej predošlej.,Neznámá čtvrť – otevře se po té předchozí.,Un barrio desconocido: se abre después del anterior.,Неизвестный район – откроется после предыдущего.,未知街区——在前一个街区之后开启。
+HUD_NEXT_BOSS,next boss in %s,ďalší boss o %s,další boss za %s,próximo jefe en %s,следующий босс через %s,下个首领：%s 后
+HUD_FINAL_BOSS,final boss in %s,finálny boss o %s,finální boss za %s,jefe final en %s,финальный босс через %s,最终首领：%s 后
+PAUSE_DISCARD_BUTTON,Throw away a weapon or skill,Vyhodiť zbraň alebo schopnosť,Vyhodit zbraň nebo schopnost,Tirar un arma o habilidad,Выбросить оружие или навык,丢弃武器或技能
+PAUSE_LEFT,%d left,zostáva %d,zbývá %d,quedan %d,осталось %d,剩余 %d
+PAUSE_NOW,Now,Teraz,Teď,Ahora,Сейчас,当前
+PAUSE_NEWS,Messages,Správy,Zprávy,Mensajes,Сообщения,消息
+PAUSE_SKILLS,Skills,Schopnosti,Schopnosti,Habilidades,Навыки,技能
+PAUSE_MAP_STORIES,This map's stories,Príbehy tejto mapy,Příběhy této mapy,Historias de este mapa,Истории этой карты,本地图的故事
+PAUSE_KEY_LANGUAGE,%s,%s,%s,%s,%s,%s
+PAUSE_KEY_SOUND,Sound %s,Zvuk %s,Zvuk %s,Sonido %s,Звук %s,声音 %s
+PAUSE_KEY_NUMBERS,Numbers %s,Čísla %s,Čísla %s,Números %s,Числа %s,数字 %s
+PAUSE_KEY_SHAKE,Shake %s,Otrasy %s,Otřesy %s,Temblor %s,Тряска %s,震动 %s
+PAUSE_EVOLVE_WITH,evolves with %s,evolúcia s %s,evoluce s %s,evoluciona con %s,эволюция с %s,进化需要 %s
+END_KILLS,Defeated,Porazení,Poraženo,Derrotados,Побеждено,击败
+END_TIME,Time,Čas,Čas,Tiempo,Время,时间
+END_LEVEL,Level,Úroveň,Úroveň,Nivel,Уровень,等级
+END_GOLD,Gold found,Nájdené zlato,Nalezené zlato,Oro encontrado,Найдено золота,拾得金币
+END_DAMAGE,Most damage,Najviac poškodenia,Nejvíc poškození,Más daño,Больше всего урона,伤害最高
+END_NEXT,Next,Ďalej,Dál,Siguiente,Далее,继续
+END_AGAIN_BUTTON,Play again,Hrať znova,Hrát znovu,Jugar otra vez,Играть снова,再玩一次
+END_BACK_BUTTON,To the neighbourhood,Do štvrte,Do čtvrti,Al barrio,В район,回到街区
+END_ENDLESS_BUTTON,Endless night,Nekonečná noc,Nekonečná noc,Noche sin fin,Бесконечная ночь,无尽之夜
+SHOP_RANK,level %d / %d,stupeň %d / %d,stupeň %d / %d,nivel %d / %d,уровень %d / %d,等级 %d / %d
+SHOP_BUY,Buy for %d,Kúpiť za %d,Koupit za %d,Comprar por %d,Купить за %d,购买：%d
+SHOP_REFUND,Refund all,Vrátiť všetko,Vrátit vše,Devolver todo,Вернуть всё,全部退还
+QB_FILTER_ALL,All,Všetky,Všechny,Todas,Все,全部
+QB_FILTER_OPEN,In progress,Rozrobené,Rozdělané,En curso,В процессе,进行中
+QB_FILTER_DONE,Done,Hotové,Hotové,Hechas,Готово,已完成
+QB_STATE_NEW,not started,nezačaté,nezačato,sin empezar,не начато,未开始
+QB_STATE_OPEN,in progress,rozrobené,rozdělané,en curso,в процессе,进行中
+QB_STATE_DONE,done,hotové,hotovo,hecha,готово,已完成
+QB_NEXT,Next:,Ďalej:,Dál:,Siguiente:,Далее:,下一步：
+QB_ANYWHERE,Anywhere,Kdekoľvek,Kdekoli,En cualquier parte,Где угодно,任意地点
+LEVELUP_HAVE,You have,Máš,Máš,Tienes,У тебя,已拥有
+LEVELUP_EVOLVES,evolves %s,vyvinie %s,vyvine %s,evoluciona %s,эволюция: %s,可进化 %s
+LEVELUP_NEW_WEAPON,new weapon,nová zbraň,nová zbraň,arma nueva,новое оружие,新武器
+LEVELUP_OWNED,you have it · lv %d/%d,už máš · úr. %d/%d,už máš · úr. %d/%d,ya la tienes · nv %d/%d,уже есть · ур. %d/%d,已拥有 · 等级 %d/%d
+LEVELUP_REROLL_BUTTON,New offer,Prehodiť ponuku,Přehodit nabídku,Nueva oferta,Новое предложение,刷新选项
+SELECT_GROUP_CAT,CAT,MAČKA,KOČKA,GATO,КОШКА,猫咪
+SELECT_GROUP_NIGHT,NIGHT,NOC,NOC,NOCHE,НОЧЬ,夜晚
+SELECT_ALL_CATS,All cats,Všetky mačky,Všechny kočky,Todos los gatos,Все кошки,全部猫咪

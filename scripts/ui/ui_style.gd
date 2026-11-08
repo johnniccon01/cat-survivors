@@ -199,3 +199,141 @@ static func overlay(parent: Control, alpha: float = 0.92) -> VBoxContainer:
 	vbox.add_theme_constant_override("separation", 10)
 	parent.add_child(vbox)
 	return vbox
+
+
+# --- Shared pieces of the newer screens: cards, key caps, tags, segments ---
+
+const CARD := Color("221a2d")
+const CARD_BORDER := Color("3c304e")
+const CARD_SELECTED := Color("382c4c")
+const GREEN := Color("8ee07a")
+const SEG_EMPTY := Color("4a3d60")
+
+
+## A small card inside a panel (list rows, tiles); `selected` gets the gold edge.
+static func card(selected: bool = false, fill: Color = CARD) -> StyleBoxFlat:
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = CARD_SELECTED if selected else fill
+	sb.border_color = GOLD if selected else CARD_BORDER
+	sb.set_border_width_all(2 if selected else 1)
+	sb.set_corner_radius_all(9)
+	sb.set_content_margin_all(10)
+	sb.content_margin_top = 8
+	sb.content_margin_bottom = 8
+	return sb
+
+
+## A keyboard key drawn as a little key cap ("Esc", "R"…).
+static func key_cap(text: String, size: int = 12) -> PanelContainer:
+	var cap := PanelContainer.new()
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color("2f263c")
+	sb.border_color = Color("574872")
+	sb.set_border_width_all(1)
+	sb.border_width_bottom = 3
+	sb.set_corner_radius_all(5)
+	sb.content_margin_left = 5
+	sb.content_margin_right = 5
+	sb.content_margin_top = 0
+	sb.content_margin_bottom = 0
+	cap.add_theme_stylebox_override("panel", sb)
+	cap.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	cap.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var l := Label.new()
+	l.text = text
+	l.add_theme_font_size_override("font_size", size)
+	l.add_theme_color_override("font_color", Color("ddd3ea"))
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.custom_minimum_size.x = size + 4
+	cap.add_child(l)
+	return cap
+
+
+## Puts key cap `key` at the right end of button `b` (its text moves over
+## to make room), so the key is shown on what it does.
+static func add_key(b: Button, key: String, size: int = 12) -> PanelContainer:
+	var cap := key_cap(key, size)
+	b.add_child(cap)
+	var font := b.get_theme_font("font")
+	var width := font.get_string_size(key, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x + 14.0
+	width = maxf(width, size + 14.0)
+	cap.set_anchors_and_offsets_preset(Control.PRESET_CENTER_RIGHT)
+	cap.offset_left = -width - 10.0
+	cap.offset_right = -10.0
+	cap.offset_top = -11.0
+	cap.offset_bottom = 11.0
+	for state in ["normal", "hover", "focus", "pressed", "disabled"]:
+		if b.has_theme_stylebox_override(state):
+			var sb := b.get_theme_stylebox(state).duplicate() as StyleBox
+			sb.content_margin_right = width + 16.0
+			sb.content_margin_left = maxf(sb.content_margin_left, 12.0)
+			b.add_theme_stylebox_override(state, sb)
+	return cap
+
+
+## A quiet note at the right end of button `b` ("2 left"), with the same
+## room left on the other side so the button's own text stays centred.
+static func side_note(b: Button, note: String, size: int = 13) -> Label:
+	var l := Label.new()
+	l.text = note
+	l.add_theme_font_size_override("font_size", size)
+	l.add_theme_color_override("font_color", MUTED)
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	b.add_child(l)
+	l.set_anchors_and_offsets_preset(Control.PRESET_RIGHT_WIDE)
+	l.offset_left = -96.0
+	l.offset_right = -14.0
+	for state in ["normal", "hover", "focus", "pressed", "disabled"]:
+		if b.has_theme_stylebox_override(state):
+			var sb := b.get_theme_stylebox(state).duplicate() as StyleBox
+			sb.content_margin_right = 92.0
+			sb.content_margin_left = 92.0
+			b.add_theme_stylebox_override(state, sb)
+	return l
+
+
+## A short label on a dark chip ("legendary", "not started"…).
+static func tag(text: String, color: Color = Color("cfc3dd"), size: int = 13, border: Color = Color(0, 0, 0, 0)) -> PanelContainer:
+	var chip := PanelContainer.new()
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color("2c2338")
+	sb.border_color = border
+	sb.set_border_width_all(1 if border.a > 0.0 else 0)
+	sb.set_corner_radius_all(6)
+	sb.content_margin_left = 8
+	sb.content_margin_right = 8
+	sb.content_margin_top = 1
+	sb.content_margin_bottom = 2
+	chip.add_theme_stylebox_override("panel", sb)
+	chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	chip.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var l := Label.new()
+	l.text = text
+	l.add_theme_font_size_override("font_size", size)
+	l.add_theme_color_override("font_color", color)
+	chip.add_child(l)
+	return chip
+
+
+## A row of `count` little segments, the first `filled` gold (levels, steps).
+static func segments(count: int, filled: int, seg_width: float = 16.0, height: float = 6.0) -> SegmentBar:
+	var bar := SegmentBar.new()
+	bar.count = count
+	bar.filled = filled
+	bar.seg_width = seg_width
+	bar.seg_height = height
+	return bar
+
+
+## Plain text in the game's look without an outline (on panels), left aligned.
+static func plain(t: String, size: int = 15, color: Color = TEXT, wrap: bool = false) -> Label:
+	var l := Label.new()
+	l.text = t
+	l.add_theme_font_size_override("font_size", size)
+	l.add_theme_color_override("font_color", color)
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	if wrap:
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	return l

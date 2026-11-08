@@ -229,7 +229,7 @@ func toughen(enemy: Enemy, strength: float = 1.0) -> void:
 ## Health multiplier of a final boss: the map's challenge (much less than
 ## the rest) and the cat's level, so a strong cat doesn't melt it.
 func final_hp_multiplier() -> float:
-	return _player.stat("curse") * pow(challenge(), 0.65) * level_factor() * Profile.dream_hp()
+	return _player.stat("curse") * pow(challenge(), 0.4) * level_factor() * Profile.dream_hp()
 
 
 ## The map's challenge ("challenge" in stages.json): later maps grow tougher
@@ -281,7 +281,9 @@ func _stage_bosses() -> Array:
 
 ## How hard and fast new enemies are, from the run clock.
 func _update_mults() -> void:
-	_enemies.damage_mult = (1.0 + DAMAGE_PER_MINUTE_SQ * pow(elapsed / 60.0, 2.0)) * early_ease() * sqrt(challenge()) * (1.0 + DARKNESS_DAMAGE * darkness) * float(_stage.get("damage_mult", 1.0)) * Profile.dream_damage()
+	# A long final fight doesn't keep making enemies hit harder (endless does).
+	var clock := elapsed if endless else minf(elapsed, duration_minutes() * 60.0)
+	_enemies.damage_mult = (1.0 + DAMAGE_PER_MINUTE_SQ * pow(clock / 60.0, 2.0)) * early_ease() * sqrt(challenge()) * (1.0 + DARKNESS_DAMAGE * darkness) * float(_stage.get("damage_mult", 1.0)) * Profile.dream_damage()
 	_enemies.speed_mult = 1.0 + minf(SPEED_PER_MINUTE * elapsed / 60.0, SPEED_MAX_BONUS) + minf(ENDLESS_SPEED_PER_MINUTE * endless_minutes(), ENDLESS_SPEED_MAX)
 
 

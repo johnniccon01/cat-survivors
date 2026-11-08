@@ -145,7 +145,10 @@ const SUMMON_CAP := 380
 ## tougher than the boss's own health factor says.
 const FINAL_MINIONS := 16
 const FINAL_SUMMON_EVERY := 10.0
-const FINAL_MINION_HP := 4.0
+const FINAL_MINION_HP := 3.0
+## No new pack while this many enemies are already about: they pile up and
+## shield the boss in a long fight.
+const FINAL_PACK_CAP := 40
 var _pack_id := ""
 var _pack_left := 0
 var _pack_size := 0
@@ -430,7 +433,7 @@ func _tick_dash(delta: float, dir: Vector2) -> Vector2:
 ## minions; below half health it starts lunging too.
 func _tick_final(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 	_summon_t -= delta
-	if _summon_t <= 0.0 and _minion != "":
+	if _summon_t <= 0.0 and _minion != "" and manager.enemies.size() < FINAL_PACK_CAP:
 		_summon_t = FINAL_SUMMON_EVERY
 		_call_pack(_minion, FINAL_MINIONS, hp_mult * FINAL_MINION_HP)
 	if _final_mode == "roar":

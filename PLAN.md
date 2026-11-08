@@ -38,6 +38,17 @@ Hra je hrateľná od menu po koniec noci na 7 mapách:
 - [ ] Vyskúšať novú Smrť (F1 → „Death now“), Mrazenú rybku, nové svätyne a vyhadzovanie zbraní v pauze
 - [ ] Rozhodnúť: zlúčiť charmy, artefakty a výbavu do menej systémov? (otázka z 28. 10.)
 
+## Krátkodobý plán – časť 6 (zadané 8. 11. 2026: endgame Mačacie sny, robí sa po časti 5)
+
+Návrh je v `ENDGAME.md`.
+
+1. [ ] **Mapa snov a hĺbka** (nekonečné úrovne, náhodné noci zo všetkých štvrtí).
+2. [ ] **Snové úlomky** (modifikátory nocí, riziko a odmena).
+3. [ ] **Nočné mory** (superbossovia).
+4. [ ] **Snová výbava** (nová vzácnosť, sety, vylepšovanie).
+5. [ ] **Nekonečný rast** postavy po maximálnej úrovni.
+6. [ ] **Testy a balans** endgamu. (Týždenný sen až pri príprave na Steam.)
+
 ## Krátkodobý plán – časť 5 (zadané 8. 11. 2026: Divočina a Firma, robí sa po časti 4)
 
 Návrh je v `TRETIA_STVRT.md`. Každý krok s testami, commitom, značkou a pushom; texty vo všetkých jazykoch.

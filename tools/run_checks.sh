@@ -16,6 +16,7 @@ scenarios=(
   "map_clicks|--ui-test|-s res://tools/map_click_test.gd"
   "sieges|--ui-test|-s res://tools/siege_test.gd"
   "text_fit|--ui-test|-s res://tools/text_fit_test.gd"
+  "profile_check|--ui-test|-s res://tools/profile_check.gd"
   "dev_boss_rush|--bot --strong --god --boss-rush --bot-time=1500 --bot-speed=8"
   "dev_quests|--bot --strong --god --dev-quest-all --bot-time=900 --bot-speed=8"
   "dev_endless|--bot --stage=GARDEN --god --dev-endless --bot-time=1290"

@@ -6,6 +6,15 @@ extends Node
 const PATH := "user://profile.cfg"
 ## The previous save, kept in case the main file gets damaged.
 const BACKUP := "user://profile.bak.cfg"
+## Written first, then moved over PATH, so a crash mid-save never leaves a
+## half-written profile.
+const TEMP := "user://profile.tmp.cfg"
+## One copy a day of the profile, the last DAILY_BACKUPS kept.
+const BACKUP_DIR := "user://backups"
+const DAILY_BACKUPS := 7
+## The save format. Raise it when the save changes shape and add a step to
+## migrate(); an older profile is copied aside before it is migrated.
+const SAVE_VERSION := 1
 
 var unlocked: Array[String] = []
 var selected_cat := "MICA"
@@ -86,12 +95,21 @@ func _ready() -> void:
 		loaded = cfg.load(test_path()) == OK
 	elif not fresh:
 		loaded = cfg.load(PATH) == OK
-		if not loaded and FileAccess.file_exists(BACKUP):
-			# The profile is missing or broken: fall back to the last good one.
-			loaded = cfg.load(BACKUP) == OK
-			if loaded:
-				push_warning("Profile: %s could not be read, using the backup" % PATH)
+		if not loaded:
+			# The profile is missing or broken: fall back to the last good
+			# save, then to the newest daily copy.
+			for path in [BACKUP] + Profile.daily_backups():
+				if FileAccess.file_exists(path) and cfg.load(path) == OK:
+					loaded = true
+					if FileAccess.file_exists(PATH):
+						push_warning("Profile: %s could not be read, using %s" % [PATH, path])
+					break
 	if loaded:
+		var version := int(cfg.get_value("meta", "version", 0))
+		if version < SAVE_VERSION and test_path() == "" and not fresh and FileAccess.file_exists(PATH):
+			# Keep the old profile as it was before changing it.
+			DirAccess.copy_absolute(ProjectSettings.globalize_path(PATH), ProjectSettings.globalize_path("user://profile.v%d.cfg" % version))
+		Profile.migrate(cfg)
 		for id: String in cfg.get_value("cats", "unlocked", []):
 			unlocked.append(id)
 		selected_cat = cfg.get_value("cats", "selected", selected_cat)
@@ -1516,16 +1534,55 @@ func save() -> void:
 			_config().save(test_path())
 		return
 	var cfg := _config()
-	# Keep the last good save before writing the new one.
+	# Keep the last good save (and one a day) before writing the new one.
 	if FileAccess.file_exists(PATH):
 		var previous := ConfigFile.new()
 		if previous.load(PATH) == OK:
 			DirAccess.copy_absolute(ProjectSettings.globalize_path(PATH), ProjectSettings.globalize_path(BACKUP))
-	cfg.save(PATH)
+			_daily_backup_copy()
+	# Write beside it first, then swap: a crash never leaves half a profile.
+	if cfg.save(TEMP) != OK or DirAccess.rename_absolute(ProjectSettings.globalize_path(TEMP), ProjectSettings.globalize_path(PATH)) != OK:
+		cfg.save(PATH)
+
+
+## Brings a loaded profile of an older save format up to SAVE_VERSION, one
+## step at a time; returns the version it was.
+static func migrate(cfg: ConfigFile) -> int:
+	var version := int(cfg.get_value("meta", "version", 0))
+	# 0 -> 1: profiles from before versions existed already have today's
+	# shape; they only get the version number.
+	cfg.set_value("meta", "version", SAVE_VERSION)
+	return version
+
+
+## The daily copies, newest first.
+static func daily_backups() -> Array[String]:
+	var out: Array[String] = []
+	var dir := DirAccess.open(BACKUP_DIR)
+	if dir == null:
+		return out
+	for f in dir.get_files():
+		if f.begins_with("profile-") and f.ends_with(".cfg"):
+			out.append(BACKUP_DIR.path_join(f))
+	out.sort()
+	out.reverse()
+	return out
+
+
+## Once a day the profile as it was is copied to BACKUP_DIR; old copies go.
+func _daily_backup_copy() -> void:
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(BACKUP_DIR))
+	var today := BACKUP_DIR.path_join("profile-%s.cfg" % Time.get_date_string_from_system())
+	if not FileAccess.file_exists(today):
+		DirAccess.copy_absolute(ProjectSettings.globalize_path(PATH), ProjectSettings.globalize_path(today))
+	var all := Profile.daily_backups()
+	for i in range(DAILY_BACKUPS, all.size()):
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(all[i]))
 
 
 func _config() -> ConfigFile:
 	var cfg := ConfigFile.new()
+	cfg.set_value("meta", "version", SAVE_VERSION)
 	cfg.set_value("cats", "unlocked", unlocked)
 	cfg.set_value("cats", "selected", selected_cat)
 	cfg.set_value("cats", "partner", partner)

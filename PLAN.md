@@ -47,7 +47,7 @@ Návrh je v `ENDGAME.md`.
 3. [x] **Nočné mory** (hotové 8. 11.: každá 5. hĺbka; Kráľ potkanov z nočnej mory, Tieňový Generál, Nočný vlk, Megastroj – viac zdravia, útoky viacerých bossov a druhá fáza; `data/dreams.json`).
 4. [x] **Snová výbava** (hotové 8. 11.: vzácnosť „snová“ – o 2 vlastnosti viac a silnejšie, padá len v snoch, v hlbších častejšie; sety Mesiac, Hviezda, Oblak – bonus za 2 a 3 kusy). Vylepšovanie výbavy materiálmi zatiaľ nie.
 5. [x] **Nekonečný rast** (hotové 8. 11.: každý vyhraný sen dá snový bod, za body sa v paneli Snov kupujú malé bonusy bez stropu – sila, zdravie, zlato, rast, šťastie; platia vo všetkých nociach).
-6. [ ] **Testy a balans** endgamu. (Týždenný sen až pri príprave na Steam.)
+6. [x] **Testy a balans** endgamu (hotové 8. 11., značka `testy-sny`: scenáre snov, nočnej mory a snovej výbavy; panel Snov v testoch rozloženia; kontrola zaseknutých nepriateľov na všetkých 48 mapách `tools/stuck_check.sh` (6 máp naraz, ~4 min) – na mapách so stenami sa nepriatelia zasekávali v rohoch, kde sa stretávajú steny susedných políčok; steny teraz končia 44 px pred rohom a k tomu obchádzka rohu v `EnemyManager` → všade 0 zaseknutých). Týždenný sen až pri príprave na Steam.
 
 ## Krátkodobý plán – časť 5 (zadané 8. 11. 2026: Divočina a Firma, robí sa po časti 4)
 

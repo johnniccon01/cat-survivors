@@ -35,6 +35,9 @@ const BELT_SWITCH := 25.0
 const WALL_CELL := 300.0
 const WALL_CHANCE := 0.65
 const WALL_THICK := 22.0
+## Walls stop this far short of the grid's corners, so where the walls of
+## neighbouring cells meet there is a gap instead of a corner to get stuck in.
+const WALL_NODE_GAP := 44.0
 ## The gap in a wall (share of its length), so every room stays open.
 const WALL_GAP := [0.36, 0.64]
 ## Room walls: thickness, and how tall the plastered face below one looks.
@@ -525,16 +528,16 @@ func _wall_rects(c: Vector2i) -> Array:
 	# Nothing right around where the night starts.
 	var near_start := o.length() < WALL_CELL * 1.2 or (o + Vector2(WALL_CELL, WALL_CELL) * 0.5).length() < WALL_CELL
 	if not near_start:
-		var a: float = WALL_GAP[0] + rng.randf_range(-0.2, 0.2)
+		var a: float = WALL_GAP[0] + rng.randf_range(-0.1, 0.2)
 		var b: float = a + (WALL_GAP[1] - WALL_GAP[0])
 		if rng.randf() < WALL_CHANCE:
-			rects.append(Rect2(o.x, o.y - WALL_THICK * 0.5, WALL_CELL * a, WALL_THICK))
-			rects.append(Rect2(o.x + WALL_CELL * b, o.y - WALL_THICK * 0.5, WALL_CELL * (1.0 - b) + WALL_THICK * 0.5, WALL_THICK))
-		a = WALL_GAP[0] + rng.randf_range(-0.2, 0.2)
+			rects.append(Rect2(o.x + WALL_NODE_GAP, o.y - WALL_THICK * 0.5, WALL_CELL * a - WALL_NODE_GAP, WALL_THICK))
+			rects.append(Rect2(o.x + WALL_CELL * b, o.y - WALL_THICK * 0.5, WALL_CELL * (1.0 - b) - WALL_NODE_GAP, WALL_THICK))
+		a = WALL_GAP[0] + rng.randf_range(-0.1, 0.2)
 		b = a + (WALL_GAP[1] - WALL_GAP[0])
 		if rng.randf() < WALL_CHANCE:
-			rects.append(Rect2(o.x - WALL_THICK * 0.5, o.y, WALL_THICK, WALL_CELL * a))
-			rects.append(Rect2(o.x - WALL_THICK * 0.5, o.y + WALL_CELL * b, WALL_THICK, WALL_CELL * (1.0 - b)))
+			rects.append(Rect2(o.x - WALL_THICK * 0.5, o.y + WALL_NODE_GAP, WALL_THICK, WALL_CELL * a - WALL_NODE_GAP))
+			rects.append(Rect2(o.x - WALL_THICK * 0.5, o.y + WALL_CELL * b, WALL_THICK, WALL_CELL * (1.0 - b) - WALL_NODE_GAP))
 	_walls[c] = rects
 	if _walls.size() > 4000:
 		_walls.clear()

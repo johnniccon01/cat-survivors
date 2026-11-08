@@ -68,10 +68,15 @@ var _spits: Array = []
 ## --stuck-check (tests): watches for enemies pressed against a wall or tree
 ## that hardly move for STUCK_SAMPLES samples in a row while far from the cat.
 const STUCK_EVERY := 2.0
+## Pressed into a corner this long, an enemy walks round it for DETOUR_TIME.
+const CORNER_WAIT := 0.4
+const DETOUR_TIME := 2.4
 const STUCK_SAMPLES := 3
 var stuck_check := "--stuck-check" in GameData.args()
 var stuck_found: Array[String] = []
 var stuck_seen := 0
+## Corners walked round (EnemyManager._way_round), for the stuck check.
+var detours := 0
 var _stuck_t := 0.0
 var _stuck: Dictionary = {}
 
@@ -341,6 +346,10 @@ func _physics_process(delta: float) -> void:
 			for c in cats:
 				if c.position.distance_squared_to(enemy.position) < chase.distance_squared_to(enemy.position):
 					chase = c.position
+		# Stuck in a wall's corner: walk round it for a moment first.
+		if enemy.detour_t > 0.0:
+			enemy.detour_t -= delta
+			chase = enemy.position + enemy.detour * 300.0
 		var before := enemy.position
 		enemy.tick(delta, chase, _separation(enemy) * SEPARATION)
 		if wet and not _flies(enemy.id) and WorldFloor.in_water(enemy.position):
@@ -358,7 +367,20 @@ func _physics_process(delta: float) -> void:
 				if Terrain.current == null and along.dot(chase - fixed) < 0.0:
 					along = -along
 				fixed = Terrain.fix(fixed + along * enemy.speed * delta, enemy.radius)
+				enemy.blocked_t += delta
+				enemy.corner_along = along
 			enemy.position = fixed
+			# In a corner the slide goes nowhere: pressed against terrain most of
+			# CORNER_WAIT and hardly moved, it takes the free way round.
+			enemy.anchor_t += delta
+			if enemy.anchor_t >= CORNER_WAIT:
+				if enemy.blocked_t > CORNER_WAIT * 0.5 and enemy.position.distance_to(enemy.anchor) < 10.0 and enemy.detour_t <= 0.0:
+					enemy.detour_t = DETOUR_TIME
+					detours += 1
+					enemy.detour = _way_round(enemy.position, enemy.corner_along, chase, enemy.radius)
+				enemy.anchor = enemy.position
+				enemy.anchor_t = 0.0
+				enemy.blocked_t = 0.0
 		if not arena.is_empty():
 			_apply_arena(enemy)
 		for c in cats:
@@ -375,6 +397,24 @@ func _physics_process(delta: float) -> void:
 		if props[i].position.distance_squared_to(target) > relocate_distance * relocate_distance * 2.0:
 			props[i].queue_free()
 			props.remove_at(i)
+
+
+## The way round a corner: of the directions along the wall, back from it
+## and sideways, the free one that leads most towards the cat.
+func _way_round(at: Vector2, along: Vector2, goal: Vector2, r: float) -> Vector2:
+	var best := -along
+	var best_score := -INF
+	var to_goal := (goal - at).normalized()
+	for d: Vector2 in [along, -along, along.orthogonal(), -along.orthogonal(), -to_goal]:
+		var step := Terrain.fix(at + d * 60.0, r)
+		var free := step.distance_to(at)
+		if free < 20.0:
+			continue
+		var score := free + d.dot(to_goal) * 20.0
+		if score > best_score:
+			best_score = score
+			best = d
+	return best
 
 
 func _stuck_note(enemy: Enemy) -> void:

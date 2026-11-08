@@ -65,6 +65,14 @@ const HEDGE_STAND := 5.0
 ## their walk animation then, which saves thousands of redraws a second.
 static var calm := false
 var spawn_in := 0.0
+## Walking round a wall corner (EnemyManager): how long it has stood pressed
+## against terrain, and the way round it takes for a moment.
+var blocked_t := 0.0
+var anchor := Vector2.ZERO
+var anchor_t := 0.0
+var corner_along := Vector2.RIGHT
+var detour := Vector2.ZERO
+var detour_t := 0.0
 var is_elite := false
 ## Set when a swarm enemy has run its course; the manager removes it.
 var wants_despawn := false

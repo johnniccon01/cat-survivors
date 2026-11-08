@@ -5,7 +5,7 @@ extends Control
 const SELECT_SCENE := "res://scenes/character_select.tscn"
 const MAIN_SCENE := "res://scenes/main.tscn"
 ## Flags that keep the menu up instead of jumping into a run.
-const PANEL_FLAGS := ["--shop", "--goals", "--questbook", "--journal", "--settings", "--ui-test", "--no-save"]
+const PANEL_FLAGS := ["--shop", "--goals", "--questbook", "--journal", "--settings", "--ui-test", "--no-save", "--open-all"]
 
 var _shop: ShopPanel
 var _journal: JournalPanel

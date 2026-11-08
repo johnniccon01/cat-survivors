@@ -48,18 +48,17 @@ Toto sa nedá overiť botom – treba zahrať a povedať. Zoradené od najdôle�
 
 ## Nedorobené
 
-- [~] **Balans neskorých zbraní** – melee/aura evolúcie (Tigrie pazúry, Šantová záhrada, Kostený kolotoč, Monzún) dávajú v neskorej hre menej než ostatné (podľa bota, `tools/weapons_test.sh`)
-- [~] **Finále hry** – koniec je v súhrne noci ako text; záverečná scéna s titulkami chýba
-- [~] **Grafika** – podlahy, nábytok, nepriatelia, bossovia, mačky, terén, pasce a mapy štvrtí sú v pixel-arte. Ikony zbraní a pasív, strely a efekty zbraní sú stále kreslené kódom (vektorovo). Možný ďalší krok: skúška jednej mapy v Blenderi.
-- [~] **Výbava** (malá verzia hotová, veľký návrh v `INVENTAR.md`):
-  - [x] 5 slotov, 40 základov, 48 legendárok z finálnych bossov, studňa prianí, sklad 40, kreslenie na mačke, snová rarita a 3 snové sety
-  - [ ] 12 slotov (dnes 5), 6 rarít (dnes 4), ~40 vlastností (dnes 15), 180+ základov, 12+ setov
-  - [ ] Vlastnosti špecifické pre zbrane a mačky
-  - [ ] Úroveň predmetu podľa mapy a temnoty
-  - [ ] Každá mačka vlastnú nasadenú výbavu (dnes je výbava spoločná pre všetky mačky)
-  - [ ] Kováč / dielňa (vylepšenie, prehodenie vlastnosti, rozobratie), obchodník s výbavou
-  - [ ] Druhy materiálov (dnes jeden „Stavebný materiál“ na domčeky)
-- [~] **Uloženie hry** – záloha profilu pred každým uložením je hotová; verzia profilu a migrácia starších uložení chýba (dôležité pred vydaním)
+- [x] **Balans neskorých zbraní** (9. 11.) – 8 najslabších evolúcií posilnených, všetky v pásme 50–75 tis. poškodenia za 2 min v 10. minúte (bot)
+- [x] **Finále hry** (9. 11.) – titulky po porážke riaditeľa (epilóg, spojenci, všetky mačky, tvoja cesta, poďakovanie, pochod mačiek), tlačidlo Titulky v menu
+- [~] **Grafika** – ikony zbraní a schopností a strely sú od 9. 11. pixel-art (pečie ich `tools/bake_art.gd`); efekty zbraní (vlny, lúče, výbuchy) a rybie kosti ostávajú kreslené kódom. Možný ďalší krok: skúška jednej mapy v Blenderi.
+- [~] **Výbava** (9. 11. rozšírená, spoločná pre všetky mačky – tak to ostane; na mačkách sa nekreslí, pozri Pravidlá):
+  - [x] 8 slotov (obojok, čiapka, okuliare, vesta, batôžtek, labky, pazúry, chvost), 64 základov, 48 legendárok
+  - [x] 6 rarít (bežná, neobvyklá, vzácna, epická, legendárna, snová), 19 vlastností + vlastnosti pre jednu zbraň (+% poškodenie, +1 strela)
+  - [x] Úroveň predmetu 1–15 podľa mapy, temnoty a hĺbky snu
+  - [x] 9 setov (3 snové, 6 nočných na epických predmetoch)
+  - [x] Panel: porovnanie s nasadeným, zamknutie, zoradenie, sklad 60, až 3 legendárky naraz
+  - [ ] Dielňa / kováč (vylepšenie, prehodenie vlastnosti, rozobratie na materiál) – návrh čaká na tvoje rozhodnutie
+- [x] **Uloženie hry** (9. 11.) – verzia profilu a migrácia (staré predmety dostanú úroveň 1), kópia starého profilu pred migráciou, bezpečný zápis cez dočasný súbor, denné zálohy (posledných 7)
 - [~] **Terén** – stromy, múriky, ulička, príliv, pásy, izby so stenami (Byt, Pivnica) a špeciality máp sú hotové; nápady navyše (lisy v Továrni, padajúce regále, mosty cez vodu) nie
 - [~] **Mačacie sny** – všetko z časti 6 hotové okrem týždenného snu (nechané na prípravu na Steam)
 
@@ -71,6 +70,10 @@ Toto sa nedá overiť botom – treba zahrať a povedať. Zoradené od najdôle�
 - [ ] **Psy a zvieratá hrajú inak** – Ruby, Vlk, Medveď, Lev a Lotor sú hrateľní, ale hrajú sa ako mačky (len iný bonus a vzhľad); návrh: viac zdravia, útoky zblízka, štekot, čuch
 - [ ] **Kozmetika** pre mačky za zlato
 - [ ] **Balík / DLC** – rozdelenie psích a ďalších štvrtí do balíka (`pack`) sa nerobilo
+
+## Pravidlá (rozhodol si ty)
+
+- **Výbava sa na mačkách nikdy nekreslí** (9. 11. 2026). Predmety existujú, fungujú a vidno ich v paneli Výbava, ale na mačke v hre ani v menu sa neukazujú. Meniť to len vtedy, keď to výslovne napíšeš.
 
 ## Otvorené otázky (rozhoduješ ty)
 

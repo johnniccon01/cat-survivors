@@ -14,7 +14,7 @@ const BACKUP_DIR := "user://backups"
 const DAILY_BACKUPS := 7
 ## The save format. Raise it when the save changes shape and add a step to
 ## migrate(); an older profile is copied aside before it is migrated.
-const SAVE_VERSION := 1
+const SAVE_VERSION := 2
 
 var unlocked: Array[String] = []
 var selected_cat := "MICA"
@@ -59,9 +59,9 @@ var equipped_artifacts: Array[String] = []
 ## Gear (see Items): every item you own, which one is worn in each slot
 ## (slot -> uid), and the next uid to give out. The stash holds ITEM_STASH
 ## items; anything brought home past that is melted into gold.
-const ITEM_STASH := 40
+const ITEM_STASH := 60
 ## At most this many legendary items worn at once.
-const LEGENDARY_WORN := 2
+const LEGENDARY_WORN := 3
 var items: Array = []
 var equipped_items: Dictionary = {}
 var next_item_uid := 1
@@ -1374,11 +1374,25 @@ func toggle_item(uid: int) -> bool:
 	return true
 
 
-## Melts an item down for gold (taking it off first).
+## Locks an item (a locked one can't be melted) or unlocks it.
+func toggle_lock(uid: int) -> void:
+	var item := item_by_uid(uid)
+	if item.is_empty():
+		return
+	if item.get("locked", false):
+		item.erase("locked")
+	else:
+		item["locked"] = true
+	save()
+
+
+## Melts an item down for gold (taking it off first); -1 for a locked one.
 func salvage_item(uid: int) -> int:
 	var item := item_by_uid(uid)
 	if item.is_empty():
 		return 0
+	if item.get("locked", false):
+		return -1
 	if int(equipped_items.get(item["slot"], 0)) == uid:
 		equipped_items.erase(item["slot"])
 	items.erase(item)
@@ -1551,6 +1565,13 @@ static func migrate(cfg: ConfigFile) -> int:
 	var version := int(cfg.get_value("meta", "version", 0))
 	# 0 -> 1: profiles from before versions existed already have today's
 	# shape; they only get the version number.
+	# 1 -> 2: gear has an item level (old gear counts as level 1).
+	if version < 2:
+		var owned: Array = cfg.get_value("items", "owned", [])
+		for item: Variant in owned:
+			if item is Dictionary and not (item as Dictionary).has("ilvl"):
+				item["ilvl"] = 1
+		cfg.set_value("items", "owned", owned)
 	cfg.set_value("meta", "version", SAVE_VERSION)
 	return version
 

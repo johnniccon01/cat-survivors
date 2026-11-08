@@ -266,7 +266,8 @@ func _nearest_other(from: Enemy, r: float) -> Enemy:
 # Final values: the weapon's own stats combined with the cat's passives.
 
 func damage() -> float:
-	return stat("damage") * player.stat("might")
+	# Gear made for this weapon hits harder with it.
+	return stat("damage") * player.stat("might") * (1.0 + player.gear_stat("wd:" + base_id()))
 
 
 func area() -> float:
@@ -282,7 +283,7 @@ func interval() -> float:
 
 
 func amount() -> int:
-	return int(stat("amount", 1.0) + player.stat("amount"))
+	return int(stat("amount", 1.0) + player.stat("amount") + player.gear_stat("wa:" + base_id()))
 
 
 func duration() -> float:

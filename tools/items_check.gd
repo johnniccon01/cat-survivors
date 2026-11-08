@@ -18,7 +18,10 @@ func _check_rolls() -> void:
 	var data: Dictionary = GameData.items
 	var rarities := {}
 	for i in 10000:
-		var item := Items.roll(1.0 + (i % 3) * 0.5)
+		var ilvl := 1 + i % Items.MAX_LEVEL
+		var item := Items.roll(1.0 + (i % 3) * 0.5, "", ilvl)
+		if int(item.get("ilvl", 0)) != ilvl:
+			BotLog.fail("item rolled at level %d has level %s" % [ilvl, item.get("ilvl")])
 		rarities[item["rarity"]] = int(rarities.get(item["rarity"], 0)) + 1
 		var info := Items.info(item)
 		if info.is_empty():
@@ -32,16 +35,27 @@ func _check_rolls() -> void:
 			BotLog.fail("%s %s has %d stats, wants %d" % [item["rarity"], item["base"], stats.size(), want])
 		if not stats.has(info["stat"]):
 			BotLog.fail("item %s lacks its main stat %s" % [item["base"], info["stat"]])
+		if item["rarity"] == "dream" and not item.has("set"):
+			BotLog.fail("dream item without a set")
+		if item.has("set") and not Items.SETS.has(item["set"]):
+			BotLog.fail("item of an unknown set %s" % item["set"])
 		for stat: String in stats:
+			var mult := float(data["rarities"][item["rarity"]]["mult"]) * (1.0 + Items.LEVEL_STEP * (ilvl - 1))
+			if ":" in stat:
+				var weapon := stat.get_slice(":", 1)
+				if not GameData.weapons.has(weapon) or stat.get_slice(":", 0) not in data["weapon_affixes"]:
+					BotLog.fail("item %s has a stat for an unknown weapon: %s" % [item["base"], stat])
+				continue
+			if not Player.BASE_STATS.has(stat):
+				BotLog.fail("item %s has unknown stat %s" % [item["base"], stat])
 			var range_: Array = data["affixes"][stat]
-			var mult := float(data["rarities"][item["rarity"]]["mult"])
 			var lo := minf(float(range_[0]), float(range_[1])) * mult
 			var hi := maxf(float(range_[0]), float(range_[1])) * mult
 			var v := float(stats[stat])
 			if v < lo - 1.0 or v > hi + 1.0 or v == 0.0:
 				BotLog.fail("item %s rolled %s = %s (range %s..%s)" % [item["base"], stat, v, lo, hi])
 		_check_text(item)
-	for r in ["common", "rare"]:
+	for r in ["common", "uncommon", "rare", "epic"]:
 		if int(rarities.get(r, 0)) == 0:
 			BotLog.fail("no %s item in 10 000 rolls" % r)
 	if int(rarities.get("legendary", 0)) > 0:
@@ -99,6 +113,11 @@ func _check_profile() -> void:
 	Profile.toggle_item(int(first["uid"]))
 	if not Profile.worn_item(first["slot"]).is_empty():
 		BotLog.fail("toggle_item did not take the item off")
+	# A locked item is never melted.
+	Profile.toggle_lock(int(first["uid"]))
+	if Profile.salvage_item(int(first["uid"])) != -1 or Profile.item_by_uid(int(first["uid"])).is_empty():
+		BotLog.fail("a locked item was melted")
+	Profile.toggle_lock(int(first["uid"]))
 	# Melting a worn item frees its slot.
 	Profile.toggle_item(int(first["uid"]))
 	var gold_before := Profile.gold

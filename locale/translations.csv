@@ -4024,3 +4024,67 @@ CREDITS_STAT_QUESTS,Quests completed: %d,Splnených questov: %d,Splněných ques
 CREDITS_STAT_MAPS,Places won: %d of %d,Vyhrané miesta: %d z %d,Vyhraná místa: %d z %d,Lugares ganados: %d de %d,Покорено мест: %d из %d,已征服地点：%d / %d
 CREDITS_THANKS,Thank you for playing!,Ďakujeme za hranie!,Děkujeme za hraní!,¡Gracias por jugar!,Спасибо за игру!,感谢游玩！
 CREDITS_SKIP,Space – faster · Esc – skip,Medzerník – rýchlejšie · Esc – preskočiť,Mezerník – rychleji · Esc – přeskočit,Espacio – más rápido · Esc – saltar,Пробел – быстрее · Esc – пропустить,空格 – 加速 · Esc – 跳过
+ITEM_SLOT_GLASSES,Glasses,Okuliare,Brýle,Gafas,Очки,眼镜
+ITEM_SLOT_BAG,Bag,Batôžtek,Batůžek,Mochila,Сумочка,背包
+ITEM_SLOT_CLAWS,Claws,Pazúry,Drápky,Garras,Когти,爪套
+ITEM_ROUND_GLASSES_NAME,Round Glasses,Okrúhle okuliare,Kulaté brýle,Gafas redondas,Круглые очки,圆框眼镜
+ITEM_SUNGLASSES_NAME,Sunglasses,Slnečné okuliare,Sluneční brýle,Gafas de sol,Солнечные очки,墨镜
+ITEM_MONOCLE_NAME,Monocle,Monokel,Monokl,Monóculo,Монокль,单片眼镜
+ITEM_SKI_GOGGLES_NAME,Ski Goggles,Lyžiarske okuliare,Lyžařské brýle,Gafas de esquí,Лыжные очки,滑雪镜
+ITEM_EYE_PATCH_NAME,Pirate Eye Patch,Pirátska páska,Pirátská páska,Parche pirata,Пиратская повязка,海盗眼罩
+ITEM_STAR_SPECS_NAME,Star Specs,Hviezdne okuliare,Hvězdné brýle,Gafas de estrella,Звёздные очки,星星眼镜
+ITEM_BAT_MASK_NAME,Bat Mask,Netopierí škraboška,Netopýří škraboška,Antifaz de murciélago,Маска летучей мыши,蝙蝠面具
+ITEM_OWL_LENS_NAME,Owl Lenses,Sovie šošovky,Soví čočky,Lentes de búho,Совиные линзы,猫头鹰镜片
+ITEM_SATCHEL_NAME,Satchel,Brašnička,Brašnička,Bolsito,Сумка через плечо,小挎包
+ITEM_FISH_BASKET_NAME,Fish Basket,Košík na ryby,Košík na ryby,Cesta de peces,Корзинка для рыбы,鱼篓
+ITEM_TINY_BACKPACK_NAME,Tiny Backpack,Malý batôžtek,Malý batůžek,Mochila diminuta,Крошечный рюкзак,迷你背包
+ITEM_TREAT_POUCH_NAME,Treat Pouch,Vrecúško na maškrty,Pytlík na pamlsky,Bolsa de golosinas,Мешочек с лакомствами,零食袋
+ITEM_YARN_BAG_NAME,Yarn Bag,Taška s klbkami,Taška s klubky,Bolsa de ovillos,Сумка с клубками,毛线包
+ITEM_MAIL_BAG_NAME,Mail Bag,Poštová taštička,Poštovní taštička,Saca de correo,Почтовая сумка,邮差包
+ITEM_FIRST_AID_KIT_NAME,First Aid Kit,Lekárnička,Lékárnička,Botiquín,Аптечка,急救包
+ITEM_WICKER_PACK_NAME,Wicker Pack,Prútený batoh,Proutěný batoh,Mochila de mimbre,Плетёный ранец,藤编背篓
+ITEM_STEEL_TIPS_NAME,Steel Tips,Oceľové špičky,Ocelové špičky,Puntas de acero,Стальные наконечники,钢爪尖
+ITEM_RUBY_CLAWS_NAME,Ruby Claws,Rubínové pazúriky,Rubínové drápky,Garras de rubí,Рубиновые коготки,红宝石爪
+ITEM_BONE_HOOKS_NAME,Bone Hooks,Kostené háčiky,Kostěné háčky,Ganchos de hueso,Костяные крючки,骨钩
+ITEM_SILVER_CAPS_NAME,Silver Caps,Strieborné návleky,Stříbrné návleky,Fundas de plata,Серебряные колпачки,银爪套
+ITEM_THORN_CLAWS_NAME,Thorn Claws,Tŕnisté pazúry,Trnité drápy,Garras de espino,Шипастые когти,荆棘爪
+ITEM_GLASS_TALONS_NAME,Glass Talons,Sklenené pazúry,Skleněné drápy,Garras de cristal,Стеклянные когти,玻璃爪
+ITEM_COPPER_CAPS_NAME,Copper Caps,Medené návleky,Měděné návleky,Fundas de cobre,Медные колпачки,铜爪套
+ITEM_SHADOW_CLAWS_NAME,Shadow Claws,Tieňové pazúry,Stínové drápy,Garras de sombra,Теневые когти,暗影爪
+RARITY_UNCOMMON,Uncommon,Neobvyklý,Neobvyklý,Poco común,Необычный,优良
+ISTAT_BOSS_DAMAGE,+%s%% damage to bosses,+%s %% poškodenie bossom,+%s %% poškození bossům,+%s%% de daño a jefes,+%s%% урона боссам,对首领伤害 +%s%%
+ISTAT_THORNS,+%s thorns damage,+%s poškodenie tŕňmi,+%s poškození trny,+%s de daño de espinas,+%s урона шипами,荆棘伤害 +%s
+ISTAT_HEAL_POWER,+%s%% healing,+%s %% liečenie,+%s %% léčení,+%s%% de curación,+%s%% лечения,治疗 +%s%%
+ISTAT_LEVEL_HEAL,+%s health per level,+%s zdravia za level,+%s zdraví za level,+%s de salud por nivel,+%s здоровья за уровень,每级生命 +%s
+ISTAT_WD,+%s%% damage: %s,+%s %% poškodenie: %s,+%s %% poškození: %s,+%s%% de daño: %s,+%s%% урона: %s,+%s%% 伤害：%s
+ISTAT_WA,+%s projectile: %s,+%s strela: %s,+%s střela: %s,+%s proyectil: %s,+%s снаряд: %s,+%s 弹数：%s
+ITEM_LEVEL,item level %d,úroveň %d,úroveň %d,nivel %d,уровень %d,等级 %d
+ITEM_SET_BONUS,"Set %s (2 pieces, 3 twice): %s","Set %s (2 kusy, 3 dvakrát): %s","Sada %s (2 kusy, 3 dvakrát): %s","Conjunto %s (2 piezas, 3 doble): %s","Набор «%s» (2 предмета, 3 — вдвойне): %s",套装%s（2件，3件双倍）：%s
+SET_MOON_NAME,Moon,Mesiac,Měsíc,Luna,Луна,月
+SET_STAR_NAME,Star,Hviezda,Hvězda,Estrella,Звезда,星
+SET_CLOUD_NAME,Cloud,Oblak,Mrak,Nube,Облако,云
+SET_SAILOR_NAME,Sailor,Námorník,Námořník,Marinero,Моряк,水手
+SET_HUNTER_NAME,Hunter,Lovec,Lovec,Cazador,Охотник,猎手
+SET_GUARDIAN_NAME,Guardian,Strážca,Strážce,Guardián,Страж,守护者
+SET_STORM_NAME,Storm,Búrka,Bouře,Tormenta,Буря,风暴
+SET_GARDEN_NAME,Garden,Záhrada,Zahrada,Jardín,Сад,花园
+SET_NIGHT_NAME,Night,Noc,Noc,Noche,Ночь,夜
+SET_SAILOR_ITEM,Sailor's %s,Námornícky kúsok: %s,Námořnický kousek: %s,%s de marinero,Моряцкий: %s,水手%s
+SET_HUNTER_ITEM,Hunter's %s,Lovecký kúsok: %s,Lovecký kousek: %s,%s de cazador,Охотничий: %s,猎手%s
+SET_GUARDIAN_ITEM,Guardian's %s,Strážny kúsok: %s,Strážný kousek: %s,%s de guardián,Сторожевой: %s,守护者%s
+SET_STORM_ITEM,Storm %s,Búrkový kúsok: %s,Bouřkový kousek: %s,%s de tormenta,Грозовой: %s,风暴%s
+SET_GARDEN_ITEM,Garden %s,Záhradný kúsok: %s,Zahradní kousek: %s,%s de jardín,Садовый: %s,花园%s
+SET_NIGHT_ITEM,Night %s,Nočný kúsok: %s,Noční kousek: %s,%s nocturno,Ночной: %s,夜之%s
+ITEMS_WEAR,Put on,Nasadiť,Nasadit,Equipar,Надеть,装备
+ITEMS_TAKE_OFF,Take off,Zložiť,Sundat,Quitar,Снять,卸下
+ITEMS_LOCK,Lock,Zamknúť,Zamknout,Bloquear,Закрепить,锁定
+ITEMS_UNLOCK,Unlock,Odomknúť,Odemknout,Desbloquear,Открепить,解锁
+ITEMS_MELT,Melt,Roztaviť,Roztavit,Fundir,Переплавить,熔化
+ITEMS_LOCKED_NO_MELT,A locked item can't be melted.,Zamknutý predmet sa nedá roztaviť.,Zamčený předmět nejde roztavit.,Un objeto bloqueado no se puede fundir.,Закреплённый предмет нельзя переплавить.,已锁定的物品不能熔化。
+ITEMS_SORT,Sort: %s,Zoradiť: %s,Řadit: %s,Ordenar: %s,Сортировка: %s,排序：%s
+ITEMS_SORT_RARITY,rarity,vzácnosť,vzácnost,rareza,редкость,稀有度
+ITEMS_SORT_LEVEL,level,úroveň,úroveň,nivel,уровень,等级
+ITEMS_SORT_NEW,newest,najnovšie,nejnovější,más nuevo,новые,最新
+ITEMS_COMPARE,Against what you wear,Oproti nasadenému,Oproti nasazenému,Frente a lo equipado,По сравнению с надетым,与已装备相比
+ITEMS_COMPARE_NONE,Nothing worn in this slot,V tomto slote nič nemáš,V tomto slotu nic nemáš,Nada equipado en esta ranura,В этом слоте ничего нет,此栏位无装备
+ITEMS_STASH,Stash %d / %d,Sklad %d / %d,Sklad %d / %d,Almacén %d / %d,Склад %d / %d,仓库 %d / %d

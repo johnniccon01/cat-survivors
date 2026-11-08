@@ -23,6 +23,14 @@ func _process(_d: float) -> bool:
 	if int(cfg.get_value("shop", "gold", 0)) != 1234 or (cfg.get_value("cats", "unlocked", []) as Array).size() != 2:
 		print("PROFILE: FAIL migration lost data")
 		failures += 1
+	# Version 1 -> 2: old gear gets item level 1.
+	var old := ConfigFile.new()
+	old.set_value("meta", "version", 1)
+	old.set_value("items", "owned", [{"uid": 1, "base": "RED_COLLAR", "slot": "COLLAR", "rarity": "common", "stats": {"might": 0.05}}])
+	profile.migrate(old)
+	if int((old.get_value("items", "owned")[0] as Dictionary).get("ilvl", 0)) != 1:
+		print("PROFILE: FAIL old gear did not get item level 1")
+		failures += 1
 	# A profile already at today's version stays as it is.
 	if profile.migrate(cfg) != profile.SAVE_VERSION:
 		print("PROFILE: FAIL current profile migrated again")

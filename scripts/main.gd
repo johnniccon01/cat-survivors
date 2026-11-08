@@ -1064,7 +1064,12 @@ func _final_boss_loot(legend: String) -> void:
 	if not owned and randf() < chance:
 		_find_item(Items.legendary(legend))
 	else:
-		_find_item(Items.roll(player.stat("luck"), "rare"))
+		_find_item(Items.roll(player.stat("luck"), "rare", _item_level()))
+
+
+## The item level of gear found tonight (the map, its darkness, the dream).
+func _item_level() -> int:
+	return Items.item_level(spawner.stage_id, spawner.darkness, int(Profile.dream.get("depth", 0)))
 
 
 ## Any boss may leave the Soul Bell if you don't have it yet (a final boss
@@ -1085,7 +1090,7 @@ func _maybe_find_item(chance: float) -> void:
 	if randf() < float(_arg("--item-chance=", str(chance))) * player.stat("luck") * curse:
 		# In dreams, deeper dreams give dream gear more often.
 		var dreamy := not Profile.dream.is_empty() and randf() < 0.2 + 0.02 * float(Profile.dream.get("depth", 0))
-		_find_item(Items.roll(player.stat("luck") * curse, "dream" if dreamy else ""))
+		_find_item(Items.roll(player.stat("luck") * curse, "dream" if dreamy else "", _item_level()))
 
 
 ## A boss or an elite left an item: it goes straight into the cat's bag for

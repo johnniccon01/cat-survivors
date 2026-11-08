@@ -143,7 +143,7 @@ func _character_select() -> void:
 	# Gear: walking through slots and items never moves the panel around.
 	var items_panel: Control = sel.get("_items")
 	await _press(KEY_I)
-	var desc: Label = items_panel.get("_desc")
+	var desc: Label = items_panel.get("_detail_desc")
 	var at := desc.global_position
 	for key: Key in [KEY_DOWN, KEY_DOWN, KEY_RIGHT, KEY_DOWN, KEY_RIGHT, KEY_RIGHT, KEY_DOWN, KEY_RIGHT]:
 		await _press(key)

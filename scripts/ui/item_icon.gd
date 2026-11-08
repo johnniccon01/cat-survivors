@@ -1,7 +1,8 @@
 class_name ItemIcon
 extends Control
 ## A small picture of a piece of gear: its slot's shape in the item's own
-## colour (collar, hat, vest, paws, tail), with a rarity rim.
+## colour (collar, hat, glasses, vest, bag, paws, claws, tail), with a
+## rarity rim.
 
 const OUTLINE := Color("2b1d14")
 
@@ -53,6 +54,18 @@ func _draw() -> void:
 			for toe: Vector2 in [Vector2(-6, -3), Vector2(-2, -6.5), Vector2(2, -6.5), Vector2(6, -3)]:
 				draw_circle(c + toe * s, 2.4 * s, OUTLINE)
 				draw_circle(c + toe * s, 1.7 * s, color)
+		"GLASSES":
+			for x: float in [-4.5, 4.5]:
+				draw_circle(c + Vector2(x, 0) * s, 4.2 * s, OUTLINE)
+				draw_circle(c + Vector2(x, 0) * s, 3.0 * s, color.lightened(0.35))
+			draw_line(c + Vector2(-1, -0.5) * s, c + Vector2(1, -0.5) * s, OUTLINE, 1.5 * s)
+		"BAG":
+			draw_arc(c + Vector2(0, -3) * s, 4.0 * s, PI, TAU, 10, OUTLINE, 2.0 * s)
+			fill.call([Vector2(-7, -3), Vector2(7, -3), Vector2(7, 8), Vector2(-7, 8)])
+			fill.call([Vector2(-7, -3), Vector2(7, -3), Vector2(6, 2), Vector2(-6, 2)])
+		"CLAWS":
+			for x: float in [-5.0, 0.0, 5.0]:
+				fill.call([Vector2(x - 2.2, 6), Vector2(x + 2.2, 6), Vector2(x + 1.5, -2), Vector2(x - 0.5, -7)])
 		"TAIL":
 			var curve := PackedVector2Array()
 			for i in 9:

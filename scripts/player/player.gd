@@ -177,6 +177,13 @@ func stat(stat_name: String) -> float:
 	return stats[stat_name]
 
 
+## A stat that may not be there (gear for one weapon: "wd:YARN", "wa:YARN").
+func gear_stat(key: String) -> float:
+	if is_companion() and is_instance_valid(leader):
+		return leader.gear_stat(key)
+	return float(stats.get(key, 0.0))
+
+
 func xp_to_next() -> float:
 	# Same shape as Vampire Survivors: cheap first levels, then a steady climb.
 	if level < 20:
@@ -375,7 +382,8 @@ func _recalc_stats() -> void:
 			if key in Items.TIMERS and stats[key] > 0.0:
 				stats[key] = minf(stats[key], gear[key])
 			else:
-				stats[key] += gear[key]
+				# Gear for one weapon ("wd:YARN") adds keys of its own.
+				stats[key] = float(stats.get(key, 0.0)) + gear[key]
 	for b in blessings:
 		var bonus_stats: Dictionary = b["stats"]
 		for key: String in bonus_stats:

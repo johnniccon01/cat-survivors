@@ -249,7 +249,7 @@ scenarios=(
   "chain_the_director|--bot --stage=COMPANY_LOT --god --levels=20 --quest=THE_DIRECTOR --bot-time=240"
   "dream_plain|--bot --god --dream=3 --start-minute=19.9 --catch-up --bot-time=300 --expect=dream_start,dream_won"
   "dream_nightmare|--bot --god --dream=5 --start-minute=19.9 --catch-up --bot-time=120 --expect=dream_start,special:orders"
-  "dream_gear|--bot --god --dream=8 --item-chance=1 --bot-time=90 --expect=item_dream"
+  "dream_gear|--bot --god --dream=40 --item-chance=1 --bot-time=90 --expect=item_dream"
   "quest_wolf|--bot --stage=GARDEN --levels=30 --quest=WOLF --bot-time=150"
   "instinct_wolf|--bot --cat=WOLF --bot-time=60 --expect=instinct:WOLF"
   "instinct_bear|--bot --cat=BEAR --stage=FIRE_STATION --start-minute=12 --catch-up --bot-time=200 --expect=instinct:BEAR"

@@ -28,8 +28,8 @@ static func tile_color(kind: String, id: String) -> Color:
 
 
 ## Soft edges: the outlines of the icons and of what the weapons throw are a
-## darker shade of the thing's own colour instead of black.
-static var soft_edges := false
+## darker shade of the thing's own colour instead of black (on since 9. 11.).
+static var soft_edges := true
 
 
 ## The edge colour around something coloured `fill`.

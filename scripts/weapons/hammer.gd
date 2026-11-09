@@ -85,9 +85,9 @@ class _Slam extends Node2D:
 
 	func _hammer(at: Vector2, tilt: float) -> void:
 		draw_set_transform(at, tilt)
-		draw_rect(Rect2(-2, -26, 4, 22), Color("2b1d14"))
+		draw_rect(Rect2(-2, -26, 4, 22), FxStyle.edge(Color("e8c37a")))
 		draw_rect(Rect2(-1, -25, 2, 20), Color("e8c37a"))
-		draw_rect(Rect2(-12, -6, 24, 12), Color("2b1d14"))
+		draw_rect(Rect2(-12, -6, 24, 12), FxStyle.edge(Color("e0628f")))
 		draw_rect(Rect2(-11, -5, 22, 10), Color("e0628f"))
 		draw_rect(Rect2(-11, -5, 22, 3), Color("f28ac0"))
 		draw_rect(Rect2(-11, -5, 4, 10), Color("ffd84a"))

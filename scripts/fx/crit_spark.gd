@@ -42,4 +42,4 @@ func _draw() -> void:
 	for i in 4:
 		var d := Vector2.from_angle(_angle + PI * 0.25 + i * PI * 0.5)
 		Blit.line(self, d * r * 0.2, d * r * 0.6, c, 1.0)
-	Blit.disc(self, Vector2.ZERO, 2.5 * (1.0 - k), Color(1, 1, 1, 1.0 - k))
+	Blit.disc(self, Vector2.ZERO, 2.5 * (1.0 - k), FxStyle.white(c, 1.0 - k))

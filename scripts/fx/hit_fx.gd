@@ -55,7 +55,7 @@ func _draw() -> void:
 	var k := _t / DURATION
 	var a := 1.0 - k
 	Blit.ring(self, Vector2.ZERO, 4.0 + 9.0 * k, 2.0, Color(color, 0.8 * a))
-	Blit.disc(self, Vector2.ZERO, 3.5 * (1.0 - k), Color(1, 1, 1, a))
+	Blit.disc(self, Vector2.ZERO, 3.5 * (1.0 - k), FxStyle.white(color, a))
 	for i in 4:
 		var d := Vector2.from_angle(_angle + i * TAU / 4.0)
 		Blit.line(self, d * (4.0 + 6.0 * k), d * (6.0 + 11.0 * k), Color(color, a), 1.5)

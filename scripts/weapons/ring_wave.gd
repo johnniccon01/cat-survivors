@@ -43,14 +43,16 @@ func _physics_process(delta: float) -> void:
 func _draw() -> void:
 	var a := clampf(1.3 - _age / expand_time, 0.0, 1.0)
 	Blit.disc(self, Vector2.ZERO, _radius, Color(color, 0.06 * a))
-	Blit.ring(self, Vector2.ZERO, _radius + 14.0 * 0.5, 14.0, Color(color, 0.12 * a))
-	Blit.ring(self, Vector2.ZERO, _radius + 6.0 * 0.5, 6.0, Color(color, 0.25 * a))
+	Blit.ring(self, Vector2.ZERO, _radius + 14.0 * 0.5, 14.0, Color(color, FxStyle.glow(0.12 * a)))
+	Blit.ring(self, Vector2.ZERO, _radius + 6.0 * 0.5, 6.0, Color(color, FxStyle.glow(0.25 * a)))
 	Blit.ring(self, Vector2.ZERO, _radius + 2.0 * 0.5, 2.0, Color(color, 0.9 * a))
-	Blit.ring(self, Vector2.ZERO, _radius * 0.8 + 1.0 * 0.5, 1.0, Color(1, 1, 1, 0.35 * a))
+	if FxStyle.soft:
+		Blit.ring(self, Vector2.ZERO, _radius + 2.5, 1.0, FxStyle.edge(color, 0.7 * a))
+	Blit.ring(self, Vector2.ZERO, _radius * 0.8 + 1.0 * 0.5, 1.0, FxStyle.white(color, 0.35 * a))
 	if bell and _age < 0.2:
 		# The bell itself, briefly, above the cat.
 		var b := Vector2(0, -20)
 		var bell := PackedVector2Array([b + Vector2(-4, 3), b + Vector2(-3, -3), b + Vector2(0, -5), b + Vector2(3, -3), b + Vector2(4, 3)])
 		draw_colored_polygon(bell, color)
-		draw_polyline(Shapes.closed(bell), Color("2b1d14"), 1.0)
-		Blit.disc(self, b + Vector2(0, 4), 1.2, Color("2b1d14"))
+		draw_polyline(Shapes.closed(bell), FxStyle.edge(color), 1.0)
+		Blit.disc(self, b + Vector2(0, 4), 1.2, FxStyle.edge(color))

@@ -37,8 +37,8 @@ func _process(delta: float) -> void:
 
 func _draw() -> void:
 	var a := 1.0 - _age / LIFE
-	draw_polyline(_jagged, Color(color, 0.35 * a), 5.0)
+	draw_polyline(_jagged, Color(color, FxStyle.glow(0.35 * a)), 5.0)
 	draw_polyline(_jagged, Color(color, a), 2.0)
-	draw_polyline(_jagged, Color(1, 1, 1, a), 1.0)
+	draw_polyline(_jagged, FxStyle.white(color, a), 1.0)
 	for p in points:
-		Blit.disc(self, p, 3.0, Color(1, 1, 1, 0.8 * a))
+		Blit.disc(self, p, 3.0, FxStyle.white(color, 0.8 * a))

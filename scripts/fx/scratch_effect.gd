@@ -39,6 +39,8 @@ func _draw() -> void:
 		inner.append(Vector2(x, -sin(u * PI) * size.y * 0.25 + size.y * 0.15))
 	inner.reverse()
 	draw_colored_polygon(outer + inner, Color(color, 0.22 * alpha))
+	if FxStyle.soft:
+		draw_polyline(outer, FxStyle.edge(color, 0.45 * alpha), 1.5)
 	for i in 3:
 		var y := (i - 1) * size.y * 0.3
 		var pts := PackedVector2Array()
@@ -46,7 +48,7 @@ func _draw() -> void:
 			var u := float(s) / 8.0 * reveal
 			var x := lerpf(-size.x * 0.5, size.x * 0.5, u) * side
 			pts.append(Vector2(x, y - sin(u * PI) * size.y * 0.25))
-		draw_polyline(pts, Color(color, alpha * 0.5), 7.0)
-		draw_polyline(pts, Color(1, 1, 1, alpha), 3.0)
+		draw_polyline(pts, Color(color, FxStyle.glow(alpha * 0.5)), 7.0)
+		draw_polyline(pts, FxStyle.white(color, alpha), 3.0)
 		if reveal >= 1.0:
-			Blit.disc(self, pts[pts.size() - 1], 3.0 * alpha, Color(1, 1, 1, alpha))
+			Blit.disc(self, pts[pts.size() - 1], 3.0 * alpha, FxStyle.white(color, alpha))

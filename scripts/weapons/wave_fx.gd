@@ -50,7 +50,10 @@ func _draw() -> void:
 		crest.append(Vector2((10.0 + wob) * dir.x, y))
 		back.append(Vector2((-16.0 + wob * 0.5) * dir.x, y))
 	back.reverse()
-	draw_colored_polygon(crest + back, Color(0.35, 0.65, 0.95, 0.45 * a))
-	draw_polyline(crest, Color(0.9, 0.97, 1.0, a), 3.0)
+	var water := Color(0.35, 0.65, 0.95)
+	draw_colored_polygon(crest + back, Color(water, 0.45 * a))
+	if FxStyle.soft:
+		draw_polyline(back, FxStyle.edge(water, 0.5 * a), 1.5)
+	draw_polyline(crest, FxStyle.white(water, a) if FxStyle.soft else Color(0.9, 0.97, 1.0, a), 3.0)
 	for i in 5:
-		Blit.disc(self, crest[i * 2] + Vector2(3.0 * dir.x, 0), 2.0, Color(1, 1, 1, 0.8 * a))
+		Blit.disc(self, crest[i * 2] + Vector2(3.0 * dir.x, 0), 2.0, FxStyle.white(water, 0.8 * a))

@@ -12,6 +12,9 @@ var _vp: SubViewport
 var _canvas: Control
 var _wait := 0
 var _out := ""
+## BAKE_SOFT=1 in the environment: a softer look (no outline, no shading,
+## the icon's own tile), saved to user://bake_preview to look at first.
+var _soft := OS.get_environment("BAKE_SOFT") != ""
 var _shots_out := ""
 ## The projectiles: a bigger viewport, drawn around a pen at its centre.
 var _svp: SubViewport
@@ -21,7 +24,8 @@ const SHOT_VIEW := 64
 
 func start(p_tree: SceneTree) -> void:
 	tree = p_tree
-	_out = ProjectSettings.globalize_path("res://assets/sprites/icons")
+	var root_dir := "user://bake_preview" if _soft else "res://assets/sprites"
+	_out = ProjectSettings.globalize_path(root_dir + "/icons")
 	DirAccess.make_dir_recursive_absolute(_out)
 	_vp = SubViewport.new()
 	_vp.size = Vector2i(Icons.BAKE_SIZE, Icons.BAKE_SIZE)
@@ -36,7 +40,7 @@ func start(p_tree: SceneTree) -> void:
 		_jobs.append(["weapon", id])
 	for id: String in GameData.passives:
 		_jobs.append(["passive", id])
-	_shots_out = ProjectSettings.globalize_path("res://assets/sprites/shots")
+	_shots_out = ProjectSettings.globalize_path(root_dir + "/shots")
 	DirAccess.make_dir_recursive_absolute(_shots_out)
 	_svp = SubViewport.new()
 	_svp.size = Vector2i(SHOT_VIEW, SHOT_VIEW)
@@ -56,7 +60,7 @@ func start(p_tree: SceneTree) -> void:
 
 func _draw_job() -> void:
 	if not _job.is_empty() and _job[0] != "shot":
-		Icons.draw_vector(_canvas, _job[0], _job[1], Rect2(0, 0, Icons.BAKE_SIZE, Icons.BAKE_SIZE), false)
+		Icons.draw_vector(_canvas, _job[0], _job[1], Rect2(0, 0, Icons.BAKE_SIZE, Icons.BAKE_SIZE), _soft)
 
 
 func step() -> bool:
@@ -68,8 +72,9 @@ func step() -> bool:
 	else:
 		var sym := _vp.get_texture().get_image()
 		sym.convert(Image.FORMAT_RGBA8)
-		var img := _tile(Icons.tile_color(_job[0], _job[1]))
-		_compose(img, _shade(sym))
+		var img := _hard(sym) if _soft else _tile(Icons.tile_color(_job[0], _job[1]))
+		if not _soft:
+			_compose(img, _shade(sym))
 		img.save_png(_out.path_join("%s_%s.png" % _job))
 	if _jobs.is_empty():
 		print("BAKE: done")
@@ -90,7 +95,7 @@ func _next() -> void:
 ## (so it stays centred when drawn).
 func _save_shot() -> void:
 	var img := _vp_image(_svp)
-	var shaded := _shade(img)
+	var shaded := _hard(img) if _soft else _shade(img)
 	var used := shaded.get_used_rect()
 	var c := SHOT_VIEW / 2
 	var half_w := maxi(c - used.position.x, used.end.x - c)
@@ -151,3 +156,13 @@ func _compose(dst: Image, src: Image) -> void:
 			var c := src.get_pixel(x, y)
 			if c.a > 0.0:
 				dst.set_pixel(x, y, c)
+
+
+## Hard edges only (the soft look): every pixel there or not, no outline.
+func _hard(src: Image) -> Image:
+	var out := src.duplicate() as Image
+	for y in out.get_height():
+		for x in out.get_width():
+			var c := out.get_pixel(x, y)
+			out.set_pixel(x, y, Color(c.r, c.g, c.b, 1.0 if c.a >= 0.5 else 0.0))
+	return out

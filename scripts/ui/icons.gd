@@ -121,7 +121,7 @@ static func _weapon(ci: CanvasItem, id: String) -> void:
 			ci.draw_line(Vector2(3, 13), Vector2(13, 3), Color("e8e0d0"), 1.0)
 			var vane := PackedVector2Array([Vector2(4, 12), Vector2(6, 6), Vector2(13, 3), Vector2(10, 10)])
 			ci.draw_colored_polygon(vane, Color("6fc2ff"))
-			ci.draw_polyline(Shapes.closed(vane), OUTLINE, 1.0)
+			ci.draw_polyline(Shapes.closed(vane), Color("6fc2ff").darkened(0.4), 1.0)
 		"MOUSE_TOY":
 			ci.draw_line(Vector2(3, 11), Vector2(1, 9), Color("d9a0a8"), 1.0)
 			ci.draw_colored_polygon(Shapes.ellipse(Vector2(8, 10), 5.5, 3.5, 12), OUTLINE)

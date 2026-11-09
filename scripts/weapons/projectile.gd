@@ -102,7 +102,8 @@ static func draw_body(ci: CanvasItem, style: String, radius: float) -> void:
 			Blit.line(ci, Vector2(-radius * 1.2, 0), Vector2(radius * 1.2, 0), Color("e8e0d0"), 1.0)
 			var vane := PackedVector2Array([Vector2(-radius, 0), Vector2(-radius * 0.2, -radius * 0.7), Vector2(radius, 0), Vector2(-radius * 0.2, radius * 0.7)])
 			ci.draw_colored_polygon(vane, main)
-			ci.draw_polyline(Shapes.closed(vane), OUTLINE, 1.0)
+			# A soft edge in the feather's own darker colour, not black.
+			ci.draw_polyline(Shapes.closed(vane), main.darkened(0.35), 1.0)
 			Blit.disc(ci, Vector2(radius * 0.6, 0), radius * 0.3, tip)
 		"hook", "golden_hook":
 			var metal := Color("f2c14e") if style == "golden_hook" else Color("c9ced2")

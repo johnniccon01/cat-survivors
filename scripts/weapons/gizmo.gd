@@ -206,7 +206,7 @@ func _draw() -> void:
 			var s := radius * 0.9
 			var shake := Vector2(sin(_age * 30.0), 0) * (1.5 if _age > lifetime - 0.6 else 0.0)
 			draw_rect(Rect2(Vector2(-s, -s) + shake + Vector2(2, 3), Vector2(s, s) * 2), Color(0, 0, 0, 0.25))
-			draw_rect(Rect2(Vector2(-s, -s) + shake, Vector2(s, s) * 2), OUTLINE)
+			draw_rect(Rect2(Vector2(-s, -s) + shake, Vector2(s, s) * 2), Icons.edge(Color("c8a070")))
 			draw_rect(Rect2(Vector2(-s + 1, -s + 1) + shake, Vector2(s - 1, s - 1) * 2), Color("c8a070"))
 			draw_rect(Rect2(Vector2(-s + 1, -2) + shake, Vector2(s * 2 - 2, 4)), Color("e8d8a8"))
 			draw_rect(Rect2(Vector2(-s + 1, -s + 1) + shake, Vector2(s * 2 - 2, 2)), Color("e0bc88"))
@@ -217,7 +217,7 @@ func _draw() -> void:
 				var fall := (1.0 - k) * 140.0
 				var body := Shapes.ellipse(Vector2(0, -fall), 7.0, 3.0, 10)
 				draw_colored_polygon(body, Color("aab4be"))
-				draw_polyline(Shapes.closed(body), OUTLINE, 1.0)
+				draw_polyline(Shapes.closed(body), Icons.edge(Color("aab4be")), 1.0)
 				draw_colored_polygon(PackedVector2Array([Vector2(6, -fall), Vector2(11, -fall - 4), Vector2(11, -fall + 4)]), Color("8c96a0"))
 			else:
 				var f := clampf((_age - lifetime) / 0.35, 0.0, 1.0)
@@ -257,17 +257,17 @@ func _draw() -> void:
 
 ## A bottle cap drawn from shapes (what tools/bake_art.gd bakes).
 static func draw_cap(ci: CanvasItem, radius: float, gold: bool) -> void:
-	ci.draw_circle(Vector2.ZERO, radius + 1.0, OUTLINE)
+	ci.draw_circle(Vector2.ZERO, radius + 1.0, Icons.edge(Color("f2c14e") if gold else Color("d9534f")))
 	ci.draw_circle(Vector2.ZERO, radius, Color("f2c14e") if gold else Color("d9534f"))
 	ci.draw_circle(Vector2.ZERO, radius * 0.55, Color("f4f1ea"))
 	for i in 6:
 		var p := Vector2.from_angle(TAU * i / 6.0) * radius
-		ci.draw_line(p, p * 1.15, OUTLINE, 1.0)
+		ci.draw_line(p, p * 1.15, Icons.edge(Color("f2c14e") if gold else Color("d9534f")), 1.0)
 
 
 ## A paper plane drawn from shapes (what tools/bake_art.gd bakes).
 static func draw_plane(ci: CanvasItem, radius: float, gold: bool) -> void:
 	var body := PackedVector2Array([Vector2(radius * 1.4, 0), Vector2(-radius, -radius * 0.9), Vector2(-radius * 0.4, 0), Vector2(-radius, radius * 0.9)])
 	ci.draw_colored_polygon(body, Color("f2d14e") if gold else Color("f4f1ea"))
-	ci.draw_polyline(Shapes.closed(body), OUTLINE, 1.0)
+	ci.draw_polyline(Shapes.closed(body), Icons.edge(Color("f2d14e") if gold else Color("f4f1ea")), 1.0)
 	ci.draw_line(Vector2(-radius * 0.4, 0), Vector2(radius * 1.4, 0), Color("c8c0b0"), 1.0)

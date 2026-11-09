@@ -63,7 +63,7 @@ func _draw() -> void:
 	if _burst < 0.0:
 		var s := 0.6 if radius < 30.0 else 1.0
 		draw_set_transform(Vector2.ZERO, 0.0, Vector2(s, s))
-		Blit.rect(self, Rect2(-5, -6, 10, 12), OUTLINE)
+		Blit.rect(self, Rect2(-5, -6, 10, 12), Icons.edge(Color("c9ced2")))
 		Blit.rect(self, Rect2(-4, -5, 8, 10), Color("c9ced2"))
 		Blit.rect(self, Rect2(-4, -2, 8, 4), Color("d9534f"))
 		draw_set_transform(Vector2.ZERO)

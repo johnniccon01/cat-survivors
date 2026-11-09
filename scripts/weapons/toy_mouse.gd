@@ -85,7 +85,7 @@ func _draw() -> void:
 	var body := Color("b8bcc4") if robo else Color("9a9aa2")
 	# Tail, body, ear, eye, nose and the wind-up key on its back.
 	Blit.line(self, Vector2(-5, 1), Vector2(-9, -1 + sin(_t * 20.0)), Color("d9a0a8"), 1.0, base)
-	Blit.ellipse(self, Vector2.ZERO, 5.5, 3.5, OUTLINE)
+	Blit.ellipse(self, Vector2.ZERO, 5.5, 3.5, Icons.edge(Color("b8bcc4") if robo else Color("9a9aa2")))
 	Blit.ellipse(self, Vector2.ZERO, 4.5, 2.6, body)
 	Blit.disc(self, Vector2(2, -3), 1.6, Color("d9a0a8"))
 	Blit.rect(self, Rect2(3, -1, 1, 1), Color("e04646") if robo else OUTLINE)

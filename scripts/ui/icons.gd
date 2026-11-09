@@ -27,6 +27,16 @@ static func tile_color(kind: String, id: String) -> Color:
 	return EVOLVED_BG if is_evolved(kind, id) else (WEAPON_BG if kind == "weapon" else PASSIVE_BG)
 
 
+## Soft edges: the outlines of the icons and of what the weapons throw are a
+## darker shade of the thing's own colour instead of black.
+static var soft_edges := false
+
+
+## The edge colour around something coloured `fill`.
+static func edge(fill: Color) -> Color:
+	return fill.darkened(0.42) if soft_edges else OUTLINE
+
+
 static func is_evolved(kind: String, id: String) -> bool:
 	return kind == "weapon" and GameData.weapons.get(id, {}).get("evolved", false)
 
@@ -63,7 +73,7 @@ static func draw(ci: CanvasItem, kind: String, id: String, rect: Rect2) -> void:
 static func draw_vector(ci: CanvasItem, kind: String, id: String, rect: Rect2, with_tile: bool = true) -> void:
 	if with_tile:
 		var bg := tile_color(kind, id)
-		ci.draw_rect(rect, OUTLINE)
+		ci.draw_rect(rect, edge(tile_color(kind, id)))
 		ci.draw_rect(rect.grow(-1.0), bg)
 		ci.draw_rect(Rect2(rect.position + Vector2(1, 1), Vector2(rect.size.x - 2, rect.size.y * 0.35)), bg.lightened(0.12))
 	var s := rect.size.x / 16.0
@@ -81,7 +91,7 @@ static func _weapon(ci: CanvasItem, id: String) -> void:
 			for i in 3:
 				ci.draw_line(Vector2(4 + i * 3, 3), Vector2(2 + i * 3, 13), Color.WHITE, 1.5)
 		"YARN":
-			ci.draw_circle(Vector2(8, 8), 5.0, OUTLINE)
+			ci.draw_circle(Vector2(8, 8), 5.0, edge(Color("e0628f")))
 			ci.draw_circle(Vector2(8, 8), 4.2, Color("e0628f"))
 			ci.draw_line(Vector2(4, 7), Vector2(12, 9), Color("f7a8c4"), 1.0)
 			ci.draw_line(Vector2(7, 4), Vector2(9, 12), Color("f7a8c4"), 1.0)
@@ -91,11 +101,11 @@ static func _weapon(ci: CanvasItem, id: String) -> void:
 			for i in 10:
 				pts.append(Vector2(8, 8) + Vector2.from_angle(TAU * i / 10.0) * (5.0 if i % 2 == 0 else 3.8))
 			ci.draw_colored_polygon(pts, Color("7a5235"))
-			ci.draw_polyline(Shapes.closed(pts), OUTLINE, 1.0)
+			ci.draw_polyline(Shapes.closed(pts), edge(Color("7a5235")), 1.0)
 		"CATNIP":
 			var leaf := PackedVector2Array([Vector2(3, 13), Vector2(5, 5), Vector2(12, 3), Vector2(11, 10)])
 			ci.draw_colored_polygon(leaf, Color("6cc46c"))
-			ci.draw_polyline(Shapes.closed(leaf), OUTLINE, 1.0)
+			ci.draw_polyline(Shapes.closed(leaf), edge(Color("6cc46c")), 1.0)
 			ci.draw_line(Vector2(3, 13), Vector2(11, 5), Color("3f7a3a"), 1.0)
 		"FISHBONES":
 			ci.draw_line(Vector2(3, 8), Vector2(12, 8), Color("eae4d3"), 1.5)
@@ -111,12 +121,12 @@ static func _weapon(ci: CanvasItem, id: String) -> void:
 		"MILK":
 			ci.draw_colored_polygon(Shapes.ellipse(Vector2(8, 11), 6, 2.5, 12), Color("f4f1ea"))
 			ci.draw_colored_polygon(PackedVector2Array([Vector2(8, 2), Vector2(11, 8), Vector2(8, 10), Vector2(5, 8)]), Color("f4f1ea"))
-			ci.draw_polyline(PackedVector2Array([Vector2(8, 2), Vector2(11, 8), Vector2(8, 10), Vector2(5, 8), Vector2(8, 2)]), OUTLINE, 1.0)
+			ci.draw_polyline(PackedVector2Array([Vector2(8, 2), Vector2(11, 8), Vector2(8, 10), Vector2(5, 8), Vector2(8, 2)]), edge(Color("f4f1ea")), 1.0)
 		"BELL":
 			var bell := PackedVector2Array([Vector2(3, 12), Vector2(4, 6), Vector2(8, 3), Vector2(12, 6), Vector2(13, 12)])
 			ci.draw_colored_polygon(bell, Color("f2c14e"))
-			ci.draw_polyline(Shapes.closed(bell), OUTLINE, 1.0)
-			ci.draw_circle(Vector2(8, 13), 1.5, OUTLINE)
+			ci.draw_polyline(Shapes.closed(bell), edge(Color("f2c14e")), 1.0)
+			ci.draw_circle(Vector2(8, 13), 1.5, edge(Color("f2c14e")))
 		"FEATHER":
 			ci.draw_line(Vector2(3, 13), Vector2(13, 3), Color("e8e0d0"), 1.0)
 			var vane := PackedVector2Array([Vector2(4, 12), Vector2(6, 6), Vector2(13, 3), Vector2(10, 10)])
@@ -124,7 +134,7 @@ static func _weapon(ci: CanvasItem, id: String) -> void:
 			ci.draw_polyline(Shapes.closed(vane), Color("6fc2ff").darkened(0.4), 1.0)
 		"MOUSE_TOY":
 			ci.draw_line(Vector2(3, 11), Vector2(1, 9), Color("d9a0a8"), 1.0)
-			ci.draw_colored_polygon(Shapes.ellipse(Vector2(8, 10), 5.5, 3.5, 12), OUTLINE)
+			ci.draw_colored_polygon(Shapes.ellipse(Vector2(8, 10), 5.5, 3.5, 12), edge(Color("9a9aa2")))
 			ci.draw_colored_polygon(Shapes.ellipse(Vector2(8, 10), 4.5, 2.6, 12), Color("9a9aa2"))
 			ci.draw_circle(Vector2(11, 7), 1.6, Color("d9a0a8"))
 			ci.draw_line(Vector2(7, 7), Vector2(7, 4), Color("c9a24a"), 1.0)
@@ -135,7 +145,7 @@ static func _weapon(ci: CanvasItem, id: String) -> void:
 			for r: float in [2.5, 4.5, 6.5]:
 				ci.draw_arc(Vector2(8, 8), r, 0.0, TAU, 6, Color("eef0f4"), 1.0)
 		"SPRINKLER":
-			ci.draw_circle(Vector2(8, 9), 2.5, OUTLINE)
+			ci.draw_circle(Vector2(8, 9), 2.5, edge(Color("4a8a4a")))
 			ci.draw_circle(Vector2(8, 9), 1.8, Color("4a8a4a"))
 			for i in 3:
 				var d := Vector2.from_angle(-PI * 0.5 + (i - 1) * 0.7)
@@ -149,21 +159,21 @@ static func _weapon(ci: CanvasItem, id: String) -> void:
 		"FROST_FISH":
 			var fish := Shapes.ellipse(Vector2(7, 9), 5, 2.6, 12)
 			ci.draw_colored_polygon(fish, Color("bfefff"))
-			ci.draw_polyline(Shapes.closed(fish), OUTLINE, 1.0)
+			ci.draw_polyline(Shapes.closed(fish), edge(Color("bfefff")), 1.0)
 			ci.draw_colored_polygon(PackedVector2Array([Vector2(2, 9), Vector2(0, 6), Vector2(0, 12)]), Color("8fe3ff"))
 			ci.draw_rect(Rect2(9, 8, 1, 1), OUTLINE)
 			for p: Vector2 in [Vector2(12, 3), Vector2(14, 6), Vector2(4, 3)]:
 				ci.draw_line(p + Vector2(-1.5, 0), p + Vector2(1.5, 0), Color.WHITE, 1.0)
 				ci.draw_line(p + Vector2(0, -1.5), p + Vector2(0, 1.5), Color.WHITE, 1.0)
 		"SQUEAKY_HAMMER":
-			ci.draw_line(Vector2(4, 14), Vector2(9, 7), OUTLINE, 3.0)
+			ci.draw_line(Vector2(4, 14), Vector2(9, 7), edge(Color("e8c37a")), 3.0)
 			ci.draw_line(Vector2(4, 14), Vector2(9, 7), Color("e8c37a"), 1.5)
 			var head := PackedVector2Array([Vector2(5, 4), Vector2(10, 1), Vector2(14, 7), Vector2(9, 10)])
 			ci.draw_colored_polygon(head, Color("e0628f"))
-			ci.draw_polyline(Shapes.closed(head), OUTLINE, 1.0)
+			ci.draw_polyline(Shapes.closed(head), edge(Color("e0628f")), 1.0)
 			ci.draw_line(Vector2(6, 4), Vector2(10, 9), Color("ffd84a"), 1.5)
 		"TIN_CAN_TOSS":
-			ci.draw_rect(Rect2(5, 5, 7, 9), OUTLINE)
+			ci.draw_rect(Rect2(5, 5, 7, 9), edge(Color("c9ced2")))
 			ci.draw_rect(Rect2(6, 6, 5, 7), Color("c9ced2"))
 			ci.draw_rect(Rect2(6, 8, 5, 3), Color("d9534f"))
 			ci.draw_arc(Vector2(10, 4), 3.0, PI, TAU, 6, Color("ffe066"), 1.0)
@@ -272,7 +282,7 @@ static func _passive(ci: CanvasItem, id: String) -> void:
 		"DURATION":
 			var glass := PackedVector2Array([Vector2(4, 2), Vector2(12, 2), Vector2(8, 8), Vector2(12, 14), Vector2(4, 14), Vector2(8, 8)])
 			ci.draw_colored_polygon(glass, Color("e8dcc0"))
-			ci.draw_polyline(Shapes.closed(glass), OUTLINE, 1.0)
+			ci.draw_polyline(Shapes.closed(glass), edge(Color("e8dcc0")), 1.0)
 			ci.draw_colored_polygon(PackedVector2Array([Vector2(6, 13), Vector2(10, 13), Vector2(8, 10)]), Color("c9a24a"))
 		"PROJ_SPEED":
 			ci.draw_colored_polygon(PackedVector2Array([Vector2(8, 5), Vector2(14, 8), Vector2(8, 11)]), Color("f3e7d0"))

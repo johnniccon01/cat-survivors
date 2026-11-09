@@ -108,10 +108,10 @@ static func draw_body(ci: CanvasItem, style: String, radius: float) -> void:
 		"hook", "golden_hook":
 			var metal := Color("f2c14e") if style == "golden_hook" else Color("c9ced2")
 			var hook := PackedVector2Array([Vector2(0, -radius), Vector2(0, radius * 0.4), Vector2(-radius * 0.5, radius), Vector2(-radius, radius * 0.6)])
-			ci.draw_polyline(hook, OUTLINE, 3.0)
+			ci.draw_polyline(hook, Icons.edge(metal), 3.0)
 			ci.draw_polyline(hook, metal, 1.5)
 		"needle":
-			Blit.line(ci, Vector2(-radius * 3.0, 0), Vector2(radius * 3.0, 0), OUTLINE, 2.5)
+			Blit.line(ci, Vector2(-radius * 3.0, 0), Vector2(radius * 3.0, 0), Icons.edge(Color("dfe4e8")), 2.5)
 			Blit.line(ci, Vector2(-radius * 3.0, 0), Vector2(radius * 3.0, 0), Color("dfe4e8"), 1.2)
 			Blit.line(ci, Vector2(-radius * 3.0, 0), Vector2(-radius * 6.0, 2), Color("e0628f"), 1.0)
 		"hairball":
@@ -120,10 +120,10 @@ static func draw_body(ci: CanvasItem, style: String, radius: float) -> void:
 				var r := radius * (1.0 if i % 2 == 0 else 0.75)
 				pts.append(Vector2.from_angle(TAU * i / 12.0) * r)
 			ci.draw_colored_polygon(pts, Color("7a5235"))
-			ci.draw_polyline(Shapes.closed(pts), OUTLINE, 1.0)
+			ci.draw_polyline(Shapes.closed(pts), Icons.edge(Color("7a5235")), 1.0)
 			Blit.line(ci, Vector2(-2, -1) * s, Vector2(2, 1) * s, Color("a8774f"), 1.0)
 		_:
-			Blit.disc(ci, Vector2.ZERO, radius + 1.0, OUTLINE)
+			Blit.disc(ci, Vector2.ZERO, radius + 1.0, Icons.edge(Color("e0628f")))
 			Blit.disc(ci, Vector2.ZERO, radius, Color("e0628f"))
 			Blit.line(ci, Vector2(-radius, -1), Vector2(radius, 1), Color("f7a8c4"), 1.0)
 			Blit.line(ci, Vector2(-1, -radius), Vector2(1, radius), Color("f7a8c4"), 1.0)

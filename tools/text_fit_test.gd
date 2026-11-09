@@ -56,7 +56,7 @@ func _run() -> void:
 			news.queue_free()
 			change_scene_to_file("res://scenes/character_select.tscn")
 			await _frames(8)
-			await _screen(tag, "select", ["_shop", "_charms", "_items", "_artifacts", "_challenges", "_journal", "_dreams"])
+			await _screen(tag, "select", ["_shop", "_charms", "_items", "_artifacts", "_challenges", "_journal", "_dreams", "_workshop"])
 			_map_cards(tag)
 			if opened:
 				await _in_game(tag)

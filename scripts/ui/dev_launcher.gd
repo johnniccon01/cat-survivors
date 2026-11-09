@@ -5,8 +5,9 @@ extends Control
 ## a quest on the map it belongs to, at the minute it opens, with a build;
 ## any map at any minute; any boss; the test lab (no waves, dummies, every
 ## weapon / passive / evolution / branch in the F1 panel's Build tab); and
-## special events. Nothing is saved until the game restarts (dev sandbox),
-## and the run comes back here when it ends.
+## special events. Nothing is saved until the game restarts (dev sandbox).
+## After the run the town map shows as usual (DEV in the main menu leads
+## back here).
 
 const SCENE := "res://scenes/dev_launcher.tscn"
 const MAIN_SCENE := "res://scenes/main.tscn"

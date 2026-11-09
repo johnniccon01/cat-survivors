@@ -10,6 +10,7 @@ func run(main: Node) -> void:
 	_check_legendaries()
 	_check_worn(main.player)
 	_check_profile()
+	_check_workshops()
 	print("TEST: items checked")
 
 
@@ -177,10 +178,61 @@ func _check_worn(player: Player) -> void:
 	var gear := Profile.item_bonus()
 	var own: Dictionary = GameData.cats[player.cat_id].get("bonus", {})
 	for key: String in gear:
-		var want := float(Player.BASE_STATS[key]) + float(own.get(key, 0.0)) + float(gear[key])
-		if absf(player.stats[key] - want) > 0.001:
+		var want := float(Player.BASE_STATS.get(key, 0.0)) + float(own.get(key, 0.0)) + float(gear[key]) + float(Species.stats_of(player.cat_id).get(key, 0.0))
+		# On its home map the cat's home bonus counts too.
+		if player.is_home():
+			want += float(GameData.cats[player.cat_id].get("home_bonus", {}).get(key, 0.0))
+		if absf(float(player.stats.get(key, 0.0)) - want) > 0.001:
 			BotLog.fail("worn gear gives %s = %s, the cat has %s" % [key, want, player.stats[key]])
 	if Profile.legendaries_worn() > Profile.LEGENDARY_WORN:
 		BotLog.fail("--gear put on %d legendaries" % Profile.legendaries_worn())
 	if not gear.is_empty():
 		print("TEST: worn gear checked (%s)" % ", ".join(gear.keys()))
+
+
+## The four workshops on many items: what each does, its limits, the cost.
+func _check_workshops() -> void:
+	for n in 300:
+		var item := Items.roll(2.0, Items.RAISE[n % 3], 1 + n % 14)
+		var before := (item["stats"] as Dictionary).size()
+		var lvl := int(item["ilvl"])
+		if Items.work_problem(item, "SMITH") == "":
+			Items.work(item, "SMITH")
+			if int(item["ilvl"]) != lvl + 1:
+				BotLog.fail("smith did not raise the level")
+		if Items.work_problem(item, "SEW") == "":
+			Items.work(item, "SEW")
+			if (item["stats"] as Dictionary).size() != before:
+				BotLog.fail("sewing changed the number of stats")
+		if Items.work_problem(item, "HERBS") == "":
+			Items.work(item, "HERBS")
+			if Items.work_problem(item, "HERBS") == "":
+				BotLog.fail("the herbalist can add twice")
+		var rarity: String = item["rarity"]
+		if Items.work_problem(item, "LAB") == "":
+			Items.work(item, "LAB")
+			if Items.RAISE.find(item["rarity"]) != Items.RAISE.find(rarity) + 1:
+				BotLog.fail("the laboratory did not raise %s" % rarity)
+		for stat: String in item["stats"]:
+			if float(item["stats"][stat]) == 0.0:
+				BotLog.fail("a workshop left %s at 0" % stat)
+		_check_text(item)
+	if Items.work_problem(Items.legendary("RAT_CROWN"), "SMITH") == "":
+		BotLog.fail("a workshop works on a legendary")
+	# Paying: not enough material, then enough; taking apart gives material.
+	var saved_items: Array = Profile.items.duplicate(true)
+	var saved_mat := Profile.materials
+	Profile.items.clear()
+	Profile.bank_items([Items.roll(1.0, "common", 3)])
+	var uid := int(Profile.items[0]["uid"])
+	Profile.materials = 0
+	if Profile.workshop(uid, "SMITH"):
+		BotLog.fail("a workshop worked without material")
+	Profile.materials = 1000
+	if not Profile.workshop(uid, "SMITH") or Profile.materials >= 1000:
+		BotLog.fail("a workshop did not work or did not charge")
+	var got := Profile.salvage_for_materials(uid)
+	if got <= 0 or not Profile.items.is_empty():
+		BotLog.fail("taking apart gave %d material" % got)
+	Profile.items = saved_items
+	Profile.materials = saved_mat

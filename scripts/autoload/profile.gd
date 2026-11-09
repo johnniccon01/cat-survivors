@@ -1374,6 +1374,35 @@ func toggle_item(uid: int) -> bool:
 	return true
 
 
+## Works on an item in a workshop (Items.WORKSHOPS): pays the material and
+## changes the item; false when it can't be done or there isn't enough.
+func workshop(uid: int, action: String) -> bool:
+	var item := item_by_uid(uid)
+	if Items.work_problem(item, action) != "" or materials < Items.work_cost(item, action):
+		return false
+	materials -= Items.work_cost(item, action)
+	Items.work(item, action)
+	save()
+	return true
+
+
+## Takes an item apart for building material (taking it off first); -1 for
+## a locked one.
+func salvage_for_materials(uid: int) -> int:
+	var item := item_by_uid(uid)
+	if item.is_empty():
+		return 0
+	if item.get("locked", false):
+		return -1
+	if int(equipped_items.get(item["slot"], 0)) == uid:
+		equipped_items.erase(item["slot"])
+	items.erase(item)
+	var got := Items.salvage_materials(item)
+	materials += got
+	save()
+	return got
+
+
 ## Locks an item (a locked one can't be melted) or unlocks it.
 func toggle_lock(uid: int) -> void:
 	var item := item_by_uid(uid)

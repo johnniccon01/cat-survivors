@@ -71,6 +71,8 @@ var _night_buttons: HBoxContainer
 var _stat_tags: HBoxContainer
 ## Every cat in a grid, for when the strip is too long to look through.
 var _cat_grid: CatGridPanel
+## The district's workshop: building material into gear.
+var _workshop: WorkshopPanel
 ## The cat bar's fixed height: choosing a cat never resizes the map.
 const BOTTOM_HEIGHT := 150.0
 ## The full moon is on show in the side panel.
@@ -121,11 +123,9 @@ const BONUS_TEXT := {
 
 
 func _ready() -> void:
-	# Back from a run the dev launcher started: back to the launcher.
-	if not GameData.dev_args.is_empty():
-		GameData.dev_args.clear()
-		get_tree().change_scene_to_file.call_deferred(DevLauncher.SCENE)
-		return
+	# Back from a run the dev launcher started: its flags are done (the
+	# launcher is the DEV button in the main menu).
+	GameData.dev_args.clear()
 	for arg: String in GameData.args():
 		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--artifacts", "--goals", "--journal", "--challenges", "--ui-test", "--no-save", "--open-all", "--dev-launcher"] and not arg.begins_with("--retired="):
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
@@ -215,6 +215,7 @@ func _build() -> void:
 	# are by the cat, the night's options by Play.
 	for entry: Array in [["MENU_UPGRADES", "U", func() -> void: _shop.open()],
 			["MENU_JOURNAL", "J", func() -> void: _journal.open("quests")],
+			["WORKSHOP_TITLE", "K", func() -> void: _workshop.open()],
 			["HELP_BUTTON", "H", func() -> void: _help.open()],
 			["SET_BACK", "Esc", func() -> void: get_tree().change_scene_to_file("res://scenes/main_menu.tscn")]]:
 		var b := UiStyle.click_button(tr(entry[0]), 0, 15)
@@ -676,6 +677,9 @@ func _build() -> void:
 	play_col.add_child(play)
 	_play = play
 
+	_workshop = WorkshopPanel.new()
+	add_child(_workshop)
+	_workshop.closed.connect(_refresh)
 	_shop = ShopPanel.new()
 	add_child(_shop)
 	_shop.closed.connect(_refresh)
@@ -869,6 +873,11 @@ func _fit_lines() -> void:
 func _fit_top() -> void:
 	var room := get_viewport_rect().size.x - 28.0 - 20.0 - 14.0 * 2.0 - _badges.get_combined_minimum_size().x - _gold.get_combined_minimum_size().x
 	UiStyle.fit_row(_top_buttons, maxf(room, 400.0))
+	# Still too wide (long words in some languages): the keys go, the
+	# buttons stay (the keys still work).
+	if UiStyle.row_width(_top_buttons) > maxf(room, 400.0):
+		UiStyle.drop_keys(_top_buttons)
+		UiStyle.fit_row(_top_buttons, maxf(room, 400.0))
 	UiStyle.fit_row(_night_buttons, 300.0, 9)
 	UiStyle.fit_row(_cat_buttons, 285.0, 9)
 
@@ -1333,11 +1342,15 @@ func _refresh_darkness(stage_id: String) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _shop.visible or _charms.visible or _items.visible or _journal.visible or _challenges.visible or _artifacts.visible or _help.visible or (_cat_grid != null and _cat_grid.visible):
+	if _shop.visible or _charms.visible or _items.visible or _journal.visible or _challenges.visible or _artifacts.visible or _help.visible or _workshop.visible or (_cat_grid != null and _cat_grid.visible):
 		return
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_H:
 		Audio.play("click", -6.0, 0.0)
 		_help.open()
+		return
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_K:
+		Audio.play("click", -6.0, 0.0)
+		_workshop.open()
 		return
 	if event.is_action_pressed("challenges"):
 		Audio.play("click", -6.0, 0.0)

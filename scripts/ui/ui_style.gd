@@ -95,6 +95,27 @@ static func fit_row(row: BoxContainer, width: float, smallest: int = 11) -> void
 			buttons[i].add_theme_font_size_override("font_size", maxi(roundi(sizes[i] * k), smallest))
 
 
+## Hides the key caps on a row's buttons (when even a smaller font doesn't
+## make the row fit), giving their room back to the text.
+static func drop_keys(row: BoxContainer) -> void:
+	for child in row.get_children():
+		if child is Button and child.has_meta("key_cap"):
+			var cap: Control = child.get_meta("key_cap")
+			if not cap.visible:
+				continue
+			cap.visible = false
+			for state in ["normal", "hover", "focus", "pressed", "disabled"]:
+				if child.has_theme_stylebox_override(state):
+					var sb := child.get_theme_stylebox(state).duplicate() as StyleBox
+					sb.content_margin_right = 10.0
+					sb.content_margin_left = 10.0
+					child.add_theme_stylebox_override(state, sb)
+
+
+static func row_width(row: BoxContainer) -> float:
+	return _row_width(row)
+
+
 static func _row_width(row: BoxContainer) -> float:
 	var total := 0.0
 	var shown := 0
@@ -254,6 +275,7 @@ static func key_cap(text: String, size: int = 12) -> PanelContainer:
 static func add_key(b: Button, key: String, size: int = 12) -> PanelContainer:
 	var cap := key_cap(key, size)
 	b.add_child(cap)
+	b.set_meta("key_cap", cap)
 	var font := b.get_theme_font("font")
 	var width := font.get_string_size(key, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x + 14.0
 	width = maxf(width, size + 14.0)

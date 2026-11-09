@@ -57,8 +57,10 @@ Toto sa nedá overiť botom – treba zahrať a povedať. Zoradené od najdôle�
   - [x] Úroveň predmetu 1–15 podľa mapy, temnoty a hĺbky snu
   - [x] 9 setov (3 snové, 6 nočných na epických predmetoch)
   - [x] Panel: porovnanie s nasadeným, zamknutie, zoradenie, sklad 60, až 3 legendárky naraz
-  - [ ] Dielňa / kováč (vylepšenie, prehodenie vlastnosti, rozobratie na materiál) – návrh čaká na tvoje rozhodnutie
+  - [x] Dielne (9. 11., tlačidlo Dielňa / K na mape mesta), v každej štvrti iná, platí sa stavebným materiálom: Mačacie mesto – šijacia dielňa (prešije jednu vlastnosť), Psie štvrte – kováč (+1 úroveň), Divočina – bylinkárka (+1 vlastnosť, raz na predmet), Firma – laboratórium (+1 vzácnosť); všade rozobratie predmetu na materiál
 - [x] **Uloženie hry** (9. 11.) – verzia profilu a migrácia (staré predmety dostanú úroveň 1), kópia starého profilu pred migráciou, bezpečný zápis cez dočasný súbor, denné zálohy (posledných 7)
+- [x] **Zvieratá hrajú po svojom** (9. 11.) – pes odolný, vlk so svorkou vlčiatok, medveď zápasník (zbrane zblízka +30 %), lev kráľ (kritiky, strach okolo), mýval zlodej (truhlice); štítok s vysvetlením pri postave
+- [x] **Vývojársky spúšťač** (9. 11.) – `Spustit\8` otvára normálne menu so všetkými štvrťami, po dev hre sa ukáže mapa mesta; launcher je tlačidlo DEV v menu
 - [~] **Terén** – stromy, múriky, ulička, príliv, pásy, izby so stenami (Byt, Pivnica) a špeciality máp sú hotové; nápady navyše (lisy v Továrni, padajúce regále, mosty cez vodu) nie
 - [~] **Mačacie sny** – všetko z časti 6 hotové okrem týždenného snu (nechané na prípravu na Steam)
 
@@ -66,8 +68,6 @@ Toto sa nedá overiť botom – treba zahrať a povedať. Zoradené od najdôle�
 
 - [ ] **Aktívna schopnosť mačky** (jedno tlačidlo, cooldown) – dnes majú mačky len inštinkty, ktoré sa spúšťajú samé
 - [ ] **Krotenie** – pôvodný návrh sa nepáčil, treba vymyslieť inak (bez ďalšej postavy na obrazovke)
-- [ ] **Dielňa v štvrti** – výroba vylepšení zo surovín (materiál sa dnes míňa len na domčeky)
-- [ ] **Psy a zvieratá hrajú inak** – Ruby, Vlk, Medveď, Lev a Lotor sú hrateľní, ale hrajú sa ako mačky (len iný bonus a vzhľad); návrh: viac zdravia, útoky zblízka, štekot, čuch
 - [ ] **Kozmetika** pre mačky za zlato
 - [ ] **Balík / DLC** – rozdelenie psích a ďalších štvrtí do balíka (`pack`) sa nerobilo
 

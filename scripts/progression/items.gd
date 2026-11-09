@@ -248,3 +248,115 @@ static func salvage_gold(item: Dictionary) -> int:
 ## A rough worth, to keep the best item when only one can be saved.
 static func worth(item: Dictionary) -> int:
 	return (ORDER.find(item.get("rarity", "common")) + 1) * 100 + int(item.get("ilvl", 1))
+
+
+# --- Workshop (see WorkshopPanel): what the four workshops do to an item -----
+
+## Each district's workshop and what it does.
+const WORKSHOPS := {"cats": "SEW", "dogs": "SMITH", "wild": "HERBS", "company": "LAB"}
+## Rarities the laboratory can raise an item through.
+const RAISE := ["common", "uncommon", "rare", "epic"]
+const RAISE_COST := [100, 200, 350]
+
+
+## Whether `action` can be done to `item` ("" if it can, else why not, as a
+## translation key).
+static func work_problem(item: Dictionary, action: String) -> String:
+	if item.is_empty():
+		return "ITEMS_EMPTY"
+	if item.get("rarity", "") in ["legendary"]:
+		return "WORKSHOP_NOT_LEGENDARY"
+	match action:
+		"SMITH":
+			if int(item.get("ilvl", 1)) >= MAX_LEVEL:
+				return "WORKSHOP_MAX_LEVEL"
+		"SEW":
+			if _extras(item).is_empty():
+				return "WORKSHOP_NO_EXTRA"
+		"HERBS":
+			if item.get("enchanted", false):
+				return "WORKSHOP_ALREADY_ADDED"
+		"LAB":
+			if item.get("rarity", "") not in RAISE or item["rarity"] == RAISE[-1]:
+				return "WORKSHOP_MAX_RARITY"
+	return ""
+
+
+## Material it costs.
+static func work_cost(item: Dictionary, action: String) -> int:
+	match action:
+		"SMITH":
+			return 30 + 15 * int(item.get("ilvl", 1))
+		"SEW":
+			return 60
+		"HERBS":
+			return 120
+		"LAB":
+			var i := RAISE.find(String(item.get("rarity", "")))
+			return RAISE_COST[clampi(i, 0, RAISE_COST.size() - 1)]
+	return 0
+
+
+## Material back for taking an item apart (more for better ones).
+static func salvage_materials(item: Dictionary) -> int:
+	return maxi(5, roundi(salvage_gold(item) * 0.6 + int(item.get("ilvl", 1)) * 2))
+
+
+## Does `action` to `item` (in place). Check work_problem first.
+static func work(item: Dictionary, action: String) -> void:
+	var stats: Dictionary = item["stats"]
+	match action:
+		"SMITH":
+			var old := int(item.get("ilvl", 1))
+			_scale(stats, (1.0 + LEVEL_STEP * old) / (1.0 + LEVEL_STEP * (old - 1)))
+			item["ilvl"] = old + 1
+		"SEW":
+			var extras := _extras(item)
+			var gone: String = extras.pick_random()
+			stats.erase(gone)
+			var key := _new_stat(item)
+			stats[key] = _roll_value(key, _mult(item))
+		"HERBS":
+			var key := _new_stat(item)
+			stats[key] = _roll_value(key, _mult(item))
+			item["enchanted"] = true
+		"LAB":
+			var from: String = item["rarity"]
+			var to: String = RAISE[RAISE.find(from) + 1]
+			_scale(stats, float(data()["rarities"][to]["mult"]) / float(data()["rarities"][from]["mult"]))
+			item["rarity"] = to
+			var key := _new_stat(item)
+			stats[key] = _roll_value(key, _mult(item))
+			if to == "epic" and not item.has("set") and randf() < float(data()["rarities"]["epic"].get("set_chance", 0.0)):
+				item["set"] = NIGHT_SETS.pick_random()
+
+
+## The stats an item has besides its main one.
+static func _extras(item: Dictionary) -> Array:
+	var main: String = info(item).get("stat", "")
+	return (item["stats"] as Dictionary).keys().filter(func(k: String) -> bool: return k != main)
+
+
+## The size an item's new stat rolls at (its rarity and level).
+static func _mult(item: Dictionary) -> float:
+	return float(data()["rarities"][item["rarity"]]["mult"]) * (1.0 + LEVEL_STEP * (int(item.get("ilvl", 1)) - 1))
+
+
+## A stat the item doesn't have yet (sometimes one for a weapon).
+static func _new_stat(item: Dictionary) -> String:
+	var stats: Dictionary = item["stats"]
+	if randf() < WEAPON_AFFIX_CHANCE:
+		var key := _weapon_affix(item["rarity"])
+		if not stats.has(key):
+			return key
+	var free: Array = data()["affixes"].keys().filter(func(k: String) -> bool: return not stats.has(k))
+	return free.pick_random() if not free.is_empty() else data()["affixes"].keys().pick_random()
+
+
+## Makes every number bigger by `k` (flat stats stay whole, +1 projectile stays 1).
+static func _scale(stats: Dictionary, k: float) -> void:
+	for key: String in stats.keys():
+		if key.begins_with("wa:"):
+			continue
+		var v := float(stats[key]) * k
+		stats[key] = snappedf(v, 0.01) if (key in PERCENT or key == "regen" or key.begins_with("wd:")) else float(roundi(v))

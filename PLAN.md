@@ -634,6 +634,16 @@ Príbeh v troch štvrtiach: psy sú najprv nepriatelia, potom spojenci. 2. a 3. 
 - Opravené: posuvník na krátkej konečnej obrazovke, „bonus série +0 %", Úroveň/úr. v SK/CS, „Cooldown" v obchode, značka ponuky prekrývala „5 · Supermarket", odrezané názvy výbavy v slotoch, riadok dvierok sa prekrýval s questom/požehnaním v HUD, kombo Naháňačka (myšky teraz idú po cieli z lasera), Šantová záhrada a Tsunami silnejšie, testy kombá Signál a Naháňačka už nezávisia od náhody.
 - Na zváženie (balans podľa bota, nie hráča): smrti v 10.–19. min – Byt 3, Pivnica 20, Strecha 27, Supermarket 1; bez nákupov v obchode bot Továreň nevyhrá (R3000 má 90k HP). Melee/aura zbrane (Tigrie pazúry, Šantová záhrada, Kostený kolotoč, Monzún) dávajú v neskorej hre zlomok poškodenia ostatných evolúcií.
 
+## 13. 11. 2026: nové UI pred Steamom – štýl „Krabica od topánok“
+
+Vydanie pôjde rovno na Steam (bez itch.io), možno s demom; týždenný sen príde až ako update po vydaní. Pred Steamom sa prerába celé UI, lebo pôsobilo genericky. Z 5 návrhov (krieda, krabica, samolepky, neón, linoryt) hráč vybral **Krabicu**: kartón s odtrhnutými hranami, papierová páska, červená fixka, labky ako pečiatky a značky. Samotná hra (hracie pole, mačky, nepriatelia) sa nemení – len menu, panely, mapa štvrte (ostáva mapou mesta, štýl len na štítkoch a cestách) a HUD.
+
+1. [x] **Hlavné menu** (13. 11.): písma Delicious Handrawn (nadpisy, tlačidlá) a Shantell Sans (texty, cyrilika) v `fonts/` (OFL), fallback na pôvodné písmo pre zh_CN; zdieľané kreslenie `scripts/ui/box_style.gd`, `box_board.gd`, `box_button.gd`; menu má tabuľu s názvom, pásky, kartónové tlačidlá s fixkovým krúžkom pri výbere.
+2. [ ] Nastavenia
+3. [ ] Štvrte (mapa mesta, štítky z pásky, cesty z labiek, bočný panel)
+4. [ ] HUD v hre, level-up, pauza, koniec noci
+5. [ ] Ostatné panely (výber mačky, obchod, denník, …)
+
 ## Ako pracujeme
 
 - Každý väčší krok = commit; na GitHub pushujeme, keď povieš.

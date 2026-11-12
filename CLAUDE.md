@@ -22,7 +22,7 @@ Survivors-like hra v Godot 4.6 (GDScript, renderer Compatibility). Hráč píše
 
 ## Godot
 Notebook (AndrejNikolaj): `G="/c/Users/AndrejNikolaj/Downloads/Godot_v4.6.2-stable_win64.exe/Godot_v4.6.2-stable_win64_console.exe"`
-Druhé PC (john.niccon): `G="/c/Users/john.niccon/Downloads/Godot_v4.6.2-stable_win64.exe/Godot_v4.6.2-stable_win64_console.exe"`
+Druhé PC (john.niccon): `G="/e/Tools/Godot_v4.6.2-stable_win64/Godot_v4.6.2-stable_win64_console.exe"` (staršia cesta v Downloads tu už neexistuje)
 Ak cesta neexistuje, nájdi ju rovnako ako `hrat.bat` (Downloads, priečinok `godot\` vedľa hry, Program Files).
 - Import po zmene súborov: `"$G" --headless --path . --import`
 - Rýchly test jedného scenára: `ONLY="nazov|nazov2" bash tools/run_checks.sh "$G"` (názvy scenárov v `tools/run_checks.sh`).

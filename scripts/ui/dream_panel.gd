@@ -73,7 +73,7 @@ func _refresh() -> void:
 		c.queue_free()
 	for offer: Dictionary in Profile.dream_offers():
 		var b := UiStyle.click_button(_offer_text(offer), 760, 16)
-		b.custom_minimum_size.y = 46
+		b.custom_minimum_size.y = maxf(b.custom_minimum_size.y, 46.0)
 		b.add_theme_color_override("font_color", Color("a01c15") if offer.get("nightmare", false) else UiStyle.INK)
 		b.pressed.connect(func() -> void:
 			Audio.play("select", -4.0, 0.0)

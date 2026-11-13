@@ -240,7 +240,7 @@ class _OwnedSlot:
 		BoxStyle.draw_blob(self, r, 9 + level, Color("ffe7a0") if maxed else Color("f4e8cb"), BoxStyle.INK, 2.4, Vector2(1.5, 2))
 		Icons.draw(self, kind, id, r.grow(-4.0))
 		if hot:
-			BoxStyle.draw_ring(self, Rect2(Vector2.ZERO, size), 5 + level, Color("5aaeff"), 3.0, 4.0)
+			BoxStyle.draw_ring(self, Rect2(Vector2.ZERO, size), 5 + level, BoxStyle.RED, 3.0, 4.0)
 		var t := "★" if maxed else str(level)
 		var font := BoxStyle.bold_font()
 		var w := font.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, 12).x

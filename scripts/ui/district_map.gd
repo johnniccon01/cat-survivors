@@ -24,7 +24,7 @@ const RESIDENT_SPOTS := {
 }
 
 ## Night report kinds: sign letter and colour.
-const REPORT_LOOK := {"trip": ["»", Color("8a4ad0")], "defend": ["!", Color("c0392b")], "hunt": ["★", Color("d4801c")], "gold": ["$", Color("2f8a6a")], "rescue": ["+", Color("3a6ad0")]}
+const REPORT_LOOK := {"trip": ["»", Color("9a3f6a")], "defend": ["!", Color("c0392b")], "hunt": ["★", Color("d4801c")], "gold": ["$", Color("2f8a6a")], "rescue": ["+", Color("2f7f86")]}
 
 const WW := 720
 const WH := 400
@@ -70,7 +70,8 @@ const HOME_STATS := {
 	"might": ["BONUS_MIGHT", 100.0], "cooldown": ["BONUS_COOLDOWN", -100.0], "area": ["BONUS_AREA", 100.0],
 	"speed": ["BONUS_SPEED", 100.0], "max_hp": ["BONUS_MAX_HP", 1.0], "luck": ["BONUS_LUCK", 100.0],
 	"regen": ["BONUS_REGEN", 1.0], "growth": ["BONUS_GROWTH", 100.0], "magnet": ["BONUS_MAGNET", 1.0],
-	"proj_speed": ["BONUS_PROJ_SPEED", 100.0],
+	"proj_speed": ["BONUS_PROJ_SPEED", 100.0], "armor": ["ISTAT_ARMOR", 1.0], "greed": ["ISTAT_GREED", 100.0],
+	"duration": ["ISTAT_DURATION", 100.0],
 }
 
 ## The district on show ("cats", "dogs", "wild" or "company") and its places and fog.
@@ -586,7 +587,7 @@ static func draw_memorial_sign(ci: Control, count: int) -> void:
 	pts.append(c + Vector2(12, 14))
 	pts.append(c + Vector2(-12, 14))
 	ci.draw_colored_polygon(Shapes.ellipse(c + Vector2(2, 16), 16.0, 4.0, 12), Color(0, 0, 0, 0.45))
-	ci.draw_colored_polygon(pts, Color("9a9aa4"))
+	ci.draw_colored_polygon(pts, Color("9a968e"))
 	ci.draw_line(c + Vector2(-11, -4), c + Vector2(-11, 13), Color("c0c0ca"), 1.0)
 	ci.draw_polyline(Shapes.closed(pts), Color("2b1d14"), 1.5)
 	var font := ThemeDB.fallback_font
@@ -906,7 +907,7 @@ func _draw_paths() -> void:
 		var req: String = GameData.stages[id].get("requires", "")
 		if req == "" or not PLACES.has(req) or not PLACES.has(id):
 			continue
-		var col := Color(0.82, 0.8, 0.86, 0.4)
+		var col := Color(0.82, 0.8, 0.74, 0.4)
 		var march := false
 		if id in Profile.cleared_stages:
 			col = Color(BoxStyle.CREAM, 1.0)
@@ -961,7 +962,7 @@ func _draw_last_trip() -> void:
 	var route := Profile.last_trip
 	for i in range(1, route.size()):
 		if PLACES.has(route[i - 1]) and PLACES.has(route[i]):
-			_draw_path(_path_end(route[i - 1]) + Vector2(6, 6), _path_end(route[i]) + Vector2(6, 6), Color(0.4, 0.9, 1.0, 0.85), false, 2.0)
+			_draw_path(_path_end(route[i - 1]) + Vector2(6, 6), _path_end(route[i]) + Vector2(6, 6), BoxStyle.RED, false, 2.0)
 
 
 ## A yellow sticky note "next" over the map to play next, bouncing a little,
@@ -1091,7 +1092,7 @@ func _draw_anim(c: Control) -> void:
 	# Cloud shadows drifting over the town.
 	for i in 4:
 		var cc := Vector2(fposmod(t * 6.0 + i * 230.0, WW + 200.0) - 100.0, 40.0 + i * 70.0)
-		c.draw_texture_rect(_glow, Rect2(cc - Vector2(60, 60), Vector2(120, 120)), false, Color(0.04, 0.04, 0.12, 0.22))
+		c.draw_texture_rect(_glow, Rect2(cc - Vector2(60, 60), Vector2(120, 120)), false, Color(0.06, 0.04, 0.02, 0.22))
 
 
 func _mini_cat(c: Control, p: Vector2, col: Color, t: float) -> void:
@@ -1187,15 +1188,15 @@ func _draw_fx(c: Control) -> void:
 		for i in 6:
 			var p := fmod(_t * 0.35 + i / 6.0 + s[1] * 0.17, 1.0)
 			var at: Vector2 = s[0] + Vector2(p * 14.0 + sin(_t + i) * 2.0, -p * 26.0)
-			c.draw_circle(at, 2.0 + p * 5.0, Color(0.7, 0.7, 0.78, 0.45 * (1.0 - p)))
+			c.draw_circle(at, 2.0 + p * 5.0, Color(0.74, 0.72, 0.7, 0.45 * (1.0 - p)))
 	for id: String in FOG:
 		if place_state(id) != "locked":
 			continue
 		var r: Rect2 = FOG[id]
-		c.draw_texture_rect(_glow, r.grow(16), false, Color(0.59, 0.56, 0.69, 0.55))
+		c.draw_texture_rect(_glow, r.grow(16), false, Color(0.55, 0.58, 0.6, 0.4))
 		for puff: Array in _puffs[id]:
 			var at: Vector2 = puff[0] + Vector2(sin(_t * 0.3 + puff[2]) * 8.0, cos(_t * 0.25 + puff[2]) * 4.0)
-			_glow_at(c, at, Vector2.ONE * puff[1], Color(0.77, 0.74, 0.84, 0.4))
+			_glow_at(c, at, Vector2.ONE * puff[1], Color(0.62, 0.66, 0.66, 0.26))
 
 
 func _draw_mini() -> void:
@@ -1203,11 +1204,11 @@ func _draw_mini() -> void:
 	_mini.draw_rect(r.grow(4), Color(0.09, 0.055, 0.03, 0.9))
 	_mini.draw_texture_rect(_texture, r, false, Color(0.55, 0.6, 0.9))
 	for id: String in PLACES:
-		var col: Color = {"yours": Color("5fe0a8"), "boss": Color("ff6a5a"), "locked": Color("9a92a8")}[place_state(id)]
+		var col: Color = {"yours": Color("5fe0a8"), "boss": Color("ff6a5a"), "locked": Color("a09a90")}[place_state(id)]
 		_mini.draw_rect(Rect2(PLACES[id]["pos"] / Vector2(WW, WH) * _mini.size - Vector2(2, 2), Vector2(4, 4)), col)
 	var v := view_size()
 	_mini.draw_rect(Rect2(cam / Vector2(WW, WH) * _mini.size, v / Vector2(WW, WH) * _mini.size), UiStyle.GOLD, false, 2.0)
-	_mini.draw_rect(r.grow(4), Color("5a4a6e"), false, 2.0)
+	_mini.draw_rect(r.grow(4), Color("6a5638"), false, 2.0)
 
 
 # --- building the town (once) -------------------------------------------------------

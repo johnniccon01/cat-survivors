@@ -58,6 +58,9 @@ func _build() -> void:
 	art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	art.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var warm := ShaderMaterial.new()
+	warm.shader = load("res://shaders/title_warm.gdshader")
+	art.material = warm
 	add_child(art)
 	add_child(MenuSky.new())
 

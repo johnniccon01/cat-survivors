@@ -170,7 +170,7 @@ func _draw_lives() -> void:
 	for i in Profile.LIVES:
 		var c := Vector2(17 + i * 34, 18)
 		var on := i < lives
-		var fill := Color("ff8fa8") if on else Color(0.35, 0.3, 0.4, 0.6)
+		var fill := Color("ff8fa8") if on else Color(0.36, 0.27, 0.2, 0.6)
 		_lives.draw_circle(c + Vector2(0, 3), 7.5, OUTLINE)
 		_lives.draw_circle(c + Vector2(0, 3), 6.0, fill)
 		for toe: Vector2 in [Vector2(-7, -5), Vector2(-2.5, -9), Vector2(2.5, -9), Vector2(7, -5)]:

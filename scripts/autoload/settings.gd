@@ -61,6 +61,9 @@ func _ready() -> void:
 	if language not in LANGUAGES:
 		language = LANGUAGES[0]
 	TranslationServer.set_locale(language)
+	# The engine default theme (not just the window): panels under a CanvasLayer
+	# (the HUD) do not inherit the window theme, they only see the default one.
+	ThemeDB.get_default_theme().merge_with(BoxStyle.global_theme())
 	_apply_display()
 	_apply_render.call_deferred()
 	get_tree().scene_changed.connect(_apply_render)

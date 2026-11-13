@@ -81,14 +81,14 @@ func _draw() -> void:
 			Icons.draw(self, "weapon", shown, Rect2(Vector2(x, y), Vector2(16, 16)))
 			x += 18.0
 		draw_string_outline(_font, Vector2(x + 2, y + 13), tr("COMBO_%s_NAME" % c), HORIZONTAL_ALIGNMENT_LEFT, -1, 13, 6, OUTLINE)
-		draw_string(_font, Vector2(x + 2, y + 13), tr("COMBO_%s_NAME" % c), HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("bfe8ff"))
+		draw_string(_font, Vector2(x + 2, y + 13), tr("COMBO_%s_NAME" % c), HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("ffe7a0"))
 		y += 19.0
 	# The soul bell's souls tonight.
 	if Profile.soul_live >= 0.0:
 		var b := Profile.soul_bonus(Profile.soul_live)
 		var text := tr("HUD_SOUL") % [roundi(Profile.soul_live), roundi(float(b["might"]) * 100.0)]
 		draw_circle(Vector2(8, y + 8), 6.0, OUTLINE)
-		draw_circle(Vector2(8, y + 8), 4.5, Color("9a7aff"))
+		draw_circle(Vector2(8, y + 8), 4.5, Color("ff9aa8"))
 		draw_string_outline(_font, Vector2(20, y + 13), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, 6, OUTLINE)
 		draw_string(_font, Vector2(20, y + 13), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("e6d3ab"))
 

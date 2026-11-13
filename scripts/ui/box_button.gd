@@ -71,8 +71,12 @@ func _font() -> Font:
 ## The button is as wide as its text needs (so long translations fit).
 func _fit() -> void:
 	add_theme_font_size_override("font_size", text_size)
-	var w := _font().get_string_size(atr(text), HORIZONTAL_ALIGNMENT_LEFT, -1, text_size).x + _hint_width()
-	custom_minimum_size = Vector2(maxf(min_width, w + text_size * 1.1 + _paw_room * (1.35 if hint != "" else 1.0)), roundf(text_size * 1.55))
+	var lines := atr(text).split("\n")
+	var w := 0.0
+	for line in lines:
+		w = maxf(w, _font().get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, text_size).x)
+	w += _hint_width()
+	custom_minimum_size = Vector2(maxf(min_width, w + text_size * 1.1 + _paw_room * (1.35 if hint != "" else 1.0)), roundf(text_size * 1.55) + (lines.size() - 1) * roundf(text_size * 1.25) + (4.0 if lines.size() > 1 else 0.0))
 
 
 func _notification(what: int) -> void:
@@ -127,13 +131,21 @@ func _draw() -> void:
 	else:
 		BoxStyle.draw_board(self, size, look_seed, Color("c99a64"), Color("ad7c4a"), base, Vector2(5, 6), Color(0.31, 0.19, 0.08, 0.12))
 	var font := _font()
-	var shown := atr(text)
+	var lines := atr(text).split("\n")
+	var shown := lines[lines.size() - 1]
 	var tw := font.get_string_size(shown, HORIZONTAL_ALIGNMENT_LEFT, -1, text_size).x + _hint_width()
 	var shift := _paw_room * (0.8 if hint != "" else 0.5) if lit else 0.0
 	var x := (size.x - tw) * 0.5 + shift
 	var y := size.y * 0.5 + (font.get_ascent(text_size) - font.get_descent(text_size)) * 0.5
 	draw_set_transform_matrix(base)
 	var ink := Color("5a4d3e") if disabled else BoxStyle.INK
+	# More than one line (a line break in the text): the lines above, centred; the last one keeps the hint.
+	var line_h := roundf(text_size * 1.25)
+	var top := y - float(lines.size() - 1) * line_h * 0.5
+	for i in lines.size() - 1:
+		var lw := font.get_string_size(lines[i], HORIZONTAL_ALIGNMENT_LEFT, -1, text_size).x
+		draw_string(font, Vector2((size.x - lw) * 0.5 + shift, top + i * line_h), lines[i], HORIZONTAL_ALIGNMENT_LEFT, -1, text_size, ink)
+	y = top + float(lines.size() - 1) * line_h
 	draw_string(font, Vector2(x, y), shown, HORIZONTAL_ALIGNMENT_LEFT, -1, text_size, ink)
 	if hint != "":
 		var hs := _hint_size()

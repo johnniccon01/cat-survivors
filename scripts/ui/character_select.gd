@@ -101,6 +101,8 @@ var _place_stats: Array[Label] = []
 var _place_stars: Label
 var _place_paws: PawRating
 var _chips: HBoxContainer
+var _top_compact := false
+var _weather_today_text := ""
 var _play: BoxButton
 var _hover := -1
 var _dark_label: Label
@@ -182,7 +184,10 @@ func _build() -> void:
 	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	art.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	art.modulate = Color(0.55, 0.5, 0.65)
+	var art_mat := ShaderMaterial.new()
+	art_mat.shader = load("res://shaders/title_warm.gdshader")
+	art.material = art_mat
+	art.modulate = Color(0.8, 0.75, 0.7)
 	art.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(art)
 	add_child(MenuSky.new())
@@ -345,7 +350,9 @@ func _build() -> void:
 	side_margin.add_theme_constant_override("margin_bottom", 12)
 	side.add_child(side_margin)
 	var side_scroll := ScrollContainer.new()
-	side_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	# Never widens with its content (long words in other languages): the side
+	# panel keeps its width and the lines below fit themselves into it.
+	side_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
 	side_margin.add_child(side_scroll)
 	var place := VBoxContainer.new()
 	place.add_theme_constant_override("separation", 5)
@@ -360,7 +367,9 @@ func _build() -> void:
 	_place_pic.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	_place_pic.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	_place_pic.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	_place_pic.modulate = Color(0.62, 0.66, 0.98)
+	var pic_mat := ShaderMaterial.new()
+	pic_mat.shader = load("res://shaders/map_warm_pic.gdshader")
+	_place_pic.material = pic_mat
 	pic_box.add_child(_place_pic)
 	_badge_icon = SignIcon.new("", 9.0)
 	_badge_icon.position = Vector2(4, 2)
@@ -423,12 +432,15 @@ func _build() -> void:
 	boss_h.add_child(_boss_pic)
 	var boss_v := VBoxContainer.new()
 	boss_v.alignment = BoxContainer.ALIGNMENT_CENTER
+	boss_v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	boss_h.add_child(boss_v)
 	_boss_name = _ink(19, Color("8a2a1a"), true)
 	_boss_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	_boss_name.clip_text = true
 	boss_v.add_child(_boss_name)
 	_boss_sub = _ink(12, Color("6b5642"))
 	_boss_sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	_boss_sub.clip_text = true
 	boss_v.add_child(_boss_sub)
 	var stats := GridContainer.new()
 	stats.columns = 2
@@ -534,7 +546,9 @@ func _build() -> void:
 	dark_row.add_child(_dark_minus)
 	_dark_label = _ink(13, Color("9a2a20"))
 	_dark_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_dark_label.custom_minimum_size = Vector2(230, 0)
+	_dark_label.custom_minimum_size = Vector2(130, 0)
+	_dark_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_dark_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	dark_row.add_child(_dark_label)
 	_dark_plus = BoxButton.make("+", 24, 89, 2.0, false, true, 36.0)
 	_dark_plus.pressed.connect(_change_darkness.bind(1))
@@ -548,7 +562,7 @@ func _build() -> void:
 	_place_stars = _ink(12, Color("7a6048"))
 	_place_stars.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_place_stars.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_place_stars.custom_minimum_size = Vector2(190, 0)
+	_place_stars.custom_minimum_size = Vector2(140, 0)
 	_place_stars.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	stars_row.add_child(_place_stars)
 
@@ -687,20 +701,25 @@ func _build() -> void:
 	_worn.size_flags_stretch_ratio = 1.8
 	loadout.add_child(_worn)
 	_artifact_label = _label(13, Color("9ad77a"))
+	_artifact_label.size_flags_stretch_ratio = 2.4
 	loadout.add_child(_artifact_label)
+	# The cat's own buttons on a line of their own, as a group at the right.
+	var cat_row := HBoxContainer.new()
+	cat_row.add_theme_constant_override("separation", 8)
+	cat_row.alignment = BoxContainer.ALIGNMENT_END
+	left.add_child(cat_row)
 	var cat_group := UiStyle.plain(tr("SELECT_GROUP_CAT"), 11, Color("c4a27a"))
 	cat_group.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	loadout.add_child(cat_group)
+	cat_row.add_child(cat_group)
 	_cat_buttons = HBoxContainer.new()
 	_cat_buttons.add_theme_constant_override("separation", 4)
-	loadout.add_child(_cat_buttons)
+	cat_row.add_child(_cat_buttons)
 	for entry: Array in [["MENU_TALENTS", "C", func() -> void: _open_talents()],
 			["MENU_ITEMS", "I", func() -> void: _items.open()],
 			["ARTIFACTS_TITLE", "V", func() -> void: _artifacts.open()]]:
 		_cat_buttons.add_child(_small_button(entry))
 	# The dog partner for the Wild and the Company: each click the next one.
-	_partner_btn = UiStyle.click_button("", 0, 13)
-	_partner_btn.custom_minimum_size.y = 28
+	_partner_btn = BoxButton.make("", 15, 465, 0.9, false)
 	_partner_btn.pressed.connect(_next_partner)
 	_cat_buttons.add_child(_partner_btn)
 	_show_partner()
@@ -855,7 +874,7 @@ func _show_partner() -> void:
 	_partner_btn.visible = Profile.district in Partner.DISTRICTS and not dogs.is_empty()
 	if Profile.partner != "" and Profile.partner not in dogs:
 		Profile.partner = ""
-	_partner_btn.text = tr("PARTNER_BUTTON") % (tr("CAT_%s_NAME" % Profile.partner) if Profile.partner != "" else tr("PARTNER_NONE"))
+	_set_text(_partner_btn, tr("PARTNER_BUTTON") % (tr("CAT_%s_NAME" % Profile.partner) if Profile.partner != "" else tr("PARTNER_NONE")))
 	_partner_btn.tooltip_text = tr("PARTNER_%s_DESC" % Profile.partner) if Profile.partner != "" else tr("PARTNER_HELP")
 
 
@@ -877,7 +896,7 @@ func _set_text(b: Button, t: String) -> void:
 
 func _small_button(entry: Array) -> Button:
 	var n := _cat_buttons.get_child_count() if _cat_buttons != null else 0
-	var b := BoxButton.make(tr(entry[0]), 17, 450 + n * 5, [-1.0, 1.2, -0.7][n % 3], false)
+	var b := BoxButton.make(tr(entry[0]), 15, 450 + n * 5, [-1.0, 1.2, -0.7][n % 3], false)
 	b.set_hint(entry[1])
 	b.pressed.connect(entry[2])
 	return b
@@ -934,11 +953,31 @@ func _fit_top() -> void:
 	var room := get_viewport_rect().size.x - 28.0 - 62.0 - 14.0 * 2.0 - _badges.get_combined_minimum_size().x - _gold.get_combined_minimum_size().x
 	# Too wide (long words in some languages): the keys go first (they still
 	# work), then the text shrinks.
+	# The forecast goes first: icons and today's weather only (the whole
+	# forecast stays in the tooltip), which frees room for the buttons.
+	if not _top_compact and UiStyle.row_width(_top_buttons) > maxf(room, 400.0):
+		_top_compact = true
+		_set_weather_text()
+		_fit_top.call_deferred()
+		return
 	if UiStyle.row_width(_top_buttons) > maxf(room, 400.0):
 		UiStyle.drop_keys(_top_buttons)
-	UiStyle.fit_row(_top_buttons, maxf(room, 360.0), 12)
+	UiStyle.fit_row(_top_buttons, maxf(room, 360.0), 15)
 	UiStyle.fit_row(_night_buttons, 300.0, 9)
-	UiStyle.fit_row(_cat_buttons, 285.0, 9)
+	UiStyle.fit_row(_cat_buttons, 560.0, 12)
+
+
+func _set_weather_text() -> void:
+	var full: String = tr("WEATHER_FORECAST") % _weather_today_text
+	_weather_chip.text = _weather_today_text if _top_compact else full
+	_weather_next.text = tr("WEATHER_%s_NAME" % Profile.weather_tomorrow)
+	_weather_next.visible = true
+	var tip: String = tr("WEATHER_%s_DESC" % Profile.weather_today)
+	if _top_compact:
+		tip = full + " " + _weather_next.text + "
+" + tip
+	_weather_chip.tooltip_text = tip
+	_weather_next.tooltip_text = tip
 
 
 func _process(delta: float) -> void:
@@ -1045,6 +1084,7 @@ func _refresh() -> void:
 	else:
 		_worn.text = ""
 	_fit_lines()
+	_fit_lines.call_deferred()
 	# The Talents button and the cards tell which cats have a talent to pick.
 	for i in _pick_marks.size():
 		_pick_marks[i].visible = Profile.is_unlocked(_ids[i]) and int(Profile.career(_ids[i])["picks"]) > 0
@@ -1092,9 +1132,8 @@ func _refresh_place() -> void:
 	var today := tr("WEATHER_%s_NAME" % Profile.weather_today)
 	if Weather.indoor(id) and Profile.weather_today != "CLEAR":
 		today = tr("WEATHER_INDOOR") % today
-	_weather_chip.text = tr("WEATHER_FORECAST") % today
-	_weather_next.text = tr("WEATHER_%s_NAME" % Profile.weather_tomorrow)
-	_weather_chip.tooltip_text = tr("WEATHER_%s_DESC" % Profile.weather_today)
+	_weather_today_text = today
+	_set_weather_text()
 	if _report >= Profile.reports.size() or (_report >= 0 and Profile.reports[_report]["stage"] != id):
 		_report = -1
 	_district.selected_report = _report
@@ -1109,9 +1148,14 @@ func _refresh_place() -> void:
 	_report_toggle.visible = offer >= 0
 	if offer >= 0:
 		var offer_name := tr("REPORT_%s_NAME" % Profile.reports[offer]["kind"].to_upper())
+		_report_toggle.text_size = 16
 		_report_toggle.relabel(tr("REPORT_SKIP") if _report >= 0 else tr("REPORT_TAKE") % offer_name)
+		while _report_toggle.text_size > 11 and _report_toggle.custom_minimum_size.x > 272.0:
+			_report_toggle.text_size -= 1
+			_report_toggle.relabel(_report_toggle.text)
 	_place_stats[0].get_parent().get_parent().get_parent().visible = rep.is_empty()
 	_stage_label.text = DistrictMap.place_name(id)
+	_stage_label.label_settings.font_size = UiStyle.fit_size(BoxStyle.head_font(), _stage_label.text, 262.0, 30, 16)
 	var badge: Array = [["DISTRICT_NEW_MAP", BoxStyle.TAPE], ["DISTRICT_LOCKED", Color(0.75, 0.73, 0.7, 0.95)], ["DISTRICT_YOURS", Color(0.78, 0.93, 0.66, 0.95)], ["DISTRICT_BOSS_LAND", Color(0.93, 0.66, 0.6, 0.95)]][0 if not real else {"locked": 1, "yours": 2, "boss": 3}[state]]
 	_place_badge.set_tag(tr(badge[0]), badge[1])
 	var story := tr("DISTRICT_%s_STORY" % id)
@@ -1166,6 +1210,7 @@ func _refresh_place() -> void:
 	_boss_pic.id = boss
 	_boss_pic.known = state != "locked"
 	_boss_name.text = tr("ENEMY_%s_NAME" % boss) if boss != "" and state != "locked" else "???"
+	_boss_name.label_settings.font_size = UiStyle.fit_size(_boss_name.label_settings.font, _boss_name.text, 190.0, 19, 11)
 	var nem_level := Profile.nemesis_level(boss) if boss != "" else 0
 	if nem_level > 0:
 		_boss_sub.text = tr("NEMESIS_SUB") % [tr("NEMESIS_TITLE_%d" % nem_level), nem_level]
@@ -1193,7 +1238,7 @@ func _refresh_place() -> void:
 		_memorial_button.visible = false
 	var open := real and state != "locked"
 	_play.relabel((tr("REPORT_GO_%s" % rep["kind"].to_upper()) if not rep.is_empty() else tr("MENU_PLAY")) if open else tr("DISTRICT_LOCKED"))
-	_play.modulate = Color.WHITE if open else Color(0.6, 0.6, 0.7)
+	_play.modulate = Color.WHITE if open else Color(0.66, 0.62, 0.58)
 	for i in _home_marks.size():
 		_home_marks[i].visible = GameData.cats[_ids[i]].get("home", "") == id and Profile.is_unlocked(_ids[i])
 	_fill_home(id)
@@ -1297,7 +1342,7 @@ func _show_moon() -> void:
 	var guards: Array = Profile.moon_guards.map(func(c: String) -> String: return tr("CAT_%s_NAME" % c))
 	_moon_guards.text = tr("MOON_GUARDS") % ["—" if guards.is_empty() else ", ".join(guards)]
 	_play.relabel(tr("MOON_GO") if n == 0 else tr("MOON_COUNTDOWN") % n)
-	_play.modulate = Color.WHITE if n == 0 else Color(0.6, 0.6, 0.7)
+	_play.modulate = Color.WHITE if n == 0 else Color(0.66, 0.62, 0.58)
 
 
 func _buy_moon(what: String) -> void:
@@ -1572,7 +1617,7 @@ class BossPortrait extends Control:
 			draw_string(ThemeDB.fallback_font, Vector2(0, size.y * 0.68), "?", HORIZONTAL_ALIGNMENT_CENTER, size.x, 28, Color("c4a27a"))
 			return
 		var data: Dictionary = GameData.enemies[id]
-		var shade := Color.WHITE if known else Color(0.12, 0.09, 0.15)
+		var shade := Color.WHITE if known else Color(0.12, 0.09, 0.07)
 		if data.get("shape", "") == "cat":
 			var lk := CatArt.look(data.get("cat", "MICA")).duplicate()
 			if not known:

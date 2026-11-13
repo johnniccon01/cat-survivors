@@ -27,11 +27,11 @@ static func kind_tape(kind: String) -> Color:
 		"weapon":
 			return Color("f0a487")
 		"passive":
-			return Color("9cc4ee")
+			return Color("e8c27a")
 		"heal":
 			return Color("a6dc98")
 		"branch":
-			return Color("cba6ee")
+			return Color("e6a3b8")
 	return BoxStyle.TAPE
 
 

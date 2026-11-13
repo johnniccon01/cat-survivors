@@ -335,3 +335,104 @@ static func draw_arrow_badge(ci: CanvasItem, mid: Vector2, dir: Vector2, r: floa
 	var closed := pts.duplicate()
 	closed.append(pts[0])
 	ci.draw_polyline(closed, DARK, 2.0, true)
+
+
+static var _global: Theme
+
+
+## The theme of the whole window: whatever has no look of its own (scroll
+## bars, tooltips, popup menus, dialogs, check boxes, text fields, plain
+## buttons) comes out as cardboard and paper in the Krabica fonts instead of
+## the engine's grey-blue default.
+static func global_theme() -> Theme:
+	if _global != null:
+		return _global
+	var t := Theme.new()
+	t.default_font = body_font()
+	t.default_font_size = 16
+	var dark := Color("120b06")
+	var paper := func(fill: Color, edge: Color, bw: int, margin: float) -> StyleBoxFlat:
+		var sb := StyleBoxFlat.new()
+		sb.bg_color = fill
+		sb.border_color = edge
+		sb.set_border_width_all(bw)
+		sb.set_corner_radius_all(3)
+		sb.set_content_margin_all(margin)
+		return sb
+	# Scroll bars: a dark brown groove with a kraft cardboard handle.
+	for kind in ["VScrollBar", "HScrollBar"]:
+		var groove: StyleBoxFlat = paper.call(Color(dark, 0.55), Color("3a2412"), 1, 2.0)
+		t.set_stylebox("scroll", kind, groove)
+		t.set_stylebox("scroll_focus", kind, groove)
+		t.set_stylebox("grabber", kind, paper.call(KRAFT, KRAFT_DARK, 2, 2.0))
+		t.set_stylebox("grabber_highlight", kind, paper.call(KRAFT_LIGHT, RED, 2, 2.0))
+		t.set_stylebox("grabber_pressed", kind, paper.call(CREAM, RED, 2, 2.0))
+	# Tooltips: a small cream paper note with ink text.
+	var tip: StyleBoxFlat = paper.call(Color("f4e8cb"), Color("8c5f36"), 2, 8.0)
+	tip.shadow_color = Color(dark, 0.5)
+	tip.shadow_size = 3
+	tip.shadow_offset = Vector2(2, 3)
+	t.set_stylebox("panel", "TooltipPanel", tip)
+	t.set_color("font_color", "TooltipLabel", INK)
+	t.set_color("font_shadow_color", "TooltipLabel", Color(0, 0, 0, 0))
+	t.set_font("font", "TooltipLabel", body_font())
+	t.set_font_size("font_size", "TooltipLabel", 15)
+	# Popup menus and dialogs: dark cardboard with cream text, a red marker bar.
+	var board: StyleBoxFlat = paper.call(Color("5b3b21"), Color("a47646"), 2, 6.0)
+	t.set_stylebox("panel", "PopupPanel", board)
+	t.set_stylebox("panel", "PopupMenu", board)
+	t.set_stylebox("hover", "PopupMenu", paper.call(Color("a8261f"), Color("a8261f"), 0, 4.0))
+	t.set_stylebox("separator", "PopupMenu", paper.call(Color("a47646"), Color("a47646"), 0, 0.0))
+	t.set_stylebox("embedded_border", "Window", board)
+	t.set_stylebox("embedded_unfocused_border", "Window", board)
+	t.set_stylebox("panel", "AcceptDialog", board)
+	for c in ["font_color", "font_hover_color", "font_accelerator_color", "font_separator_color"]:
+		t.set_color(c, "PopupMenu", CREAM)
+	t.set_color("font_disabled_color", "PopupMenu", Color(CREAM, 0.45))
+	t.set_color("title_color", "Window", CREAM)
+	t.set_font("title_font", "Window", head_font())
+	t.set_font_size("title_font_size", "Window", 20)
+	# Plain buttons (the game builds its own, but a stray one stays on theme).
+	var btn_cols := {"font_color": INK, "font_hover_color": INK, "font_focus_color": INK, "font_pressed_color": INK, "font_hover_pressed_color": INK, "font_disabled_color": Color(INK, 0.45)}
+	for kind in ["Button", "OptionButton", "MenuButton"]:
+		for c: String in btn_cols:
+			t.set_color(c, kind, btn_cols[c])
+		t.set_stylebox("normal", kind, UiStyle.cardboard(Color("c99a64"), KRAFT_DARK, 1))
+		t.set_stylebox("hover", kind, UiStyle.cardboard(Color("fbf1d6"), RED, 1))
+		t.set_stylebox("focus", kind, UiStyle.cardboard(Color("fbf1d6"), RED, 1))
+		t.set_stylebox("pressed", kind, UiStyle.cardboard(Color("ecdcb2"), RED, 1))
+		t.set_stylebox("hover_pressed", kind, UiStyle.cardboard(Color("ecdcb2"), RED, 1))
+		t.set_stylebox("disabled", kind, UiStyle.cardboard(Color("a98558"), KRAFT_DARK, 1))
+		t.set_font("font", kind, head_font())
+	# Check boxes, text fields and tabs: cream text on dark cardboard.
+	for kind in ["CheckBox", "CheckButton"]:
+		for c in ["font_color", "font_hover_color", "font_focus_color", "font_pressed_color", "font_hover_pressed_color"]:
+			t.set_color(c, kind, CREAM)
+		t.set_stylebox("focus", kind, paper.call(Color(0, 0, 0, 0), RED, 2, 2.0))
+	t.set_stylebox("normal", "LineEdit", paper.call(Color("2b1a0e"), KRAFT_DARK, 2, 5.0))
+	t.set_stylebox("focus", "LineEdit", paper.call(Color("2b1a0e"), RED, 2, 5.0))
+	t.set_stylebox("read_only", "LineEdit", paper.call(Color("2b1a0e"), KRAFT_DARK, 2, 5.0))
+	t.set_color("font_color", "LineEdit", CREAM)
+	t.set_color("caret_color", "LineEdit", CREAM)
+	t.set_color("selection_color", "LineEdit", Color(RED, 0.6))
+	t.set_color("font_placeholder_color", "LineEdit", Color(CREAM, 0.5))
+	t.set_stylebox("panel", "TabContainer", board)
+	t.set_stylebox("tab_selected", "TabContainer", UiStyle.cardboard(Color("d2a977"), KRAFT_DARK, 2))
+	t.set_stylebox("tab_unselected", "TabContainer", UiStyle.cardboard(Color("8c5f36"), KRAFT_DEEP, 1))
+	t.set_stylebox("tab_hovered", "TabContainer", UiStyle.cardboard(Color("b98655"), RED, 1))
+	t.set_color("font_selected_color", "TabContainer", INK)
+	t.set_color("font_unselected_color", "TabContainer", CREAM)
+	t.set_color("font_hovered_color", "TabContainer", INK)
+	# Sliders and progress bars.
+	for kind in ["HSlider", "VSlider"]:
+		t.set_stylebox("slider", kind, paper.call(Color(dark, 0.7), KRAFT_DARK, 1, 2.0))
+		t.set_stylebox("grabber_area", kind, paper.call(RED, RED, 0, 2.0))
+		t.set_stylebox("grabber_area_highlight", kind, paper.call(Color("e5463e"), Color("e5463e"), 0, 2.0))
+	t.set_stylebox("background", "ProgressBar", paper.call(Color(dark, 0.7), KRAFT_DARK, 1, 2.0))
+	t.set_stylebox("fill", "ProgressBar", paper.call(RED, RED, 0, 2.0))
+	t.set_color("font_color", "ProgressBar", CREAM)
+	t.set_stylebox("panel", "PanelContainer", board)
+	t.set_stylebox("panel", "Panel", board)
+	t.set_color("font_color", "Label", CREAM)
+	_global = t
+	return t

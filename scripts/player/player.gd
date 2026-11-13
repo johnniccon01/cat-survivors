@@ -627,6 +627,13 @@ func _bot_input(delta: float) -> Vector2:
 			var d := position - enemy.position
 			crowd += d / maxf(d.length_squared(), 1.0) * (1.0 + enemy.radius / 10.0)
 		return (out.normalized() + crowd.normalized() * 0.8).normalized() if crowd != Vector2.ZERO else out.normalized()
+	# The map's special (fireflies, graves to seal, treasures) is worth a run,
+	# even from a quest zone, or a test of it may never see it happen.
+	if MapHazard.current != null and hp > max_hp * 0.5:
+		var goal := MapHazard.current.bot_goal(position)
+		if goal != Vector2.INF:
+			var to_goal := goal - position
+			return to_goal.normalized() if to_goal.length() > 6.0 else Vector2.ZERO
 	# Standing in a quest zone matters more than dodging (while healthy).
 	var quest_here: Quest = get_parent().quests.active if get_parent().get("quests") else null
 	if quest_here != null and quest_here.started and hp > max_hp * 0.5 and quest_here.target_position().distance_to(position) < 40.0:

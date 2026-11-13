@@ -11,6 +11,8 @@ var tilt := 0.0
 var text_size := 30
 var body := false
 var min_width := 0.0
+## "l", "r", "u" or "d": an arrow drawn as a marker stroke instead of text.
+var arrow := ""
 
 var _paw_room := 0.0
 
@@ -66,13 +68,21 @@ func _notification(what: int) -> void:
 		queue_redraw()
 
 
+## Another text (the button grows or shrinks to fit it).
+func relabel(text_: String) -> void:
+	text = text_
+	if is_node_ready():
+		_fit()
+		queue_redraw()
+
+
 func _lit() -> bool:
 	return has_focus() or is_hovered()
 
 
 func _draw() -> void:
 	var base := BoxStyle.around(size, tilt)
-	var lit := _lit()
+	var lit := _lit() and not disabled
 	if lit:
 		BoxStyle.draw_board(self, size, look_seed, Color("fbf1d6"), Color("ecdcb2"), base, Vector2(5, 6), Color(0.31, 0.19, 0.08, 0.08))
 		BoxStyle.draw_ring(self, Rect2(Vector2.ZERO, size), look_seed + 3, BoxStyle.RED, 4.5, 7.0, base)
@@ -86,5 +96,10 @@ func _draw() -> void:
 	var x := (size.x - tw) * 0.5 + shift
 	var y := size.y * 0.5 + (font.get_ascent(text_size) - font.get_descent(text_size)) * 0.5
 	draw_set_transform_matrix(base)
-	draw_string(font, Vector2(x, y), shown, HORIZONTAL_ALIGNMENT_LEFT, -1, text_size, BoxStyle.INK)
+	draw_string(font, Vector2(x, y), shown, HORIZONTAL_ALIGNMENT_LEFT, -1, text_size, Color(BoxStyle.INK, 0.45) if disabled else BoxStyle.INK)
+	if arrow != "":
+		var dir: Vector2 = {"l": Vector2(-1, 0), "r": Vector2(1, 0), "u": Vector2(0, -1), "d": Vector2(0, 1)}[arrow]
+		var n := dir.orthogonal()
+		var c := size * 0.5
+		draw_polyline(PackedVector2Array([c - dir * 7.0 + n * 9.0, c + dir * 7.0, c - dir * 7.0 - n * 9.0]), BoxStyle.INK, 4.0, true)
 	draw_set_transform_matrix(Transform2D.IDENTITY)

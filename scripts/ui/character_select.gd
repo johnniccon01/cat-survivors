@@ -27,7 +27,7 @@ var _charms: TalentPanel
 var _partner_btn: Button
 var _dreams: DreamPanel
 var _memorials: MemorialPanel
-var _memorial_button: Button
+var _memorial_button: BoxButton
 var _items: ItemPanel
 var _artifacts: ArtifactPanel
 var _artifact_label: Label
@@ -45,7 +45,7 @@ var _place := ""
 ## The night report chosen on the town (index into Profile.reports), or -1.
 var _report := -1
 ## Takes or leaves the offer waiting on the chosen place.
-var _report_toggle: Button
+var _report_toggle: BoxButton
 var _report_box: PanelContainer
 var _legend_panel: Control
 ## The sign of the place's offer, by its name on the picture and by the goal.
@@ -81,7 +81,7 @@ var _moon_mode := false
 var _resident := ""
 var _service_box: PanelContainer
 var _service_label: Label
-var _service_buy: Button
+var _service_buy: BoxButton
 var _moon_box: PanelContainer
 var _moon_traps: Label
 var _moon_guards: Label
@@ -90,17 +90,18 @@ var _weather_chip: Label
 var _weather_next: Label
 var _build_box: PanelContainer
 var _build_label: Label
-var _build_button: Button
+var _build_button: BoxButton
 var _place_pic: TextureRect
-var _place_badge: Label
+var _place_badge: TapeTag
 var _place_story: Label
 var _boss_pic: BossPortrait
 var _boss_name: Label
 var _boss_sub: Label
 var _place_stats: Array[Label] = []
 var _place_stars: Label
+var _place_paws: PawRating
 var _chips: HBoxContainer
-var _play: Button
+var _play: BoxButton
 var _hover := -1
 var _dark_label: Label
 var _dark_minus: Button
@@ -231,10 +232,39 @@ func _build() -> void:
 	middle.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	middle.add_theme_constant_override("separation", 10)
 	root.add_child(middle)
+	# The map is a sheet of paper taped to the cardboard.
+	var map_holder := Control.new()
+	map_holder.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	middle.add_child(map_holder)
+	var map_board := PanelContainer.new()
+	map_board.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	map_board.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+	map_holder.add_child(map_board)
+	map_board.add_child(BoxBoard.make("board", Vector2.ZERO, Vector2(900, 560), 301))
+	var map_margin := MarginContainer.new()
+	for side_name: String in ["left", "right", "top", "bottom"]:
+		map_margin.add_theme_constant_override("margin_" + side_name, 17)
+	map_board.add_child(map_margin)
 	var map_frame := PanelContainer.new()
-	map_frame.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	map_frame.add_theme_stylebox_override("panel", UiStyle.frame(Color("3a2717"), Color("8a6236"), 5))
-	middle.add_child(map_frame)
+	var paper := StyleBoxFlat.new()
+	paper.bg_color = BoxStyle.CREAM
+	paper.set_content_margin_all(5)
+	paper.shadow_color = Color(0, 0, 0, 0.35)
+	paper.shadow_size = 4
+	paper.shadow_offset = Vector2(2, 3)
+	map_frame.add_theme_stylebox_override("panel", paper)
+	map_margin.add_child(map_frame)
+	var corner_tapes: Array[BoxBoard] = []
+	for k in 4:
+		var tp := BoxBoard.make("tape", Vector2.ZERO, Vector2(62, 22), 310 + k, [-38.0, 38.0, 38.0, -38.0][k])
+		corner_tapes.append(tp)
+		map_holder.add_child(tp)
+	map_holder.resized.connect(func() -> void:
+		var hs := map_holder.size
+		var inset := 20.0
+		var spots: Array[Vector2] = [Vector2(inset, inset), Vector2(hs.x - inset, inset), Vector2(inset, hs.y - inset), Vector2(hs.x - inset, hs.y - inset)]
+		for k in 4:
+			corner_tapes[k].position = spots[k] - corner_tapes[k].size * 0.5)
 	_district = DistrictMap.new()
 	_district.place_chosen.connect(_on_place_chosen)
 	_district.report_chosen.connect(_on_report_chosen)
@@ -293,11 +323,18 @@ func _build() -> void:
 		chip.get_child(0).add_child(nl)
 	var side := PanelContainer.new()
 	side.custom_minimum_size = Vector2(310, 0)
-	side.add_theme_stylebox_override("panel", UiStyle.frame())
+	side.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	middle.add_child(side)
+	side.add_child(BoxBoard.make("board", Vector2.ZERO, Vector2(310, 560), 211))
+	var side_margin := MarginContainer.new()
+	side_margin.add_theme_constant_override("margin_left", 14)
+	side_margin.add_theme_constant_override("margin_right", 12)
+	side_margin.add_theme_constant_override("margin_top", 14)
+	side_margin.add_theme_constant_override("margin_bottom", 12)
+	side.add_child(side_margin)
 	var side_scroll := ScrollContainer.new()
 	side_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	side.add_child(side_scroll)
+	side_margin.add_child(side_scroll)
 	var place := VBoxContainer.new()
 	place.add_theme_constant_override("separation", 5)
 	place.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -316,17 +353,26 @@ func _build() -> void:
 	_badge_icon = SignIcon.new("", 9.0)
 	_badge_icon.position = Vector2(4, 2)
 	pic_box.add_child(_badge_icon)
-	_place_badge = _label(14, Color.WHITE)
-	_place_badge.position = Vector2(8, 6)
+	_place_badge = TapeTag.new()
+	_place_badge.position = Vector2(8, 8)
 	pic_box.add_child(_place_badge)
-	_stage_label = _label(28, Color.WHITE)
+	_stage_label = _label(30, BoxStyle.CREAM)
+	_stage_label.label_settings.font = BoxStyle.head_font()
 	_stage_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
-	_stage_label.position = Vector2(10, 58)
+	_stage_label.position = Vector2(10, 56)
 	pic_box.add_child(_stage_label)
+	# A paper edge round the picture.
+	var pic_edge := Control.new()
+	pic_edge.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	pic_edge.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	pic_edge.draw.connect(func() -> void:
+		pic_edge.draw_rect(Rect2(Vector2.ZERO, pic_edge.size), BoxStyle.CREAM, false, 6.0)
+		pic_edge.draw_rect(Rect2(Vector2(3, 3), pic_edge.size - Vector2(6, 6)), Color(BoxStyle.KRAFT_DEEP, 0.5), false, 1.0))
+	pic_box.add_child(pic_edge)
 	# How to win tonight, right under the picture: a plain night's goal, or
 	# the taken offer's win and what happens if you don't go, and conquest.
 	_report_box = PanelContainer.new()
-	_report_box.add_theme_stylebox_override("panel", UiStyle.box(Color(0.07, 0.05, 0.1, 0.8), Color("3a3148")))
+	_report_box.add_theme_stylebox_override("panel", _note_style(Color("f7ecd0")))
 	place.add_child(_report_box)
 	var rv := VBoxContainer.new()
 	rv.add_theme_constant_override("separation", 4)
@@ -336,26 +382,26 @@ func _build() -> void:
 	rv.add_child(goal_row)
 	_goal_icon = SignIcon.new("", 9.0)
 	goal_row.add_child(_goal_icon)
-	_goal_title = _label(15, GOLD)
+	_goal_title = _ink(17, BoxStyle.RED, true)
 	_goal_title.text = "GOAL_TITLE"
 	_goal_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_goal_title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	goal_row.add_child(_goal_title)
-	_report_win = _label(14, Color("b8f0a0"))
-	_report_lose = _label(14, Color("ffb0a0"))
-	_goal_extra = _label(14, Color("ff9a8a"))
+	_report_win = _ink(14, Color("2d6a1f"))
+	_report_lose = _ink(14, Color("9a2a1f"))
+	_goal_extra = _ink(14, Color("8a4a10"))
 	for l: Label in [_report_win, _report_lose, _goal_extra]:
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		l.custom_minimum_size = Vector2(262, 0)
 		rv.add_child(l)
-	_place_story = _label(14, Color("ddd3e8"))
+	_place_story = _ink(14)
 	_place_story.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_place_story.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_place_story.custom_minimum_size = Vector2(266, 0)
 	place.add_child(_place_story)
 	var boss_row := PanelContainer.new()
-	boss_row.add_theme_stylebox_override("panel", UiStyle.box(Color(0.07, 0.05, 0.1, 0.8), Color("3a3148")))
+	boss_row.add_theme_stylebox_override("panel", _note_style(Color("f7ecd0")))
 	place.add_child(boss_row)
 	var boss_h := HBoxContainer.new()
 	boss_h.add_theme_constant_override("separation", 10)
@@ -366,10 +412,10 @@ func _build() -> void:
 	var boss_v := VBoxContainer.new()
 	boss_v.alignment = BoxContainer.ALIGNMENT_CENTER
 	boss_h.add_child(boss_v)
-	_boss_name = _label(17, Color("ffd0c4"))
+	_boss_name = _ink(19, Color("8a2a1a"), true)
 	_boss_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	boss_v.add_child(_boss_name)
-	_boss_sub = _label(12, Color("a59cb4"))
+	_boss_sub = _ink(12, Color("6b5642"))
 	_boss_sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	boss_v.add_child(_boss_sub)
 	var stats := GridContainer.new()
@@ -381,20 +427,20 @@ func _build() -> void:
 	for key: String in ["DISTRICT_DIFFICULTY", "DISTRICT_LENGTH", "DISTRICT_STORIES", "DISTRICT_RECORD"]:
 		var cell := PanelContainer.new()
 		cell.custom_minimum_size = Vector2(131, 0)
-		cell.add_theme_stylebox_override("panel", UiStyle.box(Color(0.07, 0.05, 0.1, 0.8), Color("3a3148")))
+		cell.add_theme_stylebox_override("panel", _note_style(Color("f7ecd0")))
 		var v := VBoxContainer.new()
 		v.add_theme_constant_override("separation", -2)
 		cell.add_child(v)
-		var k := _label(11, Color("a59cb4"))
+		var k := _ink(12, Color("7a6048"))
 		k.text = key
 		k.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		v.add_child(k)
-		var val := _label(16, Color.WHITE)
+		var val := _ink(18, BoxStyle.INK, true)
 		val.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		v.add_child(val)
 		_place_stats.append(val)
 		stats.add_child(cell)
-	_report_toggle = UiStyle.click_button("", 0, 13)
+	_report_toggle = BoxButton.make("", 16, 81, -1.0, false)
 	_report_toggle.pressed.connect(func() -> void:
 		Audio.play("click", -6.0, 0.0)
 		_report = -1 if _report >= 0 else _report_on(_stage_ids[_stage_index])
@@ -402,17 +448,17 @@ func _build() -> void:
 	place.add_child(_report_toggle)
 	# The house on this place, built up with materials.
 	_build_box = PanelContainer.new()
-	_build_box.add_theme_stylebox_override("panel", UiStyle.box(Color(0.1, 0.08, 0.05, 0.85), Color("7a6040")))
+	_build_box.add_theme_stylebox_override("panel", _note_style(Color("ecd9b0")))
 	place.add_child(_build_box)
 	var bv := VBoxContainer.new()
 	bv.add_theme_constant_override("separation", 4)
 	_build_box.add_child(bv)
-	_build_label = _label(13, Color("f0dcb8"))
+	_build_label = _ink(13)
 	_build_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_build_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_build_label.custom_minimum_size = Vector2(262, 0)
 	bv.add_child(_build_label)
-	_build_button = UiStyle.click_button("", 0, 13)
+	_build_button = BoxButton.make("", 16, 82, 1.0, false)
 	_build_button.pressed.connect(func() -> void:
 		var id := _place if _place != "" else _stage_ids[_stage_index]
 		if Profile.upgrade_building(id):
@@ -422,12 +468,12 @@ func _build() -> void:
 		_refresh())
 	bv.add_child(_build_button)
 	# The Cemetery also shows the memorial stones of retired cats.
-	_memorial_button = UiStyle.click_button("", 0, 13)
+	_memorial_button = BoxButton.make("", 16, 83, -1.0, false)
 	_memorial_button.pressed.connect(_open_memorials)
 	place.add_child(_memorial_button)
 	# Getting home ready for the full moon: traps and guard cats.
 	_moon_box = PanelContainer.new()
-	_moon_box.add_theme_stylebox_override("panel", UiStyle.box(Color(0.12, 0.1, 0.05, 0.85), Color("8a6a2a")))
+	_moon_box.add_theme_stylebox_override("panel", _note_style(Color("f6e3a0")))
 	place.add_child(_moon_box)
 	var mv := VBoxContainer.new()
 	mv.add_theme_constant_override("separation", 4)
@@ -436,12 +482,12 @@ func _build() -> void:
 		var mrow := HBoxContainer.new()
 		mrow.add_theme_constant_override("separation", 6)
 		mv.add_child(mrow)
-		var info := _label(13, Color("f4e4c0"))
+		var info := _ink(13)
 		info.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		mrow.add_child(info)
-		var buy := UiStyle.click_button(tr("MOON_BUY") % entry[1], 0, 13)
+		var buy := BoxButton.make(tr("MOON_BUY") % entry[1], 15, 84 + mrow.get_index(), 1.0, false)
 		buy.pressed.connect(_buy_moon.bind(entry[0]))
 		mrow.add_child(buy)
 		if entry[0] == "trap":
@@ -450,17 +496,17 @@ func _build() -> void:
 			_moon_guards = info
 	# A resident's service for the next night.
 	_service_box = PanelContainer.new()
-	_service_box.add_theme_stylebox_override("panel", UiStyle.box(Color(0.06, 0.1, 0.08, 0.85), Color("3f7a5a")))
+	_service_box.add_theme_stylebox_override("panel", _note_style(Color("d3e6bc")))
 	place.add_child(_service_box)
 	var srow := HBoxContainer.new()
 	srow.add_theme_constant_override("separation", 6)
 	_service_box.add_child(srow)
-	_service_label = _label(13, Color("d6f5c4"))
+	_service_label = _ink(13, Color("234a2c"))
 	_service_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_service_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_service_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	srow.add_child(_service_label)
-	_service_buy = UiStyle.click_button("", 0, 13)
+	_service_buy = BoxButton.make("", 16, 87, -1.0, false)
 	_service_buy.pressed.connect(func() -> void:
 		var ok := Profile.buy_service(_resident)
 		Audio.play("chest" if ok else "hurt", -8.0, 0.0)
@@ -471,20 +517,28 @@ func _build() -> void:
 	dark_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	dark_row.add_theme_constant_override("separation", 8)
 	place.add_child(dark_row)
-	_dark_minus = UiStyle.click_button("-", 32, 18)
+	_dark_minus = BoxButton.make("-", 24, 88, -2.0, false, true, 36.0)
 	_dark_minus.pressed.connect(_change_darkness.bind(-1))
 	dark_row.add_child(_dark_minus)
-	_dark_label = _label(13, Color("c79bff"))
+	_dark_label = _ink(13, Color("5a2a9a"))
 	_dark_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_dark_label.custom_minimum_size = Vector2(230, 0)
 	dark_row.add_child(_dark_label)
-	_dark_plus = UiStyle.click_button("+", 32, 18)
+	_dark_plus = BoxButton.make("+", 24, 89, 2.0, false, true, 36.0)
 	_dark_plus.pressed.connect(_change_darkness.bind(1))
 	dark_row.add_child(_dark_plus)
-	_place_stars = _label(11, GOLD)
+	var stars_row := HBoxContainer.new()
+	stars_row.add_theme_constant_override("separation", 8)
+	place.add_child(stars_row)
+	_place_paws = PawRating.new()
+	_place_paws.set_rating(0, 3, 17.0)
+	stars_row.add_child(_place_paws)
+	_place_stars = _ink(12, Color("7a6048"))
+	_place_stars.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_place_stars.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_place_stars.custom_minimum_size = Vector2(266, 0)
-	place.add_child(_place_stars)
+	_place_stars.custom_minimum_size = Vector2(190, 0)
+	_place_stars.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	stars_row.add_child(_place_stars)
 
 	# Bottom: the cats, the chosen one's details, what you take along, and Play.
 	var bottom_bar := PanelContainer.new()
@@ -663,16 +717,8 @@ func _build() -> void:
 		var dreams := _night_button(["DREAMS_BUTTON", "N", func() -> void: _dreams.open()])
 		dreams.add_theme_color_override("font_color", Color("c8a8ff"))
 		_night_buttons.add_child(dreams)
-	var play := Button.new()
-	play.custom_minimum_size = Vector2(230, 0)
+	var play := BoxButton.make(tr("MENU_PLAY"), 34, 71, -1.0, false, false, 230.0)
 	play.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	play.focus_mode = Control.FOCUS_NONE
-	play.add_theme_font_size_override("font_size", 30)
-	for state: String in ["font_color", "font_hover_color", "font_pressed_color"]:
-		play.add_theme_color_override(state, Color("3a2100"))
-	play.add_theme_stylebox_override("normal", UiStyle.gold_button(false))
-	play.add_theme_stylebox_override("hover", UiStyle.gold_button(true))
-	play.add_theme_stylebox_override("pressed", UiStyle.gold_button(true))
 	play.pressed.connect(_start)
 	play_col.add_child(play)
 	_play = play
@@ -745,12 +791,12 @@ func _legend() -> Control:
 	var panel := PanelContainer.new()
 	panel.visible = false
 	panel.mouse_filter = Control.MOUSE_FILTER_STOP
-	panel.add_theme_stylebox_override("panel", UiStyle.box(Color(0.08, 0.06, 0.12, 0.94), Color("5a4a6e")))
+	panel.add_theme_stylebox_override("panel", _note_style(Color("f7ecd0"), 0.97))
 	col.add_child(panel)
 	var list := VBoxContainer.new()
 	list.add_theme_constant_override("separation", 3)
 	panel.add_child(list)
-	var head := _label(13, GOLD)
+	var head := _ink(16, BoxStyle.RED, true)
 	head.text = "LEGEND_TITLE"
 	head.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	list.add_child(head)
@@ -758,13 +804,12 @@ func _legend() -> Control:
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override("separation", 8)
 		row.add_child(SignIcon.new(entry[0], 9.0))
-		var name := _label(13, Color("e4dcef"))
+		var name := _ink(13)
 		name.text = entry[1]
 		name.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		row.add_child(name)
 		list.add_child(row)
-	var button := UiStyle.click_button("?", 34, 18)
-	button.custom_minimum_size = Vector2(34, 34)
+	var button := BoxButton.make("?", 24, 61, -3.0, false, false, 38.0)
 	button.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	button.tooltip_text = tr("LEGEND_TITLE")
 	button.pressed.connect(func() -> void:
@@ -1031,7 +1076,8 @@ func _refresh_place() -> void:
 	_moon_box.visible = false
 	_service_box.visible = false
 	_boss_name.get_parent().get_parent().get_parent().visible = true
-	_place_stars.visible = true
+	_place_stars.get_parent().visible = true
+	_place_paws.visible = true
 	var moon_n := Profile.nights_to_moon()
 	_moon_chip.text = tr("MOON_TONIGHT") if moon_n == 0 else tr("MOON_COUNTDOWN") % moon_n
 	var today := tr("WEATHER_%s_NAME" % Profile.weather_today)
@@ -1054,12 +1100,11 @@ func _refresh_place() -> void:
 	_report_toggle.visible = offer >= 0
 	if offer >= 0:
 		var offer_name := tr("REPORT_%s_NAME" % Profile.reports[offer]["kind"].to_upper())
-		_report_toggle.text = tr("REPORT_SKIP") if _report >= 0 else tr("REPORT_TAKE") % offer_name
+		_report_toggle.relabel(tr("REPORT_SKIP") if _report >= 0 else tr("REPORT_TAKE") % offer_name)
 	_place_stats[0].get_parent().get_parent().get_parent().visible = rep.is_empty()
 	_stage_label.text = DistrictMap.place_name(id)
-	var badge: Array = [["DISTRICT_NEW_MAP", Color("b8b0c8")], ["DISTRICT_LOCKED", Color("c9c2d4")], ["DISTRICT_YOURS", Color("7cf0b8")], ["DISTRICT_BOSS_LAND", Color("ff9a88")]][0 if not real else {"locked": 1, "yours": 2, "boss": 3}[state]]
-	_place_badge.text = tr(badge[0])
-	_place_badge.label_settings.font_color = badge[1]
+	var badge: Array = [["DISTRICT_NEW_MAP", BoxStyle.TAPE], ["DISTRICT_LOCKED", Color(0.75, 0.73, 0.7, 0.95)], ["DISTRICT_YOURS", Color(0.78, 0.93, 0.66, 0.95)], ["DISTRICT_BOSS_LAND", Color(0.93, 0.66, 0.6, 0.95)]][0 if not real else {"locked": 1, "yours": 2, "boss": 3}[state]]
+	_place_badge.set_tag(tr(badge[0]), badge[1])
 	var story := tr("DISTRICT_%s_STORY" % id)
 	# The offer's own sign, as on the map, by its name and by the goal.
 	var sign_kind: String = rep.get("kind", "")
@@ -1069,8 +1114,7 @@ func _refresh_place() -> void:
 	_place_badge.position.x = 30.0 if sign_kind != "" else 8.0
 	if not rep.is_empty():
 		var kind: String = rep["kind"]
-		_place_badge.text = tr("REPORT_%s_NAME" % kind.to_upper())
-		_place_badge.label_settings.font_color = DistrictMap.REPORT_LOOK[kind][1].lightened(0.45)
+		_place_badge.set_tag(tr("REPORT_%s_NAME" % kind.to_upper()), Color(DistrictMap.REPORT_LOOK[kind][1].lightened(0.5), 0.95))
 		var place_name := DistrictMap.place_name(id)
 		match kind:
 			"defend":
@@ -1116,10 +1160,10 @@ func _refresh_place() -> void:
 	var nem_level := Profile.nemesis_level(boss) if boss != "" else 0
 	if nem_level > 0:
 		_boss_sub.text = tr("NEMESIS_SUB") % [tr("NEMESIS_TITLE_%d" % nem_level), nem_level]
-		_boss_sub.label_settings.font_color = Color("ff8a7a")
+		_boss_sub.label_settings.font_color = Color("b02a1f")
 	else:
 		_boss_sub.text = tr("DISTRICT_FINAL_BOSS")
-		_boss_sub.label_settings.font_color = Color("a59cb4")
+		_boss_sub.label_settings.font_color = Color("6b5642")
 	_dark_minus.get_parent().visible = real
 	if real:
 		var stories := DistrictMap.place_stories(id)
@@ -1129,16 +1173,17 @@ func _refresh_place() -> void:
 		_place_stats[2].text = "%d / %d" % [stories.x, stories.y]
 		_place_stats[3].text = minutes % Profile.get_stat("best_minutes:" + id) if state != "locked" else "—"
 		_fill_building(id, state != "locked")
-		var n := DistrictMap.place_stars(id)
-		_place_stars.text = "★".repeat(n) + "☆".repeat(3 - n) + "   " + tr("DISTRICT_STARS_HELP")
+		_place_paws.set_rating(DistrictMap.place_stars(id), 3, 17.0)
+		_place_stars.text = tr("DISTRICT_STARS_HELP")
 	else:
 		for l in _place_stats:
 			l.text = "?"
 		_place_stars.text = ""
+		_place_paws.visible = false
 		_build_box.visible = false
 		_memorial_button.visible = false
 	var open := real and state != "locked"
-	_play.text = (tr("REPORT_GO_%s" % rep["kind"].to_upper()) if not rep.is_empty() else tr("MENU_PLAY")) if open else "🔒"
+	_play.relabel((tr("REPORT_GO_%s" % rep["kind"].to_upper()) if not rep.is_empty() else tr("MENU_PLAY")) if open else tr("DISTRICT_LOCKED"))
 	_play.modulate = Color.WHITE if open else Color(0.6, 0.6, 0.7)
 	for i in _home_marks.size():
 		_home_marks[i].visible = GameData.cats[_ids[i]].get("home", "") == id and Profile.is_unlocked(_ids[i])
@@ -1159,7 +1204,7 @@ func _open_memorials() -> void:
 ## The house panel: level, what it gives, and the button for the next level.
 func _fill_building(id: String, open: bool) -> void:
 	_memorial_button.visible = id == "CEMETERY"
-	_memorial_button.text = tr("MEMORIALS_SIGN") % Profile.retired.size()
+	_memorial_button.relabel(tr("MEMORIALS_SIGN") % Profile.retired.size())
 	_build_box.visible = open
 	if not open:
 		return
@@ -1173,7 +1218,7 @@ func _fill_building(id: String, open: bool) -> void:
 	var cost := Profile.building_cost(id)
 	_build_button.visible = cost >= 0
 	if cost >= 0:
-		_build_button.text = tr("BUILD_UPGRADE") % cost
+		_build_button.relabel(tr("BUILD_UPGRADE") % cost)
 		_build_button.disabled = Profile.materials < cost
 
 
@@ -1182,12 +1227,11 @@ func _show_resident() -> void:
 	_memorial_button.visible = false
 	var cat := _resident
 	_stage_label.text = tr("CAT_%s_NAME" % cat)
-	_place_badge.text = tr("RESIDENT_TITLE")
-	_place_badge.label_settings.font_color = Color("9fe1cb")
+	_place_badge.set_tag(tr("RESIDENT_TITLE"), Color(0.7, 0.9, 0.8, 0.95))
 	_place_stats[0].get_parent().get_parent().get_parent().visible = false
 	_boss_name.get_parent().get_parent().get_parent().visible = false
 	_dark_minus.get_parent().visible = false
-	_place_stars.visible = false
+	_place_stars.get_parent().visible = false
 	_report_box.visible = false
 	_report_toggle.visible = false
 	if cat == Profile.kidnapped:
@@ -1198,10 +1242,10 @@ func _show_resident() -> void:
 	var price := int(Profile.RESIDENTS[cat][1])
 	_service_label.text = tr("RESIDENT_%s_SERVICE" % cat)
 	if cat in Profile.services:
-		_service_buy.text = tr("RESIDENT_BOUGHT")
+		_service_buy.relabel(tr("RESIDENT_BOUGHT"))
 		_service_buy.disabled = true
 	else:
-		_service_buy.text = tr("MOON_BUY") % price
+		_service_buy.relabel(tr("MOON_BUY") % price)
 		_service_buy.disabled = false
 
 
@@ -1219,8 +1263,7 @@ func _show_moon() -> void:
 	_build_box.visible = false
 	_memorial_button.visible = false
 	var n := Profile.nights_to_moon()
-	_place_badge.text = tr("MOON_NAME")
-	_place_badge.label_settings.font_color = Color("ffe08a")
+	_place_badge.set_tag(tr("MOON_NAME"), Color(1.0, 0.9, 0.55, 0.95))
 	var bosses: Array[String] = []
 	for sid: String in GameData.stages:
 		var boss: String = GameData.stages[sid].get("final_boss", "")
@@ -1240,11 +1283,11 @@ func _show_moon() -> void:
 	# The home's own boss, darkness and stars don't matter on the full moon.
 	_boss_name.get_parent().get_parent().get_parent().visible = false
 	_dark_minus.get_parent().visible = false
-	_place_stars.visible = false
+	_place_stars.get_parent().visible = false
 	_moon_traps.text = tr("MOON_TRAPS") % [Profile.moon_traps, Profile.MOON_TRAPS_MAX]
 	var guards: Array = Profile.moon_guards.map(func(c: String) -> String: return tr("CAT_%s_NAME" % c))
 	_moon_guards.text = tr("MOON_GUARDS") % ["—" if guards.is_empty() else ", ".join(guards)]
-	_play.text = tr("MOON_GO") if n == 0 else tr("MOON_COUNTDOWN") % n
+	_play.relabel(tr("MOON_GO") if n == 0 else tr("MOON_COUNTDOWN") % n)
 	_play.modulate = Color.WHITE if n == 0 else Color(0.6, 0.6, 0.7)
 
 
@@ -1467,6 +1510,27 @@ func _start() -> void:
 		Profile.start_report(_report)
 	Audio.play("select", -4.0, 0.0)
 	get_tree().change_scene_to_file(MAIN_SCENE)
+
+
+## A label for the cardboard panels: ink (or `color`) without an outline.
+func _ink(size: int, color: Color = BoxStyle.INK, head: bool = false) -> Label:
+	var label := BoxStyle.label("", size, color, head)
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	return label
+
+
+## A note card on the cardboard: a tinted paper with a thin brown edge.
+func _note_style(tint: Color, alpha: float = 0.85) -> StyleBoxFlat:
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(tint, alpha)
+	sb.border_color = Color(BoxStyle.KRAFT_DEEP, 0.55)
+	sb.set_border_width_all(2)
+	sb.set_corner_radius_all(3)
+	sb.content_margin_left = 9
+	sb.content_margin_right = 9
+	sb.content_margin_top = 5
+	sb.content_margin_bottom = 6
+	return sb
 
 
 func _label(size: int, font_color: Color) -> Label:

@@ -197,15 +197,8 @@ func _ready() -> void:
 
 	# Edge arrows (only where there is more town) and a minimap.
 	for d: String in ["l", "r", "u", "d"]:
-		var b := UiStyle.click_button({"l": "‹", "r": "›", "u": "", "d": ""}[d], 40, 24)
-		b.custom_minimum_size = Vector2(40, 40)
-		if d == "u" or d == "d":
-			# Up and down are drawn: the font has no such arrows.
-			var up := d == "u"
-			b.draw.connect(func() -> void:
-				var c := b.size * 0.5
-				var k := -1.0 if up else 1.0
-				b.draw_colored_polygon(PackedVector2Array([c + Vector2(-8, -4 * k), c + Vector2(8, -4 * k), c + Vector2(0, 5 * k)]), UiStyle.GOLD))
+		var b := BoxButton.make("", 26, 31 + "lrud".find(d), [-2.0, 1.5, 1.0, -1.5]["lrud".find(d)], false, true, 40.0)
+		b.arrow = d
 		var step: Vector2 = {"l": Vector2(-220, 0), "r": Vector2(220, 0), "u": Vector2(0, -120), "d": Vector2(0, 120)}[d]
 		b.pressed.connect(func() -> void: _cam_to = _clamp_cam(_cam_to + step))
 		add_child(b)
@@ -221,8 +214,7 @@ func _ready() -> void:
 	_mini.visible = false
 	add_child(_mini)
 	# The paths between the places can be switched off.
-	_paths_btn = UiStyle.click_button(tr("DISTRICT_PATHS"), 0, 12)
-	_paths_btn.custom_minimum_size.y = 24
+	_paths_btn = BoxButton.make("DISTRICT_PATHS", 16, 41, -1.2, false)
 	_paths_btn.pressed.connect(func() -> void:
 		Settings.toggle_map_paths()
 		_style_paths_btn())
@@ -230,9 +222,7 @@ func _ready() -> void:
 	_style_paths_btn()
 	# The train to the dog district, once its story is done.
 	# With more districts open, it asks which one.
-	_dogs_btn = UiStyle.click_button("TRAVEL_BUTTON", 0, 12)
-	_dogs_btn.custom_minimum_size.y = 24
-	_dogs_btn.add_theme_color_override("font_color", UiStyle.GOLD)
+	_dogs_btn = BoxButton.make("TRAVEL_BUTTON", 16, 43, 1.0, false)
 	_dogs_btn.pressed.connect(_travel)
 	# Shown from the start: with no other district open yet it tells what
 	# opens the next one.
@@ -241,20 +231,37 @@ func _ready() -> void:
 	# A short hint in the bottom-right corner: closes with its cross and
 	# fades away by itself after a few seconds.
 	_hint = PanelContainer.new()
-	_hint.add_theme_stylebox_override("panel", UiStyle.box(Color(0.06, 0.05, 0.09, 0.8), Color("4a3f5c")))
+	_hint.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+	_hint.add_child(BoxBoard.make("tape", Vector2.ZERO, Vector2(10, 10), 77))
+	var hint_pad := MarginContainer.new()
+	hint_pad.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hint_pad.add_theme_constant_override("margin_left", 18)
+	hint_pad.add_theme_constant_override("margin_right", 14)
+	hint_pad.add_theme_constant_override("margin_top", 5)
+	hint_pad.add_theme_constant_override("margin_bottom", 6)
+	_hint.add_child(hint_pad)
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 8)
-	row.add_child(UiStyle.label(tr("DISTRICT_HINT"), 13, Color("cfc3dc")))
+	var hint_text := BoxStyle.label(tr("DISTRICT_HINT"), 13)
+	hint_text.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.add_child(hint_text)
 	# The font has no cross: it is drawn.
-	var close := UiStyle.click_button("", 26, 13)
-	close.custom_minimum_size = Vector2(26, 22)
+	var close := Button.new()
+	close.focus_mode = Control.FOCUS_NONE
+	close.flat = true
+	close.custom_minimum_size = Vector2(24, 22)
+	for st in ["normal", "hover", "pressed", "focus"]:
+		close.add_theme_stylebox_override(st, StyleBoxEmpty.new())
 	close.draw.connect(func() -> void:
 		var c := close.size * 0.5
-		close.draw_line(c + Vector2(-4, -4), c + Vector2(4, 4), UiStyle.GOLD, 2.0)
-		close.draw_line(c + Vector2(4, -4), c + Vector2(-4, 4), UiStyle.GOLD, 2.0))
+		var col := BoxStyle.RED if close.is_hovered() else BoxStyle.INK
+		close.draw_line(c + Vector2(-5, -5), c + Vector2(5, 5), col, 3.0, true)
+		close.draw_line(c + Vector2(5, -5), c + Vector2(-5, 5), col, 3.0, true))
+	close.mouse_entered.connect(close.queue_redraw)
+	close.mouse_exited.connect(close.queue_redraw)
 	close.pressed.connect(_hide_hint)
 	row.add_child(close)
-	_hint.add_child(row)
+	hint_pad.add_child(row)
 	add_child(_hint)
 	get_tree().create_timer(5.0).timeout.connect(_hide_hint)
 	resized.connect(_place_controls)
@@ -306,6 +313,8 @@ func _place_controls() -> void:
 	_dogs_btn.position = Vector2(_paths_btn.position.x - 8 - _dogs_btn.size.x, 10)
 	_hint.reset_size()
 	_hint.position = Vector2(size.x - _hint.size.x - 10, size.y - _hint.size.y - 58)
+	_hint.pivot_offset = _hint.size * 0.5
+	_hint.rotation_degrees = -1.2
 	# The real size is only known now: centre on the chosen place again.
 	if selected != "":
 		select(selected, cam == Vector2.ZERO)
@@ -356,6 +365,8 @@ func _process(delta: float) -> void:
 	_fx.queue_redraw()
 	_ring.queue_redraw()
 	_mini.queue_redraw()
+	if _pins.has(selected):
+		(_pins[selected] as Control).queue_redraw()
 	for i in _reports.size():
 		var r: Control = _reports[i]
 		r.position = r.get_meta("at") + Vector2(0, sin(_t * 3.5 + i) * 4.0)
@@ -595,15 +606,23 @@ func _add_pin(id: String) -> void:
 	var pin := PanelContainer.new()
 	pin.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var box := VBoxContainer.new()
-	box.add_theme_constant_override("separation", -2)
+	box.add_theme_constant_override("separation", -3)
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	pin.add_child(box)
-	var title := UiStyle.label("", 15, UiStyle.TEXT)
+	var title := BoxStyle.label("", 17, BoxStyle.INK, true)
 	title.name = "Name"
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	box.add_child(title)
-	var stars := UiStyle.label("", 12, UiStyle.GOLD)
-	stars.name = "Stars"
-	box.add_child(stars)
+	var paws := PawRating.new()
+	paws.name = "Stars"
+	paws.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	box.add_child(paws)
+	var soon := BoxStyle.label("", 12, Color("5f5a55"))
+	soon.name = "Soon"
+	soon.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	box.add_child(soon)
+	pin.set_meta("seed", 100 + _pins.size() * 7)
+	pin.draw.connect(_draw_pin.bind(id, pin))
 	pin.gui_input.connect(func(e: InputEvent) -> void:
 		if e is InputEventMouseButton and not e.pressed and e.button_index == MOUSE_BUTTON_LEFT and not _dragged:
 			place_chosen.emit(id))
@@ -621,33 +640,44 @@ func _style_pin(id: String) -> void:
 	var pin: PanelContainer = _pins[id]
 	var state := place_state(id)
 	var title: Label = pin.find_child("Name", true, false)
-	var stars: Label = pin.find_child("Stars", true, false)
+	var paws: PawRating = pin.find_child("Stars", true, false)
+	var soon: Label = pin.find_child("Soon", true, false)
 	var order := stage_order().find(id)
 	title.text = place_name(id) if order < 0 else "%d · %s" % [order + 1, place_name(id)]
-	var edge: Color = {"yours": Color("3f9a78"), "boss": Color("9a4a3a"), "locked": Color("55505e")}[state]
-	title.label_settings.font_color = {"yours": Color("bff0dc"), "boss": Color("ffd0c4"), "locked": Color("c9c2d4")}[state]
+	title.label_settings.font_color = Color("5f5a55") if state == "locked" else BoxStyle.INK
+	paws.visible = state != "locked"
+	soon.visible = state == "locked"
 	if state == "locked":
-		stars.text = "🔒 " + tr("DISTRICT_SOON" if not GameData.stages.has(id) else "DISTRICT_LOCKED")
-		stars.label_settings.font_color = Color("b0a8c0")
-		stars.label_settings.font_size = 11
+		soon.text = tr("DISTRICT_SOON" if not GameData.stages.has(id) else "DISTRICT_LOCKED")
 	else:
-		var n := place_stars(id)
-		stars.text = "★".repeat(n) + "☆".repeat(3 - n)
-		stars.label_settings.font_color = UiStyle.GOLD
-		stars.label_settings.font_size = 12
-	var sb := UiStyle.box(Color(0.1, 0.07, 0.13, 0.9), UiStyle.GOLD if id == selected else edge)
-	sb.set_corner_radius_all(7)
-	sb.content_margin_left = 9
-	sb.content_margin_right = 9
-	sb.content_margin_top = 1
-	sb.content_margin_bottom = 2
-	if id == selected:
-		sb.shadow_color = Color(UiStyle.GOLD, 0.45)
-		sb.shadow_size = 8
+		paws.set_rating(place_stars(id), 3, 13.0)
+	pin.set_meta("state", state)
+	var sb := StyleBoxEmpty.new()
+	sb.content_margin_left = 14
+	sb.content_margin_right = 14
+	sb.content_margin_top = 3
+	sb.content_margin_bottom = 4
 	pin.add_theme_stylebox_override("panel", sb)
 	pin.reset_size()
+	pin.pivot_offset = pin.size * 0.5
+	pin.rotation_degrees = [-2.2, 1.6, -1.0, 2.4, -1.8, 1.1][int(pin.get_meta("seed")) % 6]
+	pin.queue_redraw()
 	var p: Vector2 = PLACES[id]["pos"] * px
 	pin.position = Vector2(p.x - pin.size.x * 0.5, p.y + 38 - pin.size.y - 14)
+
+
+## A place's sign: a strip of paper tape (its tint tells who owns the place),
+## and a red marker ring round the chosen one.
+func _draw_pin(id: String, pin: Control) -> void:
+	var state: String = pin.get_meta("state", "boss")
+	var tint: Color = {"yours": Color(0.78, 0.93, 0.66, 0.95), "boss": Color(0.93, 0.66, 0.6, 0.95), "locked": Color(0.72, 0.7, 0.67, 0.9)}[state]
+	BoxStyle.draw_tape(pin, pin.size, int(pin.get_meta("seed")), tint)
+	if state == "yours":
+		pin.draw_rect(Rect2(6, 1, pin.size.x - 12, pin.size.y - 2), Color("3f9a78"), false, 2.0)
+	elif state == "boss":
+		pin.draw_rect(Rect2(6, 1, pin.size.x - 12, pin.size.y - 2), Color("a8483a"), false, 1.5)
+	if id == selected:
+		BoxStyle.draw_ring(pin, Rect2(Vector2.ZERO, pin.size), int(pin.get_meta("seed")) + 5, BoxStyle.RED, 3.2 + 0.8 * sin(_t * 3.0), 5.0)
 
 
 func _draw_ring() -> void:
@@ -655,30 +685,31 @@ func _draw_ring() -> void:
 		_draw_paths()
 		_draw_last_trip()
 	_draw_residents()
-	# The place under the mouse: its area outlined in gold.
+	# The place under the mouse: its area outlined in cream.
 	if _hover != "" and _hover != selected:
 		var hr: Rect2 = PLACES[_hover]["view"]
-		_ring.draw_rect(Rect2(hr.position * px, hr.size * px), Color(UiStyle.GOLD, 0.12))
-		_ring.draw_rect(Rect2(hr.position * px, hr.size * px), Color(UiStyle.GOLD, 0.8), false, 2.0)
+		_ring.draw_rect(Rect2(hr.position * px, hr.size * px), Color(BoxStyle.CREAM, 0.12))
+		_ring.draw_rect(Rect2(hr.position * px, hr.size * px), Color(BoxStyle.CREAM, 0.85), false, 2.0)
 	if selected == "":
 		return
+	# The chosen place: a red marker ring round its area.
 	var sr: Rect2 = PLACES[selected]["view"]
-	_ring.draw_rect(Rect2(sr.position * px, sr.size * px), Color(UiStyle.GOLD, 0.35 + 0.15 * sin(_t * 3.0)), false, 2.0)
+	BoxStyle.draw_ring(_ring, Rect2(sr.position * px, sr.size * px), 31, Color(BoxStyle.RED, 0.8 + 0.15 * sin(_t * 3.0)), 4.0, 2.0)
 	_draw_next()
-	var p: Vector2 = PLACES[selected]["pos"] * px + Vector2(0, 60)
-	var k := fmod(_t, 1.4) / 1.4
-	_ring.draw_arc(p, 20.0 + k * 26.0, 0, TAU, 40, Color(UiStyle.GOLD, 1.0 - k), 3.0)
-	# A little flag pole under the sign, in the owner's colour.
+	# A paper pennant on a stick under each sign, in the owner's colour.
 	for id: String in PLACES:
 		var state := place_state(id)
 		if state == "locked":
 			continue
 		var q: Vector2 = PLACES[id]["pos"] * px + Vector2(0, 24)
-		_ring.draw_rect(Rect2(q, Vector2(2, 14)), Color("2a1c10"))
+		_ring.draw_line(q + Vector2(1, 0), q + Vector2(1, 15), BoxStyle.INK, 2.5)
 		var wave := sin(_t * 5.0 + q.x) * 1.5
 		# Conquered maps fly a gold flag.
 		var col := Color("f2c14e") if id in Profile.territories else (Color("3fbf8a") if state == "yours" else Color("d24a3a"))
-		_ring.draw_colored_polygon(PackedVector2Array([q + Vector2(2, 0), q + Vector2(15, wave), q + Vector2(11, 4.5), q + Vector2(15, 9 + wave), q + Vector2(2, 9)]), col)
+		var flag := PackedVector2Array([q + Vector2(2, 0), q + Vector2(16, wave), q + Vector2(12, 4.5), q + Vector2(16, 9 + wave), q + Vector2(2, 9)])
+		_ring.draw_colored_polygon(flag, col)
+		_ring.draw_polyline(flag + PackedVector2Array([flag[0]]), BoxStyle.INK, 1.3, true)
+		_ring.draw_line(q + Vector2(3, 2), q + Vector2(10, 2 + wave * 0.5), Color(1, 1, 1, 0.45), 1.2)
 
 
 ## The maps in the order they open (each one "requires" the one before).
@@ -831,24 +862,31 @@ func _path_end(id: String) -> Vector2:
 	return PLACES[id]["pos"] * px + Vector2(0, 46)
 
 
-## A dotted path from `a` to `b` along a gentle curve. `march` makes the dots
-## walk towards `b`.
+## A path of paw prints from `a` to `b` along a gentle curve (left, right,
+## left...), turned the way the path goes. `march` makes the prints walk
+## towards `b`. `size` scales the prints.
 func _draw_path(a: Vector2, b: Vector2, col: Color, march: bool, size: float = 2.6) -> void:
 	var mid := (a + b) * 0.5 + (b - a).orthogonal().normalized() * minf(a.distance_to(b) * 0.12, 40.0)
 	var length := a.distance_to(mid) + mid.distance_to(b)
-	var step := 11.0
-	var phase := fmod(_t * 18.0, step) if march else 0.0
-	var d := phase
+	var step := 38.0
+	var phase := fmod(_t * 18.0, step * 2.0) if march else 0.0
+	var d := fmod(phase, step)
+	var n := int(phase / step)
 	while d < length:
 		var k := d / length
 		var p := a.lerp(mid, k).lerp(mid.lerp(b, k), k)
-		_ring.draw_circle(p, size + 1.2, Color(OUTLINE, col.a))
-		_ring.draw_circle(p, size, col)
+		var tangent := ((mid - a) * (1.0 - k) + (b - mid) * k).normalized()
+		var side := 3.4 * size / 2.6 * (1.0 if n % 2 == 0 else -1.0)
+		var at := p + tangent.orthogonal() * side * 2.0
+		var deg := rad_to_deg(tangent.angle()) + 90.0
+		BoxStyle.draw_paw(_ring, at + Vector2(1, 1.5), size * 6.2 + 3.0, Color(0.08, 0.05, 0.03, 0.6 * col.a), deg)
+		BoxStyle.draw_paw(_ring, at, size * 6.2, col, deg)
 		d += step
+		n += 1
 
 
-## The ways between the places: gold where you have been, marching dots to
-## the next map, grey to locked ones, faint purple to the maps to come.
+## The ways between the places: cream prints where you have been, bright ones
+## to the next map, pale grey to locked ones, faint purple to the maps to come.
 func _draw_paths() -> void:
 	for link: Array in FUTURE_LINKS:
 		_draw_path(_path_end(link[0]), _path_end(link[1]), Color(0.7, 0.6, 0.9, 0.45), false, 2.0)
@@ -856,12 +894,13 @@ func _draw_paths() -> void:
 		var req: String = GameData.stages[id].get("requires", "")
 		if req == "" or not PLACES.has(req) or not PLACES.has(id):
 			continue
-		var col := Color(0.55, 0.52, 0.6, 0.6)
+		var col := Color(0.82, 0.8, 0.86, 0.4)
 		var march := false
 		if id in Profile.cleared_stages:
-			col = Color(UiStyle.GOLD, 0.95)
+			col = Color(BoxStyle.CREAM, 1.0)
 		elif Profile.is_stage_unlocked(id):
-			col = Color("fff0b0")
+			col = Color("fff3c2")
+			col.a = 0.85
 			march = true
 		_draw_path(_path_end(req), _path_end(id), col, march)
 
@@ -913,23 +952,27 @@ func _draw_last_trip() -> void:
 			_draw_path(_path_end(route[i - 1]) + Vector2(6, 6), _path_end(route[i]) + Vector2(6, 6), Color(0.4, 0.9, 1.0, 0.85), false, 2.0)
 
 
-## A bouncing "next" arrow over the map to play next.
+## A yellow sticky note "next" over the map to play next, bouncing a little,
+## with a small beak pointing at the sign.
 func _draw_next() -> void:
 	var id := next_place()
 	if id == "" or not _pins.has(id):
 		return
 	var pin: Control = _pins[id]
-	var tip := Vector2(pin.position.x + pin.size.x * 0.5, pin.position.y - 6.0 - absf(sin(_t * 4.0)) * 6.0)
-	var tri := PackedVector2Array([tip, tip + Vector2(-9, -12), tip + Vector2(9, -12)])
-	_ring.draw_colored_polygon(PackedVector2Array([tri[0] + Vector2(0, 2), tri[1] + Vector2(-2, -1), tri[2] + Vector2(2, -1)]), OUTLINE)
-	_ring.draw_colored_polygon(tri, UiStyle.GOLD)
-	var font := ThemeDB.fallback_font
+	var tip := Vector2(pin.position.x + pin.size.x * 0.5, pin.position.y - 4.0 - absf(sin(_t * 4.0)) * 6.0)
+	var font := BoxStyle.head_font()
 	var text := tr("DISTRICT_NEXT")
-	var w := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, 13).x
-	var box := Rect2(tip + Vector2(-w * 0.5 - 6, -32), Vector2(w + 12, 18))
-	_ring.draw_rect(box, Color(OUTLINE, 0.9))
-	_ring.draw_rect(box, UiStyle.GOLD, false, 1.5)
-	_ring.draw_string(font, box.position + Vector2(6, 14), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, UiStyle.GOLD)
+	var fs := 17
+	var w := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
+	var box := Rect2(Vector2(-w * 0.5 - 9, -34), Vector2(w + 18, 26))
+	_ring.draw_set_transform(tip, deg_to_rad(-3.0))
+	_ring.draw_rect(Rect2(box.position + Vector2(3, 4), box.size), Color(0, 0, 0, 0.35))
+	var beak := PackedVector2Array([Vector2(-7, box.end.y - 1), Vector2(7, box.end.y - 1), Vector2(0, 0)])
+	_ring.draw_colored_polygon(beak, Color("e9c632"))
+	_ring.draw_rect(box, Color("f7da4e"))
+	_ring.draw_line(box.position + Vector2(0, box.size.y - 3), box.end - Vector2(0, 3), Color("e2bd2a"), 2.0)
+	_ring.draw_string(font, Vector2(box.position.x + 9, box.position.y + (box.size.y + font.get_ascent(fs) - font.get_descent(fs)) * 0.5), text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, BoxStyle.RED)
+	_ring.draw_set_transform(Vector2.ZERO)
 
 
 ## "yours" (won there), "boss" (open but not won yet) or "locked".

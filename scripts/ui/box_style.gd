@@ -210,6 +210,16 @@ static func draw_paw(ci: CanvasItem, mid: Vector2, s: float, color: Color = RED,
 	ci.draw_set_transform_matrix(base)
 
 
+## Only the outline of a paw (an empty one: "not yet").
+static func draw_paw_outline(ci: CanvasItem, mid: Vector2, s: float, color: Color, deg: float = 0.0, width: float = 1.4, base: Transform2D = Transform2D.IDENTITY) -> void:
+	ci.draw_set_transform_matrix(base * Transform2D(deg_to_rad(deg), mid))
+	for part in _paw_parts(s):
+		var closed := part.duplicate()
+		closed.append(part[0])
+		ci.draw_polyline(closed, color, width, true)
+	ci.draw_set_transform_matrix(base)
+
+
 ## A rubber stamp of a paw: uneven pressure (every part a different strength)
 ## and little holes where the ink missed (drawn in `hole`, the colour of what
 ## it is stamped on).

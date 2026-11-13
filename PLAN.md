@@ -640,7 +640,7 @@ Vydanie pôjde rovno na Steam (bez itch.io), možno s demom; týždenný sen pr�
 
 1. [x] **Hlavné menu** (13. 11.): písma Delicious Handrawn (nadpisy, tlačidlá) a Shantell Sans (texty, cyrilika) v `fonts/` (OFL), fallback na pôvodné písmo pre zh_CN; zdieľané kreslenie `scripts/ui/box_style.gd`, `box_board.gd`, `box_button.gd`; menu má tabuľu s názvom, pásky, kartónové tlačidlá s fixkovým krúžkom pri výbere.
 2. [x] **Nastavenia** (13. 11.): list lepenky, nadpis na svetlom kartóne s páskou, dva stĺpce (zvuk + obraz / hra, jazyk + ovládanie oddelené fixkovou čiarou), labky ako odrážky, prepínače s červeným háčikom, posuvníky s labkou, klávesy ako krémové klávesy; ručné písmo dostalo širšiu medzeru. Nadpisy skupín Obraz / Hra / Ovládanie zatiaľ chýbajú (nie sú preklady).
-3. [ ] Štvrte (mapa mesta, štítky z pásky, cesty z labiek, bočný panel)
+3. [x] **Štvrte** (13. 11.): pixelové mesto bez zmeny; nad ním štítky miest z papierovej pásky s hodnotením labkami, cesty medzi mapami zo stôp labiek, papierové vlajočky, žltý lístok „ĎALEJ“, vybrané miesto obkrúžené červenou fixkou, kartónové tlačidlá a šípky, mapa pripnutá páskou na kartón, bočný panel miesta z kartónu a papierových lístkov (nové `paw_rating.gd`, `tape_tag.gd`). Spodný pás s výberom mačky ostáva na krok 5.
 4. [ ] HUD v hre, level-up, pauza, koniec noci
 5. [ ] Ostatné panely (výber mačky, obchod, denník, …)
 

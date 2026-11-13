@@ -639,7 +639,7 @@ Príbeh v troch štvrtiach: psy sú najprv nepriatelia, potom spojenci. 2. a 3. 
 Vydanie pôjde rovno na Steam (bez itch.io), možno s demom; týždenný sen príde až ako update po vydaní. Pred Steamom sa prerába celé UI, lebo pôsobilo genericky. Z 5 návrhov (krieda, krabica, samolepky, neón, linoryt) hráč vybral **Krabicu**: kartón s odtrhnutými hranami, papierová páska, červená fixka, labky ako pečiatky a značky. Samotná hra (hracie pole, mačky, nepriatelia) sa nemení – len menu, panely, mapa štvrte (ostáva mapou mesta, štýl len na štítkoch a cestách) a HUD.
 
 1. [x] **Hlavné menu** (13. 11.): písma Delicious Handrawn (nadpisy, tlačidlá) a Shantell Sans (texty, cyrilika) v `fonts/` (OFL), fallback na pôvodné písmo pre zh_CN; zdieľané kreslenie `scripts/ui/box_style.gd`, `box_board.gd`, `box_button.gd`; menu má tabuľu s názvom, pásky, kartónové tlačidlá s fixkovým krúžkom pri výbere.
-2. [ ] Nastavenia
+2. [x] **Nastavenia** (13. 11.): list lepenky, nadpis na svetlom kartóne s páskou, dva stĺpce (zvuk + obraz / hra, jazyk + ovládanie oddelené fixkovou čiarou), labky ako odrážky, prepínače s červeným háčikom, posuvníky s labkou, klávesy ako krémové klávesy; ručné písmo dostalo širšiu medzeru. Nadpisy skupín Obraz / Hra / Ovládanie zatiaľ chýbajú (nie sú preklady).
 3. [ ] Štvrte (mapa mesta, štítky z pásky, cesty z labiek, bočný panel)
 4. [ ] HUD v hre, level-up, pauza, koniec noci
 5. [ ] Ostatné panely (výber mačky, obchod, denník, …)

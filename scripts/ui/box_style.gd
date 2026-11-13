@@ -23,13 +23,16 @@ static var _body: Font
 
 ## The headline font (buttons, titles): Delicious Handrawn, then Shantell Sans
 ## (Cyrillic), then the game's own font; Chinese comes from the system font
-## the engine falls back to when none of these has the glyph.
+## the engine falls back to when none of these has the glyph. Its own space is
+## very narrow ("Restablecer teclas" ran together), so it gets a wider one.
 static func head_font() -> Font:
 	if _head == null:
-		var f := (load(HEAD_FONT) as FontFile).duplicate() as FontFile
+		var v := FontVariation.new()
+		v.base_font = load(HEAD_FONT) as Font
+		v.spacing_space = 5
 		var chain: Array[Font] = [body_font()]
-		f.fallbacks = chain
-		_head = f
+		v.fallbacks = chain
+		_head = v
 	return _head
 
 

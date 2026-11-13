@@ -13,6 +13,8 @@ var body := false
 var min_width := 0.0
 ## "l", "r", "u" or "d": an arrow drawn as a marker stroke instead of text.
 var arrow := ""
+## A small note after the text ("Enter", "R"), drawn in the body font.
+var hint := ""
 
 var _paw_room := 0.0
 
@@ -58,8 +60,8 @@ func _font() -> Font:
 
 ## The button is as wide as its text needs (so long translations fit).
 func _fit() -> void:
-	var w := _font().get_string_size(atr(text), HORIZONTAL_ALIGNMENT_LEFT, -1, text_size).x
-	custom_minimum_size = Vector2(maxf(min_width, w + text_size * 1.1 + _paw_room), roundf(text_size * 1.55))
+	var w := _font().get_string_size(atr(text), HORIZONTAL_ALIGNMENT_LEFT, -1, text_size).x + _hint_width()
+	custom_minimum_size = Vector2(maxf(min_width, w + text_size * 1.1 + _paw_room * (1.35 if hint != "" else 1.0)), roundf(text_size * 1.55))
 
 
 func _notification(what: int) -> void:
@@ -74,6 +76,23 @@ func relabel(text_: String) -> void:
 	if is_node_ready():
 		_fit()
 		queue_redraw()
+
+
+func _hint_size() -> int:
+	return maxi(roundi(text_size * 0.52), 12)
+
+
+func _hint_width() -> float:
+	if hint == "":
+		return 0.0
+	return BoxStyle.body_font().get_string_size("(%s)" % hint, HORIZONTAL_ALIGNMENT_LEFT, -1, _hint_size()).x + text_size * 0.3
+
+
+## Sets the note after the text and refits the button.
+func set_hint(h: String) -> void:
+	hint = h
+	_fit()
+	queue_redraw()
 
 
 func _lit() -> bool:
@@ -91,12 +110,17 @@ func _draw() -> void:
 		BoxStyle.draw_board(self, size, look_seed, Color("c99a64"), Color("ad7c4a"), base, Vector2(5, 6), Color(0.31, 0.19, 0.08, 0.12))
 	var font := _font()
 	var shown := atr(text)
-	var tw := font.get_string_size(shown, HORIZONTAL_ALIGNMENT_LEFT, -1, text_size).x
-	var shift := _paw_room * 0.5 if lit else 0.0
+	var tw := font.get_string_size(shown, HORIZONTAL_ALIGNMENT_LEFT, -1, text_size).x + _hint_width()
+	var shift := _paw_room * (0.8 if hint != "" else 0.5) if lit else 0.0
 	var x := (size.x - tw) * 0.5 + shift
 	var y := size.y * 0.5 + (font.get_ascent(text_size) - font.get_descent(text_size)) * 0.5
 	draw_set_transform_matrix(base)
-	draw_string(font, Vector2(x, y), shown, HORIZONTAL_ALIGNMENT_LEFT, -1, text_size, Color(BoxStyle.INK, 0.45) if disabled else BoxStyle.INK)
+	var ink := Color(BoxStyle.INK, 0.45) if disabled else BoxStyle.INK
+	draw_string(font, Vector2(x, y), shown, HORIZONTAL_ALIGNMENT_LEFT, -1, text_size, ink)
+	if hint != "":
+		var hs := _hint_size()
+		var hx := x + tw - _hint_width() + text_size * 0.3
+		draw_string(BoxStyle.body_font(), Vector2(hx, y), "(%s)" % hint, HORIZONTAL_ALIGNMENT_LEFT, -1, hs, Color(ink, ink.a * 0.8))
 	if arrow != "":
 		var dir: Vector2 = {"l": Vector2(-1, 0), "r": Vector2(1, 0), "u": Vector2(0, -1), "d": Vector2(0, 1)}[arrow]
 		var n := dir.orthogonal()

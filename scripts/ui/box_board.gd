@@ -10,6 +10,8 @@ var kind := "board"
 var look_seed := 1
 var bullets: Array[Vector2] = []
 var bullet_size := 20.0
+## What the missed spots of a stamp show (the colour it is stamped on).
+var hole := Color("cfa06b")
 
 
 static func make(kind_: String, pos: Vector2, size_: Vector2, seed_: int, deg: float = 0.0) -> BoxBoard:
@@ -45,6 +47,6 @@ func _draw() -> void:
 		"scribble":
 			BoxStyle.draw_scribble(self, size.x, size.y, look_seed)
 		"stamp":
-			BoxStyle.draw_paw_stamp(self, size * 0.5, minf(size.x, size.y) * 0.9, look_seed, Color("cfa06b"))
+			BoxStyle.draw_paw_stamp(self, size * 0.5, minf(size.x, size.y) * 0.9, look_seed, hole)
 	for p in bullets:
 		BoxStyle.draw_paw(self, p, bullet_size, BoxStyle.RED, -12.0)

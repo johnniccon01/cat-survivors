@@ -26,10 +26,10 @@ var _bless_label: Label
 var _debug_label: Label
 var _pause_resume: Button
 var _pause_overlay: Control
-var _give_up: Button
+var _give_up: BoxButton
 var _discard: Button
 var _pause_stories: VBoxContainer
-var _pause_stories_panel: PanelContainer
+var _pause_stories_panel: BoxPanel
 var _pause_language: Label
 var _pause_sound: Label
 var _pause_numbers: Label
@@ -38,7 +38,7 @@ var _pause_shake: Label
 ## and the messages on the right (filled each time the game pauses).
 var _pause_weapons: VBoxContainer
 var _pause_log: VBoxContainer
-var _discard_left: Label
+var _discard_left: TapeTag
 ## Recent banner texts (quest lines, shrines...), newest first, with the
 ## clock when they came: [time, text].
 var _log: Array = []
@@ -153,50 +153,58 @@ func _ready() -> void:
 	_debug_label.visible = OS.is_debug_build()
 	add_child(_debug_label)
 
-	_pause_overlay = _overlay(["PAUSE_TITLE"])
+	_pause_overlay = _overlay([])
+	(_pause_overlay as ColorRect).color = Color(0.1, 0.06, 0.03, 0.62)
 	var pause_box := _pause_overlay.get_node("Box")
-	var resume := UiStyle.button("PAUSE_RESUME", 400)
+	pause_box.add_theme_constant_override("separation", 12)
+	# The title on a piece of cardboard held with tape.
+	var title_board := BoxPanel.make("board", 11, Vector4(56, 4, 56, 14), -1.4)
+	title_board.add_decor(BoxBoard.make("tape", Vector2.ZERO, Vector2(84, 26), 12), Vector2(0.5, 0), Vector2(-42, -12), Vector2(84, 26), 3.0)
+	title_board.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	title_board.add_child(BoxStyle.label("PAUSE_TITLE", 62, BoxStyle.INK, true))
+	pause_box.add_child(title_board)
+	var resume := BoxButton.make("PAUSE_RESUME", 32, 41, -1.0, true, false, 420.0)
 	resume.pressed.connect(func() -> void: resume_pressed.emit())
-	var open_settings := UiStyle.button("MENU_SETTINGS", 400)
+	var open_settings := BoxButton.make("MENU_SETTINGS", 26, 42, 1.2, true, false, 420.0)
 	open_settings.pressed.connect(func() -> void:
 		_pause_overlay.visible = false
 		settings.open())
-	var give_up := UiStyle.button("PAUSE_GIVE_UP", 400, 20)
+	var give_up := BoxButton.make("PAUSE_GIVE_UP", 26, 44, -1.1, true, false, 420.0)
 	_give_up = give_up
 	# Asks once more first: a stray click or key must not end the night.
 	give_up.pressed.connect(func() -> void:
 		if give_up.text == "PAUSE_GIVE_UP_SURE":
 			give_up_pressed.emit()
 		else:
-			give_up.text = "PAUSE_GIVE_UP_SURE"
+			give_up.relabel("PAUSE_GIVE_UP_SURE")
 			resume.grab_focus())
-	_discard = UiStyle.button("PAUSE_DISCARD_BUTTON", 400, 20)
+	_discard = BoxButton.make("PAUSE_DISCARD_BUTTON", 26, 43, 0.9, true, false, 420.0)
 	_discard.pressed.connect(func() -> void: discard_pressed.emit())
-	# How many throws are left, quietly at the button's right end.
-	_discard_left = UiStyle.side_note(_discard, "")
+	# How many throws are left, on a strip of tape at the button's corner.
+	_discard_left = TapeTag.new()
+	_discard.add_child(_discard_left)
 	# The buttons in a column of their own: all as wide as the widest.
 	var pause_buttons := VBoxContainer.new()
 	pause_buttons.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	pause_buttons.add_theme_constant_override("separation", 9)
+	pause_buttons.add_theme_constant_override("separation", 10)
 	for b: Button in [resume, open_settings, _discard, give_up]:
 		pause_buttons.add_child(b)
 	pause_box.add_child(pause_buttons)
-	# This map's stories, one row each with its steps.
-	_pause_stories_panel = PanelContainer.new()
-	var stories_sb := UiStyle.frame(Color(0.13, 0.1, 0.17, 0.96), Color("4b3d61"), 2)
-	stories_sb.set_content_margin_all(14)
-	_pause_stories_panel.add_theme_stylebox_override("panel", stories_sb)
-	_pause_stories_panel.custom_minimum_size.x = 400
+	# This map's stories on a cream note, one row each with its steps.
+	_pause_stories_panel = BoxPanel.make("light", 45, Vector4(24, 10, 24, 16), 0.7)
+	_pause_stories_panel.custom_minimum_size.x = 420
 	_pause_stories_panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	_pause_stories = VBoxContainer.new()
-	_pause_stories.add_theme_constant_override("separation", 6)
+	_pause_stories.add_theme_constant_override("separation", 2)
 	_pause_stories_panel.add_child(_pause_stories)
 	pause_box.add_child(_pause_stories_panel)
 	_pause_resume = resume
-	# Shortcuts as key caps in one quiet row at the bottom.
-	var keys := HBoxContainer.new()
-	keys.alignment = BoxContainer.ALIGNMENT_CENTER
-	keys.add_theme_constant_override("separation", 14)
+	# Shortcuts as small cardboard chips, two in a row.
+	var keys := GridContainer.new()
+	keys.columns = 2
+	keys.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	keys.add_theme_constant_override("h_separation", 14)
+	keys.add_theme_constant_override("v_separation", 8)
 	pause_box.add_child(keys)
 	_pause_language = _key_item(keys, "L")
 	_pause_sound = _key_item(keys, "M")
@@ -519,7 +527,7 @@ func show_end(title: String, stats: String, deeds: Array[String], loot: Array[St
 	_end_page = 0
 	if _end == null:
 		_end = ColorRect.new()
-		_end.color = Color(0.08, 0.05, 0.1, 0.92)
+		_end.color = Color(0.1, 0.06, 0.03, 0.66)
 		_end.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		_end.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(_end)
@@ -550,102 +558,121 @@ func _show_end_page() -> void:
 	var page: Dictionary = _end_pages[_end_page]
 	var big: bool = page.get("big", false)
 	var view := get_viewport().get_visible_rect().size
-	var panel := PanelContainer.new()
-	var sb := UiStyle.frame(Color(0.13, 0.1, 0.17, 0.97), Color("4b3d61"), 2)
-	sb.set_content_margin_all(26)
-	sb.content_margin_top = 18
-	panel.add_theme_stylebox_override("panel", sb)
-	panel.custom_minimum_size.x = minf(780.0, view.x - 60.0)
-	panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	panel.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	panel.grow_vertical = Control.GROW_DIRECTION_BOTH
-	_end.add_child(panel)
+	var width := minf(860.0, view.x - 150.0)
+	var center := CenterContainer.new()
+	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_end.add_child(center)
+	# One big sheet of light cardboard, taped down at the top corners.
+	var sheet := BoxPanel.make("light", 31 + _end_page, Vector4(50, 30, 50, 32), [-0.5, 0.4, -0.3][_end_page % 3])
+	sheet.add_corner_tapes(33 + _end_page * 5)
+	center.add_child(sheet)
 	var box := VBoxContainer.new()
-	box.add_theme_constant_override("separation", 14)
-	panel.add_child(box)
-	var width := panel.custom_minimum_size.x - 52.0
-	# Page dots.
-	var dots := HBoxContainer.new()
-	dots.alignment = BoxContainer.ALIGNMENT_CENTER
-	dots.add_theme_constant_override("separation", 7)
-	for i in _end_pages.size():
-		var dot := Panel.new()
-		var dsb := StyleBoxFlat.new()
-		dsb.set_corner_radius_all(4)
-		dsb.bg_color = UiStyle.GOLD if i == _end_page else Color(0, 0, 0, 0)
-		dsb.border_color = UiStyle.GOLD if i == _end_page else Color("7a6a93")
-		dsb.set_border_width_all(2)
-		dot.add_theme_stylebox_override("panel", dsb)
-		dot.custom_minimum_size = Vector2(9, 9)
-		dots.add_child(dot)
+	box.add_theme_constant_override("separation", 8)
+	box.custom_minimum_size.x = width
+	sheet.add_child(box)
+	# A paw for each page, filled up to this one.
+	var dots := PawRating.new()
+	dots.set_rating(_end_page + 1, _end_pages.size(), 15.0)
+	dots.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	box.add_child(dots)
-	var title := _label(42 if big else 30, HORIZONTAL_ALIGNMENT_CENTER)
-	title.text = page["title"]
-	title.label_settings.font_color = UiStyle.GOLD if big else Color.WHITE
+	# A won night gets a red paw stamp beside the title.
+	var win := big and _end_endless
+	var room := 170.0 if win else 0.0
+	if win:
+		var stamp := BoxBoard.make("stamp", Vector2.ZERO, Vector2(130, 130), 9)
+		stamp.hole = Color("f7ecd0")
+		sheet.add_decor(stamp, Vector2(1, 0), Vector2(-196, 30), Vector2(130, 130), 14.0)
+	var title_text: String = page["title"]
+	var title_size := 62 if big else 44
+	var title := BoxStyle.label(title_text, title_size, BoxStyle.INK, true)
+	(title.label_settings as LabelSettings).font_size = BoxStyle.fit_size(tr(title_text), BoxStyle.head_font(), title_size, width - room, 30)
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	title.custom_minimum_size.x = width
+	title.custom_minimum_size.x = width - room
 	box.add_child(title)
 	if big:
-		_end_numbers(box, page, width)
+		_end_numbers(box, page, width, room)
 	else:
 		var scroll := ScrollContainer.new()
 		scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 		var list := VBoxContainer.new()
 		list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		list.add_theme_constant_override("separation", 6)
+		list.add_theme_constant_override("separation", 8)
 		scroll.add_child(list)
 		var height := 0.0
 		for text: String in page["lines"]:
-			var card := PanelContainer.new()
-			card.add_theme_stylebox_override("panel", UiStyle.card())
-			var line := UiStyle.plain(text, 16, Color("f1e6c8"), true)
-			line.custom_minimum_size.x = width - 40.0
-			card.add_child(line)
-			list.add_child(card)
-			height += 18.0 * (1 + floori(text.length() * 16.0 * 0.55 / (width - 40.0))) + 26.0
-		scroll.custom_minimum_size = Vector2(width, minf(height, view.y * 0.48))
+			var row := HBoxContainer.new()
+			row.add_theme_constant_override("separation", 12)
+			var paw := BoxBoard.make("paw", Vector2.ZERO, Vector2(18, 26), 1)
+			paw.custom_minimum_size = Vector2(18, 26)
+			paw.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+			row.add_child(paw)
+			var line := BoxStyle.label(text, 19, BoxStyle.INK)
+			line.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			line.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			line.custom_minimum_size.x = width - 60.0
+			row.add_child(line)
+			list.add_child(row)
+			height += 28.0 * (1 + floori(text.length() * 19.0 * 0.55 / (width - 60.0))) + 8.0
+		var max_height := view.y * 0.46
+		scroll.custom_minimum_size = Vector2(width, minf(height, max_height))
 		box.add_child(scroll)
 		_summary_scroll = scroll
+		_fit_end_scroll(scroll, list, max_height)
 		if page["total"] != "":
-			var total := UiStyle.plain(page["total"], 22, UiStyle.GOLD)
+			var total := BoxStyle.label(page["total"], 34, Color("a81913"), true)
+			(total.label_settings as LabelSettings).font_size = BoxStyle.fit_size(tr(page["total"]), BoxStyle.head_font(), 34, width, 20)
 			total.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			box.add_child(total)
 	# Buttons with their keys, clickable too.
-	var buttons := HBoxContainer.new()
-	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
-	buttons.add_theme_constant_override("separation", 12)
+	var buttons := HFlowContainer.new()
+	buttons.alignment = FlowContainer.ALIGNMENT_CENTER
+	buttons.add_theme_constant_override("h_separation", 22)
+	buttons.add_theme_constant_override("v_separation", 10)
 	box.add_child(buttons)
 	if _end_page < _end_pages.size() - 1:
-		_end_button(buttons, "END_NEXT", "Enter", "next", true)
+		_end_button(buttons, "END_NEXT", "Enter", "next", true, 71, -1.2)
 	else:
-		_end_button(buttons, "END_AGAIN_BUTTON", "R", "again", true)
-		_end_button(buttons, "END_BACK_BUTTON", "Esc", "back", false)
+		_end_button(buttons, "END_AGAIN_BUTTON", "R", "again", true, 72, -1.0)
+		_end_button(buttons, "END_BACK_BUTTON", "Esc", "back", false, 73, 1.0)
 	if _end_page == 0 and _end_endless:
-		_end_button(buttons, "END_ENDLESS_BUTTON", "E", "endless", false)
+		_end_button(buttons, "END_ENDLESS_BUTTON", "E", "endless", false, 74, -0.8)
 		var hint_text := tr("ENDLESS_HINT")
 		if hint_text.begins_with("E") and "–" in hint_text.substr(0, 4):
 			hint_text = hint_text.substr(hint_text.find("–") + 1).strip_edges()
-		var hint := UiStyle.plain(hint_text.left(1).to_upper() + hint_text.substr(1), 13, UiStyle.MUTED, true)
+		var hint := BoxStyle.label(hint_text.left(1).to_upper() + hint_text.substr(1), 15, Color(BoxStyle.INK, 0.65))
+		hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		hint.custom_minimum_size.x = width
 		box.add_child(hint)
 	(buttons.get_child(0) as Button).grab_focus.call_deferred()
 
 
+## The scroll box takes the list's real height once it is laid out (up to
+## `max_height`), so a short list leaves no empty space.
+func _fit_end_scroll(scroll: ScrollContainer, list: Control, max_height: float) -> void:
+	await get_tree().process_frame
+	await get_tree().process_frame
+	if is_instance_valid(scroll) and is_instance_valid(list):
+		scroll.custom_minimum_size.y = minf(list.get_combined_minimum_size().y, max_height)
+
+
 ## The first end page: the cat's line, four numbers and which weapons did
 ## the most damage tonight.
-func _end_numbers(box: VBoxContainer, page: Dictionary, width: float) -> void:
-	var sub := UiStyle.plain(page["lines"][0] if not (page["lines"] as Array).is_empty() else "", 16, Color("cfc3dd"), true)
-	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	sub.custom_minimum_size.x = width
+func _end_numbers(box: VBoxContainer, page: Dictionary, width: float, room: float) -> void:
+	var sub_text: String = page["lines"][0] if not (page["lines"] as Array).is_empty() else ""
+	var sub := BoxStyle.label(sub_text, 20, BoxStyle.INK)
+	sub.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	sub.custom_minimum_size.x = width - room
 	box.add_child(sub)
 	var tiles := HBoxContainer.new()
-	tiles.add_theme_constant_override("separation", 10)
+	tiles.add_theme_constant_override("separation", 14)
 	box.add_child(tiles)
-	_end_tile(tiles, "END_KILLS", Hud.thousands(int(end_facts.get("kills", 0))), UiStyle.TEXT)
-	_end_tile(tiles, "END_TIME", _format_time(float(end_facts.get("time", 0.0))), UiStyle.TEXT)
-	_end_tile(tiles, "END_LEVEL", str(int(end_facts.get("level", 1))), UiStyle.TEXT)
-	_end_tile(tiles, "END_GOLD", Hud.thousands(int(end_facts.get("gold", 0))), UiStyle.GOLD)
+	var tile_w := (width - 3.0 * 14.0) / 4.0
+	_end_tile(tiles, "END_KILLS", Hud.thousands(int(end_facts.get("kills", 0))), BoxStyle.INK, tile_w, 41, -1.4)
+	_end_tile(tiles, "END_TIME", _format_time(float(end_facts.get("time", 0.0))), BoxStyle.INK, tile_w, 42, 1.0)
+	_end_tile(tiles, "END_LEVEL", str(int(end_facts.get("level", 1))), BoxStyle.INK, tile_w, 43, -0.8)
+	_end_tile(tiles, "END_GOLD", Hud.thousands(int(end_facts.get("gold", 0))), Color("a81913"), tile_w, 44, 1.3)
 	# Damage by weapon, the biggest four, as shares of all damage.
 	var total := 0.0
 	var ids: Array = []
@@ -655,60 +682,56 @@ func _end_numbers(box: VBoxContainer, page: Dictionary, width: float) -> void:
 	if total <= 0.0:
 		return
 	ids.sort_custom(func(a: String, b: String) -> bool: return float(Weapon.damage_log[a]) > float(Weapon.damage_log[b]))
-	box.add_child(UiStyle.plain(tr("END_DAMAGE"), 15, UiStyle.GOLD))
+	var head := BoxStyle.label(tr("END_DAMAGE"), 28, BoxStyle.INK, true)
+	box.add_child(head)
 	var best := float(Weapon.damage_log[ids[0]]) / total
 	for id: String in ids.slice(0, 4):
 		var share := float(Weapon.damage_log[id]) / total
 		var row := HBoxContainer.new()
-		row.add_theme_constant_override("separation", 10)
+		row.add_theme_constant_override("separation", 12)
 		if GameData.weapons.has(id):
-			row.add_child(IconView.new("weapon", id, 26))
-		var name_label := UiStyle.plain(Upgrades.item_name("weapon", id) if GameData.weapons.has(id) else id, 15)
-		name_label.custom_minimum_size.x = 190
+			row.add_child(IconView.new("weapon", id, 28))
+		var name_label := BoxStyle.label(Upgrades.item_name("weapon", id) if GameData.weapons.has(id) else id, 17)
+		name_label.custom_minimum_size.x = 200
 		name_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		name_label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(name_label)
-		var bar := ProgressBar.new()
-		bar.show_percentage = false
-		bar.custom_minimum_size = Vector2(0, 8)
-		bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		bar.max_value = best
-		bar.value = share
-		var bg := StyleBoxFlat.new()
-		bg.bg_color = Color("2c2338")
-		bg.set_corner_radius_all(4)
-		var fill := StyleBoxFlat.new()
-		fill.bg_color = UiStyle.GOLD
-		fill.set_corner_radius_all(4)
-		bar.add_theme_stylebox_override("background", bg)
-		bar.add_theme_stylebox_override("fill", fill)
-		row.add_child(bar)
-		var pct := UiStyle.plain("%d %%" % roundi(share * 100.0), 14)
-		pct.custom_minimum_size.x = 48
+		# The bar is a stroke of red marker, as long as the weapon's share.
+		var area := Control.new()
+		area.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		area.custom_minimum_size = Vector2(0, 18)
+		var stroke := BoxBoard.make("scribble", Vector2.ZERO, Vector2(10, 18), 11 + ids.find(id))
+		area.add_child(stroke)
+		area.resized.connect(func() -> void: stroke.size = Vector2(maxf(area.size.x * share / best, 40.0), 18.0))
+		row.add_child(area)
+		var pct := BoxStyle.label("%d %%" % roundi(share * 100.0), 17, BoxStyle.RED)
+		pct.custom_minimum_size.x = 56
 		pct.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		pct.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(pct)
 		box.add_child(row)
 
 
-func _end_tile(row: HBoxContainer, key: String, value: String, color: Color) -> void:
-	var tile := PanelContainer.new()
-	tile.add_theme_stylebox_override("panel", UiStyle.card())
-	tile.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+func _end_tile(row: HBoxContainer, key: String, value: String, color: Color, w: float, seed_: int, tilt_: float) -> void:
+	var tile := BoxPanel.make("board", seed_, Vector4(12, 8, 12, 12), tilt_)
+	tile.custom_minimum_size.x = w
 	var col := VBoxContainer.new()
-	col.add_theme_constant_override("separation", 0)
+	col.add_theme_constant_override("separation", -2)
 	tile.add_child(col)
-	col.add_child(UiStyle.plain(tr(key).to_upper(), 12, UiStyle.MUTED))
-	col.add_child(UiStyle.plain(value, 28, color))
+	var name_text := tr(key)
+	var k := BoxStyle.label(name_text, 16, Color(BoxStyle.INK, 0.8))
+	(k.label_settings as LabelSettings).font_size = BoxStyle.fit_size(name_text, BoxStyle.body_font(), 16, w - 24.0, 11)
+	col.add_child(k)
+	var v := BoxStyle.label(value, 44, color, true)
+	(v.label_settings as LabelSettings).font_size = BoxStyle.fit_size(value, BoxStyle.head_font(), 44, w - 24.0, 22)
+	col.add_child(v)
 	row.add_child(tile)
 
 
-func _end_button(row: HBoxContainer, text: String, key: String, action: String, first: bool) -> void:
-	var b := UiStyle.button(text, 0, 19)
-	b.custom_minimum_size = Vector2(200, 46)
-	UiStyle.add_key(b, key)
+func _end_button(row: Container, text: String, key: String, action: String, first: bool, seed_: int, tilt_: float) -> void:
+	var b := BoxButton.make(text, 32 if first else 26, seed_, tilt_)
+	b.set_hint(key)
 	b.pressed.connect(func() -> void: end_action.emit(action))
-	if first:
-		b.add_theme_color_override("font_color", UiStyle.GOLD)
 	row.add_child(b)
 
 
@@ -758,11 +781,16 @@ func show_pause(on: bool) -> void:
 	_pause_numbers.text = tr("PAUSE_KEY_NUMBERS") % tr("SOUND_ON" if Settings.damage_numbers else "SOUND_OFF")
 	_pause_shake.text = tr("PAUSE_KEY_SHAKE") % tr("SOUND_ON" if Settings.screen_shake else "SOUND_OFF")
 	_fill_stories()
-	_give_up.text = "PAUSE_GIVE_UP"
+	_give_up.relabel("PAUSE_GIVE_UP")
 	var cat: Player = get_parent().get("player")
 	_discard.visible = cat != null and cat.discard_left > 0
 	if cat != null:
-		_discard_left.text = tr("PAUSE_LEFT") % cat.discard_left
+		_discard_left.set_tag(tr("PAUSE_LEFT") % cat.discard_left, BoxStyle.TAPE, 150.0, 15)
+		_discard_left.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
+		_discard_left.offset_left = -_discard_left.custom_minimum_size.x + 10.0
+		_discard_left.offset_right = 10.0
+		_discard_left.offset_top = -15.0
+		_discard_left.offset_bottom = -15.0 + _discard_left.custom_minimum_size.y
 	if on:
 		_fill_weapons(cat)
 		_fill_log()
@@ -773,18 +801,51 @@ func show_pause(on: bool) -> void:
 		_pause_resume.grab_focus.call_deferred()
 
 
-## A key cap and its setting ("M  Sound on") in the pause screen's key row.
-func _key_item(row: HBoxContainer, key: String) -> Label:
+## A key chip ("M  Sound on") in the pause screen's key grid: the key in red
+## marker on a small cream note; returns the label of its setting.
+func _key_item(row: Container, key: String) -> Label:
+	var chip := BoxPanel.make("light", 50 + key.unicode_at(0) % 17, Vector4(14, 4, 16, 7), float(key.unicode_at(0) % 5 - 2) * 0.5)
+	chip.size_flags_horizontal = Control.SIZE_FILL
 	var item := HBoxContainer.new()
-	item.add_theme_constant_override("separation", 6)
-	item.add_child(UiStyle.key_cap(key))
-	var l := UiStyle.plain("", 14, UiStyle.MUTED)
+	item.add_theme_constant_override("separation", 8)
+	chip.add_child(item)
+	var cap := BoxStyle.label(key, 26, BoxStyle.RED, true)
+	item.add_child(cap)
+	var l := BoxStyle.label("", 15)
+	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	item.add_child(l)
-	row.add_child(item)
+	row.add_child(chip)
 	return l
 
 
-## The left pause panel: a card per weapon, then the skills and shrine bonuses.
+var _note_n := 0
+
+
+## A small cream paper note for the pause panels, each a little crooked.
+func _note(pad: Vector4 = Vector4(12, 8, 12, 9)) -> BoxPanel:
+	_note_n += 1
+	return BoxPanel.make("light", 60 + _note_n % 9, pad, float(_note_n % 5 - 2) * 0.4)
+
+
+## The ink colour for a line on a paper note (the old light-on-dark colours
+## become red or green marker).
+func _ink_for(color: Color) -> Color:
+	if color.is_equal_approx(Color("ff9a8a")):
+		return Color("a81913")
+	if color.is_equal_approx(UiStyle.GREEN):
+		return Color("2f6b2a")
+	return BoxStyle.INK
+
+
+## Ink text on a paper note that wraps.
+func _ink_line(text: String, size: int, color: Color) -> Label:
+	var l := BoxStyle.label(text, size, color)
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	return l
+
+
+## The left pause panel: a note per weapon, then the skills and shrine bonuses.
 func _fill_weapons(player: Player) -> void:
 	for child in _pause_weapons.get_children():
 		child.queue_free()
@@ -793,8 +854,7 @@ func _fill_weapons(player: Player) -> void:
 	var weapons: Array = player.weapons.get_children().filter(func(w: Node) -> bool: return w is Weapon)
 	_pause_weapons.add_child(_side_head(tr("PAUSE_WEAPONS"), "%d / %d" % [weapons.size(), player.max_weapons()]))
 	for w: Weapon in weapons:
-		var card := PanelContainer.new()
-		card.add_theme_stylebox_override("panel", UiStyle.card())
+		var card := _note()
 		card.tooltip_text = tr("WEAPON_%s_DESC" % w.id)
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override("separation", 10)
@@ -806,48 +866,58 @@ func _fill_weapons(player: Player) -> void:
 		row.add_child(col)
 		var top := HBoxContainer.new()
 		col.add_child(top)
-		var name_label := UiStyle.plain(Upgrades.item_name("weapon", w.id), 16, UiStyle.GOLD)
+		var name_label := BoxStyle.label(Upgrades.item_name("weapon", w.id), 17, BoxStyle.INK, true)
 		name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		name_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		top.add_child(name_label)
 		var maxed := w.level >= w.max_level()
-		top.add_child(UiStyle.plain(("★ " if maxed else "") + "%d/%d" % [w.level, w.max_level()], 12, UiStyle.GOLD if maxed else UiStyle.MUTED))
+		top.add_child(BoxStyle.label(("★ " if maxed else "") + "%d/%d" % [w.level, w.max_level()], 14, BoxStyle.RED))
 		if w.branch != "":
-			col.add_child(UiStyle.plain("%s %d" % [tr("BRANCH_%s_NAME" % w.branch), w.branch_rank], 13, Color("a6dc98")))
+			col.add_child(BoxStyle.label("%s %d" % [tr("BRANCH_%s_NAME" % w.branch), w.branch_rank], 14, Color("2f6b2a")))
 		var evolve: Dictionary = w.data.get("evolve", {})
 		if not evolve.is_empty():
 			var has: bool = player.passives.has(evolve["with"])
 			var line := HBoxContainer.new()
 			line.add_theme_constant_override("separation", 5)
 			line.add_child(IconView.new("passive", evolve["with"], 16))
-			line.add_child(UiStyle.plain(tr("PAUSE_EVOLVE_WITH") % Upgrades.item_name("passive", evolve["with"]), 12, Color("a6dc98") if has else UiStyle.MUTED))
+			var evolve_label := BoxStyle.label(tr("PAUSE_EVOLVE_WITH") % Upgrades.item_name("passive", evolve["with"]), 13, Color("2f6b2a") if has else Color(BoxStyle.INK, 0.6))
+			evolve_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			evolve_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			line.add_child(evolve_label)
 			col.add_child(line)
 		_pause_weapons.add_child(card)
 	if not player.passives.is_empty():
 		_pause_weapons.add_child(_side_head(tr("PAUSE_SKILLS"), "%d / %d" % [player.passives.size(), Player.MAX_PASSIVES]))
 		for id: String in player.passives:
-			var card := PanelContainer.new()
-			card.add_theme_stylebox_override("panel", UiStyle.card())
+			var card := _note()
 			card.tooltip_text = tr("PASSIVE_%s_DESC" % id)
 			var row := HBoxContainer.new()
 			row.add_theme_constant_override("separation", 10)
 			card.add_child(row)
 			row.add_child(IconView.new("passive", id, 28))
-			var name_label := UiStyle.plain(Upgrades.item_name("passive", id), 15)
+			var name_label := BoxStyle.label(Upgrades.item_name("passive", id), 16, BoxStyle.INK, true)
 			name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-			name_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+			name_label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+			name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			row.add_child(name_label)
-			row.add_child(UiStyle.segments((GameData.passives[id]["levels"] as Array).size(), int(player.passives[id]), 12, 6))
+			var paws := PawRating.new()
+			paws.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+			paws.set_rating(int(player.passives[id]), (GameData.passives[id]["levels"] as Array).size(), 12.0)
+			row.add_child(paws)
 			_pause_weapons.add_child(card)
-	var bless := blessings_text()
+	var bless := blessings_text(true)
 	if bless != "":
+		var note := _note()
 		var text := RichTextLabel.new()
 		text.bbcode_enabled = true
 		text.fit_content = true
 		text.scroll_active = false
-		text.add_theme_font_size_override("normal_font_size", 14)
+		text.add_theme_font_override("normal_font", BoxStyle.body_font())
+		text.add_theme_font_size_override("normal_font_size", 15)
+		text.add_theme_color_override("default_color", BoxStyle.INK)
 		text.text = bless.strip_edges()
-		_pause_weapons.add_child(text)
+		note.add_child(text)
+		_pause_weapons.add_child(note)
 
 
 ## The right pause panel: what is going on now, then the messages with times.
@@ -869,30 +939,31 @@ func _fill_log() -> void:
 		_pause_log.add_child(_now_card(_extract_label.text, "", UiStyle.GREEN, Color("4c7a43"), "door"))
 		now += 1
 	if now == 0:
-		_pause_log.add_child(UiStyle.plain(tr("PAUSE_LOG_EMPTY"), 14, UiStyle.MUTED))
+		_pause_log.add_child(_ink_line(tr("PAUSE_LOG_EMPTY"), 15, Color(BoxStyle.INK, 0.6)))
 	_pause_log.add_child(_side_head(tr("PAUSE_NEWS"), ""))
 	if _log.is_empty():
-		_pause_log.add_child(UiStyle.plain(tr("PAUSE_LOG_EMPTY"), 14, UiStyle.MUTED))
+		_pause_log.add_child(_ink_line(tr("PAUSE_LOG_EMPTY"), 15, Color(BoxStyle.INK, 0.6)))
+		return
+	var note := _note(Vector4(14, 10, 14, 11))
 	var grid := GridContainer.new()
 	grid.columns = 2
 	grid.add_theme_constant_override("h_separation", 10)
 	grid.add_theme_constant_override("v_separation", 8)
-	_pause_log.add_child(grid)
+	note.add_child(grid)
+	_pause_log.add_child(note)
 	for entry: Array in _log:
-		var t := UiStyle.plain(entry[0], 12, UiStyle.MUTED)
+		var t := BoxStyle.label(entry[0], 13, BoxStyle.RED)
 		t.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 		grid.add_child(t)
-		var l := UiStyle.plain(entry[1], 14, UiStyle.TEXT, true)
-		l.custom_minimum_size.x = 260
+		var l := _ink_line(entry[1], 15, BoxStyle.INK)
+		l.custom_minimum_size.x = 190
+		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		grid.add_child(l)
 
 
-## A small card in the right pause panel (the quest now, an open cat flap).
-func _now_card(title: String, body: String, color: Color, border: Color, glyph: String) -> PanelContainer:
-	var card := PanelContainer.new()
-	var sb := UiStyle.card()
-	sb.border_color = border
-	card.add_theme_stylebox_override("panel", sb)
+## A small note in the right pause panel (the quest now, an open cat flap).
+func _now_card(title: String, body: String, color: Color, _border: Color, glyph: String) -> BoxPanel:
+	var card := _note()
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 10)
 	card.add_child(row)
@@ -904,22 +975,32 @@ func _now_card(title: String, body: String, color: Color, border: Color, glyph: 
 	col.add_theme_constant_override("separation", 1)
 	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(col)
-	var head := UiStyle.plain(title, 15, color, true)
-	col.add_child(head)
+	col.add_child(_ink_line(title, 16, _ink_for(color)))
 	if body != "":
-		col.add_child(UiStyle.plain(body, 14, Color("cfc3dd"), true))
+		col.add_child(_ink_line(body, 15, Color(BoxStyle.INK, 0.85)))
 	return card
 
 
-## A panel heading with an optional count at its right ("Your weapons  4 / 6").
-func _side_head(title: String, count: String) -> HBoxContainer:
+## A panel heading in marker with an optional count at its right ("Your
+## weapons  4 / 6"), a red line under it.
+func _side_head(title: String, count: String) -> Control:
+	var col := VBoxContainer.new()
+	col.add_theme_constant_override("separation", 0)
 	var row := HBoxContainer.new()
-	var t := UiStyle.plain(title, 18, UiStyle.GOLD)
+	var t := BoxStyle.label(title, 32, BoxStyle.INK, true)
+	(t.label_settings as LabelSettings).font_size = BoxStyle.fit_size(title, BoxStyle.head_font(), 32, 230.0 if count != "" else 300.0, 18)
 	t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	t.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	row.add_child(t)
 	if count != "":
-		row.add_child(UiStyle.plain(count, 13, UiStyle.MUTED))
-	return row
+		var c := BoxStyle.label(count, 16, BoxStyle.RED)
+		c.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		row.add_child(c)
+	col.add_child(row)
+	var line := BoxBoard.make("scribble", Vector2.ZERO, Vector2(10, 12), 7)
+	line.custom_minimum_size = Vector2(0, 12)
+	col.add_child(line)
+	return col
 
 
 ## The middle panel under the pause buttons: this map's stories with their steps.
@@ -932,23 +1013,26 @@ func _fill_stories() -> void:
 		var grid := GridContainer.new()
 		grid.columns = 3
 		grid.add_theme_constant_override("h_separation", 12)
-		grid.add_theme_constant_override("v_separation", 6)
+		grid.add_theme_constant_override("v_separation", 4)
 		for id: String in GameData.chains:
 			if GameData.chains[id].get("stage", "any") != spawner.stage_id or (GameData.chains[id].has("secret") and ChainStep.progress_of(id) == 0):
 				continue
 			var n := ChainStep.steps(id).size()
 			var done := ChainStep.progress_of(id)
-			var name_label := UiStyle.plain(tr("CHAIN_%s_NAME" % id), 15, UiStyle.GREEN if done >= n else UiStyle.TEXT)
+			var name_label := BoxStyle.label(tr("CHAIN_%s_NAME" % id), 16, Color("2f6b2a") if done >= n else BoxStyle.INK)
 			name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			grid.add_child(name_label)
-			grid.add_child(UiStyle.segments(n, done, 14, 6))
-			var count := UiStyle.plain("✓" if done >= n else "%d/%d" % [done, n], 13, UiStyle.MUTED)
+			var paws := PawRating.new()
+			paws.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+			paws.set_rating(done, n, clampf(84.0 / maxf(n, 1.0), 6.0, 13.0))
+			grid.add_child(paws)
+			var count := BoxStyle.label("✓" if done >= n else "%d/%d" % [done, n], 14, Color(BoxStyle.INK, 0.7))
 			count.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-			count.custom_minimum_size.x = 30
+			count.custom_minimum_size.x = 34
 			grid.add_child(count)
 			rows += 1
 		if rows > 0:
-			_pause_stories.add_child(UiStyle.plain(tr("PAUSE_MAP_STORIES"), 15, UiStyle.GOLD))
+			_pause_stories.add_child(BoxStyle.label(tr("PAUSE_MAP_STORIES"), 26, BoxStyle.INK, true))
 			_pause_stories.add_child(grid)
 		else:
 			grid.free()
@@ -957,7 +1041,7 @@ func _fill_stories() -> void:
 
 ## Shrine bonuses still running (what each gave, and for how long), as
 ## BBCode under the weapons in the pause screen.
-func blessings_text() -> String:
+func blessings_text(ink: bool = false) -> String:
 	var cat: Variant = get_parent().get("player")
 	if cat == null or not is_instance_valid(cat):
 		return ""
@@ -966,7 +1050,7 @@ func blessings_text() -> String:
 		if String(b.get("label", "")) == "":
 			continue
 		var left: String = tr("BLESS_ALL_NIGHT") if float(b["t"]) > 3600.0 else tr("CHAIN_TIME") % ceili(float(b["t"]))
-		var line := "[color=#%s]%s[/color]  %s" % [(b["color"] as Color).lightened(0.3).to_html(false), tr(b["label"]), left]
+		var line := "[color=#%s]%s[/color]  %s" % [((b["color"] as Color).darkened(0.45) if ink else (b["color"] as Color).lightened(0.3)).to_html(false), tr(b["label"]), left]
 		if String(b.get("desc", "")) != "":
 			line += "
 " + String(b["desc"])
@@ -976,7 +1060,7 @@ func blessings_text() -> String:
 	return "
 
 [color=#%s]%s[/color]
-%s" % [UiStyle.GOLD.to_html(false), tr("PAUSE_BLESSINGS"), "
+%s" % [(BoxStyle.RED if ink else UiStyle.GOLD).to_html(false), tr("PAUSE_BLESSINGS"), "
 
 ".join(lines)]
 
@@ -1028,13 +1112,11 @@ func weapons_text(columns: int = 1, highlight: Array = []) -> String:
 	return "\n\n".join(parts)
 
 
-## A framed, scrollable column at one side of the pause screen; returns
-## the box the cards go into.
+## A framed, scrollable board at one side of the pause screen; returns the
+## box the notes go into.
 func _pause_side(_title_key: String, left: bool) -> VBoxContainer:
-	var panel := PanelContainer.new()
-	var sb := UiStyle.frame(Color(0.13, 0.1, 0.17, 0.96), Color("4b3d61"), 2)
-	sb.set_content_margin_all(12)
-	panel.add_theme_stylebox_override("panel", sb)
+	var panel := BoxPanel.make("board", 21 if left else 22, Vector4(22, 28, 18, 24), -0.5 if left else 0.5)
+	panel.add_decor(BoxBoard.make("tape", Vector2.ZERO, Vector2(84, 26), 23 if left else 24), Vector2(0.5, 0), Vector2(-42, -13), Vector2(84, 26), 2.0 if left else -2.0)
 	panel.set_anchors_and_offsets_preset(Control.PRESET_LEFT_WIDE if left else Control.PRESET_RIGHT_WIDE)
 	panel.offset_top = 36
 	panel.offset_bottom = -36
@@ -1049,7 +1131,7 @@ func _pause_side(_title_key: String, left: bool) -> VBoxContainer:
 	panel.add_child(scroll)
 	var box := VBoxContainer.new()
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	box.add_theme_constant_override("separation", 8)
+	box.add_theme_constant_override("separation", 10)
 	scroll.add_child(box)
 	_pause_overlay.add_child(panel)
 	return box
@@ -1080,10 +1162,10 @@ func _fit_side(box: VBoxContainer) -> void:
 		return
 	var panel := box.get_parent().get_parent() as PanelContainer
 	var view := get_viewport().get_visible_rect().size.y
-	var h := 28.0
+	var h := 54.0
 	for child in box.get_children():
 		if child is Control and (child as Control).visible:
-			h = maxf(h, (child as Control).position.y + (child as Control).size.y + 28.0)
+			h = maxf(h, (child as Control).position.y + (child as Control).size.y + 54.0)
 	panel.offset_bottom = -maxf(view - 36.0 - h, 36.0)
 
 

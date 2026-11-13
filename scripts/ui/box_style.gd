@@ -235,3 +235,103 @@ static func draw_paw_stamp(ci: CanvasItem, mid: Vector2, s: float, seed_v: int, 
 		var at := part[rng.randi_range(0, part.size() - 1)].lerp(part[rng.randi_range(0, part.size() - 1)], rng.randf())
 		ci.draw_circle(at, rng.randf_range(0.012, 0.03) * s, Color(hole, 0.85))
 	ci.draw_set_transform_matrix(base)
+
+
+# ---- In-game HUD helpers (text lies right on the game, so it is bold with a
+# thick dark outline; the decorations are drawn once and cached by the engine
+# because their owners only call queue_redraw when something changes) --------
+
+const DARK := Color("120b06")
+
+static var _bold: Font
+
+
+## Shantell Sans extra-bold: numbers and short texts lying on the game.
+static func bold_font() -> Font:
+	if _bold == null:
+		var v := FontVariation.new()
+		v.base_font = load(BODY_FONT) as Font
+		v.variation_opentype = {"weight": 800}
+		var chain: Array[Font] = [ThemeDB.fallback_font]
+		v.fallbacks = chain
+		_bold = v
+	return _bold
+
+
+## A label for text right on the game: bold, with a thick dark outline.
+static func hud_label(size: int, align: HorizontalAlignment = HORIZONTAL_ALIGNMENT_LEFT, color: Color = CREAM, head: bool = false, outline_color: Color = DARK) -> Label:
+	var l := Label.new()
+	var s := LabelSettings.new()
+	s.font = head_font() if head else bold_font()
+	s.font_size = size
+	s.font_color = color
+	s.outline_size = clampi(roundi(size * 0.38), 5, 9)
+	s.outline_color = outline_color
+	l.label_settings = s
+	l.horizontal_alignment = align
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return l
+
+
+## An uneven rounded outline in `rect` (a squashed circle with a few wobbles).
+static func blob(rect: Rect2, seed_v: int, n: int = 20, squareness: float = 0.5) -> PackedVector2Array:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = seed_v
+	var mid := rect.get_center()
+	var a := rect.size.x * 0.5
+	var b := rect.size.y * 0.5
+	var pts := PackedVector2Array()
+	for i in n:
+		var th := TAU * i / n
+		var cs := cos(th)
+		var sn := sin(th)
+		var r := rng.randf_range(0.93, 1.0)
+		pts.append(mid + Vector2(a * signf(cs) * pow(absf(cs), squareness), b * signf(sn) * pow(absf(sn), squareness)) * r)
+	return pts
+
+
+## A blob with a hard shadow and an ink edge (icon frames, badges).
+static func draw_blob(ci: CanvasItem, rect: Rect2, seed_v: int, fill: Color, edge: Color = INK, edge_w: float = 2.5, shadow: Vector2 = Vector2(2, 2.5), base: Transform2D = Transform2D.IDENTITY, squareness: float = 0.5) -> void:
+	ci.draw_set_transform_matrix(base)
+	var poly := blob(rect, seed_v, 20, squareness)
+	if shadow != Vector2.ZERO:
+		var sp := PackedVector2Array()
+		for p in poly:
+			sp.append(p + shadow)
+		ci.draw_colored_polygon(sp, Color(0, 0, 0, 0.55))
+	ci.draw_colored_polygon(poly, fill)
+	var edge_pts := poly.duplicate()
+	edge_pts.append(poly[0])
+	ci.draw_polyline(edge_pts, edge, edge_w, true)
+	ci.draw_set_transform_matrix(base)
+
+
+## A heart `s` across, centred on `mid`, with a dark edge.
+static func draw_heart(ci: CanvasItem, mid: Vector2, s: float, color: Color = RED) -> void:
+	var pts := PackedVector2Array()
+	for i in 28:
+		var t := TAU * i / 28.0
+		var x := 16.0 * pow(sin(t), 3.0)
+		var y := -(13.0 * cos(t) - 5.0 * cos(2.0 * t) - 2.0 * cos(3.0 * t) - cos(4.0 * t))
+		pts.append(mid + Vector2(x, y + 1.0) * (s / 34.0))
+	var shadow := PackedVector2Array()
+	for p in pts:
+		shadow.append(p + Vector2(1.5, 2.0))
+	ci.draw_colored_polygon(shadow, Color(0, 0, 0, 0.6))
+	ci.draw_colored_polygon(pts, color)
+	var closed := pts.duplicate()
+	closed.append(pts[0])
+	ci.draw_polyline(closed, DARK, 2.5, true)
+
+
+## A round, uneven marker with an arrow in it, pointing along `dir`.
+static func draw_arrow_badge(ci: CanvasItem, mid: Vector2, dir: Vector2, r: float, color: Color, seed_v: int = 3) -> void:
+	draw_blob(ci, Rect2(mid - Vector2(r, r), Vector2(r, r) * 2.0), seed_v, color, DARK, 3.0, Vector2(2, 2.5), Transform2D.IDENTITY, 0.8)
+	var side := dir.orthogonal()
+	var tip := mid + dir * r * 0.62
+	var back := mid - dir * r * 0.38
+	var pts := PackedVector2Array([tip, back + side * r * 0.5, mid - dir * r * 0.1, back - side * r * 0.5])
+	ci.draw_colored_polygon(pts, Color("fff7e2"))
+	var closed := pts.duplicate()
+	closed.append(pts[0])
+	ci.draw_polyline(closed, DARK, 2.0, true)

@@ -33,6 +33,13 @@ func _draw() -> void:
 			BoxStyle.draw_board(self, size, look_seed, Color("f7ecd0"), Color("eadbb4"), Transform2D.IDENTITY, Vector2(5, 6), Color(0.31, 0.19, 0.08, 0.07))
 		"dark":
 			BoxStyle.draw_board(self, size, look_seed, Color("6f4b2b"), Color("563a22"), Transform2D.IDENTITY, Vector2(5, 6), Color(0, 0, 0, 0.18))
+		"red":
+			BoxStyle.draw_board(self, size, look_seed, Color("e04a40"), Color("b8211a"), Transform2D.IDENTITY, Vector2(4, 5), Color(1, 1, 1, 0.07))
+		"paw":
+			BoxStyle.draw_paw(self, size * 0.5 + Vector2(1.5, 2), minf(size.x, size.y), Color(0, 0, 0, 0.5))
+			BoxStyle.draw_paw(self, size * 0.5, minf(size.x, size.y), BoxStyle.RED)
+		"ring":
+			BoxStyle.draw_ring(self, Rect2(Vector2.ZERO, size).grow(-9.0), look_seed, BoxStyle.RED, 4.5, 5.0)
 		"tape":
 			BoxStyle.draw_tape(self, size, look_seed)
 		"scribble":

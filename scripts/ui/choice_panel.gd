@@ -18,14 +18,14 @@ var _grid: GridContainer
 var _cards: Array[PanelContainer] = []
 var _labels: Array[Label] = []
 var _descs: Array[Label] = []
-var _back: Button
+var _back: BoxButton
 var _index := 0
 var _count := 2
 var _cancel := false
 
 
 func _ready() -> void:
-	color = Color(0.08, 0.05, 0.1, 0.8)
+	color = Color(0.06, 0.04, 0.03, 0.82)
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
 	var center := CenterContainer.new()
@@ -35,9 +35,9 @@ func _ready() -> void:
 	var box := VBoxContainer.new()
 	box.add_theme_constant_override("separation", 20)
 	center.add_child(box)
-	_title = _label(40, GOLD)
+	_title = BoxStyle.hud_label(46, HORIZONTAL_ALIGNMENT_CENTER, GOLD, true)
 	box.add_child(_title)
-	_prompt = _label(22, Color("e8dcf0"))
+	_prompt = BoxStyle.hud_label(20, HORIZONTAL_ALIGNMENT_CENTER, BoxStyle.CREAM)
 	_prompt.custom_minimum_size = Vector2(860, 0)
 	_prompt.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	box.add_child(_prompt)
@@ -46,15 +46,15 @@ func _ready() -> void:
 	_grid.add_theme_constant_override("v_separation", 16)
 	_grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	box.add_child(_grid)
-	_back = UiStyle.button("SET_BACK", 260)
+	_back = BoxButton.make("SET_BACK", 26, 61, -1.0, true)
 	_back.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	_back.focus_mode = Control.FOCUS_NONE
+
 	_back.pressed.connect(_cancel_choice)
 	_back.mouse_entered.connect(func() -> void:
 		_index = _count
 		_refresh())
 	box.add_child(_back)
-	var hint := _label(18, Color("8f7ea3"))
+	var hint := BoxStyle.hud_label(16, HORIZONTAL_ALIGNMENT_CENTER, BoxStyle.CREAM)
 	hint.text = "CHOICE_HINT"
 	box.add_child(hint)
 
@@ -62,18 +62,29 @@ func _ready() -> void:
 func _add_card() -> void:
 	var i := _cards.size()
 	var card := PanelContainer.new()
+	card.add_theme_stylebox_override("panel", _margins())
+	var note := BoxBoard.make("light", Vector2.ZERO, Vector2(10, 10), 21 + i * 5)
+	card.add_child(note)
+	var ring := BoxBoard.make("ring", Vector2.ZERO, Vector2(10, 10), 3 + i)
+	ring.visible = false
+	card.set_meta("ring", ring)
+	card.rotation_degrees = [-0.8, 0.7, -0.5, 0.9][i % 4]
+	card.resized.connect(func() -> void: card.pivot_offset = card.size * 0.5)
 	var inner := VBoxContainer.new()
 	inner.alignment = BoxContainer.ALIGNMENT_CENTER
 	inner.add_theme_constant_override("separation", 6)
 	inner.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card.add_child(inner)
-	var label := _label(22, Color.WHITE)
+	var label := BoxStyle.label("", 22, BoxStyle.INK, true)
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	inner.add_child(label)
-	var desc := _label(16, Color("cfc2dc"))
+	var desc := BoxStyle.label("", 16, Color("3a2713"))
+	desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	inner.add_child(desc)
+	card.add_child(ring)
 	_grid.add_child(card)
 	card.mouse_entered.connect(func() -> void:
 		if _index != i:
@@ -120,15 +131,20 @@ func open(title: String, prompt: String, options: Array, cancel: bool = false) -
 
 
 func _refresh() -> void:
-	_back.add_theme_color_override("font_color", GOLD if _cancel and _index == _count else UiStyle.TEXT)
+	if _cancel and _index == _count:
+		if not _back.has_focus():
+			_back.grab_focus()
+	elif _back.has_focus():
+		_back.release_focus()
 	for i in _cards.size():
-		var sb := StyleBoxFlat.new()
-		sb.bg_color = Color("5b4470") if i == _index else Color("3b2a4a")
-		sb.border_color = GOLD if i == _index else Color("8f7ea3")
-		sb.set_border_width_all(3 if i == _index else 2)
-		sb.set_corner_radius_all(10)
-		sb.set_content_margin_all(14)
-		_cards[i].add_theme_stylebox_override("panel", sb)
+		(_cards[i].get_meta("ring") as Control).visible = i == _index
+
+
+## No padding of its own: the card's content margins.
+func _margins() -> StyleBoxEmpty:
+	var sb := StyleBoxEmpty.new()
+	sb.set_content_margin_all(18)
+	return sb
 
 
 func _confirm() -> void:

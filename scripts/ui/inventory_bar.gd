@@ -19,8 +19,8 @@ var _font: Font
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_font = ThemeDB.fallback_font
-	position = Vector2(12, 46)
+	_font = BoxStyle.bold_font()
+	position = Vector2(14, 62)
 	size = Vector2((SLOT + GAP) * (Player.MAX_WEAPONS + 2), SLOT + PASSIVE_SLOT + GAP * 2 + 20 * 4)
 
 
@@ -48,7 +48,7 @@ func _draw() -> void:
 			if top:
 				_star(rect)
 			else:
-				_badge(rect, str(w.level), Color.WHITE)
+				_badge(rect, str(w.level), Color.WHITE, 12)
 		else:
 			_empty(rect)
 	var ids := player.passives.keys()
@@ -80,8 +80,8 @@ func _draw() -> void:
 					break
 			Icons.draw(self, "weapon", shown, Rect2(Vector2(x, y), Vector2(16, 16)))
 			x += 18.0
-		draw_string_outline(_font, Vector2(x + 2, y + 13), tr("COMBO_%s_NAME" % c), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, 3, OUTLINE)
-		draw_string(_font, Vector2(x + 2, y + 13), tr("COMBO_%s_NAME" % c), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color("bfe8ff"))
+		draw_string_outline(_font, Vector2(x + 2, y + 13), tr("COMBO_%s_NAME" % c), HORIZONTAL_ALIGNMENT_LEFT, -1, 13, 6, OUTLINE)
+		draw_string(_font, Vector2(x + 2, y + 13), tr("COMBO_%s_NAME" % c), HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("bfe8ff"))
 		y += 19.0
 	# The soul bell's souls tonight.
 	if Profile.soul_live >= 0.0:
@@ -89,26 +89,21 @@ func _draw() -> void:
 		var text := tr("HUD_SOUL") % [roundi(Profile.soul_live), roundi(float(b["might"]) * 100.0)]
 		draw_circle(Vector2(8, y + 8), 6.0, OUTLINE)
 		draw_circle(Vector2(8, y + 8), 4.5, Color("9a7aff"))
-		draw_string_outline(_font, Vector2(20, y + 13), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 12, 3, OUTLINE)
-		draw_string(_font, Vector2(20, y + 13), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color("d8c8ff"))
+		draw_string_outline(_font, Vector2(20, y + 13), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, 6, OUTLINE)
+		draw_string(_font, Vector2(20, y + 13), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("d8c8ff"))
 
 
 func _empty(rect: Rect2) -> void:
-	draw_style_box(_box(Color(0.055, 0.04, 0.08, 0.32), Color(1, 1, 1, 0.13)), rect)
+	var poly := BoxStyle.blob(rect.grow(-1.0), 11 + int(rect.position.x) + int(rect.position.y) * 3)
+	poly.append(poly[0])
+	draw_polyline(poly, Color(BoxStyle.CREAM, 0.3), 2.0, true)
 
 
-## A filled slot: dark plate, gold edge when it is at its best.
+## A filled slot: a crooked piece of cream cardboard with a hard shadow, gold
+## when the item is at its best.
 func _slot(rect: Rect2, gold: bool) -> void:
-	draw_style_box(_box(Color(0.055, 0.04, 0.08, 0.72), GOLD.darkened(0.1) if gold else FRAME), rect)
-
-
-func _box(fill: Color, border: Color) -> StyleBoxFlat:
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = fill
-	sb.border_color = border
-	sb.set_border_width_all(2)
-	sb.set_corner_radius_all(6)
-	return sb
+	var s := 11 + int(rect.position.x) + int(rect.position.y) * 3
+	BoxStyle.draw_blob(self, rect.grow(-1.0), s, Color("ffe7a0") if gold else Color("f4e8cb"), GOLD.darkened(0.45) if gold else BoxStyle.INK, 2.6)
 
 
 ## The gold star of a maxed or evolved item, in the bottom-right corner.
@@ -135,8 +130,8 @@ static func branch_color(fx: Dictionary) -> Color:
 
 
 ## Small number (or MAX / star) in the bottom-right corner of a slot.
-func _badge(rect: Rect2, text: String, color: Color, size: int = 13) -> void:
+func _badge(rect: Rect2, text: String, _color: Color, size: int = 13) -> void:
 	var w := _font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x
-	var pos := rect.end + Vector2(-w - 1, -2)
-	draw_string_outline(_font, pos, text, HORIZONTAL_ALIGNMENT_LEFT, -1, size, 3, OUTLINE)
-	draw_string(_font, pos, text, HORIZONTAL_ALIGNMENT_LEFT, -1, size, color)
+	var r := Rect2(rect.end - Vector2(maxf(w + 8.0, 16.0) - 3.0, 15.0), Vector2(maxf(w + 8.0, 16.0), 16.0))
+	BoxStyle.draw_blob(self, r, 5 + text.length(), BoxStyle.RED, BoxStyle.DARK, 2.0, Vector2(1, 1.5))
+	draw_string(_font, Vector2(r.position.x + (r.size.x - w) * 0.5, r.position.y + 13.0 - (13 - size) * 0.3), text, HORIZONTAL_ALIGNMENT_LEFT, -1, size, Color("fff7e2"))

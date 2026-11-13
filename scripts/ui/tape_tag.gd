@@ -14,11 +14,11 @@ func _init() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
-func set_tag(text_: String, tape_: Color) -> void:
+func set_tag(text_: String, tape_: Color, max_w: float = 236.0, size_: int = 15) -> void:
 	text = text_
 	tape = tape_
 	var font := BoxStyle.head_font()
-	var fs := BoxStyle.fit_size(text, font, 15, 236.0, 11)
+	var fs := BoxStyle.fit_size(text, font, size_, max_w, 11)
 	font_size = fs
 	custom_minimum_size = Vector2(font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 28.0, fs * 1.75)
 	size = custom_minimum_size

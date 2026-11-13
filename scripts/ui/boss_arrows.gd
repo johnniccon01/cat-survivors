@@ -60,13 +60,7 @@ func _draw() -> void:
 		var k := minf(half.x / maxf(absf(dir.x), 0.001), half.y / maxf(absf(dir.y), 0.001))
 		var tip := center + dir * k
 		var size := (22.0 if golden else 18.0) + sin(_t * 5.0) * 2.0
-		var side := dir.orthogonal() * size * 0.6
-		var base := tip - dir * size
-		var pts := PackedVector2Array([tip, base + side, base - side])
-		draw_colored_polygon(pts, GOLD if golden else COLOR)
-		draw_polyline(PackedVector2Array([tip, base + side, base - side, tip]), OUTLINE, 2.0)
-		draw_circle(base - dir * 8.0, 5.5, OUTLINE)
-		draw_circle(base - dir * 8.0, 4.0, Color("fff3c8") if golden else Color("f2c14e"))
+		BoxStyle.draw_arrow_badge(self, tip - dir * size * 0.6, dir, size * 1.05, GOLD if golden else COLOR, 7)
 		shown += 1
 	# Chests lying off screen get a golden arrow, so none is forgotten.
 	if _pickups == null:
@@ -82,10 +76,8 @@ func _draw() -> void:
 			var k := minf(half.x / maxf(absf(dir.x), 0.001), half.y / maxf(absf(dir.y), 0.001))
 			var tip := center + dir * k
 			var size := (20.0 if item.value >= 2.0 else 16.0) + sin(_t * 6.0) * 2.5
-			var side := dir.orthogonal() * size * 0.6
-			var base := tip - dir * size
-			draw_colored_polygon(PackedVector2Array([tip, base + side, base - side]), CHEST)
-			draw_polyline(PackedVector2Array([tip, base + side, base - side, tip]), OUTLINE, 2.0)
+			var base := tip - dir * size * 1.65
+			BoxStyle.draw_arrow_badge(self, tip - dir * size * 0.6, dir, size * 1.05, CHEST, 4)
 			# A little chest behind the arrow.
 			var c := base - dir * 11.0
 			draw_rect(Rect2(c - Vector2(7, 5), Vector2(14, 10)), OUTLINE)
@@ -103,9 +95,4 @@ func _draw() -> void:
 		var k := minf(half.x / maxf(absf(dir.x), 0.001), half.y / maxf(absf(dir.y), 0.001))
 		var tip := center + dir * k
 		var size := 16.0 + sin(_t * 4.0) * 2.0
-		var side := dir.orthogonal() * size * 0.6
-		var base := tip - dir * size
-		draw_colored_polygon(PackedVector2Array([tip, base + side, base - side]), s.color())
-		draw_polyline(PackedVector2Array([tip, base + side, base - side, tip]), OUTLINE, 2.0)
-		draw_circle(base - dir * 8.0, 5.0, OUTLINE)
-		draw_circle(base - dir * 8.0, 3.5, s.color().lightened(0.4))
+		BoxStyle.draw_arrow_badge(self, tip - dir * size * 0.6, dir, size * 1.05, s.color(), 5)

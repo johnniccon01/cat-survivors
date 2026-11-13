@@ -42,9 +42,6 @@ func _draw() -> void:
 	_triangle(center + dir * k, dir, 16.0 + sin(_t * 6.0) * 2.0)
 
 
+## A round uneven marker (in the arrow's colour) with an arrow in it.
 func _triangle(tip: Vector2, dir: Vector2, size: float) -> void:
-	var side := dir.orthogonal() * size * 0.6
-	var base := tip - dir * size
-	var pts := PackedVector2Array([tip, base + side, base - side])
-	draw_colored_polygon(pts, color)
-	draw_polyline(Shapes.closed(pts), OUTLINE, 2.0)
+	BoxStyle.draw_arrow_badge(self, tip - dir * size * 0.5, dir, size * 1.05, color, 3)

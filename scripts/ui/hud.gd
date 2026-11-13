@@ -16,11 +16,11 @@ var settings: SettingsPanel
 var treasure: TreasurePanel
 var choice: ChoicePanel
 
-var _xp_fill: ColorRect
-var _level_label: Label
+var _xp_bar: HudBar
+var _level_card: HudCard
 var _inventory: InventoryBar
-var _time_label: Label
-var _kills_label: Label
+var _time_card: HudCard
+var _kills_card: HudCard
 var _gold_label: Label
 var _bless_label: Label
 var _debug_label: Label
@@ -60,13 +60,12 @@ var _extract_arrow: QuestArrow
 var _page_arrow: QuestArrow
 var _extract_label: Label
 var _extract_overlay: Control
-var _boss_bar: ColorRect
-var _boss_fill: ColorRect
+var _boss_bar: HudBar
 var _boss_name: Label
 var _banner_time := 0.0
 ## The banner's dark pill (the label sits inside it).
 var _banner_box: PanelContainer
-var _hp_fill: ColorRect
+var _hp_bar: HudBar
 var _hp_label: Label
 var _night: NightBar
 var _next_boss: Label
@@ -75,103 +74,67 @@ var _extract_row: HBoxContainer
 
 
 func _ready() -> void:
-	var xp_bg := ColorRect.new()
-	xp_bg.color = Color(0.05, 0.03, 0.07, 0.85)
-	xp_bg.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
-	xp_bg.offset_bottom = XP_BAR_HEIGHT
-	add_child(xp_bg)
-	_xp_fill = ColorRect.new()
-	_xp_fill.color = Color("e9b445")
-	_xp_fill.size = Vector2(0, XP_BAR_HEIGHT)
-	xp_bg.add_child(_xp_fill)
-	var xp_shine := ColorRect.new()
-	xp_shine.color = Color("ffe08e")
-	xp_shine.size = Vector2(0, 2)
-	_xp_fill.add_child(xp_shine)
-	_xp_fill.resized.connect(func() -> void: xp_shine.size.x = _xp_fill.size.x)
+	# Top: the xp strip across the screen with an uneven end of the fill.
+	_xp_bar = HudBar.make("xp", Color("f0a23a"))
+	_xp_bar.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	_xp_bar.offset_bottom = XP_BAR_HEIGHT
+	add_child(_xp_bar)
 
-	# Top left: level plate, heart and health bar with the numbers.
-	var top_left := HBoxContainer.new()
-	top_left.position = Vector2(12, 14)
-	top_left.add_theme_constant_override("separation", 9)
-	top_left.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(top_left)
-	var plate := PanelContainer.new()
-	var plate_sb := StyleBoxFlat.new()
-	plate_sb.bg_color = Color(0.055, 0.04, 0.08, 0.8)
-	plate_sb.border_color = Color("6a5784")
-	plate_sb.set_border_width_all(2)
-	plate_sb.set_corner_radius_all(6)
-	plate_sb.content_margin_left = 8
-	plate_sb.content_margin_right = 8
-	plate.add_theme_stylebox_override("panel", plate_sb)
-	plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	top_left.add_child(plate)
-	_level_label = _label(15, HORIZONTAL_ALIGNMENT_CENTER)
-	_level_label.label_settings.font_color = UiStyle.GOLD
-	plate.add_child(_level_label)
-	top_left.add_child(PixelGlyph.rect("heart", 2))
-	var hp_bg := ColorRect.new()
-	hp_bg.color = Color(0.05, 0.03, 0.07, 0.85)
-	hp_bg.custom_minimum_size = Vector2(150, 10)
-	hp_bg.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	top_left.add_child(hp_bg)
-	_hp_fill = ColorRect.new()
-	_hp_fill.color = Color("dc4a40")
-	_hp_fill.size = Vector2(150, 10)
-	hp_bg.add_child(_hp_fill)
-	_hp_label = _label(15, HORIZONTAL_ALIGNMENT_LEFT)
-	top_left.add_child(_hp_label)
+	# Top left: level card, heart and health bar with the numbers.
+	_level_card = HudCard.make(19, 4, -2.0, "left", Vector2(12, 18), 70.0)
+	add_child(_level_card)
+	var heart := HudIcon.new()
+	heart.position = Vector2(94, 20)
+	add_child(heart)
+	_hp_bar = HudBar.make("bar", Color("e0483f"), 5)
+	_hp_bar.shine = false
+	_hp_bar.position = Vector2(122, 21)
+	_hp_bar.size = Vector2(176, 26)
+	add_child(_hp_bar)
+	_hp_label = BoxStyle.hud_label(17, HORIZONTAL_ALIGNMENT_CENTER)
+	_hp_label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_hp_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_hp_bar.add_child(_hp_label)
 
-	_time_label = _label(34, HORIZONTAL_ALIGNMENT_CENTER)
-	_time_label.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
-	_time_label.offset_top = 8
-	add_child(_time_label)
-	# The night's progress under the clock: boss marks and the final boss.
+	# The clock on a light card in the middle, the night's bar and "next boss" under it.
+	_time_card = HudCard.make(32, 6, 0.8, "center", Vector2(0, 18), 128.0)
+	add_child(_time_card)
 	_night = NightBar.new()
 	_night.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
 	_night.offset_left = -85
 	_night.offset_right = 85
-	_night.offset_top = 56
-	_night.offset_bottom = 62
+	_night.offset_top = 80
+	_night.offset_bottom = 87
 	add_child(_night)
-	_next_boss = _label(12, HORIZONTAL_ALIGNMENT_CENTER)
+	_next_boss = BoxStyle.hud_label(15, HORIZONTAL_ALIGNMENT_CENTER)
 	_next_boss.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
-	_next_boss.offset_top = 64
-	_next_boss.label_settings.font_color = Color("d4c9e2")
+	_next_boss.offset_top = 92
 	add_child(_next_boss)
 
-	_kills_label = _label(18, HORIZONTAL_ALIGNMENT_RIGHT)
-	var kills_row := _icon_row(_kills_label, "paw")
-	kills_row.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
-	kills_row.offset_top = 12
-	kills_row.offset_right = -14
-	kills_row.grow_horizontal = Control.GROW_DIRECTION_BEGIN
-	add_child(kills_row)
+	# Right: "Defeated" on a cream tag with a paw.
+	_kills_card = HudCard.make(19, 8, 1.4, "right", Vector2(14, 18), 150.0, true)
+	add_child(_kills_card)
 
 	# Right column under the kills: quest, gold, blessings stacked so long
 	# quest texts push the rest down instead of covering it.
 	var column := VBoxContainer.new()
 	column.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
-	column.offset_top = 40
+	column.offset_top = 64
 	column.offset_right = -14
 	column.offset_left = -400
 	column.grow_horizontal = Control.GROW_DIRECTION_BEGIN
 	column.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	column.add_theme_constant_override("separation", 2)
 	add_child(column)
-	_quest_title = _label(20, HORIZONTAL_ALIGNMENT_RIGHT)
-	_quest_title.label_settings.font_color = Color("f2c14e")
-	_quest_text = _label(16, HORIZONTAL_ALIGNMENT_RIGHT)
-	_mission = _label(16, HORIZONTAL_ALIGNMENT_RIGHT)
-	_conquest = _label(16, HORIZONTAL_ALIGNMENT_RIGHT)
-	_conquest.label_settings.font_color = Color("ff9a8a")
-	_gold_label = _label(18, HORIZONTAL_ALIGNMENT_RIGHT)
-	_gold_label.label_settings.font_color = Color("f2c14e")
+	_quest_title = BoxStyle.hud_label(21, HORIZONTAL_ALIGNMENT_RIGHT, Color("f2c14e"), true)
+	_quest_text = BoxStyle.hud_label(16, HORIZONTAL_ALIGNMENT_RIGHT)
+	_mission = BoxStyle.hud_label(16, HORIZONTAL_ALIGNMENT_RIGHT)
+	_conquest = BoxStyle.hud_label(16, HORIZONTAL_ALIGNMENT_RIGHT, Color("ff9a8a"))
+	_gold_label = BoxStyle.hud_label(19, HORIZONTAL_ALIGNMENT_RIGHT, Color("f2c14e"))
 	_gold_row = _icon_row(_gold_label, "coin")
 	_gold_row.visible = false
 	# Shrine blessings still running, with the seconds left.
-	_bless_label = _label(16, HORIZONTAL_ALIGNMENT_RIGHT)
+	_bless_label = BoxStyle.hud_label(16, HORIZONTAL_ALIGNMENT_RIGHT)
 	for line: Label in [_quest_title, _quest_text, _mission, _conquest, _bless_label]:
 		line.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		line.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -275,27 +238,23 @@ void fragment() {
 	_extract_overlay = _overlay(["EXTRACT_TITLE", "", "VICTORY_HINT", "GAME_OVER_MENU"])
 	_win_stats = _win_overlay.get_node("Box").get_child(1)
 
-	# Messages in a dark pill under the clock, small enough not to hide the fight.
+	# Messages on a red piece of cardboard under the clock, small enough not to hide the fight.
 	_banner_box = PanelContainer.new()
-	var banner_sb := StyleBoxFlat.new()
-	banner_sb.bg_color = Color(0.07, 0.04, 0.08, 0.8)
-	banner_sb.border_color = Color("9c4a44")
-	banner_sb.set_border_width_all(1)
-	banner_sb.set_corner_radius_all(8)
-	banner_sb.content_margin_left = 14
-	banner_sb.content_margin_right = 14
-	banner_sb.content_margin_top = 3
-	banner_sb.content_margin_bottom = 4
+	var banner_sb := StyleBoxEmpty.new()
+	banner_sb.content_margin_left = 26
+	banner_sb.content_margin_right = 26
+	banner_sb.content_margin_top = 8
+	banner_sb.content_margin_bottom = 10
 	_banner_box.add_theme_stylebox_override("panel", banner_sb)
 	_banner_box.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
-	_banner_box.offset_top = 86
+	_banner_box.offset_top = 114
 	_banner_box.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	_banner_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_banner_box.visible = false
 	add_child(_banner_box)
-	_banner = _label(17, HORIZONTAL_ALIGNMENT_CENTER)
-	_banner.label_settings.font_color = Color("ffc2bb")
-	_banner.label_settings.outline_size = 0
+	var banner_board := BoxBoard.make("red", Vector2.ZERO, Vector2(10, 10), 12, -1.0)
+	_banner_box.add_child(banner_board)
+	_banner = BoxStyle.hud_label(18, HORIZONTAL_ALIGNMENT_CENTER, BoxStyle.CREAM, false, Color("5a0f0b"))
 	_banner.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_banner_box.add_child(_banner)
 
@@ -315,7 +274,7 @@ void fragment() {
 	move_child(_page_arrow, 0)
 	# In the right column, so a long quest or blessing line pushes it down
 	# instead of running under it.
-	_extract_label = _label(16, HORIZONTAL_ALIGNMENT_RIGHT)
+	_extract_label = BoxStyle.hud_label(16, HORIZONTAL_ALIGNMENT_RIGHT)
 	_extract_label.label_settings.font_color = Color("8ee07a")
 	_extract_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_extract_row = _icon_row(_extract_label, "door")
@@ -323,23 +282,18 @@ void fragment() {
 	column.add_child(_extract_row)
 	column.move_child(_extract_row, 1)
 
-	_boss_bar = ColorRect.new()
-	_boss_bar.color = Color("2b1d14")
+	_boss_bar = HudBar.make("bar", Color("e0483f"), 9)
+	_boss_bar.paw = true
 	_boss_bar.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
 	_boss_bar.offset_left = -300
 	_boss_bar.offset_right = 300
-	_boss_bar.offset_top = -46
-	_boss_bar.offset_bottom = -26
+	_boss_bar.offset_top = -50
+	_boss_bar.offset_bottom = -22
 	_boss_bar.visible = false
 	add_child(_boss_bar)
-	_boss_fill = ColorRect.new()
-	_boss_fill.color = Color("c94f4f")
-	_boss_fill.position = Vector2(3, 3)
-	_boss_fill.size = Vector2(594, 14)
-	_boss_bar.add_child(_boss_fill)
-	_boss_name = _label(20, HORIZONTAL_ALIGNMENT_CENTER)
-	_boss_name.position = Vector2(0, -30)
-	_boss_name.size = Vector2(600, 26)
+	_boss_name = BoxStyle.hud_label(26, HORIZONTAL_ALIGNMENT_CENTER, BoxStyle.CREAM, true)
+	_boss_name.position = Vector2(0, -38)
+	_boss_name.size = Vector2(600, 34)
 	_boss_bar.add_child(_boss_name)
 
 	level_up = LevelUpPanel.new()
@@ -379,8 +333,10 @@ func _process(delta: float) -> void:
 	# Hidden while paused: it would sit on the pause title.
 	_banner_box.visible = _banner_time > 0.0 and not _pause_overlay.visible and not get_tree().paused
 	if cat != null and is_instance_valid(cat):
-		_hp_fill.size.x = 150.0 * clampf(cat.hp / maxf(cat.max_hp, 1.0), 0.0, 1.0)
-		_hp_label.text = "%d / %d" % [ceili(cat.hp), roundi(cat.max_hp)]
+		_hp_bar.value = cat.hp / maxf(cat.max_hp, 1.0)
+		var hp_text := "%d / %d" % [ceili(cat.hp), roundi(cat.max_hp)]
+		if _hp_label.text != hp_text:
+			_hp_label.text = hp_text
 	_update_night()
 
 
@@ -417,7 +373,7 @@ func update_boss(boss: Enemy) -> void:
 	_boss_bar.visible = boss != null
 	if boss == null:
 		return
-	_boss_fill.size.x = 594.0 * clampf(boss.hp / boss.max_hp, 0.0, 1.0)
+	_boss_bar.value = boss.hp / boss.max_hp
 	_boss_name.text = tr("ENEMY_%s_NAME" % boss.id)
 	if boss.has_meta("nemesis"):
 		_boss_name.text += "  –  " + tr("NEMESIS_TITLE_%d" % int(boss.get_meta("nemesis")))
@@ -430,8 +386,11 @@ func show_banner(text: String, seconds: float = 3.0) -> void:
 	# Short lines stay one line; long ones wrap at a readable width.
 	var widest := 0.0
 	for line in text.split("\n"):
-		widest = maxf(widest, ThemeDB.fallback_font.get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, 17).x)
-	_banner.custom_minimum_size.x = minf(widest + 6.0, 620.0)
+		widest = maxf(widest, BoxStyle.bold_font().get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, 18).x)
+	var bw := minf(widest + 12.0, 620.0)
+	_banner.autowrap_mode = TextServer.AUTOWRAP_OFF if text.find("
+") < 0 and widest + 12.0 <= 620.0 else TextServer.AUTOWRAP_WORD_SMART
+	_banner.custom_minimum_size = Vector2(bw, BoxStyle.bold_font().get_multiline_string_size(text, HORIZONTAL_ALIGNMENT_CENTER, bw, 18).y + 4.0)
 	_banner_box.reset_size()
 	_center_banner.call_deferred()
 	_banner_time = maxf(seconds, 2.0 + text.length() * 0.06)
@@ -460,9 +419,9 @@ func show_victory(kills: int, cat_name: String = "") -> void:
 
 
 func update_xp(player: Player) -> void:
-	var bar_width := get_viewport().get_visible_rect().size.x
-	_xp_fill.size.x = bar_width * clampf(player.xp / player.xp_to_next(), 0.0, 1.0)
-	_level_label.text = tr("HUD_LEVEL") % player.level
+
+	_xp_bar.value = player.xp / player.xp_to_next()
+	_level_card.set_text(tr("HUD_LEVEL") % player.level)
 
 
 func update_inventory(player: Player) -> void:
@@ -787,8 +746,8 @@ var debug_extra := ""
 
 
 func update_stats(elapsed: float, kills: int, enemy_count: int) -> void:
-	_time_label.text = _format_time(elapsed)
-	_kills_label.text = Hud.thousands(kills)
+	_time_card.set_text(_format_time(elapsed))
+	_kills_card.set_text(tr("HUD_KILLS") % kills)
 	if _debug_label.visible:
 		_debug_label.text = "FPS %d · enemies %d%s" % [Engine.get_frames_per_second(), enemy_count, debug_extra]
 

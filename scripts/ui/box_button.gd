@@ -16,7 +16,14 @@ var arrow := ""
 ## A small note after the text ("Enter", "R"), drawn in the body font.
 var hint := ""
 
+## Drawn lit even without focus or mouse (the chosen tab or filter).
+var selected := false:
+	set(v):
+		selected = v
+		queue_redraw()
+
 var _paw_room := 0.0
+var _fit_text := ""
 
 
 static func make(text_: String, size_: int, seed_: int, tilt_: float, focusable: bool = true, body_: bool = false, min_width_: float = 0.0) -> BoxButton:
@@ -42,6 +49,7 @@ func _setup() -> void:
 	add_theme_font_override("font", _font())
 	add_theme_font_size_override("font_size", text_size)
 	_paw_room = text_size * 0.85 if focus_mode != Control.FOCUS_NONE else 0.0
+	_fit_text = text
 	_fit()
 	focus_entered.connect(queue_redraw)
 	focus_exited.connect(queue_redraw)
@@ -60,6 +68,7 @@ func _font() -> Font:
 
 ## The button is as wide as its text needs (so long translations fit).
 func _fit() -> void:
+	add_theme_font_size_override("font_size", text_size)
 	var w := _font().get_string_size(atr(text), HORIZONTAL_ALIGNMENT_LEFT, -1, text_size).x + _hint_width()
 	custom_minimum_size = Vector2(maxf(min_width, w + text_size * 1.1 + _paw_room * (1.35 if hint != "" else 1.0)), roundf(text_size * 1.55))
 
@@ -96,16 +105,23 @@ func set_hint(h: String) -> void:
 
 
 func _lit() -> bool:
-	return has_focus() or is_hovered()
+	return has_focus() or is_hovered() or selected
 
 
 func _draw() -> void:
+	# `text` was set directly (not through relabel): fit the button to it.
+	if _fit_text != text:
+		_fit_text = text
+		_fit.call_deferred()
+		queue_redraw.call_deferred()
 	var base := BoxStyle.around(size, tilt)
 	var lit := _lit() and not disabled
 	if lit:
 		BoxStyle.draw_board(self, size, look_seed, Color("fbf1d6"), Color("ecdcb2"), base, Vector2(5, 6), Color(0.31, 0.19, 0.08, 0.08))
 		BoxStyle.draw_ring(self, Rect2(Vector2.ZERO, size), look_seed + 3, BoxStyle.RED, 4.5, 7.0, base)
 		BoxStyle.draw_paw(self, Vector2(_paw_room * 0.5 + text_size * 0.5, size.y * 0.5), text_size * 0.95, BoxStyle.RED, -15.0, base)
+	elif disabled:
+		BoxStyle.draw_board(self, size, look_seed, Color("a98558"), Color("94704a"), base, Vector2(3, 4), Color(0.31, 0.19, 0.08, 0.1))
 	else:
 		BoxStyle.draw_board(self, size, look_seed, Color("c99a64"), Color("ad7c4a"), base, Vector2(5, 6), Color(0.31, 0.19, 0.08, 0.12))
 	var font := _font()
@@ -115,7 +131,7 @@ func _draw() -> void:
 	var x := (size.x - tw) * 0.5 + shift
 	var y := size.y * 0.5 + (font.get_ascent(text_size) - font.get_descent(text_size)) * 0.5
 	draw_set_transform_matrix(base)
-	var ink := Color(BoxStyle.INK, 0.45) if disabled else BoxStyle.INK
+	var ink := Color(BoxStyle.INK, 0.7) if disabled else BoxStyle.INK
 	draw_string(font, Vector2(x, y), shown, HORIZONTAL_ALIGNMENT_LEFT, -1, text_size, ink)
 	if hint != "":
 		var hs := _hint_size()

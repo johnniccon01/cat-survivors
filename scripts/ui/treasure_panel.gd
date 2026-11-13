@@ -35,7 +35,7 @@ var _run := 0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	color = Color(0.09, 0.055, 0.03, 0.8)
+	color = Color(0.09, 0.055, 0.03, 0.88)
 	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
@@ -46,20 +46,20 @@ func _ready() -> void:
 	box.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	box.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	box.grow_vertical = Control.GROW_DIRECTION_BOTH
-	box.add_theme_constant_override("separation", 14)
+	box.add_theme_constant_override("separation", 8)
 	add_child(box)
-	_title = _label(48, GOLD)
+	_title = _label(40, GOLD)
 	_title.text = "TREASURE_TITLE"
 	box.add_child(_title)
 	_show = ChestShow.new()
-	_show.custom_minimum_size = Vector2(1040, 190)
+	_show.custom_minimum_size = Vector2(1040, 150)
 	box.add_child(_show)
 	_cards = HBoxContainer.new()
 	_cards.alignment = BoxContainer.ALIGNMENT_CENTER
 	_cards.add_theme_constant_override("separation", 20)
 	_cards.custom_minimum_size = Vector2(0, 230)
 	box.add_child(_cards)
-	_inventory = UiStyle.inventory_panel(1040, 140)
+	_inventory = UiStyle.inventory_panel(1040, 110)
 	box.add_child(_inventory)
 	_hint = _label(20, Color("d9bf94"))
 	_hint.text = "TREASURE_HINT"

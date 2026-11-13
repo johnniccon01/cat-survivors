@@ -24,7 +24,7 @@ var _picked: Array[String] = []
 
 
 func _ready() -> void:
-	color = Color(0.09, 0.055, 0.03, 0.98)
+	color = Color(0.09, 0.055, 0.03, 1.0)
 	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
@@ -34,7 +34,7 @@ func _ready() -> void:
 	_box.grow_vertical = Control.GROW_DIRECTION_BOTH
 	_box.add_theme_constant_override("separation", 8)
 	UiStyle.board(self, _box)
-	var title := _label(36, DREAM)
+	var title := UiStyle.paper_title(_label(36, DREAM))
 	title.text = "DREAMS_TITLE"
 	_box.add_child(title)
 	_header = _label(18, GOLD)

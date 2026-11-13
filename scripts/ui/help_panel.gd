@@ -10,7 +10,7 @@ var _ready_for_input := false
 
 
 func _ready() -> void:
-	color = Color(0.09, 0.055, 0.03, 0.96)
+	color = Color(0.09, 0.055, 0.03, 1.0)
 	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
@@ -20,7 +20,7 @@ func _ready() -> void:
 	box.grow_vertical = Control.GROW_DIRECTION_BOTH
 	box.add_theme_constant_override("separation", 12)
 	UiStyle.board(self, box)
-	box.add_child(UiStyle.label("HELP_TITLE", 34, UiStyle.GOLD))
+	box.add_child(UiStyle.paper_title(UiStyle.label("HELP_TITLE", 34, UiStyle.GOLD)))
 	# HELP_TEXT: first how a night is won, then one line per sign in this
 	# order; each line gets the sign as the map draws it.
 	var lines := tr("HELP_TEXT").split("\n")

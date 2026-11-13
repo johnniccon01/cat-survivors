@@ -20,7 +20,7 @@ var seg_height := 6.0:
 		seg_height = v
 		_resize()
 var gap := 3.0
-var on_color := UiStyle.GOLD
+var on_color := BoxStyle.RED
 var off_color := UiStyle.SEG_EMPTY
 
 
@@ -35,6 +35,12 @@ func _resize() -> void:
 
 
 func _draw() -> void:
+	# Marker strokes: a short thick line per step, a little crooked.
 	for i in count:
-		var r := Rect2(Vector2(i * (seg_width + gap), 0), Vector2(seg_width, seg_height))
-		draw_rect(r, on_color if i < filled else off_color)
+		var x := i * (seg_width + gap)
+		var tilt := (float(i % 3) - 1.0) * 0.6
+		var col := on_color if i < filled else off_color
+		var r := seg_height * 0.5
+		draw_line(Vector2(x + r, seg_height * 0.5 - tilt), Vector2(x + seg_width - r, seg_height * 0.5 + tilt), col, seg_height + 1.0, true)
+		draw_circle(Vector2(x + r, seg_height * 0.5 - tilt), r + 0.5, col)
+		draw_circle(Vector2(x + seg_width - r, seg_height * 0.5 + tilt), r + 0.5, col)

@@ -4,8 +4,8 @@ class_name Icons
 ## weapon's symbol on a gold background.
 
 const OUTLINE := Color("2b1d14")
-const WEAPON_BG := Color("4a3460")
-const PASSIVE_BG := Color("2f5a5e")
+const WEAPON_BG := Color("8c5f36")
+const PASSIVE_BG := Color("6b6a3a")
 const EVOLVED_BG := Color("8a6a1e")
 
 ## Evolved weapon -> base weapon whose symbol it shares.

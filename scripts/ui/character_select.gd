@@ -124,6 +124,7 @@ const BONUS_TEXT := {
 
 
 func _ready() -> void:
+	theme = UiStyle.panel_theme()
 	# Back from a run the dev launcher started: its flags are done (the
 	# launcher is the DEV button in the main menu).
 	GameData.dev_args.clear()
@@ -201,8 +202,7 @@ func _build() -> void:
 	add_child(root)
 
 	# Top bar: the title, everything you can do here, and your gold.
-	var top_bar := PanelContainer.new()
-	top_bar.add_theme_stylebox_override("panel", UiStyle.frame())
+	var top_bar := BoxPanel.make("dark", 401, Vector4(16, 7, 16, 9))
 	root.add_child(top_bar)
 	var top := HBoxContainer.new()
 	top.add_theme_constant_override("separation", 14)
@@ -219,12 +219,24 @@ func _build() -> void:
 			["WORKSHOP_TITLE", "K", func() -> void: _workshop.open()],
 			["HELP_BUTTON", "H", func() -> void: _help.open()],
 			["SET_BACK", "Esc", func() -> void: get_tree().change_scene_to_file("res://scenes/main_menu.tscn")]]:
-		var b := UiStyle.click_button(tr(entry[0]), 0, 15)
-		UiStyle.add_key(b, entry[1], 11)
+		var b := BoxButton.make(tr(entry[0]), 19, 410 + buttons.get_child_count() * 7, [-1.2, 0.9, -0.6, 1.3, -0.9][buttons.get_child_count() % 5], false)
+		b.set_hint(entry[1])
 		b.pressed.connect(entry[2])
 		buttons.add_child(b)
 	_top_buttons = buttons
-	_gold = _label(17, GOLD)
+	_gold = _label(17, BoxStyle.INK)
+	_gold.label_settings.font = BoxStyle.head_font()
+	_gold.label_settings.font_size = 14
+	_gold.label_settings.outline_size = 0
+	_gold.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var gold_tape := BoxBoard.make("tape", Vector2.ZERO, Vector2(10, 10), 421, -1.5)
+	gold_tape.show_behind_parent = true
+	gold_tape.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	gold_tape.offset_left = -14.0
+	gold_tape.offset_right = 14.0
+	gold_tape.offset_top = -4.0
+	gold_tape.offset_bottom = 4.0
+	_gold.add_child(gold_tape)
 	top.add_child(_gold)
 
 	# Middle: the neighbourhood, and the chosen place beside it.
@@ -541,8 +553,7 @@ func _build() -> void:
 	stars_row.add_child(_place_stars)
 
 	# Bottom: the cats, the chosen one's details, what you take along, and Play.
-	var bottom_bar := PanelContainer.new()
-	bottom_bar.add_theme_stylebox_override("panel", UiStyle.frame())
+	var bottom_bar := BoxPanel.make("dark", 402, Vector4(16, 10, 16, 12))
 	bottom_bar.custom_minimum_size = Vector2(0, BOTTOM_HEIGHT)
 	root.add_child(bottom_bar)
 	var bottom := HBoxContainer.new()
@@ -556,7 +567,7 @@ func _build() -> void:
 	var strip := HBoxContainer.new()
 	strip.add_theme_constant_override("separation", 6)
 	left.add_child(strip)
-	var all_cats := UiStyle.click_button("", 44, 13)
+	var all_cats := BoxButton.make("", 20, 431, -1.5, false, true, 44.0)
 	all_cats.custom_minimum_size = Vector2(44, 56)
 	all_cats.tooltip_text = tr("SELECT_ALL_CATS")
 	all_cats.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
@@ -567,7 +578,7 @@ func _build() -> void:
 		var c := grid_icon.size / 2.0
 		for gx in 3:
 			for gy in 3:
-				grid_icon.draw_rect(Rect2(c + Vector2(-11 + gx * 8, -11 + gy * 8), Vector2(6, 6)), GOLD))
+				grid_icon.draw_rect(Rect2(c + Vector2(-11 + gx * 8, -11 + gy * 8), Vector2(6, 6)), BoxStyle.INK))
 	all_cats.add_child(grid_icon)
 	all_cats.pressed.connect(_open_cat_grid)
 	strip.add_child(all_cats)
@@ -613,6 +624,10 @@ func _build() -> void:
 			star.draw_colored_polygon(pts, GOLD)
 			star.draw_polyline(pts + PackedVector2Array([pts[0]]), OUTLINE, 1.5))
 		card.add_child(star)
+		var ring := BoxBoard.make("ring", Vector2.ZERO, Vector2(10, 10), 440 + i)
+		ring.visible = false
+		card.add_child(ring)
+		card.set_meta("ring", ring)
 		_pick_marks.append(star)
 		row.add_child(card)
 		_cards.append(card)
@@ -715,10 +730,16 @@ func _build() -> void:
 	# Cat Dreams, once the director is beaten.
 	if Profile.dreams_open():
 		var dreams := _night_button(["DREAMS_BUTTON", "N", func() -> void: _dreams.open()])
-		dreams.add_theme_color_override("font_color", Color("8a2a1a"))
 		_night_buttons.add_child(dreams)
-	var play := BoxButton.make(tr("MENU_PLAY"), 34, 71, -1.0, false, false, 230.0)
+	var play := BoxButton.make(tr("MENU_PLAY"), 34, 71, -1.0, false, false, 270.0)
 	play.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	var play_paw := BoxBoard.make("paw", Vector2.ZERO, Vector2(54, 54), 480, -14.0)
+	play_paw.set_anchors_and_offsets_preset(Control.PRESET_CENTER_LEFT)
+	play_paw.offset_left = 14.0
+	play_paw.offset_right = 58.0
+	play_paw.offset_top = -22.0
+	play_paw.offset_bottom = 22.0
+	play.add_child(play_paw)
 	play.pressed.connect(_start)
 	play_col.add_child(play)
 	_play = play
@@ -846,35 +867,28 @@ func _next_partner() -> void:
 	_show_partner()
 
 
+func _set_text(b: Button, t: String) -> void:
+	if b is BoxButton:
+		(b as BoxButton).relabel(t)
+	else:
+		b.text = t
+
+
 func _small_button(entry: Array) -> Button:
-	var b := UiStyle.click_button(tr(entry[0]), 0, 13)
-	b.custom_minimum_size.y = 28
-	UiStyle.add_key(b, entry[1], 10)
+	var n := _cat_buttons.get_child_count() if _cat_buttons != null else 0
+	var b := BoxButton.make(tr(entry[0]), 17, 450 + n * 5, [-1.0, 1.2, -0.7][n % 3], false)
+	b.set_hint(entry[1])
 	b.pressed.connect(entry[2])
 	return b
 
 
-## A button by Play: its name with the key cap under it.
+## A button by Play: its name with its key after it.
 func _night_button(entry: Array) -> Button:
-	var b := UiStyle.click_button(tr(entry[0]), 0, 12)
+	var n := _night_buttons.get_child_count() if _night_buttons != null else 0
+	var b := BoxButton.make(tr(entry[0]), 18, 470 + n * 5, [0.8, -1.0, 0.6][n % 3], false)
+	b.set_hint(entry[1])
 	b.custom_minimum_size.y = 44
 	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	b.vertical_icon_alignment = VERTICAL_ALIGNMENT_TOP
-	for state in ["normal", "hover", "pressed"]:
-		var sb := b.get_theme_stylebox(state).duplicate() as StyleBox
-		sb.content_margin_top = 2
-		sb.content_margin_bottom = 18
-		sb.content_margin_left = 4
-		sb.content_margin_right = 4
-		b.add_theme_stylebox_override(state, sb)
-	var cap := UiStyle.key_cap(entry[1], 9)
-	b.add_child(cap)
-	cap.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
-	cap.offset_left = -10
-	cap.offset_right = 10
-	cap.offset_top = -19
-	cap.offset_bottom = -4
-	cap.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	b.pressed.connect(entry[2])
 	return b
 
@@ -916,13 +930,12 @@ func _fit_lines() -> void:
 
 ## Shrinks the top buttons until the bar fits the screen's real width.
 func _fit_top() -> void:
-	var room := get_viewport_rect().size.x - 28.0 - 20.0 - 14.0 * 2.0 - _badges.get_combined_minimum_size().x - _gold.get_combined_minimum_size().x
-	UiStyle.fit_row(_top_buttons, maxf(room, 400.0))
-	# Still too wide (long words in some languages): the keys go, the
-	# buttons stay (the keys still work).
+	var room := get_viewport_rect().size.x - 28.0 - 62.0 - 14.0 * 2.0 - _badges.get_combined_minimum_size().x - _gold.get_combined_minimum_size().x
+	# Too wide (long words in some languages): the keys go first (they still
+	# work), then the text shrinks.
 	if UiStyle.row_width(_top_buttons) > maxf(room, 400.0):
 		UiStyle.drop_keys(_top_buttons)
-		UiStyle.fit_row(_top_buttons, maxf(room, 400.0))
+	UiStyle.fit_row(_top_buttons, maxf(room, 360.0), 12)
 	UiStyle.fit_row(_night_buttons, 300.0, 9)
 	UiStyle.fit_row(_cat_buttons, 285.0, 9)
 
@@ -945,15 +958,11 @@ func _on_card_hover(i: int, inside: bool) -> void:
 func _style_cards() -> void:
 	for i in _cards.size():
 		var chosen := i == _index
-		var fill := Color("7a5230") if chosen else (Color("6b4527") if i == _hover else Color(CARD, 0.9))
-		var edge := GOLD if chosen else (Color("d9bf94") if i == _hover else BORDER)
-		var sb := UiStyle.box(fill, edge)
-		sb.set_corner_radius_all(10)
-		if chosen:
-			sb.set_border_width_all(3)
-			sb.shadow_color = Color(GOLD, 0.35)
-			sb.shadow_size = 8
+		var fill := Color("e8d3a2") if chosen else (Color("d9b67c") if i == _hover else Color("b98655"))
+		var sb := UiStyle.cardboard(fill, Color("5b3b21"), i, 2.0)
+		sb.shadow_size = 1
 		_cards[i].add_theme_stylebox_override("panel", sb)
+		(_cards[i].get_meta("ring") as Control).visible = chosen
 
 
 func _fill_chips(id: String, unlocked: bool) -> void:
@@ -1040,21 +1049,19 @@ func _refresh() -> void:
 		_pick_marks[i].queue_redraw()
 	var talents: Button = _cat_buttons.get_child(0)
 	var waiting := unlocked and int(career["picks"]) > 0
-	talents.text = tr("MENU_TALENTS") + (" ★" if waiting else "")
-	talents.add_theme_color_override("font_color", GOLD if waiting else UiStyle.TEXT)
+	_set_text(talents, tr("MENU_TALENTS") + (" ★" if waiting else ""))
 	_artifact_label.text = tr("SELECT_LEGACY") % Profile.retired.size() if not Profile.retired.is_empty() else ""
 	if Profile.streak > 0 or Profile.best_streak > 0:
 		_artifact_label.text = tr("SELECT_STREAK") % [Profile.streak, Profile.best_streak, roundi((Profile.streak_multiplier() - 1.0) * 100.0)] + ("   " + _artifact_label.text if _artifact_label.text != "" else "")
 	# The curses and the daily night tell their state on their own buttons.
 	var ch: Array = Profile.challenges.map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c))
 	var curses: Button = _night_buttons.get_child(0)
-	curses.text = tr("CHALLENGES_TITLE") + ("" if ch.is_empty() else " ×%.2f" % Profile.challenge_gold())
+	_set_text(curses, tr("CHALLENGES_TITLE") + ("" if ch.is_empty() else " ×%.2f" % Profile.challenge_gold()))
 	curses.tooltip_text = tr("SELECT_CHALLENGES") % ["—" if ch.is_empty() else ", ".join(ch), Profile.challenge_gold()]
-	curses.add_theme_color_override("font_color", UiStyle.TEXT if ch.is_empty() else Color("ff7a6a"))
 	var plan := Profile.daily_plan()
 	var done := Profile.has_flag("daily_win:" + Profile.today())
 	var daily: Button = _night_buttons.get_child(1)
-	daily.text = tr("SELECT_BTN_DAILY") + (" ✓" if done else "")
+	_set_text(daily, tr("SELECT_BTN_DAILY") + (" ✓" if done else ""))
 	daily.tooltip_text = tr("SELECT_DAILY") % [tr("STAGE_%s_NAME" % plan["stage"]), ", ".join((plan["challenges"] as Array).map(func(c: String) -> String: return tr("CHALLENGE_%s_NAME" % c)))]
 	_fit_top.call_deferred()
 	_gold.text = tr("SELECT_GOLD") % Profile.gold + "   " + tr("SELECT_MATERIALS") % Profile.materials

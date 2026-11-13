@@ -16,7 +16,7 @@ var _empty: Label
 
 
 func _ready() -> void:
-	color = Color(0.09, 0.055, 0.03, 0.98)
+	color = Color(0.09, 0.055, 0.03, 1.0)
 	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
@@ -26,7 +26,7 @@ func _ready() -> void:
 	box.grow_vertical = Control.GROW_DIRECTION_BOTH
 	box.add_theme_constant_override("separation", 8)
 	UiStyle.board(self, box)
-	var title := _label(34, GOLD)
+	var title := UiStyle.paper_title(_label(34, GOLD))
 	title.text = "MEMORIALS_TITLE"
 	box.add_child(title)
 	_header = _label(17, Color("e6d3ab"))

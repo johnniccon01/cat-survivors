@@ -53,15 +53,19 @@ static func label(text: String, size: int = 20, color: Color = TEXT, align: Hori
 	return l
 
 
+static var _seed := 0
+
+
+## Every menu button is a piece of torn cardboard (BoxButton), a degree or
+## two crooked; its own look seed differs from its neighbours'.
+static func _box_button(text: String, width: float, size: int, focusable: bool) -> BoxButton:
+	_seed += 1
+	var tilt: float = [-1.0, 0.8, -0.6, 1.1][_seed % 4]
+	return BoxButton.make(text, roundi(size * 1.4), 600 + _seed * 7, tilt, focusable, false, width)
+
+
 static func button(text: String, width: float = 320.0, size: int = 22) -> Button:
-	var b := Button.new()
-	b.text = text
-	b.custom_minimum_size = Vector2(width, 44)
-	b.focus_mode = Control.FOCUS_ALL
-	_cardboard_button(b, size, true)
-	b.mouse_entered.connect(b.grab_focus)
-	b.focus_entered.connect(func() -> void: Audio.play("click", -14.0, 0.0))
-	return b
+	return _box_button(text, width, size, true)
 
 
 ## A piece of kraft cardboard with ink text; hovered or focused it turns
@@ -108,13 +112,7 @@ static func cardboard(fill: Color, edge: Color, variant: int = 0, margin: float 
 ## A button for the mouse only: it never takes keyboard focus, so the arrow
 ## keys keep driving the screen it sits on.
 static func click_button(text: String, width: float = 160.0, size: int = 17) -> Button:
-	var b := Button.new()
-	b.text = text
-	b.custom_minimum_size = Vector2(width, 36)
-	b.focus_mode = Control.FOCUS_NONE
-	_cardboard_button(b, size, false)
-	b.pressed.connect(func() -> void: Audio.play("click", -8.0, 0.0))
-	return b
+	return _box_button(text, width, size, false)
 
 
 ## The biggest font size up to `size` at which `text` fits in `width`, so
@@ -137,18 +135,27 @@ static func fit_row(row: BoxContainer, width: float, smallest: int = 11) -> void
 	# All shrink by the same share, so a bigger button stays bigger.
 	var sizes: Array[int] = []
 	for b in buttons:
-		sizes.append(b.get_theme_font_size("font_size"))
+		sizes.append((b as BoxButton).text_size if b is BoxButton else b.get_theme_font_size("font_size"))
 	var k := 1.0
 	while k > 0.4 and _row_width(row) > width:
 		k -= 0.04
 		for i in buttons.size():
-			buttons[i].add_theme_font_size_override("font_size", maxi(roundi(sizes[i] * k), smallest))
+			var n := maxi(roundi(sizes[i] * k), smallest)
+			if buttons[i] is BoxButton:
+				(buttons[i] as BoxButton).text_size = n
+				(buttons[i] as BoxButton)._fit()
+				buttons[i].queue_redraw()
+			else:
+				buttons[i].add_theme_font_size_override("font_size", n)
 
 
 ## Hides the key caps on a row's buttons (when even a smaller font doesn't
 ## make the row fit), giving their room back to the text.
 static func drop_keys(row: BoxContainer) -> void:
 	for child in row.get_children():
+		if child is BoxButton and (child as BoxButton).hint != "":
+			(child as BoxButton).set_hint("")
+			continue
 		if child is Button and child.has_meta("key_cap"):
 			var cap: Control = child.get_meta("key_cap")
 			if not cap.visible:
@@ -235,12 +242,9 @@ static func inventory_panel(width: float, height: float) -> PanelContainer:
 ## Puts a menu's centred content box on a framed board (the same plum board
 ## with a gold hairline as the neighbourhood screen), centred in `parent`.
 static func board(parent: Control, box: Control) -> PanelContainer:
-	var sb := frame(Color("3a2412", 0.97), Color("8c5f36"), 2)
-	sb.set_content_margin_all(16)
-	sb.content_margin_top = 10
-	sb.content_margin_bottom = 10
-	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override("panel", sb)
+	_seed += 1
+	var panel := BoxPanel.make("dark", 500 + _seed * 3, Vector4(20, 12, 20, 14))
+	panel.add_corner_tapes(520 + _seed * 3)
 	panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	panel.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	panel.grow_vertical = Control.GROW_DIRECTION_BOTH
@@ -250,7 +254,7 @@ static func board(parent: Control, box: Control) -> PanelContainer:
 
 
 ## Full-screen dimmed backdrop with a centred vertical box; returns the box.
-static func overlay(parent: Control, alpha: float = 0.92) -> VBoxContainer:
+static func overlay(parent: Control, alpha: float = 1.0) -> VBoxContainer:
 	parent.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	if parent is ColorRect:
 		(parent as ColorRect).color = Color(BG, alpha)
@@ -277,7 +281,7 @@ const SEG_EMPTY := Color("3a2412")
 static func card(selected: bool = false, fill: Color = CARD) -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = CARD_SELECTED if selected else fill
-	sb.border_color = RED if selected else CARD_BORDER
+	sb.border_color = RED if selected else Color("2b1d12")
 	sb.set_border_width_all(3 if selected else 2)
 	sb.border_width_bottom += 1
 	sb.corner_radius_top_left = 7
@@ -321,6 +325,9 @@ static func key_cap(text: String, size: int = 12) -> PanelContainer:
 ## Puts key cap `key` at the right end of button `b` (its text moves over
 ## to make room), so the key is shown on what it does.
 static func add_key(b: Button, key: String, size: int = 12) -> PanelContainer:
+	if b is BoxButton:
+		(b as BoxButton).set_hint(key)
+		return null
 	var cap := key_cap(key, size)
 	b.add_child(cap)
 	b.set_meta("key_cap", cap)
@@ -409,4 +416,35 @@ static func plain(t: String, size: int = 15, color: Color = TEXT, wrap: bool = f
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if wrap:
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	return l
+
+
+## A panel's title on a card of cream paper: ink text in the headline font, the
+## card a degree crooked behind it. With `row` the title is put at the left of
+## that row (a spacer fills the rest), otherwise the caller adds it.
+static func paper_title(l: Label, row: BoxContainer = null) -> Label:
+	var s := l.label_settings
+	s.font = BoxStyle.head_font()
+	s.font_color = INK
+	s.outline_size = 0
+	s.font_size += 4
+	_seed += 1
+	var card := BoxBoard.make("light", Vector2.ZERO, Vector2(10, 10), 700 + _seed, [-0.8, 0.7][_seed % 2])
+	card.show_behind_parent = true
+	card.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	card.offset_left = -24.0
+	card.offset_right = 24.0
+	card.offset_top = -3.0
+	card.offset_bottom = 5.0
+	l.add_child(card)
+	l.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN if row != null else Control.SIZE_SHRINK_CENTER
+	l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	if row != null:
+		var gap := Control.new()
+		gap.custom_minimum_size.x = 24.0
+		row.add_child(gap)
+		row.add_child(l)
+		var spacer := Control.new()
+		spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row.add_child(spacer)
 	return l

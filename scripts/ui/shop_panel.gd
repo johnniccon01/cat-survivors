@@ -25,7 +25,7 @@ var _buy: Button
 
 
 func _ready() -> void:
-	color = Color(0.09, 0.055, 0.03, 0.98)
+	color = Color(0.09, 0.055, 0.03, 1.0)
 	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
@@ -40,8 +40,7 @@ func _ready() -> void:
 	var head := HBoxContainer.new()
 	box.add_child(head)
 	var title := UiStyle.label("SHOP_TITLE", 34, UiStyle.GOLD, HORIZONTAL_ALIGNMENT_LEFT)
-	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	head.add_child(title)
+	UiStyle.paper_title(title, head)
 	var gold_row := HBoxContainer.new()
 	gold_row.add_theme_constant_override("separation", 8)
 	head.add_child(gold_row)

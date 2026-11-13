@@ -32,7 +32,7 @@ var _inner_scroll: ScrollContainer
 
 
 func _ready() -> void:
-	color = Color(0.09, 0.055, 0.03, 0.98)
+	color = Color(0.09, 0.055, 0.03, 1.0)
 	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
@@ -42,7 +42,7 @@ func _ready() -> void:
 	box.grow_vertical = Control.GROW_DIRECTION_BOTH
 	box.add_theme_constant_override("separation", 8)
 	UiStyle.board(self, box)
-	var title := _label(34, GOLD, HORIZONTAL_ALIGNMENT_CENTER)
+	var title := UiStyle.paper_title(_label(34, GOLD, HORIZONTAL_ALIGNMENT_CENTER))
 	title.text = "JOURNAL_TITLE"
 	box.add_child(title)
 	var tabs := HBoxContainer.new()
@@ -50,11 +50,7 @@ func _ready() -> void:
 	tabs.add_theme_constant_override("separation", 12)
 	box.add_child(tabs)
 	for t: String in TABS:
-		var b := Button.new()
-		b.text = "JOURNAL_TAB_%s" % t.to_upper()
-		b.focus_mode = Control.FOCUS_NONE
-		b.custom_minimum_size = Vector2(180, 36)
-		b.add_theme_font_size_override("font_size", 20)
+		var b := UiStyle.click_button("JOURNAL_TAB_%s" % t.to_upper(), 180, 15)
 		b.pressed.connect(func() -> void: show_tab(t))
 		tabs.add_child(b)
 		_tab_buttons[t] = b
@@ -81,8 +77,7 @@ func show_tab(which: String) -> void:
 	tab = which
 	for t: String in _tab_buttons:
 		var b: Button = _tab_buttons[t]
-		b.add_theme_stylebox_override("normal", UiStyle.box(UiStyle.PANEL_HOVER if t == tab else UiStyle.PANEL, GOLD if t == tab else UiStyle.BORDER))
-		b.add_theme_color_override("font_color", GOLD if t == tab else TEXT)
+		(b as BoxButton).selected = t == tab
 	for child in _list.get_children():
 		_list.remove_child(child)
 		child.queue_free()
@@ -118,19 +113,8 @@ func _build_quests() -> void:
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	top.add_child(spacer)
 	for f: String in ["all", "open", "done"]:
-		var b := Button.new()
-		b.text = tr("QB_FILTER_%s" % f.to_upper())
-		b.focus_mode = Control.FOCUS_NONE
-		b.add_theme_font_size_override("font_size", 14)
-		b.add_theme_color_override("font_color", GOLD if f == _filter else TEXT)
-		b.add_theme_color_override("font_hover_color", GOLD)
-		var sb := UiStyle.card(false, Color("3a2412"))
-		sb.border_color = GOLD if f == _filter else Color(0, 0, 0, 0)
-		sb.set_content_margin_all(4)
-		sb.content_margin_left = 10
-		sb.content_margin_right = 10
-		for state in ["normal", "hover", "pressed"]:
-			b.add_theme_stylebox_override(state, sb)
+		var b := UiStyle.click_button(tr("QB_FILTER_%s" % f.to_upper()), 0, 11)
+		(b as BoxButton).selected = f == _filter
 		b.pressed.connect(func() -> void:
 			_filter = f
 			show_tab("quests"))

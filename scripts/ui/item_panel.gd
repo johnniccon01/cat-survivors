@@ -41,7 +41,7 @@ var _sort_button: Button
 
 
 func _ready() -> void:
-	color = Color(0.09, 0.055, 0.03, 0.98)
+	color = Color(0.09, 0.055, 0.03, 1.0)
 	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
@@ -53,8 +53,7 @@ func _ready() -> void:
 	var head := HBoxContainer.new()
 	box.add_child(head)
 	var title := UiStyle.label("ITEMS_TITLE", 32, UiStyle.GOLD, HORIZONTAL_ALIGNMENT_LEFT)
-	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	head.add_child(title)
+	UiStyle.paper_title(title, head)
 	_stash = UiStyle.plain("", 16, UiStyle.MUTED)
 	_stash.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	head.add_child(_stash)

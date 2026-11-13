@@ -16,7 +16,7 @@ static func should_show() -> bool:
 
 
 func _ready() -> void:
-	color = Color(0.09, 0.055, 0.03, 0.94)
+	color = Color(0.09, 0.055, 0.03, 1.0)
 	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
@@ -26,7 +26,7 @@ func _ready() -> void:
 	box.grow_vertical = Control.GROW_DIRECTION_BOTH
 	box.add_theme_constant_override("separation", 14)
 	UiStyle.board(self, box)
-	box.add_child(UiStyle.label("NEWS_TITLE", 40, UiStyle.GOLD))
+	box.add_child(UiStyle.paper_title(UiStyle.label("NEWS_TITLE", 40, UiStyle.GOLD)))
 	var text := UiStyle.label("NEWS_TEXT", 19, UiStyle.TEXT, HORIZONTAL_ALIGNMENT_LEFT)
 	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	text.custom_minimum_size = Vector2(900, 0)

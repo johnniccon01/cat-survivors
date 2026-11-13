@@ -70,10 +70,10 @@ static func draw(ci: CanvasItem, name: String, r: Rect2) -> void:
 ## Draws a passive-style tile (the teal of the game's passive icons) with
 ## glyph `name` on it, like Icons.draw does for real passives.
 static func draw_tile(ci: CanvasItem, name: String, r: Rect2) -> void:
-	ci.draw_rect(r, Color("1d3b3b"))
+	ci.draw_rect(r, Color("4a2f1a"))
 	var inner := r.grow(-r.size.x / 28.0)
-	ci.draw_rect(inner, Color("2a5050"))
-	ci.draw_rect(Rect2(inner.position, Vector2(inner.size.x, inner.size.y * 0.5)), Color("33605f"))
+	ci.draw_rect(inner, Color("8c5f36"))
+	ci.draw_rect(Rect2(inner.position, Vector2(inner.size.x, inner.size.y * 0.5)), Color("a06c3e"))
 	var tex := texture(name)
 	var px := floorf(r.size.x * 0.7 / maxf(tex.get_width(), tex.get_height()))
 	var size := Vector2(tex.get_width(), tex.get_height()) * maxf(px, 1.0)

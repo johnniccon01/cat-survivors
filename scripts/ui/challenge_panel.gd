@@ -18,7 +18,7 @@ var _desc: Label
 
 
 func _ready() -> void:
-	color = Color(0.09, 0.055, 0.03, 0.98)
+	color = Color(0.09, 0.055, 0.03, 1.0)
 	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
@@ -30,7 +30,7 @@ func _ready() -> void:
 	box.grow_vertical = Control.GROW_DIRECTION_BOTH
 	box.add_theme_constant_override("separation", 8)
 	UiStyle.board(self, box)
-	var title := _label(38, GOLD)
+	var title := UiStyle.paper_title(_label(38, GOLD))
 	title.text = "CHALLENGES_TITLE"
 	box.add_child(title)
 	_header = _label(20, GOLD)
@@ -73,7 +73,7 @@ func _refresh() -> void:
 		label.label_settings.font_color = ON if on else Color.WHITE
 		var sb := StyleBoxFlat.new()
 		sb.bg_color = Color("7a5230") if i == _index else Color("4a2f1a")
-		sb.border_color = ON if on else (Color("c4a27a") if i == _index else Color("4a2f1a"))
+		sb.border_color = ON if on else (UiStyle.RED if i == _index else Color("2b1d12"))
 		sb.set_border_width_all(2)
 		sb.set_corner_radius_all(6)
 		_rows[i].add_theme_stylebox_override("panel", sb)

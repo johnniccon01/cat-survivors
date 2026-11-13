@@ -7,9 +7,9 @@ extends Control
 ## the command line skips this screen.
 
 const MAIN_SCENE := "res://scenes/main.tscn"
-const BG := Color("1d1626")
-const CARD := Color("3b2a4a")
-const BORDER := Color("6b5480")
+const BG := Color("24160c")
+const CARD := Color("4a2f1a")
+const BORDER := Color("a47646")
 const GOLD := Color("f2c14e")
 const OUTLINE := Color("2b1d14")
 
@@ -283,7 +283,7 @@ func _build() -> void:
 	top.add_child(badge_col)
 	top.move_child(badge_col, 0)
 	_badges = badge_col
-	var moon_chip := _badge(Color(0.08, 0.06, 0.12, 0.88), Color("6a5a7e"))
+	var moon_chip := _badge(Color(0.09, 0.055, 0.03, 0.88), Color("8c5f36"))
 	badge_col.add_child(moon_chip)
 	var moon_icon := Control.new()
 	moon_icon.custom_minimum_size = Vector2(28, 28)
@@ -294,7 +294,7 @@ func _build() -> void:
 	_moon_chip.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	moon_chip.get_child(0).add_child(_moon_chip)
 	# The weather forecast: tonight and tomorrow night.
-	var weather_chip := _badge(Color(0.08, 0.06, 0.12, 0.88), Color("5a6a8e"))
+	var weather_chip := _badge(Color(0.09, 0.055, 0.03, 0.88), Color("8c5f36"))
 	badge_col.add_child(weather_chip)
 	for when: String in ["today", "tomorrow"]:
 		var icon := Control.new()
@@ -302,7 +302,7 @@ func _build() -> void:
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		icon.draw.connect(func() -> void: Weather.draw_icon(icon, Vector2(13, 13), 10.0, Profile.weather_today if when == "today" else Profile.weather_tomorrow))
 		weather_chip.get_child(0).add_child(icon)
-		var text := _label(14, Color("e4ecf8") if when == "today" else Color("a8b4c8"))
+		var text := _label(14, Color("f4e8cb") if when == "today" else Color("c4a27a"))
 		text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		weather_chip.get_child(0).add_child(text)
 		if when == "today":
@@ -652,7 +652,7 @@ func _build() -> void:
 	# The weapon's name right by its icon (the whole line in the tooltip).
 	info.add_child(_weapon_label)
 	info.move_child(_weapon_label, _weapon_icon.get_index() + 1)
-	_desc = _label(15, Color("ddd3e8"))
+	_desc = _label(15, Color("e6d3ab"))
 	left.add_child(_desc)
 	# Two full-width lines: the cat's record and what you take along, then
 	# challenges, streak and the daily night.
@@ -661,18 +661,18 @@ func _build() -> void:
 	# Taller than any of its lines or buttons (★ included), so it never grows.
 	loadout.custom_minimum_size.y = 34
 	left.add_child(loadout)
-	_cat_stats = _label(13, Color("8f7ea3"))
+	_cat_stats = _label(13, Color("c4a27a"))
 	loadout.add_child(_cat_stats)
 	_cat_stats.visible = false
 	_stat_tags = HBoxContainer.new()
 	_stat_tags.add_theme_constant_override("separation", 4)
 	_stat_tags.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	loadout.add_child(_stat_tags)
-	_worn = _label(13, Color("c77dff"))
+	_worn = _label(13, Color("ffb76b"))
 	loadout.add_child(_worn)
-	_artifact_label = _label(13, Color("8fd3ff"))
+	_artifact_label = _label(13, Color("9ad77a"))
 	loadout.add_child(_artifact_label)
-	var cat_group := UiStyle.plain(tr("SELECT_GROUP_CAT"), 11, Color("8f7ea3"))
+	var cat_group := UiStyle.plain(tr("SELECT_GROUP_CAT"), 11, Color("c4a27a"))
 	cat_group.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	loadout.add_child(cat_group)
 	_cat_buttons = HBoxContainer.new()
@@ -704,7 +704,7 @@ func _build() -> void:
 	var play_col := VBoxContainer.new()
 	play_col.add_theme_constant_override("separation", 4)
 	bottom.add_child(play_col)
-	play_col.add_child(UiStyle.plain(tr("SELECT_GROUP_NIGHT"), 11, Color("8f7ea3")))
+	play_col.add_child(UiStyle.plain(tr("SELECT_GROUP_NIGHT"), 11, Color("c4a27a")))
 	_night_buttons = HBoxContainer.new()
 	_night_buttons.add_theme_constant_override("separation", 4)
 	play_col.add_child(_night_buttons)
@@ -715,7 +715,7 @@ func _build() -> void:
 	# Cat Dreams, once the director is beaten.
 	if Profile.dreams_open():
 		var dreams := _night_button(["DREAMS_BUTTON", "N", func() -> void: _dreams.open()])
-		dreams.add_theme_color_override("font_color", Color("c8a8ff"))
+		dreams.add_theme_color_override("font_color", Color("8a2a1a"))
 		_night_buttons.add_child(dreams)
 	var play := BoxButton.make(tr("MENU_PLAY"), 34, 71, -1.0, false, false, 230.0)
 	play.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -885,7 +885,7 @@ func _fill_stat_tags() -> void:
 		child.queue_free()
 	for part in _cat_stats.text.split("·", false):
 		if part.strip_edges() != "":
-			var t := UiStyle.tag(part.strip_edges(), Color("cfc3dd"), 11)
+			var t := UiStyle.tag(part.strip_edges(), Color("e6d3ab"), 11)
 			var sb := t.get_theme_stylebox("panel") as StyleBoxFlat
 			sb.content_margin_left = 5
 			sb.content_margin_right = 5
@@ -945,8 +945,8 @@ func _on_card_hover(i: int, inside: bool) -> void:
 func _style_cards() -> void:
 	for i in _cards.size():
 		var chosen := i == _index
-		var fill := Color("5b4470") if chosen else (Color("4a3860") if i == _hover else Color(CARD, 0.9))
-		var edge := GOLD if chosen else (Color("b9a8c9") if i == _hover else BORDER)
+		var fill := Color("7a5230") if chosen else (Color("6b4527") if i == _hover else Color(CARD, 0.9))
+		var edge := GOLD if chosen else (Color("d9bf94") if i == _hover else BORDER)
 		var sb := UiStyle.box(fill, edge)
 		sb.set_corner_radius_all(10)
 		if chosen:
@@ -971,7 +971,7 @@ func _fill_chips(id: String, unlocked: bool) -> void:
 		_chips.add_child(chip)
 	var bonus: Dictionary = GameData.cats[id].get("bonus", {})
 	if bonus.is_empty():
-		_chips.add_child(_chip(tr("BONUS_NONE"), Color("b9a8c9")))
+		_chips.add_child(_chip(tr("BONUS_NONE"), Color("d9bf94")))
 	for key: String in bonus:
 		if not BONUS_TEXT.has(key):
 			continue
@@ -1316,7 +1316,7 @@ func _fill_home(id: String) -> void:
 	if home == id:
 		_chips.add_child(_chip(tr("HOME_HERE") % DistrictMap.home_text(cat), GOLD))
 	else:
-		_chips.add_child(_chip(tr("HOME_AT") % tr("STAGE_%s_NAME" % home), Color("b9a8c9")))
+		_chips.add_child(_chip(tr("HOME_AT") % tr("STAGE_%s_NAME" % home), Color("d9bf94")))
 
 
 func _on_report_chosen(i: int) -> void:
@@ -1557,10 +1557,10 @@ class BossPortrait extends Control:
 		queue_redraw()
 
 	func _draw() -> void:
-		draw_rect(Rect2(Vector2.ZERO, size), Color("2a1f2e"))
+		draw_rect(Rect2(Vector2.ZERO, size), Color("3a2412"))
 		var at := size * 0.5
 		if id == "" or not GameData.enemies.has(id):
-			draw_string(ThemeDB.fallback_font, Vector2(0, size.y * 0.68), "?", HORIZONTAL_ALIGNMENT_CENTER, size.x, 28, Color("8f7ea3"))
+			draw_string(ThemeDB.fallback_font, Vector2(0, size.y * 0.68), "?", HORIZONTAL_ALIGNMENT_CENTER, size.x, 28, Color("c4a27a"))
 			return
 		var data: Dictionary = GameData.enemies[id]
 		var shade := Color.WHITE if known else Color(0.12, 0.09, 0.15)

@@ -10,10 +10,10 @@ signal closed
 const TABS := ["quests", "achievements", "goals", "bestiary"]
 const GOLD := Color("f2c14e")
 const DONE := Color("6cd48a")
-const MUTED := Color("8f7ea3")
-const TEXT := Color("d9cce6")
+const MUTED := Color("c4a27a")
+const TEXT := Color("e6d3ab")
 const OUTLINE := Color("2b1d14")
-const CARD := Color("3b2a4a")
+const CARD := Color("4a2f1a")
 const LIST_HEIGHT := 520.0
 const SCROLL_STEP := 54
 const SILHOUETTE := Color(0.12, 0.09, 0.15)
@@ -32,7 +32,8 @@ var _inner_scroll: ScrollContainer
 
 
 func _ready() -> void:
-	color = Color(0.08, 0.05, 0.1, 0.98)
+	color = Color(0.09, 0.055, 0.03, 0.98)
+	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
 	var box := VBoxContainer.new()
@@ -123,7 +124,7 @@ func _build_quests() -> void:
 		b.add_theme_font_size_override("font_size", 14)
 		b.add_theme_color_override("font_color", GOLD if f == _filter else TEXT)
 		b.add_theme_color_override("font_hover_color", GOLD)
-		var sb := UiStyle.card(false, Color("2c2338"))
+		var sb := UiStyle.card(false, Color("3a2412"))
 		sb.border_color = GOLD if f == _filter else Color(0, 0, 0, 0)
 		sb.set_content_margin_all(4)
 		sb.content_margin_left = 10
@@ -235,7 +236,7 @@ func _group_button(g: String) -> PanelContainer:
 			_group = g
 			show_tab.call_deferred("quests"))
 	if not selected:
-		b.mouse_entered.connect(func() -> void: sb.border_color = Color("6a5784"))
+		b.mouse_entered.connect(func() -> void: sb.border_color = Color("c4a27a"))
 		b.mouse_exited.connect(func() -> void: sb.border_color = UiStyle.CARD_BORDER)
 	var col := VBoxContainer.new()
 	col.add_theme_constant_override("separation", 3)
@@ -319,7 +320,7 @@ func _story_card(title: String, done: bool, steps: int, n: int, reward: String, 
 	var name_label := UiStyle.plain(title, 17, DONE if done else Color.WHITE)
 	head.add_child(name_label)
 	var state := "done" if done else ("open" if steps > 0 else "new")
-	head.add_child(UiStyle.tag(tr("QB_STATE_%s" % state.to_upper()), DONE if done else (GOLD if steps > 0 else Color("cfc3dd")), 11))
+	head.add_child(UiStyle.tag(tr("QB_STATE_%s" % state.to_upper()), DONE if done else (GOLD if steps > 0 else Color("e6d3ab")), 11))
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	head.add_child(spacer)
@@ -566,7 +567,7 @@ func _card(picture: Control, title: String, text: String, known: bool) -> Contro
 	var panel := PanelContainer.new()
 	panel.custom_minimum_size = Vector2(360, 76)
 	var sb := StyleBoxFlat.new()
-	sb.bg_color = CARD if known else Color("2a1f33")
+	sb.bg_color = CARD if known else Color("3a2412")
 	sb.set_corner_radius_all(6)
 	sb.content_margin_left = 6
 	sb.content_margin_right = 6

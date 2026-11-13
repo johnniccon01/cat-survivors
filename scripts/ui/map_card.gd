@@ -93,8 +93,8 @@ func _draw() -> void:
 	if not open:
 		# A padlock.
 		var c := pic.get_center()
-		draw_arc(c + Vector2(0, -4), 7.0, PI, TAU, 12, Color("d9cce6"), 3.0)
-		draw_rect(Rect2(c + Vector2(-10, -4), Vector2(20, 16)), Color("d9cce6"))
+		draw_arc(c + Vector2(0, -4), 7.0, PI, TAU, 12, Color("f4e8cb"), 3.0)
+		draw_rect(Rect2(c + Vector2(-10, -4), Vector2(20, 16)), Color("f4e8cb"))
 		draw_rect(Rect2(c + Vector2(-2, 1), Vector2(4, 6)), UiStyle.PANEL)
 	elif stage_id in Profile.cleared_stages:
 		draw_string(ThemeDB.fallback_font, pic.position + Vector2(pic.size.x - 26, 26), "✓", HORIZONTAL_ALIGNMENT_LEFT, -1, 26, Color("6cd48a"))
@@ -102,7 +102,7 @@ func _draw() -> void:
 		# Difficulty: stars filled up to the rating.
 		var n := difficulty(stage_id)
 		for i in 5:
-			_draw_star(pic.position + Vector2(10 + i * 13, 10), 5.5, Color("ff9a2a") if i < n else Color(0.2, 0.15, 0.25, 0.8))
+			_draw_star(pic.position + Vector2(10 + i * 13, 10), 5.5, Color("ff9a2a") if i < n else Color(0.25, 0.15, 0.08, 0.8))
 		# Maps with obstacles say so.
 		var terrain: String = GameData.stages[stage_id].get("terrain", "")
 		if terrain != "":
@@ -110,8 +110,8 @@ func _draw() -> void:
 			var size := UiStyle.fit_size(ThemeDB.fallback_font, label, pic.size.x - 12, 12)
 			var w := ThemeDB.fallback_font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x
 			# A dark strip under it, so it reads over the boss picture.
-			draw_rect(Rect2(pic.position + Vector2(2, pic.size.y - 18), Vector2(w + 8, 16)), Color(0.05, 0.03, 0.08, 0.75))
-			draw_string(ThemeDB.fallback_font, pic.position + Vector2(6, pic.size.y - 6), label, HORIZONTAL_ALIGNMENT_LEFT, pic.size.x - 12, size, Color("9fe3ff"))
+			draw_rect(Rect2(pic.position + Vector2(2, pic.size.y - 18), Vector2(w + 8, 16)), Color(0.09, 0.055, 0.03, 0.75))
+			draw_string(ThemeDB.fallback_font, pic.position + Vector2(6, pic.size.y - 6), label, HORIZONTAL_ALIGNMENT_LEFT, pic.size.x - 12, size, Color("f4e8cb"))
 	var font := ThemeDB.fallback_font
 	var title := tr("STAGE_%s_NAME" % stage_id) if open else "???"
 	draw_string(font, Vector2(8, 100), title, HORIZONTAL_ALIGNMENT_CENTER, size.x - 16, UiStyle.fit_size(font, title, size.x - 16, 18), UiStyle.GOLD if selected else UiStyle.TEXT)
@@ -136,7 +136,7 @@ func _draw_star(c: Vector2, r: float, color: Color) -> void:
 
 func _draw_boss(id: String, at: Vector2, known: bool) -> void:
 	var data: Dictionary = GameData.enemies[id]
-	var tint := Color.WHITE if known else Color(0.12, 0.09, 0.15)
+	var tint := Color.WHITE if known else Color(0.12, 0.08, 0.05)
 	if data.get("shape", "") == "cat":
 		var lk := CatArt.look(data.get("cat", "MICA")).duplicate()
 		lk["silhouette"] = not known

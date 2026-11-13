@@ -34,11 +34,11 @@ func _draw() -> void:
 	var h := size.y
 	draw_rect(Rect2(Vector2(-2, -2), Vector2(w + 4, h + 4)), BoxStyle.CREAM)
 	draw_rect(Rect2(Vector2(-1, -1), Vector2(w + 2, h + 2)), BoxStyle.DARK)
-	draw_rect(Rect2(Vector2.ZERO, Vector2(w * progress, h)), Color("8fb4f0"))
+	draw_rect(Rect2(Vector2.ZERO, Vector2(w * progress, h)), Color("f4d98a"))
 	for m in marks:
 		var x := roundf(w * m)
 		draw_rect(Rect2(Vector2(x - 2, -4), Vector2(4, h + 8)), BoxStyle.DARK)
-		draw_rect(Rect2(Vector2(x - 1, -3), Vector2(2, h + 6)), Color("ff6a5c") if m > progress else Color("8d849c"))
+		draw_rect(Rect2(Vector2(x - 1, -3), Vector2(2, h + 6)), Color("ff6a5c") if m > progress else Color("c4a27a"))
 	var tip := Vector2(w, h / 2.0)
 	var d := 6.0
 	var pts := PackedVector2Array([tip + Vector2(0, -d - 1.5), tip + Vector2(d + 1.5, 0), tip + Vector2(0, d + 1.5), tip + Vector2(-d - 1.5, 0)])

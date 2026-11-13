@@ -1,23 +1,48 @@
 class_name UiStyle
 ## Shared look for menu widgets (buttons, labels, overlays) so every screen
-## matches.
+## matches: the "shoe box" look (dark cardboard boards with cream text, kraft
+## cardboard buttons with ink text, a red marker for the chosen thing). All of
+## it is plain StyleBoxFlat with uneven edges, so it costs nothing per frame.
 
-const BG := Color("161019")
-const PANEL := Color("2c2338")
-const PANEL_HOVER := Color("43355a")
-const BORDER := Color("57496e")
+## The dim backdrop behind a menu (a very dark brown).
+const BG := Color("1c120a")
+## Dark cardboard: panels and buttons' neighbours.
+const PANEL := Color("5b3b21")
+const PANEL_HOVER := Color("7a5230")
+## Light edge of a cardboard piece (the cut paper edge).
+const BORDER := Color("a47646")
 ## The dark lip under panels and buttons that gives them depth.
-const DEPTH := Color("0a0810")
-const GOLD := Color("f2c14e")
-const TEXT := Color("eee6f3")
-const MUTED := Color("8f7ea3")
-const OUTLINE := Color("2b1d14")
+const DEPTH := Color("120b06")
+const GOLD := Color("f2b84a")
+const TEXT := Color("f4e8cb")
+## Quiet text on dark cardboard.
+const MUTED := Color("c4a27a")
+## Softer cream for descriptions.
+const SOFT := Color("e6d3ab")
+const OUTLINE := Color("1a0f07")
+const INK := Color("2b1d12")
+const RED := Color("d3261f")
+## Kraft cardboard of the buttons.
+const KRAFT := Color("c99a64")
+const KRAFT_HOVER := Color("fbf1d6")
+
+static var _theme: Theme
+
+
+## A theme whose default font is the Krabica text font; set on a menu panel's
+## root so every label inside that has no font of its own uses it.
+static func panel_theme() -> Theme:
+	if _theme == null:
+		_theme = Theme.new()
+		_theme.default_font = BoxStyle.body_font()
+	return _theme
 
 
 static func label(text: String, size: int = 20, color: Color = TEXT, align: HorizontalAlignment = HORIZONTAL_ALIGNMENT_CENTER) -> Label:
 	var l := Label.new()
 	l.text = text
 	var settings := LabelSettings.new()
+	settings.font = BoxStyle.bold_font()
 	settings.font_size = size
 	settings.font_color = color
 	settings.outline_size = maxi(size / 5, 3)
@@ -33,19 +58,51 @@ static func button(text: String, width: float = 320.0, size: int = 22) -> Button
 	b.text = text
 	b.custom_minimum_size = Vector2(width, 44)
 	b.focus_mode = Control.FOCUS_ALL
-	b.add_theme_font_size_override("font_size", size)
-	b.add_theme_color_override("font_color", TEXT)
-	b.add_theme_color_override("font_focus_color", GOLD)
-	b.add_theme_color_override("font_hover_color", GOLD)
-	b.add_theme_constant_override("outline_size", 4)
-	b.add_theme_color_override("font_outline_color", OUTLINE)
-	b.add_theme_stylebox_override("normal", box(PANEL, BORDER))
-	b.add_theme_stylebox_override("hover", box(PANEL_HOVER, GOLD))
-	b.add_theme_stylebox_override("focus", box(PANEL_HOVER, GOLD))
-	b.add_theme_stylebox_override("pressed", box(PANEL_HOVER, GOLD))
+	_cardboard_button(b, size, true)
 	b.mouse_entered.connect(b.grab_focus)
 	b.focus_entered.connect(func() -> void: Audio.play("click", -14.0, 0.0))
 	return b
+
+
+## A piece of kraft cardboard with ink text; hovered or focused it turns
+## light cream with a red marker edge.
+static func _cardboard_button(b: Button, size: int, head: bool) -> void:
+	b.add_theme_font_override("font", BoxStyle.head_font() if head else BoxStyle.body_font())
+	b.add_theme_font_size_override("font_size", size + (2 if head else 0))
+	for c in ["font_color", "font_hover_color", "font_focus_color", "font_pressed_color", "font_hover_pressed_color"]:
+		b.add_theme_color_override(c, INK)
+	b.add_theme_color_override("font_disabled_color", Color(INK, 0.45))
+	b.add_theme_constant_override("outline_size", 0)
+	b.add_theme_stylebox_override("normal", cardboard(KRAFT, Color("8c5f36"), 1))
+	b.add_theme_stylebox_override("hover", cardboard(KRAFT_HOVER, RED, 1))
+	b.add_theme_stylebox_override("focus", cardboard(KRAFT_HOVER, RED, 1))
+	b.add_theme_stylebox_override("pressed", cardboard(Color("ecdcb2"), RED, 1))
+	b.add_theme_stylebox_override("hover_pressed", cardboard(Color("ecdcb2"), RED, 1))
+	b.add_theme_stylebox_override("disabled", cardboard(Color("a98558"), Color("8c5f36"), 1))
+
+
+## A flat piece of cardboard with uneven edges: borders of different widths
+## and corners of different roundness make it look cut by hand. `variant`
+## (0..3) turns the unevenness around so neighbours do not look stamped.
+static func cardboard(fill: Color, edge: Color, variant: int = 0, margin: float = 6.0) -> StyleBoxFlat:
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = fill
+	sb.border_color = edge
+	var w: Array = [[2, 3, 2, 4], [3, 2, 4, 2], [2, 2, 3, 4], [3, 3, 2, 3]][variant % 4]
+	sb.border_width_left = w[0]
+	sb.border_width_top = w[1]
+	sb.border_width_right = w[2]
+	sb.border_width_bottom = w[3]
+	var r: Array = [[6, 3, 7, 4], [3, 7, 4, 6], [5, 5, 3, 7], [7, 4, 6, 3]][variant % 4]
+	sb.corner_radius_top_left = r[0]
+	sb.corner_radius_top_right = r[1]
+	sb.corner_radius_bottom_right = r[2]
+	sb.corner_radius_bottom_left = r[3]
+	sb.set_content_margin_all(margin)
+	sb.shadow_color = Color(DEPTH, 0.6 * fill.a)
+	sb.shadow_size = 0
+	sb.shadow_offset = Vector2(2, 3)
+	return sb
 
 
 ## A button for the mouse only: it never takes keyboard focus, so the arrow
@@ -55,14 +112,7 @@ static func click_button(text: String, width: float = 160.0, size: int = 17) -> 
 	b.text = text
 	b.custom_minimum_size = Vector2(width, 36)
 	b.focus_mode = Control.FOCUS_NONE
-	b.add_theme_font_size_override("font_size", size)
-	b.add_theme_color_override("font_color", TEXT)
-	b.add_theme_color_override("font_hover_color", GOLD)
-	b.add_theme_constant_override("outline_size", 4)
-	b.add_theme_color_override("font_outline_color", OUTLINE)
-	b.add_theme_stylebox_override("normal", box(PANEL, BORDER))
-	b.add_theme_stylebox_override("hover", box(PANEL_HOVER, GOLD))
-	b.add_theme_stylebox_override("pressed", box(PANEL_HOVER, GOLD))
+	_cardboard_button(b, size, false)
 	b.pressed.connect(func() -> void: Audio.play("click", -8.0, 0.0))
 	return b
 
@@ -127,31 +177,23 @@ static func _row_width(row: BoxContainer) -> float:
 
 
 static func box(fill: Color, border: Color) -> StyleBoxFlat:
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = fill
-	sb.border_color = border
-	sb.set_border_width_all(2)
-	sb.set_corner_radius_all(8)
-	sb.set_content_margin_all(6)
 	# A dark lip underneath, like the signs on the neighbourhood map.
-	sb.shadow_color = Color(DEPTH, 0.55 * fill.a)
+	var sb := cardboard(fill, border, 0, 6.0)
 	sb.shadow_size = 1
-	sb.shadow_offset = Vector2(0, 3)
 	return sb
 
 
 ## A big panel of the menus (map frame, side panel, bars): a dark plum
 ## board with a soft border, a gold hairline inside and a dark lip.
-static func frame(fill: Color = Color("211b2b"), border: Color = Color("4a3f5c"), width: int = 2) -> StyleBoxFlat:
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = fill
-	sb.border_color = border
-	sb.set_border_width_all(width)
-	sb.set_corner_radius_all(11)
-	sb.set_content_margin_all(8 + width - 2)
+static func frame(fill: Color = Color("3a2412"), border: Color = Color("8c5f36"), width: int = 2) -> StyleBoxFlat:
+	var sb := cardboard(fill, border, 2, 8 + width - 2)
+	sb.border_width_left = width
+	sb.border_width_top = width + 1
+	sb.border_width_right = width + 1
+	sb.border_width_bottom = width + 2
 	sb.shadow_color = Color(DEPTH, 0.7)
 	sb.shadow_size = 2
-	sb.shadow_offset = Vector2(0, 5)
+	sb.shadow_offset = Vector2(3, 6)
 	return sb
 
 
@@ -159,7 +201,7 @@ static func frame(fill: Color = Color("211b2b"), border: Color = Color("4a3f5c")
 static func gold_button(hover: bool) -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = Color("ffcf5e") if hover else Color("f2b33a")
-	sb.border_color = Color("7a4d0c")
+	sb.border_color = RED if hover else Color("5b3b21")
 	sb.set_border_width_all(2)
 	sb.border_width_bottom = 6
 	sb.set_corner_radius_all(12)
@@ -193,7 +235,7 @@ static func inventory_panel(width: float, height: float) -> PanelContainer:
 ## Puts a menu's centred content box on a framed board (the same plum board
 ## with a gold hairline as the neighbourhood screen), centred in `parent`.
 static func board(parent: Control, box: Control) -> PanelContainer:
-	var sb := frame(Color(0.13, 0.1, 0.17, 0.96), Color("5a4a6e"), 2)
+	var sb := frame(Color("3a2412", 0.97), Color("8c5f36"), 2)
 	sb.set_content_margin_all(16)
 	sb.content_margin_top = 10
 	sb.content_margin_bottom = 10
@@ -224,20 +266,25 @@ static func overlay(parent: Control, alpha: float = 0.92) -> VBoxContainer:
 
 # --- Shared pieces of the newer screens: cards, key caps, tags, segments ---
 
-const CARD := Color("221a2d")
-const CARD_BORDER := Color("3c304e")
-const CARD_SELECTED := Color("382c4c")
-const GREEN := Color("8ee07a")
-const SEG_EMPTY := Color("4a3d60")
+const CARD := Color("4a2f1a")
+const CARD_BORDER := Color("7a5434")
+const CARD_SELECTED := Color("6b4527")
+const GREEN := Color("9ad77a")
+const SEG_EMPTY := Color("3a2412")
 
 
 ## A small card inside a panel (list rows, tiles); `selected` gets the gold edge.
 static func card(selected: bool = false, fill: Color = CARD) -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = CARD_SELECTED if selected else fill
-	sb.border_color = GOLD if selected else CARD_BORDER
-	sb.set_border_width_all(2 if selected else 1)
-	sb.set_corner_radius_all(9)
+	sb.border_color = RED if selected else CARD_BORDER
+	sb.set_border_width_all(3 if selected else 2)
+	sb.border_width_bottom += 1
+	sb.corner_radius_top_left = 7
+	sb.corner_radius_top_right = 4
+	sb.corner_radius_bottom_right = 8
+	sb.corner_radius_bottom_left = 5
+	sb.anti_aliasing = true
 	sb.set_content_margin_all(10)
 	sb.content_margin_top = 8
 	sb.content_margin_bottom = 8
@@ -248,11 +295,11 @@ static func card(selected: bool = false, fill: Color = CARD) -> StyleBoxFlat:
 static func key_cap(text: String, size: int = 12) -> PanelContainer:
 	var cap := PanelContainer.new()
 	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color("2f263c")
-	sb.border_color = Color("574872")
+	sb.bg_color = Color("f4e8cb")
+	sb.border_color = Color("8c5f36")
 	sb.set_border_width_all(1)
 	sb.border_width_bottom = 3
-	sb.set_corner_radius_all(5)
+	sb.set_corner_radius_all(4)
 	sb.content_margin_left = 5
 	sb.content_margin_right = 5
 	sb.content_margin_top = 0
@@ -263,7 +310,8 @@ static func key_cap(text: String, size: int = 12) -> PanelContainer:
 	var l := Label.new()
 	l.text = text
 	l.add_theme_font_size_override("font_size", size)
-	l.add_theme_color_override("font_color", Color("ddd3ea"))
+	l.add_theme_font_override("font", BoxStyle.bold_font())
+	l.add_theme_color_override("font_color", INK)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.custom_minimum_size.x = size + 4
 	cap.add_child(l)
@@ -298,6 +346,7 @@ static func add_key(b: Button, key: String, size: int = 12) -> PanelContainer:
 static func side_note(b: Button, note: String, size: int = 13) -> Label:
 	var l := Label.new()
 	l.text = note
+	l.add_theme_font_override("font", BoxStyle.body_font())
 	l.add_theme_font_size_override("font_size", size)
 	l.add_theme_color_override("font_color", MUTED)
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -317,10 +366,10 @@ static func side_note(b: Button, note: String, size: int = 13) -> Label:
 
 
 ## A short label on a dark chip ("legendary", "not started"…).
-static func tag(text: String, color: Color = Color("cfc3dd"), size: int = 13, border: Color = Color(0, 0, 0, 0)) -> PanelContainer:
+static func tag(text: String, color: Color = Color("e6d3ab"), size: int = 13, border: Color = Color(0, 0, 0, 0)) -> PanelContainer:
 	var chip := PanelContainer.new()
 	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color("2c2338")
+	sb.bg_color = Color("3a2412")
 	sb.border_color = border
 	sb.set_border_width_all(1 if border.a > 0.0 else 0)
 	sb.set_corner_radius_all(6)
@@ -333,6 +382,7 @@ static func tag(text: String, color: Color = Color("cfc3dd"), size: int = 13, bo
 	chip.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	var l := Label.new()
 	l.text = text
+	l.add_theme_font_override("font", BoxStyle.bold_font())
 	l.add_theme_font_size_override("font_size", size)
 	l.add_theme_color_override("font_color", color)
 	chip.add_child(l)
@@ -353,6 +403,7 @@ static func segments(count: int, filled: int, seg_width: float = 16.0, height: f
 static func plain(t: String, size: int = 15, color: Color = TEXT, wrap: bool = false) -> Label:
 	var l := Label.new()
 	l.text = t
+	l.add_theme_font_override("font", BoxStyle.body_font())
 	l.add_theme_font_size_override("font_size", size)
 	l.add_theme_color_override("font_color", color)
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE

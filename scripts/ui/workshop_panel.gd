@@ -35,7 +35,8 @@ var _take: Button
 
 
 func _ready() -> void:
-	color = Color(0.08, 0.05, 0.1, 0.98)
+	color = Color(0.09, 0.055, 0.03, 0.98)
+	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
 	var box := VBoxContainer.new()
@@ -72,7 +73,7 @@ func _ready() -> void:
 		tabs.add_child(tab)
 		_tabs.append(tab)
 		_tab_labels.append(l)
-	_about = UiStyle.plain("", 15, Color("cfc3dd"), true)
+	_about = UiStyle.plain("", 15, Color("e6d3ab"), true)
 	_about.custom_minimum_size = Vector2(1100, 44)
 	box.add_child(_about)
 
@@ -122,7 +123,7 @@ func _ready() -> void:
 	_name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_name.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	dhead.add_child(_name)
-	_desc = UiStyle.plain("", 14, Color("e7def2"), true)
+	_desc = UiStyle.plain("", 14, Color("f4e8cb"), true)
 	_desc.custom_minimum_size = Vector2(560, 110)
 	dcol.add_child(_desc)
 	_preview = UiStyle.plain("", 15, UiStyle.GREEN, true)

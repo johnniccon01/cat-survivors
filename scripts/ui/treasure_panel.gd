@@ -12,7 +12,7 @@ const REVEAL_STEP := 0.3
 const GOLD := Color("f2c14e")
 const OUTLINE := Color("2b1d14")
 const HEAL_COLOR := Color("5fd38a")
-const PLAIN_COLOR := Color("a08ab8")
+const PLAIN_COLOR := Color("c4a27a")
 ## How long the chest shakes before it opens, per tier (plain, super, legendary).
 const SHAKE_TIME := [0.4, 0.9, 1.5]
 ## How long the light shows after the lid flies off, before the cards come.
@@ -35,7 +35,8 @@ var _run := 0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	color = Color(0.08, 0.05, 0.1, 0.8)
+	color = Color(0.09, 0.055, 0.03, 0.8)
+	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
 	_edges = EdgeGlow.new()
@@ -60,7 +61,7 @@ func _ready() -> void:
 	box.add_child(_cards)
 	_inventory = UiStyle.inventory_panel(1040, 140)
 	box.add_child(_inventory)
-	_hint = _label(20, Color("b9a8c9"))
+	_hint = _label(20, Color("d9bf94"))
 	_hint.text = "TREASURE_HINT"
 	box.add_child(_hint)
 	_flash = ColorRect.new()
@@ -172,7 +173,7 @@ func _add_card(offer: Dictionary, tier: int) -> void:
 	else:
 		frame = PLAIN_COLOR if tier == 0 else GOLD
 	var card := PanelContainer.new()
-	var sb := UiStyle.box(Color(0.12, 0.08, 0.16, 0.96), frame)
+	var sb := UiStyle.box(Color(0.23, 0.14, 0.07, 0.96), frame)
 	sb.set_border_width_all(3)
 	sb.set_corner_radius_all(12)
 	sb.set_content_margin_all(12)
@@ -204,7 +205,7 @@ func _add_card(offer: Dictionary, tier: int) -> void:
 		title.text = "%s → %d" % [Upgrades.title(offer), int(offer["level"]) + grade]
 	content.add_child(title)
 	if offer["kind"] != "heal":
-		var desc := _label(16, Color("d8cbe6"))
+		var desc := _label(16, Color("e6d3ab"))
 		desc.text = Upgrades.description(offer)
 		desc.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 		desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

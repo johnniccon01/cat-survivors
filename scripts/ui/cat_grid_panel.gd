@@ -11,7 +11,8 @@ var _grid: GridContainer
 
 
 func _ready() -> void:
-	color = Color(0.08, 0.05, 0.1, 0.9)
+	color = Color(0.09, 0.055, 0.03, 0.9)
+	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
 	var box := VBoxContainer.new()
@@ -52,7 +53,7 @@ func open(ids: Array[String], current: int, home: Array) -> void:
 		for state in ["normal", "hover", "pressed"]:
 			var sb := UiStyle.card(i == current)
 			if state == "hover" and i != current:
-				sb.border_color = Color("6a5784")
+				sb.border_color = Color("c4a27a")
 			b.add_theme_stylebox_override(state, sb)
 		b.pressed.connect(func() -> void:
 			visible = false

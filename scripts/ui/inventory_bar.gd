@@ -8,7 +8,7 @@ extends Control
 const SLOT := 40.0
 const PASSIVE_SLOT := 28.0
 const GAP := 5.0
-const FRAME := Color("54466c")
+const FRAME := Color("8c5f36")
 const OUTLINE := Color("2b1d14")
 const GOLD := Color("f2c14e")
 
@@ -90,7 +90,7 @@ func _draw() -> void:
 		draw_circle(Vector2(8, y + 8), 6.0, OUTLINE)
 		draw_circle(Vector2(8, y + 8), 4.5, Color("9a7aff"))
 		draw_string_outline(_font, Vector2(20, y + 13), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, 6, OUTLINE)
-		draw_string(_font, Vector2(20, y + 13), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("d8c8ff"))
+		draw_string(_font, Vector2(20, y + 13), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("e6d3ab"))
 
 
 func _empty(rect: Rect2) -> void:

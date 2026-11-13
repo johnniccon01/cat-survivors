@@ -26,16 +26,17 @@ var _index := 0
 
 
 func _ready() -> void:
-	color = Color(0.08, 0.05, 0.1, 0.98)
+	color = Color(0.09, 0.055, 0.03, 0.98)
+	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
 	var box := VBoxContainer.new()
 	box.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	box.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	box.grow_vertical = Control.GROW_DIRECTION_BOTH
-	box.add_theme_constant_override("separation", 8)
+	box.add_theme_constant_override("separation", 4)
 	UiStyle.board(self, box)
-	var title := _label(36, GOLD)
+	var title := _label(32, GOLD)
 	title.text = "TALENTS_TITLE"
 	box.add_child(title)
 	var head_row := HBoxContainer.new()
@@ -63,12 +64,12 @@ func _ready() -> void:
 	_lives.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	_lives.draw.connect(_draw_lives)
 	box.add_child(_lives)
-	_list = _label(16, Color("d9cce6"))
+	_list = _label(14, Color("e6d3ab"))
 	_list.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	# Everything below keeps its size whatever the cat has, so the panel
 	# never moves: one line per rank ("…" if too long), the pick lines are
 	# always there and only fade out when there is nothing to pick.
-	_list.custom_minimum_size = Vector2(760, Profile.MAX_RANK * 23)
+	_list.custom_minimum_size = Vector2(760, Profile.MAX_RANK * 22)
 	_list.clip_text = true
 	_list.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	_list.vertical_alignment = VERTICAL_ALIGNMENT_TOP
@@ -91,11 +92,11 @@ func _ready() -> void:
 			_style_buttons())
 		_pick_box.add_child(b)
 		_buttons.append(b)
-	_legacy = _label(15, Color("b8b0c8"))
+	_legacy = _label(15, Color("c4a27a"))
 	_legacy.custom_minimum_size = Vector2(760, 44)
 	_legacy.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	box.add_child(_legacy)
-	var hint := _label(14, Color("8f7ea3"))
+	var hint := _label(14, Color("c4a27a"))
 	hint.text = "TALENTS_HINT"
 	hint.custom_minimum_size = Vector2(760, 0)
 	hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

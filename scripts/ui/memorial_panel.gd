@@ -16,7 +16,8 @@ var _empty: Label
 
 
 func _ready() -> void:
-	color = Color(0.06, 0.05, 0.09, 0.98)
+	color = Color(0.09, 0.055, 0.03, 0.98)
+	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
 	var box := VBoxContainer.new()
@@ -28,7 +29,7 @@ func _ready() -> void:
 	var title := _label(34, GOLD)
 	title.text = "MEMORIALS_TITLE"
 	box.add_child(title)
-	_header = _label(17, Color("d9d4e6"))
+	_header = _label(17, Color("e6d3ab"))
 	_header.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_header.custom_minimum_size = Vector2(820, 0)
 	box.add_child(_header)
@@ -41,7 +42,7 @@ func _ready() -> void:
 	_grid.add_theme_constant_override("h_separation", 10)
 	_grid.add_theme_constant_override("v_separation", 10)
 	scroll.add_child(_grid)
-	_empty = _label(17, Color("9a92ac"))
+	_empty = _label(17, Color("c4a27a"))
 	_empty.text = "MEMORIALS_EMPTY"
 	_empty.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_empty.custom_minimum_size = Vector2(820, 0)
@@ -69,7 +70,7 @@ func open() -> void:
 func _card(data: Dictionary) -> PanelContainer:
 	var card := PanelContainer.new()
 	card.custom_minimum_size = Vector2(200, 0)
-	card.add_theme_stylebox_override("panel", UiStyle.box(Color(0.16, 0.15, 0.2, 0.95), Color("6a6878")))
+	card.add_theme_stylebox_override("panel", UiStyle.box(Color(0.23, 0.14, 0.07, 0.95), Color("8c5f36")))
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 2)
 	card.add_child(v)
@@ -82,7 +83,7 @@ func _card(data: Dictionary) -> PanelContainer:
 	var name := _label(18, Color("f4ecd4"))
 	name.text = tr("CAT_%s_NAME" % String(data["cat"]))
 	v.add_child(name)
-	var gen := _label(13, Color("c8c0d8"))
+	var gen := _label(13, Color("d9bf94"))
 	gen.text = tr("MEMORIALS_GEN") % [int(data["gen"]), String(data.get("date", ""))]
 	v.add_child(gen)
 	var stats := _label(13, Color("b8f0a0"))

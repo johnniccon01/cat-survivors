@@ -16,7 +16,8 @@ static func should_show() -> bool:
 
 
 func _ready() -> void:
-	color = Color(0.08, 0.05, 0.1, 0.94)
+	color = Color(0.09, 0.055, 0.03, 0.94)
+	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
 	var box := VBoxContainer.new()

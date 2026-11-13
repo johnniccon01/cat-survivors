@@ -552,14 +552,14 @@ static func draw_moon(ci: CanvasItem, c: Vector2, r: float, nights: int, t: floa
 	if nights == 0:
 		ci.draw_circle(c, r + 6.0 + sin(t * 3.0) * 2.0, Color(1, 0.9, 0.5, 0.35))
 	ci.draw_circle(c + Vector2(0, 3), r + 1.0, Color(0, 0, 0, 0.45))
-	ci.draw_circle(c, r + 2.0, Color("2a2238"))
+	ci.draw_circle(c, r + 2.0, Color("2a1a0e"))
 	ci.draw_circle(c, r, Color("f4ecd4"))
 	ci.draw_circle(c + Vector2(-r * 0.3, -r * 0.25), r * 0.22, Color("d8ccb0"))
 	ci.draw_circle(c + Vector2(r * 0.35, r * 0.3), r * 0.15, Color("d8ccb0"))
 	if nights > 0:
 		# The dark part shrinks as the full moon nears.
 		var k := float(nights) / float(Profile.MOON_CYCLE - 1)
-		ci.draw_circle(c + Vector2(r * (2.0 - 1.4 * k), 0), r * 0.98, Color("2a2238"))
+		ci.draw_circle(c + Vector2(r * (2.0 - 1.4 * k), 0), r * 0.98, Color("2a1a0e"))
 		if number:
 			ci.draw_string(ThemeDB.fallback_font, c + Vector2(-r, r + 15), str(nights), HORIZONTAL_ALIGNMENT_CENTER, r * 2.0, 14, Color("f4ecd4"))
 
@@ -889,7 +889,7 @@ func _draw_path(a: Vector2, b: Vector2, col: Color, march: bool, size: float = 2
 ## to the next map, pale grey to locked ones, faint purple to the maps to come.
 func _draw_paths() -> void:
 	for link: Array in FUTURE_LINKS:
-		_draw_path(_path_end(link[0]), _path_end(link[1]), Color(0.7, 0.6, 0.9, 0.45), false, 2.0)
+		_draw_path(_path_end(link[0]), _path_end(link[1]), Color(0.85, 0.65, 0.4, 0.45), false, 2.0)
 	for id in stage_order():
 		var req: String = GameData.stages[id].get("requires", "")
 		if req == "" or not PLACES.has(req) or not PLACES.has(id):
@@ -1188,7 +1188,7 @@ func _draw_fx(c: Control) -> void:
 
 func _draw_mini() -> void:
 	var r := Rect2(Vector2.ZERO, _mini.size)
-	_mini.draw_rect(r.grow(4), Color(0.08, 0.06, 0.11, 0.9))
+	_mini.draw_rect(r.grow(4), Color(0.09, 0.055, 0.03, 0.9))
 	_mini.draw_texture_rect(_texture, r, false, Color(0.55, 0.6, 0.9))
 	for id: String in PLACES:
 		var col: Color = {"yours": Color("5fe0a8"), "boss": Color("ff6a5a"), "locked": Color("9a92a8")}[place_state(id)]

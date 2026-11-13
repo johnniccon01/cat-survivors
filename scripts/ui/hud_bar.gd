@@ -32,8 +32,8 @@ class _Frame:
 
 	func _draw() -> void:
 		if bar.kind == "xp":
-			draw_rect(Rect2(Vector2.ZERO, size), Color(BoxStyle.DARK, 0.88))
-			draw_rect(Rect2(0, size.y - 2, size.x, 2), Color(0, 0, 0, 0.9))
+			draw_rect(Rect2(Vector2.ZERO, size), Color(BoxStyle.DARK, 0.94))
+			draw_rect(Rect2(0, size.y - 3, size.x, 3), Color(BoxStyle.CREAM, 0.9))
 			return
 		var poly := BoxStyle.torn(size, bar.look_seed, 1.6)
 		draw_colored_polygon(poly, Color(BoxStyle.DARK, 0.9))
@@ -81,18 +81,22 @@ func _inner_width() -> float:
 
 func _draw() -> void:
 	var inset := _inset()
-	var w := _inner_width() * value
-	if w < 1.0:
+	if value <= 0.0:
 		return
-	var h := size.y - inset * 2.0 - (2.0 if kind == "xp" else 0.0)
+	# Never thinner than a few pixels, so a first bit of xp already shows.
+	var w := maxf(_inner_width() * value, 4.0)
+	var h := size.y - inset * 2.0 - (3.0 if kind == "xp" else 0.0)
 	var x0 := inset
-	var pts := PackedVector2Array([Vector2(x0, inset), Vector2(x0 + w, inset)])
-	# The end of the fill: a few small steps in and out, like a torn edge.
-	var steps := maxi(3, roundi(h / 4.0))
-	for i in steps + 1:
-		var y := inset + h * i / steps
-		pts.append(Vector2(x0 + w - (2.0 if i % 2 == 1 and w > 6.0 else 0.0), y))
-	pts.append(Vector2(x0, inset + h))
-	draw_colored_polygon(pts, fill_color)
+	if w < 7.0 or h < 6.0:
+		draw_rect(Rect2(x0, inset, w, h), fill_color)
+	else:
+		# The end of the fill: a few small steps in and out, like torn paper.
+		# No point may repeat its neighbour (the polygon would not triangulate).
+		var pts := PackedVector2Array([Vector2(x0, inset), Vector2(x0 + w, inset)])
+		var steps := maxi(3, roundi(h / 4.0))
+		for i in range(1, steps + 1):
+			pts.append(Vector2(x0 + w - (2.0 if i % 2 == 1 else 0.0), inset + h * i / steps))
+		pts.append(Vector2(x0, inset + h))
+		draw_colored_polygon(pts, fill_color)
 	if shine:
 		draw_rect(Rect2(x0, inset, maxf(w - 2.0, 0.0), maxf(h * 0.3, 1.5)), Color(1, 1, 1, 0.28))

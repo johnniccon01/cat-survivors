@@ -25,7 +25,8 @@ var _buy: Button
 
 
 func _ready() -> void:
-	color = Color(0.08, 0.05, 0.1, 0.98)
+	color = Color(0.09, 0.055, 0.03, 0.98)
+	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
 	for id: String in GameData.powerups:
@@ -109,12 +110,11 @@ func _ready() -> void:
 	detail.add_child(text_col)
 	_detail_name = UiStyle.plain("", 17)
 	text_col.add_child(_detail_name)
-	_desc = UiStyle.plain("", 14, Color("cfc3dd"), true)
+	_desc = UiStyle.plain("", 14, Color("e6d3ab"), true)
 	_desc.custom_minimum_size.x = 380
 	text_col.add_child(_desc)
 	_buy = UiStyle.click_button("", 0, 16)
 	_buy.custom_minimum_size = Vector2(170, 42)
-	_buy.add_theme_color_override("font_color", UiStyle.GOLD)
 	UiStyle.add_key(_buy, "Enter", 11)
 	_buy.pressed.connect(func() -> void:
 		_activate()

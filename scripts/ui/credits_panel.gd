@@ -23,7 +23,7 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	var bg := ColorRect.new()
-	bg.color = Color("0b0814")
+	bg.color = Color("120b06")
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(bg)
@@ -32,7 +32,7 @@ func _ready() -> void:
 	add_child(sky)
 	# The rooftops the cats walk on.
 	var roof := ColorRect.new()
-	roof.color = Color("17111f")
+	roof.color = Color("2a1a0e")
 	roof.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	roof.offset_top = -88
 	roof.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -66,7 +66,7 @@ func _build() -> void:
 	_line(tr("CREDITS_THE_END"), 26, Color.WHITE)
 	_gap(40)
 	for key in ["ENDING_STORY", "CREDITS_EPILOGUE_1", "CREDITS_EPILOGUE_2"]:
-		_line(tr(key), 18, Color("e7def2"), true)
+		_line(tr(key), 18, Color("f4e8cb"), true)
 		_gap(8)
 	_gap(40)
 	_head(tr("CREDITS_ALLIES"))
@@ -127,7 +127,7 @@ func _line(text: String, size: int, color: Color, wrap: bool = false) -> void:
 
 
 func _head(text: String) -> void:
-	_line(text.to_upper(), 15, Color("b9a8c9"))
+	_line(text.to_upper(), 15, Color("d9bf94"))
 
 
 func _gap(h: float) -> void:

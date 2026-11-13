@@ -3,7 +3,7 @@ extends CanvasLayer
 ## Run clock, kill counter, pause and game-over overlays. Built in code for
 ## now; will move to a proper scene once the UI grows.
 
-const XP_BAR_HEIGHT := 7.0
+const XP_BAR_HEIGHT := 13.0
 
 signal resume_pressed
 signal give_up_pressed
@@ -927,10 +927,10 @@ func _fill_log() -> void:
 	_pause_log.add_child(_side_head(tr("PAUSE_NOW"), ""))
 	var now := 0
 	if _quest_title.visible:
-		_pause_log.add_child(_now_card(_quest_title.text, _quest_text.text, UiStyle.GOLD, Color("6a5784"), ""))
+		_pause_log.add_child(_now_card(_quest_title.text, _quest_text.text, UiStyle.GOLD, Color("c4a27a"), ""))
 		now += 1
 	if _mission.visible:
-		_pause_log.add_child(_now_card(_mission.text, "", _mission.label_settings.font_color, Color("6a5784"), ""))
+		_pause_log.add_child(_now_card(_mission.text, "", _mission.label_settings.font_color, Color("c4a27a"), ""))
 		now += 1
 	if _conquest.visible:
 		_pause_log.add_child(_now_card(_conquest.text, "", Color("ff9a8a"), Color("7a4a4a"), ""))
@@ -1234,7 +1234,7 @@ func _label(size: int, align: HorizontalAlignment) -> Label:
 
 func _overlay(lines: Array[String]) -> Control:
 	var root := ColorRect.new()
-	root.color = Color(0.08, 0.05, 0.1, 0.6)
+	root.color = Color(0.09, 0.055, 0.03, 0.6)
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.visible = false
 	var box := VBoxContainer.new()

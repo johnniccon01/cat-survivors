@@ -41,7 +41,8 @@ var _sort_button: Button
 
 
 func _ready() -> void:
-	color = Color(0.08, 0.05, 0.1, 0.98)
+	color = Color(0.09, 0.055, 0.03, 0.98)
+	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
 	var box := VBoxContainer.new()
@@ -146,7 +147,7 @@ func _ready() -> void:
 	_detail_name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_detail_name.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	dhead.add_child(_detail_name)
-	_detail_desc = UiStyle.plain("", 14, Color("e7def2"), true)
+	_detail_desc = UiStyle.plain("", 14, Color("f4e8cb"), true)
 	_detail_desc.custom_minimum_size = Vector2(560, 120)
 	dcol.add_child(_detail_desc)
 	dcol.add_child(UiStyle.plain(tr("ITEMS_COMPARE"), 13, UiStyle.GOLD))

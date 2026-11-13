@@ -8,7 +8,7 @@ signal closed
 
 const GOLD := Color("f2c14e")
 const OUTLINE := Color("2b1d14")
-const RARITY_COLORS := {"common": Color("d9cce6"), "rare": Color("8fd3ff"), "epic": Color("c77dff")}
+const RARITY_COLORS := {"common": Color("e6d3ab"), "rare": Color("8fd3ff"), "epic": Color("c77dff")}
 
 var _ids: Array[String] = []
 var _index := 0
@@ -18,7 +18,8 @@ var _desc: Label
 
 
 func _ready() -> void:
-	color = Color(0.08, 0.05, 0.1, 0.98)
+	color = Color(0.09, 0.055, 0.03, 0.98)
+	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
 	for id: String in GameData.charms:
@@ -53,11 +54,11 @@ func _ready() -> void:
 		row.gui_input.connect(_on_row_input.bind(_rows.size()))
 		_rows.append(row)
 
-	_desc = _label(18, Color("d9cce6"))
+	_desc = _label(18, Color("e6d3ab"))
 	_desc.custom_minimum_size = Vector2(1000, 50)
 	_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	box.add_child(_desc)
-	var hint := _label(16, Color("8f7ea3"))
+	var hint := _label(16, Color("c4a27a"))
 	hint.text = "CHARMS_HINT"
 	box.add_child(hint)
 	var back := UiStyle.click_button("SET_BACK", 200)
@@ -79,10 +80,10 @@ func _refresh() -> void:
 		var worn: bool = Profile.careers.has(Profile.selected_cat) and ("charm:" + id) in Profile.careers[Profile.selected_cat]["talents"]
 		var label := _rows[i].get_child(0) as Label
 		label.text = "  %s %s" % ["◆" if worn else "◇", "%s %s" % [tr("CHARM_%s_NAME" % id), stars(Profile.quality_of(id))] if owned else "???"]
-		label.label_settings.font_color = RARITY_COLORS[GameData.charms[id]["rarity"]] if owned else Color("6a5a7a")
+		label.label_settings.font_color = RARITY_COLORS[GameData.charms[id]["rarity"]] if owned else Color("8a7050")
 		var sb := StyleBoxFlat.new()
-		sb.bg_color = Color("5b4470") if i == _index else Color("3b2a4a")
-		sb.border_color = GOLD if worn else (Color("8f7ea3") if i == _index else Color("3b2a4a"))
+		sb.bg_color = Color("7a5230") if i == _index else Color("4a2f1a")
+		sb.border_color = GOLD if worn else (Color("c4a27a") if i == _index else Color("4a2f1a"))
 		sb.set_border_width_all(2)
 		sb.set_corner_radius_all(6)
 		_rows[i].add_theme_stylebox_override("panel", sb)

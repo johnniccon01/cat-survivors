@@ -11,7 +11,7 @@ signal closed
 signal dream_chosen(offer: Dictionary, shards: Array)
 
 const GOLD := Color("f2c14e")
-const DREAM := Color("c8a8ff")
+const DREAM := Color("ffc27a")
 const OUTLINE := Color("2b1d14")
 
 var _box: VBoxContainer
@@ -24,7 +24,8 @@ var _picked: Array[String] = []
 
 
 func _ready() -> void:
-	color = Color(0.06, 0.04, 0.12, 0.98)
+	color = Color(0.09, 0.055, 0.03, 0.98)
+	theme = UiStyle.panel_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	visible = false
 	_box = VBoxContainer.new()
@@ -41,7 +42,7 @@ func _ready() -> void:
 	_offers = VBoxContainer.new()
 	_offers.add_theme_constant_override("separation", 6)
 	_box.add_child(_offers)
-	var shard_title := _label(16, Color("d9cce6"))
+	var shard_title := _label(16, Color("e6d3ab"))
 	shard_title.text = "DREAMS_SHARDS"
 	_box.add_child(shard_title)
 	_shards = HFlowContainer.new()
@@ -73,7 +74,7 @@ func _refresh() -> void:
 	for offer: Dictionary in Profile.dream_offers():
 		var b := UiStyle.click_button(_offer_text(offer), 760, 16)
 		b.custom_minimum_size.y = 46
-		b.add_theme_color_override("font_color", Color("ff9a88") if offer.get("nightmare", false) else Color.WHITE)
+		b.add_theme_color_override("font_color", Color("a01c15") if offer.get("nightmare", false) else UiStyle.INK)
 		b.pressed.connect(func() -> void:
 			Audio.play("select", -4.0, 0.0)
 			dream_chosen.emit(offer, _picked.duplicate()))
@@ -81,7 +82,7 @@ func _refresh() -> void:
 	for c in _shards.get_children():
 		c.queue_free()
 	if Profile.dream_shards.is_empty():
-		var none := _label(14, Color("8f7ea3"))
+		var none := _label(14, Color("c4a27a"))
 		none.text = "DREAMS_NO_SHARDS"
 		_shards.add_child(none)
 	var counted := {}
@@ -90,7 +91,7 @@ func _refresh() -> void:
 	for s: String in counted:
 		var on := s in _picked
 		var b := UiStyle.click_button("%s %s ×%d" % ["■" if on else "□", tr("CHALLENGE_%s_NAME" % s), counted[s]], 0, 14)
-		b.add_theme_color_override("font_color", Color("e04646") if on else Color.WHITE)
+		b.add_theme_color_override("font_color", Color("a01c15") if on else UiStyle.INK)
 		b.tooltip_text = tr("CHALLENGE_%s_DESC" % s)
 		b.pressed.connect(func() -> void:
 			if s in _picked:

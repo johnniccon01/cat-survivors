@@ -183,6 +183,18 @@ func _ready() -> void:
 	add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
 	_lights.material = add
 	_fx = _layer(_draw_fx)
+	# Warm "old map" grade over the art only (pins, labels, paths, flags and
+	# buttons are added after it and keep their colours).
+	var bb := BackBufferCopy.new()
+	bb.copy_mode = BackBufferCopy.COPY_MODE_VIEWPORT
+	add_child(bb)
+	var grade := ColorRect.new()
+	grade.set_anchors_preset(Control.PRESET_FULL_RECT)
+	grade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var gm := ShaderMaterial.new()
+	gm.shader = load("res://shaders/map_warm.gdshader")
+	grade.material = gm
+	add_child(grade)
 
 	_pins_layer = Control.new()
 	_pins_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE

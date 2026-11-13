@@ -4125,3 +4125,8 @@ WORKSHOP_PREVIEW_SMITH,Level %d → %d: every number +%d%%,Úroveň %d → %
 WORKSHOP_PREVIEW_SEW,"One of the extra stats changes into another, at random.",Jedna z vlastností navyše sa náhodne zmení na inú.,Jedna z vlastností navíc se náhodně změní na jinou.,Una de las estadísticas extra cambia al azar por otra.,Одна из дополнительных характеристик случайно сменится другой.,随机把一条额外属性换成另一条。
 WORKSHOP_PREVIEW_HERBS,One more random stat.,Jedna náhodná vlastnosť navyše.,Jedna náhodná vlastnost navíc.,Una estadística aleatoria más.,Ещё одна случайная характеристика.,多一条随机属性。
 WORKSHOP_PREVIEW_LAB,%s → %s: bigger numbers and one more stat,%s → %s: väčšie čísla a jedna vlastnosť navyše,%s → %s: větší čísla a jedna vlastnost navíc,%s → %s: números mayores y una estadística más,%s → %s: числа больше и ещё одна характеристика,%s → %s：数值提升并多一条属性
+ISTAT_AMOUNT,+%s projectile,+%s strela,+%s střela,+%s proyectil,+%s снаряд,弹幕 +%s
+ISTAT_PULSE_MAGNET,Pulls all kibble every %s s,Priťahuje všetky granule každých %s s,Přitahuje všechny granule každých %s s,Atrae todo el pienso cada %s s,Притягивает весь корм каждые %s с,每 %s 秒吸引所有猫粮
+ISTAT_REVIVAL,+%s life per night,+%s život za noc,+%s život za noc,+%s vida por noche,+%s жизнь за ночь,每晚 +%s 条命
+ISTAT_LOW_HP_GUARD,+%s%% protection at low health,+%s %% ochrana pri nízkom zdraví,+%s %% ochrana při nízkém zdraví,+%s%% de protección con poca salud,+%s%% защиты при низком здоровье,低血量时防护 +%s%%
+ISTAT_FREEZE_EVERY,Freezes enemies every %s s,Zmrazí nepriateľov každých %s s,Zmrazí nepřátele každých %s s,Congela enemigos cada %s s,Замораживает врагов каждые %s с,每 %s 秒冻结敌人

@@ -401,7 +401,7 @@ scenarios=(
   "boss_rat_king|--bot --god --strong --stage=BASEMENT --dev-boss=RAT_KING --bot-time=80 --expect=arena:thorns,ring,portal,special:swarm,arena_open"
   "boss_lawnmower|--bot --god --strong --stage=GARDEN --dev-boss=LAWNMOWER --bot-time=45 --expect=hedges,hedge_solid,special:mow --expect-not=portal,arena:thorns"
   "boss_bruno|--bot --god --strong --stage=ROOFTOP --dev-boss=RIVAL_BRUNO --boss-hp=0.45 --bot-time=45 --expect=phase2,special:bats --expect-not=portal,arena:thorns"
-  "boss_guard_dog|--bot --god --strong --stage=SUPERMARKET --dev-boss=GUARD_DOG --boss-hp=0.6 --bot-time=45 --expect=pack,pack_run,special:chase --expect-not=portal,arena:thorns"
+  "boss_guard_dog|--bot --god --strong --stage=SUPERMARKET --dev-boss=GUARD_DOG --boss-hp=0.6 --bot-time=45 --expect=pack,pack_run,special:fetch --expect-not=portal,arena:thorns"
   "boss_kraken|--bot --god --strong --stage=HARBOR --dev-boss=KRAKEN --bot-time=45 --expect=arena:water,special:tentacles --expect-not=portal"
   "boss_r3000|--bot --god --strong --stage=FACTORY --dev-boss=ROBO_VACUUM_3000 --boss-hp=0.45 --bot-time=45 --expect=phase2,special:cross --expect-not=portal,arena:thorns"
   "items_check|--bot --items-test --gear=RAT_CROWN,KRAKEN_PEARL,MOWER_BOOTS,rare,common --bot-time=3"

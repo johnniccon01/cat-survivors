@@ -940,7 +940,7 @@ func _next_modal() -> void:
 			if "--no-flap" in _args and _choice["title"] == tr("EXTRACT_ASK_TITLE"):
 				callback.call(1)
 			else:
-				callback.call(int(_arg("--choice=", "0")))
+				callback.call(clampi(int(_arg("--choice=", "0")), 0, maxi((_choice["options"] as Array).size() - 1, 0)))
 			_next_modal.call_deferred()
 		else:
 			hud.choice.open(_choice["title"], _choice["prompt"], _choice["options"], _choice.get("cancel", false))

@@ -11,7 +11,7 @@ class_name Items
 ## "ilvl", and maybe "set" and "locked"}.
 
 ## Stats shown as a percentage (the rest are flat numbers).
-const PERCENT := ["might", "speed", "area", "cooldown", "greed", "luck", "crit_chance", "crit_mult", "duration", "proj_speed", "growth", "boss_damage", "heal_power"]
+const PERCENT := ["low_hp_guard", "might", "speed", "area", "cooldown", "greed", "luck", "crit_chance", "crit_mult", "duration", "proj_speed", "growth", "boss_damage", "heal_power"]
 ## Rarities from worst to best (for sorting and worth).
 const ORDER := ["common", "uncommon", "rare", "epic", "dream", "legendary"]
 ## Each item level above 1 makes the item's numbers this much bigger.

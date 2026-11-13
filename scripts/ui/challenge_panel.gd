@@ -38,7 +38,8 @@ func _ready() -> void:
 	for id in _ids:
 		var row := PanelContainer.new()
 		row.custom_minimum_size = Vector2(620, 40)
-		var label := _label(20, Color.WHITE)
+		var label := _label(20, UiStyle.P_TEXT)
+		label.label_settings.outline_size = 0
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		row.add_child(label)
 		box.add_child(row)
@@ -70,13 +71,8 @@ func _refresh() -> void:
 		var on := id in Profile.challenges
 		var label := _rows[i].get_child(0) as Label
 		label.text = "  %s %s   (%s)" % ["■" if on else "□", tr("CHALLENGE_%s_NAME" % id), tr("CHALLENGES_MULT") % [float(GameData.challenges[id]["gold"]), roundi(float(GameData.challenges[id].get("loot", 0.0)) * 100.0)]]
-		label.label_settings.font_color = ON if on else Color.WHITE
-		var sb := StyleBoxFlat.new()
-		sb.bg_color = Color("7a5230") if i == _index else Color("4a2f1a")
-		sb.border_color = ON if on else (UiStyle.RED if i == _index else Color("2b1d12"))
-		sb.set_border_width_all(2)
-		sb.set_corner_radius_all(6)
-		_rows[i].add_theme_stylebox_override("panel", sb)
+		label.label_settings.font_color = UiStyle.P_GREEN if on else UiStyle.P_TEXT
+		_rows[i].add_theme_stylebox_override("panel", UiStyle.card(i == _index, Color("f1d78c") if on else Color(0, 0, 0, 0)))
 	_desc.text = tr("CHALLENGE_%s_DESC" % _ids[_index])
 
 

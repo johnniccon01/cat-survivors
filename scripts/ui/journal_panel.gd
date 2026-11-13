@@ -16,7 +16,7 @@ const OUTLINE := Color("2b1d14")
 const CARD := Color("4a2f1a")
 const LIST_HEIGHT := 520.0
 const SCROLL_STEP := 54
-const SILHOUETTE := Color(0.12, 0.09, 0.15)
+const SILHOUETTE := Color(0.17, 0.12, 0.08)
 
 var tab := "quests"
 
@@ -51,6 +51,7 @@ func _ready() -> void:
 	box.add_child(tabs)
 	for t: String in TABS:
 		var b := UiStyle.click_button("JOURNAL_TAB_%s" % t.to_upper(), 180, 15)
+		(b as BoxButton).ring_grow = 3.0
 		b.pressed.connect(func() -> void: show_tab(t))
 		tabs.add_child(b)
 		_tab_buttons[t] = b
@@ -108,13 +109,14 @@ func _build_quests() -> void:
 		elif d == next:
 			top.add_child(UiStyle.tag("🔒 " + tr("DISTRICT_NAME_" + d.to_upper()), Color.WHITE, 14))
 		else:
-			top.add_child(UiStyle.tag("🔒 ???", MUTED, 14))
+			top.add_child(UiStyle.tag("🔒 ???", Color("c4a27a"), 14))
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	top.add_child(spacer)
 	for f: String in ["all", "open", "done"]:
-		var b := UiStyle.click_button(tr("QB_FILTER_%s" % f.to_upper()), 0, 11)
+		var b := UiStyle.click_button(tr("QB_FILTER_%s" % f.to_upper()), 0, 14)
 		(b as BoxButton).selected = f == _filter
+		(b as BoxButton).ring_grow = 3.0
 		b.pressed.connect(func() -> void:
 			_filter = f
 			show_tab("quests"))
@@ -229,11 +231,11 @@ func _group_button(g: String) -> PanelContainer:
 	var row := HBoxContainer.new()
 	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	col.add_child(row)
-	var name_label := UiStyle.plain(_group_name(g), 15, GOLD if selected else (DONE if done == items.size() else Color.WHITE), true)
+	var name_label := UiStyle.plain(_group_name(g), 15, UiStyle.P_RED if selected else (UiStyle.P_GREEN if done == items.size() else UiStyle.P_TEXT), true)
 	name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	name_label.custom_minimum_size.x = 150
 	row.add_child(name_label)
-	row.add_child(UiStyle.plain("%d / %d" % [done, items.size()], 13, MUTED))
+	row.add_child(UiStyle.plain("%d / %d" % [done, items.size()], 13, UiStyle.P_MUTED))
 	var bar := ProgressBar.new()
 	bar.show_percentage = false
 	bar.custom_minimum_size.y = 4
@@ -241,7 +243,7 @@ func _group_button(g: String) -> PanelContainer:
 	bar.value = done
 	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var bg := StyleBoxFlat.new()
-	bg.bg_color = UiStyle.SEG_EMPTY
+	bg.bg_color = Color("c3ab7d")
 	bg.set_corner_radius_all(2)
 	var fill := StyleBoxFlat.new()
 	fill.bg_color = DONE
@@ -301,32 +303,32 @@ func _story_card(title: String, done: bool, steps: int, n: int, reward: String, 
 	var head := HBoxContainer.new()
 	head.add_theme_constant_override("separation", 10)
 	col.add_child(head)
-	var name_label := UiStyle.plain(title, 17, DONE if done else Color.WHITE)
+	var name_label := UiStyle.plain(title, 17, UiStyle.P_GREEN if done else UiStyle.P_TEXT)
 	head.add_child(name_label)
 	var state := "done" if done else ("open" if steps > 0 else "new")
-	head.add_child(UiStyle.tag(tr("QB_STATE_%s" % state.to_upper()), DONE if done else (GOLD if steps > 0 else Color("e6d3ab")), 11))
+	head.add_child(UiStyle.tag(tr("QB_STATE_%s" % state.to_upper()), Color("b8e6a0") if done else (Color("f2c14e") if steps > 0 else Color("e6d3ab")), 12))
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	head.add_child(spacer)
 	if reward != "":
-		var r := UiStyle.plain(reward, 13, GOLD, true)
+		var r := UiStyle.plain(reward, 14, UiStyle.P_GOLD, true)
 		r.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		r.custom_minimum_size.x = minf(ThemeDB.fallback_font.get_string_size(reward, HORIZONTAL_ALIGNMENT_LEFT, -1, 13).x + 4.0, 330.0)
 		head.add_child(r)
 	if desc != "":
-		col.add_child(UiStyle.plain(desc, 13, MUTED, true))
+		col.add_child(UiStyle.plain(desc, 14, UiStyle.P_MUTED, true))
 	if n > 0:
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override("separation", 10)
 		col.add_child(row)
 		row.add_child(UiStyle.segments(n, steps, 24 if n <= 8 else 12, 6))
 		if next_text != "":
-			row.add_child(UiStyle.plain(tr("QB_NEXT"), 13, MUTED))
-			var t := UiStyle.plain(next_text, 13, TEXT, true)
+			row.add_child(UiStyle.plain(tr("QB_NEXT"), 13, UiStyle.P_MUTED))
+			var t := UiStyle.plain(next_text, 14, UiStyle.P_TEXT, true)
 			t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			row.add_child(t)
 		elif done:
-			row.add_child(UiStyle.plain(tr("QB_DONE"), 13, DONE))
+			row.add_child(UiStyle.plain(tr("QB_DONE"), 13, UiStyle.P_GREEN))
 	return card
 
 
@@ -346,11 +348,12 @@ func _build_achievements() -> void:
 		var secret: bool = Achievements.all()[id].get("secret", false)
 		var card := PanelContainer.new()
 		card.custom_minimum_size = Vector2(550, 58)
-		card.add_theme_stylebox_override("panel", UiStyle.box(UiStyle.PANEL_HOVER if earned else UiStyle.PANEL, GOLD if earned else UiStyle.BORDER))
+		card.add_theme_stylebox_override("panel", UiStyle.card(false, Color("f1d78c") if earned else Color(0, 0, 0, 0)))
 		var box := VBoxContainer.new()
 		box.add_theme_constant_override("separation", 0)
 		card.add_child(box)
-		var name_label := _label(18, GOLD if earned else TEXT, HORIZONTAL_ALIGNMENT_LEFT)
+		var name_label := _label(18, UiStyle.P_TEXT, HORIZONTAL_ALIGNMENT_LEFT)
+		name_label.label_settings.outline_size = 0
 		name_label.text = ("★ " if earned else "☆ ") + (tr("ACH_%s_NAME" % id) if earned or not secret else "???")
 		box.add_child(name_label)
 		var desc := _label(14, DONE if earned else MUTED, HORIZONTAL_ALIGNMENT_LEFT)

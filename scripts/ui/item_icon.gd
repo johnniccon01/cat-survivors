@@ -18,7 +18,7 @@ func _init(p_size: float = 26.0) -> void:
 
 func show_item(item: Dictionary, p_slot: String = "") -> void:
 	slot = String(item.get("slot", p_slot)) if not item.is_empty() else p_slot
-	color = Items.color(item) if not item.is_empty() else Color(0.4, 0.35, 0.45)
+	color = Items.color(item) if not item.is_empty() else Color(0.55, 0.42, 0.3)
 	rim = Items.rarity_color(item) if not item.is_empty() else Color(0, 0, 0, 0)
 	queue_redraw()
 

@@ -46,7 +46,8 @@ func _ready() -> void:
 	for id in _ids:
 		var row := PanelContainer.new()
 		row.custom_minimum_size = Vector2(360, 34)
-		var label := _label(18, Color.WHITE)
+		var label := _label(18, UiStyle.P_TEXT)
+		label.label_settings.outline_size = 0
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		row.add_child(label)
 		grid.add_child(row)
@@ -80,13 +81,8 @@ func _refresh() -> void:
 		var worn: bool = Profile.careers.has(Profile.selected_cat) and ("charm:" + id) in Profile.careers[Profile.selected_cat]["talents"]
 		var label := _rows[i].get_child(0) as Label
 		label.text = "  %s %s" % ["◆" if worn else "◇", "%s %s" % [tr("CHARM_%s_NAME" % id), stars(Profile.quality_of(id))] if owned else "???"]
-		label.label_settings.font_color = RARITY_COLORS[GameData.charms[id]["rarity"]] if owned else Color("8a7050")
-		var sb := StyleBoxFlat.new()
-		sb.bg_color = Color("7a5230") if i == _index else Color("4a2f1a")
-		sb.border_color = GOLD if worn else (UiStyle.RED if i == _index else Color("2b1d12"))
-		sb.set_border_width_all(2)
-		sb.set_corner_radius_all(6)
-		_rows[i].add_theme_stylebox_override("panel", sb)
+		label.label_settings.font_color = RARITY_COLORS[GameData.charms[id]["rarity"]].darkened(0.5) if owned else Color("8a7654")
+		_rows[i].add_theme_stylebox_override("panel", UiStyle.card(i == _index, Color("f1d78c") if worn else Color(0, 0, 0, 0)))
 	var sel := _ids[_index]
 	_desc.text = CharmPanel.describe(sel) if Profile.has_charm(sel) else tr("CHARMS_UNKNOWN")
 

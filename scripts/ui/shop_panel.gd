@@ -73,16 +73,17 @@ func _ready() -> void:
 		col.alignment = BoxContainer.ALIGNMENT_CENTER
 		col.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		row.add_child(col)
-		var name_label := UiStyle.plain(tr("POWERUP_%s_NAME" % id), 17)
+		var name_label := UiStyle.plain(tr("POWERUP_%s_NAME" % id), 17, UiStyle.P_TEXT)
 		name_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		name_label.custom_minimum_size.x = 140
+		name_label.add_theme_font_size_override("font_size", UiStyle.fit_size(name_label.get_theme_font("font"), name_label.text, 138.0, 17, 11))
 		col.add_child(name_label)
 		var bar := UiStyle.segments(int(GameData.powerups[id]["max_rank"]), 0, 18, 6)
 		col.add_child(bar)
 		var price_row := HBoxContainer.new()
 		price_row.add_theme_constant_override("separation", 5)
 		col.add_child(price_row)
-		var price := UiStyle.plain("", 14, UiStyle.GOLD)
+		var price := UiStyle.plain("", 15, UiStyle.P_GOLD)
 		price_row.add_child(price)
 		price_row.add_child(PixelGlyph.rect("coin", 2))
 		grid.add_child(card)
@@ -153,8 +154,8 @@ func _refresh() -> void:
 		_bars[i].filled = rank
 		_prices[i].text = tr("SHOP_MAX") if maxed else Hud.thousands(Profile.powerup_cost(id))
 		_prices[i].get_parent().get_child(1).visible = not maxed
-		_prices[i].add_theme_color_override("font_color", UiStyle.GREEN if maxed else (UiStyle.GOLD if affordable else UiStyle.MUTED))
-		_names[i].add_theme_color_override("font_color", UiStyle.GOLD if i == _index else UiStyle.TEXT)
+		_prices[i].add_theme_color_override("font_color", UiStyle.P_GREEN if maxed else (UiStyle.P_GOLD if affordable else UiStyle.P_MUTED))
+		_names[i].add_theme_color_override("font_color", UiStyle.P_RED if i == _index else UiStyle.P_TEXT)
 		_cards[i].add_theme_stylebox_override("panel", UiStyle.card(i == _index))
 	var id := _ids[_index]
 	var rank := Profile.powerup_rank(id)

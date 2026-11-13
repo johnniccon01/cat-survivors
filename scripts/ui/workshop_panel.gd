@@ -65,7 +65,7 @@ func _ready() -> void:
 			if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 				_tab = i
 				_refresh())
-		var l := UiStyle.plain("", 14, Color.WHITE, true)
+		var l := UiStyle.plain("", 14, UiStyle.P_TEXT, true)
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		tab.add_child(l)
@@ -95,13 +95,13 @@ func _ready() -> void:
 		var icon := ItemIcon.new(20.0)
 		inner.add_child(icon)
 		_row_icons.append(icon)
-		var label := UiStyle.plain("", 14)
+		var label := UiStyle.plain("", 14, UiStyle.P_TEXT)
 		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		label.custom_minimum_size.x = 280
 		inner.add_child(label)
 		_row_names.append(label)
-		var tag := UiStyle.plain("", 12, UiStyle.MUTED)
+		var tag := UiStyle.plain("", 12, UiStyle.P_MUTED)
 		inner.add_child(tag)
 		_row_tags.append(tag)
 		list.add_child(row)
@@ -118,14 +118,14 @@ func _ready() -> void:
 	dcol.add_child(dhead)
 	_icon = ItemIcon.new(40.0)
 	dhead.add_child(_icon)
-	_name = UiStyle.plain("", 18, Color.WHITE, true)
+	_name = UiStyle.plain("", 18, UiStyle.P_TEXT, true)
 	_name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_name.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	dhead.add_child(_name)
-	_desc = UiStyle.plain("", 14, Color("f4e8cb"), true)
+	_desc = UiStyle.plain("", 14, UiStyle.P_TEXT, true)
 	_desc.custom_minimum_size = Vector2(560, 110)
 	dcol.add_child(_desc)
-	_preview = UiStyle.plain("", 15, UiStyle.GREEN, true)
+	_preview = UiStyle.plain("", 15, UiStyle.P_GREEN, true)
 	_preview.custom_minimum_size = Vector2(560, 60)
 	dcol.add_child(_preview)
 
@@ -192,7 +192,7 @@ func _refresh() -> void:
 		var open := DistrictMap.district_open(d)
 		var w: String = Items.WORKSHOPS[d]
 		_tab_labels[i].text = "%s\n%s" % [tr("WORKSHOP_%s_NAME" % w), ("🔒 " if not open else "") + tr("DISTRICT_NAME_" + d.to_upper())]
-		_tab_labels[i].add_theme_color_override("font_color", UiStyle.GOLD if d == Profile.district else (Color.WHITE if open else UiStyle.MUTED))
+		_tab_labels[i].add_theme_color_override("font_color", UiStyle.P_RED if d == Profile.district else (UiStyle.P_TEXT if open else UiStyle.P_MUTED))
 		_tabs[i].add_theme_stylebox_override("panel", UiStyle.card(i == _tab))
 	var d_now: String = ORDER[_tab]
 	_about.text = tr("WORKSHOP_%s_DESC" % _action())
@@ -213,7 +213,7 @@ func _refresh() -> void:
 		var item: Dictionary = list[n]
 		_row_icons[i].show_item(item)
 		_row_names[i].text = ("🔒 " if item.get("locked", false) else "") + Items.item_name(item)
-		_row_names[i].add_theme_color_override("font_color", Items.rarity_color(item))
+		_row_names[i].add_theme_color_override("font_color", Items.rarity_color(item).darkened(0.5))
 		_row_tags[i].text = "%s · %s" % [tr("ITEM_SLOT_" + String(item["slot"])), tr("ITEM_LEVEL") % int(item.get("ilvl", 1))]
 		var sb := UiStyle.card(n == _index)
 		sb.set_content_margin_all(4)
@@ -224,16 +224,16 @@ func _refresh() -> void:
 	_icon.show_item(item)
 	if item.is_empty():
 		_name.text = tr("ITEMS_EMPTY")
-		_name.add_theme_color_override("font_color", UiStyle.MUTED)
+		_name.add_theme_color_override("font_color", UiStyle.P_MUTED)
 		_desc.text = ""
 		_preview.text = ""
 	else:
 		_name.text = Items.item_name(item)
-		_name.add_theme_color_override("font_color", Items.rarity_color(item))
+		_name.add_theme_color_override("font_color", Items.rarity_color(item).darkened(0.5))
 		_desc.text = Items.describe(item)
 		var problem := Items.work_problem(item, _action())
 		_preview.text = tr(problem) if problem != "" else _preview_text(item)
-		_preview.add_theme_color_override("font_color", UiStyle.MUTED if problem != "" else UiStyle.GREEN)
+		_preview.add_theme_color_override("font_color", UiStyle.P_MUTED if problem != "" else UiStyle.P_GREEN)
 	var cost := Items.work_cost(item, _action()) if not item.is_empty() else 0
 	_do.text = tr("WORKSHOP_DO") % cost
 	_do.disabled = item.is_empty() or not _here() or Items.work_problem(item, _action()) != "" or Profile.materials < cost

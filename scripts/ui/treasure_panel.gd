@@ -48,20 +48,20 @@ func _ready() -> void:
 	box.grow_vertical = Control.GROW_DIRECTION_BOTH
 	box.add_theme_constant_override("separation", 8)
 	add_child(box)
-	_title = _label(40, GOLD)
+	_title = BoxStyle.hud_label(44, HORIZONTAL_ALIGNMENT_CENTER, GOLD, true)
 	_title.text = "TREASURE_TITLE"
 	box.add_child(_title)
 	_show = ChestShow.new()
-	_show.custom_minimum_size = Vector2(1040, 150)
+	_show.custom_minimum_size = Vector2(1040, 200)
 	box.add_child(_show)
 	_cards = HBoxContainer.new()
 	_cards.alignment = BoxContainer.ALIGNMENT_CENTER
 	_cards.add_theme_constant_override("separation", 20)
 	_cards.custom_minimum_size = Vector2(0, 230)
 	box.add_child(_cards)
-	_inventory = UiStyle.inventory_panel(1040, 110)
+	_inventory = UiStyle.inventory_panel(1040, 92)
 	box.add_child(_inventory)
-	_hint = _label(20, Color("d9bf94"))
+	_hint = BoxStyle.hud_label(20, HORIZONTAL_ALIGNMENT_CENTER, BoxStyle.CREAM)
 	_hint.text = "TREASURE_HINT"
 	box.add_child(_hint)
 	_flash = ColorRect.new()
@@ -173,19 +173,19 @@ func _add_card(offer: Dictionary, tier: int) -> void:
 	else:
 		frame = PLAIN_COLOR if tier == 0 else GOLD
 	var card := PanelContainer.new()
-	var sb := UiStyle.box(Color(0.23, 0.14, 0.07, 0.96), frame)
-	sb.set_border_width_all(3)
-	sb.set_corner_radius_all(12)
-	sb.set_content_margin_all(12)
-	sb.shadow_color = Color(frame, 0.45)
-	sb.shadow_size = 14 if evolved or grade >= 2 else 6
+	var sb := UiStyle.card(false, Color("faf0d2"))
+	sb.set_content_margin_all(11)
+	if evolved or grade > 0 or tier > 0:
+		sb.selected = true
+		sb.lit_ring = frame
 	card.add_theme_stylebox_override("panel", sb)
 	card.custom_minimum_size = Vector2(CARD_WIDTH, 0)
 	var content := VBoxContainer.new()
 	content.add_theme_constant_override("separation", 6)
 	card.add_child(content)
 	# A tag on top: evolved, or the card's rarity.
-	var tag := _label(18, frame)
+	var tag := _label(19, frame.darkened(0.4))
+	tag.label_settings.outline_size = 0
 	tag.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 	if evolved:
 		tag.text = tr("TREASURE_EVOLVED")
@@ -196,7 +196,9 @@ func _add_card(offer: Dictionary, tier: int) -> void:
 	var icon := IconView.new(icon_kind, offer["id"], 56.0)
 	icon.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	content.add_child(icon)
-	var title := _label(24, GOLD if evolved else Color.WHITE)
+	var title := _label(25, UiStyle.P_RED if evolved else UiStyle.P_TEXT)
+	title.label_settings.outline_size = 0
+	title.label_settings.font = BoxStyle.head_font()
 	title.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	if evolved or offer["kind"] == "heal":
@@ -205,7 +207,8 @@ func _add_card(offer: Dictionary, tier: int) -> void:
 		title.text = "%s → %d" % [Upgrades.title(offer), int(offer["level"]) + grade]
 	content.add_child(title)
 	if offer["kind"] != "heal":
-		var desc := _label(16, Color("e6d3ab"))
+		var desc := _label(15, UiStyle.P_TEXT)
+		desc.label_settings.outline_size = 0
 		desc.text = Upgrades.description(offer)
 		desc.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 		desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

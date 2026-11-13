@@ -37,28 +37,14 @@ func _ready() -> void:
 	_layer = CanvasLayer.new()
 	_layer.layer = 5
 	add_child(_layer)
-	_text = Label.new()
+	_text = BoxStyle.hud_label(36, HORIZONTAL_ALIGNMENT_CENTER, Color("fff1d0"), true)
 	_text.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
 	_text.offset_top = 120
-	_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	var settings := LabelSettings.new()
-	settings.font_size = 34
-	settings.font_color = Color("d9cce6")
-	settings.outline_size = 6
-	settings.outline_color = Color("2b1d14")
-	_text.label_settings = settings
 	_text.text = tr("ANGEL_FALLEN")
 	_layer.add_child(_text)
-	_title = Label.new()
+	_title = BoxStyle.hud_label(56, HORIZONTAL_ALIGNMENT_CENTER, Color("fff1b8"), true, Color("6a4a10"))
 	_title.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
 	_title.offset_top = 60
-	_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	var big := LabelSettings.new()
-	big.font_size = 52
-	big.font_color = Color("fff1b8")
-	big.outline_size = 8
-	big.outline_color = Color("6a4a10")
-	_title.label_settings = big
 	_title.text = tr("ANGEL_TITLE")
 	_title.modulate.a = 0.0
 	_layer.add_child(_title)

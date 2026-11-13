@@ -48,11 +48,11 @@ func open(ids: Array[String], current: int, home: Array) -> void:
 		var b := Button.new()
 		b.focus_mode = Control.FOCUS_NONE
 		b.custom_minimum_size = Vector2(120, 118)
-		b.clip_contents = true
+		b.clip_contents = false
 		for state in ["normal", "hover", "pressed"]:
 			var sb := UiStyle.card(i == current)
 			if state == "hover" and i != current:
-				sb.border_color = Color("c4a27a")
+				sb.fill_top = Color("f6ebcb")
 			b.add_theme_stylebox_override(state, sb)
 		b.pressed.connect(func() -> void:
 			visible = false
@@ -71,7 +71,7 @@ func open(ids: Array[String], current: int, home: Array) -> void:
 		preview.custom_minimum_size = Vector2(110, 80)
 		preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		col.add_child(preview)
-		var name_label := UiStyle.plain(TranslationServer.translate("CAT_%s_NAME" % id) if unlocked else "???", 14, UiStyle.GOLD if i == current else (UiStyle.TEXT if unlocked else UiStyle.MUTED))
+		var name_label := UiStyle.plain(TranslationServer.translate("CAT_%s_NAME" % id) if unlocked else "???", 14, UiStyle.P_RED if i == current else (UiStyle.P_TEXT if unlocked else UiStyle.P_MUTED))
 		name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		name_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		name_label.custom_minimum_size.x = 110

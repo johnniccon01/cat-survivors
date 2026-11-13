@@ -70,7 +70,7 @@ func open() -> void:
 func _card(data: Dictionary) -> PanelContainer:
 	var card := PanelContainer.new()
 	card.custom_minimum_size = Vector2(200, 0)
-	card.add_theme_stylebox_override("panel", UiStyle.box(Color(0.23, 0.14, 0.07, 0.95), Color("8c5f36")))
+	card.add_theme_stylebox_override("panel", UiStyle.card())
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 2)
 	card.add_child(v)
@@ -80,13 +80,16 @@ func _card(data: Dictionary) -> PanelContainer:
 	cat.custom_minimum_size = Vector2(190, 84)
 	cat.modulate = Color(0.85, 0.82, 0.9)
 	v.add_child(cat)
-	var name := _label(18, Color("f4ecd4"))
+	var name := _label(19, UiStyle.P_TEXT)
+	name.label_settings.outline_size = 0
 	name.text = tr("CAT_%s_NAME" % String(data["cat"]))
 	v.add_child(name)
-	var gen := _label(13, Color("d9bf94"))
+	var gen := _label(14, UiStyle.P_MUTED)
+	gen.label_settings.outline_size = 0
 	gen.text = tr("MEMORIALS_GEN") % [int(data["gen"]), String(data.get("date", ""))]
 	v.add_child(gen)
-	var stats := _label(13, Color("b8f0a0"))
+	var stats := _label(14, UiStyle.P_GREEN)
+	stats.label_settings.outline_size = 0
 	stats.text = tr("MEMORIALS_STATS") % [int(data.get("wins", 0)), int(data.get("nights", 0)), int(data.get("best_rank", 0))]
 	stats.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	stats.custom_minimum_size = Vector2(188, 0)

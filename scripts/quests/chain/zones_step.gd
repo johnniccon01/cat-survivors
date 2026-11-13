@@ -142,14 +142,14 @@ func _during(cat: Vector2) -> void:
 
 func _draw() -> void:
 	var look: String = data.get("look", "")
-	var font := ThemeDB.fallback_font
+	var font := BoxStyle.bold_font()
 	for i in _zones.size():
 		var at := _zones[i] - position
 		var done := _fill[i] >= 1.0
 		draw_look(at, look, 0.5 if done else 1.0)
 		var color := Color("6cc46c") if done else Color("f2c14e")
 		if data.get("ordered", false) and not done and i != _current:
-			color = Color("8f7ea3")
+			color = Color("cdb98e")
 		draw_arc(at, _radius(), 0.0, TAU, 40, Color(color, 0.3), 2.0)
 		if _fill[i] > 0.0:
 			draw_arc(at, _radius(), -PI * 0.5, -PI * 0.5 + TAU * _fill[i], 40, color, 3.0)

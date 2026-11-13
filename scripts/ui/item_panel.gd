@@ -82,13 +82,13 @@ func _ready() -> void:
 		inner.add_child(col)
 		var top := HBoxContainer.new()
 		col.add_child(top)
-		var slot_name := UiStyle.plain(tr("ITEM_SLOT_" + String(Items.slots()[i])), 11, UiStyle.MUTED)
+		var slot_name := UiStyle.plain(tr("ITEM_SLOT_" + String(Items.slots()[i])), 12, UiStyle.P_MUTED)
 		slot_name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		top.add_child(slot_name)
-		var count := UiStyle.plain("", 12, UiStyle.GOLD)
+		var count := UiStyle.plain("", 12, UiStyle.P_GOLD)
 		top.add_child(count)
 		_slot_counts.append(count)
-		var worn_name := UiStyle.plain("", 12, Color.WHITE, true)
+		var worn_name := UiStyle.plain("", 12, UiStyle.P_TEXT, true)
 		worn_name.custom_minimum_size.x = 92
 		worn_name.max_lines_visible = 2
 		worn_name.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
@@ -117,13 +117,13 @@ func _ready() -> void:
 		var icon := ItemIcon.new(22.0)
 		inner.add_child(icon)
 		_row_icons.append(icon)
-		var label := UiStyle.plain("", 15)
+		var label := UiStyle.plain("", 15, UiStyle.P_TEXT)
 		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		label.custom_minimum_size.x = 300
 		inner.add_child(label)
 		_row_names.append(label)
-		var tag := UiStyle.plain("", 12, UiStyle.MUTED)
+		var tag := UiStyle.plain("", 12, UiStyle.P_MUTED)
 		tag.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		inner.add_child(tag)
 		_row_tags.append(tag)
@@ -142,14 +142,14 @@ func _ready() -> void:
 	dcol.add_child(dhead)
 	_detail_icon = ItemIcon.new(40.0)
 	dhead.add_child(_detail_icon)
-	_detail_name = UiStyle.plain("", 19, Color.WHITE, true)
+	_detail_name = UiStyle.plain("", 19, UiStyle.P_TEXT, true)
 	_detail_name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_detail_name.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	dhead.add_child(_detail_name)
-	_detail_desc = UiStyle.plain("", 14, Color("f4e8cb"), true)
+	_detail_desc = UiStyle.plain("", 14, UiStyle.P_TEXT, true)
 	_detail_desc.custom_minimum_size = Vector2(560, 120)
 	dcol.add_child(_detail_desc)
-	dcol.add_child(UiStyle.plain(tr("ITEMS_COMPARE"), 13, UiStyle.GOLD))
+	dcol.add_child(UiStyle.plain(tr("ITEMS_COMPARE"), 13, UiStyle.P_GOLD))
 	_compare = VBoxContainer.new()
 	_compare.add_theme_constant_override("separation", 0)
 	_compare.custom_minimum_size.y = 96
@@ -229,7 +229,7 @@ func _refresh() -> void:
 		var owned := Profile.items.filter(func(item: Dictionary) -> bool: return item["slot"] == slot).size()
 		_slot_icons[i].show_item(worn, slot)
 		_slot_names[i].text = Items.item_name(worn) if not worn.is_empty() else tr("ITEMS_EMPTY_SLOT")
-		_slot_names[i].add_theme_color_override("font_color", Items.rarity_color(worn) if not worn.is_empty() else UiStyle.MUTED)
+		_slot_names[i].add_theme_color_override("font_color", Items.rarity_color(worn).darkened(0.5) if not worn.is_empty() else UiStyle.P_MUTED)
 		_slot_counts[i].text = str(owned) if owned > 0 else ""
 		_slot_boxes[i].add_theme_stylebox_override("panel", UiStyle.card(i == _slot))
 	var list := _list()
@@ -249,14 +249,12 @@ func _refresh() -> void:
 		var worn := int(item["uid"]) == worn_uid
 		_row_icons[i].show_item(item)
 		_row_names[i].text = "%s%s%s" % ["◆ " if worn else "", "🔒 " if item.get("locked", false) else "", Items.item_name(item)]
-		_row_names[i].add_theme_color_override("font_color", Items.rarity_color(item))
+		_row_names[i].add_theme_color_override("font_color", Items.rarity_color(item).darkened(0.5))
 		_row_tags[i].text = "" if item["rarity"] == "legendary" else tr("ITEM_LEVEL") % int(item.get("ilvl", 1))
-		var sb := UiStyle.card(n == _index)
+		var sb := UiStyle.card(n == _index, Color("f1d78c") if worn and n != _index else Color(0, 0, 0, 0))
 		sb.set_content_margin_all(5)
 		sb.content_margin_left = 8
 		sb.content_margin_right = 10
-		if worn and n != _index:
-			sb.border_color = UiStyle.GOLD.darkened(0.35)
 		row.add_theme_stylebox_override("panel", sb)
 	var item := _selected()
 	_detail_icon.show_item(item, _slot_id())
@@ -264,11 +262,11 @@ func _refresh() -> void:
 		child.queue_free()
 	if item.is_empty():
 		_detail_name.text = tr("ITEMS_EMPTY")
-		_detail_name.add_theme_color_override("font_color", UiStyle.MUTED)
+		_detail_name.add_theme_color_override("font_color", UiStyle.P_MUTED)
 		_detail_desc.text = ""
 	else:
 		_detail_name.text = Items.item_name(item)
-		_detail_name.add_theme_color_override("font_color", Items.rarity_color(item))
+		_detail_name.add_theme_color_override("font_color", Items.rarity_color(item).darkened(0.5))
 		_detail_desc.text = Items.describe(item)
 		_fill_compare(item)
 	var is_worn := not item.is_empty() and int(item["uid"]) == worn_uid
@@ -286,7 +284,7 @@ func _refresh() -> void:
 func _fill_compare(item: Dictionary) -> void:
 	var worn := Profile.worn_item(_slot_id())
 	if worn.is_empty() or int(worn["uid"]) == int(item["uid"]):
-		_compare.add_child(UiStyle.plain(tr("ITEMS_COMPARE_NONE") if worn.is_empty() else "–", 13, UiStyle.MUTED))
+		_compare.add_child(UiStyle.plain(tr("ITEMS_COMPARE_NONE") if worn.is_empty() else "–", 13, UiStyle.P_MUTED))
 		return
 	for pair: Array in Items.compare(item, worn):
 		var stat: String = pair[0]
@@ -298,7 +296,7 @@ func _fill_compare(item: Dictionary) -> void:
 		var text := Items.stat_text(stat, absf(d) if stat != "cooldown" else -absf(d))
 		if not better:
 			text = "−" + text.trim_prefix("+")
-		_compare.add_child(UiStyle.plain(text, 13, UiStyle.GREEN if better else Color("ff8a80")))
+		_compare.add_child(UiStyle.plain(text, 13, UiStyle.P_GREEN if better else UiStyle.P_RED))
 
 
 func _input(event: InputEvent) -> void:

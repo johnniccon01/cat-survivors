@@ -49,16 +49,9 @@ func _ready() -> void:
 
 
 func _label(size: int, color: Color, top: float) -> Label:
-	var l := Label.new()
+	var l := BoxStyle.hud_label(size, HORIZONTAL_ALIGNMENT_CENTER, color, true, Color("120004"))
 	l.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
 	l.offset_top = top
-	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	var settings := LabelSettings.new()
-	settings.font_size = size
-	settings.font_color = color
-	settings.outline_size = 8
-	settings.outline_color = Color("120004")
-	l.label_settings = settings
 	l.modulate.a = 0.0
 	_layer.add_child(l)
 	return l

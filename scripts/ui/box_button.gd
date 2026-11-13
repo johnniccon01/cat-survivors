@@ -22,6 +22,8 @@ var selected := false:
 		selected = v
 		queue_redraw()
 
+## How far the red marker ring reaches around the button (smaller in tight rows).
+var ring_grow := 7.0
 var _paw_room := 0.0
 var _fit_text := ""
 
@@ -88,13 +90,13 @@ func relabel(text_: String) -> void:
 
 
 func _hint_size() -> int:
-	return maxi(roundi(text_size * 0.52), 12)
+	return maxi(roundi(text_size * 0.62), 14)
 
 
 func _hint_width() -> float:
 	if hint == "":
 		return 0.0
-	return BoxStyle.body_font().get_string_size("(%s)" % hint, HORIZONTAL_ALIGNMENT_LEFT, -1, _hint_size()).x + text_size * 0.3
+	return BoxStyle.body_font().get_string_size(hint, HORIZONTAL_ALIGNMENT_LEFT, -1, _hint_size()).x + _hint_size() * 0.9 + text_size * 0.3
 
 
 ## Sets the note after the text and refits the button.
@@ -118,10 +120,10 @@ func _draw() -> void:
 	var lit := _lit() and not disabled
 	if lit:
 		BoxStyle.draw_board(self, size, look_seed, Color("fbf1d6"), Color("ecdcb2"), base, Vector2(5, 6), Color(0.31, 0.19, 0.08, 0.08))
-		BoxStyle.draw_ring(self, Rect2(Vector2.ZERO, size), look_seed + 3, BoxStyle.RED, 4.5, 7.0, base)
+		BoxStyle.draw_ring(self, Rect2(Vector2.ZERO, size), look_seed + 3, BoxStyle.RED, 4.5 if ring_grow > 4.0 else 3.5, ring_grow, base)
 		BoxStyle.draw_paw(self, Vector2(_paw_room * 0.5 + text_size * 0.5, size.y * 0.5), text_size * 0.95, BoxStyle.RED, -15.0, base)
 	elif disabled:
-		BoxStyle.draw_board(self, size, look_seed, Color("a98558"), Color("94704a"), base, Vector2(3, 4), Color(0.31, 0.19, 0.08, 0.1))
+		BoxStyle.draw_board(self, size, look_seed, Color("cdc4b2"), Color("b9af9b"), base, Vector2(3, 4), Color(0.31, 0.19, 0.08, 0.1))
 	else:
 		BoxStyle.draw_board(self, size, look_seed, Color("c99a64"), Color("ad7c4a"), base, Vector2(5, 6), Color(0.31, 0.19, 0.08, 0.12))
 	var font := _font()
@@ -131,12 +133,15 @@ func _draw() -> void:
 	var x := (size.x - tw) * 0.5 + shift
 	var y := size.y * 0.5 + (font.get_ascent(text_size) - font.get_descent(text_size)) * 0.5
 	draw_set_transform_matrix(base)
-	var ink := Color(BoxStyle.INK, 0.7) if disabled else BoxStyle.INK
+	var ink := Color("5a4d3e") if disabled else BoxStyle.INK
 	draw_string(font, Vector2(x, y), shown, HORIZONTAL_ALIGNMENT_LEFT, -1, text_size, ink)
 	if hint != "":
 		var hs := _hint_size()
 		var hx := x + tw - _hint_width() + text_size * 0.3
-		draw_string(BoxStyle.body_font(), Vector2(hx, y), "(%s)" % hint, HORIZONTAL_ALIGNMENT_LEFT, -1, hs, Color(ink, ink.a * 0.8))
+		var cap_w := BoxStyle.body_font().get_string_size(hint, HORIZONTAL_ALIGNMENT_LEFT, -1, hs).x + hs * 0.9
+		var cap := Rect2(hx, y - hs * 1.05, cap_w, hs * 1.5)
+		BoxStyle.draw_blob(self, cap, look_seed + 11, BoxStyle.CREAM if not disabled else Color("e6dfd0"), BoxStyle.INK, 1.5, Vector2(1, 1.5), base, 0.8)
+		draw_string(BoxStyle.body_font(), Vector2(hx + hs * 0.45, y - hs * 0.1), hint, HORIZONTAL_ALIGNMENT_LEFT, -1, hs, ink)
 	if arrow != "":
 		var dir: Vector2 = {"l": Vector2(-1, 0), "r": Vector2(1, 0), "u": Vector2(0, -1), "d": Vector2(0, 1)}[arrow]
 		var n := dir.orthogonal()

@@ -221,8 +221,8 @@ static func gold_button(hover: bool) -> StyleBoxFlat:
 ## A framed, scrollable "your weapons" box under the level-up cards or a
 ## chest; fill its RichTextLabel (the panel's meta "text") with Hud.weapons_text.
 static func inventory_panel(width: float, height: float) -> PanelContainer:
-	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override("panel", box(Color(BG, 0.9), BORDER))
+	_seed += 1
+	var panel := BoxPanel.make("dark", 640 + _seed * 3, Vector4(18, 10, 18, 12))
 	panel.custom_minimum_size = Vector2(width, height)
 	panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	var vbox := VBoxContainer.new()
@@ -276,23 +276,17 @@ const CARD_SELECTED := Color("6b4527")
 const GREEN := Color("9ad77a")
 const SEG_EMPTY := Color("3a2412")
 
+## Text colours for ink on a paper note (see PaperCard).
+const P_TEXT := Color("2b1d12")
+const P_MUTED := Color("6b5538")
+const P_GOLD := Color("9a5a00")
+const P_GREEN := Color("2f6a2b")
+const P_RED := Color("b3261e")
+
 
 ## A small card inside a panel (list rows, tiles); `selected` gets the gold edge.
-static func card(selected: bool = false, fill: Color = CARD) -> StyleBoxFlat:
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = CARD_SELECTED if selected else fill
-	sb.border_color = RED if selected else Color("2b1d12")
-	sb.set_border_width_all(3 if selected else 2)
-	sb.border_width_bottom += 1
-	sb.corner_radius_top_left = 7
-	sb.corner_radius_top_right = 4
-	sb.corner_radius_bottom_right = 8
-	sb.corner_radius_bottom_left = 5
-	sb.anti_aliasing = true
-	sb.set_content_margin_all(10)
-	sb.content_margin_top = 8
-	sb.content_margin_bottom = 8
-	return sb
+static func card(selected: bool = false, fill: Color = Color(0, 0, 0, 0)) -> PaperCard:
+	return PaperCard.make(selected, fill)
 
 
 ## A keyboard key drawn as a little key cap ("Esc", "R"…).

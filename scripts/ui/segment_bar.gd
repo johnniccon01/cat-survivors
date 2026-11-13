@@ -21,7 +21,7 @@ var seg_height := 6.0:
 		_resize()
 var gap := 3.0
 var on_color := BoxStyle.RED
-var off_color := UiStyle.SEG_EMPTY
+var off_color := Color("b49a6c")
 
 
 func _init() -> void:

@@ -226,7 +226,7 @@ func _build() -> void:
 	_top_buttons = buttons
 	_gold = _label(17, BoxStyle.INK)
 	_gold.label_settings.font = BoxStyle.head_font()
-	_gold.label_settings.font_size = 14
+	_gold.label_settings.font_size = 18
 	_gold.label_settings.outline_size = 0
 	_gold.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	var gold_tape := BoxBoard.make("tape", Vector2.ZERO, Vector2(10, 10), 421, -1.5)
@@ -532,7 +532,7 @@ func _build() -> void:
 	_dark_minus = BoxButton.make("-", 24, 88, -2.0, false, true, 36.0)
 	_dark_minus.pressed.connect(_change_darkness.bind(-1))
 	dark_row.add_child(_dark_minus)
-	_dark_label = _ink(13, Color("5a2a9a"))
+	_dark_label = _ink(13, Color("9a2a20"))
 	_dark_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_dark_label.custom_minimum_size = Vector2(230, 0)
 	dark_row.add_child(_dark_label)
@@ -684,6 +684,7 @@ func _build() -> void:
 	_stat_tags.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	loadout.add_child(_stat_tags)
 	_worn = _label(13, Color("ffb76b"))
+	_worn.size_flags_stretch_ratio = 1.8
 	loadout.add_child(_worn)
 	_artifact_label = _label(13, Color("9ad77a"))
 	loadout.add_child(_artifact_label)
@@ -1043,6 +1044,7 @@ func _refresh() -> void:
 		_worn.text = (tr("SELECT_CAREER") % [int(career["lives"]), Profile.LIVES, int(career["rank"]), Profile.MAX_RANK, (career["talents"] as Array).size()]).replace(" (C)", "") + ("  " + tr("SELECT_CAREER_PICK") % picks if picks > 0 else "")
 	else:
 		_worn.text = ""
+	_fit_lines()
 	# The Talents button and the cards tell which cats have a talent to pick.
 	for i in _pick_marks.size():
 		_pick_marks[i].visible = Profile.is_unlocked(_ids[i]) and int(Profile.career(_ids[i])["picks"]) > 0

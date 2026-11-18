@@ -5640,7 +5640,7 @@
   "POLICE_K9": {
     "theme": "police",
     "terrain": "walls",
-    "damage_mult": 0.65,
+    "damage_mult": 0.55,
     "music": "music_factory",
     "requires": "FIRE_STATION",
     "district": "dogs",
@@ -6356,7 +6356,7 @@
   "SNOW_HILL": {
     "theme": "snow",
     "terrain": "trees",
-    "damage_mult": 0.55,
+    "damage_mult": 0.47,
     "music": "music_garden",
     "requires": "RIVER_DAM",
     "district": "dogs",
@@ -10477,7 +10477,7 @@
   "COMPANY_LOT": {
     "theme": "company_lot",
     "terrain": "walls",
-    "damage_mult": 0.42,
+    "damage_mult": 0.36,
     "music": "music_factory",
     "requires": "FENCE_LINE",
     "district": "company",

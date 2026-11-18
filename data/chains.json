@@ -1299,7 +1299,7 @@
     "steps": [
       {"type": "zones", "count": 4, "hold": 5, "radius": 45, "spread": [200, 360]},
       {"type": "collect", "items": ["gear"], "item": "gear", "count": 5, "capacity": 2, "spread": [220, 440], "deliver": true, "look_to": "boiler"},
-      {"type": "boss", "enemy": "PRESS", "hp_mult": 2.5, "look": "boiler", "distance": 240, "after_minute": 6}
+      {"type": "boss", "enemy": "PRESS", "hp_mult": 1.2, "look": "boiler", "distance": 240, "after_minute": 6}
     ]
   },
   "SANDBAGS": {

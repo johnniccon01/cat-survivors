@@ -121,6 +121,10 @@ var _flee_t := 0.0
 var _trail_t := 0.0
 var _spiral := 0.0
 var _mortar_style := ""
+## Marked strikes per volley and seconds between volleys (mortar enemies);
+## the gap is shorter below half health. Bosses keep 3 strikes every 2.6 s.
+var _mortar_shots := 3
+var _mortar_every := 2.6
 var burn_damage := 0.0
 var burn_t := 0.0
 var burn_tick := 0.0
@@ -211,6 +215,8 @@ func setup(p_id: String, data: Dictionary, p_manager: EnemyManager) -> void:
 	persistent = data.get("persistent", false)
 	_flee_t = float(data.get("flee_time", 0.0))
 	_mortar_style = data.get("mortar_style", "")
+	_mortar_shots = int(data.get("mortar_shots", 3))
+	_mortar_every = float(data.get("mortar_every", 2.6))
 	_summon_id = data.get("summon", "")
 	_summon_count = int(data.get("summon_count", 0))
 	_summon_every = float(data.get("summon_every", 8.0)) * SUMMON_SLOWER
@@ -1519,8 +1525,8 @@ func _tick_spiral(delta: float, dir: Vector2) -> Vector2:
 func _tick_mortar(delta: float, target: Vector2, dir: Vector2) -> Vector2:
 	_shoot_t -= delta
 	if _shoot_t <= 0.0:
-		_shoot_t = 2.6 if hp > max_hp * 0.5 else 1.8
-		for i in 3:
+		_shoot_t = _mortar_every if hp > max_hp * 0.5 else _mortar_every * 0.7
+		for i in _mortar_shots:
 			var at := target if i == 0 else target + Vector2.from_angle(randf() * TAU) * randf_range(40.0, 90.0)
 			manager.spawn_hazard(at, "strike", 26.0, 1.0, damage * 0.9, _mortar_style)
 	var dist := position.distance_to(target)

@@ -1,5 +1,5 @@
 # Stav projektu
-Aktualizované: 2026-11-17. Max ~60 riadkov, staré veci presúvaj do `HISTORY.md`. Podrobný plán a história sú v `PLAN.md`.
+Aktualizované: 2026-11-18. Max ~60 riadkov, staré veci presúvaj do `HISTORY.md`. Podrobný plán a história sú v `PLAN.md`.
 
 Vetva: `main` (pushnutá).
 
@@ -11,6 +11,7 @@ Vetva: `main` (pushnutá).
 - Export Windows exe, dev launcher, F1 panel, titulky.
 - UI v kartónovom štýle a teplý tón máp (13.11.).
 - Spoľahlivejšie bot testy (8d84bc9).
+- Kontrola pred vydaním (18.11.): sada 489/489, zbrane 60/60, príbehy 358/359, zaseknuté moby 0–1 na mapu. Doladené: snehuliaci strieľajú 1 dopad / 4 s, Lis v príbehu Prehriatie ×1,2, menšie poškodenie na Policajných psoch, Snežnom kopci a Parkovisku firmy.
 - Studio AI proces nasadený (2026-11-17).
 
 ## Rozpracované
@@ -20,7 +21,7 @@ Vetva: `main` (pushnutá).
 
 ## Známe problémy / čaká na hráča
 - Playtest nového UI, dev launchera a obtiažnosti máp (`PLAN.md` → Čaká na teba).
-- Bot v kampani prehral iba na mapách Snežný kopec a Garáž strojov (tesne).
+- Kampaň s botom: Psie štvrte a Divočina potrebujú veľa oživení (30–100). Policajné psy, Snežný kopec a Parkovisko firmy bot po úprave vyhrá ~2 z 3. Kampaň púšťaj bez iných testov naraz, inak bot pri záťaži prehráva.
 - Repo rastie kvôli WAV súborom (~135 MB v pracovnom strome, `.git` ~243 MB).
 
 ## Otvorené rozhodnutia

@@ -1828,6 +1828,8 @@
     "shape": "snowman",
     "color": "#f0f4f8",
     "accent": "#6a4428",
+    "mortar_shots": 1,
+    "mortar_every": 4.0,
     "hp": 40,
     "speed": 40,
     "damage": 10,

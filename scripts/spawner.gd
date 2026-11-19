@@ -140,8 +140,12 @@ func calm_for(seconds: float) -> void:
 
 
 ## Spawn budget right now: rolled range x minute intensity x curse x mercy.
+## --crowd=F (store-media capture): F times as many enemies on the field.
+var _crowd := float(GameData.arg("--crowd=", "1"))
+
+
 func alive_cap() -> int:
-	var b := _cap * intensity() * _player.stat("curse") * minf(1.0 + 0.04 * endless_minutes(), 1.6) * (1.0 + DARKNESS_CROWD * darkness)
+	var b := _cap * _crowd * intensity() * _player.stat("curse") * minf(1.0 + 0.04 * endless_minutes(), 1.6) * (1.0 + DARKNESS_CROWD * darkness)
 	if _player.hp < _player.max_hp * MERCY_HP:
 		b *= MERCY
 	return roundi(b)
@@ -394,7 +398,7 @@ func _physics_process(delta: float) -> void:
 	# Top up to the wave's minimum at once, then trickle in per_tick more,
 	# always staying inside the budget.
 	var budget := float(alive_cap())
-	var minimum := minf(float(wave["minimum"]) * _player.stat("curse") * intensity(), budget)
+	var minimum := minf(float(wave["minimum"]) * _crowd * _player.stat("curse") * intensity(), budget)
 	var pool: Array = wave["enemies"]
 	var trickle := int(wave.get("per_tick", 1))
 	var guard := 0

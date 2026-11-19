@@ -22,6 +22,7 @@ Pracuj podľa `.ai/STUDIO_PROCESS.md` a `.ai/AI_TEAM.md`.
 - `data/*.json`: balans a obsah (zbrane, nepriatelia, etapy, questy, predmety…). Balans patrí sem, nie do kódu.
 - `locale/translations.csv` (`key,en,sk,cs,es,ru,zh_CN`): po úprave spusti import, aby sa obnovili `.translation`.
 - `tools/`: testovacie skripty (`run_checks.sh`, `campaign.sh`…), generátory pixel artu (`gen_*.py`), nástroje na preklady.
+- `tools/media/`: screenshoty, capsule obrázky a trailer do obchodu (postup v `docs/plans/2026-11-18-store-media.md`).
 - Dokumenty: `PLAN.md` (živý plán a história), `ENDGAME.md`, `TRETIA_STVRT.md`, `PSIE_STVRTE.md`, `INVENTAR.md` (dizajnové návrhy), `README.md`.
 
 ## Hlavné systémy

@@ -1,0 +1,19 @@
+# Trailer edit list for tools/media/trailer.sh
+# clip|start s|length s|card (tools/media/make_cards.py name, or -)
+# Clips are OUT_DIR/<clip>.mp4 from capture.sh; "logo" is the end card.
+horde_living_room|1.5|2|one_cat
+night_cemetery|0.5|2|one_night
+horde_wide|1|3|socks
+core_garden|2|4|loop
+power_basement|2|3|weapons
+horde_living_room|7|2.5|-
+dogs_park|2|2.5|cats
+wild_deep_woods|3|2.5|-
+wild_burnt_clearing|2|2.5|districts
+dogs_snow_hill|3|2.5|-
+boss_mower|3|3|bosses
+boss_kraken|4|3|-
+boss_robovacuum|4|2.5|-
+boss_final|8|3.5|meta
+horde_wide|7|4|-
+logo|0|5|wishlist

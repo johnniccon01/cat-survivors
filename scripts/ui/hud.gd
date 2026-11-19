@@ -390,6 +390,9 @@ func update_boss(boss: Enemy) -> void:
 ## Big warning text below the clock that fades out after `seconds`.
 ## Long texts stay up longer, and every text goes to the pause log.
 func show_banner(text: String, seconds: float = 3.0) -> void:
+	# Store-media capture: no dev test lines on screen.
+	if text.begins_with("DEV") and "--capture" in GameData.args():
+		return
 	_banner.text = text
 	# Short lines stay one line; long ones wrap at a readable width.
 	var widest := 0.0
@@ -762,6 +765,10 @@ func update_extraction(flap: Extraction) -> void:
 		return
 	_extract_label.text = tr("EXTRACT_TRACKER") % ceili(flap.time_left)
 	_extract_arrow.target = flap.position
+
+
+func set_debug_visible(on: bool) -> void:
+	_debug_label.visible = on
 
 
 ## Extra line for the debug label (spawn budget), set by main.

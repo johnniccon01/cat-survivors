@@ -1,5 +1,5 @@
 # Stav projektu
-Aktualizované: 2026-11-18. Max ~60 riadkov, staré veci presúvaj do `HISTORY.md`. Podrobný plán a história sú v `PLAN.md`.
+Aktualizované: 2026-11-19. Max ~60 riadkov, staré veci presúvaj do `HISTORY.md`. Podrobný plán a história sú v `PLAN.md`.
 
 Vetva: `main` (pushnutá).
 
@@ -13,6 +13,7 @@ Vetva: `main` (pushnutá).
 - Spoľahlivejšie bot testy (8d84bc9).
 - Kontrola pred vydaním (18.11.): sada 489/489, zbrane 60/60, príbehy 358/359, zaseknuté moby 0–1 na mapu. Doladené: snehuliaci strieľajú 1 dopad / 4 s, Lis v príbehu Prehriatie ×1,2, menšie poškodenie na Policajných psoch, Snežnom kopci a Parkovisku firmy.
 - Studio AI proces nasadený (2026-11-17).
+- Médiá do obchodu (19.11.): 11 screenshotov (1080p + 4K), capsule obrázky v rozmeroch pre Steam, logo s alfou, trailer 47,5 s (1080p60, −14 LUFS) a 15 s verzia na výšku. Sú v `store_media/` (mimo repa). Znovu sa vyrobia skriptami v `tools/media/`, postup je v `docs/plans/2026-11-18-store-media.md`.
 
 ## Rozpracované
 - Doladenie UI a teplá mapa štvrtí (`PLAN.md` ju vedie ako otvorenú, commit ad17e35 ju možno už rieši, overiť).
@@ -20,6 +21,7 @@ Vetva: `main` (pushnutá).
 - Mačacie sny: týždenný sen nie je hotový (presunutý až po vydaní na Steam).
 
 ## Známe problémy / čaká na hráča
+- Pozrieť trailer a médiá do obchodu (`store_media/`). Na level-up screenshote pretekajú texty v strednej karte (Long Nap).
 - Playtest nového UI, dev launchera a obtiažnosti máp (`PLAN.md` → Čaká na teba).
 - Kampaň s botom: Psie štvrte a Divočina potrebujú veľa oživení (30–100). Policajné psy, Snežný kopec a Parkovisko firmy bot po úprave vyhrá ~2 z 3. Kampaň púšťaj bez iných testov naraz, inak bot pri záťaži prehráva.
 - Repo rastie kvôli WAV súborom (~135 MB v pracovnom strome, `.git` ~243 MB).

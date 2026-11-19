@@ -1,0 +1,21 @@
+# Store-media shots for tools/media/capture.sh
+# name|seconds|flags (after --; capture.sh adds --bot --capture --bot-speed=1 --seed)
+# Add --hud to keep the HUD (screenshots); otherwise the HUD is hidden.
+# --crowd=F fills the field (F times the wave), --levels=N keeps the cat weak
+# enough that the horde reaches it, --cam-zoom=F (>1 closer, <1 wider).
+horde_living_room|14|--cat=MICA --stage=LIVING_ROOM --god --start-minute=14 --levels=8 --crowd=5 --cam-zoom=1.1
+horde_living_room_hud|10|--hud --cat=MICA --stage=LIVING_ROOM --god --start-minute=14 --levels=10 --crowd=4
+horde_wide|12|--cat=MICA --stage=LIVING_ROOM --god --start-minute=18 --levels=12 --crowd=6 --cam-zoom=0.75
+power_basement|12|--cat=TIGER --stage=BASEMENT --god --strong --start-minute=15 --crowd=6 --cam-zoom=0.9
+core_garden|12|--hud --cat=MICA --stage=GARDEN --god --start-minute=5 --levels=4 --crowd=2
+levelup_rooftop|4|--hud --cat=LUNA --stage=ROOFTOP --god --start-minute=6 --levels=5 --crowd=2 --show-levelup
+boss_kraken|14|--cat=KAPITAN --stage=HARBOR --god --levels=15 --crowd=2 --dev-boss=KRAKEN
+boss_robovacuum|14|--hud --cat=BOLT --stage=FACTORY --god --levels=15 --crowd=2 --dev-boss=ROBO_VACUUM_3000
+boss_mower|14|--cat=CLOVER --stage=GARDEN --god --levels=15 --crowd=2 --dev-boss=LAWNMOWER
+boss_final|14|--hud --cat=MICA --stage=DIRECTOR_TOWER --god --levels=20 --crowd=2 --dev-boss=MEGA_MACHINE
+dogs_park|12|--cat=RUBY --stage=DOG_PARK --god --start-minute=12 --levels=10 --crowd=4
+dogs_snow_hill|12|--hud --cat=SNOWBALL --stage=SNOW_HILL --god --start-minute=10 --levels=10 --crowd=4
+wild_deep_woods|12|--cat=WOLF --stage=DEEP_WOODS --god --start-minute=10 --levels=10 --crowd=4
+wild_burnt_clearing|10|--hud --cat=BEAR --stage=BURNT_CLEARING --god --start-minute=10 --levels=10 --crowd=4
+night_cemetery|12|--cat=SHADOW --stage=CEMETERY --god --start-minute=15 --levels=10 --crowd=5
+key_art|3|--no-numbers --cat=MICA --stage=LIVING_ROOM --god --start-minute=14 --levels=8 --crowd=5 --cam-zoom=1.5

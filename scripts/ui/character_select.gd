@@ -131,7 +131,7 @@ func _ready() -> void:
 	# launcher is the DEV button in the main menu).
 	GameData.dev_args.clear()
 	for arg: String in GameData.args():
-		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--artifacts", "--goals", "--journal", "--challenges", "--ui-test", "--no-save", "--open-all", "--dev-launcher"] and not arg.begins_with("--retired="):
+		if arg.begins_with("--") and arg not in ["--shop", "--charms", "--artifacts", "--goals", "--journal", "--challenges", "--ui-test", "--no-save", "--open-all", "--dev-launcher"] and not arg.begins_with("--retired=") and not GameData.is_screen_flag(arg):
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
 			return
 	for id: String in GameData.cats:

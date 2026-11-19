@@ -56,6 +56,9 @@ func _ready() -> void:
 		keys = cfg.get_value("controls", "keys", {})
 	for action: String in keys:
 		_apply_key(action, keys[action])
+	# --no-numbers (store-media key art): no damage numbers this start.
+	if "--no-numbers" in GameData.args():
+		damage_numbers = false
 	# --lang=sk (tests): play in this language for this start only.
 	language = GameData.arg("--lang=", language)
 	if language not in LANGUAGES:
@@ -65,6 +68,7 @@ func _ready() -> void:
 	# (the HUD) do not inherit the window theme, they only see the default one.
 	ThemeDB.get_default_theme().merge_with(BoxStyle.global_theme())
 	_apply_display()
+	_start_frame_dump()
 	_apply_render.call_deferred()
 	get_tree().scene_changed.connect(_apply_render)
 
@@ -163,6 +167,46 @@ func _apply_display() -> void:
 	# --no-vsync: frame rate uncapped (performance checks).
 	var sync := vsync and not "--no-vsync" in GameData.args()
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if sync else DisplayServer.VSYNC_DISABLED)
+	# --capture-size=WxH: store media (tools/media) renders at this size, even
+	# bigger than the screen (a borderless window may hang off it).
+	var size := _capture_size()
+	if size != Vector2i.ZERO:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
+		DisplayServer.window_set_position(Vector2i.ZERO)
+		DisplayServer.window_set_size(size)
+
+
+## --capture-frames=DIR: saves every drawn frame to DIR/fNNNNNNNN.png at the
+## window's real size (Godot's own movie writer shrinks to the screen). Use
+## with --fixed-fps 60 so every frame is 1/60 s of game time.
+var _frames_dir := ""
+var _frame_n := 0
+
+
+func _start_frame_dump() -> void:
+	for arg: String in GameData.args():
+		if arg.begins_with("--capture-frames="):
+			_frames_dir = arg.trim_prefix("--capture-frames=")
+	if _frames_dir == "":
+		return
+	DirAccess.make_dir_recursive_absolute(_frames_dir)
+	RenderingServer.frame_post_draw.connect(_dump_frame)
+
+
+func _dump_frame() -> void:
+	var img := get_viewport().get_texture().get_image()
+	img.save_png(_frames_dir.path_join("f%08d.png" % _frame_n))
+	_frame_n += 1
+
+
+func _capture_size() -> Vector2i:
+	for arg: String in GameData.args():
+		if arg.begins_with("--capture-size="):
+			var p := arg.trim_prefix("--capture-size=").split("x")
+			if p.size() == 2:
+				return Vector2i(int(p[0]), int(p[1]))
+	return Vector2i.ZERO
 
 
 
@@ -172,7 +216,8 @@ func _apply_display() -> void:
 func _apply_render() -> void:
 	var scene := get_tree().current_scene
 	var in_night := scene != null and scene.scene_file_path == "res://scenes/main.tscn"
-	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT if low_effects and in_night else Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
+	var low := low_effects and in_night and _capture_size() == Vector2i.ZERO
+	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT if low else Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
 
 
 func _save() -> void:

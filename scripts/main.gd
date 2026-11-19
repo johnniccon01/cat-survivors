@@ -48,6 +48,8 @@ extends Node2D
 ##   --no-vsync         frame rate not capped by the monitor (performance checks)
 ##   --end-shots=NAME   save every page of the end screen to user://end_shots
 ##   --shot=SECONDS     save a screenshot to user://shot_N.png every SECONDS
+##   --capture          store media (tools/media): no debug label; with
+##                      --no-hud (hide HUD) and --cam-zoom=F (camera zoom)
 ##   --strong           dev panel: every weapon that fits and 40 level-ups
 ##   --dev-boss=ID      dev panel: clear the field and fight boss ID (progress not saved)
 ##   --dev-panel        open the dev panel (F1) right away
@@ -448,6 +450,8 @@ func _ready() -> void:
 		player.controller = "bot"
 	_base_time_scale = (float(_arg("--bot-speed=", "4")) if _bot else 1.0) * (HYPER_SPEED if Profile.has_challenge("HYPER") else 1.0)
 	Engine.time_scale = _base_time_scale
+	if "--capture" in _args:
+		_setup_capture()
 	for i in int(_arg("--levels=", "0")):
 		Upgrades.apply(player, Upgrades.roll(player)[0])
 	var dev_flags := ["--strong", "--boss-rush", "--dev-quest-all", "--dev-panel", "--dev-endless", "--dev-lab", "--dev-calm", "--dev-final"].any(func(f: String) -> bool: return f in _args) or _arg("--dev-boss=", "") != "" or _arg("--dev-next-terrain=", "") != "" or _arg("--dev-quest=", "") != ""
@@ -546,6 +550,19 @@ func _write_perf_log(real_delta: float) -> void:
 		Performance.get_monitor(Performance.OBJECT_NODE_COUNT), enemies.enemies.size(),
 		Enemy.calm, Settings.effects_scale() < 1.0, " ".join(arms), " ".join(parts)])
 	_perf_log.flush()
+
+
+## --capture: store-media recording (tools/media): hides the debug label;
+## --no-hud hides the whole HUD, --cam-zoom=F multiplies the camera zoom
+## (>1 closer, <1 wider). Use with --bot
+## (never saves the profile).
+func _setup_capture() -> void:
+	hud.set_debug_visible(false)
+	if "--no-hud" in _args:
+		hud.visible = false
+	var z := float(_arg("--cam-zoom=", "1"))
+	if player.camera != null:
+		player.camera.zoom *= z
 
 
 ## --shot=SECONDS: saves a screenshot to user://shot_<n>.png every SECONDS

@@ -75,6 +75,7 @@ func _ready() -> void:
 	hint.position = Vector2(12, 668)
 	hint.add_theme_color_override("font_color", Color(0.9, 0.3, 0.3, 0.6))
 	hint.add_theme_font_size_override("font_size", 12)
+	hint.visible = not "--capture" in GameData.args()
 	add_child(hint)
 	_panel = PanelContainer.new()
 	_panel.position = Vector2(16, 16)
@@ -570,6 +571,7 @@ func _sandbox() -> void:
 		_sandbox_label.position = Vector2(12, 646)
 		_sandbox_label.add_theme_color_override("font_color", Color("e04646"))
 		_sandbox_label.add_theme_font_size_override("font_size", 13)
+		_sandbox_label.visible = not "--capture" in GameData.args()
 		add_child(_sandbox_label)
 
 

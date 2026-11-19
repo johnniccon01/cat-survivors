@@ -115,7 +115,13 @@ static var dev_sandbox := false
 
 static func no_save() -> bool:
 	var args := GameData.args()
-	return dev_sandbox or "--bot" in args or "--ui-test" in args or "--no-save" in args
+	return dev_sandbox or "--bot" in args or "--ui-test" in args or "--no-save" in args or arg("--capture-frames=", "") != ""
+
+
+## Flags that only change how the game is shown (language, store-media
+## capture): the menus stay menus instead of starting a test run.
+static func is_screen_flag(a: String) -> bool:
+	return a.begins_with("--lang=") or a.begins_with("--capture")
 
 func _load_json(path: String) -> Dictionary:
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))

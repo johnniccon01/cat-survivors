@@ -27,7 +27,7 @@ func _ready() -> void:
 		get_tree().change_scene_to_file.call_deferred(DevLauncher.SCENE)
 		return
 	for arg: String in args:
-		if arg.begins_with("--") and arg not in PANEL_FLAGS:
+		if arg.begins_with("--") and arg not in PANEL_FLAGS and not GameData.is_screen_flag(arg):
 			get_tree().change_scene_to_file.call_deferred(MAIN_SCENE)
 			return
 	_build()

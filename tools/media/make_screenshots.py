@@ -24,6 +24,8 @@ PICKS = [
     ("kraken", "boss_kraken_10"),
     ("burnt_clearing", "wild_burnt_clearing_6"),
     ("district_map", "select_map"),
+    ("districts", "districts"),
+    ("secret_boss", "secret_dark_4"),
 ]
 
 

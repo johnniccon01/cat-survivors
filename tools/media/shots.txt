@@ -21,3 +21,12 @@ night_cemetery|12|--cat=SHADOW --stage=CEMETERY --god --start-minute=15 --levels
 key_art|3|--no-numbers --cat=MICA --stage=LIVING_ROOM --god --start-minute=14 --levels=8 --crowd=5 --cam-zoom=1.5
 quest_sled|12|--hud --cat=SNOWBALL --stage=SNOW_HILL --god --levels=10 --crowd=2 --quest=SLED_RACE --cam-zoom=1.25
 dream_nightmare|12|--hud --god --dream=5 --start-minute=19.9 --catch-up --crowd=3
+boss_crab|6|--cat=CLOVER --stage=ISLAND --god --levels=15 --crowd=2 --cam-zoom=1.3 --dev-boss=CRAB_EMPEROR
+boss_gator|6|--cat=RUSTY --stage=SEWER --god --levels=15 --crowd=2 --cam-zoom=1.3 --dev-boss=SEWER_GATOR
+boss_general|6|--cat=RUBY --stage=GENERAL_KENNEL --god --levels=15 --crowd=2 --cam-zoom=1.3 --dev-boss=GENERAL
+boss_moose|6|--cat=WOLF --stage=MOUNTAIN_MEADOW --god --levels=15 --crowd=2 --cam-zoom=1.3 --dev-boss=GREAT_MOOSE
+boss_director|6|--cat=MICA --stage=DIRECTOR_TOWER --god --levels=15 --crowd=2 --cam-zoom=1.3 --dev-boss=DIRECTOR
+boss_nightmare_rat|6|--cat=TIGER --stage=BASEMENT --god --levels=15 --crowd=2 --cam-zoom=1.3 --dev-boss=NIGHTMARE_RAT_KING
+secret_dark|8|--hud --cat=TIGER --stage=BASEMENT --god --levels=12 --teleport=0,9100 --cam-zoom=1.2
+secret_sofa|8|--hud --cat=TIGER --god --levels=12 --teleport=0,6700 --cam-zoom=1.2
+quest_kibble|20|--hud --cat=MICA --stage=LIVING_ROOM --god --levels=12 --crowd=2 --quest=KIBBLE_THIEF --cam-zoom=1.2

@@ -36,17 +36,20 @@ CARDS = {
     # Trailer v2: what the game has, as plain numbers from data/*.json.
     "first_night": ("And that's just the first night.", HEAD, 120, 0.82, YELLOW),
     "end_facts": [
-        ("173 quests · 158 bosses · 47 maps · 25 cats", BODY, 50, 0.76, CREAM),
+        ("150+ quests · 150+ bosses · 47 maps · 25 cats · secrets", BODY, 48, 0.76, CREAM),
         ("Wishlist now on Steam", HEAD, 96, 0.87, YELLOW),
     ],
 }
 
 # name: (big number, line under it)
 STATS = {
-    "stat_quests": ("173 quests", "each one tells its own little story"),
-    "stat_campaign": ("4 districts · 47 maps", "a story campaign, not just one arena"),
-    "stat_bosses": ("158 bosses", "and every one of them wants your fish"),
-    "stat_enemies": ("251 kinds of enemies", "socks, dogs, machines and worse"),
+    "stat_quests": ("150+ quests", "with their own stories, rewards and secrets"),
+    "stat_chains": ("Quest chains up to 8 steps", "follow trails, chase thieves, escort, defend, hunt bosses"),
+    "stat_campaign": ("4 districts · 47 maps", "a whole town to explore, not just one arena"),
+    "stat_secrets": ("Secrets everywhere", "dark corners, endless sofas, hidden bosses"),
+    "stat_bosses": ("150+ bosses", "and every one of them wants your fish"),
+    "stat_nightmares": ("Nightmare bosses", "for those who think they've seen it all"),
+    "stat_enemies": ("250 kinds of enemies", "socks, dogs, machines and worse"),
     "stat_cats": ("25 cats", "each with its own weapon and instinct"),
     "stat_gear": ("48 legendary items", "8 gear slots, 30 charms, 29 artifacts"),
     "stat_dreams": ("Then the Cat Dreams begin", "endless depth, nightmare bosses, dream gear"),

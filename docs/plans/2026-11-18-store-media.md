@@ -39,8 +39,8 @@ Release-ready media for the store page (Steam sizes, usable for itch.io too):
 3. `python tools/media/make_cards.py store_media/cards`
 4. `python tools/media/make_screenshots.py store_media`
 5. `python tools/media/make_capsules.py store_media/raw/stills/key_art_4.png store_media/logo.png store_media/logo_plain.png store_media/capsules 0.51 0.48`
-6. `bash tools/media/trailer.sh store_media` (v1). v2 with content numbers: `bash tools/media/trailer.sh store_media assets/audio/music_boss.wav tools/media/trailer_v2.txt trailer_v2`; needs `extra/questbook.png` and `extra/journal.png` (main menu with `--questbook` / `--journal`, same capture flags as select_map).
-   Numbers on the v2 cards come from data/*.json (chains 173, bosses 158, enemies 251, legendaries 48, charms 30, artifacts 29, 47 maps x 20 min); update make_cards.py STATS when content changes.
+6. `bash tools/media/trailer.sh store_media` (v1). v2 with content numbers: `bash tools/media/trailer.sh store_media assets/audio/music_boss.wav tools/media/trailer_v2.txt trailer_v2`; needs `extra/questbook.png` and `extra/journal.png` (main menu with `--questbook` / `--journal`, same capture flags as select_map) and `extra/districts.png` (2x2 grid of `extra/district_*.png` from `"$G" --path . --fixed-fps 60 res://tools/media/district_shot.tscn -- --no-save --open-all --lang=en --capture --capture-size=3840x2160 --out=<extra dir>`).
+   Numbers on the v2 cards come from data/*.json, rounded down (chains 173 -> 150+, 29 chains with 3+ steps, longest 8, bosses 158, enemies 251, legendaries 48, charms 30, artifacts 29, 47 maps x 20 min); update make_cards.py STATS when content changes.
 
 Notes: Godot's own `--write-movie` shrinks to 2/3 of the screen (1280x720 on a
 1080p monitor), so the game saves frames itself (`--capture-frames`,

@@ -1,0 +1,24 @@
+# Trailer v2: the v1 hook, then what the game has (numbers from data/*.json).
+#   bash tools/media/trailer.sh store_media assets/audio/music_boss.wav tools/media/trailer_v2.txt trailer_v2
+# clip|start s|length s|card (tools/media/make_cards.py name, or -)
+# Clips are raw/<clip>.mp4 from capture.sh, or extra/<clip>.png (slow push-in).
+horde_living_room|1.5|2|one_cat
+night_cemetery|0.5|2|one_night
+horde_wide|1|3|socks
+core_garden|2|3.5|loop
+power_basement|2|3|weapons
+horde_living_room|7|3|first_night
+quest_sled|0.5|3.5|stat_quests
+questbook|0|3|stat_campaign
+boss_mower|3|3|stat_bosses
+boss_kraken|4|2|-
+boss_robovacuum|4|2|-
+dogs_park|2|3|stat_enemies
+journal|0|3|stat_cats
+wild_deep_woods|3|2|-
+boss_final|8|3|stat_gear
+dream_nightmare|1|3.5|stat_dreams
+wild_burnt_clearing|2|2|-
+dogs_snow_hill|3|2|-
+horde_wide|7|3.5|stat_hours
+logo|0|5.5|end_facts

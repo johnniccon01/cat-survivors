@@ -19,3 +19,5 @@ wild_deep_woods|12|--cat=WOLF --stage=DEEP_WOODS --god --start-minute=10 --level
 wild_burnt_clearing|10|--hud --cat=BEAR --stage=BURNT_CLEARING --god --start-minute=10 --levels=10 --crowd=4
 night_cemetery|12|--cat=SHADOW --stage=CEMETERY --god --start-minute=15 --levels=10 --crowd=5
 key_art|3|--no-numbers --cat=MICA --stage=LIVING_ROOM --god --start-minute=14 --levels=8 --crowd=5 --cam-zoom=1.5
+quest_sled|12|--hud --cat=SNOWBALL --stage=SNOW_HILL --god --levels=10 --crowd=2 --quest=SLED_RACE --cam-zoom=1.25
+dream_nightmare|12|--hud --god --dream=5 --start-minute=19.9 --catch-up --crowd=3
